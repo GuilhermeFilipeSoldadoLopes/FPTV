@@ -1,8 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Xml.Linq;
+using FPTV.Models.Authentication;
 
-namespace FPTV.Models.Authentication
+namespace FPTV.Models.ToReview
 {
     public class Token
     {

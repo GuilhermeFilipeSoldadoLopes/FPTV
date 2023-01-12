@@ -5,6 +5,10 @@ namespace FPTV.Models.Authentication
 {
     public class UserAccount
     {
+        private AuthenticationChanges _changes;
+        private AuthenticationLog _log;
+        private AuthenticationRecovery _recovery;
+
         [Key]
         [Display(Name = "ID")]
         public Guid userAccountID { get; set; }
