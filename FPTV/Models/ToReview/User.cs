@@ -29,7 +29,7 @@ namespace FPTV.Models.ToReview
 
         [Required]
         [Display(Name = "Profile Picture")]
-        [ForeignKey("Picture")]
+        [ForeignKey("ProfilePicture")]
         public string profilePicture { get; set; }
 
         [Required]
@@ -41,6 +41,8 @@ namespace FPTV.Models.ToReview
         [Required]
         [Display(Name = "Profile Picture")]
         public ProfilePicture? picture { get; set; }
+
+
 
 
     }
