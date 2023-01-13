@@ -1,9 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using System.Xml.Linq;
-using FPTV.Models.Authentication.DAL;
 
-namespace FPTV.Models.ToReview
+namespace FPTV.Models.Authentication.DAL
 {
     public class Mail
     {
