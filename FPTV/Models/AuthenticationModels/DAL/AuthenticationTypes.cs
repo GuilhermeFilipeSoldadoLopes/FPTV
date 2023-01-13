@@ -1,4 +1,4 @@
-﻿namespace FPTV.Models.ToReview
+﻿namespace FPTV.Models.Authentication.DAL
 {
     public enum AuthenticationTypes
     {
