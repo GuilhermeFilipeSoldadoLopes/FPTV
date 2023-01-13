@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using System.Xml.Linq;
-using FPTV.Models.Authentication;
+using FPTV.Models.Authentication.DAL;
 
 namespace FPTV.Models.ToReview
 {
@@ -29,7 +29,7 @@ namespace FPTV.Models.ToReview
         public string receiverMail { get; set; }
 
         [Required]
-        [Display(Name = "Sended Date")]
+        [Display(Name = "Sent Date")]
         [DataType(DataType.Date)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime sendedDate { get; set; } = DateTime.Now;

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Xml.Linq;
-using FPTV.Models.Authentication;
+using FPTV.Models.Authentication.DAL;
 
 namespace FPTV.Models.ToReview
 {
@@ -13,7 +13,7 @@ namespace FPTV.Models.ToReview
 
         [Required]
         [Display(Name = "Token")]
-        public string token { get; set; } = Convert.ToBase64String(Guid.NewGuid().ToByteArray());
+        public string token { get; set; }
 
         [Required]
         [Display(Name = "Email")]
