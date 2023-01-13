@@ -8,7 +8,7 @@ namespace FPTV.Models.Authentication.DAL
     {
         [Key]
         [Display(Name = "ID")]
-        public Guid tokenID { get; set; }
+        public Guid tokenId { get; set; }
 
         [Required]
         [Display(Name = "Token")]

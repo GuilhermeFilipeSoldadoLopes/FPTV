@@ -9,7 +9,7 @@ namespace FPTV.Models.Authentication.DAL
     {
         [Key]
         [Display(Name = "ID")]
-        public Guid id { get; set; }
+        public Guid AuthenticationLogId { get; set; }
 
         [Required]
         [Display(Name = "Authentication Type")]

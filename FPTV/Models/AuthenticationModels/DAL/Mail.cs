@@ -8,7 +8,7 @@ namespace FPTV.Models.Authentication.DAL
     {
         [Key]
         [Display(Name = "ID")]
-        public Guid mailID { get; set; }
+        public Guid mailId { get; set; }
 
         [Required]
         [Display(Name = "Message")]
