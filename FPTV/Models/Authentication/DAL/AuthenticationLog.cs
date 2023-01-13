@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Xml.Linq;
 using Microsoft.AspNetCore.Identity;
+using FPTV.Models.ToReview;
 
 namespace FPTV.Models.Authentication.DAL
 {
@@ -10,6 +11,11 @@ namespace FPTV.Models.Authentication.DAL
         [Key]
         [Display(Name = "ID")]
         public Guid id { get; set; }
+
+        [Required]
+        [Display(Name = "Authentication Type")]
+        [EnumDataType(typeof(AuthenticationTypes))]
+        public string authenticationType { get; set; }
 
         [Required]
         [Display(Name = "Date")]

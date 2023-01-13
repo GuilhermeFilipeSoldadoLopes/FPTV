@@ -1,28 +1,48 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Xml.Linq;
 
 namespace FPTV.Models.Authentication.DAL
 {
     public class AuthenticationChanges
     {
+        [Key]
+        [Display(Name = "ID")]
+        public Guid id { get; set; }
+
         [Required(ErrorMessage = "Token is required for any change.")]
-        public string Token { get; set; }
+        public string token { get; set; }
 
-        [Required(ErrorMessage = "Email is required.")]
         [EmailAddress]
-        public string Email { get; set; }
+        public string email
+        {
+            get => email;
+            set
+            {
+                email = value;
+                changed = "email";
+            }
+        }
 
-        [Required(ErrorMessage = "Confirmation Email is required.")]
-        [EmailAddress]
-        [Compare("Email", ErrorMessage = "Email and Confirmation Email must match.")]
-        public string ConfirmEmail { get; set; }
+        public string password
+        {
+            get => password;
+            set
+            {
+                password = value;
+                changed = "password";
+            }
+        }
 
-        [Required(ErrorMessage = "Password is required.")]
-        public string Password { get; set; }
+        public string changed { get; set; }
 
-        [Required(ErrorMessage = "Confirmation Password is required.")]
-        [Compare("Password", ErrorMessage = "Password and Confirmation Password must match.")]
-        public string ConfirmPassword { get; set; }
+        [Required]
+        [Display(Name = "User Account Id")]
+        [ForeignKey("UserAccount")]
+        public Guid userAccountID { get; set; }
 
-
+        [Required]
+        [Display(Name = "User Account")]
+        public UserAccount? userAccount { get; set; }
     }
 }

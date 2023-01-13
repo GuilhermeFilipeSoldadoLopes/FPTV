@@ -6,10 +6,6 @@ namespace FPTV.Models.Authentication.DAL
 {
     public class UserAccount
     {
-        private AuthenticationChanges _changes;
-        private AuthenticationLog _log;
-        private AuthenticationRecovery _recovery;
-
         [Key]
         [Display(Name = "ID")]
         public Guid userAccountID { get; set; }
@@ -17,7 +13,7 @@ namespace FPTV.Models.Authentication.DAL
         [Required]
         [Display(Name = "Authentication Type")]
         [EnumDataType(typeof(AuthenticationTypes))]
-        public string authenticationType { get; set; }
+        public AuthenticationTypes authenticationType { get; set; }
 
         [Required]
         [Display(Name = "Email")]
@@ -44,5 +40,17 @@ namespace FPTV.Models.Authentication.DAL
         [Required]
         [Display(Name = "User")]
         public User? user { get; set; }
+
+        [Required]
+        [Display(Name = "Authentication Changes")]
+        private AuthenticationChanges _changes = new AuthenticationChanges();
+
+        [Required]
+        [Display(Name = "Authentication Log")]
+        private AuthenticationLog _log = new AuthenticationLog();
+
+        [Required]
+        [Display(Name = "Authentication Recovery")]
+        private AuthenticationRecovery _recovery = new AuthenticationRecovery();
     }
 }
