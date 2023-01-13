@@ -1,6 +1,6 @@
 ﻿namespace FPTV.Models.ToReview
 {
-    public class Comments
+    public class Topic
     {
     }
 }

@@ -1,5 +1,4 @@
-﻿using FPTV.Models.Authentication;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Xml.Linq;
 
@@ -31,6 +30,6 @@ namespace FPTV.Models.ToReview
 
         [Required]
         [Display(Name = "Comments")]
-        public Comments? comments { get; set; }
+        public Comment? comment { get; set; }
     }
 }
