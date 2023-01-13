@@ -3,13 +3,13 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Xml.Linq;
 
-namespace FPTV.Models.ToReview
+namespace FPTV.Models.DAL
 {
-    public class User
+    public class Profile
     {
         [Key]
         [Display(Name = "User ID")]
-        public int userId { get; set; }
+        public Guid userId { get; set; }
 
         [Required]
         [Display(Name = "User Type")]

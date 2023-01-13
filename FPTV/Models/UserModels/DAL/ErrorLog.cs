@@ -4,17 +4,17 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Xml.Linq;
 
-namespace FPTV.Models.ToReview
+namespace FPTV.Models.DAL
 {
-    public class LoginLog
+    public class ErrorLog
     {
         [Key]
-        [Display(Name = "Login Log ID")]
-        public int loginLogId { get; set; }
-        
+        [Display(Name = "Error Log ID")]
+        public Guid errorLogId { get; set; }
+
         [Required]
-        [Display(Name = "Authentication Type")]
-        public string authenticationType { get; set; }
+        [Display(Name = "Error")]
+        public string error { get; set; }
 
         [Required]
         [Display(Name = "Date")]
@@ -23,12 +23,12 @@ namespace FPTV.Models.ToReview
         public DateTime date { get; set; }
 
         [Required]
-        [Display(Name = "User Account ID")]
+        [Display(Name = "User ID")]
         [ForeignKey("User")]
-        public int userAccountId { get; set; }
+        public Guid userId { get; set; }
 
         [Required]
         [Display(Name = "User")]
-        public User? user { get; set; }
+        public Profile? user { get; set; }
     }
 }

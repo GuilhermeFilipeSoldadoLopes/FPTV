@@ -1,24 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using System;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Xml.Linq;
 
-namespace FPTV.Models.ToReview
+namespace FPTV.Models.DAL
 {
-    public class Topic
+    public class Comment
     {
         [Key]
-        [Display(Name = "Topics ID")]
-        public int topicsId { get; set; }
-
-        [Required]
-        [Display(Name = "Title")]
-        public string title { get; set; }
-
-        [Required]
-        [Display(Name = "Content")]
-        public string content { get; set; }
+        [Display(Name = "Comment ID")]
+        public Guid commentId { get; set; }
 
         [Required]
         [Display(Name = "Date")]
@@ -27,12 +18,25 @@ namespace FPTV.Models.ToReview
         public DateTime date { get; set; }
 
         [Required]
+        [Display(Name = "Comment")]
+        public string comment { get; set; }
+
+        [Required]
+        [Display(Name = "Topic ID")]
+        [ForeignKey("Topic")]
+        public Guid topicsId { get; set; }
+
+        [Required]
         [Display(Name = "User ID")]
         [ForeignKey("User")]
-        public int userId { get; set; }
+        public Guid userId { get; set; }
 
         [Required]
         [Display(Name = "User")]
         public User? user { get; set; }
+
+        [Required]
+        [Display(Name = "Topic")]
+        public Topic? topic { get; set; }
     }
 }
