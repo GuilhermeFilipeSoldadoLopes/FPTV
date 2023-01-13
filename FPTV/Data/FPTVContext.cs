@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FPTV.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class FPTVContext : IdentityDbContext
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        public FPTVContext(DbContextOptions<FPTVContext> options)
             : base(options)
         {
         }

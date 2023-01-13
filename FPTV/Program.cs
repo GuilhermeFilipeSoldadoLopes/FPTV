@@ -5,13 +5,11 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(connectionString));
-builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+builder.Services.AddDbContext<FPTVContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("FPTVContext") ?? throw new InvalidOperationException("Connection string 'FPTVContext' not found.")));
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<ApplicationDbContext>();
+    .AddEntityFrameworkStores<FPTVContext>();
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
