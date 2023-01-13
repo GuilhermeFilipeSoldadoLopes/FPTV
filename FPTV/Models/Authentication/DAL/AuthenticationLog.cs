@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Xml.Linq;
 using Microsoft.AspNetCore.Identity;
 
-namespace FPTV.Models.Authentication
+namespace FPTV.Models.Authentication.DAL
 {
     public class AuthenticationLog
     {

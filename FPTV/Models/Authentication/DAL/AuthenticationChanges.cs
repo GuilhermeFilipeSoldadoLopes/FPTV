@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace FPTV.Models.Authentication
+namespace FPTV.Models.Authentication.DAL
 {
     public class AuthenticationChanges
     {

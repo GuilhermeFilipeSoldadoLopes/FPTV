@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using FPTV.Models.ToReview;
 
-namespace FPTV.Models.Authentication
+namespace FPTV.Models.Authentication.DAL
 {
     public class UserAccount
     {
@@ -31,6 +31,10 @@ namespace FPTV.Models.Authentication
         [MinLength(6)]
         [DataType(DataType.Password)]
         public string password { get; set; }
+
+        [Required]
+        [Display(Name = "Validated")]
+        public bool validated { get; set; } = false;
 
         [Required]
         [Display(Name = "User Id")]
