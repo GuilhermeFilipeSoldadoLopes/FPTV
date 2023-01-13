@@ -7,7 +7,7 @@ namespace FPTV.Models.Authentication.DAL
     {
         [Key]
         [Display(Name = "ID")]
-        public Guid id { get; set; }
+        public Guid AuthenticationRecoveryId { get; set; }
 
         [Required(ErrorMessage = "Token is required for any change.")]
         public string token { get; set; }
