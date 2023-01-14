@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FPTV.Migrations
 {
-    public partial class FPTVMigration : Migration
+    public partial class FTPVMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -52,12 +52,12 @@ namespace FPTV.Migrations
                 name: "ProfilePicture",
                 columns: table => new
                 {
-                    picture_Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    profilePicture = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    PictureId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Picture = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProfilePicture", x => x.picture_Id);
+                    table.PrimaryKey("PK_ProfilePicture", x => x.PictureId);
                 });
 
             migrationBuilder.CreateTable(
@@ -170,23 +170,23 @@ namespace FPTV.Migrations
                 name: "Profile",
                 columns: table => new
                 {
-                    userId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    userType = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    flag = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    biography = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    profilePicture = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    registration_Date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    picture_Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserType = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Flag = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Biography = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ProfilePictureId = table.Column<int>(type: "int", nullable: false),
+                    RegistrationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    PictureId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Profile", x => x.userId);
+                    table.PrimaryKey("PK_Profile", x => x.UserId);
                     table.ForeignKey(
-                        name: "FK_Profile_ProfilePicture_picture_Id",
-                        column: x => x.picture_Id,
+                        name: "FK_Profile_ProfilePicture_PictureId",
+                        column: x => x.PictureId,
                         principalTable: "ProfilePicture",
-                        principalColumn: "picture_Id",
+                        principalColumn: "PictureId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -194,19 +194,19 @@ namespace FPTV.Migrations
                 name: "ErrorLog",
                 columns: table => new
                 {
-                    errorLogId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    error = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    userId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    ErrorLogId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Error = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ErrorLog", x => x.errorLogId);
+                    table.PrimaryKey("PK_ErrorLog", x => x.ErrorLogId);
                     table.ForeignKey(
-                        name: "FK_ErrorLog_Profile_userId",
-                        column: x => x.userId,
+                        name: "FK_ErrorLog_Profile_UserId",
+                        column: x => x.UserId,
                         principalTable: "Profile",
-                        principalColumn: "userId",
+                        principalColumn: "UserId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -214,20 +214,20 @@ namespace FPTV.Migrations
                 name: "FavPlayerList",
                 columns: table => new
                 {
-                    favPlayerListId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    team = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    playerImage = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    userId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    FavPlayerListId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Team = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PlayerImage = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_FavPlayerList", x => x.favPlayerListId);
+                    table.PrimaryKey("PK_FavPlayerList", x => x.FavPlayerListId);
                     table.ForeignKey(
-                        name: "FK_FavPlayerList_Profile_userId",
-                        column: x => x.userId,
+                        name: "FK_FavPlayerList_Profile_UserId",
+                        column: x => x.UserId,
                         principalTable: "Profile",
-                        principalColumn: "userId",
+                        principalColumn: "UserId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -235,19 +235,19 @@ namespace FPTV.Migrations
                 name: "FavTeamsList",
                 columns: table => new
                 {
-                    favTeamsListId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    teamImage = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    userId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    FavTeamsListId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TeamImage = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_FavTeamsList", x => x.favTeamsListId);
+                    table.PrimaryKey("PK_FavTeamsList", x => x.FavTeamsListId);
                     table.ForeignKey(
-                        name: "FK_FavTeamsList_Profile_userId",
-                        column: x => x.userId,
+                        name: "FK_FavTeamsList_Profile_UserId",
+                        column: x => x.UserId,
                         principalTable: "Profile",
-                        principalColumn: "userId",
+                        principalColumn: "UserId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -255,20 +255,20 @@ namespace FPTV.Migrations
                 name: "Topics",
                 columns: table => new
                 {
-                    topicsId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    title = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    content = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    userId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    TopicId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Topics", x => x.topicsId);
+                    table.PrimaryKey("PK_Topics", x => x.TopicId);
                     table.ForeignKey(
-                        name: "FK_Topics_Profile_userId",
-                        column: x => x.userId,
+                        name: "FK_Topics_Profile_UserId",
+                        column: x => x.UserId,
                         principalTable: "Profile",
-                        principalColumn: "userId",
+                        principalColumn: "UserId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -290,7 +290,7 @@ namespace FPTV.Migrations
                         name: "FK_UserAccount_Profile_userId",
                         column: x => x.userId,
                         principalTable: "Profile",
-                        principalColumn: "userId",
+                        principalColumn: "UserId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -298,27 +298,26 @@ namespace FPTV.Migrations
                 name: "Comments",
                 columns: table => new
                 {
-                    commentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    comment = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    userId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    topicsId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    CommentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Text = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    TopicId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Comments", x => x.commentId);
+                    table.PrimaryKey("PK_Comments", x => x.CommentId);
                     table.ForeignKey(
-                        name: "FK_Comments_Profile_userId",
-                        column: x => x.userId,
+                        name: "FK_Comments_Profile_UserId",
+                        column: x => x.UserId,
                         principalTable: "Profile",
-                        principalColumn: "userId",
+                        principalColumn: "UserId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Comments_Topics_topicsId",
-                        column: x => x.topicsId,
+                        name: "FK_Comments_Topics_TopicId",
+                        column: x => x.TopicId,
                         principalTable: "Topics",
-                        principalColumn: "topicsId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "TopicId");
                 });
 
             migrationBuilder.CreateTable(
@@ -432,25 +431,24 @@ namespace FPTV.Migrations
                 name: "Reactions",
                 columns: table => new
                 {
-                    reactionsId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    reaction = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    userId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    commentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    ReactionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ReactionCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CommentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Reactions", x => x.reactionsId);
+                    table.PrimaryKey("PK_Reactions", x => x.ReactionId);
                     table.ForeignKey(
-                        name: "FK_Reactions_Comments_commentId",
-                        column: x => x.commentId,
+                        name: "FK_Reactions_Comments_CommentId",
+                        column: x => x.CommentId,
                         principalTable: "Comments",
-                        principalColumn: "commentId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "CommentId");
                     table.ForeignKey(
-                        name: "FK_Reactions_Profile_userId",
-                        column: x => x.userId,
+                        name: "FK_Reactions_Profile_UserId",
+                        column: x => x.UserId,
                         principalTable: "Profile",
-                        principalColumn: "userId",
+                        principalColumn: "UserId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -459,10 +457,10 @@ namespace FPTV.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "176fd9ef-2730-4f5f-b049-3f3bc8bc21ef", "61152401-0be1-4974-b3fd-95cd0d1116f6", "guest", "GUEST" },
-                    { "60e60871-433e-44fa-bdcb-8630904e40fd", "f766264c-3547-410c-bd97-f3515b03051b", "moderator", "MODERATOR" },
-                    { "61d30fc4-d0bc-4ce7-bb76-884f450f51ec", "1c04a05f-68d2-4541-ad6a-6ca3db53ca3c", "user", "USER" },
-                    { "f229a747-9625-46df-9a17-f8dfae368fb9", "6e2c261f-cde7-4980-92b9-e7f295205a47", "admin", "ADMIN" }
+                    { "0a432a5d-8ef4-4619-8d70-a025ab9a4ab4", "eb9c4781-4f6f-44be-bf6b-9ebf81b6b66a", "guest", "GUEST" },
+                    { "4ba145cf-2767-4e5b-866c-b47e992fdcda", "6d69e2d7-55ec-4641-a7d4-aa262377f62a", "moderator", "MODERATOR" },
+                    { "92d9c8d8-81df-40f2-bec1-8fae6af1d5e0", "c75a78e2-941a-4ffb-85a8-217e38c424d5", "user", "USER" },
+                    { "944e7d71-5b3d-4044-97a4-053a5c162335", "00182970-a98d-48a6-88eb-f4fba42b096c", "admin", "ADMIN" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -520,29 +518,29 @@ namespace FPTV.Migrations
                 column: "userAccountID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Comments_topicsId",
+                name: "IX_Comments_TopicId",
                 table: "Comments",
-                column: "topicsId");
+                column: "TopicId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Comments_userId",
+                name: "IX_Comments_UserId",
                 table: "Comments",
-                column: "userId");
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ErrorLog_userId",
+                name: "IX_ErrorLog_UserId",
                 table: "ErrorLog",
-                column: "userId");
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_FavPlayerList_userId",
+                name: "IX_FavPlayerList_UserId",
                 table: "FavPlayerList",
-                column: "userId");
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_FavTeamsList_userId",
+                name: "IX_FavTeamsList_UserId",
                 table: "FavTeamsList",
-                column: "userId");
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Mail_userAccountID",
@@ -550,19 +548,19 @@ namespace FPTV.Migrations
                 column: "userAccountID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Profile_picture_Id",
+                name: "IX_Profile_PictureId",
                 table: "Profile",
-                column: "picture_Id");
+                column: "PictureId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Reactions_commentId",
+                name: "IX_Reactions_CommentId",
                 table: "Reactions",
-                column: "commentId");
+                column: "CommentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Reactions_userId",
+                name: "IX_Reactions_UserId",
                 table: "Reactions",
-                column: "userId");
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Token_userAccountID",
@@ -570,9 +568,9 @@ namespace FPTV.Migrations
                 column: "userAccountID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Topics_userId",
+                name: "IX_Topics_UserId",
                 table: "Topics",
-                column: "userId");
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserAccount_userId",

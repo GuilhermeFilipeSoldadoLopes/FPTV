@@ -9,10 +9,10 @@ namespace FPTV.Models.DAL
     {
         [Key]
         [Display(Name = "Picture ID")]
-        public Guid picture_Id { get; set; }
+        public Guid PictureId { get; set; }
 
         [Required]
         [Display(Name = "Profile Picture")]
-        public string profilePicture { get; set; }
+        public string Picture { get; set; }
     }
 }

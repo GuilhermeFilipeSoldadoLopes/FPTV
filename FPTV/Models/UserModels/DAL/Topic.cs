@@ -6,33 +6,34 @@ using System.Xml.Linq;
 
 namespace FPTV.Models.DAL
 {
-    public class Topics
+    public class Topic
     {
-        [Key]
-        [Display(Name = "Topics ID")]
-        public Guid topicsId { get; set; }
+
+        [Display(Name = "Topic ID")]
+        public Guid TopicId { get; set; }
 
         [Required]
         [Display(Name = "Title")]
-        public string title { get; set; }
+        public string Title { get; set; }
 
         [Required]
         [Display(Name = "Content")]
-        public string content { get; set; }
+        public string Content { get; set; }
 
         [Required]
         [Display(Name = "Date")]
         [DataType(DataType.Date)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
-        public DateTime date { get; set; }
+        public DateTime Date { get; set; }
 
         [Required]
         [Display(Name = "User ID")]
-        [ForeignKey("Profile")]
-        public Guid userId { get; set; }
+        //[ForeignKey("User")]
+        public Guid UserId { get; set; }
 
-        [Required]
         [Display(Name = "User")]
-        public Profile? user { get; set; }
+        public virtual Profile User { get; set; }
+
+        public ICollection<Comment> Comments { get; set; }
     }
 }

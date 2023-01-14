@@ -1,4 +1,5 @@
 ﻿using Humanizer;
+
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -6,38 +7,40 @@ using System.Xml.Linq;
 
 namespace FPTV.Models.DAL
 {
-    public class Comments
+    public class Comment
     {
-        [Key]
+       
         [Display(Name = "Comment ID")]
-        public Guid commentId { get; set; }
+        public Guid CommentId { get; set; }
 
         [Required]
         [Display(Name = "Date")]
         [DataType(DataType.Date)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
-        public DateTime date { get; set; }
+        public DateTime Date { get; set; }
 
         [Required]
         [Display(Name = "Comment")]
-        public string comment { get; set; }
+        public string Text { get; set; }
 
         [Required]
         [Display(Name = "User ID")]
-        [ForeignKey("Profile")]
-        public Guid? userId { get; set; }
+        //[ForeignKey("User")]
+        public Guid UserId { get; set; }
 
+        
         [Required]
         [Display(Name = "Topic ID")]
-        [ForeignKey("Topics")] 
-        public Guid? topicsId { get; set; }
+        //[ForeignKey("Topic")] 
+        public Guid TopicId { get; set; }
 
-        [Required]
         [Display(Name = "User")]
-        public virtual Profile user { get; set; }
+        public virtual Profile? User { get; set; }
 
-        //[Required]
+        
         [Display(Name = "Topic")]
-        public virtual Topics topic { get; set; }
+        public virtual Topic? Topic { get; set; }
+
+        public ICollection<Reaction> Reactions { get; set; }
     }
 }

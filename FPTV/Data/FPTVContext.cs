@@ -3,6 +3,8 @@ using FPTV.Models.DAL;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System.Drawing;
+using System.Reflection.Emit;
 
 namespace FPTV.Data
 {
@@ -40,17 +42,32 @@ namespace FPTV.Data
                 adminRole,
                 moderatorRole,
                 userRole,
-                guestRole
-             );
+            guestRole
+            );
+
+
+            builder.Entity<Comment>()
+                   .HasOne(m => m.Topic)
+                   .WithMany(m => m.Comments)
+                   .HasForeignKey(m => m.TopicId)
+                   .OnDelete(DeleteBehavior.NoAction);
+
+            builder.Entity<Reaction>()
+                   .HasOne(m => m.Comment)
+                   .WithMany(m => m.Reactions)
+                   .HasForeignKey(m => m.CommentId)
+                   .OnDelete(DeleteBehavior.NoAction);
+
         }
+
 
         public DbSet<Profile> Profile { get; set; }
         public DbSet<FavTeamsList> FavTeamsList { get; set; }
         public DbSet<FavPlayerList> FavPlayerList { get; set; }
         public DbSet<ErrorLog> ErrorLog { get; set; }
-        public DbSet<Topics> Topics { get; set; }
-        public DbSet<Comments> Comments { get; set; }
-        public DbSet<Reactions> Reactions { get; set; }
+        public DbSet<Topic> Topics { get; set; }
+        public DbSet<Comment> Comments { get; set; }
+        public DbSet<Reaction> Reactions { get; set; }
         public DbSet<UserAccount> UserAccount { get; set; }
         public DbSet<AuthenticationLog> AuthenticationLog { get; set; }
         public DbSet<Token> Token { get; set; }
