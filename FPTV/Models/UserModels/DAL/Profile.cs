@@ -9,38 +9,37 @@ namespace FPTV.Models.DAL
     {
         [Key]
         [Display(Name = "User ID")]
-        public Guid userId { get; set; }
+        public Guid UserId { get; set; }
 
         [Required]
         [Display(Name = "User Type")]
-        public string userType { get; set; }
+        public string UserType { get; set; }
 
         [Required]
         [Display(Name = "Name")]
-        public string name { get; set; }
+        public string Name { get; set; }
 
         [Required]
         [Display(Name = "Flag")]
-        public string flag { get; set; }
+        public string Flag { get; set; }
 
         [Required]
         [Display(Name = "Biography")]
-        public string biography { get; set; }
+        public string Biography { get; set; }
 
         [Required]
         [Display(Name = "Profile Picture")]
         [ForeignKey("ProfilePicture")]
-        public string profilePicture { get; set; }
+        public int ProfilePictureId { get; set; }
 
         [Required]
         [Display(Name = "Registration Date")]
         [DataType(DataType.Date)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
-        public DateTime registration_Date { get; set; }
+        public DateTime RegistrationDate { get; set; }
 
-        [Required]
         [Display(Name = "Profile Picture")]
-        public ProfilePicture? picture { get; set; }
+        public virtual ProfilePicture Picture { get; set; }
 
 
 

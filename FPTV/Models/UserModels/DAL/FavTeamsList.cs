@@ -9,23 +9,22 @@ namespace FPTV.Models.DAL
     {
         [Key]
         [Display(Name = "Error Log ID")]
-        public Guid favTeamsListId { get; set; }
+        public Guid FavTeamsListId { get; set; }
 
         [Required]
         [Display(Name = "Name")]
-        public string name { get; set; }
+        public string Name { get; set; }
 
         [Required]
         [Display(Name = "Team Image")]
-        public string teamImage { get; set; }
+        public string TeamImage { get; set; }
 
         [Required]
         [Display(Name = "User ID")]
         [ForeignKey("User")]
-        public Guid userId { get; set; }
+        public Guid UserId { get; set; }
 
-        [Required]
         [Display(Name = "User")]
-        public Profile? user { get; set; }
+        public virtual Profile User { get; set; }
     }
 }
