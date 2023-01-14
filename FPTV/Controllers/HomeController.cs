@@ -50,6 +50,14 @@ namespace FPTV.Controllers
         {
             return View();
         }
+        public IActionResult RecoverPW()
+        {
+            return View();
+        }
+        public IActionResult SendEmail()
+        {
+            return View();
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
