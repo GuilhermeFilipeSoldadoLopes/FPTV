@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using FPTV.Models.Authentication.DAL;
+using FPTV.Models.DAL;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace FPTV.Data
@@ -9,5 +12,50 @@ namespace FPTV.Data
             : base(options)
         {
         }
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+            IdentityRole adminRole = new IdentityRole
+            {
+                Name = "admin",
+                NormalizedName = "admin".ToUpper()
+            };
+            IdentityRole moderatorRole = new IdentityRole
+            {
+                Name = "moderator",
+                NormalizedName = "moderator".ToUpper()
+            };
+            IdentityRole userRole = new IdentityRole
+            {
+                Name = "user",
+                NormalizedName = "user".ToUpper()
+            };
+            IdentityRole guestRole = new IdentityRole
+            {
+                Name = "guest",
+                NormalizedName = "guest".ToUpper()
+            };
+
+            builder.Entity<IdentityRole>().HasData(
+                adminRole,
+                moderatorRole,
+                userRole,
+                guestRole
+             );
+        }
+
+        public DbSet<Profile> Profile { get; set; }
+        public DbSet<FavTeamsList> FavTeamsList { get; set; }
+        public DbSet<FavPlayerList> FavPlayerList { get; set; }
+        public DbSet<ErrorLog> ErrorLog { get; set; }
+        public DbSet<Topics> Topics { get; set; }
+        public DbSet<Comments> Comments { get; set; }
+        public DbSet<Reactions> Reactions { get; set; }
+        public DbSet<UserAccount> UserAccount { get; set; }
+        public DbSet<AuthenticationLog> AuthenticationLog { get; set; }
+        public DbSet<Token> Token { get; set; }
+        public DbSet<Mail> Mail { get; set; }
+        public DbSet<AuthenticationRecovery> AuthenticationRecovery { get; set; }
+        public DbSet<AuthenticationChanges> AuthenticationChanges { get; set; }
     }
 }

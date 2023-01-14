@@ -6,7 +6,7 @@ using System.Xml.Linq;
 
 namespace FPTV.Models.DAL
 {
-    public class Topic
+    public class Topics
     {
         [Key]
         [Display(Name = "Topics ID")]
@@ -28,7 +28,7 @@ namespace FPTV.Models.DAL
 
         [Required]
         [Display(Name = "User ID")]
-        [ForeignKey("User")]
+        [ForeignKey("Profile")]
         public Guid userId { get; set; }
 
         [Required]

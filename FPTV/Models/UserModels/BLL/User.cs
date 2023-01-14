@@ -1,10 +1,13 @@
-﻿using System.Runtime;
+﻿/*
+using System.Runtime;
 using FPTV.Models.DAL;
 
 namespace FPTV.Models.BLL
 {
+    
     public class User
     {
+        
         public Profile? profile { get; set; }
 
         public List<Profile> getProfile(FPTVContext _context)
@@ -18,3 +21,4 @@ namespace FPTV.Models.BLL
         }
     }
 }
+*/

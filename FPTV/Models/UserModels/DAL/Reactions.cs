@@ -16,7 +16,7 @@ namespace FPTV.Models.DAL
 
         [Required]
         [Display(Name = "User Id")]
-        [ForeignKey("User")]
+        [ForeignKey("Profile")]
         public Guid userId { get; set; }
 
         [Required]
@@ -30,6 +30,6 @@ namespace FPTV.Models.DAL
 
         [Required]
         [Display(Name = "Comments")]
-        public Comment? comment { get; set; }
+        public Comments? comment { get; set; }
     }
 }

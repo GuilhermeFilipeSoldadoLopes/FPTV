@@ -26,7 +26,7 @@ namespace FPTV.Models.DAL
 
         [Required]
         [Display(Name = "User ID")]
-        [ForeignKey("User")]
+        [ForeignKey("Profile")]
         public Guid userId { get; set; }
 
         [Required]

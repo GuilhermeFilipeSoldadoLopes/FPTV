@@ -1,4 +1,5 @@
-﻿using FPTV.Data;
+﻿/*
+using FPTV.Data;
 using FPTV.Models.Authentication.DAL;
 
 namespace FPTV.Models.Authentication.BLL
@@ -16,3 +17,4 @@ namespace FPTV.Models.Authentication.BLL
         }
     }
 }
+*/

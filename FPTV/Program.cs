@@ -5,8 +5,9 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+var connectionString = builder.Configuration.GetConnectionString("FPTV_Context");
 builder.Services.AddDbContext<FPTVContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("FPTVContext") ?? throw new InvalidOperationException("Connection string 'FPTVContext' not found.")));
+    options.UseSqlServer(connectionString));
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<FPTVContext>();
@@ -16,7 +17,7 @@ var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
-{ 
+{
     app.UseMigrationsEndPoint();
 }
 else

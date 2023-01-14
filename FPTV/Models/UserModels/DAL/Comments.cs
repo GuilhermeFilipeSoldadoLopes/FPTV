@@ -1,11 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+﻿using Humanizer;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Xml.Linq;
 
 namespace FPTV.Models.DAL
 {
-    public class Comment
+    public class Comments
     {
         [Key]
         [Display(Name = "Comment ID")]
@@ -22,21 +23,21 @@ namespace FPTV.Models.DAL
         public string comment { get; set; }
 
         [Required]
-        [Display(Name = "Topic ID")]
-        [ForeignKey("Topic")]
-        public Guid topicsId { get; set; }
+        [Display(Name = "User ID")]
+        [ForeignKey("Profile")]
+        public Guid? userId { get; set; }
 
         [Required]
-        [Display(Name = "User ID")]
-        [ForeignKey("User")]
-        public Guid userId { get; set; }
+        [Display(Name = "Topic ID")]
+        [ForeignKey("Topics")] 
+        public Guid? topicsId { get; set; }
 
         [Required]
         [Display(Name = "User")]
-        public User? user { get; set; }
+        public virtual Profile user { get; set; }
 
-        [Required]
+        //[Required]
         [Display(Name = "Topic")]
-        public Topic? topic { get; set; }
+        public virtual Topics topic { get; set; }
     }
 }

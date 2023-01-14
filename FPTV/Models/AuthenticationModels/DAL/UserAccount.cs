@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using FPTV.Models.DAL;
 
 namespace FPTV.Models.Authentication.DAL
 {
@@ -38,7 +39,7 @@ namespace FPTV.Models.Authentication.DAL
 
         [Required]
         [Display(Name = "User")]
-        public User? user { get; set; }
+        public Profile? user { get; set; }
 
         [Required]
         [Display(Name = "Authentication Changes")]

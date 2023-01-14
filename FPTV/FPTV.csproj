@@ -4,7 +4,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>aspnet-FPTV-4c9a3705-6f81-4f65-9c6d-e0a74ddf880d</UserSecretsId>
+    <UserSecretsId>FPTV</UserSecretsId>
     <RootNamespace>FPTV</RootNamespace>
   </PropertyGroup>
 
