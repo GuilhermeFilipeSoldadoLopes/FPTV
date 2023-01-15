@@ -6,9 +6,8 @@ namespace FPTV.Models.Authentication.DAL
 {
     public class AuthenticationChange
     {
-        [Key]
         [Display(Name = "AuthenticationChange ID")]
-        public Guid AuthenticationChangesId { get; set; }
+        public Guid AuthenticationChangeId { get; set; }
 
         [Required(ErrorMessage = "Token is required for any change.")]
         public string Token { get; set; }
@@ -45,7 +44,6 @@ namespace FPTV.Models.Authentication.DAL
         [ForeignKey("UserAccount")]
         public Guid UserAccountId { get; set; }
 
-        [Required]
         [Display(Name = "User Account")]
         public virtual UserAccount UserAccount { get; set; }
     }
