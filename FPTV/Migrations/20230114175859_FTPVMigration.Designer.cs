@@ -123,7 +123,7 @@ namespace FPTV.Migrations
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
 
-                    b.Property<DateTime>("sendedDate")
+                    b.Property<DateTime>("sentDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("senderMail")
@@ -158,7 +158,7 @@ namespace FPTV.Migrations
                     b.Property<DateTime>("startTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("token")
+                    b.Property<string>("tokenString")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

@@ -391,7 +391,7 @@ namespace FPTV.Migrations
                     message = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
                     senderMail = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     receiverMail = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
-                    sendedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    sentDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     userAccountID = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
@@ -410,7 +410,7 @@ namespace FPTV.Migrations
                 columns: table => new
                 {
                     tokenId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    token = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    tokenString = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     email = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     startTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     endTime = table.Column<DateTime>(type: "datetime2", nullable: false),

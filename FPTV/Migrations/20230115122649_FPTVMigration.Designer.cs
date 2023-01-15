@@ -4,6 +4,7 @@ using FPTV.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FPTV.Migrations
 {
     [DbContext(typeof(FPTVContext))]
-    partial class FPTVContextModelSnapshot : ModelSnapshot
+    [Migration("20230115122649_FPTVMigration")]
+    partial class FPTVMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,6 +23,7 @@ namespace FPTV.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
             modelBuilder.Entity("FPTV.Models.Authentication.DAL.AuthenticationChange", b =>
                 {
                     b.Property<Guid>("AuthenticationChangesId")
@@ -124,7 +127,7 @@ namespace FPTV.Migrations
                         .IsRequired()
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
-                        
+
                     b.Property<DateTime>("SentDate")
                         .HasColumnType("datetime2");
 
