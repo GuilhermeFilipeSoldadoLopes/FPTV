@@ -40,9 +40,5 @@ namespace FPTV.Models.DAL
 
         [Display(Name = "Profile Picture")]
         public virtual ProfilePicture Picture { get; set; }
-
-
-
-
     }
 }
