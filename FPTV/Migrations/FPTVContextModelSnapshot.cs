@@ -21,7 +21,6 @@ namespace FPTV.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
-
             modelBuilder.Entity("FPTV.Models.Authentication.DAL.AuthenticationChange", b =>
                 {
                     b.Property<Guid>("AuthenticationChangesId")
@@ -125,7 +124,7 @@ namespace FPTV.Migrations
                         .IsRequired()
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
-
+                        
                     b.Property<DateTime>("SentDate")
                         .HasColumnType("datetime2");
 

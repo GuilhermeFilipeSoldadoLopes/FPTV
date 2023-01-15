@@ -1,4 +1,5 @@
-﻿using FPTV.Data;
+﻿/*
+using FPTV.Data;
 using FPTV.Models.Authentication.DAL;
 
 namespace FPTV.Models.Authentication.BLL
@@ -7,12 +8,13 @@ namespace FPTV.Models.Authentication.BLL
     {
         public List<UserAccount> getUserAccounts(FPTVContext _context)
         {
-            return _context.UserAccount.Include(u => u.User, u => u.AuthenticationLog); // toList...
+            return _context.UserAccount; // toList...
         }
 
         public UserAccount getUserAccountByUserID(FPTVContext _context, Guid userID)
         {
-            return _context.UserAccount.Include(u => u.User, u => u.AuthenticationLog).FirstOrDefaultAsync(u => u.id == userID);
+            return _context.UserAccount.FirstOrDefaultAsync(u => u.id == userID);
         }
     }
 }
+*/
