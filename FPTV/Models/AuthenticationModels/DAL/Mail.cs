@@ -7,39 +7,39 @@ namespace FPTV.Models.Authentication.DAL
     public class Mail
     {
         [Key]
-        [Display(Name = "ID")]
-        public Guid mailId { get; set; }
+        [Display(Name = "Mail ID")]
+        public Guid MailId { get; set; }
 
         [Required]
         [Display(Name = "Message")]
         [MaxLength(500)]
-        public string message { get; set; }
+        public string Message { get; set; }
 
         [Required]
         [Display(Name = "Sender Mail")]
         [EmailAddress]
         [MaxLength(250)]
-        public string senderMail { get; set; }
+        public string SenderMail { get; set; }
 
         [Required]
         [Display(Name = "Receiver Mail")]
         [EmailAddress]
         [MaxLength(250)]
-        public string receiverMail { get; set; }
+        public string ReceiverMail { get; set; }
 
         [Required]
         [Display(Name = "Sent Date")]
         [DataType(DataType.Date)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
-        public DateTime sendedDate { get; set; } = DateTime.Now;
+        public DateTime SentDate { get; set; } = DateTime.Now;
 
         [Required]
         [Display(Name = "User Account Id")]
         [ForeignKey("UserAccount")]
-        public Guid userAccountID { get; set; }
+        public Guid UserAccountId { get; set; }
 
         [Required]
         [Display(Name = "User Account")]
-        public UserAccount? userAccount { get; set; }
+        public virtual UserAccount UserAccount { get; set; }
     }
 }
