@@ -321,7 +321,7 @@ namespace FPTV.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AuthenticationChange",
+                name: "AuthenticationChanges",
                 columns: table => new
                 {
                     AuthenticationChangeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -333,9 +333,9 @@ namespace FPTV.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AuthenticationChange", x => x.AuthenticationChangeId);
+                    table.PrimaryKey("PK_AuthenticationChanges", x => x.AuthenticationChangeId);
                     table.ForeignKey(
-                        name: "FK_AuthenticationChange_UserAccount_UserAccountId",
+                        name: "FK_AuthenticationChanges_UserAccount_UserAccountId",
                         column: x => x.UserAccountId,
                         principalTable: "UserAccount",
                         principalColumn: "UserAccountId",
@@ -457,10 +457,10 @@ namespace FPTV.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "829646ac-824c-4a0d-899c-99cd1a44882a", "072b65eb-5b83-4445-8bba-e998ba7412bc", "admin", "ADMIN" },
-                    { "b0c906ad-b4e3-426e-9937-0d834fc29ceb", "5008e098-88e6-4461-9ad6-504572cd3a63", "moderator", "MODERATOR" },
-                    { "c7dd062a-5642-48ea-b077-c4802739f0b0", "88b37b4f-9c5d-4f35-ac6c-4528f7f5c1c6", "user", "USER" },
-                    { "de2ee1cb-be9d-4f0a-be8e-47684d0cbf65", "5d739422-f9a9-437a-a287-e7891a3c928e", "guest", "GUEST" }
+                    { "4ce353bd-53a0-45e8-98da-054a07f81947", "a18770dc-cf8e-4aff-a260-36c20c825f23", "moderator", "MODERATOR" },
+                    { "684c6f70-77e5-4c81-ab5d-2030767e2255", "d5d335e8-81b9-4f68-bdff-70e8255297a0", "guest", "GUEST" },
+                    { "98ae7a85-5c83-4b2d-807a-d8bf8d055391", "072fa2eb-3e4f-4fa9-87f7-4748a8a865e4", "user", "USER" },
+                    { "a489f99d-ff29-491a-9e95-46c53e55710c", "09417b48-9882-4bb5-87a6-88735298a2ad", "admin", "ADMIN" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -503,8 +503,8 @@ namespace FPTV.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AuthenticationChange_UserAccountId",
-                table: "AuthenticationChange",
+                name: "IX_AuthenticationChanges_UserAccountId",
+                table: "AuthenticationChanges",
                 column: "UserAccountId");
 
             migrationBuilder.CreateIndex(
@@ -596,7 +596,7 @@ namespace FPTV.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "AuthenticationChange");
+                name: "AuthenticationChanges");
 
             migrationBuilder.DropTable(
                 name: "AuthenticationLog");
