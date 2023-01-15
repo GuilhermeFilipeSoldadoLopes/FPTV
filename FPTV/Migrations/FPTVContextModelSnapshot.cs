@@ -439,29 +439,29 @@ namespace FPTV.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "944e7d71-5b3d-4044-97a4-053a5c162335",
-                            ConcurrencyStamp = "00182970-a98d-48a6-88eb-f4fba42b096c",
+                            Id = "3f882831-1b67-470e-93c1-ee1bbb2ef6c7",
+                            ConcurrencyStamp = "ae6ad8e6-b03c-49b2-9777-457ff5401804",
                             Name = "admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "4ba145cf-2767-4e5b-866c-b47e992fdcda",
-                            ConcurrencyStamp = "6d69e2d7-55ec-4641-a7d4-aa262377f62a",
+                            Id = "dda8796e-0a8d-4346-afbd-37b5dc8985c1",
+                            ConcurrencyStamp = "7a052a8e-a9f1-44b4-85c0-43c620f8e021",
                             Name = "moderator",
                             NormalizedName = "MODERATOR"
                         },
                         new
                         {
-                            Id = "92d9c8d8-81df-40f2-bec1-8fae6af1d5e0",
-                            ConcurrencyStamp = "c75a78e2-941a-4ffb-85a8-217e38c424d5",
+                            Id = "7409bdab-317c-4741-a467-066dd7d5aaf5",
+                            ConcurrencyStamp = "98a1a444-6153-4a02-ab0f-3be2df6bc3b6",
                             Name = "user",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "0a432a5d-8ef4-4619-8d70-a025ab9a4ab4",
-                            ConcurrencyStamp = "eb9c4781-4f6f-44be-bf6b-9ebf81b6b66a",
+                            Id = "0d552375-4dd0-44e8-bc73-b0c71251799f",
+                            ConcurrencyStamp = "e7325b2f-274f-4ee8-8ac9-d7338184aaa9",
                             Name = "guest",
                             NormalizedName = "GUEST"
                         });
