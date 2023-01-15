@@ -21,9 +21,10 @@ namespace FPTV.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
             modelBuilder.Entity("FPTV.Models.Authentication.DAL.AuthenticationChange", b =>
                 {
-                    b.Property<Guid>("AuthenticationChangesId")
+                    b.Property<Guid>("AuthenticationChangeId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -46,11 +47,11 @@ namespace FPTV.Migrations
                     b.Property<Guid>("UserAccountId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("AuthenticationChangesId");
+                    b.HasKey("AuthenticationChangeId");
 
                     b.HasIndex("UserAccountId");
 
-                    b.ToTable("AuthenticationChanges");
+                    b.ToTable("AuthenticationChange");
                 });
 
             modelBuilder.Entity("FPTV.Models.Authentication.DAL.AuthenticationLog", b =>
@@ -124,7 +125,7 @@ namespace FPTV.Migrations
                         .IsRequired()
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
-                        
+
                     b.Property<DateTime>("SentDate")
                         .HasColumnType("datetime2");
 
@@ -438,29 +439,29 @@ namespace FPTV.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "9ff60f69-66c2-486a-952c-bcfe51de9476",
-                            ConcurrencyStamp = "6fe81f37-6a1b-4f93-8c3c-289cc7eb77bc",
+                            Id = "829646ac-824c-4a0d-899c-99cd1a44882a",
+                            ConcurrencyStamp = "072b65eb-5b83-4445-8bba-e998ba7412bc",
                             Name = "admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "54ba5474-e57a-4241-97f0-794f495fa616",
-                            ConcurrencyStamp = "01ea0af0-c91c-4a77-a02e-4647a3096344",
+                            Id = "b0c906ad-b4e3-426e-9937-0d834fc29ceb",
+                            ConcurrencyStamp = "5008e098-88e6-4461-9ad6-504572cd3a63",
                             Name = "moderator",
                             NormalizedName = "MODERATOR"
                         },
                         new
                         {
-                            Id = "9ebb7fe1-6997-424e-8a24-e5b079266bdb",
-                            ConcurrencyStamp = "3c1ec44b-34a2-4a8e-b04f-7e781f4accb0",
+                            Id = "c7dd062a-5642-48ea-b077-c4802739f0b0",
+                            ConcurrencyStamp = "88b37b4f-9c5d-4f35-ac6c-4528f7f5c1c6",
                             Name = "user",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "d9e32171-1037-41ba-8a53-228ac3174131",
-                            ConcurrencyStamp = "0a8c7a02-efa8-4e39-a7b9-59685ee39fa3",
+                            Id = "de2ee1cb-be9d-4f0a-be8e-47684d0cbf65",
+                            ConcurrencyStamp = "5d739422-f9a9-437a-a287-e7891a3c928e",
                             Name = "guest",
                             NormalizedName = "GUEST"
                         });

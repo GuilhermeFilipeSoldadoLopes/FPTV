@@ -6,7 +6,6 @@ namespace FPTV.Models.Authentication.DAL
 {
     public class Token
     {
-        [Key]
         [Display(Name = "ID")]
         public Guid TokenId { get; set; }
 
@@ -38,7 +37,6 @@ namespace FPTV.Models.Authentication.DAL
         [ForeignKey("UserAccount")]
         public Guid UserAccountId { get; set; }
 
-        [Required]
         [Display(Name = "User Account")]
         public virtual UserAccount UserAccount { get; set; }
     }
