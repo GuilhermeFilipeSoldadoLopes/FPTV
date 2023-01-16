@@ -1,4 +1,4 @@
-﻿using FPTV.Models.Authentication.DAL;
+﻿using FPTV.Models.AuthenticationModels.DAL;
 using FPTV.Models.DAL;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
