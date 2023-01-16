@@ -6,65 +6,95 @@ using FPTV.Models.DAL;
 using Microsoft.EntityFrameworkCore;
 using static System.Formats.Asn1.AsnWriter;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using FPTV.Models.UserModels.DAL;
 
-namespace FPTV.Models.BLL
+namespace FPTV.Models.UserModels.BLL
 {
-    
+
     public class User
     {
+        //Retorna todos os Profiles
         public List<Profile> getProfiles(FPTVContext _context)
-        { 
+        {
             return _context.Profile.ToList();
         }
 
-        public bool existProfileAccount(FPTVContext _context, Guid userID)
+        //Retorna true caso o profile exista na base de dados
+        public bool existProfile(FPTVContext _context, Guid userID)
         {
             return getProfiles(_context).Any(u => u.UserId == userID);
         }
 
-        public Profile getProfileByProfileID(FPTVContext _context, Guid profileID)
+        //Retorna o Profile de um utilizador através do seu UserId
+        public Profile getProfileByUserID(FPTVContext _context, Guid userID)
         {
-            if (existProfileAccount(_context, profileID))
+            if (existProfile(_context, userID))
             {
-                return _context.Profile.Find(profileID);
+                return _context.Profile.Find(userID);
             }
             else
             {
-                throw new ArgumentException(message: "User doesn't exist.", paramName: nameof(profileID));
+                throw new ArgumentException(message: "Profile doesn't exist.", paramName: nameof(userID));
             }
         }
 
-        public ProfilePicture getProfilePictureByProfileID(FPTVContext _context, Guid profileID)
+        //Retorna a Profile Picture através do User ID
+        public ProfilePicture getProfilePictureByUserID(FPTVContext _context, Guid userID)
         {
-            if (existProfileAccount(_context, profileID))
+            if (existProfile(_context, userID))
             {
-                return getProfileByProfileID(_context, profileID).Picture;
+                return getProfileByUserID(_context, userID).Picture;
             }
             else
             {
-                throw new ArgumentException(message: "Profile doesn't exist.", paramName: nameof(profileID));
+                throw new ArgumentException(message: "Profile doesn't exist.", paramName: nameof(userID));
             }
         }
-        
-        public List<Comment> getCommentByProfileID(FPTVContext _context, Guid profileID)
+
+        //Retorna os comentários de um utilizador através do User ID
+        public List<Comment> getCommentsByUserID(FPTVContext _context, Guid userID)
         {
-            return _context.Comments.ToList().FindAll(u => u.UserId == profileID);
+            return _context.Comments.ToList().FindAll(u => u.UserId == userID);
         }
 
-        /*
-        public Guid getUserIDByUserAccountID(FPTVContext _context, Guid userAccountID)
+        //Retorna os tópicos de um utilizador através do User ID
+        public List<Topic> getTopicsByUserID(FPTVContext _context, Guid userID)
         {
-            if (existProfileAccount(_context, userAccountID))
+            return _context.Topics.ToList().FindAll(u => u.UserId == userID);
+        }
+
+        //Retorna as reações de um utilizador através do User ID
+        public List<Reaction> getReactionsByUserID(FPTVContext _context, Guid userID)
+        {
+            return _context.Reactions.ToList().FindAll(u => u.UserId == userID);
+        }
+
+        //Retorna a lista de jogadores favoritos de um utilizador através do User ID
+        public List<FavPlayerList> getFavPlayersByUserID(FPTVContext _context, Guid userID)
+        {
+            return _context.FavPlayerList.ToList().FindAll(u => u.UserId == userID);
+        }
+
+        //Retorna a lista de equipas favoritas de um utilizador através do User ID
+        public List<FavTeamsList> getFavTeamsByUserID(FPTVContext _context, Guid userID)
+        {
+            return _context.FavTeamsList.ToList().FindAll(u => u.UserId == userID);
+        }
+
+        //Retorna o tipo de utilizador a partir do User ID
+        public UserType getUserTypeByUserID(FPTVContext _context, Guid userID)
+        {
+            if (existProfile(_context, userID))
             {
-                return getUserAccountByUserID(_context, userID).userAccountId;
+                return getProfileByUserID(_context, userID).UserType;
             }
             else
             {
-                throw new ArgumentException(message: "Profile doesn't exist.", paramName: nameof(profileID));
+                throw new ArgumentException(message: "Profile doesn't exist.", paramName: nameof(userID));
             }
         }
-        */
 
+        //Retorna a UserAccount de um utilizador atraves do seu ID (UserId)
         public UserAccount getUserAccountByUserID(FPTVContext _context, Guid userID)
         {
             if (existUserAccount(_context, userID))
@@ -75,8 +105,32 @@ namespace FPTV.Models.BLL
             {
                 throw new ArgumentException(message: "User doesn't exist.", paramName: nameof(userID));
             }
+        }
 
+        //Retorna todos as UserAccounts
+        public List<UserAccount> getUserAccounts(FPTVContext _context)
+        {
+            return _context.UserAccount.ToList();
+        }
 
+        //Retorna true caso o otilizador exista na base de dados
+        public bool existUserAccount(FPTVContext _context, Guid userID)
+        {
+            return getUserAccounts(_context).Any(u => u.UserId == userID);
+        }
+
+        //Retorna o ID do utilizador (UserId) atraves do ID da sua UserAccount (UserAccountId)
+        public Guid getProfileIDByUserAccounID(FPTVContext _context, Guid userAccounID)
+        {
+            if (getUserAccounts(_context).Any(u => u.UserAccountId == userAccounID))
+            {
+                return _context.UserAccount.FirstOrDefault(u => u.UserAccountId == userAccounID).UserId;
+            }
+            else
+            {
+                throw new ArgumentException(message: "User doesn't exist.", paramName: nameof(userAccounID));
+            }
         }
     }
+}
 
