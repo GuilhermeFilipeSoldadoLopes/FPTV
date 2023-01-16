@@ -14,7 +14,8 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    
 }
 
 input[type=text], input[type=password] {
@@ -44,3 +45,22 @@ textarea {
     border-radius: 15px;
     resize: vertical;
 }
+
+.bodyLogin {
+    background-image: url('../images/background.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    
+}
+
+.form {
+    margin: auto;
+    width: 50%;
+    background-color:#8b8b8b;
+    border-radius:15px;
+    border: 1px solid black;
+}
+    .form p, a {
+        color: black;
+        font-family: Noto Sans;
+    }
