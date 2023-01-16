@@ -22,7 +22,7 @@ namespace FPTV.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("FPTV.Models.Authentication.DAL.AuthenticationChange", b =>
+            modelBuilder.Entity("FPTV.Models.AuthenticationModels.DAL.AuthenticationChange", b =>
                 {
                     b.Property<Guid>("AuthenticationChangeId")
                         .ValueGeneratedOnAdd()
@@ -54,15 +54,14 @@ namespace FPTV.Migrations
                     b.ToTable("AuthenticationChanges");
                 });
 
-            modelBuilder.Entity("FPTV.Models.Authentication.DAL.AuthenticationLog", b =>
+            modelBuilder.Entity("FPTV.Models.AuthenticationModels.DAL.AuthenticationLog", b =>
                 {
                     b.Property<Guid>("AuthenticationLogId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("AuthenticationType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("AuthenticationType")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
@@ -77,7 +76,7 @@ namespace FPTV.Migrations
                     b.ToTable("AuthenticationLog");
                 });
 
-            modelBuilder.Entity("FPTV.Models.Authentication.DAL.AuthenticationRecovery", b =>
+            modelBuilder.Entity("FPTV.Models.AuthenticationModels.DAL.AuthenticationRecovery", b =>
                 {
                     b.Property<Guid>("AuthenticationRecoveryId")
                         .ValueGeneratedOnAdd()
@@ -105,7 +104,7 @@ namespace FPTV.Migrations
                     b.ToTable("AuthenticationRecovery");
                 });
 
-            modelBuilder.Entity("FPTV.Models.Authentication.DAL.Mail", b =>
+            modelBuilder.Entity("FPTV.Models.AuthenticationModels.DAL.Mail", b =>
                 {
                     b.Property<Guid>("MailId")
                         .ValueGeneratedOnAdd()
@@ -139,7 +138,7 @@ namespace FPTV.Migrations
                     b.ToTable("Mail");
                 });
 
-            modelBuilder.Entity("FPTV.Models.Authentication.DAL.Token", b =>
+            modelBuilder.Entity("FPTV.Models.AuthenticationModels.DAL.Token", b =>
                 {
                     b.Property<Guid>("TokenId")
                         .ValueGeneratedOnAdd()
@@ -170,7 +169,7 @@ namespace FPTV.Migrations
                     b.ToTable("Token");
                 });
 
-            modelBuilder.Entity("FPTV.Models.Authentication.DAL.UserAccount", b =>
+            modelBuilder.Entity("FPTV.Models.AuthenticationModels.DAL.UserAccount", b =>
                 {
                     b.Property<Guid>("UserAccountId")
                         .ValueGeneratedOnAdd()
@@ -323,11 +322,8 @@ namespace FPTV.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("PictureId")
+                    b.Property<Guid>("ProfilePictureId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("ProfilePictureId")
-                        .HasColumnType("int");
 
                     b.Property<DateTime>("RegistrationDate")
                         .HasColumnType("datetime2");
@@ -338,7 +334,7 @@ namespace FPTV.Migrations
 
                     b.HasKey("UserId");
 
-                    b.HasIndex("PictureId");
+                    b.HasIndex("ProfilePictureId");
 
                     b.ToTable("Profile");
                 });
@@ -439,32 +435,29 @@ namespace FPTV.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "3f882831-1b67-470e-93c1-ee1bbb2ef6c7",
-                            ConcurrencyStamp = "ae6ad8e6-b03c-49b2-9777-457ff5401804",
-
+                            Id = "e900af81-115d-415f-bdd7-490f17689c7f",
+                            ConcurrencyStamp = "4d77b9b8-0e69-49fd-a876-fda8abe89a62",
                             Name = "admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "dda8796e-0a8d-4346-afbd-37b5dc8985c1",
-                            ConcurrencyStamp = "7a052a8e-a9f1-44b4-85c0-43c620f8e021",
-
+                            Id = "42f4db56-50fb-4b82-8076-897f52b41e4e",
+                            ConcurrencyStamp = "0045b022-b5c8-4675-9b21-a3ddc7a3e97a",
                             Name = "moderator",
                             NormalizedName = "MODERATOR"
                         },
                         new
                         {
-                            Id = "7409bdab-317c-4741-a467-066dd7d5aaf5",
-                            ConcurrencyStamp = "98a1a444-6153-4a02-ab0f-3be2df6bc3b6",
-
+                            Id = "bde78809-664d-47d8-ade8-8006739d076e",
+                            ConcurrencyStamp = "b74c20a4-bb93-47d2-b409-c08cb0f89e35",
                             Name = "user",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "0d552375-4dd0-44e8-bc73-b0c71251799f",
-                            ConcurrencyStamp = "e7325b2f-274f-4ee8-8ac9-d7338184aaa9",
+                            Id = "8350e83e-1e22-4af8-b2bc-d31d7f03d6a4",
+                            ConcurrencyStamp = "efb299ce-c9a5-49c8-8da9-c922eef7755a",
                             Name = "guest",
                             NormalizedName = "GUEST"
                         });
@@ -645,9 +638,9 @@ namespace FPTV.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("FPTV.Models.Authentication.DAL.AuthenticationChange", b =>
+            modelBuilder.Entity("FPTV.Models.AuthenticationModels.DAL.AuthenticationChange", b =>
                 {
-                    b.HasOne("FPTV.Models.Authentication.DAL.UserAccount", "UserAccount")
+                    b.HasOne("FPTV.Models.AuthenticationModels.DAL.UserAccount", "UserAccount")
                         .WithMany()
                         .HasForeignKey("UserAccountId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -656,9 +649,9 @@ namespace FPTV.Migrations
                     b.Navigation("UserAccount");
                 });
 
-            modelBuilder.Entity("FPTV.Models.Authentication.DAL.AuthenticationLog", b =>
+            modelBuilder.Entity("FPTV.Models.AuthenticationModels.DAL.AuthenticationLog", b =>
                 {
-                    b.HasOne("FPTV.Models.Authentication.DAL.UserAccount", "UserAccount")
+                    b.HasOne("FPTV.Models.AuthenticationModels.DAL.UserAccount", "UserAccount")
                         .WithMany()
                         .HasForeignKey("UserAccountId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -667,9 +660,9 @@ namespace FPTV.Migrations
                     b.Navigation("UserAccount");
                 });
 
-            modelBuilder.Entity("FPTV.Models.Authentication.DAL.AuthenticationRecovery", b =>
+            modelBuilder.Entity("FPTV.Models.AuthenticationModels.DAL.AuthenticationRecovery", b =>
                 {
-                    b.HasOne("FPTV.Models.Authentication.DAL.UserAccount", "UserAccount")
+                    b.HasOne("FPTV.Models.AuthenticationModels.DAL.UserAccount", "UserAccount")
                         .WithMany()
                         .HasForeignKey("UserAccountId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -678,9 +671,9 @@ namespace FPTV.Migrations
                     b.Navigation("UserAccount");
                 });
 
-            modelBuilder.Entity("FPTV.Models.Authentication.DAL.Mail", b =>
+            modelBuilder.Entity("FPTV.Models.AuthenticationModels.DAL.Mail", b =>
                 {
-                    b.HasOne("FPTV.Models.Authentication.DAL.UserAccount", "UserAccount")
+                    b.HasOne("FPTV.Models.AuthenticationModels.DAL.UserAccount", "UserAccount")
                         .WithMany()
                         .HasForeignKey("UserAccountId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -689,9 +682,9 @@ namespace FPTV.Migrations
                     b.Navigation("UserAccount");
                 });
 
-            modelBuilder.Entity("FPTV.Models.Authentication.DAL.Token", b =>
+            modelBuilder.Entity("FPTV.Models.AuthenticationModels.DAL.Token", b =>
                 {
-                    b.HasOne("FPTV.Models.Authentication.DAL.UserAccount", "UserAccount")
+                    b.HasOne("FPTV.Models.AuthenticationModels.DAL.UserAccount", "UserAccount")
                         .WithMany()
                         .HasForeignKey("UserAccountId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -700,7 +693,7 @@ namespace FPTV.Migrations
                     b.Navigation("UserAccount");
                 });
 
-            modelBuilder.Entity("FPTV.Models.Authentication.DAL.UserAccount", b =>
+            modelBuilder.Entity("FPTV.Models.AuthenticationModels.DAL.UserAccount", b =>
                 {
                     b.HasOne("FPTV.Models.DAL.Profile", "User")
                         .WithMany()
@@ -767,7 +760,7 @@ namespace FPTV.Migrations
                 {
                     b.HasOne("FPTV.Models.DAL.ProfilePicture", "Picture")
                         .WithMany()
-                        .HasForeignKey("PictureId")
+                        .HasForeignKey("ProfilePictureId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

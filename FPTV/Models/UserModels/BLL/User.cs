@@ -1,4 +1,4 @@
-﻿using System.Runtime;
+using System.Runtime;
 using System.Xml.Linq;
 using FPTV.Data;
 using FPTV.Models.Authentication.DAL;
@@ -133,4 +133,3 @@ namespace FPTV.Models.UserModels.BLL
         }
     }
 }
-

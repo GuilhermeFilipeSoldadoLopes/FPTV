@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Xml.Linq;
 
-namespace FPTV.Models.Authentication.DAL
+namespace FPTV.Models.AuthenticationModels.DAL
 {
     public class Mail
     {

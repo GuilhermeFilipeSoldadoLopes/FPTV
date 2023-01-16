@@ -175,16 +175,15 @@ namespace FPTV.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Flag = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Biography = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ProfilePictureId = table.Column<int>(type: "int", nullable: false),
                     RegistrationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    PictureId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    ProfilePictureId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Profile", x => x.UserId);
                     table.ForeignKey(
-                        name: "FK_Profile_ProfilePicture_PictureId",
-                        column: x => x.PictureId,
+                        name: "FK_Profile_ProfilePicture_ProfilePictureId",
+                        column: x => x.ProfilePictureId,
                         principalTable: "ProfilePicture",
                         principalColumn: "PictureId",
                         onDelete: ReferentialAction.Cascade);
@@ -347,7 +346,7 @@ namespace FPTV.Migrations
                 columns: table => new
                 {
                     AuthenticationLogId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    AuthenticationType = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AuthenticationType = table.Column<int>(type: "int", nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UserAccountId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
@@ -457,10 +456,10 @@ namespace FPTV.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "4ce353bd-53a0-45e8-98da-054a07f81947", "a18770dc-cf8e-4aff-a260-36c20c825f23", "moderator", "MODERATOR" },
-                    { "684c6f70-77e5-4c81-ab5d-2030767e2255", "d5d335e8-81b9-4f68-bdff-70e8255297a0", "guest", "GUEST" },
-                    { "98ae7a85-5c83-4b2d-807a-d8bf8d055391", "072fa2eb-3e4f-4fa9-87f7-4748a8a865e4", "user", "USER" },
-                    { "a489f99d-ff29-491a-9e95-46c53e55710c", "09417b48-9882-4bb5-87a6-88735298a2ad", "admin", "ADMIN" }
+                    { "42f4db56-50fb-4b82-8076-897f52b41e4e", "0045b022-b5c8-4675-9b21-a3ddc7a3e97a", "moderator", "MODERATOR" },
+                    { "8350e83e-1e22-4af8-b2bc-d31d7f03d6a4", "efb299ce-c9a5-49c8-8da9-c922eef7755a", "guest", "GUEST" },
+                    { "bde78809-664d-47d8-ade8-8006739d076e", "b74c20a4-bb93-47d2-b409-c08cb0f89e35", "user", "USER" },
+                    { "e900af81-115d-415f-bdd7-490f17689c7f", "4d77b9b8-0e69-49fd-a876-fda8abe89a62", "admin", "ADMIN" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -548,9 +547,9 @@ namespace FPTV.Migrations
                 column: "UserAccountId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Profile_PictureId",
+                name: "IX_Profile_ProfilePictureId",
                 table: "Profile",
-                column: "PictureId");
+                column: "ProfilePictureId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Reactions_CommentId",

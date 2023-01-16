@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Xml.Linq;
 using Microsoft.AspNetCore.Identity;
 
-namespace FPTV.Models.Authentication.DAL
+namespace FPTV.Models.AuthenticationModels.DAL
 {
     public class AuthenticationLog
     {
@@ -13,7 +13,7 @@ namespace FPTV.Models.Authentication.DAL
         [Required]
         [Display(Name = "Authentication Type")]
         [EnumDataType(typeof(AuthenticationType))]
-        public string AuthenticationType { get; set; }
+        public AuthenticationType AuthenticationType { get; set; }
 
         [Required]
         [Display(Name = "Date")]
