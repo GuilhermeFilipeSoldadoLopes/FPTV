@@ -9,74 +9,77 @@ using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace FPTV.Models.BLL
 {
-    
+
     public class User
     {
+        //Retorna todos os Profiles
         public List<Profile> getProfiles(FPTVContext _context)
-        { 
+        {
             return _context.Profile.ToList();
         }
 
+        //Retorna true caso o profile exista na base de dados
         public bool existProfileAccount(FPTVContext _context, Guid userID)
         {
             return getProfiles(_context).Any(u => u.UserId == userID);
         }
 
-        public Profile getProfileByProfileID(FPTVContext _context, Guid profileID)
+        //Retorna o Profile de um utilizador através do seu UserId
+        public Profile getProfileByUserID(FPTVContext _context, Guid userID)
         {
-            if (existProfileAccount(_context, profileID))
+            if (existProfileAccount(_context, userID))
             {
-                return _context.Profile.Find(profileID);
+                return _context.Profile.Find(userID);
             }
             else
             {
-                throw new ArgumentException(message: "User doesn't exist.", paramName: nameof(profileID));
+                throw new ArgumentException(message: "Profile doesn't exist.", paramName: nameof(userID));
             }
         }
 
-        public ProfilePicture getProfilePictureByProfileID(FPTVContext _context, Guid profileID)
+        //Retorna a Profile Picture através do User ID
+        public ProfilePicture getProfilePictureByUserID(FPTVContext _context, Guid userID)
         {
-            if (existProfileAccount(_context, profileID))
+            if (existProfileAccount(_context, userID))
             {
-                return getProfileByProfileID(_context, profileID).Picture;
+                return getProfileByUserID(_context, userID).Picture;
             }
             else
             {
-                throw new ArgumentException(message: "Profile doesn't exist.", paramName: nameof(profileID));
+                throw new ArgumentException(message: "Profile Picture doesn't exist.", paramName: nameof(userID));
             }
         }
-        
-        public List<Comment> getCommentByProfileID(FPTVContext _context, Guid profileID)
+
+        //Retorna os comentários de um utilizador através do User ID
+        public List<Comment> getCommentsByUserID(FPTVContext _context, Guid userID)
         {
-            return _context.Comments.ToList().FindAll(u => u.UserId == profileID);
+            return _context.Comments.ToList().FindAll(u => u.UserId == userID);
         }
 
-        /*
-        public Guid getUserIDByUserAccountID(FPTVContext _context, Guid userAccountID)
+        //Retorna os tópicos de um utilizador através do User ID
+        public List<Topic> getTopicsByUserID(FPTVContext _context, Guid userID)
         {
-            if (existProfileAccount(_context, userAccountID))
-            {
-                return getUserAccountByUserID(_context, userID).userAccountId;
-            }
-            else
-            {
-                throw new ArgumentException(message: "Profile doesn't exist.", paramName: nameof(profileID));
-            }
+            return _context.Topics.ToList().FindAll(u => u.UserId == userID);
         }
-        */
 
-        public UserAccount getUserAccountByUserID(FPTVContext _context, Guid userID)
+        //Retorna as reações de um utilizador através do User ID
+        public List<Reaction> getReactionsByUserID(FPTVContext _context, Guid userID)
         {
-            if (existUserAccount(_context, userID))
-            {
-                return _context.UserAccount.FirstOrDefault(u => u.UserId == userID);
-            }
-            else
-            {
-                throw new ArgumentException(message: "User doesn't exist.", paramName: nameof(userID));
-            }
-
-
+            return _context.Reactions.ToList().FindAll(u => u.UserId == userID);
         }
+
+        //Retorna a lista de jogadores favoritos de um utilizador através do User ID
+        public List<FavPlayerList> getFavPlayersByUserID(FPTVContext _context, Guid userID)
+        {
+            return _context.FavPlayerList.ToList().FindAll(u => u.UserId == userID);
+        }
+
+        //Retorna a lista de equipas favoritas de um utilizador através do User ID
+        public List<FavTeamsList> getFavTeamsByUserID(FPTVContext _context, Guid userID)
+        {
+            return _context.FavTeamsList.ToList().FindAll(u => u.UserId == userID);
+        }
+
     }
+}
 
