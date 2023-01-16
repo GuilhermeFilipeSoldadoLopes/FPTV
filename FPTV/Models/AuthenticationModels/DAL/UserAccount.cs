@@ -41,14 +41,14 @@ namespace FPTV.Models.Authentication.DAL
 
         [Required]
         [Display(Name = "Authentication Changes")]
-        private AuthenticationChange _changes = new AuthenticationChange();
+        private AuthenticationChange AuthenticationChange = new AuthenticationChange();
 
         [Required]
         [Display(Name = "Authentication Log")]
-        private AuthenticationLog _log = new AuthenticationLog();
+        private AuthenticationLog AuthenticationLog = new AuthenticationLog();
 
         [Required]
         [Display(Name = "Authentication Recovery")]
-        private AuthenticationRecovery _recovery = new AuthenticationRecovery();
+        private AuthenticationRecovery AuthenticationRecovery = new AuthenticationRecovery();
     }
 }
