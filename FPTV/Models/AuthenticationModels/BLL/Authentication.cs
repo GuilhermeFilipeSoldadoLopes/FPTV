@@ -1,5 +1,6 @@
 ﻿using FPTV.Data;
 using FPTV.Models.AuthenticationModels.DAL;
+using FPTV.Models.UserModels.DAL;
 
 namespace FPTV.Models.AuthenticationModels.BLL
 {
@@ -49,7 +50,6 @@ namespace FPTV.Models.AuthenticationModels.BLL
             {
                 throw new ArgumentException(message: "User doesn't exist.", paramName: nameof(userID));
             }
-            
         }
 
         //Retorna o utilizador (Profile) atraves do ID da sua UserAccount (UserAccountId)
@@ -90,20 +90,6 @@ namespace FPTV.Models.AuthenticationModels.BLL
             {
                 throw new ArgumentException(message: "User doesn't exist.", paramName: nameof(userAccounID));
             }
-        }
-
-        //Retorna ID da UserAccount (UserAccountId) atraves do ID do utilizador (UserId)
-        public Guid getUserAccounIDtByUserID(FPTVContext _context, Guid userID)
-        {
-            if (existUserAccount(_context, userID))
-            {
-                return getUserAccountByUserID(_context, userID).UserAccountId;
-            }
-            else
-            {
-                throw new ArgumentException(message: "User doesn't exist.", paramName: nameof(userID));
-            }
-
         }
 
         //Retorna o tipo de autenticao (Acccount, Steam, Google) do utilizador atraves do seu ID (UserId)

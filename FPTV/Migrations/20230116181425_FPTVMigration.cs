@@ -346,7 +346,7 @@ namespace FPTV.Migrations
                 columns: table => new
                 {
                     AuthenticationLogId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    AuthenticationType = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AuthenticationType = table.Column<int>(type: "int", nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UserAccountId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
@@ -456,10 +456,10 @@ namespace FPTV.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "1b418045-32f1-4678-b84e-b6217043ce30", "9d135258-af06-42ee-ae14-dc5b35b4295c", "user", "USER" },
-                    { "5b8a72ca-8327-415f-88dd-26dd448dd783", "5827d74b-9ef1-49e0-a14e-8e6cb89f331f", "admin", "ADMIN" },
-                    { "5d65f30c-6615-48b6-bb43-e7bd601e00f6", "d013b9f5-bcc9-4416-9ac3-6e3c920ed5a3", "guest", "GUEST" },
-                    { "d63e5c19-ecb3-49a0-9c81-a867d74ba4a6", "5e5ad2f6-6805-4e10-a5f2-5abbeaea8436", "moderator", "MODERATOR" }
+                    { "2428f028-331b-4e75-ba01-3eb8dd52af19", "a6297475-3b60-4097-869e-562d2205b59c", "user", "USER" },
+                    { "baca02c2-749d-4d31-b9a0-3d3369f7dc8a", "d47fc000-1b99-4ace-8ad4-23425d344dee", "moderator", "MODERATOR" },
+                    { "bc5743d6-3cc0-4f2e-94dc-464f11077f81", "9ab3a5ed-cf5a-4d11-959b-dd68415d5e7d", "guest", "GUEST" },
+                    { "c471a236-28f3-4bc0-8019-78499ddf3c53", "5d158f50-cfb0-4c94-b1a1-029571f531ea", "admin", "ADMIN" }
                 });
 
             migrationBuilder.CreateIndex(

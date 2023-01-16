@@ -60,9 +60,8 @@ namespace FPTV.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("AuthenticationType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("AuthenticationType")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
@@ -435,29 +434,29 @@ namespace FPTV.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "5b8a72ca-8327-415f-88dd-26dd448dd783",
-                            ConcurrencyStamp = "5827d74b-9ef1-49e0-a14e-8e6cb89f331f",
+                            Id = "c471a236-28f3-4bc0-8019-78499ddf3c53",
+                            ConcurrencyStamp = "5d158f50-cfb0-4c94-b1a1-029571f531ea",
                             Name = "admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "d63e5c19-ecb3-49a0-9c81-a867d74ba4a6",
-                            ConcurrencyStamp = "5e5ad2f6-6805-4e10-a5f2-5abbeaea8436",
+                            Id = "baca02c2-749d-4d31-b9a0-3d3369f7dc8a",
+                            ConcurrencyStamp = "d47fc000-1b99-4ace-8ad4-23425d344dee",
                             Name = "moderator",
                             NormalizedName = "MODERATOR"
                         },
                         new
                         {
-                            Id = "1b418045-32f1-4678-b84e-b6217043ce30",
-                            ConcurrencyStamp = "9d135258-af06-42ee-ae14-dc5b35b4295c",
+                            Id = "2428f028-331b-4e75-ba01-3eb8dd52af19",
+                            ConcurrencyStamp = "a6297475-3b60-4097-869e-562d2205b59c",
                             Name = "user",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "5d65f30c-6615-48b6-bb43-e7bd601e00f6",
-                            ConcurrencyStamp = "d013b9f5-bcc9-4416-9ac3-6e3c920ed5a3",
+                            Id = "bc5743d6-3cc0-4f2e-94dc-464f11077f81",
+                            ConcurrencyStamp = "9ab3a5ed-cf5a-4d11-959b-dd68415d5e7d",
                             Name = "guest",
                             NormalizedName = "GUEST"
                         });
