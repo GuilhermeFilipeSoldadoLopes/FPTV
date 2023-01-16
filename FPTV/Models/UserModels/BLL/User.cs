@@ -3,9 +3,11 @@ using System.Xml.Linq;
 using FPTV.Data;
 using FPTV.Models.Authentication.DAL;
 using FPTV.Models.DAL;
+using FPTV.Models.BLL;
 using Microsoft.EntityFrameworkCore;
 using static System.Formats.Asn1.AsnWriter;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+
 
 namespace FPTV.Models.BLL
 {
@@ -79,7 +81,6 @@ namespace FPTV.Models.BLL
         {
             return _context.FavTeamsList.ToList().FindAll(u => u.UserId == userID);
         }
-
     }
 }
 
