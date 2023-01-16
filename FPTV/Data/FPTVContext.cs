@@ -10,6 +10,8 @@ namespace FPTV.Data
 {
     public class FPTVContext : IdentityDbContext
     {
+        internal readonly object ProfilePicture;
+
         public FPTVContext(DbContextOptions<FPTVContext> options)
             : base(options)
         {
