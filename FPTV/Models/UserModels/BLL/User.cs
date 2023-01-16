@@ -3,13 +3,12 @@ using System.Xml.Linq;
 using FPTV.Data;
 using FPTV.Models.Authentication.DAL;
 using FPTV.Models.DAL;
-using FPTV.Models.BLL;
 using Microsoft.EntityFrameworkCore;
 using static System.Formats.Asn1.AsnWriter;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 using FPTV.Models.UserModels.DAL;
 
-namespace FPTV.Models.BLL
+namespace FPTV.Models.UserModels.BLL
 {
 
     public class User
@@ -21,7 +20,7 @@ namespace FPTV.Models.BLL
         }
 
         //Retorna true caso o profile exista na base de dados
-        public bool existProfileAccount(FPTVContext _context, Guid userID)
+        public bool existProfile(FPTVContext _context, Guid userID)
         {
             return getProfiles(_context).Any(u => u.UserId == userID);
         }
@@ -29,7 +28,7 @@ namespace FPTV.Models.BLL
         //Retorna o Profile de um utilizador através do seu UserId
         public Profile getProfileByUserID(FPTVContext _context, Guid userID)
         {
-            if (existProfileAccount(_context, userID))
+            if (existProfile(_context, userID))
             {
                 return _context.Profile.Find(userID);
             }
@@ -42,13 +41,13 @@ namespace FPTV.Models.BLL
         //Retorna a Profile Picture através do User ID
         public ProfilePicture getProfilePictureByUserID(FPTVContext _context, Guid userID)
         {
-            if (existProfileAccount(_context, userID))
+            if (existProfile(_context, userID))
             {
                 return getProfileByUserID(_context, userID).Picture;
             }
             else
             {
-                throw new ArgumentException(message: "Profile Picture doesn't exist.", paramName: nameof(userID));
+                throw new ArgumentException(message: "Profile doesn't exist.", paramName: nameof(userID));
             }
         }
 
@@ -85,7 +84,7 @@ namespace FPTV.Models.BLL
         //Retorna o tipo de utilizador a partir do User ID
         public UserType getUserTypeByUserID(FPTVContext _context, Guid userID)
         {
-            if (existProfileAccount(_context, userID))
+            if (existProfile(_context, userID))
             {
                 return getProfileByUserID(_context, userID).UserType;
             }
@@ -108,6 +107,18 @@ namespace FPTV.Models.BLL
             }
         }
 
+        //Retorna todos as UserAccounts
+        public List<UserAccount> getUserAccounts(FPTVContext _context)
+        {
+            return _context.UserAccount.ToList();
+        }
+
+        //Retorna true caso o otilizador exista na base de dados
+        public bool existUserAccount(FPTVContext _context, Guid userID)
+        {
+            return getUserAccounts(_context).Any(u => u.UserId == userID);
+        }
+
         //Retorna o ID do utilizador (UserId) atraves do ID da sua UserAccount (UserAccountId)
         public Guid getProfileIDByUserAccounID(FPTVContext _context, Guid userAccounID)
         {
@@ -120,8 +131,6 @@ namespace FPTV.Models.BLL
                 throw new ArgumentException(message: "User doesn't exist.", paramName: nameof(userAccounID));
             }
         }
-
-        //alterar namespaces meter tudo com ....usermodels....
     }
 }
 
