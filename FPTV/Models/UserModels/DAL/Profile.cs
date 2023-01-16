@@ -28,15 +28,15 @@ namespace FPTV.Models.DAL
         public string Biography { get; set; }
 
         [Required]
-        [Display(Name = "Profile Picture")]
-        [ForeignKey("ProfilePicture")]
-        public int ProfilePictureId { get; set; }
-
-        [Required]
         [Display(Name = "Registration Date")]
         [DataType(DataType.Date)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime RegistrationDate { get; set; }
+
+        [Required]
+        [Display(Name = "Profile Picture")]
+        [ForeignKey("ProfilePicture")]
+        public Guid ProfilePictureId { get; set; }
 
         [Display(Name = "Profile Picture")]
         public virtual ProfilePicture Picture { get; set; }
