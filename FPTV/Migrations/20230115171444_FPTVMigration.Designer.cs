@@ -4,6 +4,7 @@ using FPTV.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FPTV.Migrations
 {
     [DbContext(typeof(FPTVContext))]
-    partial class FPTVContextModelSnapshot : ModelSnapshot
+    [Migration("20230115171444_FPTVMigration")]
+    partial class FPTVMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -439,32 +441,29 @@ namespace FPTV.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "3f882831-1b67-470e-93c1-ee1bbb2ef6c7",
-                            ConcurrencyStamp = "ae6ad8e6-b03c-49b2-9777-457ff5401804",
-
+                            Id = "a489f99d-ff29-491a-9e95-46c53e55710c",
+                            ConcurrencyStamp = "09417b48-9882-4bb5-87a6-88735298a2ad",
                             Name = "admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "dda8796e-0a8d-4346-afbd-37b5dc8985c1",
-                            ConcurrencyStamp = "7a052a8e-a9f1-44b4-85c0-43c620f8e021",
-
+                            Id = "4ce353bd-53a0-45e8-98da-054a07f81947",
+                            ConcurrencyStamp = "a18770dc-cf8e-4aff-a260-36c20c825f23",
                             Name = "moderator",
                             NormalizedName = "MODERATOR"
                         },
                         new
                         {
-                            Id = "7409bdab-317c-4741-a467-066dd7d5aaf5",
-                            ConcurrencyStamp = "98a1a444-6153-4a02-ab0f-3be2df6bc3b6",
-
+                            Id = "98ae7a85-5c83-4b2d-807a-d8bf8d055391",
+                            ConcurrencyStamp = "072fa2eb-3e4f-4fa9-87f7-4748a8a865e4",
                             Name = "user",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "0d552375-4dd0-44e8-bc73-b0c71251799f",
-                            ConcurrencyStamp = "e7325b2f-274f-4ee8-8ac9-d7338184aaa9",
+                            Id = "684c6f70-77e5-4c81-ab5d-2030767e2255",
+                            ConcurrencyStamp = "d5d335e8-81b9-4f68-bdff-70e8255297a0",
                             Name = "guest",
                             NormalizedName = "GUEST"
                         });

@@ -28,6 +28,6 @@ namespace FPTV.Models.DAL
         public Guid UserId { get; set; }
 
         [Display(Name = "User")]
-        public virtual Profile? User { get; set; }
+        public virtual Profile User { get; set; }
     }
 }

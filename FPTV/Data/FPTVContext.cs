@@ -75,6 +75,6 @@ namespace FPTV.Data
         public DbSet<Token> Token { get; set; }
         public DbSet<Mail> Mail { get; set; }
         public DbSet<AuthenticationRecovery> AuthenticationRecovery { get; set; }
-        public DbSet<AuthenticationChanges> AuthenticationChanges { get; set; }
+        public DbSet<AuthenticationChange> AuthenticationChanges { get; set; }
     }
 }

@@ -35,11 +35,11 @@ namespace FPTV.Models.DAL
         public Guid TopicId { get; set; }
 
         [Display(Name = "User")]
-        public virtual Profile? User { get; set; }
+        public virtual Profile User { get; set; }
 
         
         [Display(Name = "Topic")]
-        public virtual Topic? Topic { get; set; }
+        public virtual Topic Topic { get; set; }
 
         public ICollection<Reaction> Reactions { get; set; }
     }

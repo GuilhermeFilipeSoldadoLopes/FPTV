@@ -14,5 +14,53 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    
 }
+
+input[type=text], input[type=password] {
+    width: 100%;
+    margin: 8px 0;
+    padding: 12px 20px;
+    display: inline-block;
+    border: 1px solid black;
+    border-radius: 15px;
+}
+
+button {
+    background-color: #CC0033;
+    width: 30%;
+    color: white;
+    padding: 15px;
+    margin: 10px 0px;
+    border: none;
+    cursor: pointer;
+    border-radius: 15px;
+}
+textarea {
+    width: 100%;
+    margin: 8px 0;
+    padding: 12px;
+    border: 1px solid black;
+    border-radius: 15px;
+    resize: vertical;
+}
+
+.bodyLogin {
+    background-image: url('../images/background.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    
+}
+
+.form {
+    margin: auto;
+    width: 50%;
+    background-color:#8b8b8b;
+    border-radius:15px;
+    border: 1px solid black;
+}
+    .form p, a {
+        color: black;
+        font-family: Noto Sans;
+    }

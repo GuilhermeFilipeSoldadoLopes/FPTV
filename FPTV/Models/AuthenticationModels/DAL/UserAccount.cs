@@ -6,51 +6,49 @@ namespace FPTV.Models.Authentication.DAL
 {
     public class UserAccount
     {
-        [Key]
         [Display(Name = "ID")]
-        public Guid userAccountId { get; set; }
+        public Guid UserAccountId { get; set; }
 
         [Required]
         [Display(Name = "Authentication Type")]
-        [EnumDataType(typeof(AuthenticationTypes))]
-        public AuthenticationTypes authenticationType { get; set; }
+        [EnumDataType(typeof(AuthenticationType))]
+        public AuthenticationType AuthenticationType { get; set; }
 
         [Required]
         [Display(Name = "Email")]
         [EmailAddress]
         [MaxLength(250)]
-        public string email { get; set; }
+        public string Email { get; set; }
 
         [Required]
         [Display(Name = "Password")]
         [MaxLength(25)]
         [MinLength(6)]
         [DataType(DataType.Password)]
-        public string password { get; set; }
+        public string Password { get; set; }
 
         [Required]
         [Display(Name = "Validated")]
-        public bool validated { get; set; } = false;
+        public bool Validated { get; set; } = false;
 
         [Required]
         [Display(Name = "User Id")]
         [ForeignKey("User")]
-        public Guid userId { get; set; }
+        public Guid UserId { get; set; }
 
-        [Required]
         [Display(Name = "User")]
-        public Profile? user { get; set; }
+        public virtual Profile User { get; set; }
 
         [Required]
         [Display(Name = "Authentication Changes")]
-        private AuthenticationChanges _changes = new AuthenticationChanges();
+        private AuthenticationChange AuthenticationChange = new AuthenticationChange();
 
         [Required]
         [Display(Name = "Authentication Log")]
-        private AuthenticationLog _log = new AuthenticationLog();
+        private AuthenticationLog AuthenticationLog = new AuthenticationLog();
 
         [Required]
         [Display(Name = "Authentication Recovery")]
-        private AuthenticationRecovery _recovery = new AuthenticationRecovery();
+        private AuthenticationRecovery AuthenticationRecovery = new AuthenticationRecovery();
     }
 }

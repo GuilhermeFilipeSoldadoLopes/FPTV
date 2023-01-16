@@ -11,7 +11,7 @@ namespace FPTV.Models.DAL
 
         [Required]
         [Display(Name = "Reaction")]
-        public string ReactionCode { get; set; } //rever o nome reactioncode
+        public string ReactionCode { get; set; } //rever o nome reactioncode //ReactionEmoji - o que achas?
 
         [Required]
         [Display(Name = "User Id")]
