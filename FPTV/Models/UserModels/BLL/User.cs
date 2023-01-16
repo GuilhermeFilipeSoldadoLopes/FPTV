@@ -1,12 +1,6 @@
-using System.Runtime;
-using System.Xml.Linq;
-using FPTV.Data;
-using FPTV.Models.Authentication.DAL;
-using FPTV.Models.DAL;
-using Microsoft.EntityFrameworkCore;
-using static System.Formats.Asn1.AsnWriter;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+﻿using FPTV.Data;
 using FPTV.Models.UserModels.DAL;
+using FPTV.Models.AuthenticationModels.DAL;
 
 namespace FPTV.Models.UserModels.BLL
 {

@@ -1,8 +1,6 @@
-﻿using System.Linq;
-using System.Runtime.InteropServices;
-using FPTV.Data;
+﻿using FPTV.Data;
 using FPTV.Models.AuthenticationModels.DAL;
-using FPTV.Models.DAL;
+using FPTV.Models.UserModels.DAL;
 
 namespace FPTV.Models.AuthenticationModels.BLL
 {
@@ -52,7 +50,6 @@ namespace FPTV.Models.AuthenticationModels.BLL
             {
                 throw new ArgumentException(message: "User doesn't exist.", paramName: nameof(userID));
             }
-            
         }
 
         //Retorna o utilizador (Profile) atraves do ID da sua UserAccount (UserAccountId)

@@ -171,20 +171,19 @@ namespace FPTV.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    UserType = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UserType = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Flag = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Biography = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ProfilePictureId = table.Column<int>(type: "int", nullable: false),
                     RegistrationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    PictureId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    ProfilePictureId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Profile", x => x.UserId);
                     table.ForeignKey(
-                        name: "FK_Profile_ProfilePicture_PictureId",
-                        column: x => x.PictureId,
+                        name: "FK_Profile_ProfilePicture_ProfilePictureId",
+                        column: x => x.ProfilePictureId,
                         principalTable: "ProfilePicture",
                         principalColumn: "PictureId",
                         onDelete: ReferentialAction.Cascade);
@@ -276,19 +275,19 @@ namespace FPTV.Migrations
                 name: "UserAccount",
                 columns: table => new
                 {
-                    userAccountId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    authenticationType = table.Column<int>(type: "int", nullable: false),
-                    email = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
-                    password = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: false),
-                    validated = table.Column<bool>(type: "bit", nullable: false),
-                    userId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    UserAccountId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    AuthenticationType = table.Column<int>(type: "int", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: false),
+                    Validated = table.Column<bool>(type: "bit", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserAccount", x => x.userAccountId);
+                    table.PrimaryKey("PK_UserAccount", x => x.UserAccountId);
                     table.ForeignKey(
-                        name: "FK_UserAccount_Profile_userId",
-                        column: x => x.userId,
+                        name: "FK_UserAccount_Profile_UserId",
+                        column: x => x.UserId,
                         principalTable: "Profile",
                         principalColumn: "UserId",
                         onDelete: ReferentialAction.Cascade);
@@ -324,21 +323,21 @@ namespace FPTV.Migrations
                 name: "AuthenticationChanges",
                 columns: table => new
                 {
-                    AuthenticationChangesId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    token = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    password = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    changed = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    userAccountID = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    AuthenticationChangeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Token = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Changed = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UserAccountId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AuthenticationChanges", x => x.AuthenticationChangesId);
+                    table.PrimaryKey("PK_AuthenticationChanges", x => x.AuthenticationChangeId);
                     table.ForeignKey(
-                        name: "FK_AuthenticationChanges_UserAccount_userAccountID",
-                        column: x => x.userAccountID,
+                        name: "FK_AuthenticationChanges_UserAccount_UserAccountId",
+                        column: x => x.UserAccountId,
                         principalTable: "UserAccount",
-                        principalColumn: "userAccountId",
+                        principalColumn: "UserAccountId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -347,18 +346,18 @@ namespace FPTV.Migrations
                 columns: table => new
                 {
                     AuthenticationLogId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    authenticationType = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    userAccountID = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    AuthenticationType = table.Column<int>(type: "int", nullable: false),
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UserAccountId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AuthenticationLog", x => x.AuthenticationLogId);
                     table.ForeignKey(
-                        name: "FK_AuthenticationLog_UserAccount_userAccountID",
-                        column: x => x.userAccountID,
+                        name: "FK_AuthenticationLog_UserAccount_UserAccountId",
+                        column: x => x.UserAccountId,
                         principalTable: "UserAccount",
-                        principalColumn: "userAccountId",
+                        principalColumn: "UserAccountId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -367,19 +366,19 @@ namespace FPTV.Migrations
                 columns: table => new
                 {
                     AuthenticationRecoveryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    token = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    newPassword = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    confirmNewPassword = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    userAccountID = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    Token = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    NewPassword = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ConfirmNewPassword = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UserAccountId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AuthenticationRecovery", x => x.AuthenticationRecoveryId);
                     table.ForeignKey(
-                        name: "FK_AuthenticationRecovery_UserAccount_userAccountID",
-                        column: x => x.userAccountID,
+                        name: "FK_AuthenticationRecovery_UserAccount_UserAccountId",
+                        column: x => x.UserAccountId,
                         principalTable: "UserAccount",
-                        principalColumn: "userAccountId",
+                        principalColumn: "UserAccountId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -387,21 +386,21 @@ namespace FPTV.Migrations
                 name: "Mail",
                 columns: table => new
                 {
-                    mailId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    message = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
-                    senderMail = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
-                    receiverMail = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
-                    sendedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    userAccountID = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    MailId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Message = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
+                    SenderMail = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    ReceiverMail = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    SentDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UserAccountId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Mail", x => x.mailId);
+                    table.PrimaryKey("PK_Mail", x => x.MailId);
                     table.ForeignKey(
-                        name: "FK_Mail_UserAccount_userAccountID",
-                        column: x => x.userAccountID,
+                        name: "FK_Mail_UserAccount_UserAccountId",
+                        column: x => x.UserAccountId,
                         principalTable: "UserAccount",
-                        principalColumn: "userAccountId",
+                        principalColumn: "UserAccountId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -409,21 +408,21 @@ namespace FPTV.Migrations
                 name: "Token",
                 columns: table => new
                 {
-                    tokenId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    token = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    email = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
-                    startTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    endTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    userAccountID = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    TokenId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    TokenString = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    StartTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EndTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UserAccountId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Token", x => x.tokenId);
+                    table.PrimaryKey("PK_Token", x => x.TokenId);
                     table.ForeignKey(
-                        name: "FK_Token_UserAccount_userAccountID",
-                        column: x => x.userAccountID,
+                        name: "FK_Token_UserAccount_UserAccountId",
+                        column: x => x.UserAccountId,
                         principalTable: "UserAccount",
-                        principalColumn: "userAccountId",
+                        principalColumn: "UserAccountId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -457,10 +456,10 @@ namespace FPTV.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "0d552375-4dd0-44e8-bc73-b0c71251799f", "e7325b2f-274f-4ee8-8ac9-d7338184aaa9", "guest", "GUEST" },
-                    { "3f882831-1b67-470e-93c1-ee1bbb2ef6c7", "ae6ad8e6-b03c-49b2-9777-457ff5401804", "admin", "ADMIN" },
-                    { "7409bdab-317c-4741-a467-066dd7d5aaf5", "98a1a444-6153-4a02-ab0f-3be2df6bc3b6", "user", "USER" },
-                    { "dda8796e-0a8d-4346-afbd-37b5dc8985c1", "7a052a8e-a9f1-44b4-85c0-43c620f8e021", "moderator", "MODERATOR" }
+                    { "2428f028-331b-4e75-ba01-3eb8dd52af19", "a6297475-3b60-4097-869e-562d2205b59c", "user", "USER" },
+                    { "baca02c2-749d-4d31-b9a0-3d3369f7dc8a", "d47fc000-1b99-4ace-8ad4-23425d344dee", "moderator", "MODERATOR" },
+                    { "bc5743d6-3cc0-4f2e-94dc-464f11077f81", "9ab3a5ed-cf5a-4d11-959b-dd68415d5e7d", "guest", "GUEST" },
+                    { "c471a236-28f3-4bc0-8019-78499ddf3c53", "5d158f50-cfb0-4c94-b1a1-029571f531ea", "admin", "ADMIN" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -503,19 +502,19 @@ namespace FPTV.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AuthenticationChanges_userAccountID",
+                name: "IX_AuthenticationChanges_UserAccountId",
                 table: "AuthenticationChanges",
-                column: "userAccountID");
+                column: "UserAccountId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AuthenticationLog_userAccountID",
+                name: "IX_AuthenticationLog_UserAccountId",
                 table: "AuthenticationLog",
-                column: "userAccountID");
+                column: "UserAccountId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AuthenticationRecovery_userAccountID",
+                name: "IX_AuthenticationRecovery_UserAccountId",
                 table: "AuthenticationRecovery",
-                column: "userAccountID");
+                column: "UserAccountId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Comments_TopicId",
@@ -543,14 +542,14 @@ namespace FPTV.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Mail_userAccountID",
+                name: "IX_Mail_UserAccountId",
                 table: "Mail",
-                column: "userAccountID");
+                column: "UserAccountId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Profile_PictureId",
+                name: "IX_Profile_ProfilePictureId",
                 table: "Profile",
-                column: "PictureId");
+                column: "ProfilePictureId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Reactions_CommentId",
@@ -563,9 +562,9 @@ namespace FPTV.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Token_userAccountID",
+                name: "IX_Token_UserAccountId",
                 table: "Token",
-                column: "userAccountID");
+                column: "UserAccountId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Topics_UserId",
@@ -573,9 +572,9 @@ namespace FPTV.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserAccount_userId",
+                name: "IX_UserAccount_UserId",
                 table: "UserAccount",
-                column: "userId");
+                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

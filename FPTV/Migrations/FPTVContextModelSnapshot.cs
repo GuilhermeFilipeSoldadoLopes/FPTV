@@ -201,7 +201,7 @@ namespace FPTV.Migrations
                     b.ToTable("UserAccount");
                 });
 
-            modelBuilder.Entity("FPTV.Models.DAL.Comment", b =>
+            modelBuilder.Entity("FPTV.Models.UserModels.DAL.Comment", b =>
                 {
                     b.Property<Guid>("CommentId")
                         .ValueGeneratedOnAdd()
@@ -229,7 +229,7 @@ namespace FPTV.Migrations
                     b.ToTable("Comments");
                 });
 
-            modelBuilder.Entity("FPTV.Models.DAL.ErrorLog", b =>
+            modelBuilder.Entity("FPTV.Models.UserModels.DAL.ErrorLog", b =>
                 {
                     b.Property<Guid>("ErrorLogId")
                         .ValueGeneratedOnAdd()
@@ -252,7 +252,7 @@ namespace FPTV.Migrations
                     b.ToTable("ErrorLog");
                 });
 
-            modelBuilder.Entity("FPTV.Models.DAL.FavPlayerList", b =>
+            modelBuilder.Entity("FPTV.Models.UserModels.DAL.FavPlayerList", b =>
                 {
                     b.Property<Guid>("FavPlayerListId")
                         .ValueGeneratedOnAdd()
@@ -280,7 +280,7 @@ namespace FPTV.Migrations
                     b.ToTable("FavPlayerList");
                 });
 
-            modelBuilder.Entity("FPTV.Models.DAL.FavTeamsList", b =>
+            modelBuilder.Entity("FPTV.Models.UserModels.DAL.FavTeamsList", b =>
                 {
                     b.Property<Guid>("FavTeamsListId")
                         .ValueGeneratedOnAdd()
@@ -304,7 +304,7 @@ namespace FPTV.Migrations
                     b.ToTable("FavTeamsList");
                 });
 
-            modelBuilder.Entity("FPTV.Models.DAL.Profile", b =>
+            modelBuilder.Entity("FPTV.Models.UserModels.DAL.Profile", b =>
                 {
                     b.Property<Guid>("UserId")
                         .ValueGeneratedOnAdd()
@@ -328,9 +328,8 @@ namespace FPTV.Migrations
                     b.Property<DateTime>("RegistrationDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("UserType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("UserType")
+                        .HasColumnType("int");
 
                     b.HasKey("UserId");
 
@@ -339,7 +338,7 @@ namespace FPTV.Migrations
                     b.ToTable("Profile");
                 });
 
-            modelBuilder.Entity("FPTV.Models.DAL.ProfilePicture", b =>
+            modelBuilder.Entity("FPTV.Models.UserModels.DAL.ProfilePicture", b =>
                 {
                     b.Property<Guid>("PictureId")
                         .ValueGeneratedOnAdd()
@@ -354,7 +353,7 @@ namespace FPTV.Migrations
                     b.ToTable("ProfilePicture");
                 });
 
-            modelBuilder.Entity("FPTV.Models.DAL.Reaction", b =>
+            modelBuilder.Entity("FPTV.Models.UserModels.DAL.Reaction", b =>
                 {
                     b.Property<Guid>("ReactionId")
                         .ValueGeneratedOnAdd()
@@ -379,7 +378,7 @@ namespace FPTV.Migrations
                     b.ToTable("Reactions");
                 });
 
-            modelBuilder.Entity("FPTV.Models.DAL.Topic", b =>
+            modelBuilder.Entity("FPTV.Models.UserModels.DAL.Topic", b =>
                 {
                     b.Property<Guid>("TopicId")
                         .ValueGeneratedOnAdd()
@@ -435,29 +434,29 @@ namespace FPTV.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "e900af81-115d-415f-bdd7-490f17689c7f",
-                            ConcurrencyStamp = "4d77b9b8-0e69-49fd-a876-fda8abe89a62",
+                            Id = "c471a236-28f3-4bc0-8019-78499ddf3c53",
+                            ConcurrencyStamp = "5d158f50-cfb0-4c94-b1a1-029571f531ea",
                             Name = "admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "42f4db56-50fb-4b82-8076-897f52b41e4e",
-                            ConcurrencyStamp = "0045b022-b5c8-4675-9b21-a3ddc7a3e97a",
+                            Id = "baca02c2-749d-4d31-b9a0-3d3369f7dc8a",
+                            ConcurrencyStamp = "d47fc000-1b99-4ace-8ad4-23425d344dee",
                             Name = "moderator",
                             NormalizedName = "MODERATOR"
                         },
                         new
                         {
-                            Id = "bde78809-664d-47d8-ade8-8006739d076e",
-                            ConcurrencyStamp = "b74c20a4-bb93-47d2-b409-c08cb0f89e35",
+                            Id = "2428f028-331b-4e75-ba01-3eb8dd52af19",
+                            ConcurrencyStamp = "a6297475-3b60-4097-869e-562d2205b59c",
                             Name = "user",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "8350e83e-1e22-4af8-b2bc-d31d7f03d6a4",
-                            ConcurrencyStamp = "efb299ce-c9a5-49c8-8da9-c922eef7755a",
+                            Id = "bc5743d6-3cc0-4f2e-94dc-464f11077f81",
+                            ConcurrencyStamp = "9ab3a5ed-cf5a-4d11-959b-dd68415d5e7d",
                             Name = "guest",
                             NormalizedName = "GUEST"
                         });
@@ -695,7 +694,7 @@ namespace FPTV.Migrations
 
             modelBuilder.Entity("FPTV.Models.AuthenticationModels.DAL.UserAccount", b =>
                 {
-                    b.HasOne("FPTV.Models.DAL.Profile", "User")
+                    b.HasOne("FPTV.Models.UserModels.DAL.Profile", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -704,15 +703,15 @@ namespace FPTV.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("FPTV.Models.DAL.Comment", b =>
+            modelBuilder.Entity("FPTV.Models.UserModels.DAL.Comment", b =>
                 {
-                    b.HasOne("FPTV.Models.DAL.Topic", "Topic")
+                    b.HasOne("FPTV.Models.UserModels.DAL.Topic", "Topic")
                         .WithMany("Comments")
                         .HasForeignKey("TopicId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("FPTV.Models.DAL.Profile", "User")
+                    b.HasOne("FPTV.Models.UserModels.DAL.Profile", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -723,9 +722,9 @@ namespace FPTV.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("FPTV.Models.DAL.ErrorLog", b =>
+            modelBuilder.Entity("FPTV.Models.UserModels.DAL.ErrorLog", b =>
                 {
-                    b.HasOne("FPTV.Models.DAL.Profile", "User")
+                    b.HasOne("FPTV.Models.UserModels.DAL.Profile", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -734,9 +733,9 @@ namespace FPTV.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("FPTV.Models.DAL.FavPlayerList", b =>
+            modelBuilder.Entity("FPTV.Models.UserModels.DAL.FavPlayerList", b =>
                 {
-                    b.HasOne("FPTV.Models.DAL.Profile", "User")
+                    b.HasOne("FPTV.Models.UserModels.DAL.Profile", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -745,9 +744,9 @@ namespace FPTV.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("FPTV.Models.DAL.FavTeamsList", b =>
+            modelBuilder.Entity("FPTV.Models.UserModels.DAL.FavTeamsList", b =>
                 {
-                    b.HasOne("FPTV.Models.DAL.Profile", "User")
+                    b.HasOne("FPTV.Models.UserModels.DAL.Profile", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -756,9 +755,9 @@ namespace FPTV.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("FPTV.Models.DAL.Profile", b =>
+            modelBuilder.Entity("FPTV.Models.UserModels.DAL.Profile", b =>
                 {
-                    b.HasOne("FPTV.Models.DAL.ProfilePicture", "Picture")
+                    b.HasOne("FPTV.Models.UserModels.DAL.ProfilePicture", "Picture")
                         .WithMany()
                         .HasForeignKey("ProfilePictureId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -767,15 +766,15 @@ namespace FPTV.Migrations
                     b.Navigation("Picture");
                 });
 
-            modelBuilder.Entity("FPTV.Models.DAL.Reaction", b =>
+            modelBuilder.Entity("FPTV.Models.UserModels.DAL.Reaction", b =>
                 {
-                    b.HasOne("FPTV.Models.DAL.Comment", "Comment")
+                    b.HasOne("FPTV.Models.UserModels.DAL.Comment", "Comment")
                         .WithMany("Reactions")
                         .HasForeignKey("CommentId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("FPTV.Models.DAL.Profile", "User")
+                    b.HasOne("FPTV.Models.UserModels.DAL.Profile", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -786,9 +785,9 @@ namespace FPTV.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("FPTV.Models.DAL.Topic", b =>
+            modelBuilder.Entity("FPTV.Models.UserModels.DAL.Topic", b =>
                 {
-                    b.HasOne("FPTV.Models.DAL.Profile", "User")
+                    b.HasOne("FPTV.Models.UserModels.DAL.Profile", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -848,12 +847,12 @@ namespace FPTV.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("FPTV.Models.DAL.Comment", b =>
+            modelBuilder.Entity("FPTV.Models.UserModels.DAL.Comment", b =>
                 {
                     b.Navigation("Reactions");
                 });
 
-            modelBuilder.Entity("FPTV.Models.DAL.Topic", b =>
+            modelBuilder.Entity("FPTV.Models.UserModels.DAL.Topic", b =>
                 {
                     b.Navigation("Comments");
                 });

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using FPTV.Models.DAL;
+using FPTV.Models.UserModels.DAL;
 
 namespace FPTV.Models.AuthenticationModels.DAL
 {
