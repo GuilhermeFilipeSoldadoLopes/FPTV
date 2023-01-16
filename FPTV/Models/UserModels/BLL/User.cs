@@ -7,7 +7,7 @@ using FPTV.Models.BLL;
 using Microsoft.EntityFrameworkCore;
 using static System.Formats.Asn1.AsnWriter;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
-
+using FPTV.Models.UserModels.DAL;
 
 namespace FPTV.Models.BLL
 {
@@ -81,6 +81,47 @@ namespace FPTV.Models.BLL
         {
             return _context.FavTeamsList.ToList().FindAll(u => u.UserId == userID);
         }
+
+        //Retorna o tipo de utilizador a partir do User ID
+        public UserType getUserTypeByUserID(FPTVContext _context, Guid userID)
+        {
+            if (existProfileAccount(_context, userID))
+            {
+                return getProfileByUserID(_context, userID).UserType;
+            }
+            else
+            {
+                throw new ArgumentException(message: "Profile doesn't exist.", paramName: nameof(userID));
+            }
+        }
+
+        //Retorna a UserAccount de um utilizador atraves do seu ID (UserId)
+        public UserAccount getUserAccountByUserID(FPTVContext _context, Guid userID)
+        {
+            if (existUserAccount(_context, userID))
+            {
+                return _context.UserAccount.FirstOrDefault(u => u.UserId == userID);
+            }
+            else
+            {
+                throw new ArgumentException(message: "User doesn't exist.", paramName: nameof(userID));
+            }
+        }
+
+        //Retorna o ID do utilizador (UserId) atraves do ID da sua UserAccount (UserAccountId)
+        public Guid getProfileIDByUserAccounID(FPTVContext _context, Guid userAccounID)
+        {
+            if (getUserAccounts(_context).Any(u => u.UserAccountId == userAccounID))
+            {
+                return _context.UserAccount.FirstOrDefault(u => u.UserAccountId == userAccounID).UserId;
+            }
+            else
+            {
+                throw new ArgumentException(message: "User doesn't exist.", paramName: nameof(userAccounID));
+            }
+        }
+
+        //alterar namespaces meter tudo com ....usermodels....
     }
 }
 
