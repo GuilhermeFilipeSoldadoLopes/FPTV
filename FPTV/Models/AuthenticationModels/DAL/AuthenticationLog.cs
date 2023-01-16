@@ -11,7 +11,7 @@ namespace FPTV.Models.AuthenticationModels.DAL
         [Required]
         [Display(Name = "Authentication Type")]
         [EnumDataType(typeof(AuthenticationType))]
-        public string AuthenticationType { get; set; }
+        public AuthenticationType AuthenticationType { get; set; }
 
         [Required]
         [Display(Name = "Date")]
