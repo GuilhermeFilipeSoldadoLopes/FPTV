@@ -12,11 +12,11 @@ var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
 var configuration = builder.Configuration;
 
-services.AddAuthentication().AddGoogle(googleOptions =>
-{
-    googleOptions.ClientId = configuration["Authentication:Google:323000720092-352meoi1hgmc6n2ff7aot27ohrnhkc28.apps.googleusercontent.com"];
-    googleOptions.ClientSecret = configuration["Authentication:Google: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"];
-});
+//services.AddAuthentication().AddGoogle(googleOptions =>
+//{
+//    googleOptions.ClientId = configuration["Authentication:Google:323000720092-352meoi1hgmc6n2ff7aot27ohrnhkc28.apps.googleusercontent.com"];
+//    googleOptions.ClientSecret = configuration["Authentication:Google:ClientSecret"];
+//});
 
 var connectionString = builder.Configuration.GetConnectionString("FPTV_Context");
 builder.Services.AddDbContext<FPTVContext>(options =>
