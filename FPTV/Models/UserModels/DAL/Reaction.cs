@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Xml.Linq;
 
-namespace FPTV.Models.DAL
+namespace FPTV.Models.UserModels.DAL
 {
     public class Reaction
     {

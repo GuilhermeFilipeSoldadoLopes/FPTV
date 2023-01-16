@@ -1,9 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+﻿using FPTV.Models.Authentication.DAL;
+using FPTV.Models.UserModels.DAL;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Xml.Linq;
 
-namespace FPTV.Models.DAL
+namespace FPTV.Models.UserModels.DAL
 {
     public class Profile
     {
@@ -13,7 +15,8 @@ namespace FPTV.Models.DAL
 
         [Required]
         [Display(Name = "User Type")]
-        public string UserType { get; set; }
+        [EnumDataType(typeof(UserType))]
+        public UserType UserType { get; set; }
 
         [Required]
         [Display(Name = "Name")]
