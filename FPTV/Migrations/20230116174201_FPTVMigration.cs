@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
@@ -175,16 +175,15 @@ namespace FPTV.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Flag = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Biography = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ProfilePictureId = table.Column<int>(type: "int", nullable: false),
                     RegistrationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    PictureId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    ProfilePictureId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Profile", x => x.UserId);
                     table.ForeignKey(
-                        name: "FK_Profile_ProfilePicture_PictureId",
-                        column: x => x.PictureId,
+                        name: "FK_Profile_ProfilePicture_ProfilePictureId",
+                        column: x => x.ProfilePictureId,
                         principalTable: "ProfilePicture",
                         principalColumn: "PictureId",
                         onDelete: ReferentialAction.Cascade);
@@ -321,7 +320,7 @@ namespace FPTV.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AuthenticationChange",
+                name: "AuthenticationChanges",
                 columns: table => new
                 {
                     AuthenticationChangeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -347,7 +346,7 @@ namespace FPTV.Migrations
                 columns: table => new
                 {
                     AuthenticationLogId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    AuthenticationType = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AuthenticationType = table.Column<int>(type: "int", nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UserAccountId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
@@ -457,10 +456,10 @@ namespace FPTV.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "1298bf4a-83e1-4c0a-85e0-93c4a2e7365b", "95a49648-81e7-4806-8f60-c3403481ef14", "user", "USER" },
-                    { "57ac8906-b854-43c3-886f-8365a99994d1", "2a6a0e21-5e2e-42cc-b77c-23e8115448e9", "guest", "GUEST" },
-                    { "8e29b866-17fe-46d9-8a5d-1f982875e0f5", "a0c3a8c3-dc61-4c18-91f7-fade2edc1b4e", "admin", "ADMIN" },
-                    { "a6e89dae-69ea-4496-bd20-8a7e92562e0b", "4e691710-063b-4071-a60b-4afe5f36a3ca", "moderator", "MODERATOR" }
+                    { "42f4db56-50fb-4b82-8076-897f52b41e4e", "0045b022-b5c8-4675-9b21-a3ddc7a3e97a", "moderator", "MODERATOR" },
+                    { "8350e83e-1e22-4af8-b2bc-d31d7f03d6a4", "efb299ce-c9a5-49c8-8da9-c922eef7755a", "guest", "GUEST" },
+                    { "bde78809-664d-47d8-ade8-8006739d076e", "b74c20a4-bb93-47d2-b409-c08cb0f89e35", "user", "USER" },
+                    { "e900af81-115d-415f-bdd7-490f17689c7f", "4d77b9b8-0e69-49fd-a876-fda8abe89a62", "admin", "ADMIN" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -548,9 +547,9 @@ namespace FPTV.Migrations
                 column: "UserAccountId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Profile_PictureId",
+                name: "IX_Profile_ProfilePictureId",
                 table: "Profile",
-                column: "PictureId");
+                column: "ProfilePictureId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Reactions_CommentId",
@@ -596,7 +595,7 @@ namespace FPTV.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "AuthenticationChange");
+                name: "AuthenticationChanges");
 
             migrationBuilder.DropTable(
                 name: "AuthenticationLog");

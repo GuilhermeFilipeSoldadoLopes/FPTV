@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FPTV.Migrations
 {
     [DbContext(typeof(FPTVContext))]
-    [Migration("20230115171444_FPTVMigration")]
+    [Migration("20230116174201_FPTVMigration")]
     partial class FPTVMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,7 +24,7 @@ namespace FPTV.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("FPTV.Models.Authentication.DAL.AuthenticationChange", b =>
+            modelBuilder.Entity("FPTV.Models.AuthenticationModels.DAL.AuthenticationChange", b =>
                 {
                     b.Property<Guid>("AuthenticationChangeId")
                         .ValueGeneratedOnAdd()
@@ -56,15 +56,14 @@ namespace FPTV.Migrations
                     b.ToTable("AuthenticationChanges");
                 });
 
-            modelBuilder.Entity("FPTV.Models.Authentication.DAL.AuthenticationLog", b =>
+            modelBuilder.Entity("FPTV.Models.AuthenticationModels.DAL.AuthenticationLog", b =>
                 {
                     b.Property<Guid>("AuthenticationLogId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("AuthenticationType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("AuthenticationType")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
@@ -79,7 +78,7 @@ namespace FPTV.Migrations
                     b.ToTable("AuthenticationLog");
                 });
 
-            modelBuilder.Entity("FPTV.Models.Authentication.DAL.AuthenticationRecovery", b =>
+            modelBuilder.Entity("FPTV.Models.AuthenticationModels.DAL.AuthenticationRecovery", b =>
                 {
                     b.Property<Guid>("AuthenticationRecoveryId")
                         .ValueGeneratedOnAdd()
@@ -107,7 +106,7 @@ namespace FPTV.Migrations
                     b.ToTable("AuthenticationRecovery");
                 });
 
-            modelBuilder.Entity("FPTV.Models.Authentication.DAL.Mail", b =>
+            modelBuilder.Entity("FPTV.Models.AuthenticationModels.DAL.Mail", b =>
                 {
                     b.Property<Guid>("MailId")
                         .ValueGeneratedOnAdd()
@@ -141,7 +140,7 @@ namespace FPTV.Migrations
                     b.ToTable("Mail");
                 });
 
-            modelBuilder.Entity("FPTV.Models.Authentication.DAL.Token", b =>
+            modelBuilder.Entity("FPTV.Models.AuthenticationModels.DAL.Token", b =>
                 {
                     b.Property<Guid>("TokenId")
                         .ValueGeneratedOnAdd()
@@ -172,7 +171,7 @@ namespace FPTV.Migrations
                     b.ToTable("Token");
                 });
 
-            modelBuilder.Entity("FPTV.Models.Authentication.DAL.UserAccount", b =>
+            modelBuilder.Entity("FPTV.Models.AuthenticationModels.DAL.UserAccount", b =>
                 {
                     b.Property<Guid>("UserAccountId")
                         .ValueGeneratedOnAdd()
@@ -325,11 +324,8 @@ namespace FPTV.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("PictureId")
+                    b.Property<Guid>("ProfilePictureId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("ProfilePictureId")
-                        .HasColumnType("int");
 
                     b.Property<DateTime>("RegistrationDate")
                         .HasColumnType("datetime2");
@@ -340,7 +336,7 @@ namespace FPTV.Migrations
 
                     b.HasKey("UserId");
 
-                    b.HasIndex("PictureId");
+                    b.HasIndex("ProfilePictureId");
 
                     b.ToTable("Profile");
                 });
@@ -441,29 +437,29 @@ namespace FPTV.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "a489f99d-ff29-491a-9e95-46c53e55710c",
-                            ConcurrencyStamp = "09417b48-9882-4bb5-87a6-88735298a2ad",
+                            Id = "e900af81-115d-415f-bdd7-490f17689c7f",
+                            ConcurrencyStamp = "4d77b9b8-0e69-49fd-a876-fda8abe89a62",
                             Name = "admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "4ce353bd-53a0-45e8-98da-054a07f81947",
-                            ConcurrencyStamp = "a18770dc-cf8e-4aff-a260-36c20c825f23",
+                            Id = "42f4db56-50fb-4b82-8076-897f52b41e4e",
+                            ConcurrencyStamp = "0045b022-b5c8-4675-9b21-a3ddc7a3e97a",
                             Name = "moderator",
                             NormalizedName = "MODERATOR"
                         },
                         new
                         {
-                            Id = "98ae7a85-5c83-4b2d-807a-d8bf8d055391",
-                            ConcurrencyStamp = "072fa2eb-3e4f-4fa9-87f7-4748a8a865e4",
+                            Id = "bde78809-664d-47d8-ade8-8006739d076e",
+                            ConcurrencyStamp = "b74c20a4-bb93-47d2-b409-c08cb0f89e35",
                             Name = "user",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "684c6f70-77e5-4c81-ab5d-2030767e2255",
-                            ConcurrencyStamp = "d5d335e8-81b9-4f68-bdff-70e8255297a0",
+                            Id = "8350e83e-1e22-4af8-b2bc-d31d7f03d6a4",
+                            ConcurrencyStamp = "efb299ce-c9a5-49c8-8da9-c922eef7755a",
                             Name = "guest",
                             NormalizedName = "GUEST"
                         });
@@ -644,9 +640,9 @@ namespace FPTV.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("FPTV.Models.Authentication.DAL.AuthenticationChange", b =>
+            modelBuilder.Entity("FPTV.Models.AuthenticationModels.DAL.AuthenticationChange", b =>
                 {
-                    b.HasOne("FPTV.Models.Authentication.DAL.UserAccount", "UserAccount")
+                    b.HasOne("FPTV.Models.AuthenticationModels.DAL.UserAccount", "UserAccount")
                         .WithMany()
                         .HasForeignKey("UserAccountId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -655,9 +651,9 @@ namespace FPTV.Migrations
                     b.Navigation("UserAccount");
                 });
 
-            modelBuilder.Entity("FPTV.Models.Authentication.DAL.AuthenticationLog", b =>
+            modelBuilder.Entity("FPTV.Models.AuthenticationModels.DAL.AuthenticationLog", b =>
                 {
-                    b.HasOne("FPTV.Models.Authentication.DAL.UserAccount", "UserAccount")
+                    b.HasOne("FPTV.Models.AuthenticationModels.DAL.UserAccount", "UserAccount")
                         .WithMany()
                         .HasForeignKey("UserAccountId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -666,9 +662,9 @@ namespace FPTV.Migrations
                     b.Navigation("UserAccount");
                 });
 
-            modelBuilder.Entity("FPTV.Models.Authentication.DAL.AuthenticationRecovery", b =>
+            modelBuilder.Entity("FPTV.Models.AuthenticationModels.DAL.AuthenticationRecovery", b =>
                 {
-                    b.HasOne("FPTV.Models.Authentication.DAL.UserAccount", "UserAccount")
+                    b.HasOne("FPTV.Models.AuthenticationModels.DAL.UserAccount", "UserAccount")
                         .WithMany()
                         .HasForeignKey("UserAccountId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -677,9 +673,9 @@ namespace FPTV.Migrations
                     b.Navigation("UserAccount");
                 });
 
-            modelBuilder.Entity("FPTV.Models.Authentication.DAL.Mail", b =>
+            modelBuilder.Entity("FPTV.Models.AuthenticationModels.DAL.Mail", b =>
                 {
-                    b.HasOne("FPTV.Models.Authentication.DAL.UserAccount", "UserAccount")
+                    b.HasOne("FPTV.Models.AuthenticationModels.DAL.UserAccount", "UserAccount")
                         .WithMany()
                         .HasForeignKey("UserAccountId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -688,9 +684,9 @@ namespace FPTV.Migrations
                     b.Navigation("UserAccount");
                 });
 
-            modelBuilder.Entity("FPTV.Models.Authentication.DAL.Token", b =>
+            modelBuilder.Entity("FPTV.Models.AuthenticationModels.DAL.Token", b =>
                 {
-                    b.HasOne("FPTV.Models.Authentication.DAL.UserAccount", "UserAccount")
+                    b.HasOne("FPTV.Models.AuthenticationModels.DAL.UserAccount", "UserAccount")
                         .WithMany()
                         .HasForeignKey("UserAccountId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -699,7 +695,7 @@ namespace FPTV.Migrations
                     b.Navigation("UserAccount");
                 });
 
-            modelBuilder.Entity("FPTV.Models.Authentication.DAL.UserAccount", b =>
+            modelBuilder.Entity("FPTV.Models.AuthenticationModels.DAL.UserAccount", b =>
                 {
                     b.HasOne("FPTV.Models.DAL.Profile", "User")
                         .WithMany()
@@ -766,7 +762,7 @@ namespace FPTV.Migrations
                 {
                     b.HasOne("FPTV.Models.DAL.ProfilePicture", "Picture")
                         .WithMany()
-                        .HasForeignKey("PictureId")
+                        .HasForeignKey("ProfilePictureId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
