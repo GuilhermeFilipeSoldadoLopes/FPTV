@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace FPTV.Models.Authentication.DAL
+namespace FPTV.Models.AuthenticationModels.DAL
 {
     public class AuthenticationRecovery
     {

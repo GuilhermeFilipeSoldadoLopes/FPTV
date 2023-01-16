@@ -1,9 +1,7 @@
-﻿using System.Linq;
-using System.Runtime.InteropServices;
-using FPTV.Data;
-using FPTV.Models.Authentication.DAL;
+﻿using FPTV.Data;
+using FPTV.Models.AuthenticationModels.DAL;
 
-namespace FPTV.Models.Authentication.BLL
+namespace FPTV.Models.AuthenticationModels.BLL
 {
     public class Authentication
     {
@@ -58,7 +56,7 @@ namespace FPTV.Models.Authentication.BLL
             {
                 throw new ArgumentException(message: "User doesn't exist.", paramName: nameof(userID));
             }
-            
+
         }
 
         //Retorna o tipo de autenticao (Acccount, Steam, Google) do utilizador atraves do seu ID (UserId)

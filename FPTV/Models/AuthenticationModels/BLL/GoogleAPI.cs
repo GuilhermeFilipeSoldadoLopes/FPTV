@@ -1,4 +1,4 @@
-﻿namespace FPTV.Models.Authentication.BLL
+﻿namespace FPTV.Models.AuthenticationModels.BLL
 {
     public class GoogleAPI
     {
