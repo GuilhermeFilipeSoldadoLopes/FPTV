@@ -12,11 +12,11 @@ var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
 var configuration = builder.Configuration;
 
-//services.AddAuthentication().AddGoogle(googleOptions =>
-//{
-//    googleOptions.ClientId = configuration["Authentication:Google:323000720092-352meoi1hgmc6n2ff7aot27ohrnhkc28.apps.googleusercontent.com"];
-//    googleOptions.ClientSecret = configuration["Authentication:Google:ClientSecret"];
-//});
+services.AddAuthentication().AddGoogle(googleOptions =>
+{
+    googleOptions.ClientId = configuration["Authentication:Google:ClientId"];
+    googleOptions.ClientSecret = configuration["Authentication:Google:ClientSecret"];
+});
 
 var connectionString = builder.Configuration.GetConnectionString("FPTV_Context");
 builder.Services.AddDbContext<FPTVContext>(options =>
@@ -24,6 +24,9 @@ builder.Services.AddDbContext<FPTVContext>(options =>
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<FPTVContext>();
+
+//builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+//    .AddEntityFrameworkStores<FPTVContext>();
 builder.Services.AddControllersWithViews();
 
 
