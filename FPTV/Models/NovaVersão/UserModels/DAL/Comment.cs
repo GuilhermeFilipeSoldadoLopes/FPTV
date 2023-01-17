@@ -29,7 +29,7 @@ namespace FPTV.Models.NovaVersão.UserModels.DAL
         public Guid TopicId { get; set; }
 
         [Display(Name = "User")]
-        public virtual Profile User { get; set; }
+        public virtual Profile Profile { get; set; }
 
 
         [Display(Name = "Topic")]

@@ -27,7 +27,7 @@ namespace FPTV.Models.NovaVersão.UserModels.DAL
         public Guid UserId { get; set; }
 
         [Display(Name = "User")]
-        public virtual Profile User { get; set; }
+        public virtual Profile Profile { get; set; }
 
         public ICollection<Comment> Comments { get; set; }
     }

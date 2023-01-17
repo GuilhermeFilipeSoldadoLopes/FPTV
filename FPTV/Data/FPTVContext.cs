@@ -1,4 +1,4 @@
-﻿using FPTV.Models.AntigaVersão.AuthenticationModels.DAL;
+﻿
 using FPTV.Models.NovaVersão.UserModels.DAL;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -64,11 +64,16 @@ namespace FPTV.Data
         public DbSet<Topic> Topics { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Reaction> Reactions { get; set; }
-        public DbSet<UserAccount> UserAccount { get; set; }
+        public DbSet<UserBase> UserBase { get; set; }
+        public DbSet<Admin> Admin { get; set; }
+        public DbSet<Moderator> Moderator { get; set; }
+        public DbSet<User> User { get; set; }
+
+        /*public DbSet<UserAccount> UserAccount { get; set; }
         public DbSet<AuthenticationLog> AuthenticationLog { get; set; }
         public DbSet<Token> Token { get; set; }
         public DbSet<Mail> Mail { get; set; }
         public DbSet<AuthenticationRecovery> AuthenticationRecovery { get; set; }
-        public DbSet<AuthenticationChange> AuthenticationChanges { get; set; }
+        public DbSet<AuthenticationChange> AuthenticationChanges { get; set; }*/
     }
 }
