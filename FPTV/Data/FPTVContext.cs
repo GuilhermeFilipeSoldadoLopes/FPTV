@@ -1,5 +1,5 @@
 ﻿using FPTV.Models.AuthenticationModels.DAL;
-using FPTV.Models.UserModels.DAL;
+using FPTV.Models.NovaVersão.UserModels.DAL;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
