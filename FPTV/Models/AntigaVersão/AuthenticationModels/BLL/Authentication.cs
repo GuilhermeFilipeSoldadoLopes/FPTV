@@ -1,4 +1,4 @@
-﻿using FPTV.Data;
+﻿/*using FPTV.Data;
 using FPTV.Models.AuthenticationModels.DAL;
 using FPTV.Models.NovaVersão.UserModels.DAL;
 
@@ -69,14 +69,14 @@ namespace FPTV.Models.AuthenticationModels.BLL
         public Profile getProfileByUserID(FPTVContext _context, Guid userID)
         {
             return _context.Profile.FirstOrDefault(p => p.UserId == userID);
-            /*if ()
+            if ()
             {
                 return _context.Profile.FirstOrDefault(p => p.UserId == userID);
             }
             else
             {
                 throw new ArgumentException(message: "User doesn't exist.", paramName: nameof(userID));
-            }*/
+            }
         }
 
         //Retorna o ID do utilizador (UserId) atraves do ID da sua UserAccount (UserAccountId)
@@ -140,3 +140,4 @@ namespace FPTV.Models.AuthenticationModels.BLL
         }
     }
 }
+*/

@@ -4,7 +4,6 @@ namespace FPTV.Models.NovaVersão.UserModels.DAL
 {
     public class Comment
     {
-        [Key]
         [Display(Name = "Comment ID")]
         public Guid CommentId { get; set; }
 

@@ -19,11 +19,9 @@ namespace FPTV.Models.NovaVersão.UserModels.DAL
         [Display(Name = "Name")]
         public string Name { get; set; }
 
-        [Required]
         [Display(Name = "Flag")]
         public string Flag { get; set; }
 
-        [Required]
         [Display(Name = "Biography")]
         public string Biography { get; set; }
 

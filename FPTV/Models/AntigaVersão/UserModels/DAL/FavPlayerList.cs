@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace FPTV.Models.UserModels.DAL
+namespace FPTV.Models.AntigaVersão.UserModels.DAL
 {
     public class FavPlayerList
     {

@@ -1,4 +1,4 @@
-﻿namespace FPTV.Models.UserModels.DAL
+﻿namespace FPTV.Models.AntigaVersão.UserModels.DAL
 {
     public enum UserType
     {

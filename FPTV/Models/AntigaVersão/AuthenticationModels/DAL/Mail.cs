@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
-namespace FPTV.Models.AuthenticationModels.DAL
+namespace FPTV.Models.AntigaVersão.AuthenticationModels.DAL
 {
     public class Mail
     {

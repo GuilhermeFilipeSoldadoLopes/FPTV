@@ -4,7 +4,6 @@ namespace FPTV.Models.NovaVersão.UserModels.DAL
 {
     public class Topic
     {
-        [Key]
         [Display(Name = "Topic ID")]
         public Guid TopicId { get; set; }
 

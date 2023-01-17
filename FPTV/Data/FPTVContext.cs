@@ -1,4 +1,4 @@
-﻿using FPTV.Models.AuthenticationModels.DAL;
+﻿using FPTV.Models.AntigaVersão.AuthenticationModels.DAL;
 using FPTV.Models.NovaVersão.UserModels.DAL;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -19,7 +19,7 @@ namespace FPTV.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-            IdentityRole adminRole = new IdentityRole
+            /*IdentityRole adminRole = new IdentityRole
             {
                 Name = "admin",
                 NormalizedName = "admin".ToUpper()
@@ -34,18 +34,12 @@ namespace FPTV.Data
                 Name = "user",
                 NormalizedName = "user".ToUpper()
             };
-            IdentityRole guestRole = new IdentityRole
-            {
-                Name = "guest",
-                NormalizedName = "guest".ToUpper()
-            };
 
             builder.Entity<IdentityRole>().HasData(
                 adminRole,
                 moderatorRole,
-                userRole,
-            guestRole
-            );
+                userRole
+            );*/
 
 
             builder.Entity<Comment>()

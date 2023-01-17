@@ -1,10 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace FPTV.Models.UserModels.DAL
+namespace FPTV.Models.AntigaVersão.UserModels.DAL
 {
     public class Comment
     {
-       
+
         [Display(Name = "Comment ID")]
         public Guid CommentId { get; set; }
 
@@ -23,7 +23,7 @@ namespace FPTV.Models.UserModels.DAL
         //[ForeignKey("User")]
         public Guid UserId { get; set; }
 
-        
+
         [Required]
         [Display(Name = "Topic ID")]
         //[ForeignKey("Topic")] 
@@ -32,7 +32,7 @@ namespace FPTV.Models.UserModels.DAL
         [Display(Name = "User")]
         public virtual Profile User { get; set; }
 
-        
+
         [Display(Name = "Topic")]
         public virtual Topic Topic { get; set; }
 

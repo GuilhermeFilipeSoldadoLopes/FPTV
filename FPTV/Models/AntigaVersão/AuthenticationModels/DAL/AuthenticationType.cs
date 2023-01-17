@@ -1,4 +1,4 @@
-﻿namespace FPTV.Models.AuthenticationModels.DAL
+﻿namespace FPTV.Models.AntigaVersão.AuthenticationModels.DAL
 {
     public enum AuthenticationType
     {

@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using FPTV.Models.NovaVersão.UserModels.DAL;
 
-namespace FPTV.Models.AuthenticationModels.DAL
+namespace FPTV.Models.AntigaVersão.AuthenticationModels.DAL
 {
     public class UserAccount
     {

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace FPTV.Models.AuthenticationModels.DAL
+namespace FPTV.Models.AntigaVersão.AuthenticationModels.DAL
 {
     public class Token
     {

@@ -1,21 +1,23 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace FPTV.Models.UserModels.DAL
+namespace FPTV.Models.AntigaVersão.UserModels.DAL
 {
-    public class FavTeamsList
+    public class ErrorLog
     {
         [Key]
         [Display(Name = "Error Log ID")]
-        public Guid FavTeamsListId { get; set; }
+        public Guid ErrorLogId { get; set; }
 
         [Required]
-        [Display(Name = "Name")]
-        public string Name { get; set; }
+        [Display(Name = "Error")]
+        public string Error { get; set; }
 
         [Required]
-        [Display(Name = "Team Image")]
-        public string TeamImage { get; set; }
+        [Display(Name = "Date")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
+        public DateTime Date { get; set; }
 
         [Required]
         [Display(Name = "User ID")]

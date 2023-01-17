@@ -1,6 +1,6 @@
 ﻿using FPTV.Data;
-using FPTV.Models.UserModels.DAL;
-using FPTV.Models.AuthenticationModels.DAL;
+/*using FPTV.Models.UserModels.DAL;
+using FPTV.Models.AuthenticationModels.DAL;*/
 using FPTV.Models.NovaVersão.UserModels.DAL;
 
 namespace FPTV.Models.NovaVersão.UserModels.BLL
@@ -76,6 +76,7 @@ namespace FPTV.Models.NovaVersão.UserModels.BLL
             return _context.FavTeamsList.ToList().FindAll(u => u.UserId == userID);
         }
 
+        /*
         //Retorna o tipo de utilizador a partir do User ID
         public UserType getUserTypeByUserID(FPTVContext _context, Guid userID)
         {
@@ -125,6 +126,6 @@ namespace FPTV.Models.NovaVersão.UserModels.BLL
             {
                 throw new ArgumentException(message: "User doesn't exist.", paramName: nameof(userAccounID));
             }
-        }
+        }*/
     }
 }
