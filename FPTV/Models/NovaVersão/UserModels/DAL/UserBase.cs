@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Xml.Linq;
 
 namespace FPTV.Models.NovaVersão.UserModels.DAL
 {
-    public class Base : IdentityUser
+    public class UserBase : IdentityUser
     {
         [Required]
         [Display(Name = "Name")]
@@ -12,8 +13,11 @@ namespace FPTV.Models.NovaVersão.UserModels.DAL
         public string Name { get; set; }
 
         [Required]
-        [Display(Name = "Name")]
-        [PersonalData]
-        public Profile Profile { get; set; }
+        [Display(Name = "User ID")]
+        [ForeignKey("Profile")]
+        public Guid UserId { get; set; }
+
+        [Display(Name = "User")]
+        public virtual Profile Profile { get; set; }
     }
 }

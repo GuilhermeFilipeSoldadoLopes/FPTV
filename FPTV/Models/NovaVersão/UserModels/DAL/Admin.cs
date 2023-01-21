@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace FPTV.Models.NovaVersão.UserModels.DAL
 {
-    public class Admin : Base
+    public class Admin : UserBase
     {
 
     }
