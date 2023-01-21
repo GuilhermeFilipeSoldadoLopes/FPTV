@@ -1,4 +1,6 @@
-﻿@inject SignInManager<IdentityUser> SignInManager
+﻿@using FPTV.Models.NovaVersão.UserModels.DAL;
+<!-- IdentityUser para UserBase -->
+@inject SignInManager<UserBase> SignInManager
 @{
     var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
 }

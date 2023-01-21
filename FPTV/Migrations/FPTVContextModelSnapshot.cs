@@ -171,7 +171,7 @@ namespace FPTV.Migrations
 
                     b.HasKey("PictureId");
 
-                    b.ToTable("ProfilePicture");
+                    b.ToTable("ProfilePictures");
                 });
 
             modelBuilder.Entity("FPTV.Models.NovaVersão.UserModels.DAL.Reaction", b =>

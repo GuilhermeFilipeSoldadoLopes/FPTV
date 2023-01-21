@@ -24,7 +24,7 @@ namespace FPTV.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ProfilePicture",
+                name: "ProfilePictures",
                 columns: table => new
                 {
                     PictureId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -32,7 +32,7 @@ namespace FPTV.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProfilePicture", x => x.PictureId);
+                    table.PrimaryKey("PK_ProfilePictures", x => x.PictureId);
                 });
 
             migrationBuilder.CreateTable(
@@ -71,9 +71,9 @@ namespace FPTV.Migrations
                 {
                     table.PrimaryKey("PK_Profile", x => x.UserId);
                     table.ForeignKey(
-                        name: "FK_Profile_ProfilePicture_ProfilePictureId",
+                        name: "FK_Profile_ProfilePictures_ProfilePictureId",
                         column: x => x.ProfilePictureId,
-                        principalTable: "ProfilePicture",
+                        principalTable: "ProfilePictures",
                         principalColumn: "PictureId",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -468,7 +468,7 @@ namespace FPTV.Migrations
                 name: "Profile");
 
             migrationBuilder.DropTable(
-                name: "ProfilePicture");
+                name: "ProfilePictures");
         }
     }
 }
