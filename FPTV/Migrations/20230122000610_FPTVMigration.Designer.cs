@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FPTV.Migrations
 {
     [DbContext(typeof(FPTVContext))]
-    [Migration("20230121220334_FPTVMigration")]
+    [Migration("20230122000610_FPTVMigration")]
     partial class FPTVMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
