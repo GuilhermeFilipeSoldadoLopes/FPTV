@@ -15,7 +15,6 @@ html {
 
 body {
     margin-bottom: 60px;
-    
 }
 
 input[type=text], input[type=password] {
@@ -47,7 +46,7 @@ textarea {
 }
 
 .bodyLogin {
-    background-image: url('../images/background.jpg');
+    background-image: url('../images/valcs.png');
     background-repeat: no-repeat;
     background-size: cover;
     
