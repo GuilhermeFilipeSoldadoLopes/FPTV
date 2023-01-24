@@ -1,9 +1,10 @@
-﻿using FPTV.Models.NovaVersão.UserModels.DAL;
+﻿using FPTV.Models.UserModels;
 using Microsoft.AspNetCore.Identity;
 
 namespace FPTV
 {
-    public static class Configurations
+    //cria as roles e é criado o user com a role de Admin 
+    public static class Configurations //possivelmente ja nao vai ser utilizado
     {
         public static async Task CreateRoles(IServiceProvider serviceProvider)
         {

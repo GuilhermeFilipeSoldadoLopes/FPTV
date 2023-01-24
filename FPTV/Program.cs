@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using FPTV.Data;
-using FPTV.Services;
+using FPTV.Services.EmailSenderService;
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
