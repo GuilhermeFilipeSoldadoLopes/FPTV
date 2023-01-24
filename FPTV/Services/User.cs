@@ -1,7 +1,7 @@
 ﻿using FPTV.Data;
-using FPTV.Models.NovaVersão.UserModels.DAL;
+using FPTV.Models.UserModels;
 
-namespace FPTV.Models.NovaVersão.UserModels.BLL
+namespace FPTV.Services
 {
 
     public class User

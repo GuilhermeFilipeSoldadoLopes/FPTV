@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Xml.Linq;
 
-namespace FPTV.Models.NovaVersão.UserModels.DAL
+namespace FPTV.Models.UserModels
 {
     public class UserBase : IdentityUser
     {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace FPTV.Services
+namespace FPTV.Services.EmailSenderService
 {
     public class EmailConfirmationTokenProviderOptions : DataProtectionTokenProviderOptions
     {
@@ -11,3 +11,4 @@ namespace FPTV.Services
         }
     }
 }
+//provavelmente é para sair

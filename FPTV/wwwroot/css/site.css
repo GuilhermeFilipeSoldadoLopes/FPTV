@@ -17,14 +17,14 @@ body {
     margin-bottom: 60px;
 }
 
-input[type=text], input[type=password] {
+/*input[type=text], input[type=password] {
     width: 100%;
     margin: 8px 0;
     padding: 12px 20px;
     display: inline-block;
     border: 1px solid black;
     border-radius: 15px;
-}
+}*/
 
 button {
     background-color: #CC0033;
@@ -59,7 +59,30 @@ textarea {
     border-radius:15px;
     border: 1px solid black;
 }
-    .form p, a {
-        color: black;
-        font-family: Noto Sans;
-    }
+.form p, a {
+    color: black;
+    font-family: Noto Sans;
+}
+
+.form-control {
+    width: 90%;
+    margin: auto;
+    padding: 12px;
+    border: 1px solid black;
+    border-radius: 15px;
+    resize: vertical;
+    
+}
+.form-floating > label {
+    position: relative;
+    padding: 8px;
+}
+
+.form-control::-moz-placeholder {
+    color: black !important;
+   
+}
+
+.form-control::placeholder {
+    color: black !important;
+}

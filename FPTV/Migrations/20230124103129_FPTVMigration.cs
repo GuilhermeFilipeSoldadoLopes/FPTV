@@ -139,6 +139,7 @@ namespace FPTV.Migrations
                     FavPlayerListId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Team = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    isGame = table.Column<bool>(type: "bit", nullable: false),
                     PlayerImage = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
