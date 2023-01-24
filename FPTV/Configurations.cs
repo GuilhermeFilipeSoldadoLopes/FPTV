@@ -33,11 +33,13 @@ namespace FPTV
                 Email = "Admin@FPTV.org"
             };
             var _user = await userAdmin.FindByEmailAsync(admin.Email);
-            if (_user != null) return;
-
-            var createPowerUser = await userAdmin.CreateAsync(admin, "49gH%s7AD54D4GWL");
-            if (createPowerUser.Succeeded)
-                await userAdmin.AddToRoleAsync(admin, "Manager");
+            if (_user == null)
+            {
+                var createPowerUser = await userAdmin.CreateAsync(admin, "49gH%s7AD54D4GWL");
+                if (createPowerUser.Succeeded)
+                    await userAdmin.AddToRoleAsync(admin, "Manager");
+            }
+            
         }
 
         private static async Task CreateModerators(RoleManager<IdentityRole> roleManager, UserManager<Moderator> userManager)
@@ -50,25 +52,28 @@ namespace FPTV
                 Email = "..."
             };
             var _user1 = await userManager.FindByEmailAsync(moderator_AD.Email);
-            if (_user1 != null) return;
-
-            var createPowerUser1 = await userManager.CreateAsync(moderator_AD, "...");
-            if (createPowerUser1.Succeeded)
-                await userManager.AddToRoleAsync(moderator_AD, "Manager");
+            if (_user1 == null)
+            {
+                var createPowerUser1 = await userManager.CreateAsync(moderator_AD, "...");
+                if (createPowerUser1.Succeeded)
+                    await userManager.AddToRoleAsync(moderator_AD, "Manager");
+            }
+            
 
             //Guilherme Lopes
             var moderator_GL = new Moderator
             {
-                Name = "...",
-                UserName = "...",
-                Email = "..."
+                Name = "Guilherme Lopes",
+                UserName = "V1rtual",
+                Email = "guilherme.lopes20@estudantes.ips.pt"
             };
             var _user2 = await userManager.FindByEmailAsync(moderator_GL.Email);
-            if (_user2 != null) return;
-
-            var createPowerUser2 = await userManager.CreateAsync(moderator_GL, "...");
-            if (createPowerUser2.Succeeded)
-                await userManager.AddToRoleAsync(moderator_GL, "Manager");
+            if (_user2 == null)
+            { 
+                var createPowerUser2 = await userManager.CreateAsync(moderator_GL, "PassImpenetravel.123");
+                if (createPowerUser2.Succeeded)
+                    await userManager.AddToRoleAsync(moderator_GL, "Manager");
+            }
 
             //Miguel Rebelo
             var moderator_MR = new Moderator
@@ -78,11 +83,12 @@ namespace FPTV
                 Email = "..."
             };
             var _user3 = await userManager.FindByEmailAsync(moderator_MR.Email);
-            if (_user3 != null) return;
-
-            var createPowerUser3 = await userManager.CreateAsync(moderator_MR, "...");
-            if (createPowerUser3.Succeeded)
-                await userManager.AddToRoleAsync(moderator_MR, "Manager");
+            if (_user3 == null) 
+            {
+                var createPowerUser3 = await userManager.CreateAsync(moderator_MR, "...");
+                if (createPowerUser3.Succeeded)
+                    await userManager.AddToRoleAsync(moderator_MR, "Manager");
+            }
 
             //Nuno Reis
             var moderator_NR = new Moderator
@@ -92,11 +98,12 @@ namespace FPTV
                 Email = "..."
             };
             var _user4 = await userManager.FindByEmailAsync(moderator_NR.Email);
-            if (_user4 != null) return;
-
-            var createPowerUser4 = await userManager.CreateAsync(moderator_NR, "...");
-            if (createPowerUser4.Succeeded)
-                await userManager.AddToRoleAsync(moderator_NR, "Manager");
+            if (_user4 == null)
+            {
+                var createPowerUser4 = await userManager.CreateAsync(moderator_NR, "...");
+                if (createPowerUser4.Succeeded)
+                    await userManager.AddToRoleAsync(moderator_NR, "Manager");
+            }
 
             //Rui Plínio
             var moderator_RP = new Moderator
@@ -106,11 +113,12 @@ namespace FPTV
                 Email = "..."
             };
             var _user5 = await userManager.FindByEmailAsync(moderator_RP.Email);
-            if (_user5 != null) return;
-
-            var createPowerUser5 = await userManager.CreateAsync(moderator_RP, "...");
-            if (createPowerUser5.Succeeded)
-                await userManager.AddToRoleAsync(moderator_RP, "Manager");
+            if (_user5 == null)
+            {
+                var createPowerUser5 = await userManager.CreateAsync(moderator_RP, "...");
+                if (createPowerUser5.Succeeded)
+                    await userManager.AddToRoleAsync(moderator_RP, "Manager");
+            }
 
             //João Afonso
             var moderator_JA = new Moderator
@@ -120,11 +128,12 @@ namespace FPTV
                 Email = "..."
             };
             var _user6 = await userManager.FindByEmailAsync(moderator_JA.Email);
-            if (_user6 != null) return;
-
-            var createPowerUser6 = await userManager.CreateAsync(moderator_JA, "...");
-            if (createPowerUser6.Succeeded)
-                await userManager.AddToRoleAsync(moderator_JA, "Manager");
+            if (_user6 == null)
+            {
+                var createPowerUser6 = await userManager.CreateAsync(moderator_JA, "...");
+                if (createPowerUser6.Succeeded)
+                    await userManager.AddToRoleAsync(moderator_JA, "Manager");
+            }
         }
     }
 }
