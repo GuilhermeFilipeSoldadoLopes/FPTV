@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using FPTV.Data;
 using FPTV.Services.EmailSenderService;
+using FPTV;
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
@@ -76,5 +77,8 @@ app.UseEndpoints(endpoints =>
         pattern: "{controller=Home}/{action=Index}/{id?}");
     app.MapRazorPages();
 });
+
+using var scope = app.Services.CreateScope();
+await Configurations.CreateRoles(scope.ServiceProvider);
 
 app.Run();

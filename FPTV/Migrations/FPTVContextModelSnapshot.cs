@@ -124,6 +124,9 @@ namespace FPTV.Migrations
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<bool>("isGame")
+                        .HasColumnType("bit");
+
                     b.HasKey("FavTeamsListId");
 
                     b.HasIndex("UserId");
