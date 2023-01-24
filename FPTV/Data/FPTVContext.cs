@@ -1,4 +1,4 @@
-﻿using FPTV.Models.NovaVersão.UserModels.DAL;
+﻿using FPTV.Models.NovaVersão.UserModels;
 using Microsoft.EntityFrameworkCore;
 
 namespace FPTV.Data
