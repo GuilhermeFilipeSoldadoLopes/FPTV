@@ -14,6 +14,10 @@ namespace FPTV.Models.UserModels
         public string Name { get; set; }
 
         [Required]
+        [Display(Name = "isCSGO")]
+        public bool isGame { get; set; }
+
+        [Required]
         [Display(Name = "Team Image")]
         public string TeamImage { get; set; }
 

@@ -66,6 +66,8 @@ namespace FPTV.Areas.Identity.Pages.Account
             /// </summary>
             [Required]
             [EmailAddress]
+            [Display(Name = "Email", Prompt = "email")]
+
             public string Email { get; set; }
 
             /// <summary>
