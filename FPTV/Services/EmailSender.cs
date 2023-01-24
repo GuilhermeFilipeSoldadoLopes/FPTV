@@ -34,6 +34,7 @@ public class EmailSender : IEmailSender
         Console.WriteLine("subject> " + subject);
         Console.WriteLine("message> " + message);
         Console.WriteLine("toEmail> " + toEmail);
+        //rever subject e message no email enviado
 
         var client = new SendGridClient(apiKey);
         var msg = new SendGridMessage()
