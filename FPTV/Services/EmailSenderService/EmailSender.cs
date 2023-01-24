@@ -1,10 +1,9 @@
-﻿using FPTV.Services;
-using Microsoft.AspNetCore.Identity.UI.Services;
+﻿using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.Extensions.Options;
 using SendGrid;
 using SendGrid.Helpers.Mail;
 
-namespace FPTV.Services;
+namespace FPTV.Services.EmailSenderService;
 
 public class EmailSender : IEmailSender
 {

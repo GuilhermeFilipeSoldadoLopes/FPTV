@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace FPTV.Models.NovaVersão.UserModels.DAL
+namespace FPTV.Models.UserModels
 {
     public class FavPlayerList
     {
@@ -16,6 +16,10 @@ namespace FPTV.Models.NovaVersão.UserModels.DAL
         [Required]
         [Display(Name = "Team")]
         public string Team { get; set; }
+
+        [Required]
+        [Display(Name = "isCSGO")]
+        public bool isGame { get; set; }
 
         [Required]
         [Display(Name = "Player Image")]

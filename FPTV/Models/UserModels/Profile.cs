@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.AspNetCore.Identity;
 
-namespace FPTV.Models.NovaVersão.UserModels.DAL
+namespace FPTV.Models.UserModels
 {
     public class Profile
     {

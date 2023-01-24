@@ -1,4 +1,4 @@
-﻿using FPTV.Models.NovaVersão.UserModels;
+﻿using FPTV.Models.UserModels;
 using Microsoft.AspNetCore.Identity;
 
 namespace FPTV

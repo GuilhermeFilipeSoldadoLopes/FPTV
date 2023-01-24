@@ -1,9 +1,9 @@
 ﻿using FPTV.Data;
 /*using FPTV.Models.UserModels.DAL;
 using FPTV.Models.AuthenticationModels.DAL;*/
-using FPTV.Models.NovaVersão.UserModels.DAL;
+using FPTV.Models.UserModels;
 
-namespace FPTV.Models.NovaVersão.UserModels.BLL
+namespace FPTV.Services
 {
 
     public class User

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace FPTV.Models.NovaVersão.UserModels.DAL
+namespace FPTV.Models.UserModels
 {
     public class ProfilePicture
     {

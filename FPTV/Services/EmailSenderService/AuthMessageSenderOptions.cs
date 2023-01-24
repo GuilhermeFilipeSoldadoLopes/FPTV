@@ -1,4 +1,4 @@
-﻿namespace FPTV.Services;
+﻿namespace FPTV.Services.EmailSenderService;
 
 /*public class AuthMessageSenderOptions
 {
