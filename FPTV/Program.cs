@@ -22,7 +22,7 @@ builder.Services.AddDbContext<FPTVContext>(options =>
     options.UseSqlServer(connectionString));
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options =>
-    { options.SignIn.RequireConfirmedAccount = true;
+    { options.SignIn.RequireConfirmedAccount = false;
         options.Tokens.ProviderMap.Add("CustomEmailConfirmation",
             new TokenProviderDescriptor(
                 typeof(CustomEmailConfirmationTokenProvider<IdentityUser>)));
@@ -78,7 +78,7 @@ app.UseEndpoints(endpoints =>
     app.MapRazorPages();
 });
 
-using var scope = app.Services.CreateScope();
-await Configurations.CreateRoles(scope.ServiceProvider);
+//using var scope = app.Services.CreateScope();
+//await Configurations.CreateRoles(scope.ServiceProvider);
 
 app.Run();
