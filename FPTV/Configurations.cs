@@ -123,9 +123,9 @@ namespace FPTV
             //João Afonso
             var moderator_JA = new Moderator
             {
-                Name = "...",
-                UserName = "...",
-                Email = "..."
+                Name = "João Afonso",
+                UserName = "joaoafonso61",
+                Email = "jmrafonso61@gmail.com"
             };
             var _user6 = await userManager.FindByEmailAsync(moderator_JA.Email);
             if (_user6 == null)
