@@ -78,7 +78,8 @@ app.UseEndpoints(endpoints =>
     app.MapRazorPages();
 });
 
-using var scope = app.Services.CreateScope();
-await Configurations.CreateRoles(scope.ServiceProvider);
+//Causa erro, no metodo CreateRoles no Configurations diz que nao recebe serviço
+//using var scope = app.Services.CreateScope();
+//await Configurations.CreateRoles(scope.ServiceProvider);
 
 app.Run();
