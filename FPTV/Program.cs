@@ -4,6 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using FPTV.Data;
 using FPTV.Services.EmailSenderService;
 using FPTV;
+using FPTV.Models.UserModels;
+using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
@@ -21,15 +23,16 @@ var connectionString = builder.Configuration.GetConnectionString("FPTV_Context")
 builder.Services.AddDbContext<FPTVContext>(options =>
     options.UseSqlServer(connectionString));
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options =>
+builder.Services.AddIdentity<UserBase, IdentityRole>(options =>
     { options.SignIn.RequireConfirmedAccount = true;
         options.Tokens.ProviderMap.Add("CustomEmailConfirmation",
             new TokenProviderDescriptor(
-                typeof(CustomEmailConfirmationTokenProvider<IdentityUser>)));
+                typeof(CustomEmailConfirmationTokenProvider<UserBase>)));
         options.Tokens.EmailConfirmationTokenProvider = "CustomEmailConfirmation";
     }).AddEntityFrameworkStores<FPTVContext>();
+builder.Services.AddRazorPages();
 
-builder.Services.AddTransient<CustomEmailConfirmationTokenProvider<IdentityUser>>();
+builder.Services.AddTransient<CustomEmailConfirmationTokenProvider<UserBase>>();
 
 //builder.Services.AddDefaultIdentity<UserBase>(options => options.SignIn.RequireConfirmedAccount = true)
 //    .AddEntityFrameworkStores<FPTVContext>();
@@ -78,7 +81,7 @@ app.UseEndpoints(endpoints =>
     app.MapRazorPages();
 });
 
-//Causa erro, no metodo CreateRoles no Configurations diz que nao recebe serviço
+//Causa erro, no metodo CreateRoles no Configurations diz que nao tem o serviço
 //using var scope = app.Services.CreateScope();
 //await Configurations.CreateRoles(scope.ServiceProvider);
 

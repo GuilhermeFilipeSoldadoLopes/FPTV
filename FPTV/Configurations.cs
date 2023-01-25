@@ -11,7 +11,7 @@ namespace FPTV
             var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
             var userAdmin = serviceProvider.GetRequiredService<UserManager<Admin>>();
             var userModerator = serviceProvider.GetRequiredService<UserManager<Moderator>>();
-            var userUser = serviceProvider.GetRequiredService<UserManager<Profile>>();
+            var userUser = serviceProvider.GetRequiredService<UserManager<User>>();
             string[] roleNames = { "Admin", "Moderator", "User" };
 
             foreach (var roleName in roleNames)
