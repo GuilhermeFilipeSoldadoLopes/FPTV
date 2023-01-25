@@ -24,7 +24,7 @@ builder.Services.AddDbContext<FPTVContext>(options =>
     options.UseSqlServer(connectionString));
 
 builder.Services.AddIdentity<UserBase, IdentityRole>(options =>
-    { options.SignIn.RequireConfirmedAccount = true;
+    { options.SignIn.RequireConfirmedAccount = false;
         options.Tokens.ProviderMap.Add("CustomEmailConfirmation",
             new TokenProviderDescriptor(
                 typeof(CustomEmailConfirmationTokenProvider<UserBase>)));
@@ -81,7 +81,7 @@ app.UseEndpoints(endpoints =>
     app.MapRazorPages();
 });
 
-//Causa erro, no metodo CreateRoles no Configurations diz que nao tem o serviço
+//Causa erro, no metodo CreateRoles no Configurations diz que nao tem o serviÃ§o
 //using var scope = app.Services.CreateScope();
 //await Configurations.CreateRoles(scope.ServiceProvider);
 

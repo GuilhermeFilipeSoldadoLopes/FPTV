@@ -93,9 +93,9 @@ namespace FPTV
             //Nuno Reis
             var moderator_NR = new Moderator
             {
-                Name = "...",
-                UserName = "...",
-                Email = "..."
+                Name = "Nuno Reis",
+                UserName = "nuno33",
+                Email = "nunoreis294@gmail.com"
             };
             var _user4 = await userManager.FindByEmailAsync(moderator_NR.Email);
             if (_user4 == null)
