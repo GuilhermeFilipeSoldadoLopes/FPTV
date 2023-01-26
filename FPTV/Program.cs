@@ -24,13 +24,26 @@ builder.Services.AddDbContext<FPTVContext>(options =>
     options.UseSqlServer(connectionString));
 
 builder.Services.AddIdentity<UserBase, IdentityRole>(options =>
-    { options.SignIn.RequireConfirmedAccount = false;
-        options.Tokens.ProviderMap.Add("CustomEmailConfirmation",
-            new TokenProviderDescriptor(
-                typeof(CustomEmailConfirmationTokenProvider<UserBase>)));
-        options.Tokens.EmailConfirmationTokenProvider = "CustomEmailConfirmation";
-    }).AddEntityFrameworkStores<FPTVContext>();
+{
+    options.SignIn.RequireConfirmedAccount = true;
+    options.Tokens.ProviderMap.Add("CustomEmailConfirmation",
+        new TokenProviderDescriptor(
+            typeof(CustomEmailConfirmationTokenProvider<UserBase>)));
+    options.Tokens.EmailConfirmationTokenProvider = "CustomEmailConfirmation";
+}).AddEntityFrameworkStores<FPTVContext>();
 builder.Services.AddRazorPages();
+
+builder.Services.AddTransient<CustomEmailConfirmationTokenProvider<UserBase>>();
+
+/*builder.Services.AddDefaultIdentity<UserBase>(options =>
+{
+    options.SignIn.RequireConfirmedAccount = true;
+    options.Tokens.ProviderMap.Add("CustomEmailConfirmation",
+        new TokenProviderDescriptor(
+            typeof(CustomEmailConfirmationTokenProvider<UserBase>)));
+    options.Tokens.EmailConfirmationTokenProvider = "CustomEmailConfirmation";
+}).AddEntityFrameworkStores<FPTVContext>();//.AddRoles<IdentityRole>();
+builder.Services.AddRazorPages();*/
 
 builder.Services.AddTransient<CustomEmailConfirmationTokenProvider<UserBase>>();
 
