@@ -23,6 +23,9 @@ var connectionString = builder.Configuration.GetConnectionString("FPTV_Context")
 builder.Services.AddDbContext<FPTVContext>(options =>
     options.UseSqlServer(connectionString));
 
+/*builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddEntityFrameworkStores<FPTVContext>();*/
+
 builder.Services.AddIdentity<UserBase, IdentityRole>(options =>
 {
     options.SignIn.RequireConfirmedAccount = true;
