@@ -1,4 +1,5 @@
 ﻿using FPTV.Models.UserModels;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace FPTV.Data

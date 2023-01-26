@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using FPTV.Data;
 using FPTV.Services.EmailSenderService;
 using FPTV;
+using FPTV.Models.UserModels;
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
@@ -21,7 +22,7 @@ var connectionString = builder.Configuration.GetConnectionString("FPTV_Context")
 builder.Services.AddDbContext<FPTVContext>(options =>
     options.UseSqlServer(connectionString));
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options =>
+builder.Services.AddIdentity<UserBase, IdentityRole>(options =>
     { options.SignIn.RequireConfirmedAccount = true;
         options.Tokens.ProviderMap.Add("CustomEmailConfirmation",
             new TokenProviderDescriptor(
@@ -30,6 +31,16 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options =>
     }).AddEntityFrameworkStores<FPTVContext>();
 
 builder.Services.AddTransient<CustomEmailConfirmationTokenProvider<IdentityUser>>();
+
+/*builder.Services.AddDefaultIdentity<UserBase>(options =>
+{
+    options.SignIn.RequireConfirmedAccount = true;
+    options.Tokens.ProviderMap.Add("CustomEmailConfirmation",
+        new TokenProviderDescriptor(
+            typeof(CustomEmailConfirmationTokenProvider<UserBase>)));
+    options.Tokens.EmailConfirmationTokenProvider = "CustomEmailConfirmation";
+}).AddEntityFrameworkStores<FPTVContext>();//.AddRoles<IdentityRole>();
+builder.Services.AddRazorPages();*/
 
 //builder.Services.AddDefaultIdentity<UserBase>(options => options.SignIn.RequireConfirmedAccount = true)
 //    .AddEntityFrameworkStores<FPTVContext>();
