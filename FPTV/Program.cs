@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using FPTV.Data;
 using FPTV.Services;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using FPTV.Models.UserModels;
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
@@ -16,19 +18,20 @@ services.AddAuthentication()
     googleOptions.ClientSecret = configuration["Authentication:Google:ClientSecret"];
 });
 
+
 var connectionString = builder.Configuration.GetConnectionString("FPTV_Context");
 builder.Services.AddDbContext<FPTVContext>(options =>
     options.UseSqlServer(connectionString));
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options =>
-    { options.SignIn.RequireConfirmedAccount = true;
+builder.Services.AddIdentity<UserBase, IdentityRole>(options =>
+    { options.SignIn.RequireConfirmedAccount = false;
         options.Tokens.ProviderMap.Add("CustomEmailConfirmation",
             new TokenProviderDescriptor(
-                typeof(CustomEmailConfirmationTokenProvider<IdentityUser>)));
+                typeof(CustomEmailConfirmationTokenProvider<UserBase>)));
         options.Tokens.EmailConfirmationTokenProvider = "CustomEmailConfirmation";
     }).AddEntityFrameworkStores<FPTVContext>();
 
-builder.Services.AddTransient<CustomEmailConfirmationTokenProvider<IdentityUser>>();
+builder.Services.AddTransient<CustomEmailConfirmationTokenProvider<UserBase>>();
 
 //builder.Services.AddDefaultIdentity<UserBase>(options => options.SignIn.RequireConfirmedAccount = true)
 //    .AddEntityFrameworkStores<FPTVContext>();
@@ -46,6 +49,7 @@ builder.Services.ConfigureApplicationCookie(o => {
 builder.Services.Configure<DataProtectionTokenProviderOptions>(o =>
        o.TokenLifespan = TimeSpan.FromHours(3));
 
+services.AddMvc();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
