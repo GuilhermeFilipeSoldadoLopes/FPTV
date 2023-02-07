@@ -2,6 +2,9 @@
 
 namespace FPTV.Models.UserModels
 {
+    /// <summary>
+    /// This class represents a topic of the forum
+    /// </summary>
     public class Topic
     {
         /// <summary>

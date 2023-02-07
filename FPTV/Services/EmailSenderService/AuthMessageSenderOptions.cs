@@ -1,5 +1,16 @@
 ﻿namespace FPTV.Services.EmailSenderService;
 
+/// <summary>
+/// This class contains the method to obtain the SendGrid key
+/// </summary>
+public class AuthMessageSenderOptions
+{
+    /// <summary>
+    /// Returns the SendGrid key that is stored as a secret
+    /// </summary>
+    public string? SendGridKey { get; set; }
+}
+
 /*public class AuthMessageSenderOptions
 {
     public string? SendGridKey
@@ -8,8 +19,3 @@
         set { }
     }
 }*/
-
-public class AuthMessageSenderOptions
-{
-    public string? SendGridKey { get; set; }
-}

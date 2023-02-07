@@ -6,7 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>FPTV</UserSecretsId>
     <RootNamespace>FPTV</RootNamespace>
-    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <GenerateDocumentationFile>False</GenerateDocumentationFile>
     <DocumentationFile></DocumentationFile>
   </PropertyGroup>
 

@@ -3,14 +3,16 @@ using FPTV.Models.UserModels;
 
 namespace FPTV.Services
 {
-
+    /// <summary>
+    /// This class contains all the methods to get any information about an user
+    /// </summary>
     public class User
     {
         /// <summary>
         /// Returns all Profiles
         /// </summary>
         /// <param name="_context"></param>
-        /// <returns>List<Profile></returns>
+        /// <returns> List<Profile> </returns>
         public List<Profile> getProfiles(FPTVContext _context)
         {
             return _context.Profile.ToList();

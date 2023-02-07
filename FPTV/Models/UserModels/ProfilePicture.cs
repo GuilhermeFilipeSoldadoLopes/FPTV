@@ -2,6 +2,9 @@
 
 namespace FPTV.Models.UserModels
 {
+    /// <summary>
+    /// This class represents the profile user of an user
+    /// </summary>
     public class ProfilePicture
     {
         /// <summary>

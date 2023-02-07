@@ -6,6 +6,10 @@ namespace FPTV
     //cria as roles e é criado o user com a role de Admin 
     public static class Configurations //possivelmente ja nao vai ser utilizado
     {
+        /// <summary>
+        /// Thsi method will create the Roles (Admin, Moderator and User)
+        /// </summary>
+        /// <param name="serviceProvider"></param>
         public static async Task CreateRoles(IServiceProvider serviceProvider)
         {
             var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
@@ -24,6 +28,11 @@ namespace FPTV
             await CreateModerators(roleManager, userModerator);
         }
 
+        /// <summary>
+        /// This method will initialize the user with Role Admin
+        /// </summary>
+        /// <param name="roleManager"></param>
+        /// <param name="userAdmin"></param>
         private static async Task CreateAdmin(RoleManager<IdentityRole> roleManager, UserManager<Admin> userAdmin)
         {
             var admin = new Admin
@@ -42,6 +51,12 @@ namespace FPTV
             
         }
 
+        /// <summary>
+        /// This method will initialize the users with Role Moderator
+        /// </summary>
+        /// <param name="roleManager"></param>
+        /// <param name="userManager"></param>
+        /// <returns></returns>
         private static async Task CreateModerators(RoleManager<IdentityRole> roleManager, UserManager<Moderator> userManager)
         {
             //André Dias

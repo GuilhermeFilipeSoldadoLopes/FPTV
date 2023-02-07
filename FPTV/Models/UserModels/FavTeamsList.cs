@@ -3,6 +3,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FPTV.Models.UserModels
 {
+    /// <summary>
+    /// /// <summary>
+    /// This class represents a list of favorite teams of a user
+    /// </summary>
+    /// </summary>
     public class FavTeamsList
     {
         /// <summary>

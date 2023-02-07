@@ -3,6 +3,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FPTV.Models.UserModels
 {
+    /// <summary>
+    /// This class represent all the errors of a user
+    /// </summary>
     public class ErrorLog
     {
 

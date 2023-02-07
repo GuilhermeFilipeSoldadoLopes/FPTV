@@ -4,6 +4,9 @@ using Microsoft.AspNetCore.Identity;
 
 namespace FPTV.Models.UserModels
 {
+    /// <summary>
+    /// This class represents a profile od an user
+    /// </summary>
     public class Profile
     {
         /// <summary>

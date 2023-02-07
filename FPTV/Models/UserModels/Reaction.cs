@@ -2,6 +2,9 @@
 
 namespace FPTV.Models.UserModels
 {
+    /// <summary>
+    /// This class represent a reaction from a comment
+    /// </summary>
     public class Reaction
     {
         /// <summary>

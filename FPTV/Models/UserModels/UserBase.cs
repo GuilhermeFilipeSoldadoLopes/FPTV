@@ -5,6 +5,9 @@ using System.Xml.Linq;
 
 namespace FPTV.Models.UserModels
 {
+    /// <summary>
+    /// This class is inherit from class IdentityUser and it represents a User and his identity
+    /// </summary>
     public class UserBase : IdentityUser
     {
         /// <summary>

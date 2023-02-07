@@ -2,6 +2,9 @@
 
 namespace FPTV.Models.UserModels
 {
+    /// <summary>
+    /// This class represent a comment from a topic
+    /// </summary>
     public class Comment
     {
         /// <summary>
