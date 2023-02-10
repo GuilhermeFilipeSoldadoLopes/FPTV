@@ -1,0 +1,1 @@
+search_result['360']=["topic_00000000000000C3.html","EmailSender Class","This class is responsible for sending emails with SendGrid"];

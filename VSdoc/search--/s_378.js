@@ -1,0 +1,1 @@
+search_result['378']=["topic_00000000000000CB.html","User.existProfile Method","Returns true if the profile exists in the database"];

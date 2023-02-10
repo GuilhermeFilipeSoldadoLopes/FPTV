@@ -1,0 +1,1 @@
+search_result['220']=["topic_000000000000007D.html","Comment.Text Property","Comment the user writes"];

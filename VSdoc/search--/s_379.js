@@ -1,0 +1,1 @@
+search_result['379']=["topic_00000000000000CC.html","User.getProfileByUserID Method","Returns a user\u0027s profile by its UserId"];

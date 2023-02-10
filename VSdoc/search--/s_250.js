@@ -1,0 +1,1 @@
+search_result['250']=["topic_0000000000000091.html","FavTeamsList Class","/// \u003csummary\u003e\r\nThis class represents a list of favorite teams of a user\r\n\u003c/summary\u003e"];

@@ -1,0 +1,1 @@
+search_result['385']=["topic_00000000000000D2.html","User.getFavTeamsByUserID Method","Returns a user\u0027s favorite teams list using the User ID"];

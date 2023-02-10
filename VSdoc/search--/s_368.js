@@ -1,0 +1,1 @@
+search_result['368']=["topic_00000000000000C6.html","EmailSender.SendEmailAsync Method","This method will use SendGrid API to send an email to a user if the SendGrid key is defined"];

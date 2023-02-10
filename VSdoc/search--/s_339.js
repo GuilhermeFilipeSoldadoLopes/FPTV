@@ -1,0 +1,1 @@
+search_result['339']=["topic_00000000000000BD.html","AuthMessageSenderOptions Class","This class contains the method to obtain the SendGrid key"];

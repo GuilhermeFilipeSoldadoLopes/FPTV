@@ -1,0 +1,1 @@
+search_result['226']=["topic_0000000000000083.html","ErrorLog Class","This class represent all the errors of a user"];

@@ -1,0 +1,1 @@
+search_result['359']=["topic_00000000000000C2.html","EmailConfirmationTokenProviderOptions Constructor","This method will change the email token lifespan period to 4 hours"];

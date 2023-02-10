@@ -1,0 +1,1 @@
+search_result['320']=["topic_00000000000000B4.html","UserBase Class","This class is inherit from class IdentityUser and it represents a User and his identity"];

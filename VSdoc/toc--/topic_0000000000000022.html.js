@@ -1,0 +1,1 @@
+var breadcrumbs=[['-1',"",""],['2',"FPTV Reference","topic_00000000000000D6.html"],['8',"FPTV.Areas.Identity.Pages.Account Namespace","topic_0000000000000013.html"],['15',"ExternalLoginModel Class","topic_0000000000000018.html"],['25',"Methods","topic_0000000000000018_methods--.html"],['27',"OnGetCallbackAsync Method","topic_0000000000000022.html"]];

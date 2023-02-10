@@ -1,0 +1,1 @@
+search_result['212']=["topic_000000000000007A.html","Comment Class","This class represent a comment from a topic"];
