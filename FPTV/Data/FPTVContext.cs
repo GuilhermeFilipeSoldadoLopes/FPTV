@@ -1,5 +1,6 @@
 ﻿using FPTV.Models.UserModels;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 
 namespace FPTV.Data
 {
@@ -12,6 +13,13 @@ namespace FPTV.Data
         }
 
         public DbSet<UserBase> UserBase { get; set; }
+        public DbSet<Profile> Profiles { get; set; }
+        public DbSet<Comment> Comments { get; set; }
+        public DbSet<ErrorLog> ErrorLog { get; set; }
+        public DbSet<Reaction> Reactions { get; set; }
+        public DbSet<Topic> Topics { get; set; }
+        public DbSet<FavPlayerList> FavPlayerList { get; set; }
+        public DbSet<FavTeamsList> FavTeamsList { get; set; }
         /*public DbSet<UserAccount> UserAccount { get; set; }
         public DbSet<AuthenticationLog> AuthenticationLog { get; set; }
         public DbSet<Token> Token { get; set; }

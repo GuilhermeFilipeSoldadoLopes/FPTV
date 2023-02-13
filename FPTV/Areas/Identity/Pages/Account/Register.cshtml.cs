@@ -10,6 +10,7 @@ using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
+using FPTV.Data;
 using FPTV.Models.UserModels;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
@@ -30,13 +31,17 @@ namespace FPTV.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<UserBase> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly FPTVContext _context;
+        private readonly IWebHostEnvironment _env;
 
         public RegisterModel(
             UserManager<UserBase> userManager,
             IUserStore<UserBase> userStore,
             SignInManager<UserBase> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            FPTVContext context,
+            IWebHostEnvironment env)
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -44,6 +49,8 @@ namespace FPTV.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _context = context;
+            _env = env;
         }
 
         /// <summary>
@@ -117,7 +124,12 @@ namespace FPTV.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 var user = CreateUser();
-
+                Profile profile = new();
+                var defaultImage = Path.Combine(_env.WebRootPath, "images", "default-profile-icon-24.jpg");
+                profile.Picture = System.IO.File.ReadAllBytes(defaultImage);
+                profile.User = user;
+                user.Profile = profile;
+                _context.Profiles.Add(profile);
                 await _userStore.SetUserNameAsync(user, Input.Username, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 var result = await _userManager.CreateAsync(user, Input.Password);

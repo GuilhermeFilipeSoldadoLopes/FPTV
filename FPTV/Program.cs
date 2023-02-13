@@ -72,6 +72,7 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+await app.CreateRolesAsync(builder.Configuration);
 
 app.UseEndpoints(endpoints =>
 {
@@ -82,3 +83,21 @@ app.UseEndpoints(endpoints =>
 });
 
 app.Run();
+
+public static class WebApplicationExtensions
+{
+    public static async Task<WebApplication> CreateRolesAsync(this WebApplication app, IConfiguration configuration)
+    {
+        using var scope = app.Services.CreateScope();
+        var roleManager = (RoleManager<IdentityRole>)scope.ServiceProvider.GetService(typeof(RoleManager<IdentityRole>));
+        string[] roles = { "Admin", "Moderator", "User" };
+
+        foreach (var role in roles)
+        {
+            if (!await roleManager.RoleExistsAsync(role))
+                await roleManager.CreateAsync(new IdentityRole(role));
+        }
+
+        return app;
+    }
+}

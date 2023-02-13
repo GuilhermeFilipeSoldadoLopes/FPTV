@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using FPTV.Models.UserModels;
+using FPTV.Data;
 
 namespace FPTV.Areas.Identity.Pages.Account.Manage
 {
@@ -17,13 +18,16 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
     {
         private readonly UserManager<UserBase> _userManager;
         private readonly SignInManager<UserBase> _signInManager;
+        private readonly FPTVContext _context;
 
         public IndexModel(
             UserManager<UserBase> userManager,
-            SignInManager<UserBase> signInManager)
+            SignInManager<UserBase> signInManager,
+            FPTVContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _context = context;
         }
 
         /// <summary>
@@ -69,12 +73,12 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
             public string Country { get; set; }
         }
 
-        private async Task LoadAsync(UserBase user)
+        private async Task LoadAsync(UserBase user, Profile profile)
         {
             var userName = await _userManager.GetUserNameAsync(user);
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
-            var profilePicture = user.Picture;
-            var country = user.Country;
+            var profilePicture = profile.Picture;
+            var country = profile.Country;
 
             Username = userName;
 
@@ -94,14 +98,16 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
             {
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
+            var profile = _context.Profiles.Single(p => p.Id == user.ProfileId);
 
-            await LoadAsync(user);
+            await LoadAsync(user, profile);
             return Page();
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
             var user = await _userManager.GetUserAsync(User);
+            var profile = _context.Profiles.Single(p => p.Id == user.ProfileId);
             if (user == null)
             {
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
@@ -109,10 +115,10 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
 
             if (!ModelState.IsValid)
             {
-                await LoadAsync(user);
+                await LoadAsync(user, profile);
                 return Page();
             }
-
+            
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
             if (Input.PhoneNumber != phoneNumber)
             {
@@ -124,11 +130,11 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
                 }
             }
 
-            var country = user.Country;
+            var country = profile.Country;
             if (Input.Country != country) 
             {
-                user.Country = Input.Country;
-                await _userManager.UpdateAsync(user);
+                profile.Country = Input.Country;
+                await _context.SaveChangesAsync();
             }
 
             if (Request.Form.Files.Count > 0)
@@ -137,9 +143,9 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
                 using (var dataStream = new MemoryStream())
                 {
                     await file.CopyToAsync(dataStream);
-                    user.Picture = dataStream.ToArray();
+                    profile.Picture = dataStream.ToArray();
                 }
-                await _userManager.UpdateAsync(user);
+                await _context.SaveChangesAsync();
             }
 
             await _signInManager.RefreshSignInAsync(user);

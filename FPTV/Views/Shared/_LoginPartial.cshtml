@@ -1,7 +1,9 @@
-﻿@using Microsoft.AspNetCore.Identity;
+﻿@using FPTV.Data;
+@using Microsoft.AspNetCore.Identity;
 @using FPTV.Models.UserModels;
 @inject SignInManager<UserBase> SignInManager
 @inject UserManager<UserBase> UserManager
+@inject FPTVContext context
 
 @{
     string? returnUrl = null;
@@ -16,9 +18,9 @@
     @if (SignInManager.IsSignedIn(User))
     {
         <li class="nav-item" style="align-self: center;">
-        @if (UserManager.GetUserAsync(User).Result.Picture != null)
+            @if (UserManager.GetUserAsync(User).Result != null && context.Profiles.Single(p => p.Id == UserManager.GetUserAsync(User).Result.ProfileId) != null)
         {
-            <img style="width:40px;height:40px; object-fit:cover; border-radius:30px" src="data:image/*;base64,@(Convert.ToBase64String(UserManager.GetUserAsync(User).Result.Picture))">
+                <img style="width:40px;height:40px; object-fit:cover; border-radius:30px" src="data:image/*;base64,@(Convert.ToBase64String(context.Profiles.Single(p => p.Id == UserManager.GetUserAsync(User).Result.ProfileId).Picture))">
         }
         </li>
         <li class="nav-item">

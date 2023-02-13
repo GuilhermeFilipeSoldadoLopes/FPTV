@@ -1,31 +1,30 @@
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
     margin-bottom: 60px;
-    
 }
 
-input[type=text], input[type=password] {
+/*input[type=text], input[type=password] {
     width: 100%;
     margin: 8px 0;
     padding: 12px 20px;
     display: inline-block;
     border: 1px solid black;
     border-radius: 15px;
-}
+}*/
 
 button {
     background-color: #CC0033;
@@ -37,6 +36,7 @@ button {
     cursor: pointer;
     border-radius: 15px;
 }
+
 textarea {
     width: 100%;
     margin: 8px 0;
@@ -47,20 +47,42 @@ textarea {
 }
 
 .bodyLogin {
-    background-image: url('../images/background.jpg');
+    background-image: url('../images/valcs.png');
     background-repeat: no-repeat;
     background-size: cover;
-    
 }
 
 .form {
     margin: auto;
     width: 50%;
-    background-color:#8b8b8b;
-    border-radius:15px;
+    background-color: #8b8b8b;
+    border-radius: 15px;
     border: 1px solid black;
 }
+
     .form p, a {
         color: black;
         font-family: Noto Sans;
     }
+
+.form-control {
+    width: 90%;
+    margin: auto;
+    padding: 12px;
+    border: 1px solid black;
+    border-radius: 15px;
+    resize: vertical;
+}
+
+.form-floating > label {
+    position: relative;
+    padding: 8px;
+}
+
+.form-control::-moz-placeholder {
+    color: black !important;
+}
+
+.form-control::placeholder {
+    color: black !important;
+}
