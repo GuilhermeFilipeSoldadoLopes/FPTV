@@ -67,6 +67,8 @@ namespace FPTV.Areas.Identity.Pages.Account
             /// </summary>
             [Required]
             [EmailAddress]
+            [Display(Name = "Email", Prompt = "Email")]
+
             public string Email { get; set; }
 
             /// <summary>
@@ -75,6 +77,7 @@ namespace FPTV.Areas.Identity.Pages.Account
             /// </summary>
             [Required]
             [DataType(DataType.Password)]
+            [Display(Name = "Password", Prompt = "Password")]
             public string Password { get; set; }
 
             /// <summary>

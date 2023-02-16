@@ -60,10 +60,10 @@ textarea {
     border: 1px solid black;
 }
 
-    .form p, a {
-        color: black;
-        font-family: Noto Sans;
-    }
+.form p, a {
+    color: black;
+    font-family: Noto Sans;
+}
 
 .form-control {
     width: 90%;
@@ -72,6 +72,7 @@ textarea {
     border: 1px solid black;
     border-radius: 15px;
     resize: vertical;
+
 }
 
 .form-floating > label {

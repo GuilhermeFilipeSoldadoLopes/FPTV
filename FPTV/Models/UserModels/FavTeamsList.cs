@@ -12,6 +12,7 @@ namespace FPTV.Models.UserModels
         public Team[] Teams { get; set; }
         [ForeignKey("Profile")]
         public Guid ProfileId { get; set; }
+
         public virtual Profile Profile { get; set; }
     }
 }

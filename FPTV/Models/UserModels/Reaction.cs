@@ -14,8 +14,7 @@ namespace FPTV.Models.UserModels
         [Display(Name = "User Id")]
         //[ForeignKey("User")]
         public Guid UserId { get; set; }
-
-
+        
         [Display(Name = "Comment ID")]
         //[ForeignKey("Comment")]
         public Guid CommentId { get; set; }

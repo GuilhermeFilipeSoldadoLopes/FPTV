@@ -65,6 +65,7 @@ namespace FPTV
             var _user2 = await userManager.FindByEmailAsync(moderator_GL.Email);
             if (_user2 == null)
             {
+
                 var createPowerUser2 = await userManager.CreateAsync(moderator_GL, "PassImpenetravel.123");
                 if (createPowerUser2.Succeeded)
                     await userManager.AddToRoleAsync(moderator_GL, "Manager");
