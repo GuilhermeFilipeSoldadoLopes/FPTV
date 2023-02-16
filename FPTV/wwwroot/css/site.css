@@ -1,16 +1,16 @@
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
@@ -36,6 +36,7 @@ button {
     cursor: pointer;
     border-radius: 15px;
 }
+
 textarea {
     width: 100%;
     margin: 8px 0;
@@ -49,16 +50,16 @@ textarea {
     background-image: url('../images/valcs.png');
     background-repeat: no-repeat;
     background-size: cover;
-    
 }
 
 .form {
     margin: auto;
     width: 50%;
-    background-color:#8b8b8b;
-    border-radius:15px;
+    background-color: #8b8b8b;
+    border-radius: 15px;
     border: 1px solid black;
 }
+
 .form p, a {
     color: black;
     font-family: Noto Sans;
@@ -71,8 +72,9 @@ textarea {
     border: 1px solid black;
     border-radius: 15px;
     resize: vertical;
-    
+
 }
+
 .form-floating > label {
     position: relative;
     padding: 8px;
@@ -80,7 +82,6 @@ textarea {
 
 .form-control::-moz-placeholder {
     color: black !important;
-   
 }
 
 .form-control::placeholder {

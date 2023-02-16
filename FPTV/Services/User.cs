@@ -9,7 +9,7 @@ namespace FPTV.Services
         //Retorna todos os Profiles
         public List<Profile> getProfiles(FPTVContext _context)
         {
-            return _context.Profile.ToList();
+            return _context.Profiles.ToList();
         }
 
         //Retorna true caso o profile exista na base de dados
@@ -23,7 +23,7 @@ namespace FPTV.Services
         {
             if (existProfile(_context, userID))
             {
-                return _context.Profile.Find(userID);
+                return _context.Profiles.Single(p => p.UserId == userID);
             }
             else
             {
@@ -32,7 +32,7 @@ namespace FPTV.Services
         }
 
         //Retorna a Profile Picture através do User ID
-        public ProfilePicture getProfilePictureByUserID(FPTVContext _context, Guid userID)
+        public byte[] getProfilePictureByUserID(FPTVContext _context, Guid userID)
         {
             if (existProfile(_context, userID))
             {
@@ -47,13 +47,13 @@ namespace FPTV.Services
         //Retorna os comentários de um utilizador através do User ID
         public List<Comment> getCommentsByUserID(FPTVContext _context, Guid userID)
         {
-            return _context.Comments.ToList().FindAll(u => u.UserId == userID);
+            return _context.Comments.ToList().FindAll(u => u.ProfileId == userID);
         }
 
         //Retorna os tópicos de um utilizador através do User ID
         public List<Topic> getTopicsByUserID(FPTVContext _context, Guid userID)
         {
-            return _context.Topics.ToList().FindAll(u => u.UserId == userID);
+            return _context.Topics.ToList().FindAll(u => u.ProfileId == userID);
         }
 
         //Retorna as reações de um utilizador através do User ID
@@ -65,13 +65,15 @@ namespace FPTV.Services
         //Retorna a lista de jogadores favoritos de um utilizador através do User ID
         public List<FavPlayerList> getFavPlayersByUserID(FPTVContext _context, Guid userID)
         {
-            return _context.FavPlayerList.ToList().FindAll(u => u.UserId == userID);
+            var profile = getProfileByUserID(_context, userID);
+            return _context.FavPlayerList.ToList().FindAll(u => u.ProfileId == profile.Id);
         }
 
         //Retorna a lista de equipas favoritas de um utilizador através do User ID
         public List<FavTeamsList> getFavTeamsByUserID(FPTVContext _context, Guid userID)
         {
-            return _context.FavTeamsList.ToList().FindAll(u => u.UserId == userID);
+            var profile = getProfileByUserID(_context, userID);
+            return _context.FavTeamsList.ToList().FindAll(u => u.ProfileId == profile.Id);
         }
 
         /*

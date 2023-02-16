@@ -18,6 +18,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using FPTV.Models.UserModels;
+using FPTV.Data;
 
 namespace FPTV.Areas.Identity.Pages.Account
 {
@@ -30,13 +31,17 @@ namespace FPTV.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<UserBase> _emailStore;
         private readonly IEmailSender _emailSender;
         private readonly ILogger<ExternalLoginModel> _logger;
+        private readonly FPTVContext _context;
+        private readonly IWebHostEnvironment _env;
 
         public ExternalLoginModel(
             SignInManager<UserBase> signInManager,
             UserManager<UserBase> userManager,
             IUserStore<UserBase> userStore,
             ILogger<ExternalLoginModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            FPTVContext context,
+            IWebHostEnvironment env)
         {
             _signInManager = signInManager;
             _userManager = userManager;
@@ -44,6 +49,8 @@ namespace FPTV.Areas.Identity.Pages.Account
             _emailStore = GetEmailStore();
             _logger = logger;
             _emailSender = emailSender;
+            _context = context;
+            _env = env;
         }
 
         /// <summary>
@@ -85,6 +92,9 @@ namespace FPTV.Areas.Identity.Pages.Account
             [Required]
             [EmailAddress]
             public string Email { get; set; }
+            [Required]
+            [Display(Name = "Username")]
+            public string Username { get; set; }
         }
         
         public IActionResult OnGet() => RedirectToPage("./Login");
@@ -153,8 +163,13 @@ namespace FPTV.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 var user = CreateUser();
-
-                await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
+                Profile profile = new();
+                var defaultImage = Path.Combine(_env.WebRootPath, "images", "default-profile-icon-24.jpg");
+                profile.Picture = System.IO.File.ReadAllBytes(defaultImage);
+                profile.User = user;
+                user.Profile = profile;
+                _context.Profiles.Add(profile);
+                await _userStore.SetUserNameAsync(user, Input.Username, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
 
                 var result = await _userManager.CreateAsync(user);
@@ -174,8 +189,8 @@ namespace FPTV.Areas.Identity.Pages.Account
                             values: new { area = "Identity", userId = userId, code = code },
                             protocol: Request.Scheme);
 
-                        await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                            $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                        //await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
+                            //$"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
                         // If account confirmation is required, we need to show the link if we don't have a real email sender
                         if (_userManager.Options.SignIn.RequireConfirmedAccount)

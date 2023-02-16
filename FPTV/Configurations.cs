@@ -9,9 +9,7 @@ namespace FPTV
         public static async Task CreateRoles(IServiceProvider serviceProvider)
         {
             var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-            var userAdmin = serviceProvider.GetRequiredService<UserManager<Admin>>();
-            var userModerator = serviceProvider.GetRequiredService<UserManager<Moderator>>();
-            var userUser = serviceProvider.GetRequiredService<UserManager<User>>();
+            var userManager = serviceProvider.GetRequiredService<UserManager<UserBase>>();
             string[] roleNames = { "Admin", "Moderator", "User" };
 
             foreach (var roleName in roleNames)
@@ -20,15 +18,14 @@ namespace FPTV
                 if (!roleExist) await roleManager.CreateAsync(new IdentityRole(roleName));
             }
 
-            await CreateAdmin(roleManager, userAdmin);
-            await CreateModerators(roleManager, userModerator);
+            await CreateAdmin(roleManager, userManager);
+            await CreateModerators(roleManager, userManager);
         }
 
-        private static async Task CreateAdmin(RoleManager<IdentityRole> roleManager, UserManager<Admin> userAdmin)
+        private static async Task CreateAdmin(RoleManager<IdentityRole> roleManager, UserManager<UserBase> userAdmin)
         {
-            var admin = new Admin
+            var admin = new UserBase
             {
-                Name = "AdminAccount",
                 UserName = "...",
                 Email = "Admin@FPTV.org"
             };
@@ -39,15 +36,14 @@ namespace FPTV
                 if (createPowerUser.Succeeded)
                     await userAdmin.AddToRoleAsync(admin, "Manager");
             }
-            
+
         }
 
-        private static async Task CreateModerators(RoleManager<IdentityRole> roleManager, UserManager<Moderator> userManager)
+        private static async Task CreateModerators(RoleManager<IdentityRole> roleManager, UserManager<UserBase> userManager)
         {
             //André Dias
-            var moderator_AD = new Moderator
+            var moderator_AD = new UserBase
             {
-                Name = "...",
                 UserName = "...",
                 Email = "..."
             };
@@ -58,32 +54,31 @@ namespace FPTV
                 if (createPowerUser1.Succeeded)
                     await userManager.AddToRoleAsync(moderator_AD, "Manager");
             }
-            
+
 
             //Guilherme Lopes
-            var moderator_GL = new Moderator
+            var moderator_GL = new UserBase
             {
-                Name = "Guilherme Lopes",
                 UserName = "V1rtual",
                 Email = "guilherme.lopes20@estudantes.ips.pt"
             };
             var _user2 = await userManager.FindByEmailAsync(moderator_GL.Email);
             if (_user2 == null)
-            { 
+            {
+
                 var createPowerUser2 = await userManager.CreateAsync(moderator_GL, "PassImpenetravel.123");
                 if (createPowerUser2.Succeeded)
                     await userManager.AddToRoleAsync(moderator_GL, "Manager");
             }
 
             //Miguel Rebelo
-            var moderator_MR = new Moderator
+            var moderator_MR = new UserBase
             {
-                Name = "...",
                 UserName = "...",
                 Email = "..."
             };
             var _user3 = await userManager.FindByEmailAsync(moderator_MR.Email);
-            if (_user3 == null) 
+            if (_user3 == null)
             {
                 var createPowerUser3 = await userManager.CreateAsync(moderator_MR, "...");
                 if (createPowerUser3.Succeeded)
@@ -91,9 +86,8 @@ namespace FPTV
             }
 
             //Nuno Reis
-            var moderator_NR = new Moderator
+            var moderator_NR = new UserBase
             {
-                Name = "Nuno Reis",
                 UserName = "nuno33",
                 Email = "nunoreis294@gmail.com"
             };
@@ -106,9 +100,8 @@ namespace FPTV
             }
 
             //Rui Plínio
-            var moderator_RP = new Moderator
+            var moderator_RP = new UserBase
             {
-                Name = "...",
                 UserName = "...",
                 Email = "..."
             };
@@ -121,9 +114,8 @@ namespace FPTV
             }
 
             //João Afonso
-            var moderator_JA = new Moderator
+            var moderator_JA = new UserBase
             {
-                Name = "João Afonso",
                 UserName = "joaoafonso61",
                 Email = "jmrafonso61@gmail.com"
             };

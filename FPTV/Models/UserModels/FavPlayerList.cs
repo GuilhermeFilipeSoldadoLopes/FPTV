@@ -1,5 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
+using System.Xml.Linq;
 
 namespace FPTV.Models.UserModels
 {
@@ -8,29 +9,9 @@ namespace FPTV.Models.UserModels
         [Key]
         [Display(Name = "Fav Player List ID")]
         public Guid FavPlayerListId { get; set; }
-
-        [Required]
-        [Display(Name = "Name")]
-        public string Name { get; set; }
-
-        [Required]
-        [Display(Name = "Team")]
-        public string Team { get; set; }
-
-        [Required]
-        [Display(Name = "isCSGO")]
-        public bool isGame { get; set; }
-
-        [Required]
-        [Display(Name = "Player Image")]
-        public string PlayerImage { get; set; }
-
-        [Required]
-        [Display(Name = "User ID")]
+        public Player[]? Players { get; set; }
         [ForeignKey("Profile")]
-        public Guid UserId { get; set; }
-
-        [Display(Name = "User")]
+        public Guid ProfileId { get; set; }
         public virtual Profile Profile { get; set; }
     }
 }

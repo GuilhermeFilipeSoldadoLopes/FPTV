@@ -7,17 +7,8 @@ namespace FPTV.Models.UserModels
 {
     public class UserBase : IdentityUser
     {
-        [Required]
-        [Display(Name = "Name")]
-        [PersonalData]
-        public string Name { get; set; }
-
-        [Required]
-        [Display(Name = "User ID")]
-        [ForeignKey("Profile")]
-        public Guid UserId { get; set; }
-
-        [Display(Name = "User")]
-        public virtual Profile Profile { get; set; }
+        public Profile Profile { get; set; }
+        [ForeignKey("ProfileId")]
+        public Guid ProfileId { get; set; }
     }
 }

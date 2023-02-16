@@ -11,12 +11,10 @@ namespace FPTV.Models.UserModels
         [Display(Name = "Reaction")]
         public string ReactionCode { get; set; } //rever o nome reactioncode //ReactionEmoji - o que achas?
 
-        [Required]
         [Display(Name = "User Id")]
         //[ForeignKey("User")]
         public Guid UserId { get; set; }
-
-        [Required]
+        
         [Display(Name = "Comment ID")]
         //[ForeignKey("Comment")]
         public Guid CommentId { get; set; }

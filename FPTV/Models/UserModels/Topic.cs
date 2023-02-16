@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FPTV.Models.UserModels
 {
@@ -21,14 +22,12 @@ namespace FPTV.Models.UserModels
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime Date { get; set; }
 
-        [Required]
+
         [Display(Name = "User ID")]
-        //[ForeignKey("User")]
-        public Guid UserId { get; set; }
+        [ForeignKey("ProfileId")]
+        public Guid ProfileId { get; set; }
 
         [Display(Name = "User")]
         public virtual Profile Profile { get; set; }
-
-        public ICollection<Comment> Comments { get; set; }
     }
 }

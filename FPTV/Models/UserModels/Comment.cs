@@ -1,9 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FPTV.Models.UserModels
 {
     public class Comment
     {
+        [Key]
         [Display(Name = "Comment ID")]
         public Guid CommentId { get; set; }
 
@@ -17,15 +19,13 @@ namespace FPTV.Models.UserModels
         [Display(Name = "Comment")]
         public string Text { get; set; }
 
-        [Required]
         [Display(Name = "User ID")]
-        //[ForeignKey("User")]
-        public Guid UserId { get; set; }
+        [ForeignKey("ProfileId")]
+        public Guid ProfileId { get; set; }
 
 
-        [Required]
         [Display(Name = "Topic ID")]
-        //[ForeignKey("Topic")] 
+        [ForeignKey("TopicId")] 
         public Guid TopicId { get; set; }
 
         [Display(Name = "User")]

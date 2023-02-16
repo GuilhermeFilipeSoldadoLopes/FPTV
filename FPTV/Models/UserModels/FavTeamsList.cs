@@ -1,32 +1,18 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Xml.Linq;
 
 namespace FPTV.Models.UserModels
 {
     public class FavTeamsList
     {
         [Key]
-        [Display(Name = "Error Log ID")]
+        [Display(Name = "Fav Player List ID")]
         public Guid FavTeamsListId { get; set; }
-
-        [Required]
-        [Display(Name = "Name")]
-        public string Name { get; set; }
-
-        [Required]
-        [Display(Name = "isCSGO")]
-        public bool isGame { get; set; }
-
-        [Required]
-        [Display(Name = "Team Image")]
-        public string TeamImage { get; set; }
-
-        [Required]
-        [Display(Name = "User ID")]
+        public Team[] Teams { get; set; }
         [ForeignKey("Profile")]
-        public Guid UserId { get; set; }
+        public Guid ProfileId { get; set; }
 
-        [Display(Name = "User")]
         public virtual Profile Profile { get; set; }
     }
 }

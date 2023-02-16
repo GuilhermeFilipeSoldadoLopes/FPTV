@@ -2,10 +2,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using FPTV.Data;
-using FPTV.Services.EmailSenderService;
-using FPTV;
+using FPTV.Services;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using FPTV.Models.UserModels;
-using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
@@ -19,34 +18,18 @@ services.AddAuthentication()
     googleOptions.ClientSecret = configuration["Authentication:Google:ClientSecret"];
 });
 
+
 var connectionString = builder.Configuration.GetConnectionString("FPTV_Context");
 builder.Services.AddDbContext<FPTVContext>(options =>
     options.UseSqlServer(connectionString));
 
-/*builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<FPTVContext>();*/
-
 builder.Services.AddIdentity<UserBase, IdentityRole>(options =>
-{
-    options.SignIn.RequireConfirmedAccount = true;
-    options.Tokens.ProviderMap.Add("CustomEmailConfirmation",
-        new TokenProviderDescriptor(
-            typeof(CustomEmailConfirmationTokenProvider<UserBase>)));
-    options.Tokens.EmailConfirmationTokenProvider = "CustomEmailConfirmation";
-}).AddEntityFrameworkStores<FPTVContext>();
-builder.Services.AddRazorPages();
-
-builder.Services.AddTransient<CustomEmailConfirmationTokenProvider<UserBase>>();
-
-/*builder.Services.AddDefaultIdentity<UserBase>(options =>
-{
-    options.SignIn.RequireConfirmedAccount = true;
-    options.Tokens.ProviderMap.Add("CustomEmailConfirmation",
-        new TokenProviderDescriptor(
-            typeof(CustomEmailConfirmationTokenProvider<UserBase>)));
-    options.Tokens.EmailConfirmationTokenProvider = "CustomEmailConfirmation";
-}).AddEntityFrameworkStores<FPTVContext>();//.AddRoles<IdentityRole>();
-builder.Services.AddRazorPages();*/
+    { options.SignIn.RequireConfirmedAccount = false;
+        options.Tokens.ProviderMap.Add("CustomEmailConfirmation",
+            new TokenProviderDescriptor(
+                typeof(CustomEmailConfirmationTokenProvider<UserBase>)));
+        options.Tokens.EmailConfirmationTokenProvider = "CustomEmailConfirmation";
+    }).AddEntityFrameworkStores<FPTVContext>();
 
 builder.Services.AddTransient<CustomEmailConfirmationTokenProvider<UserBase>>();
 
@@ -66,6 +49,7 @@ builder.Services.ConfigureApplicationCookie(o => {
 builder.Services.Configure<DataProtectionTokenProviderOptions>(o =>
        o.TokenLifespan = TimeSpan.FromHours(3));
 
+services.AddMvc();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -88,6 +72,7 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+await app.CreateRolesAsync(builder.Configuration);
 
 app.UseEndpoints(endpoints =>
 {
@@ -97,8 +82,22 @@ app.UseEndpoints(endpoints =>
     app.MapRazorPages();
 });
 
-//Causa erro, no metodo CreateRoles no Configurations diz que nao tem o serviço
-//using var scope = app.Services.CreateScope();
-//await Configurations.CreateRoles(scope.ServiceProvider);
-
 app.Run();
+
+public static class WebApplicationExtensions
+{
+    public static async Task<WebApplication> CreateRolesAsync(this WebApplication app, IConfiguration configuration)
+    {
+        using var scope = app.Services.CreateScope();
+        var roleManager = (RoleManager<IdentityRole>)scope.ServiceProvider.GetService(typeof(RoleManager<IdentityRole>));
+        string[] roles = { "Admin", "Moderator", "User" };
+
+        foreach (var role in roles)
+        {
+            if (!await roleManager.RoleExistsAsync(role))
+                await roleManager.CreateAsync(new IdentityRole(role));
+        }
+
+        return app;
+    }
+}
