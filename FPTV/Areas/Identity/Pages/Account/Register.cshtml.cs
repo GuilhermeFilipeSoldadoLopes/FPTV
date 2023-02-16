@@ -124,12 +124,14 @@ namespace FPTV.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 var user = CreateUser();
+
                 Profile profile = new();
                 var defaultImage = Path.Combine(_env.WebRootPath, "images", "default-profile-icon-24.jpg");
                 profile.Picture = System.IO.File.ReadAllBytes(defaultImage);
                 profile.User = user;
                 user.Profile = profile;
                 _context.Profiles.Add(profile);
+
                 await _userStore.SetUserNameAsync(user, Input.Username, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 var result = await _userManager.CreateAsync(user, Input.Password);
@@ -147,8 +149,8 @@ namespace FPTV.Areas.Identity.Pages.Account
                         values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
                         protocol: Request.Scheme);
 
-                    //await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                        //$"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
+                        $"{HtmlEncoder.Default.Encode(callbackUrl)}");
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {

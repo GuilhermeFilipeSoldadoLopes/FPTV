@@ -24,7 +24,7 @@ builder.Services.AddDbContext<FPTVContext>(options =>
     options.UseSqlServer(connectionString));
 
 builder.Services.AddIdentity<UserBase, IdentityRole>(options =>
-    { options.SignIn.RequireConfirmedAccount = false;
+    { options.SignIn.RequireConfirmedAccount = true;
         options.Tokens.ProviderMap.Add("CustomEmailConfirmation",
             new TokenProviderDescriptor(
                 typeof(CustomEmailConfirmationTokenProvider<UserBase>)));
