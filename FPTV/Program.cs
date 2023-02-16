@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using FPTV.Data;
-using FPTV.Services;
+using FPTV.Services.EmailSenderService;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using FPTV.Models.UserModels;
 
