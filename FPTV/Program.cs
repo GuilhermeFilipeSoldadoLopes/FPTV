@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using FPTV.Data;
-using FPTV.Services;
+using FPTV.Services.EmailSenderService;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using FPTV.Models.UserModels;
 
@@ -24,7 +24,7 @@ builder.Services.AddDbContext<FPTVContext>(options =>
     options.UseSqlServer(connectionString));
 
 builder.Services.AddIdentity<UserBase, IdentityRole>(options =>
-    { options.SignIn.RequireConfirmedAccount = false;
+    { options.SignIn.RequireConfirmedAccount = true;
         options.Tokens.ProviderMap.Add("CustomEmailConfirmation",
             new TokenProviderDescriptor(
                 typeof(CustomEmailConfirmationTokenProvider<UserBase>)));
