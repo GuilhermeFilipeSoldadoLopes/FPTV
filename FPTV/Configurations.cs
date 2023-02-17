@@ -102,8 +102,8 @@ namespace FPTV
             //Rui Plínio
             var moderator_RP = new UserBase
             {
-                UserName = "...",
-                Email = "..."
+                UserName = "ruiplinio",
+                Email = "202002062@estudantes.ips.pt"
             };
             var _user5 = await userManager.FindByEmailAsync(moderator_RP.Email);
             if (_user5 == null)
