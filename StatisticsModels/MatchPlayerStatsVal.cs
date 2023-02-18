@@ -7,10 +7,12 @@ namespace FPTV.Models.StatisticsModels
     {
         [Required]
         [Key]
+        [Display(Name = "Id of a valorant match")]
         public Guid MatchValId { get; set; }
 
         [Required]
         [ForeignKey("PlayerValId")]
+        [Display(Name = "Id of a valorant player")]
         public Guid PlayerValId { get; set; }
 
         [Required]

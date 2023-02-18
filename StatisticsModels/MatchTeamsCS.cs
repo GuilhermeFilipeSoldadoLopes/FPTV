@@ -8,10 +8,12 @@ namespace FPTV.Models.StatisticsModels
     {
         [Required]
         [Key]
+        [Display(Name = "Id of a csgo match")]
         public Guid MatchCSId { get; set; }
 
         [Required]
         [ForeignKey("TeamCSId")]
+        [Display(Name = "Id of a csgo team")]
         public Guid TeamCSId { get; set; }
 
         [Required]
