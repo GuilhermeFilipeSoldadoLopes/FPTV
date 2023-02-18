@@ -24,8 +24,6 @@
 
 				default: return null;
 			}
-
-			return null;
 		}
 
 		public string? GetMatchesSortBy(string sort)
