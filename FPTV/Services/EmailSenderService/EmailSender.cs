@@ -42,11 +42,10 @@ public class EmailSender : IEmailSender
 
         var msg = new SendGridMessage()
         {
-            From = new EmailAddress("fptv.org@gmail.com", "FPTV Email Sender"),
+            From = new EmailAddress("fptv.org@gmail.com", "FPTV"),
             Subject = subject,
             PlainTextContent = message,
             HtmlContent = content
-
         };
         msg.AddTo(new EmailAddress(toEmail));
 

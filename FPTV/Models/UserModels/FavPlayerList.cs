@@ -10,7 +10,7 @@ namespace FPTV.Models.UserModels
         [Display(Name = "Fav Player List ID")]
         public Guid FavPlayerListId { get; set; }
         public Player[]? Players { get; set; }
-        [ForeignKey("Profile")]
+        [ForeignKey("ProfileId")]
         public Guid ProfileId { get; set; }
         public virtual Profile Profile { get; set; }
     }
