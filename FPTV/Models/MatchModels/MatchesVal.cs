@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using FPTV.Models.StatisticsModels;
 using FPTV.Models.UserModels;
 
 namespace FPTV.Models.MatchModels
@@ -43,9 +44,9 @@ namespace FPTV.Models.MatchModels
 		[Display(Name = "Have Stats")]
 		public bool HaveStats { get; set; }
 
-		/*[Required]
-		[Display(Name = "MatchesList")]
-		public ICollection<MatchVal> MatchesList { get; set; }*/
+		[Required]
+		[Display(Name = "MatchesVal List")]
+		public ICollection<MatchVal> MatchesList { get; set; }
 
 		[Required]
 		[Display(Name = "Number Of Games")]
