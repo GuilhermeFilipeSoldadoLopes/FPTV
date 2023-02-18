@@ -11,12 +11,12 @@ namespace FPTV.Models.MatchModels
 		public Guid MatchesCSId { get; set; }
 
 		[Required]
-		[Display(Name = "EventId")]
+		[Display(Name = "Event Id")]
 		[ForeignKey("EventId")]
 		public Guid EventId { get; set; }
 
 		[Required]
-		[Display(Name = "EventName")]
+		[Display(Name = "Event Name")]
 		public string EventName { get; set; }
 
 		[Required]
@@ -36,11 +36,11 @@ namespace FPTV.Models.MatchModels
 		public bool IsFinished { get; set; }
 
 		[Required]
-		[Display(Name = "TimeType")]
+		[Display(Name = "Time Type")]
 		public TimeType TimeType { get; set; }
 
 		[Required]
-		[Display(Name = "HaveStats")]
+		[Display(Name = "Have Stats")]
 		public bool HaveStats { get; set; }
 
 		/*[Required]
@@ -48,18 +48,17 @@ namespace FPTV.Models.MatchModels
 		public ICollection<MatchVal> MatchesList { get; set; }*/
 
 		[Required]
-		[Display(Name = "NumberOfGames")]
+		[Display(Name = "Number Of Games")]
 		public int NumberOfGames { get; set; }
 
 		[Required]
-		[Display(Name = "TeamsIdList")]
+		[Display(Name = "Teams Id List")]
 		public List<Guid> TeamsIdList { get; set; }
-		//public ICollection<Team> TeamsIdList { get; set; }
 
-		[Display(Name = "WinnerTeamId")]
+		[Display(Name = "Winner Team Id")]
 		public Guid? WinnerTeamId { get; set; }
 
-		[Display(Name = "WinnerTeamName")]
+		[Display(Name = "Winner Team Name")]
 		public string? WinnerTeamName { get; set; }
 
 		[Required]
@@ -67,21 +66,21 @@ namespace FPTV.Models.MatchModels
 		public char Tier { get; set; }
 
 		[Required]
-		[Display(Name = "LiveSupported")]
+		[Display(Name = "Live Supported")]
 		public bool LiveSupported { get; set; }
 
-		[Display(Name = "StreamList")]
+		[Display(Name = "Stream List")]
 		public ICollection<Stream>? StreamList { get; set; }
 
 		[Required]
-		[Display(Name = "LeagueName")]
+		[Display(Name = "League Name")]
 		public string LeagueName { get; set; }
 
 		[Required]
-		[Display(Name = "LeagueId")]
+		[Display(Name = "League Id")]
 		public Guid LeagueId { get; set; }
 
-		[Display(Name = "LeagueLink")]
+		[Display(Name = "League Link")]
 		public string? LeagueLink { get; set; }
 	}
 }

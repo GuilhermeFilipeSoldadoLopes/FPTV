@@ -5,11 +5,11 @@ namespace FPTV.Models.MatchModels
 	public class Stream
 	{
 		[Required]
-		[Display(Name = "StreamLink")]
+		[Display(Name = "Stream Link")]
 		public string StreamLink { get; set; }
 
 		[Required]
-		[Display(Name = "StreamLanguage")]
+		[Display(Name = "Stream Language")]
 		public string StreamLanguage { get; set; }
 	}
 }
