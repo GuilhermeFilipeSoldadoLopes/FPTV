@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using FPTV.Models.UserModels;
 
-namespace FPTV.Models.UserModels
+namespace FPTV.Models.ToReview
 {
     public class Team
     {
