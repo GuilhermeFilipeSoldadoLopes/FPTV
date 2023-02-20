@@ -38,15 +38,21 @@
             </form>
         </section>
     </div>
-    <div class="text-center" style="width: 50%; margin:auto">
-        <p> Don't have an account?</p>
-        <p><a href="Register"> Register now!</a></p>
+    <div class="text-center" style="width: 40%; display : flex ;justify-content: center; margin:auto; margin-top: 12px">
+        <div class="text-center-left" style="margin-right: 25px;" >
+            <p style="font-weight: bold; margin-bottom:5px"> Don't have an account?</p>
+            <p><a href="Register"> Register now!</a></p>
+        </div>
+        <div class="text-center-right" style="margin-left: 25px;">
+            <p style="font-weight: bold; margin-bottom:5px"> Forgot your Passowrd?</p>
+            <p><a href="ForgotPassowrd"> Recover</a></p>
+    </div>
     </div>
 
     <div class="text-center" style="width: 90%;margin:auto">
         <section>
-            <h3>Use another service to log in.</h3>
             <hr />
+            <h3>Use another service to log in.</h3>
             @{
                 if ((Model.ExternalLogins?.Count ?? 0) == 0)
                 {

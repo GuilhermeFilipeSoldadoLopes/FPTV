@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using FPTV.Models.ToReview;
+
 namespace FPTV.Models.UserModels
 {
     public class Player
