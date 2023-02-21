@@ -52,6 +52,16 @@ textarea {
     background-size: cover;
 }
 
+.bodytemp {
+    width:100%;
+    background-image: url('../images/tempo.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+
+
+
 .form {
     margin: auto;
     width: 50%;
