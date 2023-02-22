@@ -53,6 +53,7 @@ namespace FPTV.Models.MatchModels
 		public int NumberOfGames { get; set; }
 
 		[Required]
+		[NotMapped]
 		[Display(Name = "Teams Id List")]
 		public List<Guid> TeamsIdList { get; set; }
 
