@@ -52,12 +52,22 @@ textarea {
     background-size: cover;
 }
 
+.bodytemp {
+    width:100%;
+    background-image: url('../images/tempo.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+
+
+
 .form {
     margin: auto;
     width: 50%;
-    background-color: #8b8b8b;
+    /* background-color: #8b8b8b;
     border-radius: 15px;
-    border: 1px solid black;
+    border: 1px solid black;*/
 }
 
 .form p, a {
