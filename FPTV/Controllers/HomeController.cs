@@ -63,6 +63,10 @@ namespace FPTV.Controllers
         {
             return View();
         }
+        public IActionResult TeamStats()
+        {
+            return View();
+        }
 
         public IActionResult PlayerAndStats()
         {

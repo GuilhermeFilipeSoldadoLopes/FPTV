@@ -1,0 +1,97 @@
+﻿@{
+    ViewData["Title"] = "Home";
+}
+    <style>
+        
+        .center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            
+        }
+       
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .logo {
+            max-width: 100%; /* Garante que a imagem não ultrapasse o tamanho da div pai */
+            height: auto; /* Redimensiona a imagem proporcionalmente */
+            padding: 20px;
+        }
+
+        .h3{
+            padding-left: 20px;
+        }
+    </style>
+
+<body>
+    <div style="display: flex; flex-direction: column; ">
+        
+        <div>
+            <div>
+                <img src="~/images/WRU_Logo_Fundo_.png" alt="logo" class="logo" style="max-width:20%">
+                <h1>We Are Us Gaming</h1>
+            </div>
+            
+        </div>
+        
+        <div class="center">
+            
+            <div style="align-items: center">
+                <img src="~/images/WRU_Logo_Fundo_.png" alt="logo" class="logo">
+                <h3 class="h3">Rui Plínio</h3>
+            </div>
+            <div>
+                <img src="~/images/WRU_Logo_Fundo_.png" alt="logo" class="logo">
+                <h3 class="h3">Monhe</h3>
+            </div>
+            <div>
+                <img src="~/images/WRU_Logo_Fundo_.png" alt="logo" class="logo">
+                <h3 class="h3">João Afonso</h3>
+            </div>
+            <div>
+                <img src="~/images/WRU_Logo_Fundo_.png" alt="logo" class="logo">
+                <h3 class="h3">Virtual</h3>
+            </div>
+            <div>
+                <img src="~/images/WRU_Logo_Fundo_.png" alt="logo" class="logo">
+                <h3 class="h3">os outros 2</h3>
+            </div>
+        </div>
+        
+        <div style="padding: 10%">
+            <table>
+               
+                <tr>
+                    <td>Couch</td>
+                    <td>Peter</td>
+                   
+                </tr>
+                <tr>
+                    <td>World Ranking</td>
+                    <td>#12</td>
+                  
+                </tr>
+                <tr>
+                    <td>Total Wins</td>
+                    <td>231</td>
+                   
+                </tr>
+                <tr>
+                    <td>Total Loses</td>
+                    <td>60</td>
+                    
+                </tr>
+            </table>
+        </div>
+    </div>
+</body>
+
