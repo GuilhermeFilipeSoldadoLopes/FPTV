@@ -1,5 +1,6 @@
 ﻿using FPTV.Models.MatchModels;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Xml.Linq;
 
 namespace FPTV.Models.EventModels
@@ -39,10 +40,12 @@ namespace FPTV.Models.EventModels
         public DateTime EndAt { get; set; }
 
         [Required]
+        [NotMapped]
         [Display(Name = "Match list")]
         public List<Guid> MatchesListID { get; set; }
 
         [Required]
+        [NotMapped]
         [Display(Name = "Team list")]
         public List<string> TeamsList { get; set; }
 
