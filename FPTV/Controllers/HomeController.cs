@@ -58,7 +58,6 @@ namespace FPTV.Controllers
         {
             return View();
         }
-
         public IActionResult Privacy()
         {
             return View();
@@ -67,7 +66,6 @@ namespace FPTV.Controllers
         {
             return View();
         }
-
         public IActionResult PlayerAndStats()
         {
             return View();
