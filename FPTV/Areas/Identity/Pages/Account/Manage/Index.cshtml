@@ -5,53 +5,104 @@
     ViewData["ActivePage"] = ManageNavPages.Index;
 }
 
-<h3>@ViewData["Title"]</h3>
 <partial name="_StatusMessage" for="StatusMessage" />
-<form id="profile-form" method="post" enctype="multipart/form-data">
-    <div class="row">
-        <div class="col-md-6">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-floating">
-                <input asp-for="Input.Username" class="form-control" disabled />
-                <label asp-for="Input.Username" class="form-label"></label>
+<div class="row" style="width:100%;">
+    <div class="col-md-3" style="padding-left:4%;">
+        <h1>CS:GO</h1>
+        <br />
+
+        <div style="width:80%;border-style:solid;border-color:gray;border-width:2px;border-radius:10px;padding:10px;">
+            <h4>Favourite Players:</h4>
+            <div style="padding-left:20px">
+                Player 1<br />
+                Player 2<br />
+                Player 3<br />
+                Player 4<br />
+                Player 5<br />
+                Player 6<br />
+                Player 7<br />
             </div>
-            <div class="form-floating">
-                <input asp-for="Input.PhoneNumber" class="form-control" />
-                <label asp-for="Input.PhoneNumber" class="form-label"></label>
-                <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
-            </div>
-            <select asp-for="Input.Country" class="form-control" style="margin-top: 10px;">
-                    <option>Country</option>
-                    <option value="PT">Portugal</option>
-                    <option value="UK">United Kingdom</option>
-                    <label asp-for="Input.Country" class="label"></label>
-                    <span asp-validation-for="Input.Country" class="text-danger"></span>
-            </select>
-            <button id="update-profile-button" type="submit" class="button">Save</button>
         </div>
-        <div class="col-md-6">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Input.ProfilePicture" style="width: 100%;"></label>
-                @if (Model.Input.ProfilePicture != null)
-                {
-                    <img id="profilePicture" style="width:350px;height:350px; object-fit:cover" src="data:image/*;base64,@(Convert.ToBase64String(Model.Input.ProfilePicture))">
-                }
-                else
-                {
-                    <img id="profilePicture" style="width:350px;height:350px; object-fit:cover" src="">
-                }
-                <input type="file"
-                       accept=".png,.jpg,.jpeg,.gif,.tif"
-                       asp-for="Input.ProfilePicture"
-                       class="form-control"
-                       style="border:0px!important;padding: 0px;padding-top: 10px;padding-bottom: 30px;"
-                       onchange="document.getElementById('profilePicture').src = window.URL.createObjectURL(this.files[0])" />
-                <span asp-validation-for="Input.ProfilePicture" class="text-danger"></span>
+        <br />
+
+        <div style="width:80%;border-style:solid;border-color:gray;border-width:2px;border-radius:10px">
+            <h4>Favourite Teams:</h4>
+            <div style="padding-left:20px">
+                Team 1<br />
+                Team 2<br />
+                Team 3<br />
+                Team 4<br />
+                Team 5<br />
+                Team 6<br />
+                Team 7<br />
             </div>
         </div>
     </div>
-</form>
+
+    <div class="col-md-6" style="position:relative;padding-left:5%;">
+        <img style="width:30px;height:30px;position:absolute;top:2px;right:10%;align-items:center;" src="~/images/Edit.png">
+
+        <img id="profilePicture" style="width:284px;height:284px;display:block;margin-left:auto;margin-right:auto; object-fit:cover" src="data:image/*;base64,@(Convert.ToBase64String(Model.Input.ProfilePicture))">
+        <br />
+
+        <div style="width:90%;position:relative;border-style:solid;border-color:gray;border-width:2px;border-radius:10px;padding:10px;">
+            @Html.DisplayFor(model => model.Username)
+            <img style="height:50%;width:auto;position:absolute;top:25%;right:10px;" src="~/images/Edit.png">
+        </div>
+        <br />
+
+        <div style="width:90%;border-style:solid;border-color:gray;border-width:2px;border-radius:10px;padding:10px;">
+            @Html.DisplayFor(model => model.Username)
+        </div>
+        <br />
+
+        <div style="width:90%;border-style:solid;border-color:gray;border-width:2px;border-radius:10px;padding:10px;">
+            <h4>Topics:</h4>
+            <div style="padding-left:20px">
+                Topic 1<br />
+                Topic 2<br />
+                Topic 3<br />
+                Topic 4<br />
+                Topic 5<br />
+                Topic 6<br />
+                Topic 7<br />
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3" style="padding-left:4%;">
+        <h1>Valorant</h1>
+        <br />
+
+        <div style="width:80%;border-style:solid;border-color:gray;border-width:2px;border-radius:10px;padding:10px;">
+            <h4>Favourite Players:</h4>
+            <div style="padding-left:20px">
+                Player 1<br />
+                Player 2<br />
+                Player 3<br />
+                Player 4<br />
+                Player 5<br />
+                Player 6<br />
+                Player 7<br />
+            </div>
+        </div>
+        <br />
+
+        <div style="width:80%;border-style:solid;border-color:gray;border-width:2px;border-radius:10px">
+            <h4>Favourite Teams:</h4>
+            <div style="padding-left:20px">
+                Team 1<br />
+                Team 2<br />
+                Team 3<br />
+                Team 4<br />
+                Team 5<br />
+                Team 6<br />
+                Team 7<br />
+            </div>
+        </div>
+    </div>
+</div>
+
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }

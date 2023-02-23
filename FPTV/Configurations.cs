@@ -88,7 +88,7 @@ namespace FPTV
             //Nuno Reis
             var moderator_NR = new UserBase
             {
-                UserName = "nuno33",
+                UserName = "nuno294",
                 Email = "nunoreis294@gmail.com"
             };
             var _user4 = await userManager.FindByEmailAsync(moderator_NR.Email);
