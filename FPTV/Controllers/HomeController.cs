@@ -34,7 +34,11 @@ namespace FPTV.Controllers
         {
             return View();
         }
-        public IActionResult Forum()
+		public IActionResult EventDetails()
+		{
+			return View();
+		}
+		public IActionResult Forum()
         {
             return View();
         }

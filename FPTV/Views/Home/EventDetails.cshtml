@@ -1,0 +1,170 @@
+﻿@{
+    ViewData["Title"] = "EventDetails";
+}
+<style>
+
+    .box1 {
+        width: 22%;
+        height: 100%;
+        display: inline-block;
+    }
+
+    .box {
+        width: 50%;
+        height: 100%;
+        display: inline-block;
+    }
+
+    .logo {
+        max-width: 100%;
+        height: auto;
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 95%;
+    }
+
+    th {
+        border: 1px solid black;
+        padding: 10px;
+    }
+
+    td {
+        border: 1px solid black;
+        padding: 10px;
+    }
+
+    h3 {
+        text-align: center;
+    }
+
+    .box2 {
+        width: calc(95% / 2);
+        height: 20%;
+        display: inline-block;
+    }
+
+    caption {
+        color: black;
+        text-decoration: underline;
+    }
+
+    .alinhar {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width:100%;
+    }
+
+    .alinhar2 {
+        display: inline-block;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .center {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .my-div {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        height: 50px;
+        margin: 10px;
+    }
+
+    .my-div > div {
+        flex-basis: 25%;
+        flex-grow: 1;
+    }
+
+    .my-div2 > div {
+        width:100%
+        /*flex-basis: 100%;*/
+    }
+
+    span {
+        font-weight: bold;
+    }
+
+    .central {
+        text-align: center;
+        background-color: white;
+    }
+    
+</style>
+<body class="bodytemp">
+
+        <h1 style="text-align: center;">Blast.tv Paris Major 2022</h1>
+
+        <div class="box1">
+            <h3>Finished Matches<h3>
+       
+        </div>
+
+    
+        <div class="box" style="flex-direction: column; background-color: white; ">
+        
+            <div class="alinhar">
+           
+                <div class="my-div" style="text-align:center;">
+                    <div>
+                        <span>Date</span>
+                        <p>Feb 22nd</p>
+                    </div>
+
+                    <div>
+                        <span>Prize pool</span>
+                        <p>$850,000</p>
+                    </div>
+
+                    <div>
+                        <span>Teams</span>
+                        <p>32</p>
+                    </div>
+
+                    <div>
+                        <span>Tier</span>
+                        <p>A</p>
+                    </div>
+                
+                </div>
+               
+            </div>
+            <p  style="margin-left:5%; text-align:left">Link:</p>
+            <div class="alinhar">
+                <div class="my-div2" style="width:90%">
+                    <div>
+                        <p style="font-weight:bold; margin-top:20px; margin-bottom:0px; ">Live Match</p>
+                        <span style="margin-top:10px;">Saturday - 2023-02-13  23:00</span>
+                    </div>
+
+                    <div>
+                        <span style="text-align: center;">
+                            <p style="font-size:25px">ENCE 11 vs 5 G2</p>
+                        </span>
+                    </div>
+
+                    <div style="text-align:left;">
+                        <p>Best of 3</p>
+                        <p>More options</p>
+                    </div>
+
+                </div>
+            </div>
+
+            
+
+        </div>
+   
+
+        <div class="box1">
+            <h3>Upcoming Matches</h3>
+        
+        </div>
+   
+</body>
