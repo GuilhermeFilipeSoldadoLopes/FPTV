@@ -46,6 +46,30 @@ namespace FPTV.Controllers
         {
             return View();
         }
+        public IActionResult Register()
+        {
+            return View();
+        }
+        public IActionResult RecoverPW()
+        {
+            return View();
+        }
+        public IActionResult SendEmail()
+        {
+            return View();
+        }
+        public IActionResult Privacy()
+        {
+            return View();
+        }
+        public IActionResult TeamStats()
+        {
+            return View();
+        }
+        public IActionResult PlayerAndStats()
+        {
+            return View();
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

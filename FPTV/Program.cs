@@ -1,24 +1,60 @@
-using FPTV.Data;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
+using FPTV.Data;
+using FPTV.Services.EmailSenderService;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using FPTV.Models.UserModels;
 
 var builder = WebApplication.CreateBuilder(args);
+var services = builder.Services;
+var configuration = builder.Configuration;
 
-// Add services to the container.
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
+services.AddAuthentication()
+    .AddSteam()
+    .AddGoogle(googleOptions =>
+{
+    googleOptions.ClientId = configuration["Authentication:Google:ClientId"];
+    googleOptions.ClientSecret = configuration["Authentication:Google:ClientSecret"];
+});
+
+
+var connectionString = builder.Configuration.GetConnectionString("FPTV_Context");
+builder.Services.AddDbContext<FPTVContext>(options =>
     options.UseSqlServer(connectionString));
-builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<ApplicationDbContext>();
+builder.Services.AddIdentity<UserBase, IdentityRole>(options =>
+    { options.SignIn.RequireConfirmedAccount = true;
+        options.Tokens.ProviderMap.Add("CustomEmailConfirmation",
+            new TokenProviderDescriptor(
+                typeof(CustomEmailConfirmationTokenProvider<UserBase>)));
+        options.Tokens.EmailConfirmationTokenProvider = "CustomEmailConfirmation";
+    }).AddEntityFrameworkStores<FPTVContext>();
+
+builder.Services.AddTransient<CustomEmailConfirmationTokenProvider<UserBase>>();
+
+//builder.Services.AddDefaultIdentity<UserBase>(options => options.SignIn.RequireConfirmedAccount = true)
+//    .AddEntityFrameworkStores<FPTVContext>();
+
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddTransient<IEmailSender, EmailSender>();
+builder.Services.Configure<AuthMessageSenderOptions>(builder.Configuration);
+
+builder.Services.ConfigureApplicationCookie(o => {
+    o.ExpireTimeSpan = TimeSpan.FromDays(5);
+    o.SlidingExpiration = true;
+});
+
+builder.Services.Configure<DataProtectionTokenProviderOptions>(o =>
+       o.TokenLifespan = TimeSpan.FromHours(3));
+
+services.AddMvc();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
-{ 
+{
     app.UseMigrationsEndPoint();
 }
 else
@@ -28,6 +64,7 @@ else
     app.UseHsts();
 }
 
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
@@ -35,10 +72,32 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+await app.CreateRolesAsync(builder.Configuration);
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
-app.MapRazorPages();
+app.UseEndpoints(endpoints =>
+{
+    app.MapControllerRoute(
+        name: "default",
+        pattern: "{controller=Home}/{action=Index}/{id?}");
+    app.MapRazorPages();
+});
 
 app.Run();
+
+public static class WebApplicationExtensions
+{
+    public static async Task<WebApplication> CreateRolesAsync(this WebApplication app, IConfiguration configuration)
+    {
+        using var scope = app.Services.CreateScope();
+        var roleManager = (RoleManager<IdentityRole>)scope.ServiceProvider.GetService(typeof(RoleManager<IdentityRole>));
+        string[] roles = { "Admin", "Moderator", "User" };
+
+        foreach (var role in roles)
+        {
+            if (!await roleManager.RoleExistsAsync(role))
+                await roleManager.CreateAsync(new IdentityRole(role));
+        }
+
+        return app;
+    }
+}

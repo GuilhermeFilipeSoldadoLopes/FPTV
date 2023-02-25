@@ -1,0 +1,28 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+<body class="bodyLogin" >
+    <div class="text-center">
+        <h1 class="display">Login</h1>
+    </div>
+    <form class="form">
+    <div class="text-center" style="width: 90%;margin:auto">
+            <input type="text" placeholder="Email" name="email" required>  
+            <input type="password" placeholder="Password" name="password" required>
+            <p>Recover <a href="SendEmail"> password </a></p>
+            <p><a href="#"> Login with Steam</a> || <a name="googleSignin" href="#"> Login with Google</a> </p>
+           
+            
+                <div>
+                    <button type="submit">Confirm</button>   
+                    <button type="button" class="cancelbtn"> Cancel</button> 
+                </div>
+    </div>
+
+    
+    </form>
+    <div class="text-center" style="width: 50%; margin:auto">
+            <p> Don't have an account?</p>
+            <p><a href="Register"> Register now!</a></p>
+    </div>
+</body>
