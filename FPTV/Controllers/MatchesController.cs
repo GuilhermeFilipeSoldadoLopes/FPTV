@@ -1,24 +1,36 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using FPTV.Data;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace FPTV.Controllers
 {
-    public class Matches : Controller
+    public class MatchesController : Controller
     {
-        // GET: Matches
-        public ActionResult Index()
+        private readonly FPTVContext _context;
+
+        public MatchesController(FPTVContext context)
         {
-            return View();
+            _context = context;
+        }
+
+        // GET: CS Matches
+        public async Task<IActionResult> CSMatches()
+        {
+            var matchesCS = await _context.MatchesCS.ToListAsync();
+
+            return View(matchesCS);
         }
 
         // GET: Matches/Details/5
-        public ActionResult Details(int id)
+        public async Task<IActionResult> Details(int id)
         {
             return View();
         }
 
         // GET: Matches/Create
-        public ActionResult Create()
+        public async Task<IActionResult> Create()
         {
             return View();
         }
@@ -26,7 +38,7 @@ namespace FPTV.Controllers
         // POST: Matches/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<IActionResult> Create(IFormCollection collection)
         {
             try
             {
@@ -39,7 +51,7 @@ namespace FPTV.Controllers
         }
 
         // GET: Matches/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
             return View();
         }
@@ -47,7 +59,7 @@ namespace FPTV.Controllers
         // POST: Matches/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<IActionResult> Edit(int id, IFormCollection collection)
         {
             try
             {
@@ -60,7 +72,7 @@ namespace FPTV.Controllers
         }
 
         // GET: Matches/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             return View();
         }
@@ -68,7 +80,7 @@ namespace FPTV.Controllers
         // POST: Matches/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<IActionResult> Delete(int id, IFormCollection collection)
         {
             try
             {
