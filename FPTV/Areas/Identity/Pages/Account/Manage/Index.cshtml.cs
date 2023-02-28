@@ -79,6 +79,7 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
             var profilePicture = profile.Picture;
             var country = profile.Country;
+            var biography = profile.Biography;
 
             Username = userName;
 
@@ -87,7 +88,8 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
                 PhoneNumber = phoneNumber,
                 Username = userName,
                 ProfilePicture = profilePicture,
-                Country = country
+                Country = country,
+                Bio = biography
             };
         }
 

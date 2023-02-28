@@ -5,15 +5,16 @@
     ViewData["ActivePage"] = ManageNavPages.Index;
 }
 
-<partial name="_StatusMessage" for="StatusMessage" />
-<div class="row" style="width:100%;">
-    <div class="col-md-3" style="padding-left:4%;">
-        <h1>CS:GO</h1>
+<div class="row"style="width:100%;">
+    <div class="col-md-3" style="position:relative;">
+        <div style="width=100%;text-align:center;">
+            <h1>CS:GO</h1>
+        </div>
         <br />
 
-        <div style="width:80%;border-style:solid;border-color:gray;border-width:2px;border-radius:10px;padding:10px;">
-            <h4>Favourite Players:</h4>
-            <div style="padding-left:20px">
+        <div style="width:80%;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:gray;border-width:2px;border-radius:10px;padding:10px;">
+            <h4 >Favourite Players:</h4>
+            <div style="padding-left:20px;">
                 Player 1<br />
                 Player 2<br />
                 Player 3<br />
@@ -25,9 +26,9 @@
         </div>
         <br />
 
-        <div style="width:80%;border-style:solid;border-color:gray;border-width:2px;border-radius:10px">
+        <div style="width:80%;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:gray;border-width:2px;border-radius:10px">
             <h4>Favourite Teams:</h4>
-            <div style="padding-left:20px">
+            <div style="padding-left:20px;">
                 Team 1<br />
                 Team 2<br />
                 Team 3<br />
@@ -39,24 +40,31 @@
         </div>
     </div>
 
-    <div class="col-md-6" style="position:relative;padding-left:5%;">
+    <div class="col-md-6" style="position:relative;">
         <img style="width:30px;height:30px;position:absolute;top:2px;right:10%;align-items:center;" src="~/images/Edit.png">
 
-        <img id="profilePicture" style="width:284px;height:284px;display:block;margin-left:auto;margin-right:auto; object-fit:cover" src="data:image/*;base64,@(Convert.ToBase64String(Model.Input.ProfilePicture))">
+        <img id="profilePicture" style="width:284px;height:284px;display:block;margin-left:auto;margin-right:auto;object-fit:cover" src="data:image/*;base64,@(Convert.ToBase64String(Model.Input.ProfilePicture))">
         <br />
 
-        <div style="width:90%;position:relative;border-style:solid;border-color:gray;border-width:2px;border-radius:10px;padding:10px;">
-            @Html.DisplayFor(model => model.Username)
+        <div style="width:90%;position:relative;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:gray;border-width:2px;border-radius:10px;padding:10px;">
+            @Model.Input.Username
             <img style="height:50%;width:auto;position:absolute;top:25%;right:10px;" src="~/images/Edit.png">
         </div>
         <br />
 
-        <div style="width:90%;border-style:solid;border-color:gray;border-width:2px;border-radius:10px;padding:10px;">
-            @Html.DisplayFor(model => model.Username)
+        <div style="width:90%;position:relative;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:gray;border-width:2px;border-radius:10px;padding:10px;">
+            @if (Model.Input.Bio != null)
+            {
+                @Model.Input.Bio
+            }
+            else
+            {
+                <br />
+            }
         </div>
         <br />
 
-        <div style="width:90%;border-style:solid;border-color:gray;border-width:2px;border-radius:10px;padding:10px;">
+        <div style="width:90%;position:relative;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:gray;border-width:2px;border-radius:10px;padding:10px;">
             <h4>Topics:</h4>
             <div style="padding-left:20px">
                 Topic 1<br />
@@ -70,11 +78,13 @@
         </div>
     </div>
 
-    <div class="col-md-3" style="padding-left:4%;">
-        <h1>Valorant</h1>
+    <div class="col-md-3" style="position:relative;">
+        <div style="width=100%;text-align:center;">
+            <h1>Valorant</h1>
+        </div>
         <br />
 
-        <div style="width:80%;border-style:solid;border-color:gray;border-width:2px;border-radius:10px;padding:10px;">
+        <div style="width:80%;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:gray;border-width:2px;border-radius:10px;padding:10px;">
             <h4>Favourite Players:</h4>
             <div style="padding-left:20px">
                 Player 1<br />
@@ -88,7 +98,7 @@
         </div>
         <br />
 
-        <div style="width:80%;border-style:solid;border-color:gray;border-width:2px;border-radius:10px">
+        <div style="width:80%;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:gray;border-width:2px;border-radius:10px">
             <h4>Favourite Teams:</h4>
             <div style="padding-left:20px">
                 Team 1<br />
