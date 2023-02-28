@@ -1,6 +1,7 @@
 ﻿using FPTV.Models.EventModels;
 using FPTV.Models.StatisticsModels;
 using FPTV.Models.UserModels;
+using FPTV.Models.MatchModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 
@@ -24,6 +25,11 @@ namespace FPTV.Data
         public DbSet<FavTeamsList> FavTeamsList { get; set; }
         public DbSet<EventCS> EventsCS { get; set; }
         public DbSet<EventVal> EventsVal { get; set; }
+        public DbSet<MatchPlayerStatsCS> MatchPlayerStatsCS { get; set; }
+        public DbSet<MatchPlayerStatsVal> MatchPlayerStatsVal { get; set; }
+        public DbSet<MatchTeamsCS> MatchTeamsCS { get; set; }
+        public DbSet<MatchTeamsVal> MatchTeamsVal { get; set; }
+
         /*public DbSet<UserAccount> UserAccount { get; set; }
         public DbSet<AuthenticationLog> AuthenticationLog { get; set; }
         public DbSet<Token> Token { get; set; }
