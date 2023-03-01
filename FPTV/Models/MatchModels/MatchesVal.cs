@@ -81,7 +81,7 @@ namespace FPTV.Models.MatchModels
 
 		[Required]
 		[Display(Name = "League Id")]
-		public Guid LeagueId { get; set; }
+		public int LeagueId { get; set; }
 
 		[Display(Name = "League Link")]
 		public string? LeagueLink { get; set; }
