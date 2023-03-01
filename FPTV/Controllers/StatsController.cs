@@ -2,6 +2,7 @@
 using FPTV.Data;
 using FPTV.Models.MatchModels;
 using FPTV.Models.StatisticsModels;
+using FPTV.Models.UserModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -15,6 +16,7 @@ namespace FPTV.Controllers
     public class StatsController : Controller
     {
         private readonly FPTVContext _context;
+        Random _random = new Random();
 
         public StatsController(FPTVContext context)
         {
@@ -66,7 +68,6 @@ namespace FPTV.Controllers
                     }
 
                     return View(statsTeamCs);
-
                 case "valorant":
                     var teamStatsVal = await _context.MatchTeamsVal.ToListAsync();
                     var statsTeamVal = new List<MatchTeamsVal>();
@@ -110,6 +111,23 @@ namespace FPTV.Controllers
             }
         }
 
+        
+        private void getMatchPlayerStatsCS()
+        {
+            var client = new RestClient("");
+            var request = new RestRequest("", Method.Get);
+            request.AddHeader("accept", "application/json");
+            RestResponse response = client.Execute(request);
+
+            JArray statsArray = JArray.Parse(response.Content);
+
+            MatchPlayerStatsCS matches = new MatchPlayerStatsCS();
+            matches.MatchCSId = _random.Next();
+            matches.PlayerCSId = _random.Next();
+                _context.Add(matches);
+        }
+
+        /*
         public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
@@ -124,7 +142,7 @@ namespace FPTV.Controllers
             }
 
             return View(user);
-        }
+        }*/
 
         // POST: StatsController/Create
         [HttpPost]

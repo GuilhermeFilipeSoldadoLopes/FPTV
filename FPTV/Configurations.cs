@@ -108,7 +108,7 @@ namespace FPTV
             var _user5 = await userManager.FindByEmailAsync(moderator_RP.Email);
             if (_user5 == null)
             {
-                var createPowerUser5 = await userManager.CreateAsync(moderator_RP, "...");
+                var createPowerUser5 = await userManager.CreateAsync(moderator_RP, "passwrod.FPTV23");
                 if (createPowerUser5.Succeeded)
                     await userManager.AddToRoleAsync(moderator_RP, "Manager");
             }
