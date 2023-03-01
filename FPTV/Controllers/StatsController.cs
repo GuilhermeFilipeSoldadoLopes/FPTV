@@ -114,17 +114,33 @@ namespace FPTV.Controllers
         
         private void getMatchPlayerStatsCS()
         {
-            var client = new RestClient("");
+            //MatchCSId
+            var client = new RestClient("https://api.pandascore.co/csgo/matches?&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA");
             var request = new RestRequest("", Method.Get);
             request.AddHeader("accept", "application/json");
             RestResponse response = client.Execute(request);
 
             JArray statsArray = JArray.Parse(response.Content);
-
             MatchPlayerStatsCS matches = new MatchPlayerStatsCS();
-            matches.MatchCSId = _random.Next();
-            matches.PlayerCSId = _random.Next();
+
+            foreach (var item in statsArray.Children<JObject>())
+            {
+                matches.MatchCSId = (int)item["id"];
+                matches.PlayerCSId = _random.Next();
+
+                //ACABAR ISTO
+                int MatchCSId = (int)jObject["match_id"];
+                int PlayerCSId = (int)jObject["player_id"];
+                int Kills = (DateTime)jObject["kills"];
+                int Deaths = (DateTime)jObject["deaths"];
+                int Assists = (DateTime)jObject["assists"];
+                int FlashAssist = (DateTime)jObject["flash_assists"];
+                int ADR = (DateTime)jObject["adr"];
+                int HeadShots = (DateTime)jObject["headshots"];
+                int KD_Diff = (DateTime)jObject["k_d_diff"];
+                int PlayerName = (DateTime)jObject["player_id"];
                 _context.Add(matches);
+            }
         }
 
         /*
