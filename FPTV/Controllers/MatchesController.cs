@@ -5,6 +5,7 @@ using FPTV.Models.StatisticsModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.CodeAnalysis.Differencing;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -26,40 +27,7 @@ namespace FPTV.Controllers
         // GET: CS Matches
         public async Task<IActionResult> CSMatches()
         {
-            var client = new RestClient("https://api.pandascore.co/csgo/matches?sort=&page=1&per_page=50&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA");
-            var request = new RestRequest("", Method.Get);
-            request.AddHeader("accept", "application/json");
-            RestResponse response = client.Execute(request);
-
-            JObject jObject = JObject.Parse(response.Content);
-
-            DateTime beginAt = (DateTime)jObject["begin_at"];
-            DateTime endAt = (DateTime)jObject["end_at"];
-            int matchesCSId = (int)jObject["id"];
-            int eventId = (int)jObject[""];
-            string eventName = (string)jObject[""];
-            bool isFinished = (bool)jObject[""];
-            TimeType timeType = (TimeType)jObject[""];
-            bool haveStats = (bool)jObject[""];
-            ICollection<MatchCS> matchesList = ()jObject[""];
-            int numberOfGames = (int)jObject["number_of_games"];
-            List<int> teamsIdList = ()jObject[""];
-            int? winnerTeamId = (int)jObject[""];
-            string? winnerTeamName = (string)jObject[""];
-            char tier = (char)jObject["tournament.tier"];
-            bool liveSupported = (bool)jObject[""];
-            ICollection<Stream>? streamList = ()jObject[""];
-            string leagueName = (string)jObject["league.name"];
-            int leagueId = (int)jObject["league_id"];
-            string? leagueLink = (string)jObject["league.url"];
-
-
-
-            ...
-
-
-
-
+            getAPIMatches();
 
             var matchesCS = await _context.MatchesCS.ToListAsync();
             var matches = new List<MatchCS>();
@@ -75,21 +43,70 @@ namespace FPTV.Controllers
             return View(matches);
         }
 
-        // GET: Val Matches
-        public async Task<IActionResult> ValMatches()
+        private void getAPIMatches()
         {
-            var matchesVal = await _context.MatchesVal.ToListAsync();
-            var matches = new List<MatchVal>();
+            var client = new RestClient("https://api.pandascore.co/csgo/matches?sort=&page=1&per_page=50&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA");
+            var request = new RestRequest("", Method.Get);
+            request.AddHeader("accept", "application/json");
+            RestResponse response = client.Execute(request);
 
-            foreach (var ValMatches in matchesVal)
+            JArray matchesArray = JArray.Parse(response.Content);
+
+            foreach (var item in matchesArray.Children<JObject>())
             {
-                foreach (var ValMatch in ValMatches.MatchesList)
-                {
-                    matches.Add(ValMatch);
-                }
-            }
+                List<int> matchesList = new List<int>();
+                List<int> teamsIdList = new List<int>();
 
-            return View(matches);
+                DateTime beginAt = (DateTime)item["begin_at"];
+
+                bool haveStats = (bool)item["detailed_stats"];
+
+                DateTime endAt = (DateTime)item["end_at"];
+
+                JArray matchArray = (JArray)item["games"];
+                foreach (var match in matchArray.Children<JObject>())
+                {
+                    matchesList.Add((int)match["id"]);
+                }
+
+                int matchesCSId = (int)item["id"];
+
+                JObject league = (JObject)item["league"];
+                string leagueName = (string)league["name"];
+                int leagueId = (int)league["id"];
+                string? leagueLink = (string)league["url"];
+
+                JObject live = (JObject)item["live"];
+                bool liveSupported = (bool)live["supported"];
+
+                int numberOfGames = (int)item["number_of_games"];
+
+                JArray opponentArray = (JArray)item["opponents"];
+                foreach (var opponentObject in opponentArray.Children<JObject>())
+                {
+                    JObject opponent = (JObject)opponentObject["opponent"];
+                    teamsIdList.Add((int)opponent["id"]);
+                }
+
+                var type = (string)item["status"];
+                //TimeType timeType
+
+                JArray streamArray = (JArray)item["streams_list"];
+                //ICollection<Stream>? streamList
+
+                JObject tournament = (JObject)item["tournament"];
+                int eventId = (int)tournament["id"];
+                string eventName = (string)tournament["name"];
+                char tier = (char)tournament["tier"];
+
+                int? winnerTeamId = (int)item["winner_id"];
+                string? winnerTeamName = (string)item["winner"];
+
+                bool isFinished = false;
+
+                MatchesCS matches = new MatchesCS();
+                _context.Add(matches);
+            }
         }
 
         //De CS e de Valorant
