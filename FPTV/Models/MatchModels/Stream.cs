@@ -6,6 +6,7 @@ namespace FPTV.Models.MatchModels
 	{
 		[Key]
 		public Guid Id { get; set; }
+
 		[Required]
 		[Display(Name = "Stream Link")]
 		public string StreamLink { get; set; }
