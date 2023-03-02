@@ -11,6 +11,10 @@ namespace FPTV.Models.EventModels
         public Guid EventCSID { get; set; }
 
         [Required]
+        [Display(Name = "Event API ID")]
+        public int EventAPIID { get; set; }
+
+        [Required]
         [Display(Name = "Event Name")]
         public string EventName { get; set; }
 
@@ -39,9 +43,8 @@ namespace FPTV.Models.EventModels
         public DateTime EndAt { get; set; }
 
         [Required]
-        [NotMapped]
-        [Display(Name = "Match list")]
-        public List<Guid> MatchesListID { get; set; }
+        [Display(Name = "Matches CS ID")]
+        public Guid MatchesCSID { get; set; }
 
         [Required]
         [NotMapped]
@@ -61,6 +64,5 @@ namespace FPTV.Models.EventModels
         [Required]
         [Display(Name = "Tier")]
         public char Tier { get; set; }
-
     }
 }

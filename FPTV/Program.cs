@@ -5,6 +5,9 @@ using FPTV.Data;
 using FPTV.Services.EmailSenderService;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using FPTV.Models.UserModels;
+using FPTV;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using System.Linq;
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
@@ -17,7 +20,6 @@ services.AddAuthentication()
     googleOptions.ClientId = configuration["Authentication:Google:ClientId"];
     googleOptions.ClientSecret = configuration["Authentication:Google:ClientSecret"];
 });
-
 
 var connectionString = builder.Configuration.GetConnectionString("FPTV_Context");
 builder.Services.AddDbContext<FPTVContext>(options =>
@@ -64,7 +66,6 @@ else
     app.UseHsts();
 }
 
-
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
@@ -72,7 +73,7 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
-await app.CreateRolesAsync(builder.Configuration);
+app.CreateRolesAsync(builder.Configuration).Wait();
 
 app.UseEndpoints(endpoints =>
 {
@@ -89,13 +90,22 @@ public static class WebApplicationExtensions
     public static async Task<WebApplication> CreateRolesAsync(this WebApplication app, IConfiguration configuration)
     {
         using var scope = app.Services.CreateScope();
-        var roleManager = (RoleManager<IdentityRole>)scope.ServiceProvider.GetService(typeof(RoleManager<IdentityRole>));
-        string[] roles = { "Admin", "Moderator", "User" };
+        var context = scope.ServiceProvider.GetService<FPTVContext>();
+        var userStore = scope.ServiceProvider.GetService<IUserStore<UserBase>>();
+        var emailStore = (IUserEmailStore<UserBase>)userStore;
+        var env = scope.ServiceProvider.GetService<IWebHostEnvironment>();
 
-        foreach (var role in roles)
+        /*Console.WriteLine("Context: " + context);
+        Console.WriteLine("UserStore: " + userStore);
+        Console.WriteLine("EmailStore: " + emailStore);
+        Console.WriteLine("Env: " + env);*/
+
+        if (context != null && userStore != null && emailStore != null && env != null)
         {
-            if (!await roleManager.RoleExistsAsync(role))
-                await roleManager.CreateAsync(new IdentityRole(role));
+            if (context.UserBase.Count<UserBase>() == 0)
+            {
+                await Configurations.CreateRoles(scope.ServiceProvider, context, userStore, emailStore, env);
+            }
         }
 
         return app;
