@@ -26,14 +26,16 @@ namespace FPTV.Controllers
         {
             return View();
         }
-        public IActionResult Results()
-        {
-            return View();
-        }
+
         public IActionResult Events()
         {
             return View();
         }
+        public IActionResult Results()
+        {
+            return View();
+        }
+        
 		public IActionResult EventDetails()
 		{
 			return View();
