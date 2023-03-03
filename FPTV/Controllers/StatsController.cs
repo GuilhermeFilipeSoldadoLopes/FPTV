@@ -84,6 +84,10 @@ namespace FPTV.Controllers
                     return null;
             }
         }
+
+        public Task<ActionResult> MatchPlayerStatsCS()
+        {
+            var client = new RestClient("");
         /*
         private void GetMatchPlayerStatsCS()
         {
@@ -314,5 +318,4 @@ namespace FPTV.Controllers
             }
         }
     }
-
 }
