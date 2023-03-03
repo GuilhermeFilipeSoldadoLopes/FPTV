@@ -16,7 +16,11 @@ namespace FPTV.Models.MatchModels
 		[ForeignKey("EventId")]
 		public Guid EventId { get; set; }
 
-		[Required]
+        [Required]
+        [Display(Name = "Event API ID")]
+        public int EventAPIID { get; set; }
+
+        [Required]
 		[Display(Name = "Event Name")]
 		public string EventName { get; set; }
 

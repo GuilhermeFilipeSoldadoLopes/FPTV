@@ -12,6 +12,10 @@ namespace FPTV.Models.EventModels
         public Guid EventValID { get; set; }
 
         [Required]
+        [Display(Name = "Event API ID")]
+        public int EventAPIID { get; set; }
+
+        [Required]
         [Display(Name = "Event Name")]
         public string EventName { get; set; }
 
@@ -40,9 +44,8 @@ namespace FPTV.Models.EventModels
         public DateTime EndAt { get; set; }
 
         [Required]
-        [NotMapped]
-        [Display(Name = "Match list")]
-        public List<Guid> MatchesListID { get; set; }
+        [Display(Name = "Matches Val ID")]
+        public Guid MatchesValID { get; set; }
 
         [Required]
         [NotMapped]

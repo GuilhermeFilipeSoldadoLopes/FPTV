@@ -14,7 +14,6 @@ namespace FPTV.Models.UserModels
         public Guid UserId { get; set; }
         [Display(Name = "Biography")]
         public string? Biography { get; set; }
-
         [Required]
         [Display(Name = "Registration Date")]
         [DataType(DataType.Date)]
