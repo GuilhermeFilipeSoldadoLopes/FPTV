@@ -92,7 +92,7 @@ public static class WebApplicationExtensions
         using var scope = app.Services.CreateScope();
         var context = scope.ServiceProvider.GetService<FPTVContext>();
         var userStore = scope.ServiceProvider.GetService<IUserStore<UserBase>>();
-        var emailStore = (IUserEmailStore<UserBase>)userStore;
+        var emailStore = userStore as IUserEmailStore<UserBase>;
         var env = scope.ServiceProvider.GetService<IWebHostEnvironment>();
 
         /*Console.WriteLine("Context: " + context);

@@ -55,22 +55,22 @@ namespace FPTV
             string moderatorImage = Path.Combine(env.WebRootPath, "images", "Mods_Image.png");
 
             //André Dias
-            CreateModeratorAD(moderatorImage, roleManager, userManager, _context, _userStore, _emailStore, env);
+            await CreateModeratorAD(moderatorImage, roleManager, userManager, _context, _userStore, _emailStore, env);
 
             //Guilherme Lopes
-            CreateModeratorGL(moderatorImage, roleManager, userManager, _context, _userStore, _emailStore, env);
+            await CreateModeratorGL(moderatorImage, roleManager, userManager, _context, _userStore, _emailStore, env);
 
             //Miguel Rebelo
-            CreateModeratorMR(moderatorImage, roleManager, userManager, _context, _userStore, _emailStore, env);
+            await CreateModeratorMR(moderatorImage, roleManager, userManager, _context, _userStore, _emailStore, env);
 
             //Nuno Reis
-            CreateModeratorNR(moderatorImage, roleManager, userManager, _context, _userStore, _emailStore, env);
+            await CreateModeratorNR(moderatorImage, roleManager, userManager, _context, _userStore, _emailStore, env);
 
             //Rui Plínio
-            CreateModeratorRP(moderatorImage, roleManager, userManager, _context, _userStore, _emailStore, env);
+            await CreateModeratorRP(moderatorImage, roleManager, userManager, _context, _userStore, _emailStore, env);
 
             //João Afonso
-            CreateModeratorJA(moderatorImage, roleManager, userManager, _context, _userStore, _emailStore, env);
+            await CreateModeratorJA(moderatorImage, roleManager, userManager, _context, _userStore, _emailStore, env);
         }
 
         private static async Task CreateModeratorAD(string moderatorImage, RoleManager<IdentityRole> roleManager, UserManager<UserBase> userManager, FPTVContext _context, IUserStore<UserBase> _userStore, IUserEmailStore<UserBase> _emailStore, IWebHostEnvironment env)
@@ -87,10 +87,10 @@ namespace FPTV
 
             moderator_AD.EmailConfirmed = true;
 
-            await _userStore.SetUserNameAsync(moderator_AD, "...", CancellationToken.None); //Meter Username
-            await _emailStore.SetEmailAsync(moderator_AD, "...@...", CancellationToken.None); //Meter Email
+            await _userStore.SetUserNameAsync(moderator_AD, "AndreDias", CancellationToken.None);
+            await _emailStore.SetEmailAsync(moderator_AD, "201901690@estudantes.ips.pt", CancellationToken.None);
 
-            var createPowerUser0 = await userManager.CreateAsync(moderator_AD, "..."); //Meter Pass
+            var createPowerUser0 = await userManager.CreateAsync(moderator_AD, "ModA.1");
             if (createPowerUser0.Succeeded)
                 await userManager.AddToRoleAsync(moderator_AD, "Moderator");
         }
@@ -110,7 +110,7 @@ namespace FPTV
             moderator_GL.EmailConfirmed = true;
 
             await _userStore.SetUserNameAsync(moderator_GL, "V1rtual", CancellationToken.None);
-            await _emailStore.SetEmailAsync(moderator_GL, "guilherme.lopes20@estudantes.ips.pt", CancellationToken.None);
+            await _emailStore.SetEmailAsync(moderator_GL, "202002400@estudantes.ips.pt", CancellationToken.None);
 
             var createPowerUser1 = await userManager.CreateAsync(moderator_GL, "PassImpenetravel.123");
             if (createPowerUser1.Succeeded)
@@ -131,10 +131,10 @@ namespace FPTV
 
             moderator_MR.EmailConfirmed = true;
 
-            await _userStore.SetUserNameAsync(moderator_MR, moderator_MR.UserName, CancellationToken.None);
-            await _emailStore.SetEmailAsync(moderator_MR, moderator_MR.Email, CancellationToken.None);
+            await _userStore.SetUserNameAsync(moderator_MR, "miguelfnr", CancellationToken.None);
+            await _emailStore.SetEmailAsync(moderator_MR, "202000568@estudantes.ips.pt", CancellationToken.None);
 
-            var createPowerUser2 = await userManager.CreateAsync(moderator_MR, "..."); //Meter Pass
+            var createPowerUser2 = await userManager.CreateAsync(moderator_MR, "EuSouFixe12345.");
             if (createPowerUser2.Succeeded)
                 await userManager.AddToRoleAsync(moderator_MR, "Moderator");
         }
@@ -154,9 +154,9 @@ namespace FPTV
             moderator_NR.EmailConfirmed = true;
 
             await _userStore.SetUserNameAsync(moderator_NR, "nuno33", CancellationToken.None);
-            await _emailStore.SetEmailAsync(moderator_NR, "nunoreis294@gmail.com", CancellationToken.None);
+            await _emailStore.SetEmailAsync(moderator_NR, "202000753@estudantes.ips.pt", CancellationToken.None);
 
-            var createPowerUser3 = await userManager.CreateAsync(moderator_NR, "PASSDOnuno123"); //Meter Pass
+            var createPowerUser3 = await userManager.CreateAsync(moderator_NR, "PASSDOnuno.123");
             if (createPowerUser3.Succeeded)
                 await userManager.AddToRoleAsync(moderator_NR, "Moderator");
         }
@@ -177,7 +177,7 @@ namespace FPTV
             await _userStore.SetUserNameAsync(moderator_RP, "ruiplinio", CancellationToken.None);
             await _emailStore.SetEmailAsync(moderator_RP, "202002062@estudantes.ips.pt", CancellationToken.None);
 
-            var createPowerUser4 = await userManager.CreateAsync(moderator_RP, "..."); //Meter Pass
+            var createPowerUser4 = await userManager.CreateAsync(moderator_RP, "password.FPTV23 ");
             if (createPowerUser4.Succeeded)
                 await userManager.AddToRoleAsync(moderator_RP, "Moderator");
         }
@@ -196,10 +196,10 @@ namespace FPTV
             moderator_JA.EmailConfirmed = true;
 
             await _userStore.SetUserNameAsync(moderator_JA, "joaoafonso61", CancellationToken.None);
-            await _emailStore.SetEmailAsync(moderator_JA, "jmrafonso61@gmail.com", CancellationToken.None);
+            await _emailStore.SetEmailAsync(moderator_JA, "202000813@estudantes.ips.pt", CancellationToken.None);
 
-            var createPowerUser = await userManager.CreateAsync(moderator_JA, "..."); //Meter Pass
-            if (createPowerUser.Succeeded)
+            var createPowerUser5 = await userManager.CreateAsync(moderator_JA, "Joao123.");
+            if (createPowerUser5.Succeeded)
                 await userManager.AddToRoleAsync(moderator_JA, "Moderator");
         }
 
