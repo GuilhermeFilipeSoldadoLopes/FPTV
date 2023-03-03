@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewData["Title"] = "View";
+}
+
+<h1>Delete Account</h1>
+
+<hr />
+<div class="row">
+    <form asp-action="DeleteAccount">
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="Profile">Cancel</a>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

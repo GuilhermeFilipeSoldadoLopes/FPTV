@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using System.Xml.Linq;
-using Newtonsoft.Json.Linq;
 
 namespace FPTV.Models.StatisticsModels
 {
@@ -10,12 +9,12 @@ namespace FPTV.Models.StatisticsModels
         [Required]
         [Key]
         [Display(Name = "Id of a csgo match")]
-        public int MatchCSId { get; set; }
+        public Guid MatchCSId { get; set; }
 
         [Required]
         [ForeignKey("PlayerCSId")]
         [Display(Name = "Id of a csgo player")]
-        public int PlayerCSId { get; set; }
+        public Guid PlayerCSId { get; set; }
 
         [Required]
         [Display(Name = "Kills")]
@@ -36,6 +35,10 @@ namespace FPTV.Models.StatisticsModels
         [Required]
         [Display(Name = "ADR")]
         public float ADR { get; set; }
+
+        [Required]
+        [Display(Name = "Kast")]
+        public float Kast { get; set; }
 
         [Required]
         [Display(Name = "HeadShots")]
