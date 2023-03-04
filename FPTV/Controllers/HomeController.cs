@@ -24,8 +24,9 @@ namespace FPTV.Controllers
 
         public IActionResult Matches()
         {
-            return View();
+            return RedirectToAction("Método", "Matches");
         }
+
         public IActionResult Results()
         {
             return View();

@@ -24,6 +24,13 @@ namespace FPTV.Data
         public DbSet<FavTeamsList> FavTeamsList { get; set; }
         public DbSet<EventCS> EventsCS { get; set; }
         public DbSet<EventVal> EventsVal { get; set; }
+        public DbSet<EventVal> MatchCS { get; set; }
+        public DbSet<EventVal> MatchPlayerStatsCS { get; set; }
+        public DbSet<EventVal> MatchPlayerStatsVal { get; set; }
+        public DbSet<EventVal> MatchTeamsCS { get; set; }
+        public DbSet<EventVal> MatchTeamsVal { get; set; }
+        public DbSet<EventVal> MatchVal { get; set; }
+
         /*public DbSet<UserAccount> UserAccount { get; set; }
         public DbSet<AuthenticationLog> AuthenticationLog { get; set; }
         public DbSet<Token> Token { get; set; }
