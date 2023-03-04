@@ -32,7 +32,7 @@ namespace FPTV.Controllers
         }
         public IActionResult Events()
         {
-            return View();
+            return RedirectToAction("Index", "Events");
         }
 		public IActionResult EventDetails()
 		{
