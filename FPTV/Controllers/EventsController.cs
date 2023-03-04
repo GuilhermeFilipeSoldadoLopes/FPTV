@@ -23,6 +23,8 @@ namespace FPTV.Controllers
             }
             Console.WriteLine(json);
             var jarray = JArray.Parse(json);
+
+            Dictionary<int, string?> teamList = new();
             foreach(JObject e in jarray.Cast<JObject>()) 
             {
                 var ev = new EventCS();
@@ -35,6 +37,7 @@ namespace FPTV.Controllers
                 var league = e.GetValue("league");
                 var teams = e.GetValue("teams");
                 var prizePool = e.GetValue("prizepool");
+                var winnerTeamId = e.GetValue("winner_id");
 
                 ev.EventAPIID = eventAPIID == null ? -1 : eventAPIID.Value<int>();
                 ev.BeginAt = beginAt == null ? null : beginAt.Value<DateTime>();
@@ -45,6 +48,23 @@ namespace FPTV.Controllers
                 ev.Finished = false;
                 ev.EventName = name == null ? null : name.Value<string>();
                 ev.PrizePool = prizePool == null ? null : prizePool.Value<string>();
+                ev.WinnerTeamID = winnerTeamId == null ? -1 : winnerTeamId.Value<int>(); 
+                
+                if (teams != null)
+                {
+                    foreach (JObject o in (JArray)teams.Value<string>())
+                    {
+                        var teamNameValue = o.GetValue("name");
+                        var teamIdValue = o.GetValue("id");
+                        var teamId = teamIdValue == null ? -1 : teamIdValue.Value<int>();
+                        var teamName = teamNameValue == null ? null : teamNameValue.Value<string>();
+                        teamList.Add(teamId, teamName);
+
+                    }
+                }
+
+                ev.TeamsList = teamList.Values.ToList();
+                ev.WinnerTeamName = teamList.GetValueOrDefault(ev.WinnerTeamID);
                 Console.WriteLine(ev.EventAPIID);
 
             }
