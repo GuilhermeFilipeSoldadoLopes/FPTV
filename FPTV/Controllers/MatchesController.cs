@@ -41,10 +41,13 @@ namespace FPTV.Controllers
             List<MatchesCS> runningMatches = getAPICSGOMatches("https://api.pandascore.co/csgo/matches/running?sort=&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA");
             List<MatchesCS> upcommingMatches = getAPICSGOMatches("https://api.pandascore.co/csgo/matches/upcoming?sort=&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA");
 
+            //Apenas os past são guardados, mas podem ser necessarios os running ou os upcomming
             foreach (var matches in pastMatches)
             {
                 _context.MatchesCS.Add(matches);
             }
+
+            _context.SaveChanges();
 
             return View();
         }
@@ -89,6 +92,20 @@ namespace FPTV.Controllers
                         matchCS.MatchesCSId = matches.MatchesCSId;
 
                         //TODO
+                        /*
+                        //Possivel que ainda não tenham sido importados jogadores
+                        ICollection<MatchPlayerStatsCS>? PlayerStatsList//Não esta na api
+                        
+                        //Possivel que ainda não tenham sido importadas equipas
+                        public ICollection<MatchTeamsCS>?//Não esta na api
+                        */
+
+                        //matchCS.RoundsScore = (string)match[""];//Não esta na api
+                        //matchCS.Map = (string)match[""];//Não esta na api
+
+                        JObject winner = (JObject)match["winner"];
+                        //matchCS.WinnerTeamId = (Guid)winner["id"]);//id -> Guid
+                        //matchCS.WinnerTeamName = (string)match[""];//Não esta na api
 
                         matches.MatchesList.Add(matchCS);
                     }
@@ -108,7 +125,9 @@ namespace FPTV.Controllers
                     {
                         JObject opponent = (JObject)opponentObject["opponent"];
 
-                        //matches.TeamsIdList.Add((string)opponent["id"]);//id -> Guid
+                        var teamId = (int)opponent["id"];
+
+                        //matches.TeamsIdList.Add((Guid)opponent["id"]);//id -> Guid
                     }
 
                     matches.IsFinished = false;
@@ -133,8 +152,10 @@ namespace FPTV.Controllers
                         matches.StreamList.Add(stream);
                     }
 
+                    //Possivel que ainda não tenham sido importados torneios
                     JObject tournament = (JObject)item["tournament"];
-                    matches.EventId = (Guid)tournament["id"];//id -> Guid
+                    var eventId = (int)tournament["id"];
+                    //matches.EventId = (Guid)tournament["id"];//id -> Guid
                     matches.EventName = (string)tournament["name"];
                     matches.Tier = (char)tournament["tier"];
 
@@ -148,22 +169,40 @@ namespace FPTV.Controllers
             return matchesCS;
         }
 
-        private List<MatchesCS> getAPIRunningMatchesCSGO()
+        // GET: ValMatches
+        public async Task<IActionResult> ValMatches()
         {
-            List<MatchesCS> runningMatches = new List<MatchesCS>();
+            List<MatchesVal> pastMatches = getAPIValMatches("https://api.pandascore.co/valorant/matches/past?sort=&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA");
+            List<MatchesVal> runningMatches = getAPIValMatches("https://api.pandascore.co/valorant/matches/running?sort=&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA");
+            List<MatchesVal> upcommingMatches = getAPIValMatches("https://api.pandascore.co/valorant/matches/upcoming?sort=&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA");
 
+            foreach (var matches in pastMatches)
+            {
+                _context.MatchesVal.Add(matches);
+            }
 
+            _context.SaveChanges();
 
-            return runningMatches;
+            return View();
         }
 
-        private List<MatchesCS> getAPIUpcommingMatchesCSGO()
+        private List<MatchesVal> getAPIValMatches(string APIUrl)
         {
-            List<MatchesCS> upcommingMatches = new List<MatchesCS>();
+            List<MatchesVal> matchesCS = new List<MatchesVal>();
 
+            var client = new RestClient(APIUrl);
+            var request = new RestRequest("", Method.Get);
+            request.AddHeader("accept", "application/json");
+            RestResponse response = client.Execute(request);
 
+            JArray matchesArray = JArray.Parse(response.Content);
 
-            return upcommingMatches;
+            /*foreach (var item in matchesArray.Children<JObject>())
+            {
+                
+            }*/
+
+            return matchesCS;
         }
 
         //De CSGO e de Valorant
@@ -176,6 +215,24 @@ namespace FPTV.Controllers
             }
 
             var match = await _context.MatchesCS.Include(m => m.MatchesList).Include(m => m.TeamsIdList).Include(m => m.StreamList).FirstOrDefaultAsync(m => m.MatchesCSId == id);
+
+            if (match == null)
+            {
+                return NotFound();
+            }
+
+            return View(match);
+        }
+
+        // GET: Matches/ValMatcheDetails/5
+        public async Task<IActionResult> ValMatcheDetails(Guid id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var match = await _context.MatchesVal.Include(m => m.MatchesList).Include(m => m.TeamsIdList).Include(m => m.StreamList).FirstOrDefaultAsync(m => m.MatchesValId == id);
 
             if (match == null)
             {
