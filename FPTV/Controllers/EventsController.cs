@@ -23,7 +23,7 @@ namespace FPTV.Controllers
             }
             Console.WriteLine(json);
             var jarray = JArray.Parse(json);
-
+            List<EventCS> events = new(); 
             Dictionary<int, string?> teamList = new();
             foreach(JObject e in jarray.Cast<JObject>()) 
             {
@@ -65,10 +65,11 @@ namespace FPTV.Controllers
 
                 ev.TeamsList = teamList.Values.ToList();
                 ev.WinnerTeamName = teamList.GetValueOrDefault(ev.WinnerTeamID);
+                events.Add(ev);
                 Console.WriteLine(ev.EventAPIID);
 
             }
-            return View();
+            return View(events);
         }
 
         // GET: EventsController/Details/5
