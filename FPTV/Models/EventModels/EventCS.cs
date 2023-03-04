@@ -49,14 +49,14 @@ namespace FPTV.Models.EventModels
         [Required]
         [NotMapped]
         [Display(Name = "Team list")]
-        public List<string>? TeamsList { get; set; }
+        public List<string?> TeamsList { get; set; }
 
         [Required]
         [Display(Name = "Prize pool")]
         public string? PrizePool { get; set; }
 
         [Display(Name = "Winner Team ID")]
-        public Guid? WinnerTeamID { get; set; }
+        public int WinnerTeamID { get; set; }
 
         [Display(Name = "Winner Team Name")]
         public string? WinnerTeamName { get; set; }
