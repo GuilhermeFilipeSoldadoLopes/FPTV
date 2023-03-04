@@ -21,18 +21,31 @@ namespace FPTV.Controllers
             {
                 return View();
             }
+            Console.WriteLine(json);
             var jarray = JArray.Parse(json);
             foreach(JObject e in jarray.Cast<JObject>()) 
             {
-
                 var ev = new EventCS();
-                ev.EventAPIID = e.GetValue("id").Value<int>();
-                ev.BeginAt = e.GetValue("begin_at").Value<DateTime>();
-                ev.EndAt = e.GetValue("end_at").Value<DateTime>();
-                ev.TimeType = Models.MatchModels.TimeType.Running;
-                ev.Tier = e.GetValue("tier").Value<char>();
-                ev.EventLink = e.GetValue("league").Value<string>("url");
+                var eventAPIID = e.GetValue("id");
+                var name = e.GetValue("name");
+                var beginAt = e.GetValue("begin_at");
+                var endAt = e.GetValue("end_at");
+                var timeType = Models.MatchModels.TimeType.Running;
+                var tier = e.GetValue("tier");
+                var league = e.GetValue("league");
+                var teams = e.GetValue("teams");
+                var prizePool = e.GetValue("prizepool");
 
+                ev.EventAPIID = eventAPIID == null ? -1 : eventAPIID.Value<int>();
+                ev.BeginAt = beginAt == null ? null : beginAt.Value<DateTime>();
+                ev.EndAt = endAt == null ? null : endAt.Value<DateTime>();
+                ev.TimeType = timeType;
+                ev.Tier = tier == null ? null : tier.Value<char>();
+                ev.EventLink = league == null ? null : league.Value<string>("url");
+                ev.Finished = false;
+                ev.EventName = name == null ? null : name.Value<string>();
+                ev.PrizePool = prizePool == null ? null : prizePool.Value<string>();
+                Console.WriteLine(ev.EventAPIID);
 
             }
             return View();
