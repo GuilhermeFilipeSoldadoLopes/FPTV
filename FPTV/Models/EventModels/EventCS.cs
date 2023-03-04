@@ -16,11 +16,11 @@ namespace FPTV.Models.EventModels
 
         [Required]
         [Display(Name = "Event Name")]
-        public string EventName { get; set; }
+        public string? EventName { get; set; }
 
         [Required]
         [Display(Name = "Event Link")]
-        public string EventLink { get; set; }
+        public string? EventLink { get; set; }
 
         [Required]
         [Display(Name = "Time Type")]
@@ -34,13 +34,13 @@ namespace FPTV.Models.EventModels
         [Display(Name = "Begin At")]
         [DataType(DataType.Date)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
-        public DateTime BeginAt { get; set; }
+        public DateTime? BeginAt { get; set; }
 
         [Required]
         [Display(Name = "End At")]
         [DataType(DataType.Date)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
-        public DateTime EndAt { get; set; }
+        public DateTime? EndAt { get; set; }
 
         [Required]
         [Display(Name = "Matches CS ID")]
@@ -49,11 +49,11 @@ namespace FPTV.Models.EventModels
         [Required]
         [NotMapped]
         [Display(Name = "Team list")]
-        public List<string> TeamsList { get; set; }
+        public List<string>? TeamsList { get; set; }
 
         [Required]
         [Display(Name = "Prize pool")]
-        public string PrizePool { get; set; }
+        public string? PrizePool { get; set; }
 
         [Display(Name = "Winner Team ID")]
         public Guid? WinnerTeamID { get; set; }
@@ -63,6 +63,6 @@ namespace FPTV.Models.EventModels
 
         [Required]
         [Display(Name = "Tier")]
-        public char Tier { get; set; }
+        public char? Tier { get; set; }
     }
 }
