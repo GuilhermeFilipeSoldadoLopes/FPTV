@@ -84,7 +84,7 @@ namespace FPTV.Controllers
                     return null;
             }
         }
-
+        /*
         public Task<ActionResult> MatchPlayerStatsCS()
         {
             var client = new RestClient("");
@@ -140,6 +140,7 @@ namespace FPTV.Controllers
                 }
             }
             */
+            /*
             private void GetPastMatchCS()
             {
                 var client = new RestClient("https://api.pandascore.co/csgo/matches/past?sort=&page=1&per_page=50");
@@ -316,6 +317,7 @@ namespace FPTV.Controllers
                     _context.Add(matches);
                 }
             }
-        }
+        }*/
     }
 }
+

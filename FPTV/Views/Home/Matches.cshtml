@@ -1,7 +1,44 @@
 ﻿@{
-    ViewData["Title"] = "EventDetails";
+    ViewData["Title"] = "Matches";
 }
+
 <style>
+    .central {
+			width: 100%;
+			margin: 0 auto;
+			text-align: center;
+			height:100%;
+			background-color: white;
+	}
+
+    .buttons {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 30px;
+    }
+
+    .button {
+        margin-left: 10px;
+        background-color: #e0eeff;
+        color: black;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+        border: 1px solid black;
+    }
+
+    .button2 {
+        background-color: #e0eeff;
+        color: black;
+        width: 100%;
+        padding: 10px 20px;
+    }
+
+    .button:hover {
+        background-color: #2980b9;
+    }
+
     .box1 {
         width: 25%;
         height: 100%;
@@ -96,6 +133,7 @@
         font-weight: normal;
     }
 
+
     .central {
         text-align: center;
         background-color: white;
@@ -105,11 +143,43 @@
         display: flex;
         align-self: flex-start;
     }
+
 </style>
 <body class="bodytemp">
-
-    <h1 style="text-align: center;">Blast.tv Paris Major 2022</h1>
     <div class="ola">
+        <h1>Blast.tv Paris Major 2022</h1>    
+
+        <div class="buttons">
+
+            <label class="search-container">
+                <img src="~/images/procurar.png" />
+                <input type="text" placeholder="Search...">
+            </label>
+
+            @*<button class="button" style="margin-top: 0px;margin-bottom: 0px;">
+            Search
+            </button>*@
+
+            <div class="dropdown">
+                <button class="button2">Sort by</button>
+                <div class="dropdown-content" style="margin-left:5%;">
+                    <a href="#">Newest</a>
+                    <a href="#">Oldest</a>
+                    <a href="#">Prizepool</a>
+                    <a href="#">Name</a>
+                    <a href="#">Tier</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <button class="button2">Filter by</button>
+                <div class="dropdown-content">
+                    <a href="#">On going</a>
+                    <a href="#">Finished</a>
+                    <a href="#">Upcoming</a>
+                </div>
+            </div>
+
+        </div>
 
         <div class="box1" style="background-color:lightgrey">
             <h4 style="font-weight: bold;">Finished Matches</h4>
@@ -390,3 +460,10 @@
         </div>
     </div>
 </body>
+
+
+
+
+
+
+
