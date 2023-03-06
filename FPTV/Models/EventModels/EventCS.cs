@@ -18,6 +18,8 @@ namespace FPTV.Models.EventModels
         [Display(Name = "Event Name")]
         public string? EventName { get; set; }
 
+        public string? EventStage { get; set; }
+
         [Required]
         [Display(Name = "Event Link")]
         public string? EventLink { get; set; }
