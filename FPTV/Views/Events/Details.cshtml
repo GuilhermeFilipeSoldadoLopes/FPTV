@@ -1,7 +1,10 @@
-﻿@{
+﻿@using Newtonsoft.Json.Linq
+@using System.Linq
+@{
     ViewData["Title"] = "EventDetails";
+
 }
-@model FPTV.Models.EventModels.EventCS
+
 <style>
 
     .box1 {
@@ -138,26 +141,29 @@
             <p style="margin-left:5%; text-align:left">Link:</p>
         </div>
 
-        <div class="alinhar">
-            <div class="my-div2" style="width:90%">
-                <div>
-                    <p style="font-weight:bold; margin-top:2%; margin-bottom:0px; ">Live Match</p>
-                    <span style="margin-top:10px;">Saturday - 2023-02-13  23:00</span>
-                </div>
+        @if (ViewBag.runningMatches.Count > 0){
+            <div class="alinhar">
+                <div class="my-div2" style="width:90%">
+                    <div>
+                        <p style="font-weight:bold; margin-top:2%; margin-bottom:0px; ">Live Match</p>
+                        <span style="margin-top:10px;">Saturday - 2023-02-13  23:00</span>
+                    </div>
 
-                <div>
-                    <span style="text-align: center;">
-                        <p style="font-size:25px">ENCE 11 vs 5 G2</p>
-                    </span>
-                </div>
+                    <div>
+                        <span style="text-align: center;">
+                            <p style="font-size:25px">ENCE 11 vs 5 G2</p>
+                        </span>
+                    </div>
 
-                <div style="text-align:left;">
-                    <p>Best of 3</p>
-                    <p>More options</p>
-                </div>
+                    <div style="text-align:left;">
+                        <p>Best of @ViewBag.runningMatches.ToArray().GetValue(0).MatchesAPIID</p>
+                        <p>@ViewBag.runningMatches.Count</p>
+                    </div>
 
+                </div>
             </div>
-        </div>
+        }
+       
 
             
 

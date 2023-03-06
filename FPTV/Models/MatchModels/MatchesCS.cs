@@ -20,6 +20,8 @@ namespace FPTV.Models.MatchModels
         [Display(Name = "Event API ID")]
         public int EventAPIID { get; set; }
 
+		public int MatchesAPIID { get; set; }
+
         [Required]
 		[Display(Name = "Event Name")]
 		public string? EventName { get; set; }
@@ -55,6 +57,10 @@ namespace FPTV.Models.MatchModels
 		[Required]
 		[Display(Name = "Number Of Games")]
 		public int NumberOfGames { get; set; }
+
+		[Required]
+		[NotMapped]
+		public IDictionary<int, int>? Score { get; set; }
 
 		[Required]
 		[NotMapped]

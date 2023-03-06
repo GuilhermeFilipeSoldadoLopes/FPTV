@@ -157,19 +157,19 @@
 			<div class="dropdown">
 				<button class="button2">Sort by</button>
 				<div class="dropdown-content" style="margin-left:5%;">
-				<a href="#">Newest</a>
-				<a href="#">Oldest</a>
-				<a href="#">Prizepool</a>
-				<a href="#">Name</a>
-				<a href="#">Tier</a>
+					<a href="@Url.Action("Index", "Events", new { sort = "sort=-begin_at", filter = ViewBag.filter})">Newest</a>
+					<a href="@Url.Action("Index", "Events", new { sort = "sort=begin_at", filter = ViewBag.filter})">Oldest</a>
+					<a href="@Url.Action("Index", "Events", new { sort = "sort=prizepool", filter = ViewBag.filter})">Prizepool</a>
+					<a href="@Url.Action("Index", "Events", new { sort = "sort=name", filter = ViewBag.filter})">Name</a>
+					<a href="@Url.Action("Index", "Events", new { sort = "sort=tier", filter = ViewBag.filter})">Tier</a>
 			  </div>
 			</div>
 			<div class="dropdown">
 			  <button class="button2">Filter by</button>
 			  <div class="dropdown-content">
-				<a href="#">On going</a>
-				<a href="#">Finished</a>
-				<a href="#">Upcoming</a>
+					<a href="@Url.Action("Index", "Events", new { sort = ViewBag.sort, filter = "running"})">On going</a>
+					<a href="@Url.Action("Index", "Events", new { sort = ViewBag.sort, filter = "past"})">Finished</a>
+					<a href="@Url.Action("Index", "Events", new { sort = ViewBag.sort, filter = "upcoming"})">Upcoming</a>
 			  </div>
 			</div>
 						
@@ -178,7 +178,7 @@
 		<div class="center" style="flex-direction: column; background-color: white; ">
 			@foreach(FPTV.Models.EventModels.EventCS e in Model)
 			{
-				<button class=" btn1" onclick ="location.href='@Url.Action("Details", "Events", new { id = e.EventAPIID})'">
+				<button class=" btn1" onclick ="location.href='@Url.Action("Details", "Events", new { id = e.EventAPIID, sort = ViewBag.sort, filter = ViewBag.filter})'">
 					<div class="my-div">
 						<div>
 							<span>@e.EventName</span>
