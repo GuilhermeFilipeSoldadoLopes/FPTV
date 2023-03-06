@@ -23,23 +23,41 @@ namespace FPTV.Controllers
         {
 	        var account = _context.Users.ToList().Count();
 
-			var account_txt = (account == 1) ? " user" : " users";
+			var accountTxt = (account == 1) ? " user" : " users";
 
 			ViewData["accounts"] = account;
-	        ViewData["account_txt"] = account_txt;
+	        ViewData["account_txt"] = accountTxt;
 
 			var visitors = 0;
 
 			if (System.IO.File.Exists("visitors.txt"))
 			{
+				DateTime lastModificationFileDateTime = System.IO.File.GetLastWriteTime("visitors.txt");
+				DateTime lasModificationDate =
+					new DateTime(lastModificationFileDateTime.Year, lastModificationFileDateTime.Month, lastModificationFileDateTime.Day);
+				int days = (DateTime.Now - lasModificationDate).Days;
+
+				if (DateTime.Compare(lasModificationDate, DateTime.Now.Date) < 0)
+				{
+					System.IO.File.WriteAllText("visitors.txt", 0.ToString());
+				}
+
 				string noOfVisitors = System.IO.File.ReadAllText("visitors.txt");
 				visitors = Int32.Parse(noOfVisitors);
 			}
 
 			++visitors;
-			var visit_text = (visitors == 1) ? " view" : " views";
+			var visitText = (visitors == 1) ? " view" : " views";
 
-			System.IO.File.WriteAllText("visitors.txt", visitors.ToString());
+			if (System.IO.File.Exists("visitors.txt"))
+			{
+				System.IO.File.WriteAllText("visitors.txt", visitors.ToString());
+
+			}
+			else
+			{
+				System.IO.File.WriteAllText("visitors.txt", 1.ToString());
+			}
 
 			var options = new PusherOptions();
 			options.Cluster = "PUSHER_APP_CLUSTER";
@@ -52,10 +70,10 @@ namespace FPTV.Controllers
 			pusher.TriggerAsync(
 				"general",
 				"newVisit",
-				new { visits = visitors.ToString(), message = visit_text });
+				new { visits = visitors.ToString(), message = visitText });
 
 			ViewData["visitors"] = visitors;
-			ViewData["visitors_txt"] = visit_text;
+			ViewData["visitors_txt"] = visitText;
 
 			return View();
         }
