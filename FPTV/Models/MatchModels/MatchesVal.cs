@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using FPTV.Models.StatisticsModels;
 using FPTV.Models.UserModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace FPTV.Models.MatchModels
 {
@@ -11,16 +12,17 @@ namespace FPTV.Models.MatchModels
 		[Key]
 		public Guid MatchesValId { get; set; }
 
-		[Required]
+        [Required]
+        [Display(Name = "MatchesVal API ID")]
+        public int MatchesValAPIID { get; set; }
+
 		[Display(Name = "Event Id")]
 		[ForeignKey("EventId")]
 		public Guid EventId { get; set; }
 
-        [Required]
         [Display(Name = "Event API ID")]
         public int EventAPIID { get; set; }
 
-        [Required]
 		[Display(Name = "Event Name")]
 		public string EventName { get; set; }
 
@@ -30,7 +32,6 @@ namespace FPTV.Models.MatchModels
 		[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
 		public DateTime BeginAt { get; set; }
 
-		[Required]
 		[Display(Name = "End At")]
 		[DataType(DataType.Date)]
 		[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
@@ -58,13 +59,26 @@ namespace FPTV.Models.MatchModels
 
 		[Required]
 		[NotMapped]
+		[Display(Name = "Score")]
+		public IDictionary<int, int> Score { get; set; }
+
+		[Required]
+		[NotMapped]
 		[Display(Name = "Teams Id List")]
 		public List<Guid> TeamsIdList { get; set; }
+
+		[Required]
+        [NotMapped]
+        [Display(Name = "Teams API Id List")]
+        public List<int> TeamsAPIIDList { get; set; }
 
 		[Display(Name = "Winner Team Id")]
 		public Guid? WinnerTeamId { get; set; }
 
-		[Display(Name = "Winner Team Name")]
+        [Display(Name = "Winner Team API ID")]
+        public int WinnerTeamAPIId { get; set; }
+
+        [Display(Name = "Winner Team Name")]
 		public string? WinnerTeamName { get; set; }
 
 		[Required]
@@ -75,15 +89,12 @@ namespace FPTV.Models.MatchModels
 		[Display(Name = "Live Supported")]
 		public bool LiveSupported { get; set; }
 
-		[Required]
 		[Display(Name = "Stream List")]
 		public ICollection<Stream> StreamList { get; set; }
 
-		[Required]
 		[Display(Name = "League Name")]
 		public string LeagueName { get; set; }
 
-		[Required]
 		[Display(Name = "League Id")]
 		public int LeagueId { get; set; }
 

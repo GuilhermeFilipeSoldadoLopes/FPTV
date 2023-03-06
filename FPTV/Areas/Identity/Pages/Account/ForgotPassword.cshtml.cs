@@ -54,6 +54,7 @@ namespace FPTV.Areas.Identity.Pages.Account
         {
             if (ModelState.IsValid)
             {
+                //testar
                 var user = await _userManager.FindByEmailAsync(Input.Email);
                 if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
                 {

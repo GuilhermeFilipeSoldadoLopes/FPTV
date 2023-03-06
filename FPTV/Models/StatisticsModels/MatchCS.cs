@@ -12,14 +12,19 @@ namespace FPTV.Models.StatisticsModels
         public int MatchCSId { get; set; }
 
         [Required]
+        [Display(Name = "MatchCS API ID")]
+        public int MatchCSAPIID { get; set; }
+
         [ForeignKey("MatchesCSId")]
         [Display(Name = "Id of a csgo matches")]
         public Guid MatchesCSId { get; set; }
 
+        [Display(Name = "API Id of a csgo matches")]
+        public int MatchesCSAPIId { get; set; }
+
         [Display(Name = "List of stats of players")]
         public ICollection<MatchPlayerStatsCS>? PlayerStatsList { get; set; }
 
-        [Required]
         [Display(Name = "Score of round")]
         public string RoundsScore { get; set; }
 
@@ -31,6 +36,9 @@ namespace FPTV.Models.StatisticsModels
 
         [Display(Name = "Id of the winner team")]
         public Guid? WinnerTeamId { get; set; }
+
+        [Display(Name = "API Id of the winner team")]
+        public int? WinnerTeamAPIId { get; set; }
 
         [Display(Name = "Name of the winner team")]
         public string? WinnerTeamName { get; set; }

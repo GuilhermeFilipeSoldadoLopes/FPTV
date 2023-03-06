@@ -14,7 +14,7 @@ using System.Linq.Expressions;
 
 namespace FPTV.Controllers
 {
-    public class StatsController : Controller
+	/*public class StatsController : Controller
     {
         private readonly FPTVContext _context;
         Random _random = new Random();
@@ -139,8 +139,6 @@ namespace FPTV.Controllers
                 }
             }
         }
-        */
-
         private void GetPastMatchCS()
         {
             var client = new RestClient("https://api.pandascore.co/csgo/matches/past?sort=&page=1&per_page=50");
@@ -317,5 +315,5 @@ namespace FPTV.Controllers
                 _context.Add(matches);
             }
         }
-    }
+    }*/
 }
