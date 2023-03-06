@@ -114,11 +114,17 @@ namespace FPTV.Controllers
         {
             return View();
         }
-        public IActionResult RecoverPW()
+        /*public IActionResult ForgotPassword()
         {
             return View();
         }
-        public IActionResult SendEmail()
+
+        public IActionResult ForgotPasswordConfirmation()
+        {
+	        return View();
+		}*/
+
+		public IActionResult SendEmail()
         {
             return View();
         }
