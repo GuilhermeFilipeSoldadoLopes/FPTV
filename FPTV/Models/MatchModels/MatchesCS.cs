@@ -11,20 +11,17 @@ namespace FPTV.Models.MatchModels
 		[Key]
 		public Guid MatchesCSId { get; set; }
 
-		[Required]
-		[Display(Name = "Matches API ID")]
-		public int MatchesAPIID { get; set; }
+        [Required]
+        [Display(Name = "MatchesCS API ID")]
+        public int MatchesCSAPIID { get; set; }
 
-		[Required]
 		[Display(Name = "Event Id")]
 		[ForeignKey("EventId")]
 		public Guid EventId { get; set; }
 
-        [Required]
         [Display(Name = "Event API ID")]
         public int EventAPIID { get; set; }
 
-        [Required]
 		[Display(Name = "Event Name")]
 		public string EventName { get; set; }
 
@@ -34,7 +31,6 @@ namespace FPTV.Models.MatchModels
 		[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
 		public DateTime BeginAt { get; set; }
 
-		[Required]
 		[Display(Name = "End At")]
 		[DataType(DataType.Date)]
 		[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
@@ -67,12 +63,20 @@ namespace FPTV.Models.MatchModels
 		[Required]
 		[NotMapped]
 		[Display(Name = "Teams Id List")]
-		public List<int> TeamsIdList { get; set; }
+		public List<Guid> TeamsIDList { get; set; }
+
+		[Required]
+        [NotMapped]
+        [Display(Name = "Teams API Id List")]
+        public List<int> TeamsAPIIDList { get; set; }
 
 		[Display(Name = "Winner Team Id")]
-		public int? WinnerTeamId { get; set; }
+		public Guid? WinnerTeamId { get; set; }
 
-		[Display(Name = "Winner Team Name")]
+        [Display(Name = "Winner Team API Id")]
+        public int? WinnerTeamAPIId { get; set; }
+
+        [Display(Name = "Winner Team Name")]
 		public string? WinnerTeamName { get; set; }
 
 		[Required]
@@ -86,11 +90,9 @@ namespace FPTV.Models.MatchModels
 		[Display(Name = "Stream List")]
 		public ICollection<Stream>? StreamList { get; set; }
 
-		[Required]
 		[Display(Name = "League Name")]
 		public string LeagueName { get; set; }
 
-		[Required]
 		[Display(Name = "League Id")]
 		public int LeagueId { get; set; }
 
