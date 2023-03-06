@@ -4,6 +4,7 @@ using FPTV.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FPTV.Migrations
 {
     [DbContext(typeof(FPTVContext))]
-    partial class FPTVContextModelSnapshot : ModelSnapshot
+    [Migration("20230227230029_FPTVMigration")]
+    partial class FPTVMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,9 +36,6 @@ namespace FPTV.Migrations
                     b.Property<DateTime>("EndAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("EventAPIID")
-                        .HasColumnType("int");
-
                     b.Property<string>("EventLink")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -47,9 +46,6 @@ namespace FPTV.Migrations
 
                     b.Property<bool>("Finished")
                         .HasColumnType("bit");
-
-                    b.Property<Guid>("MatchesCSID")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("PrizePool")
                         .IsRequired()
@@ -85,9 +81,6 @@ namespace FPTV.Migrations
                     b.Property<DateTime>("EndAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("EventAPIID")
-                        .HasColumnType("int");
-
                     b.Property<string>("EventLink")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -98,9 +91,6 @@ namespace FPTV.Migrations
 
                     b.Property<bool>("Finished")
                         .HasColumnType("bit");
-
-                    b.Property<Guid>("MatchesValID")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("PrizePool")
                         .IsRequired()
