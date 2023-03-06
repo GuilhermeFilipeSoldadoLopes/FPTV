@@ -37,7 +37,8 @@ namespace FPTV
             var adminImage = Path.Combine(env.WebRootPath, "images", "Mods_Image.png");
             profile.Picture = System.IO.File.ReadAllBytes(adminImage);
             profile.User = admin;
-            admin.Profile = profile;
+            profile.RegistrationDate = new DateTime();
+			admin.Profile = profile;
             _context.Profiles.Add(profile);
 
             admin.EmailConfirmed = true;
@@ -82,7 +83,8 @@ namespace FPTV
 
             profile1.Picture = System.IO.File.ReadAllBytes(moderatorImage);
             profile1.User = moderator_AD;
-            moderator_AD.Profile = profile1;
+            profile1.RegistrationDate = new DateTime();
+			moderator_AD.Profile = profile1;
             _context.Profiles.Add(profile1);
 
             moderator_AD.EmailConfirmed = true;
@@ -104,7 +106,8 @@ namespace FPTV
 
             profile2.Picture = System.IO.File.ReadAllBytes(moderatorImage);
             profile2.User = moderator_GL;
-            moderator_GL.Profile = profile2;
+            profile2.RegistrationDate = new DateTime();
+			moderator_GL.Profile = profile2;
             _context.Profiles.Add(profile2);
 
             moderator_GL.EmailConfirmed = true;
@@ -126,7 +129,8 @@ namespace FPTV
 
             profile3.Picture = System.IO.File.ReadAllBytes(moderatorImage);
             profile3.User = moderator_MR;
-            moderator_MR.Profile = profile3;
+            profile3.RegistrationDate = new DateTime();
+			moderator_MR.Profile = profile3;
             _context.Profiles.Add(profile3);
 
             moderator_MR.EmailConfirmed = true;
@@ -148,7 +152,8 @@ namespace FPTV
 
             profile4.Picture = System.IO.File.ReadAllBytes(moderatorImage);
             profile4.User = moderator_NR;
-            moderator_NR.Profile = profile4;
+            profile4.RegistrationDate = new DateTime();
+			moderator_NR.Profile = profile4;
             _context.Profiles.Add(profile4);
 
             moderator_NR.EmailConfirmed = true;
@@ -169,6 +174,7 @@ namespace FPTV
             Profile profile5 = new();
             profile5.Picture = System.IO.File.ReadAllBytes(moderatorImage);
             profile5.User = moderator_RP;
+            profile5.RegistrationDate = new DateTime();
             moderator_RP.Profile = profile5;
             _context.Profiles.Add(profile5);
 
@@ -190,6 +196,7 @@ namespace FPTV
             Profile profile6 = new();
             profile6.Picture = System.IO.File.ReadAllBytes(moderatorImage);
             profile6.User = moderator_JA;
+            profile6.RegistrationDate = new DateTime();
             moderator_JA.Profile = profile6;
             _context.Profiles.Add(profile6);
 

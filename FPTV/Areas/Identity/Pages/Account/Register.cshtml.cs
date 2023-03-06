@@ -129,6 +129,7 @@ namespace FPTV.Areas.Identity.Pages.Account
                 var defaultImage = Path.Combine(_env.WebRootPath, "images", "default-profile-icon-24.jpg");
                 profile.Picture = System.IO.File.ReadAllBytes(defaultImage);
                 profile.User = user;
+                profile.RegistrationDate = new DateTime();
                 user.Profile = profile;
                 _context.Profiles.Add(profile);
 

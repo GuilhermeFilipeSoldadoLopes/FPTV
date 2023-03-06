@@ -3,6 +3,7 @@ using FPTV.Models.UserModels;
 
 namespace FPTV.Models.ToReview
 {
+    //Modelo Players tambem
     public class Team
     {
         [Required]
