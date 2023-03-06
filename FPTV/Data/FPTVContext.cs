@@ -34,18 +34,9 @@ namespace FPTV.Data
         public DbSet<MatchPlayerStatsVal> MatchPlayerStatsVal { get; set; }
         public DbSet<MatchTeamsCS> MatchTeamsCS { get; set; }
         public DbSet<MatchTeamsVal> MatchTeamsVal { get; set; }
-
         public DbSet<MatchCS> MatchCS { get; set; }
-
-        public DbSet<MatchPlayerStatsCS> MatchPlayerStatsCS { get; set; }
-
-        public DbSet<MatchPlayerStatsVal> MatchPlayerStatsVal { get; set; }
-
-        public DbSet<MatchTeamsCS> MatchTeamsCS { get; set; }
-
-        public DbSet<MatchTeamsVal> MatchTeamsVal { get; set; }
-
         public DbSet<MatchVal> MatchVal { get; set; }
+
 
         /*public DbSet<UserAccount> UserAccount { get; set; }
         public DbSet<AuthenticationLog> AuthenticationLog { get; set; }

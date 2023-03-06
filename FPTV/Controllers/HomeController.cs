@@ -35,7 +35,6 @@ namespace FPTV.Controllers
 				DateTime lastModificationFileDateTime = System.IO.File.GetLastWriteTime("visitors.txt");
 				DateTime lasModificationDate =
 					new DateTime(lastModificationFileDateTime.Year, lastModificationFileDateTime.Month, lastModificationFileDateTime.Day);
-				int days = (DateTime.Now - lasModificationDate).Days;
 
 				if (DateTime.Compare(lasModificationDate, DateTime.Now.Date) < 0)
 				{
@@ -52,7 +51,6 @@ namespace FPTV.Controllers
 			if (System.IO.File.Exists("visitors.txt"))
 			{
 				System.IO.File.WriteAllText("visitors.txt", visitors.ToString());
-
 			}
 			else
 			{
@@ -77,15 +75,13 @@ namespace FPTV.Controllers
 
 			return View();
         }
-        public IActionResult Game()
-        {
-            return View();
-        }
 
         public IActionResult Matches()
         {
+            //return RedirectToAction("Método", "Matches");
             return View();
         }
+
         public IActionResult Results()
         {
             return View();
@@ -114,17 +110,8 @@ namespace FPTV.Controllers
         {
             return View();
         }
-        /*public IActionResult ForgotPassword()
-        {
-            return View();
-        }
 
-        public IActionResult ForgotPasswordConfirmation()
-        {
-	        return View();
-		}*/
-
-		public IActionResult SendEmail()
+        public IActionResult SendEmail()
         {
             return View();
         }

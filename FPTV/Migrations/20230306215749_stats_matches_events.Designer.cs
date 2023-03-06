@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FPTV.Migrations
 {
     [DbContext(typeof(FPTVContext))]
-    [Migration("20230226161335_FPTVMigration")]
-    partial class FPTVMigration
+    [Migration("20230306215749_stats_matches_events")]
+    partial class stats_matches_events
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -36,6 +36,9 @@ namespace FPTV.Migrations
                     b.Property<DateTime>("EndAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("EventAPIID")
+                        .HasColumnType("int");
+
                     b.Property<string>("EventLink")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -46,6 +49,9 @@ namespace FPTV.Migrations
 
                     b.Property<bool>("Finished")
                         .HasColumnType("bit");
+
+                    b.Property<Guid>("MatchesCSID")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("PrizePool")
                         .IsRequired()
@@ -81,6 +87,9 @@ namespace FPTV.Migrations
                     b.Property<DateTime>("EndAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("EventAPIID")
+                        .HasColumnType("int");
+
                     b.Property<string>("EventLink")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -91,6 +100,9 @@ namespace FPTV.Migrations
 
                     b.Property<bool>("Finished")
                         .HasColumnType("bit");
+
+                    b.Property<Guid>("MatchesValID")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("PrizePool")
                         .IsRequired()
@@ -112,6 +124,401 @@ namespace FPTV.Migrations
                     b.HasKey("EventValID");
 
                     b.ToTable("EventsVal");
+                });
+
+            modelBuilder.Entity("FPTV.Models.MatchModels.MatchesCS", b =>
+                {
+                    b.Property<Guid>("MatchesCSId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("BeginAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("EndAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("EventAPIID")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("EventId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("EventName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("HaveStats")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsFinished")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("LeagueId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("LeagueLink")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LeagueName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("LiveSupported")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("MatchesCSAPIID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NumberOfGames")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Tier")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(1)");
+
+                    b.Property<int>("TimeType")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("WinnerTeamAPIId")
+                        .HasColumnType("int");
+
+                    b.Property<Guid?>("WinnerTeamId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("WinnerTeamName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("MatchesCSId");
+
+                    b.ToTable("MatchesCS");
+                });
+
+            modelBuilder.Entity("FPTV.Models.MatchModels.MatchesVal", b =>
+                {
+                    b.Property<Guid>("MatchesValId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("BeginAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("EndAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("EventAPIID")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("EventId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("EventName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("HaveStats")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsFinished")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("LeagueId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("LeagueLink")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LeagueName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("LiveSupported")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("MatchesValAPIID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NumberOfGames")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Tier")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(1)");
+
+                    b.Property<int>("TimeType")
+                        .HasColumnType("int");
+
+                    b.Property<int>("WinnerTeamAPIId")
+                        .HasColumnType("int");
+
+                    b.Property<Guid?>("WinnerTeamId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("WinnerTeamName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("MatchesValId");
+
+                    b.ToTable("MatchesVal");
+                });
+
+            modelBuilder.Entity("FPTV.Models.MatchModels.Stream", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("MatchesCSId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("MatchesValId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("StreamLanguage")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StreamLink")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MatchesCSId");
+
+                    b.HasIndex("MatchesValId");
+
+                    b.ToTable("Stream");
+                });
+
+            modelBuilder.Entity("FPTV.Models.StatisticsModels.MatchCS", b =>
+                {
+                    b.Property<int>("MatchCSId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MatchCSId"), 1L, 1);
+
+                    b.Property<string>("Map")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("MatchCSAPIID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MatchesCSAPIId")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("MatchesCSId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("RoundsScore")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("WinnerTeamAPIId")
+                        .HasColumnType("int");
+
+                    b.Property<Guid?>("WinnerTeamId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("WinnerTeamName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("MatchCSId");
+
+                    b.HasIndex("MatchesCSId");
+
+                    b.ToTable("MatchCS");
+                });
+
+            modelBuilder.Entity("FPTV.Models.StatisticsModels.MatchPlayerStatsCS", b =>
+                {
+                    b.Property<int>("MatchCSId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MatchCSId"), 1L, 1);
+
+                    b.Property<float>("ADR")
+                        .HasColumnType("real");
+
+                    b.Property<int>("Assists")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Deaths")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FlashAssist")
+                        .HasColumnType("int");
+
+                    b.Property<float>("HeadShots")
+                        .HasColumnType("real");
+
+                    b.Property<float>("KD_Diff")
+                        .HasColumnType("real");
+
+                    b.Property<int>("Kills")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MatchCSId1")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PlayerCSId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PlayerName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("MatchCSId");
+
+                    b.HasIndex("MatchCSId1");
+
+                    b.ToTable("MatchPlayerStatsCS");
+                });
+
+            modelBuilder.Entity("FPTV.Models.StatisticsModels.MatchPlayerStatsVal", b =>
+                {
+                    b.Property<Guid>("MatchValId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<float>("ADR")
+                        .HasColumnType("real");
+
+                    b.Property<int>("Assists")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Deaths")
+                        .HasColumnType("int");
+
+                    b.Property<float>("HeadShots")
+                        .HasColumnType("real");
+
+                    b.Property<float>("KD_Diff")
+                        .HasColumnType("real");
+
+                    b.Property<float>("Kast")
+                        .HasColumnType("real");
+
+                    b.Property<int>("Kills")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("MatchValId1")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("PlayerName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("PlayerValId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("MatchValId");
+
+                    b.HasIndex("MatchValId1");
+
+                    b.ToTable("MatchPlayerStatsVal");
+                });
+
+            modelBuilder.Entity("FPTV.Models.StatisticsModels.MatchTeamsCS", b =>
+                {
+                    b.Property<Guid>("MatchCSId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Image")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Location")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("MatchCSId1")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("TeamCSId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("MatchCSId");
+
+                    b.HasIndex("MatchCSId1");
+
+                    b.ToTable("MatchTeamsCS");
+                });
+
+            modelBuilder.Entity("FPTV.Models.StatisticsModels.MatchTeamsVal", b =>
+                {
+                    b.Property<Guid>("MatchValId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Image")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Location")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("MatchValId1")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("TeamValId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("MatchValId");
+
+                    b.HasIndex("MatchValId1");
+
+                    b.ToTable("MatchTeamsVal");
+                });
+
+            modelBuilder.Entity("FPTV.Models.StatisticsModels.MatchVal", b =>
+                {
+                    b.Property<Guid>("MatchValId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Map")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("MatchValAPIID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MatchesValAPIId")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("MatchesValId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("RoundsScore")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("WinnerTeamAPIId")
+                        .HasColumnType("int");
+
+                    b.Property<Guid?>("WinnerTeamId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("WinnerTeamName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("MatchValId");
+
+                    b.HasIndex("MatchesValId");
+
+                    b.ToTable("MatchVal");
                 });
 
             modelBuilder.Entity("FPTV.Models.ToReview.Team", b =>
@@ -527,6 +934,69 @@ namespace FPTV.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("FPTV.Models.MatchModels.Stream", b =>
+                {
+                    b.HasOne("FPTV.Models.MatchModels.MatchesCS", null)
+                        .WithMany("StreamList")
+                        .HasForeignKey("MatchesCSId");
+
+                    b.HasOne("FPTV.Models.MatchModels.MatchesVal", null)
+                        .WithMany("StreamList")
+                        .HasForeignKey("MatchesValId");
+                });
+
+            modelBuilder.Entity("FPTV.Models.StatisticsModels.MatchCS", b =>
+                {
+                    b.HasOne("FPTV.Models.MatchModels.MatchesCS", null)
+                        .WithMany("MatchesList")
+                        .HasForeignKey("MatchesCSId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("FPTV.Models.StatisticsModels.MatchPlayerStatsCS", b =>
+                {
+                    b.HasOne("FPTV.Models.StatisticsModels.MatchCS", null)
+                        .WithMany("PlayerStatsList")
+                        .HasForeignKey("MatchCSId1")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("FPTV.Models.StatisticsModels.MatchPlayerStatsVal", b =>
+                {
+                    b.HasOne("FPTV.Models.StatisticsModels.MatchVal", null)
+                        .WithMany("PlayerStatsList")
+                        .HasForeignKey("MatchValId1")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("FPTV.Models.StatisticsModels.MatchTeamsCS", b =>
+                {
+                    b.HasOne("FPTV.Models.StatisticsModels.MatchCS", null)
+                        .WithMany("TeamsList")
+                        .HasForeignKey("MatchCSId1");
+                });
+
+            modelBuilder.Entity("FPTV.Models.StatisticsModels.MatchTeamsVal", b =>
+                {
+                    b.HasOne("FPTV.Models.StatisticsModels.MatchVal", null)
+                        .WithMany("TeamsList")
+                        .HasForeignKey("MatchValId1")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("FPTV.Models.StatisticsModels.MatchVal", b =>
+                {
+                    b.HasOne("FPTV.Models.MatchModels.MatchesVal", null)
+                        .WithMany("MatchesList")
+                        .HasForeignKey("MatchesValId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("FPTV.Models.ToReview.Team", b =>
                 {
                     b.HasOne("FPTV.Models.UserModels.FavTeamsList", null)
@@ -689,6 +1159,34 @@ namespace FPTV.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("FPTV.Models.MatchModels.MatchesCS", b =>
+                {
+                    b.Navigation("MatchesList");
+
+                    b.Navigation("StreamList");
+                });
+
+            modelBuilder.Entity("FPTV.Models.MatchModels.MatchesVal", b =>
+                {
+                    b.Navigation("MatchesList");
+
+                    b.Navigation("StreamList");
+                });
+
+            modelBuilder.Entity("FPTV.Models.StatisticsModels.MatchCS", b =>
+                {
+                    b.Navigation("PlayerStatsList");
+
+                    b.Navigation("TeamsList");
+                });
+
+            modelBuilder.Entity("FPTV.Models.StatisticsModels.MatchVal", b =>
+                {
+                    b.Navigation("PlayerStatsList");
+
+                    b.Navigation("TeamsList");
                 });
 
             modelBuilder.Entity("FPTV.Models.ToReview.Team", b =>

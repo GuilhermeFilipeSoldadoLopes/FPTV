@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using FPTV.Models.StatisticsModels;
 using FPTV.Models.UserModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace FPTV.Models.MatchModels
 {
@@ -56,16 +57,22 @@ namespace FPTV.Models.MatchModels
 		[Display(Name = "Number Of Games")]
 		public int NumberOfGames { get; set; }
 
+		[Required]
+		[NotMapped]
+		[Display(Name = "Score")]
+		public IDictionary<int, int> Score { get; set; }
+
+		[Required]
 		[NotMapped]
 		[Display(Name = "Teams Id List")]
 		public List<Guid> TeamsIdList { get; set; }
 
-        [Required]
+		[Required]
         [NotMapped]
         [Display(Name = "Teams API Id List")]
         public List<int> TeamsAPIIDList { get; set; }
 
-        [Display(Name = "Winner Team Id")]
+		[Display(Name = "Winner Team Id")]
 		public Guid? WinnerTeamId { get; set; }
 
         [Display(Name = "Winner Team API ID")]
