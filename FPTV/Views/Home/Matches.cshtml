@@ -113,8 +113,9 @@
 
     .buttons {
         display: flex;
-        justify-content: center;
         margin-bottom: 30px;
+        margin-right: 25%;
+        justify-content: right;
     }
 
     .search-container {
@@ -193,41 +194,31 @@
 
 </style>
 <body class="bodytemp">
-    <div class="" style="background-color:white">
+ <div class="" style="background-color:white">
 
-    <h1 style="text-align: center;">Blast.tv Paris Major 2022</h1>
+        <div class="buttons">
 
-    <div class="buttons">
-
-        <label class="search-container">
-            <img src="~/images/procurar.png" />
-            <input type="text" placeholder="Search...">
-        </label>
-
-        @*<button class="button" style="margin-top: 0px;margin-bottom: 0px;">
-        Search
-        </button>*@
-
-        <div class="dropdown">
-            <button class="button2">Sort by</button>
-            <div class="dropdown-content" style="margin-left:5%;">
-                <a href="#">Newest</a>
-                <a href="#">Oldest</a>
-                <a href="#">Prizepool</a>
-                <a href="#">Name</a>
-                <a href="#">Tier</a>
+            <div class="dropdown">
+                <button class="button2">Sort by</button>
+                <div class="dropdown-content">
+                    <a href="#">Newest</a>
+                    <a href="#">Oldest</a>
+                    <a href="#">Prizepool</a>
+                    <a href="#">Name</a>
+                    <a href="#">Tier</a>
+                </div>
             </div>
-        </div>
-        <div class="dropdown">
-            <button class="button2">Filter by</button>
-            <div class="dropdown-content">
-                <a href="#">On going</a>
-                <a href="#">Finished</a>
-                <a href="#">Upcoming</a>
+            <div class="dropdown">
+                <button class="button2">Filter by</button>
+                <div class="dropdown-content">
+                    <a href="#">Have Stats</a>
+                    <a href="#">Have livestream</a>
+                    <a href="#">State</a>
+                </div>
             </div>
-        </div>
 
-    </div>
+        </div>
+    
         <div class="ola">
 
         <div class="box1" style="background-color:lightgrey">
@@ -335,12 +326,11 @@
 
         </div>
 
-            <div class="box" style="background-color: lightgrey; margin: 2%;">
             <div class="alinhar">
                 <div class="my-div2" style="width:90%">
                     <div>
                         <p style="font-weight:bold; margin-top:2%; margin-bottom:0px; ">
-                                <span class="alinhar">Blast.tv Paris Major 2022</span>
+                                <h2><span class="alinhar">Blast.tv Paris Major 2022</span></h2><br />
                                 <h4 style="font-weight: bold;text-align: center;">Live</h4>
                         </p>
                     </div>
@@ -349,36 +339,67 @@
                             <span style="text-align: left;margin-left:10%">
                                 <img src="~/images/image_bruge.png" width="82px" height="112px" />
                             </span>
-                            <span style="text-align: center;margin-left:23%">vs</span><br />
-                            <span style="text-align: left;margin-left:14%"> ENCE </span><br />
+                            <span style="text-align: center;margin-left:23%">vs</span>
+                            <span style="text-align: left;margin-left:25%">
+                                <img src="~/images/image_case.png" width="82px" height="112px" />
+                            </span>
+                            <span style="text-align: left;margin-left:14%"> ENCE </span>
+                            <span style="text-align: left;margin-left:55%"> CASE </span><br />
                             <span style="text-align: left;margin-left:16%" class="span2"> 11 </span>
                             <span style="text-align: left;margin-left:29%">-</span><br />
-                    </div>
-                        
-                    <div>
-                        <span style="text-align: center;">
-                            <p style="font-size:25px">
-                                <span> ENCE </span>
-                                <p></p>
-                                <span class="span2"> 11 </span>
-                                <span class="span2"> vs </span>
-                                <span class="span2"> 5 </span>
-                                <span> G2 </span>
-                            </p>
-                        </span>
+                            
                     </div>
 
-                    <div style="text-align:left; display: flex;">
+                    <div style="text-align:left; display: flex">
                         <p>Best of 3</p>
-                        <a href="#" style="justify-content: space-around; margin-left: auto;">More details</a>
+                        <a href="#" style="justify-content: space-around; margin-left: auto;margin-left:60%">More details</a>
                     </div>
 
-                </div>
+
+                    <div class="alinhar" >
+                        <div class="my-div2" style="width:90%;background:lightgrey;">
+                            <div>
+                                <p style="font-weight:bold; margin-top:2%; margin-bottom:0px; ">
+                                    <h4 style="font-weight: bold;">Upcoming Matches</h4>
+                                </p>
+                                <span class="span2" style="margin-top:10px;">Saturday - 2023-02-13 &nbsp; &nbsp; 23:00</span>
+                            </div>
+
+                            <div>
+                                <span style="text-align: center;">
+                                    <p style="font-size:25px">
+                                        <span> ENCE </span>
+                                        <span class="span2"> vs </span>
+                                        <span> G2 </span>
+                                    </p>
+                                </span>
+                            </div>
+
+                            <div style="text-align:left; display: flex;">
+                                <p>Best of 3</p>
+                                <a href="#" style="justify-content: space-around; margin-left: auto;">More details</a>
+                            </div>
+
+                            <div>
+                                <span class="span2" style="margin-top:10px;">Saturday - 2023-02-13 &nbsp; &nbsp; 23:00</span>
+                                <span style="text-align: center;">
+                                    <p style="font-size:25px">
+                                        <span> ENCE </span>
+                                        <span class="span2"> vs </span>
+                                        <span> G2 </span>
+                                    </p>
+                                </span>
+                            </div>
+
+                            <div style="text-align:left; display: flex;">
+                                <p>Best of 3</p>
+                                <a href="#" style="justify-content: space-around; margin-left: auto;">More details</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>   
             </div>
 
-
-
-        </div>
 
 
         <div class="box1" style="background-color:lightgrey">
@@ -486,7 +507,9 @@
 
         </div>
     </div>
-    </div>
+ </div>
+
+
 </body>
 
 
