@@ -369,7 +369,7 @@ namespace FPTV.Controllers
                 return NotFound();
             }
 
-            var match = await _context.MatchesCS.Include(m => m.MatchesList).Include(m => m.TeamsIdList).Include(m => m.StreamList).FirstOrDefaultAsync(m => m.MatchesCSAPIID == id);
+            var match = await _context.MatchesCS.Include(m => m.MatchesList).Include(m => m.TeamsAPIIDList).Include(m => m.StreamList).FirstOrDefaultAsync(m => m.MatchesCSAPIID == id);
 
             if (match == null)
             {
