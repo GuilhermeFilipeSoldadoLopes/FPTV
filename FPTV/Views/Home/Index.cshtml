@@ -1,8 +1,53 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+<!DOCTYPE html>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<html>
+<style>
+	.central {
+		width: 100%;
+		margin: 0 auto;
+		text-align: center;
+		height:100%;
+		background-color: white;
+	}
+
+	.center {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+</style>
+
+<body class="bodytemp">
+
+	<div class="text-center">
+		<h1 class="display-4">Welcome</h1>
+		<p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+		<br><br>
+	</div>
+
+	<div class="central">
+		<h2>Estatísticas do site</h2>
+		<br>
+		<table class="table">
+			<tr>
+				<th>Number of registered accounts</th>
+				<th>Daily flow of users</th>
+
+			</tr>
+
+			<tr>
+				<td> <b id="noOfAccounts">@ViewData["accounts"]</b> <span id="accountText"> @ViewData["account_txt"] </span> </td>
+				<td> <b id="noOfVisitors">@ViewData["visitors"]</b> <span id="visitorsText"> @ViewData["visitors_txt"] </span> </td>
+			</tr>
+
+		</table>
+	</div>
+
+</body>
+
+</html>
+

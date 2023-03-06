@@ -1,0 +1,10 @@
+﻿@model List<FPTV.Models.StatisticsModels.MatchCS>
+
+@{
+    ViewData["Title"] = "CS Matches";
+}
+
+@foreach (var item in Model)
+{
+    @Html.DisplayFor(modelItem => item.WinnerTeamName)
+}
