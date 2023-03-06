@@ -139,7 +139,6 @@ namespace FPTV.Controllers
                 }
             }
         }
-        
         private void GetPastMatchCS()
         {
             var client = new RestClient("https://api.pandascore.co/csgo/matches/past?sort=&page=1&per_page=50");
@@ -149,10 +148,11 @@ namespace FPTV.Controllers
 
             JArray statsArray = JArray.Parse(response.Content);
             MatchesCS pastMatchesCs = new MatchesCS();
+            MatchTeamsCS pastMatchTeamCs = new MatchTeamsCS();
             MatchCS pastMatchCs = new MatchCS();
 
             var StaticResults = new[] { "16-12", "14-16", "16-9", "8-16", "10-16", "16-11", "3-16", "16-7" };
-            var StaticResults = new[] { "16-12", "14-16", "16-9", "8-16", "10-16", "16-11", "3-16", "16-7" };
+            var maps = new[] { "Inferno", "Mirage", "Nuke", "Overpass", "Vertigo", "Ancient", "Anubis"};
 
             foreach (var item in statsArray.Children<JObject>())
             {
@@ -161,8 +161,8 @@ namespace FPTV.Controllers
                 //meu MatchesCSId com o MatchesCSId das matches
                 //pastMatchCs.PlayerStatsList = ;
                 pastMatchCs.RoundsScore = StaticResults[_random.Next(StaticResults.Length)];
-                pastMatchCs.Map = _random.Next(1, 11);
-                pastMatchCs.TeamsList = _random.Next(1, 6);
+                pastMatchCs.Map = maps[_random.Next(maps.Length)];
+                pastMatchCs.TeamsList = pastMatchTeamCs.
                 pastMatchCs.WinnerTeamId = _random.Next(1, 101);
                 pastMatchCs.WinnerTeamName = _random.NextDouble();
 
