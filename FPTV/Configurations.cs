@@ -9,10 +9,13 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace FPTV
 {
-
     //cria as roles e é criado o user com a role de Admin e os Moderadores
     public static class Configurations
     {
+        /// <summary>
+        /// Thsi method will create the Roles (Admin, Moderator and User)
+        /// </summary>
+        /// <param name="serviceProvider"></param>
         public static async Task CreateRoles(IServiceProvider serviceProvider, FPTVContext _context, IUserStore<UserBase> _userStore, IUserEmailStore<UserBase> _emailStore, IWebHostEnvironment env)
         {
             var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
@@ -29,6 +32,11 @@ namespace FPTV
             await CreateModerators(roleManager, userManager, _context, _userStore, _emailStore, env);
         }
 
+        /// <summary>
+        /// This method will initialize the user with Role Admin
+        /// </summary>
+        /// <param name="roleManager"></param>
+        /// <param name="userAdmin"></param>
         private static async Task CreateAdmin(RoleManager<IdentityRole> roleManager, UserManager<UserBase> userManager, FPTVContext _context, IUserStore<UserBase> _userStore, IUserEmailStore<UserBase> _emailStore, IWebHostEnvironment env)
         {
             var admin = CreateUser();
@@ -50,6 +58,13 @@ namespace FPTV
             if (createPowerUser.Succeeded)
                 await userManager.AddToRoleAsync(admin, "Admin");
         }
+
+        /// <summary>
+        /// This method will initialize the users with Role Moderator
+        /// </summary>
+        /// <param name="roleManager"></param>
+        /// <param name="userManager"></param>
+        /// <returns></returns>
         private static async Task CreateModerators(RoleManager<IdentityRole> roleManager, UserManager<UserBase> userManager, FPTVContext _context, IUserStore<UserBase> _userStore, IUserEmailStore<UserBase> _emailStore, IWebHostEnvironment env)
         {
             //Imagem de perfil dos moderadores

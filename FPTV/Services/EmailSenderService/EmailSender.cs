@@ -6,10 +6,18 @@ using SendGrid.Helpers.Mail;
 
 namespace FPTV.Services.EmailSenderService;
 
+/// <summary>
+/// This class is responsible for sending emails with SendGrid
+/// </summary>
 public class EmailSender : IEmailSender
 {
     private readonly ILogger _logger;
 
+    /// <summary>
+    /// This is the contructor of class EmailSender
+    /// </summary>
+    /// <param name="optionsAccessor"></param>
+    /// <param name="logger"></param>
     public EmailSender(IOptions<AuthMessageSenderOptions> optionsAccessor,
                        ILogger<EmailSender> logger)
     {
@@ -17,8 +25,18 @@ public class EmailSender : IEmailSender
         _logger = logger;
     }
 
+    /// <summary>
+    /// Returns the an object of class AuthMessageSenderOptions to get THE SendGrid key
+    /// </summary>
     public AuthMessageSenderOptions Options { get; } //Set with Secret Manager.
 
+    /// <summary>
+    /// This method will use SendGrid API to send an email to a user if the SendGrid key is defined
+    /// </summary>
+    /// <param name="toEmail"></param>
+    /// <param name="subject"></param>
+    /// <param name="message"></param>
+    /// <exception cref="Exception"></exception>
     public async Task SendEmailAsync(string toEmail, string subject, string message)
     {
         if (string.IsNullOrEmpty(Options.SendGridKey))
@@ -28,6 +46,14 @@ public class EmailSender : IEmailSender
         await Execute(Options.SendGridKey, subject, message, toEmail);
     }
 
+    /// <summary>
+    /// This method will generate email using the SendGrid API
+    /// </summary>
+    /// <param name="apiKey"></param>
+    /// <param name="subject"></param>
+    /// <param name="message"></param>
+    /// <param name="toEmail"></param>
+    /// <returns></returns>
     public async Task Execute(string apiKey, string subject, string message, string toEmail)
     {
         Console.WriteLine("ApiKey> " + apiKey);

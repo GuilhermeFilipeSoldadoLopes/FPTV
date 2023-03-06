@@ -19,6 +19,10 @@ namespace FPTV.Controllers
             _context = context;
         }
 
+        /// <summary>
+        /// Returns the view Index
+        /// </summary>
+        /// <returns>View</returns>
         public IActionResult Index()
         {
 	        var account = _context.Users.ToList().Count();
@@ -77,43 +81,84 @@ namespace FPTV.Controllers
 
 			return View();
         }
+
+        /// <summary>
+        /// Returns the view Game
+        /// </summary>
+        /// <returns>View</returns>
         public IActionResult Game()
         {
             return View();
         }
 
+        /// <summary>
+        /// Returns the view Matches
+        /// </summary>
+        /// <returns>View</returns>
         public IActionResult Matches()
         {
             return View();
         }
+
+        /// <summary>
+        /// Returns the view Results
+        /// </summary>
+        /// <returns>View</returns>
         public IActionResult Results()
         {
             return View();
         }
+
+        /// <summary>
+        /// Returns the view Events
+        /// </summary>
+        /// <returns>View</returns>
         public IActionResult Events()
         {
             return View();
         }
+
 		public IActionResult EventDetails()
 		{
 			return View();
-		}
+        }
+
+        /// <summary>
+        /// Returns the view Forum
+        /// </summary>
+        /// <returns>View</returns>
 		public IActionResult Forum()
         {
             return View();
         }
+
+        /// <summary>
+        /// Returns the view About
+        /// </summary>
+        /// <returns>View</returns>
         public IActionResult About()
         {
             return View();
         }
+
+        /// <summary>
+        /// Returns the view LoginRegister
+        /// </summary>
+        /// <returns>View</returns>
         public IActionResult LoginRegister()
         {
             return View();
         }
+
+        /// <summary>
+        /// Returns the view Register
+        /// </summary>
+        /// <returns>View</returns>
         public IActionResult Register()
         {
             return View();
         }
+
         /*public IActionResult ForgotPassword()
         {
             return View();
@@ -124,27 +169,39 @@ namespace FPTV.Controllers
 	        return View();
 		}*/
 
-		public IActionResult SendEmail()
+        /// <summary>
+        /// Returns the view SendEmail
+        /// </summary>
+        /// <returns>View</returns>
+        public IActionResult SendEmail()
         {
             return View();
         }
+
         public IActionResult Privacy()
         {
             return View();
         }
+
         public IActionResult TeamStats()
         {
             return View();
         }
+
         public IActionResult PlayerAndStats()
         {
             return View();
         }
+
         public IActionResult StatisticsOfSite()
         {
             return View();
         }
 
+        /// <summary>
+        /// Returns the view Error
+        /// </summary>
+        /// <returns>View</returns>
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
