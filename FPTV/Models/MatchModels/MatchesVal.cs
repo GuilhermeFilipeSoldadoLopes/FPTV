@@ -12,6 +12,10 @@ namespace FPTV.Models.MatchModels
 		public Guid MatchesValId { get; set; }
 
 		[Required]
+		[Display(Name = "Matches API ID")]
+		public int MatchesAPIID { get; set; }
+
+		[Required]
 		[Display(Name = "Event Id")]
 		[ForeignKey("EventId")]
 		public Guid EventId { get; set; }
@@ -57,12 +61,16 @@ namespace FPTV.Models.MatchModels
 		public int NumberOfGames { get; set; }
 
 		[Required]
+		[Display(Name = "Score")]
+		public Dictionary<int, int> Score { get; set; }
+
+		[Required]
 		[NotMapped]
 		[Display(Name = "Teams Id List")]
-		public List<Guid> TeamsIdList { get; set; }
+		public List<int> TeamsIdList { get; set; }
 
 		[Display(Name = "Winner Team Id")]
-		public Guid? WinnerTeamId { get; set; }
+		public int? WinnerTeamId { get; set; }
 
 		[Display(Name = "Winner Team Name")]
 		public string? WinnerTeamName { get; set; }

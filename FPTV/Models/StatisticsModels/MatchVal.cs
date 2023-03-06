@@ -11,6 +11,10 @@ namespace FPTV.Models.StatisticsModels
         public Guid MatchValId { get; set; }
 
         [Required]
+        [Display(Name = "Match API ID")]
+        public int MatchAPIID { get; set; }
+
+		[Required]
         [ForeignKey("MatchesValId")]
         [Display(Name = "Id of valorant matches")]
         public Guid MatchesValId { get; set; }
@@ -29,7 +33,7 @@ namespace FPTV.Models.StatisticsModels
         public ICollection<MatchTeamsVal>? TeamsList { get; set; }
 
         [Display(Name = "Id of the winner team")] 
-        public Guid? WinnerTeamId { get; set; }
+        public int? WinnerTeamId { get; set; }
         
         [Display(Name = "Name of the winner team")]
         public string? WinnerTeamName { get; set; }
