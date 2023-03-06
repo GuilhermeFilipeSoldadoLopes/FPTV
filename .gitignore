@@ -75,3 +75,5 @@ _[Ss]cripts
 *.dot[Cc]over
 
 *.vs
+FPTV/Controllers/StatsController.cs
+FPTV/Views/Matches/Matches.cshtml
