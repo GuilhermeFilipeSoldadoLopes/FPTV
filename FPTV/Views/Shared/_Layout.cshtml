@@ -12,71 +12,87 @@
     <link rel="icon" type="image/png" href="~/favicon.ico" />
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img class="logo" src="~/images/iconMenu.jpg"> </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Game</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Matches">Matches</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Results</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Events">Events</a>
-                        </li>
-                        <li class="nav-item">
-
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Forum</a>
-
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">About</a>
-                        </li>
-                       
-
-                    </ul>
-                </div>
-                <div style="text-align:right">
-                    @{
-                        var result = Engine.FindView(ViewContext, "_LoginPartial", isMainPage: false);
-                    }
-                    @if (result.Success)
-                    {
-                        await Html.RenderPartialAsync("_LoginPartial");
-                    }
-                    else
-                    {
-                        throw new InvalidOperationException("The default Identity UI layout requires a partial view '_LoginPartial' " +
-                            "usually located at '/Pages/_LoginPartial' or at '/Views/Shared/_LoginPartial' to work. Based on your configuration " +
-                            $"we have looked at it in the following locations: {System.Environment.NewLine}{string.Join(System.Environment.NewLine, result.SearchedLocations)}.");
-                    }
-                </div>
-            </div>
-        </nav>
-    </header>
+<header>
+		<div style="background-color: lightgray">
+		<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+			<div class="container-fluid">
+				<a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img class="logo" src="~/images/iconMenu.jpg"> </a>
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+						aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+					<ul class="navbar-nav flex-grow-1" style="justify-content: space-around; margin-right: 100px; margin-left: 20px;">
+						<li class="nav-item">
+							<a class="nav-link text-dark" style="font-size: 25px;" asp-area="" asp-controller="Home" asp-action="Index">Game</a>
+						</li>
+						<li class="nav-item">
+								<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Matches">Matches</a>
+						</li>
+						<li class="nav-item">
+								<a class="nav-link text-dark" style="font-size: 25px;" asp-area="" asp-controller="Home" asp-action="Index">Results</a>
+						</li>
+						<li class="nav-item">
+								<a class="nav-link text-dark" style="font-size: 25px;" asp-area="" asp-controller="Home" asp-action="Events">Events</a>
+						</li>
+						<li class="nav-item">
+								<a class="nav-link text-dark" style="font-size: 25px;" asp-area="" asp-controller="Home" asp-action="Index">Forum</a>
+						</li>
+						<li class="nav-item">
+								<a class="nav-link text-dark" style="font-size: 25px;" asp-area="" asp-controller="Home" asp-action="Index">About</a>
+						</li>
+					</ul>
+				</div>
+				<div style="text-align: right">
+					@{
+						var result = Engine.FindView(ViewContext, "_LoginPartial", isMainPage: false);
+					}
+					@if (result.Success)
+					{
+						await Html.RenderPartialAsync("_LoginPartial");
+					}
+					else
+					{
+						throw new InvalidOperationException("The default Identity UI layout requires a partial view '_LoginPartial' " +
+						"usually located at '/Pages/_LoginPartial' or at '/Views/Shared/_LoginPartial' to work. Based on your configuration " +
+						$"we have looked at it in the following locations: {System.Environment.NewLine}{string.Join(System.Environment.NewLine, result.SearchedLocations)}.");
+					}
+				</div>
+			</div>
+		</nav>
+	</div>
+</header>
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2023 - FPTV - <a asp-area="" style="color: gray;" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<footer class="border-top footer text-muted" style="background-color:lightgray">
+		<div class="container" style="color: black;">
+			&copy; 2023 - FPTV - <a asp-area="" style="color: black;" asp-controller="Home" asp-action="Privacy">Privacy</a>
+		</div>
+	</footer>
+	<script src="https://js.pusher.com/4.0/pusher.min.js"></script>
+	<script>
+        // Enable pusher logging - don't include this in production
+        Pusher.logToConsole = true;
+
+        var pusher = new Pusher('PUSHER_APP_KEY', {
+            cluster:'PUSHER_APP_CLUSTER'
+        });
+
+        var channel = pusher.subscribe('general');
+
+        channel.bind('newVisit', function(data) {
+
+          var visits = data.visits;
+          var message = data.message;
+          $('#noOfVisitors').text( visits );
+          $('#visitorsText').text( message );
+        });
+    </script>
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
