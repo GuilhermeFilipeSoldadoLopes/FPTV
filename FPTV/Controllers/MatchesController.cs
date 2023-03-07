@@ -29,15 +29,25 @@ namespace FPTV.Controllers
     //  ordem cronológica
     //  por nome do evento
 {
+    /// <summary>
+    /// Controller for the matches actions
+    /// </summary>
     public class MatchesController : Controller
     {
         private readonly FPTVContext _context;
 
+        /// <summary>
+        /// Controller constructor
+        /// </summary>
+        /// <param name="context"></param>
         public MatchesController(FPTVContext context)
         {
             _context = context;
         }
-
+        /// <summary>
+        /// Returns the view CSMatches
+        /// </summary>
+        /// <returns></returns>
         public ActionResult CSMatches()
         {
             return View();
@@ -45,6 +55,10 @@ namespace FPTV.Controllers
 
         //De CSGO e de Valorant
         // GET: CSMatches
+        /// <summary>
+        /// Returns the view CSGOMatches
+        /// </summary>
+        /// <returns></returns>
         public async Task<IActionResult> CSGOMatches()
         {
             List<MatchesCS> pastMatches = getAPICSGOMatches("https://api.pandascore.co/csgo/matches/past?sort=&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA");
@@ -76,6 +90,11 @@ namespace FPTV.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Gets a list of cs:go matches from de api, by de url
+        /// </summary>
+        /// <param name="APIUrl"></param>
+        /// <returns></returns>
         private List<MatchesCS> getAPICSGOMatches(string APIUrl)
         {
             List<MatchesCS> matchesCS = new List<MatchesCS>();
@@ -203,6 +222,10 @@ namespace FPTV.Controllers
         }
 
         // GET: ValMatches
+        /// <summary>
+        /// Returns the view ValMatches
+        /// </summary>
+        /// <returns></returns>
         public async Task<IActionResult> ValMatches()
         {
             List<MatchesVal> pastMatches = getAPIValMatches("https://api.pandascore.co/valorant/matches/past?sort=&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA");
@@ -234,6 +257,11 @@ namespace FPTV.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Gets a list of valorant matches from de api, by de url
+        /// </summary>
+        /// <param name="APIUrl"></param>
+        /// <returns></returns>
         private List<MatchesVal> getAPIValMatches(string APIUrl)
         {
             List<MatchesVal> matchesVal = new List<MatchesVal>();
@@ -362,6 +390,11 @@ namespace FPTV.Controllers
 
         //De CSGO e de Valorant
         // GET: Matches/CSMatcheDetails/5
+        /// <summary>
+        /// Returns the view CSMatcheDetails
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<IActionResult> CSMatcheDetails(int id)
         {
             if (id == null)
@@ -380,6 +413,11 @@ namespace FPTV.Controllers
         }
 
         // GET: Matches/ValMatcheDetails/5
+        /// <summary>
+        /// Returns the view ValMatcheDetails
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<IActionResult> ValMatcheDetails(Guid id)
         {
             if (id == null)

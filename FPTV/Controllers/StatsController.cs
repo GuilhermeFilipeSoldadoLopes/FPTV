@@ -14,16 +14,28 @@ using System.Linq.Expressions;
 
 namespace FPTV.Controllers
 {
+    /// <summary>
+    /// Controller for the statistic actions
+    /// </summary>
     public class StatsController : Controller
     {
         private readonly FPTVContext _context;
         Random _random = new Random();
 
+        /// <summary>
+        /// Controller constructor
+        /// </summary>
+        /// <param name="context"></param>
         public StatsController(FPTVContext context)
         {
             _context = context;
         }
-        
+
+        /// <summary>
+        /// Returns the view PlayerAndStats
+        /// </summary>
+        /// <param name="gameType"></param>
+        /// <returns></returns>
         public async Task<ActionResult> PlayerAndStats(string gameType)
         {
             switch (gameType)
@@ -55,6 +67,11 @@ namespace FPTV.Controllers
             }
         }
 
+        /// <summary>
+        /// Returns the view TeamAndStats
+        /// </summary>
+        /// <param name="gameType"></param>
+        /// <returns></returns>
         public async Task<ActionResult> TeamAndStats(string gameType)
         {
             switch (gameType)
@@ -85,6 +102,10 @@ namespace FPTV.Controllers
             }
         }
 
+        /// <summary>
+        /// Returns the view MatchPlayerStatsCS
+        /// </summary>
+        /// <returns></returns>
         public Task<ActionResult> MatchPlayerStatsCS()
         {
             var client = new RestClient("");
@@ -140,6 +161,7 @@ namespace FPTV.Controllers
             }
         }
         */
+
         private void GetPastMatchCS()
         {
             var client = new RestClient("https://api.pandascore.co/csgo/matches/past?sort=&page=1&per_page=50");

@@ -1,6 +1,9 @@
 ﻿namespace FPTV.Models.MatchModels
 {
-	public enum TimeType 
+    /// <summary>
+    /// This enum represent the status of matches and events
+    /// </summary>
+    public enum TimeType 
 	{
 		Past,
 		Running,

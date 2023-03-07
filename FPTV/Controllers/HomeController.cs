@@ -8,11 +8,19 @@ using PusherServer;
 
 namespace FPTV.Controllers
 {
+    /// <summary>
+    /// Controller for the principal actions
+    /// </summary>
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
         private readonly FPTVContext _context;
 
+        /// <summary>
+        /// Controller constructor
+        /// </summary>
+        /// <param name="logger"></param>
+        /// <param name="context"></param>
 		public HomeController(ILogger<HomeController> logger, FPTVContext context)
         {
             _logger = logger;
@@ -21,7 +29,6 @@ namespace FPTV.Controllers
 
         /// <summary>
         /// Returns the view Index
-        /// </summary>
         /// <returns>View</returns>
         public IActionResult Index()
         {
@@ -118,6 +125,10 @@ namespace FPTV.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Returns the view EventDetails
+        /// </summary>
+        /// <returns>View</returns>
 		public IActionResult EventDetails()
 		{
 			return View();
@@ -159,15 +170,25 @@ namespace FPTV.Controllers
             return View();
         }
 
-        /*public IActionResult ForgotPassword()
+        /*
+        /// <summary>
+        /// Returns the view ForgotPassword
+        /// </summary>
+        /// <returns>View</returns>
+        public IActionResult ForgotPassword()
         {
             return View();
         }
 
+        /// <summary>
+        /// Returns the view ForgotPasswordConfirmation
+        /// </summary>
+        /// <returns>View</returns>
         public IActionResult ForgotPasswordConfirmation()
         {
 	        return View();
-		}*/
+		}
+        */
 
         /// <summary>
         /// Returns the view SendEmail
@@ -178,21 +199,37 @@ namespace FPTV.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Returns the view Privacy
+        /// </summary>
+        /// <returns>View</returns>
         public IActionResult Privacy()
         {
             return View();
         }
 
+        /// <summary>
+        /// Returns the view TeamStats
+        /// </summary>
+        /// <returns>View</returns>
         public IActionResult TeamStats()
         {
             return View();
         }
 
+        /// <summary>
+        /// Returns the view PlayerAndStats
+        /// </summary>
+        /// <returns>View</returns>
         public IActionResult PlayerAndStats()
         {
             return View();
         }
 
+        /// <summary>
+        /// Returns the view StatisticsOfSite
+        /// </summary>
+        /// <returns>View</returns>
         public IActionResult StatisticsOfSite()
         {
             return View();

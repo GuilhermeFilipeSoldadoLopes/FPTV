@@ -1,7 +1,15 @@
 ﻿namespace FPTV.Models.BLL.Matches_Stats
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class StateOfMatchesVal
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <returns></returns>
         public string? GetMatchesFilterBy(string filter)
         {
             switch (filter.ToLower())
@@ -26,6 +34,11 @@
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sort"></param>
+        /// <returns></returns>
         public string? GetMatchesSortBy(string sort)
         {
             switch (sort.ToLower())

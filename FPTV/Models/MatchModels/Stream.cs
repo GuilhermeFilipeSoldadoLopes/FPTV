@@ -2,16 +2,28 @@
 
 namespace FPTV.Models.MatchModels
 {
-	public class Stream
+    /// <summary>
+    /// This class represent a web stream of matches
+    /// </summary>
+    public class Stream
 	{
-		[Key]
+        /// <summary>
+        /// ID of the stream
+        /// </summary>
+        [Key]
 		public Guid Id { get; set; }
 
-		[Required]
+        /// <summary>
+        /// Name of the stream
+        /// </summary>
+        [Required]
 		[Display(Name = "Stream Link")]
 		public string StreamLink { get; set; }
 
-		[Required]
+        /// <summary>
+        /// Link of the stream
+        /// </summary>
+        [Required]
 		[Display(Name = "Stream Language")]
 		public string StreamLanguage { get; set; }
 	}
