@@ -81,12 +81,12 @@ namespace FPTV.Controllers
 
         public IActionResult Events()
         {
-	        return View();
+            return RedirectToAction("Index", "Events");
         }
-        public IActionResult EventDetails()
-        {
-	        return View();
-        }
+		public IActionResult EventDetails()
+		{
+			return View();
+		}
         public IActionResult LoginRegister()
         {
 	        return View();
