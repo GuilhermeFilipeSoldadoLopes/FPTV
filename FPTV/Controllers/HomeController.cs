@@ -101,7 +101,7 @@ namespace FPTV.Controllers
         }
 
 
-		public IActionResult CSMatches()
+		public IActionResult Matches()
         {
             //return RedirectToAction("Método", "Matches");
             return View();
