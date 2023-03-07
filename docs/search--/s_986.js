@@ -1,0 +1,1 @@
+search_result['986']=["topic_0000000000000225.html","EmailSender.Options Property","Returns the an object of class AuthMessageSenderOptions to get THE SendGrid key"];

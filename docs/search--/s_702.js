@@ -1,0 +1,1 @@
+search_result['702']=["topic_0000000000000188.html","MatchesVal.WinnerTeamId Property","Id of the winner team"];

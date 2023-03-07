@@ -1,0 +1,1 @@
+search_result['800']=["topic_00000000000001CA.html","MatchVal.MatchValAPIID Property","Id of the valorant match (map) return by the api"];

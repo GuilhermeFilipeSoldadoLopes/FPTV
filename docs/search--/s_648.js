@@ -1,0 +1,1 @@
+search_result['648']=["topic_000000000000015C.html","EventVal.PrizePool Property","Prize pool of the event"];

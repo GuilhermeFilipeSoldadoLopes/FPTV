@@ -1,0 +1,1 @@
+search_result['965']=["topic_000000000000021F.html","CustomEmailConfirmationTokenProvider\u0026lt;TUser\u0026gt; Class","This class represents a costum email confirmation token provider and is inherit from class DataProtectorTokenProvider"];

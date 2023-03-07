@@ -1,0 +1,1 @@
+search_result['632']=["topic_0000000000000151.html","EventVal Class","This class will represent a valorant event (tournament)"];

@@ -1,0 +1,1 @@
+c['301']=[['302',"TwoFactorAuthenticationModel Constructor","topic_0000000000000077.html",0],['303',"Properties","topic_0000000000000076_props--.html",1],['309',"Methods","topic_0000000000000076_methods--.html",1]];

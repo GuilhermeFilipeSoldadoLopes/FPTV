@@ -1,0 +1,1 @@
+var breadcrumbs=[['-1',"",""],['2',"FPTV Reference","topic_0000000000000238.html"],['666',"FPTV.Services.EmailSenderService Namespace","topic_000000000000021C.html"],['674',"EmailSender Class","topic_0000000000000223.html"],['676',"Properties","topic_0000000000000223_props--.html"],['677',"Options Property","topic_0000000000000225.html"]];

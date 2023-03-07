@@ -1,0 +1,1 @@
+search_result['821']=["topic_00000000000001DA.html","Admin Class","This class will represent a Admin user and his claims"];

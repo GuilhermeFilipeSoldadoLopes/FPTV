@@ -1,0 +1,1 @@
+c['74']=[['75',"InputModel Class","topic_00000000000000B2.html",1],['79',"LoginWith2faModel Constructor","topic_00000000000000AE.html",0],['80',"Properties","topic_00000000000000AD_props--.html",1],['84',"Methods","topic_00000000000000AD_methods--.html",1]];

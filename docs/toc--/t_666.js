@@ -1,0 +1,1 @@
+c['666']=[['667',"AuthMessageSenderOptions Class","topic_000000000000021D.html",1],['670',"CustomEmailConfirmationTokenProvider\u003cTUser\u003e Class","topic_000000000000021F.html",1],['672',"EmailConfirmationTokenProviderOptions Class","topic_0000000000000221.html",1],['674',"EmailSender Class","topic_0000000000000223.html",1]];

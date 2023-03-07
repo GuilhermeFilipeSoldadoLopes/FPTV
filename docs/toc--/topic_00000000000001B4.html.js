@@ -1,0 +1,1 @@
+var breadcrumbs=[['-1',"",""],['2',"FPTV Reference","topic_0000000000000238.html"],['510',"FPTV.Models.StatisticsModels Namespace","topic_0000000000000199.html"],['536',"MatchPlayerStatsVal Class","topic_00000000000001B1.html"],['537',"Properties","topic_00000000000001B1_props--.html"],['544',"Kills Property","topic_00000000000001B4.html"]];
