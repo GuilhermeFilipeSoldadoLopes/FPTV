@@ -22,19 +22,22 @@ namespace FPTV.Models.MatchModels
         [Display(Name = "Event API ID")]
         public int EventAPIID { get; set; }
 
+		public int MatchesAPIID { get; set; }
+
+        [Required]
 		[Display(Name = "Event Name")]
-		public string EventName { get; set; }
+		public string? EventName { get; set; }
 
 		[Required]
 		[Display(Name = "Begin At")]
 		[DataType(DataType.Date)]
 		[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
-		public DateTime BeginAt { get; set; }
+		public DateTime? BeginAt { get; set; }
 
 		[Display(Name = "End At")]
 		[DataType(DataType.Date)]
 		[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
-		public DateTime EndAt { get; set; }
+		public DateTime? EndAt { get; set; }
 
 		[Required]
 		[Display(Name = "Finished")]
@@ -50,7 +53,7 @@ namespace FPTV.Models.MatchModels
 
 		[Required]
 		[Display(Name = "MatchesCS List")]
-		public ICollection<MatchCS> MatchesList { get; set; }
+		public ICollection<MatchCS>? MatchesList { get; set; }
 
 		[Required]
 		[Display(Name = "Number Of Games")]
@@ -59,7 +62,7 @@ namespace FPTV.Models.MatchModels
 		[Required]
 		[NotMapped]
 		[Display(Name = "Score")]
-		public IDictionary<int, int> Score { get; set; }
+		public IDictionary<int, int>? Score { get; set; }
 
 		[Required]
 		[NotMapped]

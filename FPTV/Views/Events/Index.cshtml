@@ -1,6 +1,8 @@
 ﻿@{
     ViewData["Title"] = "Events";
+	
 }
+@model List<FPTV.Models.EventModels.EventCS>
 <!DOCTYPE html>
 
 
@@ -155,125 +157,52 @@
 			<div class="dropdown">
 				<button class="button2">Sort by</button>
 				<div class="dropdown-content" style="margin-left:5%;">
-				<a href="#">Newest</a>
-				<a href="#">Oldest</a>
-				<a href="#">Prizepool</a>
-				<a href="#">Name</a>
-				<a href="#">Tier</a>
+					<a href="@Url.Action("Index", "Events", new { sort = "sort=-begin_at", filter = ViewBag.filter})">Newest</a>
+					<a href="@Url.Action("Index", "Events", new { sort = "sort=begin_at", filter = ViewBag.filter})">Oldest</a>
+					<a href="@Url.Action("Index", "Events", new { sort = "sort=prizepool", filter = ViewBag.filter})">Prizepool</a>
+					<a href="@Url.Action("Index", "Events", new { sort = "sort=name", filter = ViewBag.filter})">Name</a>
+					<a href="@Url.Action("Index", "Events", new { sort = "sort=tier", filter = ViewBag.filter})">Tier</a>
 			  </div>
 			</div>
 			<div class="dropdown">
 			  <button class="button2">Filter by</button>
 			  <div class="dropdown-content">
-				<a href="#">On going</a>
-				<a href="#">Finished</a>
-				<a href="#">Upcoming</a>
+					<a href="@Url.Action("Index", "Events", new { sort = ViewBag.sort, filter = "running"})">On going</a>
+					<a href="@Url.Action("Index", "Events", new { sort = ViewBag.sort, filter = "past"})">Finished</a>
+					<a href="@Url.Action("Index", "Events", new { sort = ViewBag.sort, filter = "upcoming"})">Upcoming</a>
 			  </div>
 			</div>
 						
 		</div>
 
 		<div class="center" style="flex-direction: column; background-color: white; ">
+			@foreach(FPTV.Models.EventModels.EventCS e in Model)
+			{
+				<button class=" btn1" onclick ="location.href='@Url.Action("Details", "Events", new { id = e.EventAPIID, sort = ViewBag.sort, filter = ViewBag.filter})'">
+					<div class="my-div">
+						<div>
+							<span>@e.EventName</span>
+							<p>@e.EventStage</p>
+						</div>
 
-			<button class=" btn1">
-				<div class="my-div">
-					<div>
-						<span>Blast.tv Paris</span>
-						<p>Major 2022</p>
+						<div>
+							<span>Prize pool</span>
+							<p>$@e.PrizePool</p>
+						</div>
+
+						<div>
+							<span>Winner</span>
+							<p>@e.WinnerTeamName</p>
+						</div>
+
+						<div>
+							<span>@e.BeginAt.Value.ToString("dd/MM/yyyy")</span>
+							<p>State: @e.TimeType</p>
+						</div>
+
 					</div>
-
-					<div>
-						<span>Prize pool</span>
-						<p>$850,000</p>
-					</div>
-
-					<div>
-						<span>Winner</span>
-						<p>-</p>
-					</div>
-
-					<div>
-						<span>2023-02-22</span>
-						<p>State: on going</p>
-					</div>
-
-				</div>
-			</button>
-
-			<button class=" btn1">
-				<div class="my-div">
-					<div>
-						<span>ESL Pro League</span>
-						<p>Season 17</p>
-					</div>
-
-					<div>
-						<span>Prize pool</span>
-						<p>$1,000,000</p>
-					</div>
-
-					<div>
-						<span>Winner</span>
-						<p>-</p>
-					</div>
-
-					<div>
-						<span>2024-11-12</span>
-						<p>State: upcoming</p>
-					</div>
-
-				</div>
-			</button>
-
-			<button class=" btn1">
-				<div class="my-div">
-					<div>
-						<span>IEM Cologne</span>
-						<p>2021</p>
-					</div>
-
-					<div>
-						<span>Prize pool</span>
-						<p>$1,500,000</p>
-					</div>
-
-					<div>
-						<span>Winner</span>
-						<p>NAVI</p>
-					</div>
-
-					<div>
-						<span>2021-12-12</span>
-						<p>State: finished</p>
-					</div>
-
-				</div>
-			</button>
-
-			<button class=" btn1">
-				<div class="my-div">
-					<div>
-						<span style="font-weight:bold">IEM Cologne</span>
-						<p>2022</p>
-					</div>
-
-					<div>
-						<span style="font-weight:bold">Prize pool</span>
-						<p>$1,000,000</p>
-					</div>
-
-					<div>
-						<span style="font-weight:bold">Winner</span>
-						<p>-</p>
-					</div>
-
-					<div>
-						<span style="font-weight:bold">2022-08-12</span>
-						<p>State: on going</p>
-					</div>
-
-				</div>
-			</button>
+				</button>
+			}
 
 		</div>
 
