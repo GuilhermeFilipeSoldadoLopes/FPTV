@@ -1,4 +1,5 @@
-﻿using EllipticCurve.Utils;
+﻿using AngleSharp.Common;
+using EllipticCurve.Utils;
 using FPTV.Data;
 using FPTV.Models.MatchModels;
 using FPTV.Models.StatisticsModels;
@@ -38,18 +39,13 @@ namespace FPTV.Controllers
             _context = context;
         }
 
-        public ActionResult CSMatches()
-        {
-            return View();
-        }
-
         //De CSGO e de Valorant
         // GET: CSMatches
         public async Task<IActionResult> CSGOMatches()
         {
             List<MatchesCS> pastMatches = getAPICSGOMatches("https://api.pandascore.co/csgo/matches/past?sort=&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA");
             List<MatchesCS> runningMatches = getAPICSGOMatches("https://api.pandascore.co/csgo/matches/running?sort=&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA");
-            List<MatchesCS> upcommingMatches = getAPICSGOMatches("https://api.pandascore.co/csgo/matches/upcoming?sort=&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA");
+            List<MatchesCS> upcomingMatches = getAPICSGOMatches("https://api.pandascore.co/csgo/matches/upcoming?sort=&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA");
 
             List<int> dbMatchesIds = _context.MatchesCS.Select(m => m.MatchesCSAPIID).ToList();
 
@@ -60,7 +56,6 @@ namespace FPTV.Controllers
 
                 if (!dbMatchesIds.Contains(id))
                 {
-                    //sss
                     _context.MatchesCS.Add(matches);
 
                     dbMatchesIds.Add(id);
@@ -69,9 +64,15 @@ namespace FPTV.Controllers
 
             _context.SaveChanges();
 
-            ViewBag["pastMatches"] = pastMatches;
-            ViewBag["runningMatches"] = runningMatches;
-            ViewBag["upcommingMatches"] = upcommingMatches;
+            ViewBag.pastMatches = _context.MatchesCS;
+
+            foreach (var item in _context.MatchesCS)
+            {
+                var a = item.TeamsAPIIDList;
+            }
+
+            //ViewBag.runningMatches = runningMatches;
+            //ViewBag.upcomingMatches = upcomingMatches;
 
             return View();
         }

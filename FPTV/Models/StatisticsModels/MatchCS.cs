@@ -26,7 +26,7 @@ namespace FPTV.Models.StatisticsModels
         public ICollection<MatchPlayerStatsCS>? PlayerStatsList { get; set; }
 
         [Display(Name = "Score of round")]
-        public string RoundsScore { get; set; }
+        public string? RoundsScore { get; set; }
 
         [Display(Name = "Map")]
         public string? Map { get; set; }

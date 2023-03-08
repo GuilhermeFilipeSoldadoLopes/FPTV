@@ -22,8 +22,6 @@ namespace FPTV.Models.MatchModels
         [Display(Name = "Event API ID")]
         public int EventAPIID { get; set; }
 
-		public int MatchesAPIID { get; set; }
-
         [Required]
 		[Display(Name = "Event Name")]
 		public string? EventName { get; set; }

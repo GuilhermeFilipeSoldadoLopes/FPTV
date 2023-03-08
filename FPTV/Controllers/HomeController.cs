@@ -103,8 +103,7 @@ namespace FPTV.Controllers
 
 		public IActionResult Matches()
         {
-            //return RedirectToAction("Método", "Matches");
-            return View();
+            return RedirectToAction("CSGOMatches", "Matches");
         }
 
         public IActionResult Results()
