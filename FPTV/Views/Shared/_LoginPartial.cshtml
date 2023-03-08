@@ -21,24 +21,24 @@
     }
 }
 
-<ul class="navbar-nav">
+<ul class="navbar-nav" style="height: 50px">
     @if (SignInManager.IsSignedIn(User))
     {
-        <li class="nav-item" style="align-self: center; margin-top: -12px">
+        <li class="nav-item" style="align-self: center; margin-top: 5px; margin-right: -5px">
             @if (UserManager.GetUserAsync(User).Result != null && context.Profiles.Single(p => p.Id == UserManager.GetUserAsync(User).Result.ProfileId) != null)
         {
                 <a class="nav-link text-dark" id="rl" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"><img style="width:40px;height:40px; object-fit:cover; border-radius:30px" src="data:image/*;base64,@(Convert.ToBase64String(context.Profiles.Single(p => p.Id == UserManager.GetUserAsync(User).Result.ProfileId).Picture))"></a>
         }
         </li>
-        <li class="nav-item" style="font-size: 22px; margin-top: -4px">
+        <li class="nav-item" style="font-size: 22px; margin-top: 2px">
             <a class="nav-link text-dark" id="rl" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">@User.Identity!.Name</a>
 	    </li>
-        <li class="nav-item" style="font-size: 25px; margin-top: -2px">
+        <li class="nav-item" style="font-size: 30px; margin-top: 1px">
 		    /
 	    </li>
-        <li class="nav-item" style="margin-top: -20px">
+        <li class="nav-item" style="margin-top: -8px;">
             <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="/">
-                <button type="submit" id="rl" style="font-size: 24px" class="nav-link btn btn-link text-dark">Logout</button>
+                <button type="submit" id="rl" style="font-size: 22px" class="nav-link btn btn-link text-dark">Logout</button>
             </form>
         </li>
     }
