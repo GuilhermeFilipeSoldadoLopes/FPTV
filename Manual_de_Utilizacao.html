@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>manual_de_utilizacao.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="manual-de-utilizador"><strong>Manual de Utilizador</strong></h1>
+<h2 id="introdu%C3%A7%C3%A3o"><strong>Introdução</strong></h2>
+<p>Bem-vindo ao projeto FPTV, a futura hub dos FPS E-Sports. O objetivo deste projeto é fornecer aos jogadores de FPS as informações mais relevantes sobre os jogos VALORANT e CS:GO, incluindo eventos em destaque, jogadores e equipas favoritas. Este manual de utilização irá ajudá-lo a compreender como usar o projeto FPTV e todas as suas funcionalidades.<p></p>
+<p><strong>Criação de uma Conta :</strong> Para usar o projeto FPTV, você precisa criar uma conta. Há duas opções para criar uma conta:<p></p>
+<ol>
+<li>Usando um endereço de e-mail e uma palavra-passe: clique no botão &quot;Login/Register&quot; na página inicial e siga as etapas para preencher as informações necessárias.<p>
+<img src="https://cdn.discordapp.com/attachments/783386747638775848/1083147697617371186/image.png" alt="Email"></li>
+<li>Usando sua conta Steam ou Google: clique no botão de início de sessão correspondente e siga as etapas para fazer o login com sua conta existente.<p></li>
+</ol>
+<p><img src="https://cdn.discordapp.com/attachments/783386747638775848/1083147139644928010/image.png" alt="Login"><p></p>
+<p><strong>Autenticação :</strong> Uma vez criada a sua conta, você pode iniciar sessão na página web. Para fazer isso, clique no botão &quot;Login/Register&quot; na página inicial e insira seu endereço de e-mail e palavra-passe ou faça o login com sua conta Steam ou Google.<p></p>
+<p><strong>Perfil do Utilizador :</strong> Após o início de sessão, clique no seu nome no canto superior direito e será direcionado para o seu perfil de usuário. Aqui, você pode visualizar o seu nome, imagem de perfil, descrição, data de registro, bandeira do país, autor de tópicos, jogadores favoritos e equipas favoritas. Além disso, você pode alterar essas informações clicando no botão de editar perfil que é um botão em forma de lápis.<p></p>
+<p><img src="https://cdn.discordapp.com/attachments/783386747638775848/1083151355616698518/image.png" alt="Profile"><p></p>
+<p><strong>Recuperação de Senha :</strong> Caso o utilizador esqueça a sua senha, pode recuperá-la clicando no botão &quot;Forgot your password?&quot; que está na página de início de sessão. Irá será direcionado para uma página na qual irá ser pedido para inserir o seu endereço de e-mail (apenas no caso de o login ter sido realizado com email/password). Consequentemente um link para redefinir a sua senha será enviado para o seu e-mail.<p></p>
+<p><img src="https://media.discordapp.net/attachments/783386747638775848/1083152044036206672/image.png?width=1380&amp;height=662" alt="Profile"><p></p>
+<p><strong>Logout :</strong> Para terminar a sua sessão, clique no botão &quot;Logout&quot; na barra de navegação superior.<p></p>
+<p><strong>Eventos :</strong> Para poder aceder aos eventos disponibilizados pela FPTV clique no nome “Events”, que está situado na barra de navegação que se encontra na parte superior do website. Aqui, pode visualizar os eventos que já aconteceram, que estão a acontecer e que irão acontecer, pode sorteá-los por data, nome, prizepool e tier ou filtrá-los por estado(se está a decorrer, já decorreu ou irá decorrer).<p>
+<img src="https://cdn.discordapp.com/attachments/783386747638775848/1083134259323228220/4b1a4972-6e87-490d-8930-c4e9c588965a.png" alt="Events"><p>
+Se quiser ver os detalhes de um evento pode fazê-lo ao clicar no mesmo.<p>
+<img src="https://cdn.discordapp.com/attachments/783386747638775848/1083134589041651853/a2ff183a-9264-404b-a726-1964ad2b7ed4.png" alt="EventsDetails"><p></p>
+<p><strong>Partidas :</strong> Para poder aceder às partidas disponibilizadas pela FPTV clique no nome “Matches”, que está situado na barra de navegação que se encontra na parte superior do website. Aqui, pode visualizar as partidas que já aconteceram, que estão a acontecer e que irão acontecer, pode sorteá-las por data e nome ou filtrá-los por estado(se está a decorrer, já decorreu ou irá decorrer).<p>
+<img src="https://cdn.discordapp.com/attachments/783386747638775848/1083145132024537108/image.png" alt="Matches"><p>
+Se quiser ver os detalhes de uma partida pode fazê-lo ao clicar na mesma.<p></p>
+<p><strong>Estatísticas :</strong> Para poder aceder às estatísticas disponibilizadas pela FPTV clique no nome “Matches” ou &quot;Events&quot;, que está situado na barra de navegação que se encontra na parte superior do website. Caso carregue em &quot;Events&quot; terá de aceder aos detalhes do evento de forma a serem apresentadas as partidas do mesmo e aí irá aceder aos detalhes das mesmas clicando numa das partidas apresentadas. Quando se encontrar nos detalhes das partidas pode ver as estatísticas dos jogadores naquela partida.<p></p>
+<p>Se quiser ver as estatísticas desde o inicio da carreira de um jogador em específico clique no nome/imagem do mesmo.<p></p>
+<p><img src="https://cdn.discordapp.com/attachments/783386747638775848/1083153182265442504/image.png" alt="StatsAllTime"><p></p>
+<p><strong>Conclusão :</strong> Este manual de utilização foi criado para ajudar os utilizadores a compreender e usar as funcionalidades do site FPTV. Esperamos que este manual tenha respondido a todas as suas perguntas sobre como usar o site FPTV e que você tenha uma excelente experiência ao usá-lo. <p></p>
+<p>Se precisar de mais ajuda, entre em contato connosco através de email ou telefone. Não hesite em nos enviar comentários ou sugestões para melhorarmos continuamente o site FPTV. Obrigado por usar o site FPTV e boa sorte nos seus jogos!</p>
+
+</body>
+</html>
