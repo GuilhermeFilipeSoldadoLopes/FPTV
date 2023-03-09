@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FPTV.Models.UserModels
 {
@@ -19,6 +20,7 @@ namespace FPTV.Models.UserModels
 
 		//o ultimo objeto deve ser a equipa atual
 		[Required]
+		[NotMapped]
 		[Display(Name = "Teams")]
 		public IDictionary<int, Team>? Teams { get; set; }
 

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace FPTV.Models.UserModels
+namespace FPTV.Models.ToReview
 {
     public class ProfilePicture
     {

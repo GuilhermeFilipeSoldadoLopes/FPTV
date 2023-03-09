@@ -1,14 +1,14 @@
-﻿using FPTV.Models.MatchModels;
+﻿using FPTV.Models.MatchesModels;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace FPTV.Models.EventModels
+namespace FPTV.Models.EventsModels
 {
-    public class EventCS
+    public class EventVal
     {
         [Required]
         [Key]
-        public Guid EventCSID { get; set; }
+        public Guid EventValID { get; set; }
 
         [Required]
         [Display(Name = "Event API ID")]
@@ -18,11 +18,11 @@ namespace FPTV.Models.EventModels
         [Display(Name = "Event Name")]
         public string? EventName { get; set; }
 
-		[Required]
-		[Display(Name = "LeagueName")]
-		public string? LeagueName { get; set; }
+        [Required]
+        [Display(Name = "LeagueName")]
+        public string? LeagueName { get; set; }
 
-		[Required]
+        [Required]
         [Display(Name = "Event Link")]
         public string? EventLink { get; set; }
 
@@ -46,15 +46,15 @@ namespace FPTV.Models.EventModels
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime? EndAt { get; set; }
 
-		[ForeignKey("MatchesCSID")]
-		[Display(Name = "Matches CS ID")]
-        public Guid MatchesCSID { get; set; }
+        [ForeignKey("MatchesValID")]
+        [Display(Name = "Matches Val ID")]
+        public Guid MatchesValID { get; set; }
 
-		[Required]
-		[Display(Name = "Matches CS API ID")]
-		public int MatchesCSAPIID { get; set; }
+        [Required]
+        [Display(Name = "Matches Val API ID")]
+        public int MatchesValAPIID { get; set; }
 
-		[Required]
+        [Required]
         [NotMapped]
         [Display(Name = "Team list")]
         public List<string>? TeamsList { get; set; }
@@ -63,16 +63,16 @@ namespace FPTV.Models.EventModels
         [Display(Name = "Prize pool")]
         public string? PrizePool { get; set; }
 
-		[ForeignKey("WinnerTeamID")]
-		[Display(Name = "Winner Team ID")]
+        [ForeignKey("WinnerTeamID")]
+        [Display(Name = "Winner Team ID")]
         public Guid? WinnerTeamID { get; set; }
 
-		[Required]
-		[Display(Name = "Winner Team API ID")]
-		public int? WinnerTeamAPIID { get; set; }
+        [Required]
+        [Display(Name = "Winner Team API ID")]
+        public int? WinnerTeamAPIID { get; set; }
 
-		[Required]
-		[Display(Name = "Winner Team Name")]
+        [Required]
+        [Display(Name = "Winner Team Name")]
         public string? WinnerTeamName { get; set; }
 
         [Required]
