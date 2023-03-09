@@ -1,4 +1,4 @@
-# **Manual de Utilizador**
+# **Manual de Utilização**
 
 ## **Introdução**
 
