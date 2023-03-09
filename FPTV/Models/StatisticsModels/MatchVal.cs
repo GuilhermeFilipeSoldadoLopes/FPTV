@@ -18,29 +18,35 @@ namespace FPTV.Models.StatisticsModels
         [Display(Name = "Id of valorant matches")]
         public Guid MatchesValId { get; set; }
 
-        [Display(Name = "API Id of a val matches")]
+		[Required]
+		[Display(Name = "API Id of a val matches")]
         public int MatchesValAPIId { get; set; }
 
-        [Display(Name = "List of stats of players")] 
+		[Required]
+		[Display(Name = "List of stats of players")] 
         public ICollection<MatchPlayerStatsVal>? PlayerStatsList { get; set; }
 
-        [Display(Name = "Score of round")]
-        public string RoundsScore { get; set; }
+		[Required]
+		[Display(Name = "Score of round")]
+        public string? RoundsScore { get; set; }
 
-        [Display(Name = "Map")]
+		[Required]
+		[Display(Name = "Map")]
         public string? Map { get; set; }
 
-        [Display(Name = "List of Teams")] 
+		[Required]
+		[Display(Name = "List of Teams")] 
         public ICollection<MatchTeamsVal>? TeamsList { get; set; }
 
         [Display(Name = "Id of the winner team")] 
         public Guid? WinnerTeamId { get; set; }
 
-        [Display(Name = "API Id of the winner team")]
+		[Required]
+		[Display(Name = "API Id of the winner team")]
         public int? WinnerTeamAPIId { get; set; }
 
-        [Display(Name = "Name of the winner team")]
+		[Required]
+		[Display(Name = "Name of the winner team")]
         public string? WinnerTeamName { get; set; }
-
     }
 }

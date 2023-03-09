@@ -113,42 +113,6 @@ namespace FPTV.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "FavPlayerList",
-                columns: table => new
-                {
-                    FavPlayerListId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ProfileId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_FavPlayerList", x => x.FavPlayerListId);
-                    table.ForeignKey(
-                        name: "FK_FavPlayerList_Profiles_ProfileId",
-                        column: x => x.ProfileId,
-                        principalTable: "Profiles",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "FavTeamsList",
-                columns: table => new
-                {
-                    FavTeamsListId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ProfileId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_FavTeamsList", x => x.FavTeamsListId);
-                    table.ForeignKey(
-                        name: "FK_FavTeamsList_Profiles_ProfileId",
-                        column: x => x.ProfileId,
-                        principalTable: "Profiles",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Topics",
                 columns: table => new
                 {
@@ -255,24 +219,6 @@ namespace FPTV.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Team",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    FavTeamsListId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Team", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Team_FavTeamsList_FavTeamsListId",
-                        column: x => x.FavTeamsListId,
-                        principalTable: "FavTeamsList",
-                        principalColumn: "FavTeamsListId");
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Comments",
                 columns: table => new
                 {
@@ -297,30 +243,6 @@ namespace FPTV.Migrations
                         principalTable: "Topics",
                         principalColumn: "TopicId",
                         onDelete: ReferentialAction.NoAction);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Player",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    teamId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    FavPlayerListId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Player", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Player_FavPlayerList_FavPlayerListId",
-                        column: x => x.FavPlayerListId,
-                        principalTable: "FavPlayerList",
-                        principalColumn: "FavPlayerListId");
-                    table.ForeignKey(
-                        name: "FK_Player_Team_teamId",
-                        column: x => x.teamId,
-                        principalTable: "Team",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -411,28 +333,6 @@ namespace FPTV.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_FavPlayerList_ProfileId",
-                table: "FavPlayerList",
-                column: "ProfileId",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_FavTeamsList_ProfileId",
-                table: "FavTeamsList",
-                column: "ProfileId",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Player_FavPlayerListId",
-                table: "Player",
-                column: "FavPlayerListId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Player_teamId",
-                table: "Player",
-                column: "teamId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Reactions_CommentId",
                 table: "Reactions",
                 column: "CommentId");
@@ -441,11 +341,6 @@ namespace FPTV.Migrations
                 name: "IX_Reactions_ProfileId",
                 table: "Reactions",
                 column: "ProfileId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Team_FavTeamsListId",
-                table: "Team",
-                column: "FavTeamsListId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Topics_ProfileId",
@@ -474,9 +369,6 @@ namespace FPTV.Migrations
                 name: "ErrorLog");
 
             migrationBuilder.DropTable(
-                name: "Player");
-
-            migrationBuilder.DropTable(
                 name: "Reactions");
 
             migrationBuilder.DropTable(
@@ -486,16 +378,7 @@ namespace FPTV.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "FavPlayerList");
-
-            migrationBuilder.DropTable(
-                name: "Team");
-
-            migrationBuilder.DropTable(
                 name: "Comments");
-
-            migrationBuilder.DropTable(
-                name: "FavTeamsList");
 
             migrationBuilder.DropTable(
                 name: "Topics");

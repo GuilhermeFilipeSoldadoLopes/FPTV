@@ -1,8 +1,11 @@
-﻿@{
+﻿@using Newtonsoft.Json.Linq
+@using System.Linq
+@{
     ViewData["Title"] = "EventDetails";
-}
-<style>
 
+}
+
+<style>
     .box1 {
         width: 25%;
         height: 100%;
@@ -57,7 +60,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        width:100%;
+        width: 100%;
     }
 
     .alinhar2 {
@@ -80,35 +83,32 @@
         margin: 10px;
     }
 
-    .my-div > div {
-        flex-basis: 25%;
-        flex-grow: 1;
-    }
+        .my-div > div {
+            flex-basis: 25%;
+            flex-grow: 1;
+        }
 
     .my-div2 > div {
-        width:100%
+        width: 100%
     }
 
     span {
         font-weight: bold;
     }
-    .span2{
+
+    .span2 {
         font-weight: normal;
     }
-
 
     .central {
         text-align: center;
         background-color: white;
     }
-    
+
     .ola {
         display: flex;
         align-self: flex-start;
-
     }
-
-    
 </style>
 <body class="bodytemp">
 
@@ -217,7 +217,7 @@
 
                 </div>
             </div>
-       
+
         </div>
 
         <div class="box" style="background-color: white; margin: 2%;">
@@ -226,28 +226,28 @@
 
                 <div class="alinhar">
                     <div class="my-div">
-                            <div>
-                                <span>Date</span>
-                                <p>Feb 22nd - Mar 26th 2023</p>
-                            </div>
+                        <div>
+                            <span>Date</span>
+                            <p>Feb 22nd - Mar 26th 2023</p>
+                        </div>
 
-                            <div>
-                                <span>Prize pool</span>
-                                <p>$850,000</p>
-                            </div>
+                        <div>
+                            <span>Prize pool</span>
+                            <p>$850,000</p>
+                        </div>
 
-                            <div>
-                                <span>Teams</span>
-                                <p>32</p>
-                            </div>
+                        <div>
+                            <span>Teams</span>
+                            <p>32</p>
+                        </div>
 
-                            <div>
-                                <span>Tier</span>
-                                <p>A</p>
-                            </div>
-                
+                        <div>
+                            <span>Tier</span>
+                            <p>A</p>
+                        </div>
+
                     </div>
-               
+
                 </div>
                 <p style="margin-right:20%; text-align:right">
                     <span>Link: </span>
@@ -283,10 +283,10 @@
                 </div>
             </div>
 
-            
+
 
         </div>
-   
+
 
         <div class="box1" style="background-color:lightgrey">
             <h4 style="font-weight: bold;">Upcoming Matches</h4>

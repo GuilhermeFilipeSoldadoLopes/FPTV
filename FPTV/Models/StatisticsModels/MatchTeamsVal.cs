@@ -10,22 +10,28 @@ namespace FPTV.Models.StatisticsModels
         [Display(Name = "Id of a valorant match")]
         public Guid MatchValId { get; set; }
 
-        [Required]
+		[Required]
+		[Display(Name = "MatchVal API ID")]
+		public int MatchValAPIID { get; set; }
+
         [ForeignKey("TeamValId")]
         [Display(Name = "Id of a valorant team")]
-        public Guid TeamValId { get; set; }
+        public Guid? TeamValId { get; set; }
 
-        [Required]
+		[Required]
+		[Display(Name = "API Id of a valorant team")]
+		public int? TeamValAPIId { get; set; }
+
+		[Required]
         [Display(Name = "Name")] 
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         [Required]
         [Display(Name = "Location")]
-        public string Location { get; set; }
+        public string? Location { get; set; }
 
         [Required]
         [Display(Name = "Image")] 
-        public string Image { get; set; }
-
+        public string? Image { get; set; }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using System.Runtime.Intrinsics.X86;
 using FPTV.Areas.Identity.Pages.Account;
 using FPTV.Data;
-using FPTV.Migrations;
 using FPTV.Models.UserModels;
 using FPTV.Services;
 using Microsoft.AspNetCore.Identity;

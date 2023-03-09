@@ -1,52 +1,61 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using System.Xml.Linq;
-using Newtonsoft.Json.Linq;
 
 namespace FPTV.Models.StatisticsModels
 {
     public class MatchPlayerStatsCS
     {
-        [Required]
-        [Key]
-        [Display(Name = "Id of a csgo match")]
-        public int MatchCSId { get; set; }
+		[Required]
+		[Key]
+		[Display(Name = "Id of a MatchPlayerStatsCS")]
+		public Guid MatchPlayerStatsCSID { get; set; }
 
-        [Required]
-        [ForeignKey("PlayerCSId")]
-        [Display(Name = "Id of a csgo player")]
-        public int PlayerCSId { get; set; }
+		[ForeignKey("MatchCSId")]
+		[Display(Name = "Id of a csgo match")]
+        public Guid MatchCSId { get; set; }
 
-        [Required]
+		[Required]
+		[Display(Name = "MatchCS API ID")]
+		public int MatchCSAPIID { get; set; }
+
+		[ForeignKey("PlayerCSId")]
+		[Display(Name = "Id of a csgo player")]
+        public Guid? PlayerCSId { get; set; }
+
+		[Required]
+		[Display(Name = "API Id of a csgo player")]
+		public int? PlayerCSAPIId { get; set; }
+
+		[Required]
         [Display(Name = "Kills")]
-        public int Kills { get; set; }
+        public int? Kills { get; set; }
 
         [Required]
         [Display(Name = "Deaths")]
-        public int Deaths { get; set; }
+        public int? Deaths { get; set; }
 
         [Required]
         [Display(Name = "Assists")]
-        public int Assists { get; set; }
+        public int? Assists { get; set; }
 
         [Required]
         [Display(Name = "FlashAssist")]
-        public int FlashAssist { get; set; }
+        public int? FlashAssist { get; set; }
 
         [Required]
         [Display(Name = "ADR")]
-        public float ADR { get; set; }
+        public float? ADR { get; set; }
 
         [Required]
         [Display(Name = "HeadShots")]
-        public float HeadShots { get; set; }
+        public float? HeadShots { get; set; }
 
         [Required]
         [Display(Name = "KD Diff")]
-        public float KD_Diff { get; set; }
+        public float? KD_Diff { get; set; }
 
         [Required]
         [Display(Name = "Name of a player")]
-        public string PlayerName { get; set; }
+        public string? PlayerName { get; set; }
     }
 }
