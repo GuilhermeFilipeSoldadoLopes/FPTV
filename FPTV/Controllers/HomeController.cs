@@ -35,9 +35,11 @@ namespace FPTV.Controllers
 				DateTime lastModificationFileDateTime = System.IO.File.GetLastWriteTime("visitors.txt");
 				DateTime lasModificationDate =
 					new DateTime(lastModificationFileDateTime.Year, lastModificationFileDateTime.Month, lastModificationFileDateTime.Day);
-				int days = (DateTime.Now - lasModificationDate).Days;
 
-				if (DateTime.Compare(lasModificationDate, DateTime.Now.Date) < 0)
+                Console.WriteLine(lasModificationDate);
+                Console.WriteLine(DateTime.Compare(lasModificationDate, DateTime.Now.Date));
+
+                if (DateTime.Compare(lasModificationDate, DateTime.Now.Date) < 0)
 				{
 					System.IO.File.WriteAllText("visitors.txt", 0.ToString());
 				}
@@ -52,7 +54,6 @@ namespace FPTV.Controllers
 			if (System.IO.File.Exists("visitors.txt"))
 			{
 				System.IO.File.WriteAllText("visitors.txt", visitors.ToString());
-
 			}
 			else
 			{
@@ -77,26 +78,43 @@ namespace FPTV.Controllers
 
 			return View();
         }
-        public IActionResult Game()
-        {
-            return View();
-        }
-        public IActionResult Matches()
-        {
-            return View();
-        }
-        public IActionResult Results()
-        {
-            return View();
-        }
+
         public IActionResult Events()
         {
-            return View();
+            return RedirectToAction("Index", "Events");
         }
 		public IActionResult EventDetails()
 		{
 			return View();
 		}
+        public IActionResult LoginRegister()
+        {
+	        return View();
+        }
+        public IActionResult PlayerAndStats()
+        {
+	        return View();
+        }
+        public IActionResult Privacy()
+        {
+	        return View();
+        }
+        public IActionResult ConfirmDelete()
+        {
+            return View();
+        }
+
+        public IActionResult Matches()
+        {
+            //return RedirectToAction("Método", "Matches");
+            return View();
+        }
+
+        public IActionResult Results()
+        {
+            return View();
+        }
+        
 		public IActionResult Forum()
         {
             return View();
@@ -105,40 +123,22 @@ namespace FPTV.Controllers
         {
             return View();
         }
-        public IActionResult LoginRegister()
-        {
-            return View();
-        }
+        
         public IActionResult Register()
         {
             return View();
         }
-        /*public IActionResult ForgotPassword()
-        {
-            return View();
-        }
 
-        public IActionResult ForgotPasswordConfirmation()
-        {
-	        return View();
-		}*/
-
-		public IActionResult SendEmail()
+        public IActionResult SendEmail()
         {
             return View();
         }
-        public IActionResult Privacy()
-        {
-            return View();
-        }
+        
         public IActionResult TeamStats()
         {
             return View();
         }
-        public IActionResult PlayerAndStats()
-        {
-            return View();
-        }
+        
         public IActionResult StatisticsOfSite()
         {
             return View();
