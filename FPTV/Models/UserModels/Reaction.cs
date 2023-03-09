@@ -9,7 +9,7 @@ namespace FPTV.Models.UserModels
 
         [Required]
         [Display(Name = "Reaction")]
-        public string ReactionCode { get; set; } //rever o nome reactioncode //ReactionEmoji - o que achas?
+        public string? ReactionCode { get; set; } //rever o nome reactioncode //ReactionEmoji - o que achas?
 
         [Display(Name = "User Id")]
         //[ForeignKey("User")]
@@ -20,9 +20,9 @@ namespace FPTV.Models.UserModels
         public Guid CommentId { get; set; }
 
         [Display(Name = "User")]
-        public virtual Profile Profile { get; set; }
+        public virtual Profile? Profile { get; set; }
 
         [Display(Name = "Comment")]
-        public virtual Comment Comment { get; set; }
+        public virtual Comment? Comment { get; set; }
     }
 }

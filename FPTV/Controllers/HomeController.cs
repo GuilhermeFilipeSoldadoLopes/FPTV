@@ -99,9 +99,12 @@ namespace FPTV.Controllers
         {
 	        return View();
         }
+        public IActionResult ConfirmDelete()
+        {
+            return View();
+        }
 
-
-		public IActionResult Matches()
+        public IActionResult Matches()
         {
             return RedirectToAction("CSGOMatches", "Matches");
         }

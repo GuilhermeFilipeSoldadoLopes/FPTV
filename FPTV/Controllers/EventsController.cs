@@ -1,6 +1,6 @@
 ﻿using FPTV.Models.BLL.Events;
-using FPTV.Models.EventModels;
-using FPTV.Models.MatchModels;
+using FPTV.Models.EventsModels;
+using FPTV.Models.MatchesModels;
 using FPTV.Models.StatisticsModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -9,6 +9,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RestSharp;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 namespace FPTV.Controllers
@@ -59,9 +60,9 @@ namespace FPTV.Controllers
                 ev.BeginAt = beginAt.ToString() == "" ? null : beginAt.Value<DateTime>();
                 ev.TimeType = timeType;
                 ev.EventName = league.ToString() == "" ? null : league.Value<string>("name");
-                ev.EventStage = nameStage.ToString() == "" ? null : nameStage.Value<string>();
+                ev.LeagueName = nameStage.ToString() == "" ? null : nameStage.Value<string>();
 				ev.PrizePool = prizePool.ToString() == "" ? "-" : new string(prizePool.Value<string>().Where(char.IsDigit).ToArray());
-				ev.WinnerTeamID = winnerTeamId.ToString() == "" ? -1 : winnerTeamId.Value<int>(); 
+				ev.WinnerTeamAPIID = winnerTeamId.ToString() == "" ? -1 : winnerTeamId.Value<int>(); 
                 
                 if (teams != null)
                 {
@@ -77,7 +78,7 @@ namespace FPTV.Controllers
 
                 //Filling remaining fields
                 ev.TeamsList = teamList.Values.ToList();
-                ev.WinnerTeamName = teamList.GetValueOrDefault(ev.WinnerTeamID) ?? "-";
+                ev.WinnerTeamName = teamList.GetValueOrDefault((int) ev.WinnerTeamAPIID) ?? "-";
                 events.Add(ev);
 
 			}
@@ -148,7 +149,7 @@ namespace FPTV.Controllers
                 ev.Finished = false;
                 ev.EventName = name.ToString() == "" ? null : name.Value<string>();
                 ev.PrizePool = prizePool.ToString() == "" ? "-" : new string(prizePool.Value<string>().Where(char.IsDigit).ToArray());
-                ev.WinnerTeamID = winnerTeamId.ToString() == "" ? -1 : winnerTeamId.Value<int>();
+                ev.WinnerTeamAPIID = winnerTeamId.ToString() == "" ? -1 : winnerTeamId.Value<int>();
 
                 if (teams != null)
                 {
@@ -192,7 +193,7 @@ namespace FPTV.Controllers
 						{
 							var m = new MatchesCS();
 							var s = new Dictionary<int, int>();
-							m.MatchesAPIID = o.GetValue("id").Value<int>();
+							m.MatchesCSAPIID = o.GetValue("id").Value<int>();
 							m.BeginAt = o.GetValue("begin_at").Value<DateTime>();
 							m.TimeType = TimeType.Past;
 							m.NumberOfGames = o.GetValue("number_of_games").Value<int>();
@@ -215,7 +216,7 @@ namespace FPTV.Controllers
 						{
 							var m = new MatchesCS();
 							var s = new Dictionary<int, int>();
-							m.MatchesAPIID = o.GetValue("id").Value<int>();
+							m.MatchesCSAPIID = o.GetValue("id").Value<int>();
 							m.BeginAt = o.GetValue("begin_at").Value<DateTime>();
 							m.TimeType = TimeType.Past;
 							m.NumberOfGames = o.GetValue("number_of_games").Value<int>();
@@ -238,7 +239,7 @@ namespace FPTV.Controllers
 						{
 							var m = new MatchesCS();
 							var s = new Dictionary<int, int>();
-							m.MatchesAPIID = o.GetValue("id").Value<int>();
+							m.MatchesCSAPIID = o.GetValue("id").Value<int>();
 							m.BeginAt = o.GetValue("begin_at").Value<DateTime>();
 							m.TimeType = TimeType.Past;
 							m.NumberOfGames = o.GetValue("number_of_games").Value<int>();

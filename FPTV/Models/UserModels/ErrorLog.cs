@@ -11,7 +11,7 @@ namespace FPTV.Models.UserModels
 
         [Required]
         [Display(Name = "Error")]
-        public string Error { get; set; }
+        public string? Error { get; set; }
 
         [Required]
         [Display(Name = "Date")]
@@ -25,6 +25,6 @@ namespace FPTV.Models.UserModels
         public Guid UserId { get; set; }
 
         [Display(Name = "User")]
-        public virtual Profile Profile { get; set; }
+        public virtual Profile? Profile { get; set; }
     }
 }

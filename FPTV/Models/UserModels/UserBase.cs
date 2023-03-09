@@ -8,6 +8,7 @@ namespace FPTV.Models.UserModels
     public class UserBase : IdentityUser
     {
         public Profile Profile { get; set; }
+
         [ForeignKey("ProfileId")]
         public Guid ProfileId { get; set; }
     }

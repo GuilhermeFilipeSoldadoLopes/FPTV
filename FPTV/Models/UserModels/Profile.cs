@@ -9,20 +9,30 @@ namespace FPTV.Models.UserModels
         [Required]
         [Key]
         public Guid Id { get; set; }
+
         public UserBase User { get; set; }
+
         [ForeignKey("UserId")]
         public Guid UserId { get; set; }
+
         [Display(Name = "Biography")]
         public string? Biography { get; set; }
+
         [Required]
         [Display(Name = "Registration Date")]
         [DataType(DataType.Date)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime RegistrationDate { get; set; }
+
         [Display(Name = "Profile Picture")]
         public virtual byte[]? Picture { get; set; }
-        public FavPlayerList? PlayerList { get; set; }
-        public FavTeamsList? TeamsList { get; set; }
+
+		[Display(Name = "Favorite Players List")]
+		public FavPlayerList? PlayerList { get; set; }
+
+		[Display(Name = "Favorite Teams List")]
+		public FavTeamsList? TeamsList { get; set; }
+
         [Display(Name = "Country")]
         public string? Country { get; set; }
     }
