@@ -2,7 +2,7 @@
     ViewData["Title"] = "Events";
 	
 }
-@model List<FPTV.Models.EventModels.EventCS>
+@model List<FPTV.Models.EventsModels.EventCS>
 <!DOCTYPE html>
 
 
@@ -176,13 +176,13 @@
 		</div>
 
 		<div class="center" style="flex-direction: column; background-color: white; ">
-			@foreach(FPTV.Models.EventModels.EventCS e in Model)
+			@foreach (FPTV.Models.EventsModels.EventCS e in Model)
 			{
 				<button class=" btn1" onclick ="location.href='@Url.Action("Details", "Events", new { id = e.EventAPIID, sort = ViewBag.sort, filter = ViewBag.filter})'">
 					<div class="my-div">
 						<div>
 							<span>@e.EventName</span>
-							<p>@e.EventStage</p>
+							<p>@e.LeagueName</p>
 						</div>
 
 						<div>

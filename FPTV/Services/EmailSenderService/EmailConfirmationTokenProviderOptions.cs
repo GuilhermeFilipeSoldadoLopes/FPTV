@@ -11,4 +11,3 @@ namespace FPTV.Services.EmailSenderService
         }
     }
 }
-//provavelmente é para sair

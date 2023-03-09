@@ -1,8 +1,8 @@
-﻿using FPTV.Models.MatchModels;
+﻿using FPTV.Models.MatchesModels;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace FPTV.Models.EventModels
+namespace FPTV.Models.EventsModels
 {
     public class EventCS
     {
@@ -18,7 +18,9 @@ namespace FPTV.Models.EventModels
         [Display(Name = "Event Name")]
         public string? EventName { get; set; }
 
-        public string? EventStage { get; set; }
+        [Required]
+        [Display(Name = "LeagueName")]
+        public string? LeagueName { get; set; }
 
         [Required]
         [Display(Name = "Event Link")]
@@ -44,22 +46,32 @@ namespace FPTV.Models.EventModels
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime? EndAt { get; set; }
 
-        [Required]
+        [ForeignKey("MatchesCSID")]
         [Display(Name = "Matches CS ID")]
         public Guid MatchesCSID { get; set; }
 
         [Required]
+        [Display(Name = "Matches CS API ID")]
+        public int MatchesCSAPIID { get; set; }
+
+        [Required]
         [NotMapped]
         [Display(Name = "Team list")]
-        public List<string?> TeamsList { get; set; }
+        public List<string>? TeamsList { get; set; }
 
         [Required]
         [Display(Name = "Prize pool")]
         public string? PrizePool { get; set; }
 
+        [ForeignKey("WinnerTeamID")]
         [Display(Name = "Winner Team ID")]
-        public int WinnerTeamID { get; set; }
+        public Guid? WinnerTeamID { get; set; }
 
+        [Required]
+        [Display(Name = "Winner Team API ID")]
+        public int? WinnerTeamAPIID { get; set; }
+
+        [Required]
         [Display(Name = "Winner Team Name")]
         public string? WinnerTeamName { get; set; }
 

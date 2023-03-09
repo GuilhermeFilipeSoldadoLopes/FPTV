@@ -1,6 +1,6 @@
 ﻿using AngleSharp.Io;
 using FPTV.Data;
-using FPTV.Models.MatchModels;
+using FPTV.Models.MatchesModels;
 using FPTV.Models.StatisticsModels;
 using FPTV.Models.UserModels;
 using Microsoft.AspNetCore.Http;

@@ -1,6 +1,6 @@
 ﻿using EllipticCurve.Utils;
 using FPTV.Data;
-using FPTV.Models.MatchModels;
+using FPTV.Models.MatchesModels;
 using FPTV.Models.StatisticsModels;
 using FPTV.Models.ToReview;
 using Microsoft.AspNetCore.Http;
@@ -17,17 +17,17 @@ using System.Collections.Generic;
 using System.Runtime.Intrinsics.Arm;
 using System.Runtime.Intrinsics.X86;
 using System.Text.RegularExpressions;
-using Stream = FPTV.Models.MatchModels.Stream;
+using Stream = FPTV.Models.MatchesModels.Stream;
 
 namespace FPTV.Controllers
-    //O sistema deverá permitir filtrar as partidas por
-    //  estado(a decorrer, por decorrer, terminado)
-    //  se a partida tem estatísticas
-    //  se tem uma livestream da partida
-    //  por eventos
-    //O sistema deverá permitir ordenar as partidas por
-    //  ordem cronológica
-    //  por nome do evento
+//O sistema deverá permitir filtrar as partidas por
+//  estado(a decorrer, por decorrer, terminado)
+//  se a partida tem estatísticas
+//  se tem uma livestream da partida
+//  por eventos
+//O sistema deverá permitir ordenar as partidas por
+//  ordem cronológica
+//  por nome do evento
 {
     public class MatchesController : Controller
     {
@@ -43,40 +43,40 @@ namespace FPTV.Controllers
             return View();
         }
 
-        //De CSGO e de Valorant
-        // GET: CSMatches
-        public async Task<IActionResult> CSGOMatches()
-        {
-            List<MatchesCS> pastMatches = getAPICSGOMatches("https://api.pandascore.co/csgo/matches/past?sort=&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA");
-            List<MatchesCS> runningMatches = getAPICSGOMatches("https://api.pandascore.co/csgo/matches/running?sort=&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA");
-            List<MatchesCS> upcommingMatches = getAPICSGOMatches("https://api.pandascore.co/csgo/matches/upcoming?sort=&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA");
+		//De CSGO e de Valorant
+		// GET: CSMatches
+		public IActionResult CSGOMatches()
+		{
+			List<MatchesCS> pastMatches = getAPICSGOMatches("https://api.pandascore.co/csgo/matches/past?sort=&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA");
+			List<MatchesCS> runningMatches = getAPICSGOMatches("https://api.pandascore.co/csgo/matches/running?sort=&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA");
+			List<MatchesCS> upcommingMatches = getAPICSGOMatches("https://api.pandascore.co/csgo/matches/upcoming?sort=&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA");
 
-            List<int> dbMatchesIds = _context.MatchesCS.Select(m => m.MatchesCSAPIID).ToList();
+			List<int> dbMatchesIds = _context.MatchesCS.Select(m => m.MatchesCSAPIID).ToList();
 
-            //Apenas os past são guardados, mas podem ser necessarios os running ou os upcomming
-            foreach (var matches in pastMatches)
-            {
-                var id = matches.MatchesCSAPIID;
+			//Apenas os past são guardados, mas podem ser necessarios os running ou os upcomming
+			foreach (var matches in pastMatches)
+			{
+				var id = matches.MatchesCSAPIID;
 
-                if (!dbMatchesIds.Contains(id))
-                {
-                    //sss
-                    _context.MatchesCS.Add(matches);
+				if (!dbMatchesIds.Contains(id))
+				{
+					//sss
+					_context.MatchesCS.Add(matches);
 
-                    dbMatchesIds.Add(id);
-                }
-            }
+					dbMatchesIds.Add(id);
+				}
+			}
 
-            _context.SaveChanges();
+			_context.SaveChanges();
 
-            ViewBag["pastMatches"] = pastMatches;
-            ViewBag["runningMatches"] = runningMatches;
-            ViewBag["upcommingMatches"] = upcommingMatches;
+			ViewBag["pastMatches"] = pastMatches;
+			ViewBag["runningMatches"] = runningMatches;
+			ViewBag["upcommingMatches"] = upcommingMatches;
 
-            return View();
-        }
+			return View();
+		}
 
-        private List<MatchesCS> getAPICSGOMatches(string APIUrl)
+		private List<MatchesCS> getAPICSGOMatches(string APIUrl)
         {
             List<MatchesCS> matchesCS = new List<MatchesCS>();
 
@@ -202,39 +202,39 @@ namespace FPTV.Controllers
             return matchesCS;
         }
 
-        // GET: ValMatches
-        public async Task<IActionResult> ValMatches()
-        {
-            List<MatchesVal> pastMatches = getAPIValMatches("https://api.pandascore.co/valorant/matches/past?sort=&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA");
-            List<MatchesVal> runningMatches = getAPIValMatches("https://api.pandascore.co/valorant/matches/running?sort=&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA");
-            List<MatchesVal> upcommingMatches = getAPIValMatches("https://api.pandascore.co/valorant/matches/upcoming?sort=&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA");
+		// GET: ValMatches
+		public IActionResult ValMatches()
+		{
+			List<MatchesVal> pastMatches = getAPIValMatches("https://api.pandascore.co/valorant/matches/past?sort=&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA");
+			List<MatchesVal> runningMatches = getAPIValMatches("https://api.pandascore.co/valorant/matches/running?sort=&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA");
+			List<MatchesVal> upcommingMatches = getAPIValMatches("https://api.pandascore.co/valorant/matches/upcoming?sort=&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA");
 
-            List<int> dbMatchesIds = _context.MatchesVal.Select(m => m.MatchesValAPIID).ToList();
+			List<int> dbMatchesIds = _context.MatchesVal.Select(m => m.MatchesValAPIID).ToList();
 
-            //Apenas os past são guardados, mas podem ser necessarios os running ou os upcomming
-            foreach (var matches in pastMatches)
-            {
-                var id = matches.MatchesValAPIID;
+			//Apenas os past são guardados, mas podem ser necessarios os running ou os upcomming
+			foreach (var matches in pastMatches)
+			{
+				var id = matches.MatchesValAPIID;
 
-                if (!dbMatchesIds.Contains(id))
-                {
-                    //sss
-                    _context.MatchesVal.Add(matches);
+				if (!dbMatchesIds.Contains(id))
+				{
+					//sss
+					_context.MatchesVal.Add(matches);
 
-                    dbMatchesIds.Add(id);
-                }
-            }
+					dbMatchesIds.Add(id);
+				}
+			}
 
-            _context.SaveChanges();
+			_context.SaveChanges();
 
-            ViewBag["pastMatches"] = pastMatches;
-            ViewBag["runningMatches"] = runningMatches;
-            ViewBag["upcommingMatches"] = upcommingMatches;
+			ViewBag["pastMatches"] = pastMatches;
+			ViewBag["runningMatches"] = runningMatches;
+			ViewBag["upcommingMatches"] = upcommingMatches;
 
-            return View();
-        }
+			return View();
+		}
 
-        private List<MatchesVal> getAPIValMatches(string APIUrl)
+		private List<MatchesVal> getAPIValMatches(string APIUrl)
         {
             List<MatchesVal> matchesVal = new List<MatchesVal>();
 
