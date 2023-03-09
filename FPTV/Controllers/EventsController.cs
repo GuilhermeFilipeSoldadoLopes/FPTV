@@ -59,7 +59,7 @@ namespace FPTV.Controllers
                 ev.BeginAt = beginAt.ToString() == "" ? null : beginAt.Value<DateTime>();
                 ev.TimeType = timeType;
                 ev.EventName = league.ToString() == "" ? null : league.Value<string>("name");
-                ev.EventStage = nameStage.ToString() == "" ? null : nameStage.Value<string>();
+                ev.LeagueName = nameStage.ToString() == "" ? null : nameStage.Value<string>();
 				ev.PrizePool = prizePool.ToString() == "" ? "-" : new string(prizePool.Value<string>().Where(char.IsDigit).ToArray());
 				ev.WinnerTeamID = winnerTeamId.ToString() == "" ? -1 : winnerTeamId.Value<int>(); 
                 

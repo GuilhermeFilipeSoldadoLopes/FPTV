@@ -1,7 +1,6 @@
 ﻿using FPTV.Models.MatchModels;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Xml.Linq;
 
 namespace FPTV.Models.EventModels
 {
@@ -17,11 +16,15 @@ namespace FPTV.Models.EventModels
 
         [Required]
         [Display(Name = "Event Name")]
-        public string EventName { get; set; }
+        public string? EventName { get; set; }
 
-        [Required]
-        [Display(Name = "Event Link")]
-        public string EventLink { get; set; }
+		[Required]
+		[Display(Name = "LeagueName")]
+		public string? LeagueName { get; set; }
+
+		[Required]
+		[Display(Name = "Event Link")]
+        public string? EventLink { get; set; }
 
         [Required]
         [Display(Name = "Time Type")]
@@ -35,35 +38,45 @@ namespace FPTV.Models.EventModels
         [Display(Name = "Begin At")]
         [DataType(DataType.Date)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
-        public DateTime BeginAt { get; set; }
+        public DateTime? BeginAt { get; set; }
 
         [Required]
         [Display(Name = "End At")]
         [DataType(DataType.Date)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
-        public DateTime EndAt { get; set; }
+        public DateTime? EndAt { get; set; }
 
-        [Required]
-        [Display(Name = "Matches Val ID")]
+		[ForeignKey("MatchesValID")]
+		[Display(Name = "Matches Val ID")]
         public Guid MatchesValID { get; set; }
 
-        [Required]
+		[Required]
+		[Display(Name = "Matches Val API ID")]
+		public int MatchesValAPIID { get; set; }
+
+		[Required]
         [NotMapped]
         [Display(Name = "Team list")]
-        public List<string> TeamsList { get; set; }
+        public List<string>? TeamsList { get; set; }
 
         [Required]
         [Display(Name = "Prize pool")]
-        public string PrizePool { get; set; }
+        public string? PrizePool { get; set; }
 
-        [Display(Name = "Winner Team ID")]
-        public Guid? WinnerTeamID { get; set; }
+		[ForeignKey("WinnerTeamID")]
+		[Display(Name = "Winner Team ID")]
+		public Guid? WinnerTeamID { get; set; }
 
-        [Display(Name = "Winner Team Name")]
+		[Required]
+		[Display(Name = "Winner Team API ID")]
+        public int? WinnerTeamAPIID { get; set; }
+
+		[Required]
+		[Display(Name = "Winner Team Name")]
         public string? WinnerTeamName { get; set; }
 
         [Required]
         [Display(Name = "Tier")]
-        public char Tier { get; set; }
+        public char? Tier { get; set; }
     }
 }

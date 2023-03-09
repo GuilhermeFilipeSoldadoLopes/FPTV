@@ -19,10 +19,9 @@ namespace FPTV.Models.MatchModels
 		[ForeignKey("EventId")]
 		public Guid EventId { get; set; }
 
-        [Display(Name = "Event API ID")]
+		[Required]
+		[Display(Name = "Event API ID")]
         public int EventAPIID { get; set; }
-
-		public int MatchesAPIID { get; set; }
 
         [Required]
 		[Display(Name = "Event Name")]
@@ -34,6 +33,7 @@ namespace FPTV.Models.MatchModels
 		[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
 		public DateTime? BeginAt { get; set; }
 
+		[Required]
 		[Display(Name = "End At")]
 		[DataType(DataType.Date)]
 		[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
@@ -57,48 +57,50 @@ namespace FPTV.Models.MatchModels
 
 		[Required]
 		[Display(Name = "Number Of Games")]
-		public int NumberOfGames { get; set; }
+		public int? NumberOfGames { get; set; }
 
 		[Required]
 		[NotMapped]
 		[Display(Name = "Score")]
 		public IDictionary<int, int>? Score { get; set; }
 
-		[Required]
 		[NotMapped]
 		[Display(Name = "Teams Id List")]
-		public List<Guid> TeamsIDList { get; set; }
+		public List<Guid>? TeamsIDList { get; set; }
 
 		[Required]
         [NotMapped]
         [Display(Name = "Teams API Id List")]
-        public List<int> TeamsAPIIDList { get; set; }
+        public List<int>? TeamsAPIIDList { get; set; }
 
 		[Display(Name = "Winner Team Id")]
 		public Guid? WinnerTeamId { get; set; }
 
-        [Display(Name = "Winner Team API Id")]
+		[Required]
+		[Display(Name = "Winner Team API Id")]
         public int? WinnerTeamAPIId { get; set; }
 
-        [Display(Name = "Winner Team Name")]
+		[Required]
+		[Display(Name = "Winner Team Name")]
 		public string? WinnerTeamName { get; set; }
 
 		[Required]
 		[Display(Name = "Tier")]
-		public char Tier { get; set; }
+		public char? Tier { get; set; }
 
 		[Required]
 		[Display(Name = "Live Supported")]
 		public bool LiveSupported { get; set; }
 
+		[Required]
 		[Display(Name = "Stream List")]
 		public ICollection<Stream>? StreamList { get; set; }
 
 		[Display(Name = "League Name")]
-		public string LeagueName { get; set; }
+		public string? LeagueName { get; set; }
 
 		[Display(Name = "League Id")]
-		public int LeagueId { get; set; }
+		public int? LeagueId { get; set; }
 
 		[Display(Name = "League Link")]
 		public string? LeagueLink { get; set; }

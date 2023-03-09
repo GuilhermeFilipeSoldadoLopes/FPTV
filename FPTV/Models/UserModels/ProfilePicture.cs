@@ -9,6 +9,6 @@ namespace FPTV.Models.UserModels
         public Guid PictureId { get; set; }
 
         [Display(Name = "Profile Picture")]
-        public string Picture { get; set; }
+        public string? Picture { get; set; }
     }
 }

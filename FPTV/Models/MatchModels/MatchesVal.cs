@@ -20,22 +20,25 @@ namespace FPTV.Models.MatchModels
 		[ForeignKey("EventId")]
 		public Guid EventId { get; set; }
 
-        [Display(Name = "Event API ID")]
+		[Required]
+		[Display(Name = "Event API ID")]
         public int EventAPIID { get; set; }
 
+		[Required]
 		[Display(Name = "Event Name")]
-		public string EventName { get; set; }
+		public string? EventName { get; set; }
 
 		[Required]
 		[Display(Name = "Begin At")]
 		[DataType(DataType.Date)]
 		[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
-		public DateTime BeginAt { get; set; }
+		public DateTime? BeginAt { get; set; }
 
+		[Required]
 		[Display(Name = "End At")]
 		[DataType(DataType.Date)]
 		[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
-		public DateTime EndAt { get; set; }
+		public DateTime? EndAt { get; set; }
 
 		[Required]
 		[Display(Name = "Finished")]
@@ -51,52 +54,54 @@ namespace FPTV.Models.MatchModels
 
 		[Required]
 		[Display(Name = "MatchesVal List")]
-		public ICollection<MatchVal> MatchesList { get; set; }
+		public ICollection<MatchVal>? MatchesList { get; set; }
 
 		[Required]
 		[Display(Name = "Number Of Games")]
-		public int NumberOfGames { get; set; }
+		public int? NumberOfGames { get; set; }
 
 		[Required]
 		[NotMapped]
 		[Display(Name = "Score")]
-		public IDictionary<int, int> Score { get; set; }
+		public IDictionary<int, int>? Score { get; set; }
 
-		[Required]
 		[NotMapped]
 		[Display(Name = "Teams Id List")]
-		public List<Guid> TeamsIdList { get; set; }
+		public List<Guid>? TeamsIdList { get; set; }
 
 		[Required]
         [NotMapped]
         [Display(Name = "Teams API Id List")]
-        public List<int> TeamsAPIIDList { get; set; }
+        public List<int>? TeamsAPIIDList { get; set; }
 
 		[Display(Name = "Winner Team Id")]
 		public Guid? WinnerTeamId { get; set; }
 
-        [Display(Name = "Winner Team API ID")]
-        public int WinnerTeamAPIId { get; set; }
+		[Required]
+		[Display(Name = "Winner Team API ID")]
+        public int? WinnerTeamAPIId { get; set; }
 
-        [Display(Name = "Winner Team Name")]
+		[Required]
+		[Display(Name = "Winner Team Name")]
 		public string? WinnerTeamName { get; set; }
 
 		[Required]
 		[Display(Name = "Tier")]
-		public char Tier { get; set; }
+		public char? Tier { get; set; }
 
 		[Required]
 		[Display(Name = "Live Supported")]
 		public bool LiveSupported { get; set; }
 
+		[Required]
 		[Display(Name = "Stream List")]
-		public ICollection<Stream> StreamList { get; set; }
+		public ICollection<Stream>? StreamList { get; set; }
 
 		[Display(Name = "League Name")]
-		public string LeagueName { get; set; }
+		public string? LeagueName { get; set; }
 
 		[Display(Name = "League Id")]
-		public int LeagueId { get; set; }
+		public int? LeagueId { get; set; }
 
 		[Display(Name = "League Link")]
 		public string? LeagueLink { get; set; }
