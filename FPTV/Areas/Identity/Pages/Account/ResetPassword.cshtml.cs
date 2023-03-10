@@ -69,7 +69,6 @@ namespace FPTV.Areas.Identity.Pages.Account
             /// </summary>
             [Required]
             public string Code { get; set; }
-
         }
 
         public IActionResult OnGet(string code = null)
@@ -85,10 +84,10 @@ namespace FPTV.Areas.Identity.Pages.Account
                     Code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(code))
                 };
                 return Page();
-            }
         }
+    }
 
-        public async Task<IActionResult> OnPostAsync()
+    public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
             {

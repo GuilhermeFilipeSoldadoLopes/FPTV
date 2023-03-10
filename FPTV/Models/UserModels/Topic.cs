@@ -10,11 +10,11 @@ namespace FPTV.Models.UserModels
 
         [Required]
         [Display(Name = "Title")]
-        public string Title { get; set; }
+        public string? Title { get; set; }
 
         [Required]
         [Display(Name = "Content")]
-        public string Content { get; set; }
+        public string? Content { get; set; }
 
         [Required]
         [Display(Name = "Date")]
@@ -22,12 +22,11 @@ namespace FPTV.Models.UserModels
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime Date { get; set; }
 
-
         [Display(Name = "User ID")]
         [ForeignKey("ProfileId")]
         public Guid ProfileId { get; set; }
 
         [Display(Name = "User")]
-        public virtual Profile Profile { get; set; }
+        public virtual Profile? Profile { get; set; }
     }
 }

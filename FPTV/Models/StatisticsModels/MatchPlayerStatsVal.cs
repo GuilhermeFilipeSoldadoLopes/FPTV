@@ -5,47 +5,57 @@ namespace FPTV.Models.StatisticsModels
 {
     public class MatchPlayerStatsVal
     {
-        [Required]
-        [Key]
-        [Display(Name = "Id of a valorant match")]
+		[Required]
+		[Key]
+		[Display(Name = "Id of a MatchPlayerStatsVal")]
+		public Guid MatchPlayerStatsValID { get; set; }
+
+		[ForeignKey("MatchValId")]
+		[Display(Name = "Id of a valorant match")]
         public Guid MatchValId { get; set; }
 
-        [Required]
+		[Required]
+		[Display(Name = "MatchVal API ID")]
+		public int MatchValAPIID { get; set; }
+
         [ForeignKey("PlayerValId")]
         [Display(Name = "Id of a valorant player")]
-        public Guid PlayerValId { get; set; }
+        public Guid? PlayerValId { get; set; }
 
-        [Required]
+		[Required]
+		[Display(Name = "API Id of a valorant player")]
+		public int? PlayerValAPIId { get; set; }
+
+		[Required]
         [Display(Name = "Kills")]
-        public int Kills { get; set; }
+        public int? Kills { get; set; }
 
         [Required]
         [Display(Name = "Deaths")]
-        public int Deaths { get; set; }
+        public int? Deaths { get; set; }
 
         [Required]
         [Display(Name = "Assists")]
-        public int Assists { get; set; }
+        public int? Assists { get; set; }
 
         [Required]
         [Display(Name = "ADR")]
-        public float ADR { get; set; }
+        public float? ADR { get; set; }
 
         [Required]
         [Display(Name = "Kast")] 
-        public float Kast { get; set; }
+        public float? Kast { get; set; }
 
         [Required]
         [Display(Name = "HeadShots")] 
-        public float HeadShots { get; set; }
+        public float? HeadShots { get; set; }
 
         [Required]
         [Display(Name = "KD_Diff")] 
-        public float KD_Diff { get; set; }
+        public float? KD_Diff { get; set; }
 
         [Required]
         [Display(Name = "Name of a player")] 
-        public string PlayerName { get; set; }
-
+        public string? PlayerName { get; set; }
     }
 }

@@ -1,0 +1,516 @@
+﻿@{
+    ViewData["Title"] = "Matches";
+}
+
+
+<style>
+    .box1 {
+        width: 40%;
+        height: 100%;
+        display: flex;
+        flex-flow: column wrap;
+    }
+
+    .box {
+        width: 50%;
+        height: 100%;
+        display: flex;
+        flex-flow: column wrap;
+        margin-top: 60%;
+    }
+
+    .logo {
+        max-width: 100%;
+        height: auto;
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 95%;
+    }
+
+    th {
+        border: 1px solid black;
+        padding: 10px;
+    }
+
+    td {
+        border: 1px solid black;
+        padding: 10px;
+    }
+
+    h3 {
+        text-align: center;
+    }
+
+    .box2 {
+        width: calc(95% / 2);
+        height: 20%;
+        display: inline-block;
+    }
+
+    caption {
+        color: black;
+        text-decoration: underline;
+    }
+
+    .alinhar {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .alinhar2 {
+        display: inline-block;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .center {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .my-div {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        height: 50px;
+        margin: 10px;
+    }
+    
+        .my-div > div {
+            flex-basis: 25%;
+            flex-grow: 1;
+        }
+
+    .my-div2 > div {
+        width: 100%
+    }
+
+    span {
+        font-weight: bold;
+    }
+
+
+    .span2 {
+        font-weight: normal;
+    }
+
+    .span3 {
+        font-weight: normal;
+    }
+
+    .central {
+        text-align: center;
+        background-color: white;
+    }
+
+    .ola {
+        display: flex;
+        align-self: flex-start;
+    }
+
+    .buttons {
+        display: flex;
+        margin-bottom: 30px;
+        margin-right: 25%;
+        justify-content: right;
+    }
+
+    .search-container {
+        display: flex;
+        align-items: center;
+    }
+
+    .dropdown-content a {
+        background-color: white;
+        display: block;
+        color: #000;
+        padding: 10px;
+        text-decoration: none;
+        border: 1px solid black;
+    }
+
+    .dropdown {
+        margin-left: 10px;
+        background-color: #e0eeff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+        border: 1px solid black;
+    }
+
+    .dropdown-content a:hover {
+        background-color: #bf7b8e;
+    }
+
+    .button2 {
+        background-color: #e0eeff;
+        color: black;
+        width: 100%;
+        padding: 10px 20px;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        z-index: 1;
+        margin-left: 5%;
+    }
+
+    .button:hover {
+        background-color: #2980b9;
+    }
+
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+
+    .central {
+        width: 100%;
+        margin: 0 auto;
+        text-align: center;
+        height: 100%;
+        background-color: white;
+    }
+
+    .search-container input[type="text"] {
+        background-color: #e0eeff;
+        color: black;
+        width: 100%;
+        padding: 10px 20px;
+        border: 1px solid black;
+    }
+
+    .search-container img {
+        margin-right: 10px;
+        height: 30px;
+        width: 30px;
+    }
+</style>
+<body class="bodytemp">
+ <div class="" style="background-color:white;padding:1%;">
+
+        <div class="buttons">
+
+            <div class="dropdown">
+                <button class="button2">Sort by</button>
+                <div class="dropdown-content">
+                    <a href="#">Newest</a>
+                    <a href="#">Oldest</a>
+                    <a href="#">Event Name</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <button class="button2">Filter by</button>
+                <div class="dropdown-content">
+                    <a href="#">Have Stats</a>
+                    <a href="#">Have livestream</a>
+                    <a href="#">State</a>
+                    <div class="dropdown-content" style="margin-left: 44%;">
+                        <a href="#">Finished</a>
+                        <a href="#">On-going</a>
+                        <a href="#">Upcoming</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    
+        <div class="ola">
+
+        <div class="box1" style="background-color:lightgrey">
+            <h4 style="font-weight: bold;text-align:center;">Finished Matches</h4>
+            <div class="alinhar" style="border-bottom: 1px solid black">
+                <div class="my-div2" style="width:90%;">
+                    <div>
+                        <span class="span2" style="margin-top:10px;">Saturday - 2023-02-12 &nbsp; &nbsp; 21:00</span>
+                    </div>
+
+                    <div>
+                        <span style="text-align: center;">
+                            <p style="font-size:25px">
+                                <span> Fnatic </span>
+                                <span class="span2"> 16 </span>
+                                <span class="span2"> vs </span>
+                                <span class="span2"> 10 </span>
+                                <span> SAW </span>
+                            </p>
+                        </span>
+                    </div>
+
+                    <div style="text-align:left; display: flex;">
+                        <p>Best of 3</p>
+                        <a href="#" style="justify-content: space-around; margin-left: auto;">More details</a>
+                    </div>
+
+                </div>
+            </div>
+            <div class="alinhar" style="border-bottom: 1px solid black">
+                <div class="my-div2" style="width:90%;">
+                    <div>
+                        <span class="span2" style="margin-top:10px;">Saturday - 2023-02-12 &nbsp; &nbsp; 20:00</span>
+                    </div>
+
+                    <div>
+                        <span style="text-align: center;">
+                            <p style="font-size:25px">
+                                <span> Nouns </span>
+                                <span class="span2"> 3 </span>
+                                <span class="span2"> vs </span>
+                                <span class="span2"> 16 </span>
+                                <span> ATK </span>
+                            </p>
+                        </span>
+                    </div>
+
+                    <div style="text-align:left; display: flex;">
+                        <p>Best of 3</p>
+                        <a href="#" style="justify-content: space-around; margin-left: auto;">More details</a>
+                    </div>
+
+                </div>
+            </div>
+            <div class="alinhar" style="border-bottom: 1px solid black">
+                <div class="my-div2" style="width:90%;">
+                    <div>
+                        <span class="span2" style="margin-top:10px;">Saturday - 2023-02-12 &nbsp; &nbsp; 19:00</span>
+                    </div>
+
+                    <div>
+                        <span style="text-align: center;">
+                            <p style="font-size:25px">
+                                <span> Mythics </span>
+                                <span class="span2"> 16 </span>
+                                <span class="span2"> vs </span>
+                                <span class="span2"> 2 </span>
+                                <span> Furia </span>
+                            </p>
+                        </span>
+                    </div>
+
+                    <div style="text-align:left; display: flex;">
+                        <p>Best of 3</p>
+                        <a href="#" style="justify-content: space-around; margin-left: auto;">More details</a>
+                    </div>
+
+                </div>
+            </div>
+            <div class="alinhar" style="border-bottom: 1px solid black">
+                <div class="my-div2" style="width:100%;">
+                    <div>
+                        <span class="span2" style="margin-top:10px;">Saturday - 2023-02-12 &nbsp; &nbsp; 19:00</span>
+                    </div>
+
+                    <div>
+                        <span style="text-align: center;">
+                                <p style="font-size:25px;width:100%;">
+                                <span> 00Nation </span>
+                                <span class="span2"> 16 </span>
+                                <span class="span2"> vs </span>
+                                <span class="span2"> 14 </span>
+                                <span> paiN </span>
+                            </p>
+                        </span>
+                    </div>
+
+                    <div style="text-align:left; display: flex;">
+                        <p>Best of 3</p>
+                        <a href="#" style="justify-content: space-around; margin-left: auto;">More details</a>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+            <div class="alinhar">
+                <div class="my-div2" style="width:80%;background-color:lightgrey">
+                    <div>
+                        <p style="font-weight:bold; margin-top:2%; margin-bottom:0px; ">
+                                <h2><span class="alinhar">Blast.tv Paris Major 2022</span></h2><br />
+                                <h4 style="font-weight: bold;text-align: center;">Live</h4>
+                        </p>
+                    </div>
+
+                    <div name="FirstTeam">
+                            <span style="text-align: left;margin-left:10%">
+                                <img src="~/images/image_bruge.png" width="82px" height="112px" />
+                            </span>
+                            <span style="text-align: center;margin-left:23%">vs</span>
+                            <span style="text-align: left;margin-left:25%">
+                                <img src="~/images/image_case.png" width="82px" height="112px" />
+                            </span>
+                            <span style="text-align: left;margin-left:14%"> ENCE </span>
+                            <span style="text-align: left;margin-left:55%"> CASE </span><br />
+                            <span style="text-align: left;margin-left:16%" class="span2"> 11 </span>
+                            <span style="text-align: left;margin-left:29%">-</span><br />
+                            
+                    </div>
+
+                    <div style="text-align:left; display: flex;margin-left:10%">
+                        <p>Best of 3</p>
+                        <a href="#" style="justify-content: space-around; margin-left: auto;margin-left:60%">More details</a>
+                    </div>
+
+
+                    <div class="alinhar" style="border-top: 6px solid white;">
+                        <div class="my-div2" style="width:80%;background-color:lightgrey;">
+                            <div>
+                                <p style="font-weight:bold; margin-top:2%; margin-bottom:0px; ">
+                                    <h4 style="font-weight: bold;">Upcoming Matches</h4>
+                                </p>
+                                <span class="span2" style="margin-top:10px;">Saturday - 2023-02-13 &nbsp; &nbsp; 23:00</span>
+                            </div>
+
+                            <div>
+                                <span style="text-align: center;">
+                                    <p style="font-size:25px">
+                                        <span> ENCE </span>
+                                        <span class="span2"> vs </span>
+                                        <span> G2 </span>
+                                    </p>
+                                </span>
+                            </div>
+
+                            <div style="text-align:left; display: flex;">
+                                <p>Best of 3</p>
+                                <a href="#" style="justify-content: space-around; margin-left: auto;">More details</a>
+                            </div>
+
+                            <div>
+                                <span class="span2" style="margin-top:10px;">Saturday - 2023-02-13 &nbsp; &nbsp; 23:00</span>
+                                <span style="text-align: center;">
+                                    <p style="font-size:25px">
+                                        <span> ENCE </span>
+                                        <span class="span2"> vs </span>
+                                        <span> NAVI </span>
+                                    </p>
+                                </span>
+                            </div>
+
+                            <div style="text-align:left; display: flex;">
+                                <p>Best of 3</p>
+                                <a href="#" style="justify-content: space-around; margin-left: auto;">More details</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>   
+            </div>
+
+
+
+        <div class="box1" style="background-color:lightgrey">
+                <h4 style="font-weight: bold;text-align:center;">Upcoming Matches</h4>
+                <div class="alinhar" style="border-bottom: 1px solid black">
+                <div class="my-div2" style="width:90%;">
+                    <div>
+                        <span class="span2" style="margin-top:10px;">Saturday - 2023-02-14 &nbsp; &nbsp; 21:00</span>
+                    </div>
+
+                    <div>
+                        <span style="text-align: center;">
+                            <p style="font-size:25px">
+                                <span> Apeks </span>
+                                <span class="span2">  </span>
+                                <span class="span2"> vs </span>
+                                <span class="span2">  </span>
+                                <span> Eyeballers </span>
+                            </p>
+                        </span>
+                    </div>
+
+                    <div style="text-align:left; display: flex;">
+                        <p>Best of 3</p>
+                        <a href="#" style="justify-content: space-around; margin-left: auto;">More details</a>
+                    </div>
+
+                </div>
+            </div>
+            <div class="alinhar" style="border-bottom: 1px solid black">
+                <div class="my-div2" style="width:90%;">
+                    <div>
+                        <span class="span2" style="margin-top:10px;">Saturday - 2023-02-14 &nbsp; &nbsp; 20:00</span>
+                    </div>
+
+                    <div>
+                        <span style="text-align: center;">
+                            <p style="font-size:25px">
+                                <span> Voyovda </span>
+                                <span class="span2">  </span>
+                                <span class="span2"> vs </span>
+                                <span class="span2">  </span>
+                                <span> HAVU </span>
+                            </p>
+                        </span>
+                    </div>
+
+                    <div style="text-align:left; display: flex;">
+                        <p>Best of 3</p>
+                        <a href="#" style="justify-content: space-around; margin-left: auto;">More details</a>
+                    </div>
+
+                </div>
+            </div>
+            <div class="alinhar" style="border-bottom: 1px solid black">
+                <div class="my-div2" style="width:90%;">
+                    <div>
+                        <span class="span2" style="margin-top:10px;">Saturday - 2023-02-14 &nbsp; &nbsp; 19:00</span>
+                    </div>
+
+                    <div>
+                        <span style="text-align: center;">
+                            <p style="font-size:25px">
+                                <span> IIIuminar </span>
+                                <span class="span2">  </span>
+                                <span class="span2"> vs </span>
+                                <span class="span2">  </span>
+                                <span> ECLOT </span>
+                            </p>
+                        </span>
+                    </div>
+
+                    <div style="text-align:left; display: flex;">
+                        <p>Best of 3</p>
+                        <a href="#" style="justify-content: space-around; margin-left: auto;">More details</a>
+                    </div>
+
+                </div>
+            </div>
+            <div class="alinhar" style="border-bottom: 1px solid black">
+                <div class="my-div2" style="width:90%;">
+                    <div>
+                        <span class="span2" style="margin-top:10px;">Saturday - 2023-02-14 &nbsp; &nbsp; 18:00</span>
+                    </div>
+
+                    <div>
+                        <span style="text-align: center;">
+                            <p style="font-size:25px">
+                                <span> BNE </span>
+                                <span class="span2">  </span>
+                                <span class="span2"> vs </span>
+                                <span class="span2">  </span>
+                                <span> Nexus </span>
+                            </p>
+                        </span>
+                    </div>
+
+                    <div style="text-align:left; display: flex;">
+                        <p>Best of 3</p>
+                        <a href="#" style="justify-content: space-around; margin-left: auto;">More details</a>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+ </div>
+
+
+</body>
