@@ -17,24 +17,22 @@ namespace FPTV.Models.UserModels
 
         [Required]
         [Display(Name = "Comment")]
-        public string Text { get; set; }
+        public string? Text { get; set; }
 
         [Display(Name = "User ID")]
         [ForeignKey("ProfileId")]
         public Guid ProfileId { get; set; }
-
 
         [Display(Name = "Topic ID")]
         [ForeignKey("TopicId")] 
         public Guid TopicId { get; set; }
 
         [Display(Name = "User")]
-        public virtual Profile Profile { get; set; }
-
+        public virtual Profile? Profile { get; set; }
 
         [Display(Name = "Topic")]
-        public virtual Topic Topic { get; set; }
+        public virtual Topic? Topic { get; set; }
 
-        public ICollection<Reaction> Reactions { get; set; }
+        public ICollection<Reaction>? Reactions { get; set; }
     }
 }

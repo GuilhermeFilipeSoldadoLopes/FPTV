@@ -1,8 +1,10 @@
-﻿namespace FPTV.Models.BLL.Events
+﻿using RestSharp;
+
+namespace FPTV.Models.BLL.Events
 {
-    public class StateOfEventCS
+    public static class StateOfEventCS
     {
-        public string? GetEventsFilterBy(string filter)
+        public static string? GetEventsFilterBy(string filter)
         {
             switch (filter.ToLower())
             {
@@ -14,12 +16,12 @@
             }
         }
 
-        public string? GetEventsSearchBy(string name)
+        public static string? GetEventsSearchBy(string name)
         {
             return name.ToLower();
         }
 
-        public string? GetEventsSortBy(string sort)
+        public static string? GetEventsSortBy(string sort)
         {
             switch (sort.ToLower())
             {

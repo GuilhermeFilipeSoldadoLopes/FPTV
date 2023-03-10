@@ -10,36 +10,60 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/FPTV.styles.css" asp-append-version="true" />
     <link rel="icon" type="image/png" href="~/favicon.ico" />
+    
+    <style>
+		#menu {
+			margin-right: 4%;
+			margin-left: 4%;
+		    color: #000;
+			cursor: pointer;
+		    display: inline-block;
+		}
+
+		#buttonMenu:hover {
+			background-color: transparent;
+			border: 2px solid #DE3C3C;
+			border-radius: 20px;
+			/* padding-top: 3px;
+			padding-bottom: 3px;
+			padding-left: 20px;
+			padding-right: 20px; */
+			-webkit-transition: all .15s ease-in-out;
+			transition: all .15s ease-in-out;
+			color: #DE3C3C;
+			box-shadow: 0 0 5px 0 #DE3C3C inset, 0 0 10px 1px #DE3C3C;
+		}
+    </style>
 </head>
 <body>
 <header>
-		<div style="background-color: lightgray">
-		<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+		<div>
+		<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3" style="margin-top: -5px;">
 			<div class="container-fluid">
-				<a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img class="logo" src="~/images/iconMenu.jpg"> </a>
+					<a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img class="logo" src="~/images/iconMenu.jpg" style="width: 85px; height: 100%;"> </a>
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
 						aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 				</button>
-				<div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-					<ul class="navbar-nav flex-grow-1" style="justify-content: space-around; margin-right: 100px; margin-left: 20px;">
-						<li class="nav-item">
-							<a class="nav-link text-dark" style="font-size: 25px;" asp-area="" asp-controller="Home" asp-action="Index">Game</a>
+					<div class="navbar-collapse collapse d-sm-inline-flex justify-content-between" style="text-align: center; margin-right: 100px; margin-left: 25px;">
+					<ul class="navbar-nav flex-grow-1" >
+						<li class="nav-item" id="menu">
+								<a class="nav-link text-dark" id="buttonMenu" style="font-weight: bold; font-size: 24px;" asp-area="Home" asp-controller="Home" asp-action="Index">@*Game*@CS:GO</a>
 						</li>
-						<li class="nav-item">
-								<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Matches">Matches</a>
+							<li class="nav-item" id="menu">
+								<a class="nav-link text-dark" id="buttonMenu" style="font-size: 24px;" asp-area="" asp-controller="Home" asp-action="Matches">Matches</a>
 						</li>
-						<li class="nav-item">
-								<a class="nav-link text-dark" style="font-size: 25px;" asp-area="" asp-controller="Home" asp-action="Results">Results</a>
+							<li class="nav-item" id="menu">
+								<a class="nav-link text-dark" id="buttonMenu" style="font-size: 24px;" asp-area="" asp-controller="Home" asp-action="Index">Results</a>
 						</li>
-						<li class="nav-item">
-								<a class="nav-link text-dark" style="font-size: 25px;" asp-area="" asp-controller="Home" asp-action="Events">Events</a>
+							<li class="nav-item" id="menu">
+								<a class="nav-link text-dark" id="buttonMenu" style="font-size: 24px;" asp-area="" asp-controller="Home" asp-action="Events">Events</a>
 						</li>
-						<li class="nav-item">
-								<a class="nav-link text-dark" style="font-size: 25px;" asp-area="" asp-controller="Home" asp-action="Index">Forum</a>
+							<li class="nav-item" id="menu">
+								<a class="nav-link text-dark" id="buttonMenu" style="font-size: 24px;" asp-area="" asp-controller="Home" asp-action="Index">Forum</a>
 						</li>
-						<li class="nav-item">
-								<a class="nav-link text-dark" style="font-size: 25px;" asp-area="" asp-controller="Home" asp-action="Index">About</a>
+							<li class="nav-item" id="menu">
+								<a class="nav-link text-dark" id="buttonMenu" style="font-size: 24px;" asp-area="" asp-controller="Home" asp-action="Index">About</a>
 						</li>
 					</ul>
 				</div>
@@ -68,12 +92,69 @@
         </main>
     </div>
 
-	<footer class="border-top footer text-muted" style="background-color:lightgray">
-		<div class="container" style="color: black;">
+	<footer class="border-top footer text-muted" style="background-color: white">
+		<div class="container" style="color: black; margin-left: 4%">
 			&copy; 2023 - FPTV - <a asp-area="" style="color: black;" asp-controller="Home" asp-action="Privacy">Privacy</a>
 		</div>
 	</footer>
 	<script src="https://js.pusher.com/4.0/pusher.min.js"></script>
+	<script>
+		window.onload = function() {
+		    var url = window.location.href;)
+		    var activeTab = url.substring(url.indexOf("/") + 1);
+		    var menuTab = document.getElementById('activeTab');
+		    element.style.fontWeight = "bold";
+			console.log(activeTab);
+			console.log(menuTab);
+		}
+	</script>
+@*<script>
+		document.addEventListener('click', (e) => {
+			// Retrieve id from clicked element
+			let elementId = e.target.id;
+			
+			// If element has id
+			if (elementId !== 'buttonMenu') {
+				e.target.fontWeight = "bold";
+			}
+			// If element has no id
+			else {
+				console.log("An element without an id was clicked.");
+			}
+		}
+		);
+	</script>
+	<script>
+		// A little bit of JavaScript to make
+		// the items clickable
+		const anchors = Array.from(document.getElementById("buttonMenu"))
+
+		anchors.forEach(a => {
+		a.addEventListener('click', function(e) {
+		anchors.forEach(a => {
+		a.classList.remove('is-active')
+		})
+
+		e.currentTarget.classList.add('is-active')
+		})  
+		})
+	</script>
+	<script>
+		function change(){
+			var elements  = document.getElementById("buttonMenu");
+			for(var i = 0; i < elements .length; i++) {
+				
+			}
+	        if(document.getElementById("buttonMenu").style.fontWeight != "bold"){
+	            document.getElementById("buttonMenu").style.fontWeight="bold";
+	            
+	        }
+	        else{
+	            document.getElementById("buttonMenu").style.fontWeight="normal";
+	            
+	        }
+		}
+	</script>*@
 	<script>
         // Enable pusher logging - don't include this in production
         Pusher.logToConsole = true;

@@ -5,6 +5,13 @@
 @inject UserManager<UserBase> UserManager
 @inject FPTVContext context
 
+
+<style>
+	#rl:hover {
+        text-decoration: underline;
+	}
+</style>
+
 @{
     string? returnUrl = null;
     var query = ViewContext.HttpContext.Request.Query;
@@ -14,34 +21,38 @@
     }
 }
 
-<ul class="navbar-nav">
+<ul class="navbar-nav" style="height: 50px">
     @if (SignInManager.IsSignedIn(User))
     {
-        <li class="nav-item" style="align-self: center;">
+        <li class="nav-item" style="align-self: center; margin-top: 5px; margin-right: -5px">
             @if (UserManager.GetUserAsync(User).Result != null && context.Profiles.Single(p => p.Id == UserManager.GetUserAsync(User).Result.ProfileId) != null)
         {
-                <img style="width:40px;height:40px; object-fit:cover; border-radius:30px" src="data:image/*;base64,@(Convert.ToBase64String(context.Profiles.Single(p => p.Id == UserManager.GetUserAsync(User).Result.ProfileId).Picture))">
+                <a class="nav-link text-dark" id="rl" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"><img style="width:40px;height:40px; object-fit:cover; border-radius:30px" src="data:image/*;base64,@(Convert.ToBase64String(context.Profiles.Single(p => p.Id == UserManager.GetUserAsync(User).Result.ProfileId).Picture))"></a>
         }
         </li>
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">@User.Identity!.Name</a>
-        </li>
-        <li class="nav-item">
+        <li class="nav-item" style="font-size: 22px; margin-top: 2px">
+            <a class="nav-link text-dark" id="rl" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">@User.Identity!.Name</a>
+	    </li>
+        <li class="nav-item" style="font-size: 30px; margin-top: 1px">
+		    /
+	    </li>
+        <li class="nav-item" style="margin-top: -8px;">
             <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="/">
-                <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+                <button type="submit" id="rl" style="font-size: 22px" class="nav-link btn btn-link text-dark">Logout</button>
             </form>
         </li>
     }
     else
     {
+	    <div class="vl" style="border-left: 1.6px solid black; height: 53px; padding: 5px"></div>
 	    <li class="nav-item">
-		    <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register" asp-route-returnUrl="@returnUrl">Register </a>
+            <a class="nav-link text-dark" id="rl" style="font-size: 25px;" asp-area="Identity" asp-page="/Account/Register" asp-route-returnUrl="@returnUrl">Register </a>
 	    </li>
-        <li class="nav-item" style="padding: 8px 0">
+        <li class="nav-item" style="padding: 8px 0; font-size: 25px">
 		    /
 	    </li>
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login" asp-route-returnUrl="@returnUrl">Login</a>
+            <a class="nav-link text-dark" id="rl" style="font-size: 25px;" asp-area="Identity" asp-page="/Account/Login" asp-route-returnUrl="@returnUrl">Login</a>
         </li>
     }
 </ul>

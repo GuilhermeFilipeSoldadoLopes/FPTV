@@ -36,7 +36,10 @@ namespace FPTV.Controllers
 				DateTime lasModificationDate =
 					new DateTime(lastModificationFileDateTime.Year, lastModificationFileDateTime.Month, lastModificationFileDateTime.Day);
 
-				if (DateTime.Compare(lasModificationDate, DateTime.Now.Date) < 0)
+                Console.WriteLine(lasModificationDate);
+                Console.WriteLine(DateTime.Compare(lasModificationDate, DateTime.Now.Date));
+
+                if (DateTime.Compare(lasModificationDate, DateTime.Now.Date) < 0)
 				{
 					System.IO.File.WriteAllText("visitors.txt", 0.ToString());
 				}
@@ -76,25 +79,42 @@ namespace FPTV.Controllers
 			return View();
         }
 
+        public IActionResult Events()
+        {
+            return RedirectToAction("Index", "Events");
+        }
+		public IActionResult EventDetails()
+		{
+			return View();
+		}
+        public IActionResult LoginRegister()
+        {
+	        return View();
+        }
+        public IActionResult PlayerAndStats()
+        {
+	        return View();
+        }
+        public IActionResult Privacy()
+        {
+	        return View();
+        }
+        public IActionResult ConfirmDelete()
+        {
+            return View();
+        }
+
         public IActionResult Matches()
         {
             //return RedirectToAction("Método", "Matches");
             return View();
         }
 
-        public IActionResult Events()
-        {
-            return View();
-        }
         public IActionResult Results()
         {
             return View();
         }
         
-		public IActionResult EventDetails()
-		{
-			return View();
-		}
 		public IActionResult Forum()
         {
             return View();
@@ -103,10 +123,7 @@ namespace FPTV.Controllers
         {
             return View();
         }
-        public IActionResult LoginRegister()
-        {
-            return View();
-        }
+        
         public IActionResult Register()
         {
             return View();
@@ -116,18 +133,12 @@ namespace FPTV.Controllers
         {
             return View();
         }
-        public IActionResult Privacy()
-        {
-            return View();
-        }
+        
         public IActionResult TeamStats()
         {
             return View();
         }
-        public IActionResult PlayerAndStats()
-        {
-            return View();
-        }
+        
         public IActionResult StatisticsOfSite()
         {
             return View();
