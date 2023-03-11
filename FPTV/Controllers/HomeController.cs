@@ -109,8 +109,13 @@ namespace FPTV.Controllers
             //return RedirectToAction("Método", "Matches");
             return View();
         }
+		public IActionResult MatchDetails()
+		{
+			
+			return View();
+		}
 
-        public IActionResult Results()
+		public IActionResult Results()
         {
             return View();
         }
