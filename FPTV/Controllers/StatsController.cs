@@ -1,5 +1,6 @@
 ﻿using AngleSharp.Io;
 using FPTV.Data;
+using FPTV.Models.EventsModels;
 using FPTV.Models.MatchesModels;
 using FPTV.Models.StatisticsModels;
 using FPTV.Models.UserModels;
@@ -38,6 +39,71 @@ namespace FPTV.Controllers
 
             return View();
         }*/
+
+        private void getPastCSGOMatches()
+        {
+            string url = "https://api.pandascore.co/csgo/matches/past?sort=draw&sort=&page=1&per_page=50&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA";
+
+            var client = new RestClient(url);
+            var request = new RestRequest();
+            var json = client.Execute(request).Content;
+            var jarray = JArray.Parse(json);
+            List<MatchCS> pastMatches = new();
+
+            foreach (JObject m in jarray.Cast<JObject>())
+            {
+                //Set up values from api
+                //Dictionary<int, string?> teamList = new();
+                var ma = new MatchCS();
+                var
+
+                var eventAPIID = e.GetValue("id");
+                var nameStage = e.GetValue("name");
+                var beginAt = e.GetValue("begin_at");
+                var timeType = TimeType.Running;
+                var league = e.GetValue("league");
+                var teams = e.GetValue("teams");
+                var prizePool = e.GetValue("prizepool");
+                var winnerTeamId = e.GetValue("winner_id");
+                var winnerTeamAPIId = e.GetValue("winner_id");
+
+                //Handling for null values
+                ma.Map =;
+                ma.WinnerTeamName =;
+                ma.TeamsList =;
+                ma.PlayerStatsList =;
+                ma.
+
+
+                ma
+                ev.EventAPIID = eventAPIID.ToString() == null ? -1 : eventAPIID.Value<int>();
+                ev.BeginAt = beginAt.ToString() == "" ? null : beginAt.Value<DateTime>();
+                ev.TimeType = timeType;
+                ev.EventName = league.ToString() == "" ? null : league.Value<string>("name");
+                ev.LeagueName = nameStage.ToString() == "" ? null : nameStage.Value<string>();
+                ev.PrizePool = prizePool.ToString() == "" ? "-" : new string(prizePool.Value<string>().Where(char.IsDigit).ToArray());
+                ev.WinnerTeamAPIID = winnerTeamId.ToString() == "" ? -1 : winnerTeamId.Value<int>();
+
+                if (teams != null)
+                {
+                    foreach (JObject o in teams)
+                    {
+                        var teamNameValue = o.GetValue("name");
+                        var teamIdValue = o.GetValue("id");
+                        var teamId = teamIdValue.ToString() == "" ? -1 : teamIdValue.Value<int>();
+                        var teamName = teamNameValue.ToString() == "" ? null : teamNameValue.Value<string>();
+                        teamList.Add(teamId, teamName);
+                    }
+                }
+
+                //Filling remaining fields
+                ev.TeamsList = teamList.Values.ToList();
+                ev.WinnerTeamName = teamList.GetValueOrDefault((int)ev.WinnerTeamAPIID) ?? "-";
+                events.Add(ev);
+
+            }
+
+        }
 
         //De CSGO e de Valorant
         // GET: CSMatches
