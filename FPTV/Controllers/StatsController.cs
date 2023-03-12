@@ -12,6 +12,7 @@ using Newtonsoft.Json.Linq;
 using RestSharp;
 using System;
 using System.Linq.Expressions;
+using System.Reflection.Metadata.Ecma335;
 
 namespace FPTV.Controllers
 {
@@ -40,24 +41,57 @@ namespace FPTV.Controllers
             return View();
         }*/
 
-        private void getPastCSGOMatches()
+        public ActionResult getPastCSGOMatches(string sort = "sort=-begin_at", string page = "&page=1", string filter = "running", string game = "csgo")
         {
             string url = "https://api.pandascore.co/csgo/matches/past?sort=draw&sort=&page=1&per_page=50&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA";
 
-            var client = new RestClient(url);
-            var request = new RestRequest();
+
+            var jsonFilter = filter + "?";
+            var jsonSort = sort;
+            var jsonPage = page;
+            var jsonPerPage = "&per_page = 10";
+            var token = "&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA";
+            var requestLink = "https://api.pandascore.co/" + game + "/matches/";
+
+            var fullApiPath = requestLink + jsonFilter + jsonSort + jsonPage + jsonPerPage + token;
+            Console.WriteLine(fullApiPath);
+
+            var client = new RestClient(fullApiPath);
+            var request = new RestRequest("", Method.Get);
+            request.AddHeader("accept", "application/json");
             var json = client.Execute(request).Content;
+
+            if (json == null)
+            {
+                return View(); //We need an error handler for this!
+            }
+
             var jarray = JArray.Parse(json);
             List<MatchCS> pastMatches = new();
+
+            var StaticResults = new[] { "16-12", "14-16", "16-9", "8-16", "10-16", "16-11", "3-16", "16-7" };
+            var maps = new[] { "Inferno", "Mirage", "Nuke", "Overpass", "Vertigo", "Ancient", "Anubis" };
+            var teamNames = new[] { "G2", "NAVI", "Liquid", "Furia", "BIG", "FTW", "FAZE" };
+
 
             foreach (JObject m in jarray.Cast<JObject>())
             {
                 //Set up values from api
-                //Dictionary<int, string?> teamList = new();
+                Dictionary<int, string?> teamList = new();
                 var ma = new MatchCS();
-                var
+                JArray games = (JArray)m["games"]; 
+                foreach (var gamesObject in games.Children<JObject>())
+                {
+                    //var MatchCSId;
+                    var MatchCSAPIID = gamesObject.GetValue("id");
+                    var WinnerTeamAPIId = gamesObject.GetValue("winner").Value<int>("id");
 
-                var eventAPIID = e.GetValue("id");
+                    //var MatchesCSId;
+                }
+                var MatchesCSAPIId = m.GetValue("id");
+                //var PlayerStatsList;
+
+                var eventAPIID = m.GetValue("id");
                 var nameStage = e.GetValue("name");
                 var beginAt = e.GetValue("begin_at");
                 var timeType = TimeType.Running;
@@ -68,14 +102,11 @@ namespace FPTV.Controllers
                 var winnerTeamAPIId = e.GetValue("winner_id");
 
                 //Handling for null values
-                ma.Map =;
-                ma.WinnerTeamName =;
-                ma.TeamsList =;
-                ma.PlayerStatsList =;
-                ma.
+                ma.Map = maps[_random.Next(maps.Length)];
+                ma.RoundsScore = StaticResults[_random.Next(maps.Length)];
+                ma.WinnerTeamName = teamNames[_random.Next(maps.Length)];
 
 
-                ma
                 ev.EventAPIID = eventAPIID.ToString() == null ? -1 : eventAPIID.Value<int>();
                 ev.BeginAt = beginAt.ToString() == "" ? null : beginAt.Value<DateTime>();
                 ev.TimeType = timeType;
@@ -102,6 +133,8 @@ namespace FPTV.Controllers
                 events.Add(ev);
 
             }
+
+            return null;
 
         }
 
