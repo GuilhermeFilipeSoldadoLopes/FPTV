@@ -3,7 +3,7 @@
 ## **Introdução**
 
 Bem-vindo ao projeto FPTV, a futura hub dos FPS E-Sports. O objetivo deste projeto é fornecer aos jogadores de FPS as informações mais relevantes sobre os jogos VALORANT e CS:GO, incluindo eventos em destaque, jogadores e equipas favoritas. Este manual de utilização irá ajudá-lo a compreender como usar o projeto FPTV e todas as suas funcionalidades.<p>
-
+<br>
   
 **Criação de uma Conta:** Para usar o projeto FPTV, você precisa criar uma conta. Há duas opções para criar uma conta:<p>
 
@@ -42,8 +42,7 @@ Se quiser ver as estatísticas desde o inicio da carreira de um jogador em espec
 
 ![StatsAllTime](https://cdn.discordapp.com/attachments/783386747638775848/1083153182265442504/image.png)<p>
 
-  
-  
+<br><br>
   
 **Conclusão:** Este manual de utilização foi criado para ajudar os utilizadores a compreender e usar as funcionalidades do site FPTV. Esperamos que este manual tenha respondido a todas as suas perguntas sobre como usar o site FPTV e que você tenha uma excelente experiência ao usá-lo. <p>
 
