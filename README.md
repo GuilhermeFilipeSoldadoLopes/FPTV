@@ -6,3 +6,6 @@ O objetivo do presente documento visa introduzir o projeto FPTV, a futura hub do
 
 ## Manual Técnico
 - Sprint 2: https://guilhermefilipesoldadolopes.github.io/FPTV
+
+## Manual de Utilização
+- Sprint 2: https://guilherme-fs-lopes.atlassian.net/wiki/spaces/PDE/pages/40402977/Manual+de+Utiliza+o+-+Sprint+2
