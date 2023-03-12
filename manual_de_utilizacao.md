@@ -8,7 +8,7 @@ Bem-vindo ao projeto FPTV, a futura hub dos FPS E-Sports. O objetivo deste proje
 
 1. Usando um endereço de e-mail e uma palavra-passe: clique no botão "Login/Register" na página inicial e siga as etapas para preencher as informações necessárias.<p>
 
-![Email](https://cdn.discordapp.com/attachments/783386747638775848/1083147697617371186/image.png)
+![Register](https://cdn.discordapp.com/attachments/783386747638775848/1083147697617371186/image.png)
 
 2. Usando sua conta Steam ou Google: clique no botão de início de sessão correspondente e siga as etapas para fazer o login com sua conta existente.<p>
 
