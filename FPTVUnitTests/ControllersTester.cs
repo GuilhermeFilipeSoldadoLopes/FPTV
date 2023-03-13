@@ -14,6 +14,7 @@ namespace FPTVUnitTests
             _context = context.DbContext;
         }
 
+        //TU1
         //HomeController
         [Fact]
         public void Index_ReturnsViewResult()
@@ -23,6 +24,7 @@ namespace FPTVUnitTests
             Assert.IsType<ViewResult>(result);
         }
 
+        //TU2
         //HomeController
         [Fact]
         public void Privacy_ReturnsViewResult()
@@ -32,6 +34,7 @@ namespace FPTVUnitTests
             Assert.IsType<ViewResult>(result);
         }
 
+        //TU3
         //HomeController
         [Fact]
         public void ConfirmDelete_ReturnsViewResult()
@@ -41,6 +44,8 @@ namespace FPTVUnitTests
             Assert.IsType<ViewResult>(result);
         }
 
+
+        //TU4
         //EventsController
         [Fact]
         public void Events_ReturnsViewResult()
@@ -50,6 +55,7 @@ namespace FPTVUnitTests
             Assert.IsType<ViewResult>(result);
         }
 
+        //TU5
         //EventsController
         [Fact]
         public void EventDetails_ReturnsViewResult()
@@ -59,6 +65,7 @@ namespace FPTVUnitTests
             Assert.IsType<ViewResult>(result);
         }
 
+        //TU6
         //HomeController -> MatchesController
         [Fact]
         public void Matches_ReturnsViewResult()
@@ -68,6 +75,7 @@ namespace FPTVUnitTests
             Assert.IsType<ViewResult>(result);
         }
 
+        //TU7
         //HomeController -> MatchesController
         [Fact]
         public void MatchesDetails_ReturnsViewResult()
@@ -77,6 +85,7 @@ namespace FPTVUnitTests
             Assert.IsType<ViewResult>(result);
         }
 
+        //TU8
         //HomeController -> StatsController
         [Fact]
         public void Results_ReturnsViewResult()
@@ -86,6 +95,7 @@ namespace FPTVUnitTests
             Assert.IsType<ViewResult>(result);
         }
 
+        //TU9
         //HomeController -> StatsController
         [Fact]
         public void TeamStats_ReturnsViewResult()
@@ -95,6 +105,7 @@ namespace FPTVUnitTests
             Assert.IsType<ViewResult>(result);
         }
 
+        //TU10
         //HomeController -> StatsController
         [Fact]
         public void PlayerAndStats_ReturnsViewResult()
