@@ -8,6 +8,7 @@ namespace FPTVUnitTests
     public class ControllersTester : IClassFixture<ApplicationDbContextFixture>
     {
         private FPTVContext _context;
+
         public ControllersTester(ApplicationDbContextFixture context)
         {
             _context = context.DbContext;
@@ -19,7 +20,7 @@ namespace FPTVUnitTests
         {
             var controller = new HomeController(null, _context);
             var result = controller.Index();
-            var viewResult = Assert.IsType<ViewResult>(result);
+            Assert.IsType<ViewResult>(result);
         }
 
         //HomeController
@@ -28,7 +29,7 @@ namespace FPTVUnitTests
         {
             var controller = new HomeController(null, _context);
             var result = controller.Privacy();
-            var viewResult = Assert.IsType<ViewResult>(result);
+            Assert.IsType<ViewResult>(result);
         }
 
         //HomeController
@@ -37,7 +38,7 @@ namespace FPTVUnitTests
         {
             var controller = new HomeController(null, _context);
             var result = controller.ConfirmDelete();
-            var viewResult = Assert.IsType<ViewResult>(result);
+            Assert.IsType<ViewResult>(result);
         }
 
         //EventsController
@@ -46,16 +47,16 @@ namespace FPTVUnitTests
         {
             var controller = new EventsController();
             var result = controller.Index();
-            var viewResult = Assert.IsType<ViewResult>(result);
+            Assert.IsType<ViewResult>(result);
         }
 
-        //HomeController -> EventsController
+        //EventsController
         [Fact]
         public void EventDetails_ReturnsViewResult()
         {
             var controller = new EventsController();
             var result = controller.Details(1);
-            var viewResult = Assert.IsType<ViewResult>(result);
+            Assert.IsType<ViewResult>(result);
         }
 
         //HomeController -> MatchesController
@@ -64,7 +65,7 @@ namespace FPTVUnitTests
         {
             var controller = new HomeController(null, _context);
             var result = controller.Matches();
-            var viewResult = Assert.IsType<ViewResult>(result);
+            Assert.IsType<ViewResult>(result);
         }
 
         //HomeController -> MatchesController
@@ -73,7 +74,7 @@ namespace FPTVUnitTests
         {
             var controller = new HomeController(null, _context);
             var result = controller.MatchDetails();
-            var viewResult = Assert.IsType<ViewResult>(result);
+            Assert.IsType<ViewResult>(result);
         }
 
         //HomeController -> StatsController
@@ -82,7 +83,7 @@ namespace FPTVUnitTests
         {
             var controller = new HomeController(null, _context);
             var result = controller.Results();
-            var viewResult = Assert.IsType<ViewResult>(result);
+            Assert.IsType<ViewResult>(result);
         }
 
         //HomeController -> StatsController
@@ -91,7 +92,7 @@ namespace FPTVUnitTests
         {
             var controller = new HomeController(null, _context);
             var result = controller.TeamStats();
-            var viewResult = Assert.IsType<ViewResult>(result);
+            Assert.IsType<ViewResult>(result);
         }
 
         //HomeController -> StatsController
@@ -100,7 +101,7 @@ namespace FPTVUnitTests
         {
             var controller = new HomeController(null, _context);
             var result = controller.PlayerAndStats();
-            var viewResult = Assert.IsType<ViewResult>(result);
+            Assert.IsType<ViewResult>(result);
         }
     }
 }
