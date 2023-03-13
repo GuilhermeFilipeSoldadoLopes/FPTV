@@ -38,9 +38,6 @@ namespace FPTV.Models.StatisticsModels
 		[Display(Name = "List of Teams")] 
         public ICollection<MatchTeamsCS>? TeamsList { get; set; }
 
-        [Display(Name = "Id of the winner team")]
-        public Guid? WinnerTeamId { get; set; }
-
 		[Required]
 		[Display(Name = "API Id of the winner team")]
         public int? WinnerTeamAPIId { get; set; }
