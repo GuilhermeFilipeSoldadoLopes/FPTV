@@ -53,8 +53,8 @@ namespace FPTVUnitTests
         [Fact]
         public void EventDetails_ReturnsViewResult()
         {
-            var controller = new HomeController(null, _context);
-            var result = controller.EventDetails();
+            var controller = new EventsController();
+            var result = controller.Details(1);
             var viewResult = Assert.IsType<ViewResult>(result);
         }
 
