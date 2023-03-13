@@ -44,15 +44,15 @@ namespace FPTV.Models.StatisticsModels
 
         [Required]
         [Display(Name = "ADR")]
-        public float? ADR { get; set; }
+        public double? ADR { get; set; }
 
         [Required]
         [Display(Name = "HeadShots")]
-        public float? HeadShots { get; set; }
+        public double? HeadShots { get; set; }
 
         [Required]
         [Display(Name = "KD Diff")]
-        public float? KD_Diff { get; set; }
+        public double? KD_Diff { get; set; }
 
         [Required]
         [Display(Name = "Name of a player")]

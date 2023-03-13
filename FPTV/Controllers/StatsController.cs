@@ -1,5 +1,6 @@
 ﻿using AngleSharp.Io;
 using FPTV.Data;
+using FPTV.Models.EventsModels;
 using FPTV.Models.MatchesModels;
 using FPTV.Models.StatisticsModels;
 using FPTV.Models.UserModels;
@@ -11,309 +12,125 @@ using Newtonsoft.Json.Linq;
 using RestSharp;
 using System;
 using System.Linq.Expressions;
+using System.Reflection.Metadata.Ecma335;
 
 namespace FPTV.Controllers
 {
-	/*public class StatsController : Controller
+    public class StatsController : Controller
     {
         private readonly FPTVContext _context;
         Random _random = new Random();
+        MatchesController _matchesController;
 
         public StatsController(FPTVContext context)
         {
             _context = context;
-        }
-        
-        public async Task<ActionResult> PlayerAndStats(string gameType)
-        {
-            switch (gameType)
-            {
-                case "csgo":
-                    var playerStatsCs = await _context.MatchPlayerStatsCS.ToListAsync();
-                    var statsCs = new List<MatchPlayerStatsCS>();
-
-                    foreach (var staCs in statsCs)
-                    {
-                        statsCs.Add(staCs);
-                    }
-
-                    return View(statsCs);
-
-                case "valorant":
-                    var playerStatsVal = await _context.MatchPlayerStatsVal.ToListAsync();
-                    var statsVal = new List<MatchPlayerStatsVal>();
-
-                    foreach (var staVal in statsVal)
-                    {
-                        statsVal.Add(staVal);
-                    }
-
-                    return View(statsVal);
-
-                default:
-                    return null;
-            }
+            _matchesController = new MatchesController(_context);
         }
 
-        public async Task<ActionResult> TeamAndStats(string gameType)
-        {
-            switch (gameType)
-            {
-                case "csgo":
-                    var teamStatsCs = await _context.MatchTeamsCS.ToListAsync();
-                    var statsTeamCs = new List<MatchTeamsCS>();
-
-                    foreach (var staTeamCs in statsTeamCs)
-                    {
-                        statsTeamCs.Add(staTeamCs);
-                    }
-
-                    return View(statsTeamCs);
-                case "valorant":
-                    var teamStatsVal = await _context.MatchTeamsVal.ToListAsync();
-                    var statsTeamVal = new List<MatchTeamsVal>();
-
-                    foreach (var staTeamVal in statsTeamVal)
-                    {
-                        statsTeamVal.Add(staTeamVal);
-                    }
-
-                    return View(statsTeamVal);
-
-                default:
-                    return null;
-            }
-        }
-
-        public Task<ActionResult> MatchPlayerStatsCS()
-        {
-            var client = new RestClient("");
+        //De CSGO e de Valorant
+        // GET: CSMatches
         /*
-        private void GetMatchPlayerStatsCS()
+        public async Task<IActionResult> CSGOMatches()
         {
-            var client = new RestClient("https://api.pandascore.co/csgo/matches/past?sort=&page=1&per_page=50");
-            var request = new RestRequest("", Method.Get);
-            request.AddHeader("accept", "application/json");
-            RestResponse response = client.Execute(request);
-
-            JArray matchesArray = JArray.Parse(response.Content);
-
-
-            MatchPlayerStatsCS pastMatchCs = new MatchPlayerStatsCS();
-
-            foreach (var item in matchesArray.Children<JObject>())
+            foreach (var matches in pastMatches)
             {
-                MatchesCS matches = new MatchesCS();
-
-                ICollection<MatchCS> matchesList = new List<MatchCS>();
-                List<Guid> teamsList = new List<Guid>();
-                ICollection<Stream> streamsList = new List<Stream>();
-
-                matches.BeginAt = (DateTime)item["begin_at"];
-
-                matches.HaveStats = (bool)item["detailed_stats"];
-
-                matches.EndAt = (DateTime)item["end_at"];
-
-                JArray matchArray = (JArray)item["games"];
-                foreach (var match in matchArray.Children<JObject>())
-                {
-                    MatchCS matchCS = new MatchCS();
-
-                    matchCS.MatchesCSId = matches.MatchesCSId;
-
-                }
-
-                foreach (JObject gameObject in gamesArray)
-                {
-                    int MatchCSId = (int)jObject["id"];
-                    int PlayerCSId = (int)jObject["player_id"];
-                    int Kills = (DateTime)jObject["kills"];
-                    int Deaths = (DateTime)jObject["deaths"];
-                    int Assists = (DateTime)jObject["assists"];
-                    int FlashAssist = (DateTime)jObject["flash_assists"];
-                    int ADR = (DateTime)jObject["adr"];
-                    int HeadShots = (DateTime)jObject["headshots"];
-                    int KD_Diff = (DateTime)jObject["k_d_diff"];
-                    int PlayerName = (DateTime)jObject["first_name"];
-                }
+                _context.MatchesCS.Add(matches);
             }
-        }
-        private void GetPastMatchCS()
+
+            return View();
+        }*/
+
+
+
+        private String request(string category, string sort = "sort=-begin_at", string page = "&page=1", string filter = "past", string game = "csgo")
         {
-            var client = new RestClient("https://api.pandascore.co/csgo/matches/past?sort=&page=1&per_page=50");
+            var jsonFilter = filter + "?";
+            var jsonSort = sort;
+            var jsonPage = page;
+            var jsonPerPage = "&per_page = 10";
+            var token = "&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA";
+            var requestLink = "https://api.pandascore.co/" + game + "/" + category + "/ ";
+            var fullApiPath = requestLink + jsonFilter + jsonSort + jsonPage + jsonPerPage + token;
+
+            var client = new RestClient(fullApiPath);
             var request = new RestRequest("", Method.Get);
             request.AddHeader("accept", "application/json");
-            RestResponse response = client.Execute(request);
 
-            JArray statsArray = JArray.Parse(response.Content);
-            MatchesCS pastMatchesCs = new MatchesCS();
-            MatchTeamsCS pastMatchTeamCs = new MatchTeamsCS();
-            MatchCS pastMatchCs = new MatchCS();
+            return client.Execute(request).Content;
+
+        }
+
+        private void getPastCSGOMatches()
+        {
+            string url = "https://api.pandascore.co/csgo/matches/past?sort=draw&sort=&page=1&per_page=50&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA";
+
+            var jsonMatches = request("matches");
+            var jsonTeams = request("teams");
+            var jsonPlayers = request("players");
+
+            var jarrayMatches = JArray.Parse(jsonMatches);
+            var jarrayTeams = JArray.Parse(jsonTeams);
+            var jarrayPlayers = JArray.Parse(jsonPlayers);
+            List<MatchCS> pastMatches = new();
 
             var StaticResults = new[] { "16-12", "14-16", "16-9", "8-16", "10-16", "16-11", "3-16", "16-7" };
-            var maps = new[] { "Inferno", "Mirage", "Nuke", "Overpass", "Vertigo", "Ancient", "Anubis"};
+            var maps = new[] { "Inferno", "Mirage", "Nuke", "Overpass", "Vertigo", "Ancient", "Anubis" };
+            var teamNames = new[] { "G2", "NAVI", "Liquid", "Furia", "BIG", "FTW", "FAZE" };
 
-            foreach (var item in statsArray.Children<JObject>())
+
+
+            foreach (JObject m in jarrayMatches.Cast<JObject>())
             {
-                pastMatchCs.MatchCSId = (int)item["games/match_id"];
-                //pastMatchCs.MatchesCSId = pastMatchesCs.MatchesCSId; ir buscar o controller das matches que retorna as matchesid e igualar o
-                //meu MatchesCSId com o MatchesCSId das matches
-                //pastMatchCs.PlayerStatsList = ;
-                pastMatchCs.RoundsScore = StaticResults[_random.Next(StaticResults.Length)];
-                pastMatchCs.Map = maps[_random.Next(maps.Length)];
-                pastMatchCs.TeamsList = pastMatchTeamCs.
-                pastMatchCs.WinnerTeamId = _random.Next(1, 101);
-                pastMatchCs.WinnerTeamName = _random.NextDouble();
+                List<MatchPlayerStatsCS>? playerStatsList = new();
+                List<MatchTeamsCS>? teamsList = new();
 
-                _context.Add(matches);
-            }
-        }
-
-        private void GetRunningMatchCS()
-        {
-            var client = new RestClient("https://api.pandascore.co/csgo/matches/running?sort=&page=1&per_page=50");
-            var request = new RestRequest("", Method.Get);
-            request.AddHeader("accept", "application/json");
-            RestResponse response = client.Execute(request);
-
-            JArray statsArray = JArray.Parse(response.Content);
-            MatchCS runningMatchCs = new MatchCS();
-        }
-
-        private void GetUpComingMatchCS()
-        {
-            var client = new RestClient("https://api.pandascore.co/csgo/matches/upcoming?sort=&page=1&per_page=50");
-            var request = new RestRequest("", Method.Get);
-            request.AddHeader("accept", "application/json");
-            RestResponse response = client.Execute(request);
-
-            JArray statsArray = JArray.Parse(response.Content);
-            MatchCS upcomingMatchCs = new MatchCS();
-        }
-
-        private void GetPastMatchPlayerStatsCS()
-        {
-            //MatchCSId
-            var client = new RestClient("https://api.pandascore.co/csgo/matches?&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA");
-            var request = new RestRequest("", Method.Get);
-            request.AddHeader("accept", "application/json");
-            RestResponse response = client.Execute(request);
-
-            JArray statsArray = JArray.Parse(response.Content);
-            MatchPlayerStatsCS pastMatchCs = new MatchPlayerStatsCS();
-
-            var nomes = new[] { "Aaliyah", "Aaron", "Abagail", "Abbey", "Abbie", "Abbigail", "Abby", "Abdiel" };
-
-            foreach (var item in statsArray.Children<JObject>())
-            {
-                matches.MatchCSId = (int)item["games/match_id"];
-                matches.PlayerCSId = _random.Next();
-                matches.Kills = _random.Next(1, 31);
-                matches.Deaths = _random.Next(1, 21);
-                matches.Assists = _random.Next(1, 11);
-                matches.FlashAssist = _random.Next(1, 6);
-                matches.ADR = _random.Next(1, 101);
-                matches.HeadShots = _random.NextDouble();
-                matches.KD_Diff = _random.NextDouble();
-                matches.PlayerName = nomes[_random.Next(nomes.Length)];
-
-                _context.Add(matches);
-            }
-        }
-
-        private void getMatchPlayerStatsVal()
-        {
-            //MatchCSId
-            var client = new RestClient("https://api.pandascore.co/valorant/matches?sort=&page=1&per_page=50");
-            var request = new RestRequest("", Method.Get);
-            request.AddHeader("accept", "application/json");
-            RestResponse response = client.Execute(request);
-
-            JArray statsArray = JArray.Parse(response.Content);
-            MatchPlayerStatsVal matches = new MatchPlayerStatsVal();
-
-            var nomes = new[] { "Aaliyah", "Aaron", "Abagail", "Abbey", "Abbie", "Abbigail", "Abby", "Abdiel" };
-
-            foreach (var item in statsArray.Children<JObject>())
-            {
-                matches.MatchValId = (int)item["id"];
-                matches.PlayerValId = _random.Next();
-                matches.Kills = _random.Next(1, 31);
-                matches.Deaths = _random.Next(1, 21);
-                matches.Assists = _random.Next(1, 11);
-                matches.ADR = _random.Next(1, 101);
-                matches.HeadShots = _random.NextDouble();
-                matches.KD_Diff = _random.NextDouble();
-                matches.PlayerName = nomes[_random.Next(nomes.Length)];
-
-                _context.Add(matches);
-            }
-        }
-
-
-        private void getMatchTeamsCS()
-        {
-            //MatchCSId
-            var client = new RestClient("https://api.pandascore.co/csgo/matches?&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA");
-            var request = new RestRequest("", Method.Get);
-            request.AddHeader("accept", "application/json");
-            RestResponse response = client.Execute(request);
-
-            JArray statsArray = JArray.Parse(response.Content);
-            MatchTeamsCS matches = new MatchTeamsCS();
-
-            var nomes = new[] { "Aaliyah", "Aaron", "Abagail", "Abbey", "Abbie", "Abbigail", "Abby", "Abdiel" };
-
-            foreach (var item in statsArray.Children<JObject>())
-            {
-                matches.MatchCSId = (int)item["id"];
-                matches.Name = (string)item["acronym"];
-                matches.Location = (string)item["location"];
-                matches.Image = (string)item["image_url"];
-
-                JArray matchArray = (JArray)item["opponent"];
-                foreach (var match in matchArray.Children<JObject>())
+                JArray games = (JArray)m["games"];
+                foreach (var gamesObject in games.Children<JObject>())
                 {
-                    matches.TeamCSId = (int)item["id"];
+                    var ma = new MatchCS();
 
+
+                    var MatchCSAPIID = gamesObject.GetValue("id");
+                    var MatchesCSAPIId = (int)m.GetValue("id");
+                    ma.Map = maps[_random.Next(maps.Length)];
+                    ma.RoundsScore = StaticResults[_random.Next(maps.Length)];
+                    ma.WinnerTeamName = teamNames[_random.Next(maps.Length)];
+                    ma.MatchCSAPIID = (int)MatchCSAPIID;
+                    var WinnerTeamAPIId = gamesObject.GetValue("winner").Value<int>("id");
+
+                    foreach (JObject t in jarrayTeams.Cast<JObject>())
+                    {
+                        var team = new MatchTeamsCS();
+                        team.MatchCSId = ma.MatchCSId;
+                        team.MatchCSAPIID = ma.MatchCSAPIID;
+                        team.TeamCSAPIId = (int)t.GetValue("id");
+                        team.Name = (string)t.GetValue("name");
+                        team.Location = (string)t.GetValue("location");
+                        team.Image = (string)t.GetValue("image_url");
+                        teamsList.Add(team);
+
+                        foreach (JObject p in jarrayPlayers.Cast<JObject>())
+                        {
+                            var player = new MatchPlayerStatsCS();
+                            player.MatchCSId = ma.MatchCSId;
+                            player.MatchCSAPIID = ma.MatchCSAPIID;
+                            player.PlayerCSAPIId = (int)t.GetValue("id");
+                            player.Kills = _random.Next(1, 31);
+                            player.Deaths = _random.Next(1, 21); ;
+                            player.Assists = _random.Next(1, 11); ;
+                            player.FlashAssist = _random.Next(1, 6); ;
+                            player.ADR = _random.NextDouble();
+                            player.HeadShots = _random.NextDouble() * 100;
+                            player.KD_Diff = _random.NextDouble();
+                            player.PlayerName = (string)t.GetValue("name"); ;
+                            playerStatsList.Add(player);
+                        }
+                    }
+                    ViewBag.playerStatsList = playerStatsList;
+                    ViewBag.teamsList = teamsList;
                 }
-
-                _context.Add(matches);
             }
         }
-
-        private void getMatchTeamsVal() // em vez de ter isto a ir buscar ao list das matches
-                                        // tenho de fazer um método para cada link da api ou seja um 
-                                        // para upcoming, on going e past
-        {
-            //MatchCSId
-            var client = new RestClient("https://api.pandascore.co/valorant/matches?sort=&page=1&per_page=50");
-            var request = new RestRequest("", Method.Get);
-            request.AddHeader("accept", "application/json");
-            RestResponse response = client.Execute(request);
-
-            JArray statsArray = JArray.Parse(response.Content);
-            MatchTeamsVal matches = new MatchTeamsVal();
-
-            var nomes = new[] { "Aaliyah", "Aaron", "Abagail", "Abbey", "Abbie", "Abbigail", "Abby", "Abdiel" };
-
-            foreach (var item in statsArray.Children<JObject>())
-            {
-                matches.MatchValId = (int)item["match_id"];
-                matches.Name = (string)item["acronym"];
-                matches.Location = (string)item["location"];
-                matches.Image = (string)item["image_url"];
-
-                JArray matchArray = (JArray)item["opponent"];
-                foreach (var match in matchArray.Children<JObject>())
-                {
-                    matches.TeamValId = (int)item["id"];
-
-                }
-
-                _context.Add(matches);
-            }
-        }
-    }*/
+    }
 }
