@@ -17,17 +17,21 @@ namespace FPTV.Controllers
     public class EventsController : Controller
     {
         // GET: EventsController
-        public ActionResult Index(string sort = "sort=-begin_at", string filter = "running", string page = "&page=1", string game = "csgo")
+        public ActionResult Index(string sort = "&sort=-begin_at", string filter = "running", string search = "", string page = "&page=1", string game = "csgo")
         {
+            Console.WriteLine(search);
             //Request processing with RestSharp
             var jsonFilter = filter + "?";
+            var jsonSearch = search == "" ? "" : "search[name]=" + search;
             var jsonSort = sort;
             var jsonPage = page;
-            var jsonPerPage = "&per_page = 10";
+            var jsonPerPage = "&per_page=10";
             var token = "&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA";
             var requestLink = "https://api.pandascore.co/" + game + "/tournaments/";
+			
 
-            var fullApiPath = requestLink + jsonFilter + jsonSort + jsonPage + jsonPerPage + token;
+			var fullApiPath = requestLink + jsonFilter + jsonSearch + jsonSort + jsonPage + jsonPerPage + token;
+			Console.WriteLine(fullApiPath);
 			var client = new RestClient(fullApiPath);
             var request = new RestRequest("", Method.Get);
             request.AddHeader("accept", "application/json");
