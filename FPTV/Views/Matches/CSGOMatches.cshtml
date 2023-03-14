@@ -238,16 +238,23 @@
                             <div>
                                 <span style="text-align: center;">
                                     <p style="font-size:25px">
-                                        @foreach (var team in item.TeamsAPIIDList)
+                                        @foreach (var team in ViewBag.teams)
                                         {
-                                            <span> @team </span>
+                                            @if (team.TeamCSAPIId == item.TeamsAPIIDList[0])
+                                            {
+                                                <span> @team.Name </span>
+                                            }
                                         }
-                                        <br />
-                                        <span> 1 </span>
                                         <span class="span2"> 16 </span>
                                         <span class="span2"> vs </span>
                                         <span class="span2"> 10 </span>
-                                        <span> 2 </span>
+                                        @foreach (var team in ViewBag.teams)
+                                        {
+                                            @if (team.TeamCSAPIId == item.TeamsAPIIDList[1])
+                                            {
+                                                <span> @team.Name </span>
+                                            }
+                                        }
                                     </p>
                                 </span>
                             </div>
@@ -375,10 +382,6 @@
                     </div>
 
                         <div name="FirstTeam">
-                            @foreach (var team in item.TeamsAPIIDList)
-                            {
-                                <span> @team </span>
-                            }
                             <br />
                             <span style="text-align: left;margin-left:10%">
                                 <img src="~/images/image_bruge.png" width="82px" height="112px" />
@@ -387,8 +390,22 @@
                             <span style="text-align: left;margin-left:25%">
                                 <img src="~/images/image_case.png" width="82px" height="112px" />
                             </span>
-                            <span style="text-align: left;margin-left:14%"> ENCE </span>
-                            <span style="text-align: left;margin-left:55%"> CASE </span><br />
+                            @foreach (var team in ViewBag.teams)
+                            {
+                                @if (team.TeamCSAPIId == item.TeamsAPIIDList[0])
+                                {
+                                    <span style="text-align: left;margin-left:14%"> @team.Name </span>
+                                }
+                            }
+                            @foreach (var team in ViewBag.teams)
+                            {
+                                @if (team.TeamCSAPIId == item.TeamsAPIIDList[1])
+                                {
+                                    <span style="text-align: left;margin-left:55%"> @team.Name </span>
+
+                                    <br />
+                                }
+                            }
                             <span style="text-align: left;margin-left:16%" class="span2"> - </span>
                             <span style="text-align: left;margin-left:29%">-</span><br />
                             
@@ -417,16 +434,23 @@
                     <div>
                         <span style="text-align: center;">
                             <p style="font-size:25px">
-                                @foreach (var team in item.TeamsAPIIDList)
+                            @foreach (var team in ViewBag.teams)
+                            {
+                                @if (team.TeamCSAPIId == item.TeamsAPIIDList[0])
                                 {
-                                    <span> @team </span>
+                                    <span> @team.Name </span>
                                 }
-                                <br />
-                                <span> 1 </span>
-                                <span class="span2">  </span>
-                                <span class="span2"> vs </span>
-                                <span class="span2">  </span>
-                                <span> 2 </span>
+                            }
+                            <span class="span2">  </span>
+                            <span class="span2"> vs </span>
+                            <span class="span2">  </span>
+                            @foreach (var team in ViewBag.teams)
+                            {
+                                @if (team.TeamCSAPIId == item.TeamsAPIIDList[1])
+                                {
+                                    <span> @team.Name </span>
+                                }
+                            }
                             </p>
                         </span>
                     </div>

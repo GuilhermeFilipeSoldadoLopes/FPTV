@@ -18,6 +18,7 @@ using Newtonsoft.Json.Linq;
 using RestSharp;
 using SendGrid.Helpers.Mail;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.Intrinsics.Arm;
 using System.Runtime.Intrinsics.X86;
 using System.Text.RegularExpressions;
@@ -57,7 +58,7 @@ namespace FPTV.Controllers
 
             var fullApiPath = requestLink + "past?" + jsonFilter + jsonSort + jsonPage + jsonPerPage + token;
             List<MatchesCS> pastMatches = getAPICSGOMatches(fullApiPath);
-            fullApiPath = requestLink + "running?" + /*jsonFilter +*/ jsonSort + jsonPage + jsonPerPage + token;
+            fullApiPath = requestLink + "running?" + jsonFilter + jsonSort + jsonPage + jsonPerPage + token;
             List<MatchesCS> runningMatches = getAPICSGOMatches(fullApiPath);
             fullApiPath = requestLink + "upcoming?" + jsonFilter + jsonSort + jsonPage + jsonPerPage + token;
             List<MatchesCS> upcomingMatches = getAPICSGOMatches(fullApiPath);
@@ -76,18 +77,53 @@ namespace FPTV.Controllers
 				}
 			}
 
-            /*List<MatchTeamsCS> teams = new List<MatchTeamsCS>();
+            List<MatchTeamsCS> teams = new List<MatchTeamsCS>();
             List<int> dbTeamsIds = new List<int>();
 
             foreach (var matches in pastMatches)
             {
-                foreach (var item in matches.TeamsAPIIDList)
-                {
-                    if (!dbTeamsIds.Contains(item))
-                    {
+                var id = matches.MatchesCSAPIID;
 
-                        teams.Add();
-                        dbTeamsIds.Add();
+                var client = new RestClient("https://api.pandascore.co/csgo/matches/past?filter[id]=" + id + "&sort=&page=1&per_page=50&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA");
+                var request = new RestRequest("", Method.Get);
+                request.AddHeader("accept", "application/json");
+                var json = client.Execute(request).Content;
+
+                if (json == null)
+                {
+                    break;
+                }
+
+                var matchesArray = JArray.Parse(json);
+
+                foreach (var item in matchesArray.Cast<JObject>())
+                {
+                    var status = item.GetValue("status");
+
+                    if (!status.ToString().Equals("canceled"))
+                    {
+                        var opponentArray = (JArray)item.GetValue("opponents");
+
+                        foreach (var opponentObject in opponentArray.Cast<JObject>())
+                        {
+                            var opponent = (JObject)opponentObject.GetValue("opponent");
+
+                            var teamIdValue = opponent.GetValue("id");
+                            var teamImage = opponent.GetValue("image_url");
+                            var teamName = opponent.GetValue("name");
+                            var teamId = teamIdValue.ToString() == "" ? -1 : teamIdValue.Value<int>();
+
+                            var team = new MatchTeamsCS();
+                            team.TeamCSAPIId = teamId;
+                            team.Name = teamName.ToString() == "" ? "" : teamName.Value<string>();
+                            team.Image = teamImage.ToString() == "" ? "" : teamImage.Value<string>();
+
+                            if (!dbTeamsIds.Contains(team.TeamCSAPIId))
+                            {
+                                teams.Add(team);
+                                dbTeamsIds.Add(teamId);
+                            }
+                        }
                     }
                 }
                 
@@ -95,13 +131,48 @@ namespace FPTV.Controllers
 
             foreach (var matches in runningMatches)
             {
-                foreach (var item in matches.TeamsAPIIDList)
-                {
-                    if (!dbTeamsIds.Contains(item))
-                    {
+                var id = matches.MatchesCSAPIID;
 
-                        teams.Add();
-                        dbTeamsIds.Add();
+                var client = new RestClient("https://api.pandascore.co/csgo/matches/running?filter[id]=" + id + "&sort=&page=1&per_page=50&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA");
+                var request = new RestRequest("", Method.Get);
+                request.AddHeader("accept", "application/json");
+                var json = client.Execute(request).Content;
+
+                if (json == null)
+                {
+                    break;
+                }
+
+                var matchesArray = JArray.Parse(json);
+
+                foreach (var item in matchesArray.Cast<JObject>())
+                {
+                    var status = item.GetValue("status");
+
+                    if (!status.ToString().Equals("canceled"))
+                    {
+                        var opponentArray = (JArray)item.GetValue("opponents");
+
+                        foreach (var opponentObject in opponentArray.Cast<JObject>())
+                        {
+                            var opponent = (JObject)opponentObject.GetValue("opponent");
+
+                            var teamIdValue = opponent.GetValue("id");
+                            var teamImage = opponent.GetValue("image_url");
+                            var teamName = opponent.GetValue("name");
+                            var teamId = teamIdValue.ToString() == "" ? -1 : teamIdValue.Value<int>();
+
+                            var team = new MatchTeamsCS();
+                            team.TeamCSAPIId = teamId;
+                            team.Name = teamName.ToString() == "" ? "" : teamName.Value<string>();
+                            team.Image = teamImage.ToString() == "" ? "" : teamImage.Value<string>();
+
+                            if (!dbTeamsIds.Contains(team.TeamCSAPIId))
+                            {
+                                teams.Add(team);
+                                dbTeamsIds.Add(teamId);
+                            }
+                        }
                     }
                 }
 
@@ -109,36 +180,52 @@ namespace FPTV.Controllers
 
             foreach (var matches in upcomingMatches)
             {
-                foreach (var item in matches.TeamsAPIIDList)
-                {
-                    if (!dbTeamsIds.Contains(item))
-                    {
+                var id = matches.MatchesCSAPIID;
 
-                        teams.Add();
-                        dbTeamsIds.Add();
+                var client = new RestClient("https://api.pandascore.co/csgo/matches/upcoming?filter[id]=" + id + "&sort=&page=1&per_page=50&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA");
+                var request = new RestRequest("", Method.Get);
+                request.AddHeader("accept", "application/json");
+                var json = client.Execute(request).Content;
+
+                if (json == null)
+                {
+                    break;
+                }
+
+                var matchesArray = JArray.Parse(json);
+
+                foreach (var item in matchesArray.Cast<JObject>())
+                {
+                    var status = item.GetValue("status");
+
+                    if (!status.ToString().Equals("canceled"))
+                    {
+                        var opponentArray = (JArray)item.GetValue("opponents");
+
+                        foreach (var opponentObject in opponentArray.Cast<JObject>())
+                        {
+                            var opponent = (JObject)opponentObject.GetValue("opponent");
+
+                            var teamIdValue = opponent.GetValue("id");
+                            var teamImage = opponent.GetValue("image_url");
+                            var teamName = opponent.GetValue("name");
+                            var teamId = teamIdValue.ToString() == "" ? -1 : teamIdValue.Value<int>();
+
+                            var team = new MatchTeamsCS();
+                            team.TeamCSAPIId = teamId;
+                            team.Name = teamName.ToString() == "" ? "" : teamName.Value<string>();
+                            team.Image = teamImage.ToString() == "" ? "" : teamImage.Value<string>();
+
+                            if (!dbTeamsIds.Contains(team.TeamCSAPIId))
+                            {
+                                teams.Add(team);
+                                dbTeamsIds.Add(teamId);
+                            }
+                        }
                     }
                 }
 
             }
-
-            foreach (var item in pastMatches)
-            {
-                var a = item.TeamsAPIIDList.ToList().ElementAt(0);
-                var b = item.TeamsAPIIDList.ToList().ElementAt(1);
-                var c = "";
-
-                foreach (var team in teams)
-                {
-                    if (team.TeamCSAPIId == a)
-                        c = team.Name;
-                }
-
-                foreach (var team in teams)
-                {
-                    if (team.TeamCSAPIId == b)
-                        c = team.Name;
-                }
-            }*/
 
             _context.SaveChanges();
 
@@ -147,7 +234,7 @@ namespace FPTV.Controllers
             ViewBag.runningMatches = runningMatches;
 			ViewBag.upcommingMatches = upcomingMatches;
 
-            //ViewBag.teams = teams;
+            ViewBag.teams = teams;
 
             ViewBag.filter = filter;
             ViewBag.sort = sort;
@@ -271,13 +358,6 @@ namespace FPTV.Controllers
 
                         matches.TeamsAPIIDList.Add(teamId);
                     }
-
-                    Console.WriteLine(matchesCSId);
-                    foreach (var a in matches.TeamsAPIIDList)
-                    {
-                        Console.WriteLine(matchesCSId + " -> " + a);
-                    }
-                    Console.WriteLine("");
 
                     if(matches.TeamsAPIIDList.Count() == 2)
                         matchesCS.Add(matches);

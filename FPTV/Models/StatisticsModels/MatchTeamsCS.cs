@@ -20,7 +20,7 @@ namespace FPTV.Models.StatisticsModels
 
 		[Required]
 		[Display(Name = "API Id of a csgo team")]
-		public int? TeamCSAPIId { get; set; }
+		public int TeamCSAPIId { get; set; }
 
 		[Required]
         [Display(Name = "Name")]
