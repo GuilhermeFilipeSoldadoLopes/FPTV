@@ -28,6 +28,7 @@ Bem-vindo ao projeto FPTV, a futura hub dos FPS E-Sports. O objetivo deste proje
 **Logout:** Para terminar a sua sessão, clique no botão "Logout" na barra de navegação superior.<p>
 
 **Eventos:** Para poder aceder aos eventos disponibilizados pela FPTV clique no nome “Events”, que está situado na barra de navegação que se encontra na parte superior do website. Aqui, pode visualizar os eventos que já aconteceram, que estão a acontecer e que irão acontecer, pode sorteá-los por data, nome, prizepool e tier ou filtrá-los por estado(se está a decorrer, já decorreu ou irá decorrer).<p> 
+
 ![Events](https://cdn.discordapp.com/attachments/783386747638775848/1083134259323228220/4b1a4972-6e87-490d-8930-c4e9c588965a.png)<p>
 Se quiser ver os detalhes de um evento pode fazê-lo ao clicar no mesmo.<p>
 ![EventsDetails](https://cdn.discordapp.com/attachments/783386747638775848/1083134589041651853/a2ff183a-9264-404b-a726-1964ad2b7ed4.png)<p>

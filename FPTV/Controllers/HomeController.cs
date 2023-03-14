@@ -105,18 +105,18 @@ namespace FPTV.Controllers
             return View();
         }
 
-        public IActionResult Matches()
-        {
-            //return RedirectToAction("Método", "Matches");
-            return View();
-        }
 		public IActionResult MatchDetails()
 		{
 			
 			return View();
 		}
 
-		public IActionResult Results()
+        public IActionResult Matches()
+        {
+            return RedirectToAction("CSGOMatches", "Matches");
+        }
+
+        public IActionResult Results()
         {
             return View();
         }

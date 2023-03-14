@@ -25,7 +25,7 @@ namespace FPTV.Models.StatisticsModels
 		[Required]
 		[Display(Name = "List of stats of players")] 
         public ICollection<MatchPlayerStatsVal>? PlayerStatsList { get; set; }
-
+        
 		[Required]
 		[Display(Name = "Score of round")]
         public string? RoundsScore { get; set; }
