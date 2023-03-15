@@ -31,7 +31,8 @@
 
     th {
         border: 1px solid black;
-        padding: 10px;
+        /*padding: 10px;*/
+        text-align:center;
     }
 
     td {
@@ -277,7 +278,10 @@
                     <div style="background-color:lightgrey; ">
                         <p style="font-weight:bold; margin-top:2%; margin-bottom:0px; ">
                                 <h2><span class="alinhar">Blast.tv Paris Major 2022</span></h2><br />
-                                <h4 style="font-weight: bold;text-align: center;">Live</h4>
+
+                                <h4 style="text-align: center;">
+                                    <img src="~/images/live.png" width="20%" />
+                                </h4>
                         </p>
                     </div>
 
@@ -331,14 +335,22 @@
 
                             <table name="FirstTeam" style="width:100% !important;margin:auto;margin-bottom:5%">
                             <tr>
-                                <th>EC Brugge</th>
-                                <th>K</th>
-                                <th>A</th>
-                                <th>D</th>
-                                <th>K/D</th>
-                                <th>HS%</th>
-                                <th>KpR</th>
-                                <th>ADR</th>
+                                <th style="width:12%">EC Brugge</th>
+                                <th style="width:12%" title="Kills">
+                                        <img src="~/images/kills.png" width="50%" />
+                                </th>
+                                <th style="width:12%" title="Assists">
+                                        <img src="~/images/assists.png" width="60%" />
+                                </th>
+                                    <th style="width:12%" title="Deaths">
+                                        <img src="~/images/deaths.png" width="50%" />
+                                    </th>
+                                    <th style="width:12%" title="K/D Ratio">K/D</th>
+                                <th style="width:12%" title="HeadShot %">
+                                        <img src="~/images/headshot.png" width="40%" /> %
+                                </th>
+                                <th style="width:12%" title="Kill per Round">KpR</th>
+                                    <th style="width:12%" title="Average Damage per Round">ADR</th>
                             </tr>
                             <tr>
                                 <td>Stev0se</td>
@@ -394,14 +406,23 @@
 
                             <table name="SecondTeam" style="width:100% !important;margin:auto;margin-bottom:5%">
                             <tr>
-                                <th>Case</th>
-                                <th>K</th>
-                                <th>A</th>
-                                <th>D</th>
-                                <th>K/D</th>
-                                <th>HS%</th>
-                                <th>KpR</th>
-                                <th>ADR</th>
+                                
+                                    <th style="width:12%">Case</th>
+                                    <th style="width:12%" title="Kills">
+                                        <img src="~/images/kills.png" width="50%" />
+                                    </th>
+                                    <th style="width:12%" title="Assists">
+                                        <img src="~/images/assists.png" width="60%" />
+                                    </th>
+                                    <th style="width:12%" title="Deaths">
+                                        <img src="~/images/deaths.png" width="50%" />
+                                    </th>
+                                    <th style="width:12%" title="K/D Ratio">K/D</th>
+                                    <th style="width:12%" title="HeadShot %">
+                                        <img src="~/images/headshot.png" width="40%" /> %
+                                    </th>
+                                    <th style="width:12%" title="Kill per Round">KpR</th>
+                                    <th style="width:12%" title="Average Damage per Round">ADR</th>
                             </tr>
                             <tr>
                                 <td>honda</td>
@@ -455,14 +476,6 @@
                             </tr>
                         </table>
                         </div>
-
-                        <span>K -> Kills</span><br />
-                        <span>A -> Assists</span><br />
-                        <span>D -> Deaths</span><br />
-                        <span>K/D -> K/D ratio</span><br />
-                        <span>HS% -> Headshots%</span><br />
-                        <span>KpR -> Kills per Round</span><br />
-                        <span>ADR -> Average Damage per Round</span><br />
                     </div>
 
 
