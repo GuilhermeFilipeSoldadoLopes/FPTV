@@ -1,10 +1,8 @@
 ﻿using FPTV.Data;
 using FPTV.Models.EventsModels;
 using FPTV.Models.MatchesModels;
-using FPTV.Models.UserModels;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
-using static System.Formats.Asn1.AsnWriter;
 
 namespace FPTVUnitTests
 {
@@ -12,9 +10,10 @@ namespace FPTVUnitTests
     {
         public FPTVContext DbContext { get; private set; }
         //
-        protected Guid matchesCSID = Guid.NewGuid();
-        protected Guid eventCSID = Guid.NewGuid();
-        protected Guid winnerTeamID = Guid.NewGuid();
+        protected static Guid matchesCSID = Guid.NewGuid();
+        protected static Guid eventCSID = Guid.NewGuid();
+        protected static Guid winnerTeamID = Guid.NewGuid();
+
         protected Dictionary<int, int> score = new Dictionary<int, int>();
 
         public ApplicationDbContextFixture()
@@ -96,7 +95,7 @@ namespace FPTVUnitTests
 
         public Guid GetEventsCSId()
         {
-            return matchesCSID;
+            return eventCSID;
         }
 
         public Guid GetWinnerTeamId()
