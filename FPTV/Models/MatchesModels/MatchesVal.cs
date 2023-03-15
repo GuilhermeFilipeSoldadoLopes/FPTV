@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using FPTV.Models.EventsModels;
 using FPTV.Models.StatisticsModels;
 using FPTV.Models.UserModels;
 using Microsoft.EntityFrameworkCore;
@@ -16,9 +17,8 @@ namespace FPTV.Models.MatchesModels
         [Display(Name = "MatchesVal API ID")]
         public int MatchesValAPIID { get; set; }
 
-        [Display(Name = "Event Id")]
-        [ForeignKey("EventId")]
-        public Guid EventId { get; set; }
+        [Display(Name = "EventVal")]
+        public EventVal EventVal { get; set; }
 
         [Required]
         [Display(Name = "Event API ID")]
@@ -66,16 +66,16 @@ namespace FPTV.Models.MatchesModels
         public IDictionary<int, int>? Score { get; set; }
 
         [NotMapped]
-        [Display(Name = "Teams Id List")]
-        public List<Guid>? TeamsIdList { get; set; }
+        [Display(Name = "Teams List")]
+        public ICollection<Team>? TeamsList { get; set; }
 
         [Required]
         [NotMapped]
         [Display(Name = "Teams API Id List")]
-        public List<int>? TeamsAPIIDList { get; set; }
+        public ICollection<int>? TeamsAPIIDList { get; set; }
 
-        [Display(Name = "Winner Team Id")]
-        public Guid? WinnerTeamId { get; set; }
+		[Display(Name = "Winner Team")]
+        public Team? WinnerTeam { get; set; }
 
         [Required]
         [Display(Name = "Winner Team API ID")]

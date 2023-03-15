@@ -1,4 +1,5 @@
 ﻿using FPTV.Models.MatchesModels;
+using FPTV.Models.UserModels;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -46,9 +47,8 @@ namespace FPTV.Models.EventsModels
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime? EndAt { get; set; }
 
-        [ForeignKey("MatchesCSID")]
-        [Display(Name = "Matches CS ID")]
-        public Guid MatchesCSID { get; set; }
+        [Display(Name = "MatchesCS")]
+        public MatchesCS MatchesCS { get; set; }
 
         [Required]
         [Display(Name = "Matches CS API ID")]
@@ -57,15 +57,14 @@ namespace FPTV.Models.EventsModels
         [Required]
         [NotMapped]
         [Display(Name = "Team list")]
-        public List<string>? TeamsList { get; set; }
+        public ICollection<string>? TeamsList { get; set; }
 
         [Required]
         [Display(Name = "Prize pool")]
         public string? PrizePool { get; set; }
 
-        [ForeignKey("WinnerTeamID")]
-        [Display(Name = "Winner Team ID")]
-        public Guid? WinnerTeamID { get; set; }
+        [Display(Name = "Winner Team")]
+        public Team? WinnerTeam { get; set; }
 
         [Required]
         [Display(Name = "Winner Team API ID")]

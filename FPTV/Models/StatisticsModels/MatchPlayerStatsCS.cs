@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using FPTV.Models.UserModels;
 
 namespace FPTV.Models.StatisticsModels
 {
@@ -10,17 +11,15 @@ namespace FPTV.Models.StatisticsModels
 		[Display(Name = "Id of a MatchPlayerStatsCS")]
 		public Guid MatchPlayerStatsCSID { get; set; }
 
-		[ForeignKey("MatchCSId")]
-		[Display(Name = "Id of a csgo match")]
-        public Guid MatchCSId { get; set; }
+		[Display(Name = "MatchCS")]
+        public MatchCS MatchCS { get; set; }
 
 		[Required]
 		[Display(Name = "MatchCS API ID")]
 		public int MatchCSAPIID { get; set; }
 
-		[ForeignKey("PlayerCSId")]
-		[Display(Name = "Id of a csgo player")]
-        public Guid? PlayerCSId { get; set; }
+		[Display(Name = "PlayerCS")]
+        public Player? PlayerCS { get; set; }
 
 		[Required]
 		[Display(Name = "API Id of a csgo player")]

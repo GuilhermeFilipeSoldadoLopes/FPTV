@@ -18,8 +18,12 @@ namespace FPTV.Models.UserModels
 		[Display(Name = "Player Age")]
 		public int? Age { get; set; }
 
-		//o ultimo objeto deve ser a equipa atual
-		[Required]
+        [Required]
+        [Display(Name = "Player Rating")]
+        public float? Rating { get; set; }
+
+        //o ultimo objeto deve ser a equipa atual
+        [Required]
 		[NotMapped]
 		[Display(Name = "Teams")]
 		public IDictionary<int, Team>? Teams { get; set; }
