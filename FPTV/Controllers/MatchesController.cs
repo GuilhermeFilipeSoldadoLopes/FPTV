@@ -46,17 +46,17 @@ namespace FPTV.Controllers
 
         //De CSGO e de Valorant
         // GET: CSMatches
-        public ActionResult CSGOMatches(string sort = "sort=begin_at", string filter = "detailed_stats", string page = "&page=1", string game = "csgo")
+        public ActionResult CSGOMatches(string sort = "", string filter = "", string page = "&page=1", string game = "csgo")
         {
             //Request processing with RestSharp
-            var jsonFilter = "filter[" + filter + "]=true&";
+            var jsonFilter = filter == "" ? "" : "filter[" + filter + "]=true&";
             var jsonSort = sort;
             var jsonPage = page;
             var jsonPerPage = "&per_page=10";
             var token = "&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA";
             var requestLink = "https://api.pandascore.co/" + game + "/matches/";
 
-            var fullApiPath = requestLink + "past?" + jsonFilter + jsonSort + jsonPage + jsonPerPage + token;
+            var fullApiPath = requestLink + "past?" + jsonFilter + jsonPage + jsonPerPage + token;
             List<MatchesCS> pastMatches = getAPICSGOMatches(fullApiPath);
             fullApiPath = requestLink + "running?" + jsonFilter + jsonSort + jsonPage + jsonPerPage + token;
             List<MatchesCS> runningMatches = getAPICSGOMatches(fullApiPath);
@@ -115,8 +115,8 @@ namespace FPTV.Controllers
 
                             var team = new MatchTeamsCS();
                             team.TeamCSAPIId = teamId;
-                            team.Name = teamName.ToString() == "" ? "" : teamName.Value<string>();
-                            team.Image = teamImage.ToString() == "" ? "" : teamImage.Value<string>();
+                            team.Name = teamName.ToString() == "?" ? "undefined" : teamName.Value<string>();
+                            team.Image = teamImage.ToString() == "" ? "/images/logo1.jpg" : teamImage.Value<string>();
 
                             if (!dbTeamsIds.Contains(team.TeamCSAPIId))
                             {
@@ -126,7 +126,6 @@ namespace FPTV.Controllers
                         }
                     }
                 }
-                
             }
 
             foreach (var matches in runningMatches)
@@ -164,8 +163,8 @@ namespace FPTV.Controllers
 
                             var team = new MatchTeamsCS();
                             team.TeamCSAPIId = teamId;
-                            team.Name = teamName.ToString() == "" ? "" : teamName.Value<string>();
-                            team.Image = teamImage.ToString() == "" ? "" : teamImage.Value<string>();
+                            team.Name = teamName.ToString() == "" ? "undefined" : teamName.Value<string>();
+                            team.Image = teamImage.ToString() == "" ? "/images/logo1.jpg" : teamImage.Value<string>();
 
                             if (!dbTeamsIds.Contains(team.TeamCSAPIId))
                             {
@@ -175,7 +174,6 @@ namespace FPTV.Controllers
                         }
                     }
                 }
-
             }
 
             foreach (var matches in upcomingMatches)
@@ -213,8 +211,8 @@ namespace FPTV.Controllers
 
                             var team = new MatchTeamsCS();
                             team.TeamCSAPIId = teamId;
-                            team.Name = teamName.ToString() == "" ? "" : teamName.Value<string>();
-                            team.Image = teamImage.ToString() == "" ? "" : teamImage.Value<string>();
+                            team.Name = teamName.ToString() == "" ? "undefined" : teamName.Value<string>();
+                            team.Image = teamImage.ToString() == "" ? "/images/logo1.jpg" : teamImage.Value<string>();
 
                             if (!dbTeamsIds.Contains(team.TeamCSAPIId))
                             {
@@ -224,7 +222,6 @@ namespace FPTV.Controllers
                         }
                     }
                 }
-
             }
 
 			_context.SaveChanges();
@@ -306,8 +303,8 @@ namespace FPTV.Controllers
                     matches.MatchesCSAPIID = matchesCSId.ToString() == null ? -1 : matchesCSId.Value<int>();
                     matches.EventAPIID = eventAPIID.ToString() == null ? -1 : eventAPIID.Value<int>();
                     matches.EventName = eventName.ToString() == null ? "" : eventName.Value<string>();
-                    matches.BeginAt = beginAt.ToString() == "" ? null : beginAt.Value<DateTime>();
-                    matches.EndAt = endAt.ToString() == "" ? null : endAt.Value<DateTime>();
+                    matches.BeginAt = beginAt.ToString() == "" ? new DateTime() : beginAt.Value<DateTime>();
+                    matches.EndAt = endAt.ToString() == "" ? new DateTime() : endAt.Value<DateTime>();
                     matches.IsFinished = status.ToString() == "finished" ? true : false;
                     matches.HaveStats = haveStats.ToString() == "true" ? true : false;
                     matches.NumberOfGames = numberOfGames.ToString() == null ? 1 : numberOfGames.Value<int>();
@@ -335,6 +332,9 @@ namespace FPTV.Controllers
 
                         var streamLink = streamObject.GetValue("raw_url");
                         var streamLanguage = streamObject.GetValue("language");
+
+                        stream.StreamLink = streamLink.ToString() == "" ? "" : streamLink.Value<string>();
+                        stream.StreamLanguage = streamLanguage.ToString() == "" ? "" : streamLanguage.Value<string>();
 
                         matches.StreamList.Add(stream);
                     }
