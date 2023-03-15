@@ -1,12 +1,21 @@
 ﻿using FPTV.Data;
+using FPTV.Models.EventsModels;
+using FPTV.Models.MatchesModels;
+using FPTV.Models.UserModels;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
+using static System.Formats.Asn1.AsnWriter;
 
 namespace FPTVUnitTests
 {
     public class ApplicationDbContextFixture : IDisposable
     {
         public FPTVContext DbContext { get; private set; }
+        //
+        protected Guid matchesCSID = Guid.NewGuid();
+        protected Guid eventCSID = Guid.NewGuid();
+        protected Guid winnerTeamID = Guid.NewGuid();
+        protected Dictionary<int, int> score = new Dictionary<int, int>();
 
         public ApplicationDbContextFixture()
         {
@@ -15,15 +24,90 @@ namespace FPTVUnitTests
             var options = new DbContextOptionsBuilder<FPTVContext>()
                     .UseSqlite(connection)
                     .Options;
+
             DbContext = new FPTVContext(options);
 
             DbContext.Database.EnsureCreated();
 
-           
-            DbContext.SaveChanges();
+            //
+            score.Add(1, 16);
+            score.Add(2, 11);
+
+            DbContext.MatchesCS.Add(
+                new MatchesCS
+                {
+                    MatchesCSId = matchesCSID,
+                    MatchesCSAPIID = 1,
+                    EventId = eventCSID,
+                    EventAPIID = 10065,
+                    EventName = "Test",
+                    BeginAt = DateTime.Now.Subtract(TimeSpan.FromHours(2)),
+                    EndAt = DateTime.Now,
+                    IsFinished = false,
+                    TimeType = TimeType.Past,
+                    HaveStats = false,
+                    MatchesList = null,
+                    NumberOfGames = 1,
+                    Score = score,
+                    TeamsIDList = null,
+                    TeamsAPIIDList = null,
+                    WinnerTeamId = winnerTeamID,
+                    WinnerTeamAPIId = 1,
+                    WinnerTeamName = "SAW",
+                    Tier = 'C',
+                    LiveSupported = false,
+                    StreamList = null,
+                    LeagueName = "Test",
+                    LeagueId = 1,
+                    LeagueLink = null
+                });
+
+            DbContext.EventCS.Add(
+                new EventCS
+                {
+                    EventCSID = eventCSID,
+                    EventAPIID = 10065,
+                    EventName = "Test",
+                    LeagueName = "Test",
+                    EventLink = "Test",
+                    TimeType = TimeType.Past,
+                    Finished = false,
+                    BeginAt = DateTime.Now.Subtract(TimeSpan.FromHours(2)), 
+                    EndAt = DateTime.Now,
+                    MatchesCSID = matchesCSID,
+                    MatchesCSAPIID = 736079,
+                    TeamsList = new List<string> { "Fnatic", "SAW" },
+                    PrizePool = "1000000$",
+                    WinnerTeamID = winnerTeamID,
+                    WinnerTeamAPIID = 1,
+                    WinnerTeamName = "SAW",
+                    Tier = 'C'
+                });
+
+             DbContext.SaveChanges();
         }
 
         public void Dispose() => DbContext.Dispose();
+
+        public Guid GetMatchesCSId()
+        {
+            return matchesCSID;
+        }
+
+        public Guid GetEventsCSId()
+        {
+            return matchesCSID;
+        }
+
+        public Guid GetWinnerTeamId()
+        {
+            return winnerTeamID;
+        }
+
+        public Dictionary<int, int> GetScore()
+        {
+            return score;
+        }
     }
 }
 
