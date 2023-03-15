@@ -122,61 +122,70 @@ namespace FPTVUnitTests
         //TU11
         //MatchesController
         [Fact]
-        public void Database_ModuleMatchesTest()
+        public void Database_ModuleMatchesCSTest()
         {
             var controller = new MatchesController(_context);
             var result = controller.CSGOMatches();
-
             var viewResult = Assert.IsType<ViewResult>(result);
 
-            /*
-            var model1 = Assert.IsAssignableFrom<IEnumerable<MatchesCS>>(
-                viewResult.ViewData.Model);
-            Assert.Equal(24, model1.Count());
-            
-            var model2 = Assert.IsAssignableFrom<MatchesCS>(viewResult.ViewData.Model);
-            Assert.Equal(contextFixture.GetMatchesCSId().ToString(), model2.MatchesCSId.ToString());
-             */
+            MatchesCS matchesCS = contextFixture.DbContext.MatchesCS.FirstOrDefault(m => m.MatchesCSId == contextFixture.GetMatchesCSId());
+            var matchesResult = Assert.IsType<MatchesCS>(matchesCS);
 
-            //Assert.Null(contextFixture.DbContext.EventCS.Find(contextFixture.GetMatchesCSId()));
-            // os dados retornados da BD sao null
-
-            Assert.Equal(contextFixture.GetMatchesCSId().ToString(), contextFixture.DbContext.EventCS.Find(contextFixture.GetMatchesCSId()).ToString()); 
-            Assert.Equal(1.ToString(), controller.ViewBag.MatchesCSAPIID.ToString());
-            Assert.Equal(contextFixture.GetEventsCSId().ToString(), controller.ViewBag.EventId.ToString());
-            Assert.Equal(10065.ToString(), controller.ViewBag.EventAPIID.ToString());
-            Assert.Equal("Test".ToString(), controller.ViewBag.EventName.ToString());
-            Assert.IsType<DateTime>(controller.ViewBag.BeginAt);
-            Assert.IsType<DateTime>(controller.ViewBag.EndAt);
-            Assert.False(controller.ViewBag.IsFinished.ToString());
-            Assert.IsType<TimeType>(controller.ViewBag.TimeType);
-            Assert.False(controller.ViewBag.HaveStats);
-            Assert.Null(controller.ViewBag.MatchesList);
-            Assert.Equal(1.ToString(), controller.ViewBag.NumberOfGames.ToString());
-            Assert.Equal(contextFixture.GetScore().ToString(), controller.ViewBag.Score.ToString());
-            Assert.Null(controller.ViewBag.TeamsIDList);
-            Assert.Null(controller.ViewBag.TeamsAPIIDList);
-            Assert.Equal(contextFixture.GetWinnerTeamId().ToString(), controller.ViewBag.WinnerTeamId.ToString());
-            Assert.Equal(1.ToString(), controller.ViewBag.WinnerTeamAPIId.ToString());
-            Assert.Equal("SAW".ToString(), controller.ViewBag.WinnerTeamName.ToString());
-            Assert.Equal('C'.ToString(), controller.ViewBag.Tier.ToString());
-            Assert.False(controller.ViewBag.LiveSupported);
-            Assert.Null(controller.ViewBag.StreamList);
-            Assert.Equal("Test".ToString(), controller.ViewBag.LeagueName.ToString());
-            Assert.Equal(1.ToString(), controller.ViewBag.LeagueId.ToString());
-            Assert.Null(controller.ViewBag.LeagueLink);
+            Assert.Equal(contextFixture.GetMatchesCSId(), matchesCS.MatchesCSId);
+            Assert.Equal(1, matchesCS.MatchesCSAPIID);
+            Assert.Equal(contextFixture.GetEventsCSId(), matchesCS.EventId);
+            Assert.Equal(10065, matchesCS.EventAPIID);
+            Assert.Equal("Test", matchesCS.EventName);
+            Assert.IsType<DateTime>(matchesCS.BeginAt);
+            Assert.IsType<DateTime>(matchesCS.EndAt);
+            Assert.False(matchesCS.IsFinished);
+            Assert.IsType<TimeType>(matchesCS.TimeType);
+            Assert.False(matchesCS.HaveStats);
+            Assert.Null(matchesCS.MatchesList);
+            Assert.Equal(1, matchesCS.NumberOfGames);
+            Assert.Equal(contextFixture.GetScore(), matchesCS.Score);
+            Assert.Null(matchesCS.TeamsIDList);
+            Assert.Null(matchesCS.TeamsAPIIDList);
+            Assert.Equal(contextFixture.GetWinnerTeamId(), matchesCS.WinnerTeamId);
+            Assert.Equal(1, matchesCS.WinnerTeamAPIId);
+            Assert.Equal("SAW", matchesCS.WinnerTeamName);
+            Assert.Equal('C', matchesCS.Tier);
+            Assert.False(matchesCS.LiveSupported);
+            Assert.Null(matchesCS.StreamList);
+            Assert.Equal("Test", matchesCS.LeagueName);
+            Assert.Equal(1, matchesCS.LeagueId);
+            Assert.Null(matchesCS.LeagueLink);
         }
 
-        /*[Fact]
-        public void Database_ModuleEventTest()
+        //TU12
+        //EventsController
+        [Fact]
+        public void Database_ModuleEventsCSTest()
         {
             var controller = new EventsController();
             var result = controller.Index();
-
             var viewResult = Assert.IsType<ViewResult>(result);
-            var model = Assert.IsAssignableFrom<IEnumerable<EventCS>>(
-                viewResult.ViewData.Model);
-            Assert.Equal(17, model.Count());
-        }*/
+
+            EventCS eventCS = contextFixture.DbContext.EventCS.FirstOrDefault(e => e.EventCSID == contextFixture.GetEventsCSId());
+            var eventResult = Assert.IsType<EventCS>(eventCS);
+
+            Assert.Equal(contextFixture.GetEventsCSId(), eventCS.EventCSID);
+            Assert.Equal(10065, eventCS.EventAPIID);
+            Assert.Equal("Test", eventCS.EventName);
+            Assert.Equal("Test", eventCS.LeagueName);
+            Assert.Equal("Test", eventCS.EventLink);
+            Assert.IsType<TimeType>(eventCS.TimeType);
+            Assert.False(eventCS.Finished);
+            Assert.IsType<DateTime>(eventCS.BeginAt);
+            Assert.IsType<DateTime>(eventCS.EndAt);
+            Assert.Equal(contextFixture.GetMatchesCSId(), eventCS.MatchesCSID);
+            Assert.Equal(736079, eventCS.MatchesCSAPIID);
+            Assert.Equal(new List<string> { "Fnatic", "SAW" }, eventCS.TeamsList);
+            Assert.Equal("1000000$", eventCS.PrizePool);
+            Assert.Equal(contextFixture.GetWinnerTeamId(), eventCS.WinnerTeamID);
+            Assert.Equal(1, eventCS.WinnerTeamAPIID);
+            Assert.Equal("SAW", eventCS.WinnerTeamName);
+            Assert.Equal('C', eventCS.Tier);
+        }
     }
 }
