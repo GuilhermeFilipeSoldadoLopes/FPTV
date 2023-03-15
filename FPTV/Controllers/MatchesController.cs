@@ -18,6 +18,7 @@ using Newtonsoft.Json.Linq;
 using RestSharp;
 using SendGrid.Helpers.Mail;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Runtime.Intrinsics.Arm;
 using System.Runtime.Intrinsics.X86;
@@ -49,14 +50,14 @@ namespace FPTV.Controllers
         public ActionResult CSGOMatches(string sort = "", string filter = "", string page = "&page=1", string game = "csgo")
         {
             //Request processing with RestSharp
-            var jsonFilter = filter == "" ? "" : "filter[" + filter + "]=true&";
-            var jsonSort = sort;
+            var jsonFilter = (filter == "" || filter == "livestream") ? "" : "filter[" + filter + "]=true&";
+            var jsonSort = (sort == "" || sort == "tournament") ? "" : sort;
             var jsonPage = page;
             var jsonPerPage = "&per_page=10";
             var token = "&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA";
             var requestLink = "https://api.pandascore.co/" + game + "/matches/";
 
-            var fullApiPath = requestLink + "past?" + jsonFilter + jsonPage + jsonPerPage + token;
+            var fullApiPath = requestLink + "past?" + jsonFilter + jsonSort + jsonPage + jsonPerPage + token;
             List<MatchesCS> pastMatches = getAPICSGOMatches(fullApiPath);
             fullApiPath = requestLink + "running?" + jsonFilter + jsonSort + jsonPage + jsonPerPage + token;
             List<MatchesCS> runningMatches = getAPICSGOMatches(fullApiPath);
@@ -64,6 +65,7 @@ namespace FPTV.Controllers
             List<MatchesCS> upcomingMatches = getAPICSGOMatches(fullApiPath);
 
 			List<int> dbMatchesIds = _context.MatchesCS.Select(m => m.MatchesCSAPIID).ToList();
+            List<Dictionary<int, int>> results = new List<Dictionary<int, int>>();
 
 			foreach (var matches in pastMatches)
 			{
@@ -103,6 +105,7 @@ namespace FPTV.Controllers
                     if (!status.ToString().Equals("canceled"))
                     {
                         var opponentArray = (JArray)item.GetValue("opponents");
+                        var resultArray = (JArray)item.GetValue("results");
 
                         foreach (var opponentObject in opponentArray.Cast<JObject>())
                         {
@@ -123,6 +126,24 @@ namespace FPTV.Controllers
                                 teams.Add(team);
                                 dbTeamsIds.Add(teamId);
                             }
+                        }
+
+                        Dictionary<int, int> result = new Dictionary<int, int>();
+
+                        foreach (var resultObject in resultArray.Cast<JObject>())
+                        {
+                            var score = resultObject.GetValue("score");
+                            var team_id = resultObject.GetValue("team_id");
+
+                            var teamid = team_id.ToString() == null ? 1 : team_id.Value<int>();
+                            var points = score.ToString() == "" ? 0 : score.Value<int>();
+
+                            result.Add(teamid, points);
+                        }
+
+                        if(result.Count() == 2)
+                        {
+                            results.Add(result);
                         }
                     }
                 }
@@ -151,6 +172,7 @@ namespace FPTV.Controllers
                     if (!status.ToString().Equals("canceled"))
                     {
                         var opponentArray = (JArray)item.GetValue("opponents");
+                        var resultArray = (JArray)item.GetValue("results");
 
                         foreach (var opponentObject in opponentArray.Cast<JObject>())
                         {
@@ -170,6 +192,26 @@ namespace FPTV.Controllers
                             {
                                 teams.Add(team);
                                 dbTeamsIds.Add(teamId);
+                            }
+
+                            Dictionary<int, int> result = new Dictionary<int, int>();
+
+                            foreach (var resultObject in resultArray.Cast<JObject>())
+                            {
+                                var score = resultObject.GetValue("score");
+                                var team_id = resultObject.GetValue("team_id");
+
+                                var teamid = team_id.ToString() == null ? 1 : team_id.Value<int>();
+                                var points = score.ToString() == "" ? 0 : score.Value<int>();
+
+                                result.Add(teamid, points);
+                            }
+
+                            //result.;
+
+                            if (result.Count() == 2)
+                            {
+                                results.Add(result);
                             }
                         }
                     }
@@ -226,12 +268,27 @@ namespace FPTV.Controllers
 
 			_context.SaveChanges();
 
+            if (sort == "tournament")
+            {
+                pastMatches = pastMatches.OrderBy(m => m.EventName).ToList();
+                runningMatches = runningMatches.OrderBy(m => m.EventName).ToList();
+                upcomingMatches = upcomingMatches.OrderBy(m => m.EventName).ToList();
+            }
+
+            if (filter == "livestream")
+            {
+                pastMatches = pastMatches.Where(m => m.LiveSupported == true).ToList();
+                runningMatches = runningMatches.Where(m => m.LiveSupported == true).ToList();
+                upcomingMatches = upcomingMatches.Where(m => m.LiveSupported == true).ToList();
+            }
+
             ViewBag.pastMatches = pastMatches;//Tem de ir buscar os da base de dados
 
             ViewBag.runningMatches = runningMatches;
-			ViewBag.upcommingMatches = upcomingMatches;
+			ViewBag.upcomingMatches = upcomingMatches;
 
             ViewBag.teams = teams;
+            ViewBag.results = results;
 
             ViewBag.filter = filter;
             ViewBag.sort = sort;
@@ -287,7 +344,6 @@ namespace FPTV.Controllers
                     var winnerTeamAPIId = winner.ToString() == "" ? null : winner.ToObject<JObject>().GetValue("id");
                     var winnerTeamName = winner.ToString() == "" ? null : winner.ToObject<JObject>().GetValue("name");
                     var tier = tournament.GetValue("tier");
-                    var liveSupported = live.GetValue("supported");
                     var leagueName = league.GetValue("name");
                     var LeagueId = league.GetValue("id");
                     var leagueLink = league.GetValue("url");
@@ -300,9 +356,10 @@ namespace FPTV.Controllers
                     */
 
                     //Handling for null values
+                    matches.LeagueName = leagueName.ToString() == null ? "" : leagueName.Value<string>();
                     matches.MatchesCSAPIID = matchesCSId.ToString() == null ? -1 : matchesCSId.Value<int>();
                     matches.EventAPIID = eventAPIID.ToString() == null ? -1 : eventAPIID.Value<int>();
-                    matches.EventName = eventName.ToString() == null ? "" : eventName.Value<string>();
+                    matches.EventName = eventName.ToString() == null ? "" : matches.LeagueName + " " + eventName.Value<string>();
                     matches.BeginAt = beginAt.ToString() == "" ? new DateTime() : beginAt.Value<DateTime>();
                     matches.EndAt = endAt.ToString() == "" ? new DateTime() : endAt.Value<DateTime>();
                     matches.IsFinished = status.ToString() == "finished" ? true : false;
@@ -311,9 +368,7 @@ namespace FPTV.Controllers
                     var aa = winnerTeamAPIId;
                     matches.WinnerTeamAPIId = winnerTeamAPIId == null ? -1 : winnerTeamAPIId.Value<int>();
                     matches.WinnerTeamName = winnerTeamName == null ? "" : winnerTeamName.Value<string>();
-                    matches.Tier = tier.ToString() == null ? ' ' : tier.Value<char>();
-                    matches.LiveSupported = liveSupported.ToString() == "true" ? true : false;
-                    matches.LeagueName = leagueName.ToString() == null ? "" : leagueName.Value<string>();
+                    matches.Tier = tier.ToString() == "unranked" ? ' ' : tier.Value<char>();
                     matches.LeagueId = LeagueId.ToString() == null ? -1 : LeagueId.Value<int>();
                     matches.LeagueLink = leagueLink.ToString() == null ? "" : leagueLink.Value<string>();
 
@@ -338,6 +393,8 @@ namespace FPTV.Controllers
 
                         matches.StreamList.Add(stream);
                     }
+
+                    matches.LiveSupported = matches.StreamList.Count() > 0 ? true : false;
 
                     foreach (var team in results.Cast<JObject>())
                     {
