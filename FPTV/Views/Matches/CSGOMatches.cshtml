@@ -198,30 +198,29 @@
             <div class="dropdown">
                 <button class="button2">Sort by</button>
                 <div class="dropdown-content">
-                    <a href="#">Newest</a>
-                    <a href="#">Oldest</a>
-                    <a href="#">Event Name</a>
+                    <a href="@Url.Action("CSGOMatches", "Matches", new { sort = "", filter = ViewBag.filter})">Newest</a>
+                    <a href="@Url.Action("CSGOMatches", "Matches", new { sort = "&sort=begin_at", filter = ViewBag.filter})">Oldest</a>
+                    <a href="@Url.Action("CSGOMatches", "Matches", new { sort = "tournament", filter = ViewBag.filter})">Event Name</a>
                 </div>
             </div>
             <div class="dropdown">
                 <button class="button2">Filter by</button>
                 <div class="dropdown-content">
-                    <a href="#">Have Stats</a>
-                    <a href="#">Have livestream</a>
+                    <a href="@Url.Action("CSGOMatches", "Matches", new { sort = ViewBag.sort, filter = "detailed_stats"})">Have Stats</a>
+                    <a href="@Url.Action("CSGOMatches", "Matches", new { sort = ViewBag.sort, filter = "livestream"})">Have livestream</a>
                 </div>
             </div>
 
         </div>
         <div class="ola">
-            <div class="box2" style="background-color:lightgrey">
+            <div class="box" style="background-color:lightgrey;margin-top:0px">
                 <h4 style="font-weight: bold;text-align:center;">Finished Matches</h4>
                 @foreach (var item in ViewBag.pastMatches)
                 {
                     <div class="alinhar" style="border-bottom: 1px solid black">
                         <div class="my-div2" style="width:90%;">
                             <div>
-                                <!--<span class="span2" style="margin-top:10px;">Saturday - 2023-02-12 &nbsp; &nbsp; 21:00</span>-->
-                                <span class="span2" style="margin-top:10px;">@item.BeginAt.ToString("dd/MM/yyyy")</span>
+                                <span class="span2" style="margin-top:10px;">@item.BeginAt.ToString("dd/MM/yyyy hh:mm")</span>
                             </div>
 
                             <div>
@@ -234,9 +233,15 @@
                                                 <span> @team.Name </span>
                                             }
                                         }
-                                        <span class="span2"> 16 </span>
-                                        <span class="span2"> vs </span>
-                                        <span class="span2"> 10 </span>
+                                        @foreach (var result in ViewBag.results)
+                                        {
+                                            @if (result.ContainsKey(item.TeamsAPIIDList[0]) && result.ContainsKey(item.TeamsAPIIDList[1]))
+                                            {
+                                                <span class="span2"> @result[item.TeamsAPIIDList[0]]</span>
+                                                <span class="span2"> vs </span>
+                                                <span class="span2"> @result[item.TeamsAPIIDList[1]]</span>
+                                            }
+                                        }
                                         @foreach (var team in ViewBag.teams)
                                         {
                                             @if (team.TeamCSAPIId == item.TeamsAPIIDList[1])
@@ -256,7 +261,7 @@
                     </div>
                 }
             </div>
-            <div class="alinhar">
+            <div class="box" style="margin-top:0px">
                 <table>
                     @foreach (var item in ViewBag.runningMatches)
                     {
@@ -264,55 +269,89 @@
                             <td style="border-color:white">
                                 <div class="my-div2" style="width:100%;background-color:lightgrey">
                                     <div>
-                                        <p style="font-weight:bold; margin-top:2%; margin-bottom:0px; ">
-                                                <h2><span class="alinhar">@item.EventName</span></h2><br />
-                                                <h4 style="font-weight: bold;text-align: center;">Live</h4>
-                                        </p>
-                                    </div>
-                                    <div name="FirstTeam">
-                                        <br />
-                                        @foreach (var team in ViewBag.teams)
-                                        {
-                                            @if (team.TeamCSAPIId == item.TeamsAPIIDList[0])
-                                            {
-                                                <span style="text-align: left;margin-left:10%">
-                                                    <img src=@team.Image width="82px" height="auto" />
-                                                </span>
-                                            }
-                                        }
-                                        <span style="text-align: center;margin-left:23%">vs</span>
-                                        @foreach (var team in ViewBag.teams)
-                                        {
-                                            @if (team.TeamCSAPIId == item.TeamsAPIIDList[1])
-                                            {
-                                                <span style="text-align: left;margin-left:25%">
-                                                    <img src=@team.Image width="82px" height="auto" />
-                                                </span>
-                                            }
-                                        }
-                            
-                                        @foreach (var team in ViewBag.teams)
-                                        {
-                                            @if (team.TeamCSAPIId == item.TeamsAPIIDList[0])
-                                            {
-                                                <span style="text-align: left;margin-left:14%"> @team.Name </span>
-                                            }
-                                        }
-                                        @foreach (var team in ViewBag.teams)
-                                        {
-                                            @if (team.TeamCSAPIId == item.TeamsAPIIDList[1])
-                                            {
-                                                <span style="text-align: left;margin-left:55%"> @team.Name </span>
+                                        <table style="margin:auto;text-align:center;">
+                                            <tr>
+                                                <td style="border-color:lightgrey">
+                                                    @foreach (var team in ViewBag.teams)
+                                                    {
+                                                        @if (team.TeamCSAPIId == item.TeamsAPIIDList[0])
+                                                        {
+                                                            <span>
+                                                                <img src=@team.Image width="82px" height="auto" />
+                                                            </span>
+                                                        }
+                                                    }
+                                                </td>
+                                                <td style="border-color:lightgrey">
+                                                    <h4 style="font-weight: bold;text-align: center;">Live</h4>
+                                                </td>
+                                                <td style="border-color:lightgrey">
+                                                    @foreach (var team in ViewBag.teams)
+                                                    {
+                                                        @if (team.TeamCSAPIId == item.TeamsAPIIDList[1])
+                                                        {
+                                                            <span>
+                                                                <img src=@team.Image width="82px" height="auto" />
+                                                            </span>
+                                                        }
+                                                    }
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="border-color:lightgrey">
+                                                    @foreach (var team in ViewBag.teams)
+                                                    {
+                                                        @if (team.TeamCSAPIId == item.TeamsAPIIDList[0])
+                                                        {
+                                                            <span> @team.Name </span>
+                                                        }
+                                                    }
+                                                </td>
+                                                <td style="border-color:lightgrey">
+                                                    <span>vs</span>
+                                                </td>
+                                                <td style="border-color:lightgrey">
+                                                    @foreach (var team in ViewBag.teams)
+                                                    {
+                                                        @if (team.TeamCSAPIId == item.TeamsAPIIDList[1])
+                                                        {
+                                                            <span> @team.Name </span>
 
-                                                <br />
-                                            }
-                                        }
-                                        <span style="text-align: left;margin-left:16%" class="span2"> - </span>
-                                        <span style="text-align: left;margin-left:29%">-</span><br />
-                                    </div>
-                                    <div style="text-align:left; display: flex;margin-left:10%">
-                                            <p>Best of @item.NumberOfGames</p>
-                                        <a href="#" style="justify-content: space-around; margin-left: auto;margin-left:60%">More details</a>
+                                                            <br />
+                                                        }
+                                                    }
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                @foreach (var result in ViewBag.results)
+                                                {
+                                                    @if (result.ContainsKey(item.TeamsAPIIDList[0]) && result.ContainsKey(item.TeamsAPIIDList[1]))
+                                                    {
+                                                        <td style="border-color:lightgrey">
+                                                            <span class="span2"> @result[item.TeamsAPIIDList[0]]</span>
+                                                        </td>
+                                                        <td style="border-color:lightgrey">
+                                                            <span class="span2"> - </span>
+                                                        </td>
+                                                        <td style="border-color:lightgrey">
+                                                            <span class="span2"> @result[item.TeamsAPIIDList[1]]</span>
+                                                        </td>
+                                                        break;
+                                                    }
+                                                }
+                                            </tr>
+                                            <tr>
+                                                <td style="border-color:lightgrey">
+                                                    <p>Best of @item.NumberOfGames</p>
+                                                </td>
+                                                <td style="border-color:lightgrey">
+                                                    <p/>
+                                                </td>
+                                                <td style="border-color:lightgrey">
+                                                    <a href="#">More details</a>
+                                                </td>
+                                            </tr>
+                                        </table>
                                     </div>
                                 </div>
                             </td>
@@ -320,14 +359,14 @@
                     }
                 </table>
             </div>
-            <div class="box2" style="background-color:lightgrey">
+            <div class="box" style="background-color:lightgrey;margin-top:0px">
                 <h4 style="font-weight: bold;text-align:center;">Upcoming Matches</h4>
-                @foreach (var item in ViewBag.upcommingMatches)
+                @foreach (var item in ViewBag.upcomingMatches)
                 {
                     <div class="alinhar" style="border-bottom: 1px solid black">
                         <div class="my-div2" style="width:90%;">
                             <div>
-                                <span class="span2" style="margin-top:10px;">@item.BeginAt.ToString("dd/MM/yyyy")</span>
+                                <span class="span2" style="margin-top:10px;">@item.BeginAt.ToString("dd/MM/yyyy hh:mm")</span>
                             </div>
                             <div>
                                 <span style="text-align: center;">
