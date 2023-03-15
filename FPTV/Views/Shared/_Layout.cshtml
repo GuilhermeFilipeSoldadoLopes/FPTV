@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="~/FPTV.styles.css" asp-append-version="true" />
     <link rel="icon" type="image/png" href="~/favicon.ico" />
     
-    <style>
+    @*<style>
 		#menu {
 			margin-right: 4%;
 			margin-left: 4%;
@@ -29,20 +29,21 @@
 			color: #DE3C3C;
 			box-shadow: 0 0 5px 0 #DE3C3C inset, 0 0 10px 1px #DE3C3C;
 		}
-    </style>
+    </style>*@
 </head>
 <body>
 <header>
 		<div>
-		<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3" style="margin-top: -5px;">
-			<div class="container-fluid">
+			<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3" style="margin-top: -5px;width:100%">
+				<div class="container-fluid" style="width:100%">
 					<a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img class="logo" src="~/images/iconMenu.jpg" style="width: 85px; height: 100%;"> </a>
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-						aria-expanded="false" aria-label="Toggle navigation">
+							aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 				</button>
-					<div class="navbar-collapse collapse d-sm-inline-flex justify-content-between" style=" width:80%;text-align: center; margin-right: 5%; margin-left: 5%;">
-					<ul class="navbar-nav flex-grow-1" >
+				<div style="width:100%; display:flex">
+				<div class="navbar-collapse collapse d-sm-inline-flex justify-content-between" style="margin:auto">
+					<ul class="navbar-nav flex-grow-1" style="display:flex; width:80%">
 						<li class="nav-item" id="menu">
 								<a class="nav-link text-dark" id="buttonMenu" style="font-weight: bold; font-size: 24px;" asp-area="Home" asp-controller="Home" asp-action="Index">@*Game*@CS:GO</a>
 						</li>
@@ -63,7 +64,7 @@
 						</li>
 					</ul>
 				</div>
-				<div style="text-align: right">
+					<div class="navbar-nav flex-grow-1" style="justify-content: end; width:10%">
 					@{
 						var result = Engine.FindView(ViewContext, "_LoginPartial", isMainPage: false);
 					}
@@ -78,6 +79,7 @@
 						$"we have looked at it in the following locations: {System.Environment.NewLine}{string.Join(System.Environment.NewLine, result.SearchedLocations)}.");
 					}
 				</div>
+					</div>
 			</div>
 		</nav>
 	</div>
