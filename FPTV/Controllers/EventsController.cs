@@ -10,6 +10,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RestSharp;
 using System.Collections.Generic;
+using System.Diagnostics.Tracing;
 using System.Runtime.InteropServices;
 
 namespace FPTV.Controllers
@@ -19,18 +20,17 @@ namespace FPTV.Controllers
         // GET: EventsController
         public ActionResult Index(string sort = "&sort=-begin_at", string filter = "running", string search = "", string page = "&page=1", string game = "csgo")
         {
-            Console.WriteLine(search);
+            search ??= "";
             //Request processing with RestSharp
             var jsonFilter = filter + "?";
-            var jsonSearch = search == "" ? "" : "search[name]=" + search;
-            var jsonSort = sort;
+            var jsonSort = sort == "&sort=name" ? "&sort=-begin_at" : sort;
             var jsonPage = page;
             var jsonPerPage = "&per_page=10";
             var token = "&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA";
             var requestLink = "https://api.pandascore.co/" + game + "/tournaments/";
-			
+            Console.WriteLine(search);
 
-			var fullApiPath = requestLink + jsonFilter + jsonSearch + jsonSort + jsonPage + jsonPerPage + token;
+			var fullApiPath = requestLink + jsonFilter + jsonSort + jsonPage + jsonPerPage + token;
 			Console.WriteLine(fullApiPath);
 			var client = new RestClient(fullApiPath);
             var request = new RestRequest("", Method.Get);
@@ -53,7 +53,6 @@ namespace FPTV.Controllers
                 var eventAPIID = e.GetValue("id");
                 var nameStage = e.GetValue("name");
                 var beginAt = e.GetValue("begin_at");
-                var timeType = TimeType.Running;
                 var league = e.GetValue("league");
                 var teams = e.GetValue("teams");
                 var prizePool = e.GetValue("prizepool");
@@ -62,12 +61,23 @@ namespace FPTV.Controllers
 				//Handling for null values
 				ev.EventAPIID = eventAPIID.ToString() == null ? -1 : eventAPIID.Value<int>();
                 ev.BeginAt = beginAt.ToString() == "" ? null : beginAt.Value<DateTime>();
-                ev.TimeType = timeType;
                 ev.EventName = league.ToString() == "" ? null : league.Value<string>("name");
                 ev.LeagueName = nameStage.ToString() == "" ? null : nameStage.Value<string>();
 				ev.PrizePool = prizePool.ToString() == "" ? "-" : new string(prizePool.Value<string>().Where(char.IsDigit).ToArray());
-				ev.WinnerTeamAPIID = winnerTeamId.ToString() == "" ? -1 : winnerTeamId.Value<int>(); 
-                
+				ev.WinnerTeamAPIID = winnerTeamId.ToString() == "" ? -1 : winnerTeamId.Value<int>();
+
+                switch (filter)
+                {
+                    case "running":
+                        ev.TimeType = TimeType.Running; break;
+                    case "past":
+                        ev.TimeType = TimeType.Past; break;
+                    case "upcoming":
+                        ev.TimeType = TimeType.Upcoming; break;
+
+				}
+                   
+
                 if (teams != null)
                 {
                     foreach (JObject o in teams)
@@ -84,9 +94,19 @@ namespace FPTV.Controllers
                 ev.TeamsList = teamList.Values.ToList();
                 ev.WinnerTeamName = teamList.GetValueOrDefault((int) ev.WinnerTeamAPIID) ?? "-";
                 events.Add(ev);
-
 			}
 
+			if (sort == "&sort=name")
+			{
+				events.Sort((x, y) => x.EventName.CompareTo(y.EventName));
+			}
+
+			if (search != "")
+            {
+                events = events.Where(e => e.EventName.Contains(search)).ToList();
+            }
+
+           
             ViewBag.filter = filter;
             ViewBag.sort = sort;
 
