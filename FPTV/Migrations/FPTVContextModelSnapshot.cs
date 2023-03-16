@@ -57,9 +57,6 @@ namespace FPTV.Migrations
                     b.Property<int>("MatchesCSAPIID")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("MatchesCSID")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("PrizePool")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -75,14 +72,16 @@ namespace FPTV.Migrations
                         .IsRequired()
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("WinnerTeamID")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("WinnerTeamName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid?>("WinnerTeamTeamId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("EventCSID");
+
+                    b.HasIndex("WinnerTeamTeamId");
 
                     b.ToTable("EventCS");
                 });
@@ -122,9 +121,6 @@ namespace FPTV.Migrations
                     b.Property<int>("MatchesValAPIID")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("MatchesValID")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("PrizePool")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -140,16 +136,101 @@ namespace FPTV.Migrations
                         .IsRequired()
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("WinnerTeamID")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("WinnerTeamName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid?>("WinnerTeamTeamId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("EventValID");
 
+                    b.HasIndex("WinnerTeamTeamId");
+
                     b.ToTable("EventVal");
+                });
+
+            modelBuilder.Entity("FPTV.Models.Forum.Comment", b =>
+                {
+                    b.Property<Guid>("CommentId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("ProfileId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("TopicId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("CommentId");
+
+                    b.HasIndex("ProfileId");
+
+                    b.HasIndex("TopicId");
+
+                    b.ToTable("Comments");
+                });
+
+            modelBuilder.Entity("FPTV.Models.Forum.Reaction", b =>
+                {
+                    b.Property<Guid>("ReactionId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("CommentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("ProfileId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ReactionCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("ReactionId");
+
+                    b.HasIndex("CommentId");
+
+                    b.HasIndex("ProfileId");
+
+                    b.ToTable("Reactions");
+                });
+
+            modelBuilder.Entity("FPTV.Models.Forum.Topic", b =>
+                {
+                    b.Property<Guid>("TopicId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("ProfileId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("TopicId");
+
+                    b.HasIndex("ProfileId");
+
+                    b.ToTable("Topics");
                 });
 
             modelBuilder.Entity("FPTV.Models.MatchesModels.MatchesCS", b =>
@@ -169,7 +250,7 @@ namespace FPTV.Migrations
                     b.Property<int>("EventAPIID")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("EventId")
+                    b.Property<Guid>("EventCSID")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("EventName")
@@ -212,14 +293,18 @@ namespace FPTV.Migrations
                         .IsRequired()
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("WinnerTeamId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("WinnerTeamName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid?>("WinnerTeamTeamId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("MatchesCSId");
+
+                    b.HasIndex("EventCSID");
+
+                    b.HasIndex("WinnerTeamTeamId");
 
                     b.ToTable("MatchesCS");
                 });
@@ -241,12 +326,12 @@ namespace FPTV.Migrations
                     b.Property<int>("EventAPIID")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("EventId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("EventName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("EventValID")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("HaveStats")
                         .HasColumnType("bit");
@@ -284,14 +369,18 @@ namespace FPTV.Migrations
                         .IsRequired()
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("WinnerTeamId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("WinnerTeamName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid?>("WinnerTeamTeamId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("MatchesValId");
+
+                    b.HasIndex("EventValID");
+
+                    b.HasIndex("WinnerTeamTeamId");
 
                     b.ToTable("MatchesVal");
                 });
@@ -352,16 +441,18 @@ namespace FPTV.Migrations
                         .IsRequired()
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("WinnerTeamId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("WinnerTeamName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid?>("WinnerTeamTeamId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("MatchCSId");
 
                     b.HasIndex("MatchesCSId");
+
+                    b.HasIndex("WinnerTeamTeamId");
 
                     b.ToTable("MatchCS");
                 });
@@ -372,9 +463,9 @@ namespace FPTV.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<float?>("ADR")
+                    b.Property<double?>("ADR")
                         .IsRequired()
-                        .HasColumnType("real");
+                        .HasColumnType("float");
 
                     b.Property<int?>("Assists")
                         .IsRequired()
@@ -388,13 +479,13 @@ namespace FPTV.Migrations
                         .IsRequired()
                         .HasColumnType("int");
 
-                    b.Property<float?>("HeadShots")
+                    b.Property<double?>("HeadShots")
                         .IsRequired()
-                        .HasColumnType("real");
+                        .HasColumnType("float");
 
-                    b.Property<float?>("KD_Diff")
+                    b.Property<double?>("KD_Diff")
                         .IsRequired()
-                        .HasColumnType("real");
+                        .HasColumnType("float");
 
                     b.Property<int?>("Kills")
                         .IsRequired()
@@ -410,7 +501,7 @@ namespace FPTV.Migrations
                         .IsRequired()
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("PlayerCSId")
+                    b.Property<Guid?>("PlayerCSPlayerId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("PlayerName")
@@ -420,6 +511,8 @@ namespace FPTV.Migrations
                     b.HasKey("MatchPlayerStatsCSID");
 
                     b.HasIndex("MatchCSId");
+
+                    b.HasIndex("PlayerCSPlayerId");
 
                     b.ToTable("MatchPlayerStatsCS");
                 });
@@ -472,12 +565,14 @@ namespace FPTV.Migrations
                         .IsRequired()
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("PlayerValId")
+                    b.Property<Guid?>("PlayerValPlayerId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("MatchPlayerStatsValID");
 
                     b.HasIndex("MatchValId");
+
+                    b.HasIndex("PlayerValPlayerId");
 
                     b.ToTable("MatchPlayerStatsVal");
                 });
@@ -506,16 +601,17 @@ namespace FPTV.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("TeamCSAPIId")
-                        .IsRequired()
+                    b.Property<int>("TeamCSAPIId")
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("TeamCSId")
+                    b.Property<Guid?>("TeamCSTeamId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("MatchCSId");
 
                     b.HasIndex("MatchCSId1");
+
+                    b.HasIndex("TeamCSTeamId");
 
                     b.ToTable("MatchTeamsCS");
                 });
@@ -548,12 +644,14 @@ namespace FPTV.Migrations
                         .IsRequired()
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("TeamValId")
+                    b.Property<Guid?>("TeamValTeamId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("MatchValId");
 
                     b.HasIndex("MatchValId1");
+
+                    b.HasIndex("TeamValTeamId");
 
                     b.ToTable("MatchTeamsVal");
                 });
@@ -585,46 +683,20 @@ namespace FPTV.Migrations
                         .IsRequired()
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("WinnerTeamId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("WinnerTeamName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("WinnerTeamTeamId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("MatchValId");
 
                     b.HasIndex("MatchesValId");
 
+                    b.HasIndex("WinnerTeamTeamId");
+
                     b.ToTable("MatchVal");
-                });
-
-            modelBuilder.Entity("FPTV.Models.UserModels.Comment", b =>
-                {
-                    b.Property<Guid>("CommentId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid>("ProfileId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Text")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("TopicId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("CommentId");
-
-                    b.HasIndex("ProfileId");
-
-                    b.HasIndex("TopicId");
-
-                    b.ToTable("Comments");
                 });
 
             modelBuilder.Entity("FPTV.Models.UserModels.ErrorLog", b =>
@@ -711,8 +783,12 @@ namespace FPTV.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("TeamId")
-                        .HasColumnType("int");
+                    b.Property<float?>("Rating")
+                        .IsRequired()
+                        .HasColumnType("real");
+
+                    b.Property<Guid?>("TeamId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("PlayerId");
 
@@ -749,41 +825,11 @@ namespace FPTV.Migrations
                     b.ToTable("Profiles");
                 });
 
-            modelBuilder.Entity("FPTV.Models.UserModels.Reaction", b =>
-                {
-                    b.Property<Guid>("ReactionId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("CommentId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("ProfileId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("ReactionCode")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("ReactionId");
-
-                    b.HasIndex("CommentId");
-
-                    b.HasIndex("ProfileId");
-
-                    b.ToTable("Reactions");
-                });
-
             modelBuilder.Entity("FPTV.Models.UserModels.Team", b =>
                 {
-                    b.Property<int>("TeamId")
+                    b.Property<Guid>("TeamId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TeamId"), 1L, 1);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("CouchName")
                         .IsRequired()
@@ -817,33 +863,6 @@ namespace FPTV.Migrations
                     b.HasIndex("FavTeamsListId");
 
                     b.ToTable("Team");
-                });
-
-            modelBuilder.Entity("FPTV.Models.UserModels.Topic", b =>
-                {
-                    b.Property<Guid>("TopicId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Content")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid>("ProfileId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("TopicId");
-
-                    b.HasIndex("ProfileId");
-
-                    b.ToTable("Topics");
                 });
 
             modelBuilder.Entity("FPTV.Models.UserModels.UserBase", b =>
@@ -1050,6 +1069,101 @@ namespace FPTV.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("FPTV.Models.EventsModels.EventCS", b =>
+                {
+                    b.HasOne("FPTV.Models.UserModels.Team", "WinnerTeam")
+                        .WithMany()
+                        .HasForeignKey("WinnerTeamTeamId");
+
+                    b.Navigation("WinnerTeam");
+                });
+
+            modelBuilder.Entity("FPTV.Models.EventsModels.EventVal", b =>
+                {
+                    b.HasOne("FPTV.Models.UserModels.Team", "WinnerTeam")
+                        .WithMany()
+                        .HasForeignKey("WinnerTeamTeamId");
+
+                    b.Navigation("WinnerTeam");
+                });
+
+            modelBuilder.Entity("FPTV.Models.Forum.Comment", b =>
+                {
+                    b.HasOne("FPTV.Models.UserModels.Profile", "Profile")
+                        .WithMany()
+                        .HasForeignKey("ProfileId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("FPTV.Models.Forum.Topic", "Topic")
+                        .WithMany()
+                        .HasForeignKey("TopicId");
+
+                    b.Navigation("Profile");
+
+                    b.Navigation("Topic");
+                });
+
+            modelBuilder.Entity("FPTV.Models.Forum.Reaction", b =>
+                {
+                    b.HasOne("FPTV.Models.Forum.Comment", "Comment")
+                        .WithMany("Reactions")
+                        .HasForeignKey("CommentId");
+
+                    b.HasOne("FPTV.Models.UserModels.Profile", "Profile")
+                        .WithMany()
+                        .HasForeignKey("ProfileId");
+
+                    b.Navigation("Comment");
+
+                    b.Navigation("Profile");
+                });
+
+            modelBuilder.Entity("FPTV.Models.Forum.Topic", b =>
+                {
+                    b.HasOne("FPTV.Models.UserModels.Profile", "Profile")
+                        .WithMany()
+                        .HasForeignKey("ProfileId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Profile");
+                });
+
+            modelBuilder.Entity("FPTV.Models.MatchesModels.MatchesCS", b =>
+                {
+                    b.HasOne("FPTV.Models.EventsModels.EventCS", "EventCS")
+                        .WithMany()
+                        .HasForeignKey("EventCSID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("FPTV.Models.UserModels.Team", "WinnerTeam")
+                        .WithMany()
+                        .HasForeignKey("WinnerTeamTeamId");
+
+                    b.Navigation("EventCS");
+
+                    b.Navigation("WinnerTeam");
+                });
+
+            modelBuilder.Entity("FPTV.Models.MatchesModels.MatchesVal", b =>
+                {
+                    b.HasOne("FPTV.Models.EventsModels.EventVal", "EventVal")
+                        .WithMany()
+                        .HasForeignKey("EventValID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("FPTV.Models.UserModels.Team", "WinnerTeam")
+                        .WithMany()
+                        .HasForeignKey("WinnerTeamTeamId");
+
+                    b.Navigation("EventVal");
+
+                    b.Navigation("WinnerTeam");
+                });
+
             modelBuilder.Entity("FPTV.Models.MatchesModels.Stream", b =>
                 {
                     b.HasOne("FPTV.Models.MatchesModels.MatchesCS", null)
@@ -1063,29 +1177,53 @@ namespace FPTV.Migrations
 
             modelBuilder.Entity("FPTV.Models.StatisticsModels.MatchCS", b =>
                 {
-                    b.HasOne("FPTV.Models.MatchesModels.MatchesCS", null)
+                    b.HasOne("FPTV.Models.MatchesModels.MatchesCS", "MatchesCS")
                         .WithMany("MatchesList")
                         .HasForeignKey("MatchesCSId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("FPTV.Models.UserModels.Team", "WinnerTeam")
+                        .WithMany()
+                        .HasForeignKey("WinnerTeamTeamId");
+
+                    b.Navigation("MatchesCS");
+
+                    b.Navigation("WinnerTeam");
                 });
 
             modelBuilder.Entity("FPTV.Models.StatisticsModels.MatchPlayerStatsCS", b =>
                 {
-                    b.HasOne("FPTV.Models.StatisticsModels.MatchCS", null)
+                    b.HasOne("FPTV.Models.StatisticsModels.MatchCS", "MatchCS")
                         .WithMany("PlayerStatsList")
                         .HasForeignKey("MatchCSId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("FPTV.Models.UserModels.Player", "PlayerCS")
+                        .WithMany()
+                        .HasForeignKey("PlayerCSPlayerId");
+
+                    b.Navigation("MatchCS");
+
+                    b.Navigation("PlayerCS");
                 });
 
             modelBuilder.Entity("FPTV.Models.StatisticsModels.MatchPlayerStatsVal", b =>
                 {
-                    b.HasOne("FPTV.Models.StatisticsModels.MatchVal", null)
+                    b.HasOne("FPTV.Models.StatisticsModels.MatchVal", "MatchVal")
                         .WithMany("PlayerStatsList")
                         .HasForeignKey("MatchValId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("FPTV.Models.UserModels.Player", "PlayerVal")
+                        .WithMany()
+                        .HasForeignKey("PlayerValPlayerId");
+
+                    b.Navigation("MatchVal");
+
+                    b.Navigation("PlayerVal");
                 });
 
             modelBuilder.Entity("FPTV.Models.StatisticsModels.MatchTeamsCS", b =>
@@ -1095,6 +1233,12 @@ namespace FPTV.Migrations
                         .HasForeignKey("MatchCSId1")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("FPTV.Models.UserModels.Team", "TeamCS")
+                        .WithMany()
+                        .HasForeignKey("TeamCSTeamId");
+
+                    b.Navigation("TeamCS");
                 });
 
             modelBuilder.Entity("FPTV.Models.StatisticsModels.MatchTeamsVal", b =>
@@ -1104,34 +1248,29 @@ namespace FPTV.Migrations
                         .HasForeignKey("MatchValId1")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("FPTV.Models.UserModels.Team", "TeamVal")
+                        .WithMany()
+                        .HasForeignKey("TeamValTeamId");
+
+                    b.Navigation("TeamVal");
                 });
 
             modelBuilder.Entity("FPTV.Models.StatisticsModels.MatchVal", b =>
                 {
-                    b.HasOne("FPTV.Models.MatchesModels.MatchesVal", null)
+                    b.HasOne("FPTV.Models.MatchesModels.MatchesVal", "MatchesVal")
                         .WithMany("MatchesList")
                         .HasForeignKey("MatchesValId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
 
-            modelBuilder.Entity("FPTV.Models.UserModels.Comment", b =>
-                {
-                    b.HasOne("FPTV.Models.UserModels.Profile", "Profile")
+                    b.HasOne("FPTV.Models.UserModels.Team", "WinnerTeam")
                         .WithMany()
-                        .HasForeignKey("ProfileId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("WinnerTeamTeamId");
 
-                    b.HasOne("FPTV.Models.UserModels.Topic", "Topic")
-                        .WithMany()
-                        .HasForeignKey("TopicId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("MatchesVal");
 
-                    b.Navigation("Profile");
-
-                    b.Navigation("Topic");
+                    b.Navigation("WinnerTeam");
                 });
 
             modelBuilder.Entity("FPTV.Models.UserModels.ErrorLog", b =>
@@ -1174,39 +1313,11 @@ namespace FPTV.Migrations
                         .HasForeignKey("TeamId");
                 });
 
-            modelBuilder.Entity("FPTV.Models.UserModels.Reaction", b =>
-                {
-                    b.HasOne("FPTV.Models.UserModels.Comment", "Comment")
-                        .WithMany("Reactions")
-                        .HasForeignKey("CommentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("FPTV.Models.UserModels.Profile", "Profile")
-                        .WithMany()
-                        .HasForeignKey("ProfileId");
-
-                    b.Navigation("Comment");
-
-                    b.Navigation("Profile");
-                });
-
             modelBuilder.Entity("FPTV.Models.UserModels.Team", b =>
                 {
                     b.HasOne("FPTV.Models.UserModels.FavTeamsList", null)
                         .WithMany("Teams")
                         .HasForeignKey("FavTeamsListId");
-                });
-
-            modelBuilder.Entity("FPTV.Models.UserModels.Topic", b =>
-                {
-                    b.HasOne("FPTV.Models.UserModels.Profile", "Profile")
-                        .WithMany()
-                        .HasForeignKey("ProfileId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Profile");
                 });
 
             modelBuilder.Entity("FPTV.Models.UserModels.UserBase", b =>
@@ -1271,6 +1382,11 @@ namespace FPTV.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("FPTV.Models.Forum.Comment", b =>
+                {
+                    b.Navigation("Reactions");
+                });
+
             modelBuilder.Entity("FPTV.Models.MatchesModels.MatchesCS", b =>
                 {
                     b.Navigation("MatchesList");
@@ -1297,11 +1413,6 @@ namespace FPTV.Migrations
                     b.Navigation("PlayerStatsList");
 
                     b.Navigation("TeamsList");
-                });
-
-            modelBuilder.Entity("FPTV.Models.UserModels.Comment", b =>
-                {
-                    b.Navigation("Reactions");
                 });
 
             modelBuilder.Entity("FPTV.Models.UserModels.FavPlayerList", b =>

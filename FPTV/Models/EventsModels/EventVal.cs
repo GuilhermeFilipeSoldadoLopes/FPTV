@@ -47,9 +47,6 @@ namespace FPTV.Models.EventsModels
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime? EndAt { get; set; }
 
-        [Display(Name = "MatchesVal")]
-        public MatchesVal MatchesVal { get; set; }
-
         [Required]
         [Display(Name = "Matches Val API ID")]
         public int MatchesValAPIID { get; set; }

@@ -61,8 +61,8 @@ namespace FPTV.Models.MatchesModels
 
         [Required]
         [NotMapped]
-        [Display(Name = "Score")]
-        public IDictionary<int, int>? Score { get; set; }
+        [Display(Name = "Scores")]
+        public ICollection<Score>? Scores { get; set; }
 
         [NotMapped]
         [Display(Name = "Teams List")]
@@ -73,7 +73,6 @@ namespace FPTV.Models.MatchesModels
         [Display(Name = "Teams API Id List")]
         public ICollection<int>? TeamsAPIIDList { get; set; }
 
-		//[ForeignKey("WinnerTeamID")]
 		[Display(Name = "Winner Team")]
         public Team? WinnerTeam { get; set; }
 

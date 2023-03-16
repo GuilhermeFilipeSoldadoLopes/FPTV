@@ -1,4 +1,5 @@
 ﻿using FPTV.Data;
+using FPTV.Models.Forum;
 using FPTV.Models.UserModels;
 
 namespace FPTV.Services

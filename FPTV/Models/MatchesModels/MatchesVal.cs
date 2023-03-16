@@ -62,8 +62,8 @@ namespace FPTV.Models.MatchesModels
 
         [Required]
         [NotMapped]
-        [Display(Name = "Score")]
-        public IDictionary<int, int>? Score { get; set; }
+        [Display(Name = "Scores")]
+        public ICollection<Score>? Scores { get; set; }
 
         [NotMapped]
         [Display(Name = "Teams List")]

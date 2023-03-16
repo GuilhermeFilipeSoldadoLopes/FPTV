@@ -224,7 +224,7 @@ namespace FPTV.Controllers
                 }
             }
 
-			_context.SaveChanges();
+			//_context.SaveChanges();
 
             ViewBag.pastMatches = pastMatches;//Tem de ir buscar os da base de dados
 
@@ -266,7 +266,7 @@ namespace FPTV.Controllers
                     matches.TeamsAPIIDList = new List<int>();
 
                     matches.StreamList = new List<Stream>();
-                    matches.Score = new Dictionary<int, int>();
+                    //matches.Score = new Dictionary<int, int>();
 
                     //Set up values from api
                     var league = (JObject)item.GetValue("league");
@@ -344,7 +344,7 @@ namespace FPTV.Controllers
                         var score = team.GetValue("score");
                         var team_id = team.GetValue("team_id");
 
-                        matches.Score.Add((int)team_id, (int)score);
+                        //matches.Score.Add((int)team_id, (int)score);
                     }
 
                     foreach (var opponentObject in opponentArray.Cast<JObject>())

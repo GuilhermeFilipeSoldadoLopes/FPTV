@@ -209,7 +209,7 @@ namespace FPTV.Controllers
 								s.Add(r.Value<int>("team_id"), r.Value<int>("score"));
 							}
 
-							m.Score = s;
+							//m.Score = s;
 							pMatches.Add(m);
 						}
 					}
@@ -232,7 +232,7 @@ namespace FPTV.Controllers
 								s.Add(r.Value<int>("team_id"), r.Value<int>("score"));
 							}
 
-                            m.Score = s;
+                            //m.Score = s;
                             rMatches.Add(m);
 						}
 					}
@@ -255,7 +255,7 @@ namespace FPTV.Controllers
 								s.Add(r.Value<int>("team_id"), r.Value<int>("score"));
 							}
 
-							m.Score = s;
+                            //m.Score = s;
 							uMatches.Add(m);
 						}
 					}

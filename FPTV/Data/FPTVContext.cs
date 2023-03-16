@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 using FPTV.Models.MatchesModels;
 using FPTV.Models.EventsModels;
+using FPTV.Models.Forum;
 
 namespace FPTV.Data
 {

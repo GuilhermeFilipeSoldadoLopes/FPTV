@@ -113,7 +113,7 @@ namespace FPTV.Controllers
                         foreach (JObject p in jarrayPlayers.Cast<JObject>())
                         {
                             var player = new MatchPlayerStatsCS();
-                            player.MatchCSId = ma.MatchCSId;
+                            //player.MatchCSId = ma.MatchCSId;
                             player.MatchCSAPIID = ma.MatchCSAPIID;
                             player.PlayerCSAPIId = (int)t.GetValue("id");
                             player.Kills = _random.Next(1, 31);
