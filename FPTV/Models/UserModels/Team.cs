@@ -7,7 +7,7 @@ namespace FPTV.Models.UserModels
         [Required]
         [Key]
 		[Display(Name = "TeamId")]
-		public int TeamId { get; set; }
+		public Guid TeamId { get; set; }
 
 		[Required]
 		[Display(Name = "Teams Name")]

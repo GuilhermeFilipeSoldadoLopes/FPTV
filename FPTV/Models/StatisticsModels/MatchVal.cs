@@ -1,5 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using FPTV.Models.MatchesModels;
+using FPTV.Models.UserModels;
 
 namespace FPTV.Models.StatisticsModels
 {
@@ -14,9 +16,8 @@ namespace FPTV.Models.StatisticsModels
         [Display(Name = "MatchVal API ID")]
         public int MatchValAPIID { get; set; }
 
-        [ForeignKey("MatchesValId")]
-        [Display(Name = "Id of valorant matches")]
-        public Guid MatchesValId { get; set; }
+        [Display(Name = "MatchesVal")]
+        public MatchesVal MatchesVal { get; set; }
 
 		[Required]
 		[Display(Name = "API Id of a val matches")]
@@ -38,8 +39,8 @@ namespace FPTV.Models.StatisticsModels
 		[Display(Name = "List of Teams")] 
         public ICollection<MatchTeamsVal>? TeamsList { get; set; }
 
-        [Display(Name = "Id of the winner team")] 
-        public Guid? WinnerTeamId { get; set; }
+        [Display(Name = "WinnerTeam")] 
+        public Team? WinnerTeam { get; set; }
 
 		[Required]
 		[Display(Name = "API Id of the winner team")]
