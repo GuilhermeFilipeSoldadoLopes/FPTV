@@ -24,6 +24,10 @@ namespace FPTV.Models.EventsModels
         public string? LeagueName { get; set; }
 
         [Required]
+        [Display(Name = "EventImage")]
+        public string? EventImage { get; set; }
+
+        [Required]
         [Display(Name = "Event Link")]
         public string? EventLink { get; set; }
 

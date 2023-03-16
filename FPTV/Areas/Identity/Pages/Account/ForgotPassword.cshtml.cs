@@ -7,7 +7,9 @@ using System.ComponentModel.DataAnnotations;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+using AngleSharp.Dom;
 using FPTV.Models.UserModels;
+using FPTV.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -54,31 +56,42 @@ namespace FPTV.Areas.Identity.Pages.Account
         {
             if (ModelState.IsValid)
             {
-                //testar
-                var user = await _userManager.FindByEmailAsync(Input.Email);
-                if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
-                {
-                    // Don't reveal that the user does not exist or is not confirmed
-                    return RedirectToPage("./ForgotPasswordConfirmation");
-                }
+                ////testar
+                //var user = await _userManager.FindByEmailAsync(Input.Email);
+                //var result = await _userManager.ConfirmEmailAsync(user, code);
+                //if (user == null && result.Succeeded)
+                //{
+                //    // Don't reveal that the user does not exist or is not confirmed
+                //    return RedirectToPage("./ForgotPasswordConfirmation");
+                //}
+
+                //var result = await _userManager.ConfirmEmailAsync(user, code);
+
+
+                //var user = await _userManager.FindByEmailAsync(Input.Email);
+                //var result = await _signInManager.PasswordSignInAsync(user, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+                //if (result.Succeeded)
+                //{
 
                 // For more information on how to enable account confirmation and password reset please
                 // visit https://go.microsoft.com/fwlink/?LinkID=532713
-                var code = await _userManager.GeneratePasswordResetTokenAsync(user);
-                code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-                var callbackUrl = Url.Page(
-                    "/Account/ResetPassword",
-                    pageHandler: null,
-                    values: new { area = "Identity", code },
-                    protocol: Request.Scheme);
+                    var user = await _userManager.FindByEmailAsync(Input.Email);
 
-                await _emailSender.SendEmailAsync(
-                    Input.Email,
-                    "Reset Password",
-                    $"{HtmlEncoder.Default.Encode(callbackUrl)}");
+                    var code = await _userManager.GeneratePasswordResetTokenAsync(user);
+                    code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+                    var callbackUrl = Url.Page(
+                        "/Account/ResetPassword",
+                        pageHandler: null,
+                        values: new { area = "Identity", code },
+                        protocol: Request.Scheme);
 
-                return RedirectToPage("./ForgotPasswordConfirmation");
-            }
+                    await _emailSender.SendEmailAsync(
+                        Input.Email,
+                        "Reset Password",
+                        $"{HtmlEncoder.Default.Encode(callbackUrl)}");
+
+                    return RedirectToPage("./ForgotPasswordConfirmation");
+                }
 
             return Page();
         }

@@ -20,6 +20,10 @@ namespace FPTV.Models.EventsModels
         public string? EventName { get; set; }
 
         [Required]
+        [Display(Name = "EventImage")]
+        public string? EventImage { get; set; }
+
+        [Required]
         [Display(Name = "LeagueName")]
         public string? LeagueName { get; set; }
 

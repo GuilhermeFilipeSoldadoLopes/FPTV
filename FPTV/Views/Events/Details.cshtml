@@ -133,11 +133,11 @@
                     <div>
                         <span style="text-align: center;">
                             <p style="font-size:25px">
-                                <span> @dict[match.Score.Keys.First()] </span>
+                               @* <span> @dict[match.Score.Keys.First()] </span>
                                 <span class="span2"> @match.Score.Values.First() </span>
                                 <span class="span2"> vs </span>
                                 <span class="span2"> @match.Score.Values.Last() </span>
-                                <span> @dict[match.Score.Keys.Last()] </span>
+                                <span> @dict[match.Score.Keys.Last()] </span>*@
                             </p>
                         </span>
                     </div>
@@ -202,11 +202,11 @@
                         <div>
                             <span style="text-align: center;">
                                 <p style="font-size:25px">
-                                    <span> @dict[match.Score.Keys.First()] </span>
+                                    @*<span> @dict[match.Score.Keys.First()] </span>
                                     <span class="span2"> match.Score.Values.First() </span>
                                     <span class="span2"> vs </span>
                                     <span class="span2"> match.Score.Values.Last() </span>
-                                    <span>@dict[match.Score.Keys.Last()] </span>
+                                    <span>@dict[match.Score.Keys.Last()] </span>*@
                                 </p>
                             </span>
                         </div>
@@ -231,10 +231,10 @@
             @foreach (MatchesCS match in ViewBag.upcomingMatches)
             {
 
-                var team1 = match.Score.Keys.FirstOrDefault();
-                var team2 = match.Score.Keys.LastOrDefault();
+                @*var team1 = match.Score.Keys.FirstOrDefault();
+                var team2 = match.Score.Keys.LastOrDefault();*@
                 
-                if(team1 != 0 && team2 != 0)
+                @*if(team1 != 0 && team2 != 0)
                 {
                     <div class="alinhar" style="border-bottom: 1px solid black">
                     <div class="my-div2" style="width:90%;">
@@ -261,7 +261,7 @@
 
                     </div>
                 </div>
-                }
+                }*@
                 
             }
             

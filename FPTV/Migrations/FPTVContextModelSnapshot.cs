@@ -39,6 +39,10 @@ namespace FPTV.Migrations
                     b.Property<int>("EventAPIID")
                         .HasColumnType("int");
 
+                    b.Property<string>("EventImage")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("EventLink")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -102,6 +106,10 @@ namespace FPTV.Migrations
 
                     b.Property<int>("EventAPIID")
                         .HasColumnType("int");
+
+                    b.Property<string>("EventImage")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("EventLink")
                         .IsRequired()

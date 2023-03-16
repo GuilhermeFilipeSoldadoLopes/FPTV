@@ -31,7 +31,8 @@ builder.Services.AddIdentity<UserBase, IdentityRole>(options =>
             new TokenProviderDescriptor(
                 typeof(CustomEmailConfirmationTokenProvider<UserBase>)));
         options.Tokens.EmailConfirmationTokenProvider = "CustomEmailConfirmation";
-    }).AddEntityFrameworkStores<FPTVContext>();
+    }).AddEntityFrameworkStores<FPTVContext>()
+    .AddTokenProvider<DataProtectorTokenProvider<UserBase>>(TokenOptions.DefaultProvider);
 
 builder.Services.AddTransient<CustomEmailConfirmationTokenProvider<UserBase>>();
 

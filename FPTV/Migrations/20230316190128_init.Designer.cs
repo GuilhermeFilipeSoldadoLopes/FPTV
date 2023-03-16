@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FPTV.Migrations
 {
     [DbContext(typeof(FPTVContext))]
-    [Migration("20230316170532_init")]
+    [Migration("20230316190128_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -40,6 +40,10 @@ namespace FPTV.Migrations
 
                     b.Property<int>("EventAPIID")
                         .HasColumnType("int");
+
+                    b.Property<string>("EventImage")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("EventLink")
                         .IsRequired()
@@ -104,6 +108,10 @@ namespace FPTV.Migrations
 
                     b.Property<int>("EventAPIID")
                         .HasColumnType("int");
+
+                    b.Property<string>("EventImage")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("EventLink")
                         .IsRequired()

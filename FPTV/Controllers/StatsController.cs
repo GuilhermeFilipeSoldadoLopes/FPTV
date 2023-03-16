@@ -135,7 +135,7 @@ namespace FPTV.Controllers
                     _context.MatchCS.Add(ma);
                     foreach (JObject t in jarrayTeams.Cast<JObject>())
                     {
-                        var team = new MatchTeamsCS(ma.MatchCSId);
+                        /*var team = new MatchTeamsCS(ma.MatchCSId);
                         team.MatchCSAPIID = ma.MatchCSAPIID;
                         team.TeamCSAPIId = (int)t.GetValue("id");
                         team.Name = (string)t.GetValue("name");
@@ -143,8 +143,9 @@ namespace FPTV.Controllers
                         team.Image = (string)t.GetValue("image_url");
                         teamsList.Add(team);
 
-                        _context.MatchTeamsCS.Add(team);
-                        foreach (JObject p in jarrayPlayers.Cast<JObject>())
+                        _context.MatchTeamsCS.Add(team);*/
+
+                        /*foreach (JObject p in jarrayPlayers.Cast<JObject>())
                         {
                             var player = new MatchPlayerStatsCS(ma.MatchCSId);
                             player.MatchCSAPIID = ma.MatchCSAPIID;
@@ -160,7 +161,7 @@ namespace FPTV.Controllers
                             playerStatsList.Add(player);
                             _context.MatchPlayerStatsCS.Add(player);
                         }
-                        _context.MatchTeamsCS.Add(team);
+                        _context.MatchTeamsCS.Add(team);*/
                     }
                     ViewBag.playerStatsList = playerStatsList;
                     ViewBag.teamsList = teamsList;
