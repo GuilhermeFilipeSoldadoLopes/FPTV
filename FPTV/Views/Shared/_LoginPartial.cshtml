@@ -21,7 +21,7 @@
     }
 }
 
-<ul class="navbar-nav" style="height: 50px">
+<ul class="navbar-nav" style="display:flex;align-content:end;">
     @if (SignInManager.IsSignedIn(User))
     {
         <li class="nav-item" style="align-self: center; margin-top: 5px; margin-right: -5px">
@@ -44,15 +44,16 @@
     }
     else
     {
-	    <div class="vl" style="border-left: 1.6px solid black; height: 53px; padding: 5px"></div>
-	    <li class="nav-item">
-            <a class="nav-link text-dark" id="rl" style="font-size: 25px;" asp-area="Identity" asp-page="/Account/Register" asp-route-returnUrl="@returnUrl">Register </a>
-	    </li>
-        <li class="nav-item" style="padding: 8px 0; font-size: 25px">
-		    /
-	    </li>
-        <li class="nav-item">
-            <a class="nav-link text-dark" id="rl" style="font-size: 25px;" asp-area="Identity" asp-page="/Account/Login" asp-route-returnUrl="@returnUrl">Login</a>
-        </li>
+	   <div style="width:20%; display:flex;">
+	        <li class="nav-item">
+                <a class="nav-link text-dark" id="rl" style="font-size: 25px; border-left: 1.6px solid Black" asp-area="Identity" asp-page="/Account/Register" asp-route-returnUrl="@returnUrl">Register </a>
+	        </li>
+            <li class="nav-item" style="padding: 8px 0; font-size: 25px">
+		        /
+	        </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" id="rl" style="font-size: 25px;" asp-area="Identity" asp-page="/Account/Login" asp-route-returnUrl="@returnUrl">Login</a>
+            </li>
+        </div>
     }
 </ul>

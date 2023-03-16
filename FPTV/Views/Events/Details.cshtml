@@ -1,9 +1,14 @@
-﻿@using Newtonsoft.Json.Linq
+﻿@using FPTV.Models.MatchesModels;
+@using FPTV.Models.StatisticsModels;
+@using Newtonsoft.Json.Linq
 @using System.Linq
+@using System.Globalization;
+@using System.Collections.Generic;
 @{
     ViewData["Title"] = "EventDetails";
-
+    var dict = ViewBag.TeamList as Dictionary<int, string>;
 }
+
 
 <style>
     .box1 {
@@ -112,111 +117,40 @@
 </style>
 <body class="bodytemp">
 
-    <h1 style="text-align: center;">Blast.tv Paris Major 2022</h1>
+    <h1 style="text-align: center;">@ViewBag.Event.EventName - @ViewBag.Event.LeagueName</h1>
     <div class="ola">
 
         <div class="box1" style="background-color:lightgrey">
             <h4 style="font-weight: bold;">Finished Matches</h4>
-            <div class="alinhar" style="border-bottom: 1px solid black">
+            @foreach(MatchesCS match in ViewBag.pastMatches)
+            {
+                <div class="alinhar" style="border-bottom: 1px solid black">
                 <div class="my-div2" style="width:90%;">
                     <div>
-                        <span class="span2" style="margin-top:10px;">Saturday - 2023-02-12 &nbsp; &nbsp; 21:00</span>
+                            <span class="span2" style="margin-top:10px;">@ViewBag.Event.BeginAt.ToString("D", CultureInfo.GetCultureInfo("en-US"))</span>
                     </div>
 
                     <div>
                         <span style="text-align: center;">
                             <p style="font-size:25px">
-                                <span> Fnatic </span>
-                                <span class="span2"> 16 </span>
+                                <span> @dict[match.Score.Keys.First()] </span>
+                                <span class="span2"> @match.Score.Values.First() </span>
                                 <span class="span2"> vs </span>
-                                <span class="span2"> 10 </span>
-                                <span> SAW </span>
+                                <span class="span2"> @match.Score.Values.Last() </span>
+                                <span> @dict[match.Score.Keys.Last()] </span>
                             </p>
                         </span>
                     </div>
 
                     <div style="text-align:left; display: flex;">
-                        <p>Best of 3</p>
+                        <p>Best of @match.NumberOfGames</p>
                         <a href="#" style="justify-content: space-around; margin-left: auto;">More details</a>
                     </div>
 
                 </div>
             </div>
-            <div class="alinhar" style="border-bottom: 1px solid black">
-                <div class="my-div2" style="width:90%;">
-                    <div>
-                        <span class="span2" style="margin-top:10px;">Saturday - 2023-02-12 &nbsp; &nbsp; 20:00</span>
-                    </div>
-
-                    <div>
-                        <span style="text-align: center;">
-                            <p style="font-size:25px">
-                                <span> Nouns </span>
-                                <span class="span2"> 3 </span>
-                                <span class="span2"> vs </span>
-                                <span class="span2"> 16 </span>
-                                <span> ATK </span>
-                            </p>
-                        </span>
-                    </div>
-
-                    <div style="text-align:left; display: flex;">
-                        <p>Best of 3</p>
-                        <a href="#" style="justify-content: space-around; margin-left: auto;">More details</a>
-                    </div>
-
-                </div>
-            </div>
-            <div class="alinhar" style="border-bottom: 1px solid black">
-                <div class="my-div2" style="width:90%;">
-                    <div>
-                        <span class="span2" style="margin-top:10px;">Saturday - 2023-02-12 &nbsp; &nbsp; 19:00</span>
-                    </div>
-
-                    <div>
-                        <span style="text-align: center;">
-                            <p style="font-size:25px">
-                                <span> Mythics </span>
-                                <span class="span2"> 16 </span>
-                                <span class="span2"> vs </span>
-                                <span class="span2"> 2 </span>
-                                <span> Furia </span>
-                            </p>
-                        </span>
-                    </div>
-
-                    <div style="text-align:left; display: flex;">
-                        <p>Best of 3</p>
-                        <a href="#" style="justify-content: space-around; margin-left: auto;">More details</a>
-                    </div>
-
-                </div>
-            </div>
-            <div class="alinhar" style="border-bottom: 1px solid black">
-                <div class="my-div2" style="width:90%;">
-                    <div>
-                        <span class="span2" style="margin-top:10px;">Saturday - 2023-02-12 &nbsp; &nbsp; 19:00</span>
-                    </div>
-
-                    <div>
-                        <span style="text-align: center;">
-                            <p style="font-size:25px">
-                                <span> 00Nation </span>
-                                <span class="span2"> 16 </span>
-                                <span class="span2"> vs </span>
-                                <span class="span2"> 14 </span>
-                                <span> paiN </span>
-                            </p>
-                        </span>
-                    </div>
-
-                    <div style="text-align:left; display: flex;">
-                        <p>Best of 3</p>
-                        <a href="#" style="justify-content: space-around; margin-left: auto;">More details</a>
-                    </div>
-
-                </div>
-            </div>
+            }
+            
 
         </div>
 
@@ -228,60 +162,64 @@
                     <div class="my-div">
                         <div>
                             <span>Date</span>
-                            <p>Feb 22nd - Mar 26th 2023</p>
+                            <p>@ViewBag.Event.BeginAt.ToString("D", CultureInfo.GetCultureInfo("en-US"))</p>
                         </div>
 
                         <div>
                             <span>Prize pool</span>
-                            <p>$850,000</p>
+                            <p>@ViewBag.Event.PrizePool $</p>
                         </div>
 
                         <div>
                             <span>Teams</span>
-                            <p>32</p>
+                            <p>@ViewBag.Event.TeamsList.Count</p>
                         </div>
 
                         <div>
                             <span>Tier</span>
-                            <p>A</p>
+                            <p>@char.ToUpper(ViewBag.Event.Tier)</p>
                         </div>
 
                     </div>
 
                 </div>
                 <p style="margin-right:20%; text-align:right">
-                    <span>Link: </span>
+                    <span>Link: <a href="@ViewBag.Event.EventLink">@ViewBag.Event.EventName</a></span>
                 </p>
             </div>
 
-            <div class="alinhar">
-                <div class="my-div2" style="width:90%">
-                    <div>
-                        <p style="font-weight:bold; margin-top:2%; margin-bottom:0px; ">
-                            <h4 style="font-weight: bold;">Live Match</h4>
-                        </p>
-                        <span class="span2" style="margin-top:10px;">Saturday - 2023-02-13 &nbsp; &nbsp; 23:00</span>
-                    </div>
-
-                    <div>
-                        <span style="text-align: center;">
-                            <p style="font-size:25px">
-                                <span> ENCE </span>
-                                <span class="span2"> 11 </span>
-                                <span class="span2"> vs </span>
-                                <span class="span2"> 5 </span>
-                                <span> G2 </span>
+            @foreach (MatchesCS match in ViewBag.runningMatches)
+            {
+                <div class="alinhar">
+                    <div class="my-div2" style="width:90%">
+                        <div>
+                            <p style="font-weight:bold; margin-top:2%; margin-bottom:0px; ">
+                                <h4 style="font-weight: bold;">Live Match</h4>
                             </p>
-                        </span>
-                    </div>
+                            <span class="span2" style="margin-top:10px;">@match.BeginAt.Value.ToString("D", CultureInfo.GetCultureInfo("en-US"))</span>
+                        </div>
 
-                    <div style="text-align:left; display: flex;">
-                        <p>Best of 3</p>
-                        <a href="#" style="justify-content: space-around; margin-left: auto;">More details</a>
-                    </div>
+                        <div>
+                            <span style="text-align: center;">
+                                <p style="font-size:25px">
+                                    <span> @dict[match.Score.Keys.First()] </span>
+                                    <span class="span2"> match.Score.Values.First() </span>
+                                    <span class="span2"> vs </span>
+                                    <span class="span2"> match.Score.Values.Last() </span>
+                                    <span>@dict[match.Score.Keys.Last()] </span>
+                                </p>
+                            </span>
+                        </div>
 
+                        <div style="text-align:left; display: flex;">
+                            <p>Best of @match.NumberOfGames</p>
+                            <a href="#" style="justify-content: space-around; margin-left: auto;">More details</a>
+                        </div>
+
+                    </div>
                 </div>
-            </div>
+            }
+            
 
 
 
@@ -290,106 +228,43 @@
 
         <div class="box1" style="background-color:lightgrey">
             <h4 style="font-weight: bold;">Upcoming Matches</h4>
-            <div class="alinhar" style="border-bottom: 1px solid black">
-                <div class="my-div2" style="width:90%;">
-                    <div>
-                        <span class="span2" style="margin-top:10px;">Saturday - 2023-02-14 &nbsp; &nbsp; 21:00</span>
-                    </div>
+            @foreach (MatchesCS match in ViewBag.upcomingMatches)
+            {
 
-                    <div>
-                        <span style="text-align: center;">
-                            <p style="font-size:25px">
-                                <span> Apeks </span>
-                                <span class="span2">  </span>
-                                <span class="span2"> vs </span>
-                                <span class="span2">  </span>
-                                <span> Eyeballers </span>
-                            </p>
-                        </span>
-                    </div>
+                var team1 = match.Score.Keys.FirstOrDefault();
+                var team2 = match.Score.Keys.LastOrDefault();
+                
+                if(team1 != 0 && team2 != 0)
+                {
+                    <div class="alinhar" style="border-bottom: 1px solid black">
+                    <div class="my-div2" style="width:90%;">
+                        <div>
+                            <span class="span2" style="margin-top:10px;">@match.BeginAt.Value.ToString("D", CultureInfo.GetCultureInfo("en-US"))</span>
+                        </div>
 
-                    <div style="text-align:left; display: flex;">
-                        <p>Best of 3</p>
-                        <a href="#" style="justify-content: space-around; margin-left: auto;">More details</a>
-                    </div>
+                        <div>
+                            <span style="text-align: center;">
+                                <p style="font-size:25px">
+                                    <span> @dict[team1] </span>
+                                    <span class="span2">  </span>
+                                    <span class="span2"> vs </span>
+                                    <span class="span2">  </span>
+                                    <span> @dict[team2] </span>
+                                </p>
+                            </span>
+                        </div>
 
+                        <div style="text-align:left; display: flex;">
+                                <p>Best of @match.NumberOfGames</p>
+                            <a href="#" style="justify-content: space-around; margin-left: auto;">More details</a>
+                        </div>
+
+                    </div>
                 </div>
-            </div>
-            <div class="alinhar" style="border-bottom: 1px solid black">
-                <div class="my-div2" style="width:90%;">
-                    <div>
-                        <span class="span2" style="margin-top:10px;">Saturday - 2023-02-14 &nbsp; &nbsp; 20:00</span>
-                    </div>
-
-                    <div>
-                        <span style="text-align: center;">
-                            <p style="font-size:25px">
-                                <span> Voyovda </span>
-                                <span class="span2">  </span>
-                                <span class="span2"> vs </span>
-                                <span class="span2">  </span>
-                                <span> HAVU </span>
-                            </p>
-                        </span>
-                    </div>
-
-                    <div style="text-align:left; display: flex;">
-                        <p>Best of 3</p>
-                        <a href="#" style="justify-content: space-around; margin-left: auto;">More details</a>
-                    </div>
-
-                </div>
-            </div>
-            <div class="alinhar" style="border-bottom: 1px solid black">
-                <div class="my-div2" style="width:90%;">
-                    <div>
-                        <span class="span2" style="margin-top:10px;">Saturday - 2023-02-14 &nbsp; &nbsp; 19:00</span>
-                    </div>
-
-                    <div>
-                        <span style="text-align: center;">
-                            <p style="font-size:25px">
-                                <span> IIIuminar </span>
-                                <span class="span2">  </span>
-                                <span class="span2"> vs </span>
-                                <span class="span2">  </span>
-                                <span> ECLOT </span>
-                            </p>
-                        </span>
-                    </div>
-
-                    <div style="text-align:left; display: flex;">
-                        <p>Best of 3</p>
-                        <a href="#" style="justify-content: space-around; margin-left: auto;">More details</a>
-                    </div>
-
-                </div>
-            </div>
-            <div class="alinhar" style="border-bottom: 1px solid black">
-                <div class="my-div2" style="width:90%;">
-                    <div>
-                        <span class="span2" style="margin-top:10px;">Saturday - 2023-02-14 &nbsp; &nbsp; 18:00</span>
-                    </div>
-
-                    <div>
-                        <span style="text-align: center;">
-                            <p style="font-size:25px">
-                                <span> BNE </span>
-                                <span class="span2">  </span>
-                                <span class="span2"> vs </span>
-                                <span class="span2">  </span>
-                                <span> Nexus </span>
-                            </p>
-                        </span>
-                    </div>
-
-                    <div style="text-align:left; display: flex;">
-                        <p>Best of 3</p>
-                        <a href="#" style="justify-content: space-around; margin-left: auto;">More details</a>
-                    </div>
-
-                </div>
-            </div>
+                }
+                
+            }
+            
 
         </div>
     </div>

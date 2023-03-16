@@ -3,23 +3,68 @@
 @{
     ViewData["Title"] = "Register confirmation";
 }
+<style>
 
-<h1>@ViewData["Title"]</h1>
-@{
-    if (@Model.DisplayConfirmAccountLink)
-    {
-<p>
-    This app does not currently have a real email sender registered, see <a href="https://aka.ms/aspaccountconf">these docs</a> for how to configure a real email sender.
-    Normally this would be emailed: <a id="confirm-link" href="@Model.EmailConfirmationUrl">Click here to confirm your account</a>
-</p>
+    .bodytemp {
+        text-align: center;
     }
-    else
-    {
-<p>
-    <b>Please check your email to confirm your account.</b>
-    <br><br>
-    After confirming your account, <a asp-page="./Login">click here to login</a>.
-</p>
+
+    .container1 {
+        display: flex;
+        align-items: center;
+        width: 100%;
     }
-}
+
+    .box {
+        width: 100%
+    }
+
+    .row {
+        width: 100%;
+        justify-content: center;
+    }
+</style>
+<body class="bodytemp">
+    <div style="background-color:white">
+
+
+        <div class="container1">
+
+            <div class="box">
+                <img src="~/images/newEmail.png" style="width:90%; padding:10%">
+            </div>
+
+
+            <div class="box">
+                <div class="row">
+                    <div class="col-md-4" style="width:70%; ">
+                        <h3>@ViewData["Title"]</h3>
+                        @{
+                            if (@Model.DisplayConfirmAccountLink)
+                            {
+                        <p>
+                            This app does not currently have a real email sender registered, see <a href="https://aka.ms/aspaccountconf">these docs</a> for how to configure a real email sender.
+                            Normally this would be emailed: <a id="confirm-link" href="@Model.EmailConfirmationUrl">Click here to confirm your account</a>
+                        </p>
+                            }
+                            else
+                            {
+                        <p>
+                            <b>Please check your email to confirm your account.</b>
+                            <br><br>
+                            After confirming your account, <a asp-page="./Login">click here to login</a>.
+                        </p>
+                            }
+                         }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+
+
 

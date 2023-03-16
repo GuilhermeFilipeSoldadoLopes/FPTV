@@ -12,22 +12,18 @@
     <link rel="icon" type="image/png" href="~/favicon.ico" />
     
     <style>
-		#menu {
+		/*#menu {
 			margin-right: 4%;
 			margin-left: 4%;
 		    color: #000;
 			cursor: pointer;
 		    display: inline-block;
 		}
-
+*/
 		#buttonMenu:hover {
 			background-color: transparent;
 			border: 2px solid #DE3C3C;
 			border-radius: 20px;
-			/* padding-top: 3px;
-			padding-bottom: 3px;
-			padding-left: 20px;
-			padding-right: 20px; */
 			-webkit-transition: all .15s ease-in-out;
 			transition: all .15s ease-in-out;
 			color: #DE3C3C;
@@ -38,28 +34,29 @@
 <body>
 <header>
 		<div>
-		<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3" style="margin-top: -5px;">
-			<div class="container-fluid">
+			<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3" style="margin-top: -5px;width:100%">
+				<div class="container-fluid" style="width:100%">
 					<a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img class="logo" src="~/images/iconMenu.jpg" style="width: 85px; height: 100%;"> </a>
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-						aria-expanded="false" aria-label="Toggle navigation">
+							aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 				</button>
-					<div class="navbar-collapse collapse d-sm-inline-flex justify-content-between" style="text-align: center; margin-right: 100px; margin-left: 25px;">
-					<ul class="navbar-nav flex-grow-1" >
-						<li class="nav-item" id="menu">
+				<div style="width:100%; display:flex">
+				<div class="navbar-collapse collapse d-sm-inline-flex justify-content-between" style="margin:auto">
+					<ul class="navbar-nav flex-grow-1" style="display:flex;">
+						<li class="nav-item" id="menu" style="width:12%; margin:auto">
 								<a class="nav-link text-dark" id="buttonMenu" style="font-weight: bold; font-size: 24px;" asp-area="Home" asp-controller="Home" asp-action="Index">@*Game*@CS:GO</a>
 						</li>
-							<li class="nav-item" id="menu">
+						<li class="nav-item" id="menu" style="width:12%; margin:auto">
 								<a class="nav-link text-dark" id="buttonMenu" style="font-size: 24px;" asp-area="" asp-controller="Home" asp-action="Matches">Matches</a>
 						</li>
-							<li class="nav-item" id="menu">
+						<li class="nav-item" id="menu" style="width:12%; margin:auto">
 								<a class="nav-link text-dark" id="buttonMenu" style="font-size: 24px;" asp-area="" asp-controller="Home" asp-action="Index">Results</a>
 						</li>
-							<li class="nav-item" id="menu">
+						<li class="nav-item" id="menu" style="width:12%; margin:auto">
 								<a class="nav-link text-dark" id="buttonMenu" style="font-size: 24px;" asp-area="" asp-controller="Home" asp-action="Events">Events</a>
 						</li>
-							<li class="nav-item" id="menu">
+						<li class="nav-item" id="menu" style="width:12%; margin:auto">
 								<a class="nav-link text-dark" id="buttonMenu" style="font-size: 24px;" asp-area="" asp-controller="Home" asp-action="Index">Forum</a>
 						</li>
 							<li class="nav-item" id="menu">
@@ -67,7 +64,7 @@
 						</li>
 					</ul>
 				</div>
-				<div style="text-align: right">
+					<div class="navbar-nav flex-grow-1" style="justify-content: end;">
 					@{
 						var result = Engine.FindView(ViewContext, "_LoginPartial", isMainPage: false);
 					}
@@ -82,6 +79,7 @@
 						$"we have looked at it in the following locations: {System.Environment.NewLine}{string.Join(System.Environment.NewLine, result.SearchedLocations)}.");
 					}
 				</div>
+					</div>
 			</div>
 		</nav>
 	</div>

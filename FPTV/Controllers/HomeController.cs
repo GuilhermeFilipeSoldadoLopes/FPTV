@@ -83,10 +83,7 @@ namespace FPTV.Controllers
         {
             return RedirectToAction("Index", "Events");
         }
-        public IActionResult EventDetails()
-		{
-			return View();
-		}
+
         public IActionResult LoginRegister()
         {
 	        return View();
@@ -104,10 +101,15 @@ namespace FPTV.Controllers
             return View();
         }
 
+		public IActionResult MatchDetails()
+		{
+			
+			return View();
+		}
+
         public IActionResult Matches()
         {
-            //return RedirectToAction("Método", "Matches");
-            return View();
+            return RedirectToAction("CSGOMatches", "Matches");
         }
 
         public IActionResult Results()

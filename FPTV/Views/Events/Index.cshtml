@@ -145,23 +145,22 @@
 
 		<div class="buttons">
 
+			<form method="post" action="@Url.Action("Index", "Events", new { sort = ViewBag.sort, filter = ViewBag.filter})">
 			<label class="search-container">
 				<img src="~/images/procurar.png" />
-				<input type="text" placeholder="Search...">
+				<input name = "search" type = "text" placeholder = "Search...">
 			</label>
 
-			@*<button class="button" style="margin-top: 0px;margin-bottom: 0px;">
-				Search
-			</button>*@
-
+			
+			</form>
 			<div class="dropdown">
 				<button class="button2">Sort by</button>
 				<div class="dropdown-content" style="margin-left:5%;">
-					<a href="@Url.Action("Index", "Events", new { sort = "sort=-begin_at", filter = ViewBag.filter})">Newest</a>
-					<a href="@Url.Action("Index", "Events", new { sort = "sort=begin_at", filter = ViewBag.filter})">Oldest</a>
-					<a href="@Url.Action("Index", "Events", new { sort = "sort=prizepool", filter = ViewBag.filter})">Prizepool</a>
-					<a href="@Url.Action("Index", "Events", new { sort = "sort=name", filter = ViewBag.filter})">Name</a>
-					<a href="@Url.Action("Index", "Events", new { sort = "sort=tier", filter = ViewBag.filter})">Tier</a>
+					<a href="@Url.Action("Index", "Events", new { sort = "&sort=-begin_at", filter = ViewBag.filter})">Newest</a>
+					<a href="@Url.Action("Index", "Events", new { sort = "&sort=begin_at", filter = ViewBag.filter})">Oldest</a>
+					<a href="@Url.Action("Index", "Events", new { sort = "&sort=prizepool", filter = ViewBag.filter})">Prizepool</a>
+					<a href="@Url.Action("Index", "Events", new { sort = "&sort=name", filter = ViewBag.filter})">Name</a>
+					<a href="@Url.Action("Index", "Events", new { sort = "&sort=tier", filter = ViewBag.filter})">Tier</a>
 			  </div>
 			</div>
 			<div class="dropdown">

@@ -1,5 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using FPTV.Models.MatchesModels;
+using FPTV.Models.UserModels;
 
 namespace FPTV.Models.StatisticsModels
 {
@@ -14,9 +16,8 @@ namespace FPTV.Models.StatisticsModels
         [Display(Name = "MatchCS API ID")]
         public int MatchCSAPIID { get; set; }
 
-        [ForeignKey("MatchesCSId")]
-        [Display(Name = "Id of a csgo matches")]
-        public Guid MatchesCSId { get; set; }
+        [Display(Name = "MatchesCS")]
+        public MatchesCS MatchesCS { get; set; }
 
 		[Required]
 		[Display(Name = "API Id of a csgo matches")]
@@ -37,6 +38,9 @@ namespace FPTV.Models.StatisticsModels
 		[Required]
 		[Display(Name = "List of Teams")] 
         public ICollection<MatchTeamsCS>? TeamsList { get; set; }
+
+        [Display(Name = "Winner Team")]
+        public Team? WinnerTeam { get; set; }
 
 		[Required]
 		[Display(Name = "API Id of the winner team")]

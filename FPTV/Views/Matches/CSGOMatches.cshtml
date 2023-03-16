@@ -1,0 +1,407 @@
+﻿@{
+    ViewData["Title"] = "CS:GO Matches";
+}
+
+<style>
+    .box1 {
+        width: 40%;
+        height: 100%;
+        display: flex;
+        flex-flow: column wrap;
+    }
+
+    .box {
+        width: 50%;
+        height: 100%;
+        display: flex;
+        flex-flow: column wrap;
+        margin-top: 60%;
+    }
+
+    .logo {
+        max-width: 100%;
+        height: auto;
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 95%;
+    }
+
+    th {
+        border: 1px solid black;
+        padding: 10px;
+    }
+
+    td {
+        border: 1px solid black;
+        padding: 10px;
+    }
+
+    h3 {
+        text-align: center;
+    }
+
+    .box2 {
+        width: calc(95% / 2);
+        height: 20%;
+        display: inline-block;
+    }
+
+    caption {
+        color: black;
+        text-decoration: underline;
+    }
+
+    .alinhar {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .alinhar2 {
+        display: inline-block;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .center {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .my-div {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        height: 50px;
+        margin: 10px;
+    }
+    
+    .my-div > div {
+        flex-basis: 25%;
+        flex-grow: 1;
+    }
+
+    .my-div2 > div {
+        width: 100%
+    }
+
+    span {
+        font-weight: bold;
+    }
+
+
+    .span2 {
+        font-weight: normal;
+    }
+
+    .span3 {
+        font-weight: normal;
+    }
+
+    .central {
+        text-align: center;
+        background-color: white;
+    }
+
+    .ola {
+        display: flex;
+        align-self: flex-start;
+    }
+
+    .buttons {
+        display: flex;
+        margin-bottom: 30px;
+        margin-right: 25%;
+        justify-content: right;
+    }
+
+    .search-container {
+        display: flex;
+        align-items: center;
+    }
+
+    .dropdown-content a {
+        background-color: white;
+        display: block;
+        color: #000;
+        padding: 10px;
+        text-decoration: none;
+        border: 1px solid black;
+    }
+
+    .dropdown {
+        margin-left: 10px;
+        background-color: #e0eeff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+        border: 1px solid black;
+    }
+
+    .dropdown-content a:hover {
+        background-color: #bf7b8e;
+    }
+
+    .button2 {
+        background-color: #e0eeff;
+        color: black;
+        width: 100%;
+        padding: 10px 20px;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        z-index: 1;
+        margin-left: 5%;
+    }
+
+    .button:hover {
+        background-color: #2980b9;
+    }
+
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+
+    .central {
+        width: 100%;
+        margin: 0 auto;
+        text-align: center;
+        height: 100%;
+        background-color: white;
+    }
+
+    .search-container input[type="text"] {
+        background-color: #e0eeff;
+        color: black;
+        width: 100%;
+        padding: 10px 20px;
+        border: 1px solid black;
+    }
+
+    .search-container img {
+        margin-right: 10px;
+        height: 30px;
+        width: 30px;
+    }
+</style>
+<body class="bodytemp">
+    <div class="" style="background-color:white;padding:1%;">
+        <div class="buttons">
+            <div class="dropdown">
+                <button class="button2">Sort by</button>
+                <div class="dropdown-content">
+                    <a href="@Url.Action("CSGOMatches", "Matches", new { sort = "", filter = ViewBag.filter})">Newest</a>
+                    <a href="@Url.Action("CSGOMatches", "Matches", new { sort = "&sort=begin_at", filter = ViewBag.filter})">Oldest</a>
+                    <a href="@Url.Action("CSGOMatches", "Matches", new { sort = "tournament", filter = ViewBag.filter})">Event Name</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <button class="button2">Filter by</button>
+                <div class="dropdown-content">
+                    <a href="@Url.Action("CSGOMatches", "Matches", new { sort = ViewBag.sort, filter = "detailed_stats"})">Have Stats</a>
+                    <a href="@Url.Action("CSGOMatches", "Matches", new { sort = ViewBag.sort, filter = "livestream"})">Have livestream</a>
+                </div>
+            </div>
+
+        </div>
+        <div class="ola">
+            <div class="box" style="background-color:lightgrey;margin-top:0px">
+                <h4 style="font-weight: bold;text-align:center;">Finished Matches</h4>
+                @foreach (var item in ViewBag.pastMatches)
+                {
+                    <div class="alinhar" style="border-bottom: 1px solid black">
+                        <div class="my-div2" style="width:90%;">
+                            <div>
+                                <span class="span2" style="margin-top:10px;">@item.BeginAt.ToString("dd/MM/yyyy hh:mm")</span>
+                            </div>
+
+                            <div>
+                                <span style="text-align: center;">
+                                    <p style="font-size:25px">
+                                        @foreach (var team in ViewBag.teams)
+                                        {
+                                            @if (team.TeamCSAPIId == item.TeamsAPIIDList[0])
+                                            {
+                                                <span> @team.Name </span>
+                                            }
+                                        }
+                                        @foreach (var result in ViewBag.results)
+                                        {
+                                            @if (result.ContainsKey(item.TeamsAPIIDList[0]) && result.ContainsKey(item.TeamsAPIIDList[1]))
+                                            {
+                                                <span class="span2"> @result[item.TeamsAPIIDList[0]]</span>
+                                                <span class="span2"> vs </span>
+                                                <span class="span2"> @result[item.TeamsAPIIDList[1]]</span>
+                                            }
+                                        }
+                                        @foreach (var team in ViewBag.teams)
+                                        {
+                                            @if (team.TeamCSAPIId == item.TeamsAPIIDList[1])
+                                            {
+                                                <span> @team.Name </span>
+                                            }
+                                        }
+                                    </p>
+                                </span>
+                            </div>
+
+                            <div style="text-align:left; display: flex;">
+                                <p>Best of @item.NumberOfGames</p>
+                                <a href="#" style="justify-content: space-around; margin-left: auto;">More details</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="box" style="margin-top:0px">
+                <table>
+                    @foreach (var item in ViewBag.runningMatches)
+                    {
+                        <tr>
+                            <td style="border-color:white">
+                                <div class="my-div2" style="width:100%;background-color:lightgrey">
+                                    <div style="text-align:center">
+                                        <h4 style="font-weight: bold;text-align:center;">@item.EventName</h4>
+                                    </div>
+                                    <div>
+                                        <table style="margin:auto;text-align:center;">
+                                            <tr>
+                                                <td style="border-color:lightgrey">
+                                                    @foreach (var team in ViewBag.teams)
+                                                    {
+                                                        @if (team.TeamCSAPIId == item.TeamsAPIIDList[0])
+                                                        {
+                                                            <span>
+                                                                <img src=@team.Image width="82px" height="auto" />
+                                                            </span>
+                                                        }
+                                                    }
+                                                </td>
+                                                <td style="border-color:lightgrey">
+                                                    <h4 style="font-weight: bold;text-align: center;">Live</h4>
+                                                </td>
+                                                <td style="border-color:lightgrey">
+                                                    @foreach (var team in ViewBag.teams)
+                                                    {
+                                                        @if (team.TeamCSAPIId == item.TeamsAPIIDList[1])
+                                                        {
+                                                            <span>
+                                                                <img src=@team.Image width="82px" height="auto" />
+                                                            </span>
+                                                        }
+                                                    }
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="border-color:lightgrey">
+                                                    @foreach (var team in ViewBag.teams)
+                                                    {
+                                                        @if (team.TeamCSAPIId == item.TeamsAPIIDList[0])
+                                                        {
+                                                            <span> @team.Name </span>
+                                                        }
+                                                    }
+                                                </td>
+                                                <td style="border-color:lightgrey">
+                                                    <span>vs</span>
+                                                </td>
+                                                <td style="border-color:lightgrey">
+                                                    @foreach (var team in ViewBag.teams)
+                                                    {
+                                                        @if (team.TeamCSAPIId == item.TeamsAPIIDList[1])
+                                                        {
+                                                            <span> @team.Name </span>
+
+                                                            <br />
+                                                        }
+                                                    }
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                @foreach (var result in ViewBag.results)
+                                                {
+                                                    @if (result.ContainsKey(item.TeamsAPIIDList[0]) && result.ContainsKey(item.TeamsAPIIDList[1]))
+                                                    {
+                                                        <td style="border-color:lightgrey">
+                                                            <span class="span2"> @result[item.TeamsAPIIDList[0]]</span>
+                                                        </td>
+                                                        <td style="border-color:lightgrey">
+                                                            <span class="span2"> - </span>
+                                                        </td>
+                                                        <td style="border-color:lightgrey">
+                                                            <span class="span2"> @result[item.TeamsAPIIDList[1]]</span>
+                                                        </td>
+                                                        break;
+                                                    }
+                                                }
+                                            </tr>
+                                            <tr>
+                                                <td style="border-color:lightgrey">
+                                                    <p>Best of @item.NumberOfGames</p>
+                                                </td>
+                                                <td style="border-color:lightgrey">
+                                                    <p/>
+                                                </td>
+                                                <td style="border-color:lightgrey">
+                                                    <a href="#">More details</a>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+            <div class="box" style="background-color:lightgrey;margin-top:0px">
+                <h4 style="font-weight: bold;text-align:center;">Upcoming Matches</h4>
+                @foreach (var item in ViewBag.upcomingMatches)
+                {
+                    <div class="alinhar" style="border-bottom: 1px solid black">
+                        <div class="my-div2" style="width:90%;">
+                            <div>
+                                <span class="span2" style="margin-top:10px;">@item.BeginAt.ToString("dd/MM/yyyy hh:mm")</span>
+                            </div>
+                            <div>
+                                <span style="text-align: center;">
+                                    <p style="font-size:25px">
+                                        @foreach (var team in ViewBag.teams)
+                                        {
+                                            @if (team.TeamCSAPIId == item.TeamsAPIIDList[0])
+                                            {
+                                                <span> @team.Name </span>
+                                            }
+                                        }
+                                        <span class="span2">  </span>
+                                        <span class="span2"> vs </span>
+                                        <span class="span2">  </span>
+                                        @foreach (var team in ViewBag.teams)
+                                        {
+                                            @if (team.TeamCSAPIId == item.TeamsAPIIDList[1])
+                                            {
+                                                <span> @team.Name </span>
+                                            }
+                                        }
+                                    </p>
+                                </span>
+                            </div>
+                            <div style="text-align:left; display: flex;">
+                                        <p>Best of @item.NumberOfGames</p>
+                                <a href="#" style="justify-content: space-around; margin-left: auto;">More details</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</body>
