@@ -12,6 +12,7 @@ using Newtonsoft.Json.Linq;
 using RestSharp;
 using System;
 using System.Linq.Expressions;
+using System.Numerics;
 using System.Reflection.Metadata.Ecma335;
 
 namespace FPTV.Controllers
@@ -30,34 +31,62 @@ namespace FPTV.Controllers
 
         //De CSGO e de Valorant
         // GET: CSMatches
-        /*
-        public async Task<IActionResult> CSGOMatches()
+        
+        public async Task<IActionResult> CSGOStats()
         {
-            foreach (var matches in pastMatches)
-            {
-                _context.MatchesCS.Add(matches);
-            }
-
+            getPastCSGOMatches();
             return View();
-        }*/
+        }
 
 
 
         private String request(string category, string sort = "sort=-begin_at", string page = "&page=1", string filter = "past", string game = "csgo")
         {
-            var jsonFilter = filter + "?";
-            var jsonSort = sort;
-            var jsonPage = page;
-            var jsonPerPage = "&per_page = 10";
-            var token = "&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA";
-            var requestLink = "https://api.pandascore.co/" + game + "/" + category + "/ ";
-            var fullApiPath = requestLink + jsonFilter + jsonSort + jsonPage + jsonPerPage + token;
+            if (category == "matches") { 
+                var jsonFilter = filter + "?";
+                var jsonSort = sort;
+                var jsonPage = page;
+                var jsonPerPage = "&per_page=10";
+                var token = "&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA";
+                var requestLink = "https://api.pandascore.co/" + game + "/" + category + "/";
+                var fullApiPath = requestLink + jsonFilter + jsonSort + jsonPage + jsonPerPage + token;
 
-            var client = new RestClient(fullApiPath);
-            var request = new RestRequest("", Method.Get);
-            request.AddHeader("accept", "application/json");
+                var client = new RestClient(fullApiPath);
+                var request = new RestRequest("", Method.Get);
+                request.AddHeader("accept", "application/json");
 
-            return client.Execute(request).Content;
+                return client.Execute(request).Content;
+            } else if(category == "teams")
+            {
+                var jsonFilter = filter + "?";
+                var jsonSort = sort;
+                var jsonPage = page;
+                var jsonPerPage = "&per_page=10";
+                var token = "&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA";
+                var requestLink = "https://api.pandascore.co/" + game + "/" + category + "/";
+                var fullApiPath = requestLink + "?" + jsonPage + jsonPerPage + token;
+
+                var client = new RestClient(fullApiPath);
+                var request = new RestRequest("", Method.Get);
+                request.AddHeader("accept", "application/json");
+
+                return client.Execute(request).Content;
+            }
+            else{
+                var jsonFilter = filter + "?";
+                var jsonSort = sort;
+                var jsonPage = page;
+                var jsonPerPage = "&per_page=10";
+                var token = "&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA";
+                var requestLink = "https://api.pandascore.co/" + game + "/" + category + "/";
+                var fullApiPath = requestLink + "?" + jsonPage + jsonPerPage + token;
+
+                var client = new RestClient(fullApiPath);
+                var request = new RestRequest("", Method.Get);
+                request.AddHeader("accept", "application/json");
+
+                return client.Execute(request).Content;
+            }
 
         }
 
@@ -82,6 +111,7 @@ namespace FPTV.Controllers
 
             foreach (JObject m in jarrayMatches.Cast<JObject>())
             {
+                List<MatchCS>? matchCsList = new();
                 List<MatchPlayerStatsCS>? playerStatsList = new();
                 List<MatchTeamsCS>? teamsList = new();
 
@@ -89,20 +119,23 @@ namespace FPTV.Controllers
                 foreach (var gamesObject in games.Children<JObject>())
                 {
                     var ma = new MatchCS();
+                    
 
 
                     var MatchCSAPIID = gamesObject.GetValue("id");
                     var MatchesCSAPIId = (int)m.GetValue("id");
+                    var winner = gamesObject.GetValue("winner");
+                    var winnerTeamAPIId = winner.ToString() == "" ? null : winner.ToObject<JObject>().GetValue("id");
                     ma.Map = maps[_random.Next(maps.Length)];
                     ma.RoundsScore = StaticResults[_random.Next(maps.Length)];
                     ma.WinnerTeamName = teamNames[_random.Next(maps.Length)];
                     ma.MatchCSAPIID = (int)MatchCSAPIID;
-                    var WinnerTeamAPIId = gamesObject.GetValue("winner").Value<int>("id");
-
+                    ma.WinnerTeamAPIId = winnerTeamAPIId.ToString() == "" ? -1 : winnerTeamAPIId.Value<int>();
+                    matchCsList.Add(ma);
+                    _context.MatchCS.Add(ma);
                     foreach (JObject t in jarrayTeams.Cast<JObject>())
                     {
-                        var team = new MatchTeamsCS();
-                        team.MatchCSId = ma.MatchCSId;
+                        var team = new MatchTeamsCS(ma.MatchCSId);
                         team.MatchCSAPIID = ma.MatchCSAPIID;
                         team.TeamCSAPIId = (int)t.GetValue("id");
                         team.Name = (string)t.GetValue("name");
@@ -110,10 +143,10 @@ namespace FPTV.Controllers
                         team.Image = (string)t.GetValue("image_url");
                         teamsList.Add(team);
 
+                        _context.MatchTeamsCS.Add(team);
                         foreach (JObject p in jarrayPlayers.Cast<JObject>())
                         {
-                            var player = new MatchPlayerStatsCS();
-                            player.MatchCSId = ma.MatchCSId;
+                            var player = new MatchPlayerStatsCS(ma.MatchCSId);
                             player.MatchCSAPIID = ma.MatchCSAPIID;
                             player.PlayerCSAPIId = (int)t.GetValue("id");
                             player.Kills = _random.Next(1, 31);
@@ -125,11 +158,15 @@ namespace FPTV.Controllers
                             player.KD_Diff = _random.NextDouble();
                             player.PlayerName = (string)t.GetValue("name"); ;
                             playerStatsList.Add(player);
+                            _context.MatchPlayerStatsCS.Add(player);
                         }
+                        _context.MatchTeamsCS.Add(team);
                     }
                     ViewBag.playerStatsList = playerStatsList;
                     ViewBag.teamsList = teamsList;
+                    ViewBag.matchCsList = matchCsList;
                 }
+                _context.SaveChanges();
             }
         }
     }

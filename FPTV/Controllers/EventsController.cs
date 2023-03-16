@@ -153,7 +153,8 @@ namespace FPTV.Controllers
                 
                 var eventAPIID = e.GetValue("id");
                 var name = e.GetValue("name");
-                var beginAt = e.GetValue("begin_at");
+				var nameStage = e.GetValue("name");
+				var beginAt = e.GetValue("begin_at");
                 var endAt = e.GetValue("end_at");
                 var timeType = TimeType.Running;
                 var tier = e.GetValue("tier");
@@ -171,8 +172,9 @@ namespace FPTV.Controllers
                 ev.Tier = tier.ToString() == "" ? null : tier.Value<char>();
                 ev.EventLink = league.ToString() == "" ? null : league.Value<string>("url");
                 ev.Finished = false;
-                ev.EventName = name.ToString() == "" ? null : name.Value<string>();
-                ev.PrizePool = prizePool.ToString() == "" ? "-" : new string(prizePool.Value<string>().Where(char.IsDigit).ToArray());
+				ev.EventName = league.ToString() == "" ? null : league.Value<string>("name");
+				ev.LeagueName = nameStage.ToString() == "" ? null : nameStage.Value<string>();
+				ev.PrizePool = prizePool.ToString() == "" ? "-" : new string(prizePool.Value<string>().Where(char.IsDigit).ToArray());
                 ev.WinnerTeamAPIID = winnerTeamId.ToString() == "" ? -1 : winnerTeamId.Value<int>();
 
                 if (teams != null)
@@ -185,6 +187,7 @@ namespace FPTV.Controllers
                         var teamName = teamNameValue.ToString() == "" ? null : teamNameValue.Value<string>();
                         teamList.Add(teamId, teamName);
                     }
+                    ev.TeamsList = teamList.Values.ToList();
                 }
 
                 if(matchesJ != null)
@@ -194,6 +197,8 @@ namespace FPTV.Controllers
 					var fullPRequest = requestLink + game + "/matches/" + "past?" + eventID + pageSort + token;
 					var fullRRequest = requestLink + game + "/matches/" + "running?" + eventID + pageSort + token;
 					var fullURequest = requestLink + game + "/matches/" + "upcoming?" + eventID + pageSort + token;
+
+                    Console.WriteLine(fullURequest);
 
 					var pClient = new RestClient(fullPRequest);
                     var rClient = new RestClient(fullRRequest);
@@ -229,7 +234,7 @@ namespace FPTV.Controllers
 								s.Add(r.Value<int>("team_id"), r.Value<int>("score"));
 							}
 
-							m.Score = s;
+							//m.Score = s;
 							pMatches.Add(m);
 						}
 					}
@@ -242,7 +247,7 @@ namespace FPTV.Controllers
 							var s = new Dictionary<int, int>();
 							m.MatchesCSAPIID = o.GetValue("id").Value<int>();
 							m.BeginAt = o.GetValue("begin_at").Value<DateTime>();
-							m.TimeType = TimeType.Past;
+							m.TimeType = TimeType.Running;
 							m.NumberOfGames = o.GetValue("number_of_games").Value<int>();
 
 							var results = o.GetValue("results");
@@ -250,9 +255,10 @@ namespace FPTV.Controllers
 							foreach (JObject r in results.Cast<JObject>())
 							{
 								s.Add(r.Value<int>("team_id"), r.Value<int>("score"));
+                                Console.WriteLine(teamList[s.First().Key]);
 							}
 
-                            m.Score = s;
+                            //m.Score = s;
                             rMatches.Add(m);
 						}
 					}
@@ -265,24 +271,31 @@ namespace FPTV.Controllers
 							var s = new Dictionary<int, int>();
 							m.MatchesCSAPIID = o.GetValue("id").Value<int>();
 							m.BeginAt = o.GetValue("begin_at").Value<DateTime>();
-							m.TimeType = TimeType.Past;
+							m.TimeType = TimeType.Upcoming;
 							m.NumberOfGames = o.GetValue("number_of_games").Value<int>();
 
 							var results = o.GetValue("results");
 
+                            
 							foreach (JObject r in results.Cast<JObject>())
 							{
+                               
 								s.Add(r.Value<int>("team_id"), r.Value<int>("score"));
+
 							}
 
-							m.Score = s;
+                            //m.Score = s;
 							uMatches.Add(m);
-						}
+                            
+
+                        }
 					}
 
 				}
                 
+                
                 ViewBag.Event = ev;
+                ViewBag.TeamList = teamList;
                 ViewBag.pastMatches = pMatches;
                 ViewBag.upcomingMatches = uMatches;
                 ViewBag.runningMatches = rMatches;

@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using FPTV.Models.UserModels;
 
-namespace FPTV.Models.UserModels
+namespace FPTV.Models.Forum
 {
     public class Reaction
     {
@@ -14,10 +15,6 @@ namespace FPTV.Models.UserModels
         [Display(Name = "User Id")]
         //[ForeignKey("User")]
         public Guid UserId { get; set; }
-        
-        [Display(Name = "Comment ID")]
-        //[ForeignKey("Comment")]
-        public Guid CommentId { get; set; }
 
         [Display(Name = "User")]
         public virtual Profile? Profile { get; set; }
