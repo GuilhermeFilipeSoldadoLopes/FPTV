@@ -19,6 +19,10 @@ body {
     
 }
 
+.darktheme {
+    background-color: #373737;
+}
+
 button {
     background-color: #CC0033;
     width: 30%;
@@ -52,9 +56,8 @@ textarea {
     background-repeat: no-repeat;
     background-size: cover;
     font-family: Noto Sans;
-   
+    background-color: black;
 }
-
 
 .form {
     margin: auto;
@@ -96,33 +99,35 @@ textarea {
     height: 100%;
     display: flex;
     flex-flow: column wrap;
-    background-color: lightgray;
+    background-color: #373737;
 }
-    .box1 p, h4 {
-        color: black;
-    }
+.box1 p,h4{
+    color:white;
+}
+.dark {
+    background-color:dimgrey;
+}
+.darkcolor {
+    background-color: #373737;
+    color:white;
+}
+
+.whiteText{
+    color:white;
+}
 
 .borders {
-    border-top: 10px solid white;
+    border-top: 10px solid dimgrey;
     padding: 20px
 }
 
 th {
-    border: 1px solid black;
+    border: 1px solid white;
     /*padding: 10px;*/
     text-align: center;
 }
 
 td {
-    border: 1px solid black;
+    border: 1px solid white;
     padding: 10px;
-}
-
-.darkcolor {
-    background-color: lightgray;
-    color: black;
-}
-
-.dark {
-    background-color: white;
 }

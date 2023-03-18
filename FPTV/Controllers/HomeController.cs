@@ -106,6 +106,11 @@ namespace FPTV.Controllers
 			
 			return View();
 		}
+        public IActionResult Test()
+        {
+
+            return View();
+        }
 
         public IActionResult Matches()
         {
