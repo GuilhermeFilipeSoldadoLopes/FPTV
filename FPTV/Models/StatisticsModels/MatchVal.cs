@@ -16,6 +16,7 @@ namespace FPTV.Models.StatisticsModels
         [Display(Name = "MatchVal API ID")]
         public int MatchValAPIID { get; set; }
 
+        [Required]
         [Display(Name = "MatchesVal")]
         public MatchesVal MatchesVal { get; set; }
 

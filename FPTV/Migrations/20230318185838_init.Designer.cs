@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FPTV.Migrations
 {
     [DbContext(typeof(FPTVContext))]
-    [Migration("20230318182117_init")]
+    [Migration("20230318185838_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -307,7 +307,7 @@ namespace FPTV.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("WinnerTeamTeamId")
+                    b.Property<Guid>("WinnerTeamTeamId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("MatchesCSId");
@@ -383,7 +383,7 @@ namespace FPTV.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("WinnerTeamTeamId")
+                    b.Property<Guid>("WinnerTeamTeamId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("MatchesValId");
@@ -511,7 +511,7 @@ namespace FPTV.Migrations
                         .IsRequired()
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("PlayerCSPlayerId")
+                    b.Property<Guid>("PlayerCSPlayerId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("PlayerName")
@@ -575,7 +575,7 @@ namespace FPTV.Migrations
                         .IsRequired()
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("PlayerValPlayerId")
+                    b.Property<Guid>("PlayerValPlayerId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("MatchPlayerStatsValID");
@@ -1165,7 +1165,9 @@ namespace FPTV.Migrations
 
                     b.HasOne("FPTV.Models.UserModels.Team", "WinnerTeam")
                         .WithMany()
-                        .HasForeignKey("WinnerTeamTeamId");
+                        .HasForeignKey("WinnerTeamTeamId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("EventCS");
 
@@ -1182,7 +1184,9 @@ namespace FPTV.Migrations
 
                     b.HasOne("FPTV.Models.UserModels.Team", "WinnerTeam")
                         .WithMany()
-                        .HasForeignKey("WinnerTeamTeamId");
+                        .HasForeignKey("WinnerTeamTeamId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("EventVal");
 
@@ -1227,7 +1231,9 @@ namespace FPTV.Migrations
 
                     b.HasOne("FPTV.Models.UserModels.Player", "PlayerCS")
                         .WithMany()
-                        .HasForeignKey("PlayerCSPlayerId");
+                        .HasForeignKey("PlayerCSPlayerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("MatchCS");
 
@@ -1244,7 +1250,9 @@ namespace FPTV.Migrations
 
                     b.HasOne("FPTV.Models.UserModels.Player", "PlayerVal")
                         .WithMany()
-                        .HasForeignKey("PlayerValPlayerId");
+                        .HasForeignKey("PlayerValPlayerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("MatchVal");
 
