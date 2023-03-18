@@ -5,19 +5,20 @@
 }
 
 <style>
-
     .bodytemp {
-        text-align: center;
+        text-align: left;
     }
-
     .container1 {
         display: flex;
-        align-items: center;
+        text-align: left;
         width: 100%;
     }
-
+    body{
+        text-align:left;
+    }
     .box {
-        width: 100%
+        width: 100%;
+        text-align:center;
     }
 
     .row {
@@ -28,15 +29,13 @@
 <body class="bodytemp">
     <div style="background-color:white">
 
-
-        <div class="container1">
+        <div class="container1" style="align-items: center;">
 
             <div class="box" >
                 <img src="~/images/EmailConfirmation.png" style="width:90%; padding:10%">
             </div>
 
-
-            <div class="box">
+            <div class="box" style="text-align:center">
                 <div class="row">
                     <div class="col-md-4" style="width:70%; ">
                         <h3>
@@ -48,8 +47,5 @@
             </div>
         </div>
     </div>
-     
-
-    
 </body>
 

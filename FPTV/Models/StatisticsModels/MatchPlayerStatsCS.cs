@@ -56,6 +56,5 @@ namespace FPTV.Models.StatisticsModels
         [Required]
         [Display(Name = "Name of a player")]
         public string? PlayerName { get; set; }
-
     }
 }

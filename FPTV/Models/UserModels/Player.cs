@@ -10,7 +10,11 @@ namespace FPTV.Models.UserModels
 		[Display(Name = "PlayerID")]
 		public Guid PlayerId { get; set; }
 
-		[Required]
+        [Required]
+        [Display(Name = "PlayerAPIID")]
+        public int? PlayerAPIId { get; set; }
+
+        [Required]
 		[Display(Name = "Player Name")]
 		public string? Name { get; set; }
 
@@ -24,14 +28,18 @@ namespace FPTV.Models.UserModels
 
         [Required]
 		[NotMapped]
-		[Display(Name = "Teams")]
+		[Display(Name = "All Teams")]
 		public ICollection<Team>? Teams { get; set; }
 
 		[Required]
 		[Display(Name = "Nacionality")]
 		public string? Nacionality { get; set; }
 
-		[Required]
+        [Required]
+        [Display(Name = "Flag")]
+        public string? Flag { get; set; }
+
+        [Required]
 		[Display(Name = "Profile Picture")]
 		public string? Image { get; set; }
 	}

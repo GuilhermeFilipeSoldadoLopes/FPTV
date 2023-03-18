@@ -91,7 +91,7 @@ namespace FPTV.Controllers
                 }
 
                 //Filling remaining fields
-                ev.TeamsList = teamList.Values.ToList();
+                //ev.TeamsList = teamList.Values.ToList();
                 ev.WinnerTeamName = teamList.GetValueOrDefault((int) ev.WinnerTeamAPIID) ?? "-";
                 events.Add(ev);
 			}
@@ -187,7 +187,7 @@ namespace FPTV.Controllers
                         var teamName = teamNameValue.ToString() == "" ? null : teamNameValue.Value<string>();
                         teamList.Add(teamId, teamName);
                     }
-                    ev.TeamsList = teamList.Values.ToList();
+                    //ev.TeamsList = teamList.Values.ToList();
                 }
 
                 if(matchesJ != null)

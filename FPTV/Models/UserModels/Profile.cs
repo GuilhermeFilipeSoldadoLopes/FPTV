@@ -35,5 +35,8 @@ namespace FPTV.Models.UserModels
 
         [Display(Name = "Country")]
         public string? Country { get; set; }
+
+        [Display(Name = "Flag")]
+        public string? Flag { get; set; }
     }
 }

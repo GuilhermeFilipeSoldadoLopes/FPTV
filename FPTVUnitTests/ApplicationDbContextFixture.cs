@@ -75,7 +75,7 @@ namespace FPTVUnitTests
                     EndAt = DateTime.Now,
                     //MatchesCSID = matchesCSID,
                     MatchesCSAPIID = 736079,
-                    TeamsList = new List<string> { "Fnatic", "SAW" },
+                    //TeamsList = new List<string> { "Fnatic", "SAW" },
                     PrizePool = "1000000$",
                     //WinnerTeamID = winnerTeamID,
                     WinnerTeamAPIID = 1,

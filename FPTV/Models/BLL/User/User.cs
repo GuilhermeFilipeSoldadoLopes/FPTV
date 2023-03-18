@@ -2,7 +2,7 @@
 using FPTV.Models.Forum;
 using FPTV.Models.UserModels;
 
-namespace FPTV.Services
+namespace FPTV.Models.BLL.User
 {
 
     public class User

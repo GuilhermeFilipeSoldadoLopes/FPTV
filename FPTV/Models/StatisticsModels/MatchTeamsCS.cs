@@ -33,6 +33,5 @@ namespace FPTV.Models.StatisticsModels
         [Required]
         [Display(Name = "Image")]
         public string? Image { get; set; }
-
     }
 }

@@ -14,13 +14,13 @@ using FPTV.Data;
 
 namespace FPTV.Areas.Identity.Pages.Account.Manage
 {
-    public class IndexModel : PageModel
+    public class EditModel : PageModel
     {
         private readonly UserManager<UserBase> _userManager;
         private readonly SignInManager<UserBase> _signInManager;
         private readonly FPTVContext _context;
 
-        public IndexModel(
+        public EditModel(
             UserManager<UserBase> userManager,
             SignInManager<UserBase> signInManager,
             FPTVContext context)

@@ -180,7 +180,7 @@ namespace FPTVUnitTests
             Assert.IsType<DateTime>(eventCS.EndAt);
             //Assert.Equal(contextFixture.GetMatchesCSId(), eventCS.MatchesCSID);
             Assert.Equal(736079, eventCS.MatchesCSAPIID);
-            Assert.Equal(new List<string> { "Fnatic", "SAW" }, eventCS.TeamsList);
+            //Assert.Equal(new List<string> { "Fnatic", "SAW" }, eventCS.TeamsList);
             Assert.Equal("1000000$", eventCS.PrizePool);
             //Assert.Equal(contextFixture.GetWinnerTeamId(), eventCS.WinnerTeamID);
             Assert.Equal(1, eventCS.WinnerTeamAPIID);
