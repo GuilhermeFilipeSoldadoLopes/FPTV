@@ -435,7 +435,7 @@ namespace FPTV.Migrations
                     TimeType = table.Column<int>(type: "int", nullable: false),
                     HaveStats = table.Column<bool>(type: "bit", nullable: false),
                     NumberOfGames = table.Column<int>(type: "int", nullable: false),
-                    WinnerTeamTeamId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    WinnerTeamTeamId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     WinnerTeamAPIId = table.Column<int>(type: "int", nullable: false),
                     WinnerTeamName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Tier = table.Column<string>(type: "nvarchar(1)", nullable: false),
@@ -457,7 +457,8 @@ namespace FPTV.Migrations
                         name: "FK_MatchesCS_Team_WinnerTeamTeamId",
                         column: x => x.WinnerTeamTeamId,
                         principalTable: "Team",
-                        principalColumn: "TeamId");
+                        principalColumn: "TeamId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -475,7 +476,7 @@ namespace FPTV.Migrations
                     TimeType = table.Column<int>(type: "int", nullable: false),
                     HaveStats = table.Column<bool>(type: "bit", nullable: false),
                     NumberOfGames = table.Column<int>(type: "int", nullable: false),
-                    WinnerTeamTeamId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    WinnerTeamTeamId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     WinnerTeamAPIId = table.Column<int>(type: "int", nullable: false),
                     WinnerTeamName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Tier = table.Column<string>(type: "nvarchar(1)", nullable: false),
@@ -497,7 +498,8 @@ namespace FPTV.Migrations
                         name: "FK_MatchesVal_Team_WinnerTeamTeamId",
                         column: x => x.WinnerTeamTeamId,
                         principalTable: "Team",
-                        principalColumn: "TeamId");
+                        principalColumn: "TeamId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -592,7 +594,7 @@ namespace FPTV.Migrations
                     MatchPlayerStatsCSID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     MatchCSId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     MatchCSAPIID = table.Column<int>(type: "int", nullable: false),
-                    PlayerCSPlayerId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    PlayerCSPlayerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     PlayerCSAPIId = table.Column<int>(type: "int", nullable: false),
                     Kills = table.Column<int>(type: "int", nullable: false),
                     Deaths = table.Column<int>(type: "int", nullable: false),
@@ -616,7 +618,8 @@ namespace FPTV.Migrations
                         name: "FK_MatchPlayerStatsCS_Player_PlayerCSPlayerId",
                         column: x => x.PlayerCSPlayerId,
                         principalTable: "Player",
-                        principalColumn: "PlayerId");
+                        principalColumn: "PlayerId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -655,7 +658,7 @@ namespace FPTV.Migrations
                     MatchPlayerStatsValID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     MatchValId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     MatchValAPIID = table.Column<int>(type: "int", nullable: false),
-                    PlayerValPlayerId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    PlayerValPlayerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     PlayerValAPIId = table.Column<int>(type: "int", nullable: false),
                     Kills = table.Column<int>(type: "int", nullable: false),
                     Deaths = table.Column<int>(type: "int", nullable: false),
@@ -679,7 +682,8 @@ namespace FPTV.Migrations
                         name: "FK_MatchPlayerStatsVal_Player_PlayerValPlayerId",
                         column: x => x.PlayerValPlayerId,
                         principalTable: "Player",
-                        principalColumn: "PlayerId");
+                        principalColumn: "PlayerId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
