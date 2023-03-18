@@ -96,7 +96,7 @@ textarea {
     height: 100%;
     display: flex;
     flex-flow: column wrap;
-    background-color: lightgray;
+    /*background-color: lightgray;*/
 }
     .box1 p, h4 {
         color: black;
