@@ -10,7 +10,11 @@ namespace FPTV.Models.UserModels
 		[Display(Name = "PlayerID")]
 		public Guid PlayerId { get; set; }
 
-		[Required]
+        [Required]
+        [Display(Name = "PlayerAPIID")]
+        public int? PlayerAPIId { get; set; }
+
+        [Required]
 		[Display(Name = "Player Name")]
 		public string? Name { get; set; }
 
