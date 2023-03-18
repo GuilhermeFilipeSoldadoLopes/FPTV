@@ -32,7 +32,8 @@ namespace FPTV.Migrations
                     Biography = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     RegistrationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Picture = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
-                    Country = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Country = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Flag = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -257,6 +258,7 @@ namespace FPTV.Migrations
                 columns: table => new
                 {
                     TeamId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    TeamAPIID = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CouchName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     WorldRank = table.Column<int>(type: "int", nullable: false),
@@ -308,8 +310,8 @@ namespace FPTV.Migrations
                     EventCSID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     EventAPIID = table.Column<int>(type: "int", nullable: false),
                     EventName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    EventImage = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LeagueName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    EventImage = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     EventLink = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TimeType = table.Column<int>(type: "int", nullable: false),
                     Finished = table.Column<bool>(type: "bit", nullable: false),
@@ -368,10 +370,12 @@ namespace FPTV.Migrations
                 columns: table => new
                 {
                     PlayerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    PlayerAPIId = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Age = table.Column<int>(type: "int", nullable: false),
                     Rating = table.Column<float>(type: "real", nullable: false),
                     Nacionality = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Flag = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Image = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     FavPlayerListId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     TeamId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)

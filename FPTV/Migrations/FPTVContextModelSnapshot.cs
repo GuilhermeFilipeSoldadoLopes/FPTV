@@ -779,6 +779,10 @@ namespace FPTV.Migrations
                     b.Property<Guid?>("FavPlayerListId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("Flag")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Image")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -790,6 +794,10 @@ namespace FPTV.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("PlayerAPIId")
+                        .IsRequired()
+                        .HasColumnType("int");
 
                     b.Property<float?>("Rating")
                         .IsRequired()
@@ -817,6 +825,9 @@ namespace FPTV.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Country")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Flag")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<byte[]>("Picture")
@@ -857,6 +868,10 @@ namespace FPTV.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("TeamAPIID")
+                        .IsRequired()
+                        .HasColumnType("int");
 
                     b.Property<int?>("Winnings")
                         .IsRequired()
