@@ -131,3 +131,7 @@ td {
     border: 1px solid white;
     padding: 10px;
 }
+.bordercolor {
+    border-color: #CC0033 !important;
+    border: 1px solid;
+}
