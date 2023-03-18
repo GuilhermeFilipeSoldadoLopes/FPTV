@@ -57,9 +57,5 @@ namespace FPTV.Models.StatisticsModels
         [Display(Name = "Name of a player")]
         public string? PlayerName { get; set; }
 
-        public MatchPlayerStatsCS(Guid MatchCSId)
-        {
-            this.MatchCSId = MatchCSId;
-        }
     }
 }

@@ -135,7 +135,7 @@ namespace FPTV.Controllers
                     _context.MatchCS.Add(ma);
                     foreach (JObject t in jarrayTeams.Cast<JObject>())
                     {
-                        var team = new MatchTeamsCS(ma.MatchCSId);
+                        var team = new MatchTeamsCS();
                         team.MatchCSAPIID = ma.MatchCSAPIID;
                         team.TeamCSAPIId = (int)t.GetValue("id");
                         team.Name = (string)t.GetValue("name");
@@ -146,11 +146,11 @@ namespace FPTV.Controllers
                         _context.MatchTeamsCS.Add(team);
                         foreach (JObject p in jarrayPlayers.Cast<JObject>())
                         {
-                            var player = new MatchPlayerStatsCS(ma.MatchCSId);
+                            var player = new MatchPlayerStatsCS();
                             player.MatchCSAPIID = ma.MatchCSAPIID;
                             player.PlayerCSAPIId = (int)t.GetValue("id");
                             player.Kills = _random.Next(1, 31);
-                            player.Deaths = _random.Next(1, 21); ;
+                            player.Deaths = _random.Next(1, 21);
                             player.Assists = _random.Next(1, 11); ;
                             player.FlashAssist = _random.Next(1, 6); ;
                             player.ADR = _random.NextDouble();
