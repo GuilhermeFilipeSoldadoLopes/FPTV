@@ -20,12 +20,12 @@ namespace FPTV.Models.EventsModels
         public string? EventName { get; set; }
 
         [Required]
-        [Display(Name = "EventImage")]
-        public string? EventImage { get; set; }
-
-        [Required]
         [Display(Name = "LeagueName")]
         public string? LeagueName { get; set; }
+
+        [Required]
+        [Display(Name = "EventImage")]
+        public string? EventImage { get; set; }
 
         [Required]
         [Display(Name = "Event Link")]
@@ -58,7 +58,7 @@ namespace FPTV.Models.EventsModels
         [Required]
         [NotMapped]
         [Display(Name = "Team list")]
-        public ICollection<string>? TeamsList { get; set; }
+        public ICollection<Team>? TeamsList { get; set; }
 
         [Required]
         [Display(Name = "Prize pool")]

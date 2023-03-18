@@ -99,7 +99,7 @@ namespace FPTV.Models.MatchesModels
         [Display(Name = "League Name")]
         public string? LeagueName { get; set; }
 
-        [Display(Name = "League Id")]
+        [Display(Name = "League API Id")]
         public int? LeagueId { get; set; }
 
         [Display(Name = "League Link")]

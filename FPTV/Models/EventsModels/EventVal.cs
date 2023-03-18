@@ -58,7 +58,7 @@ namespace FPTV.Models.EventsModels
         [Required]
         [NotMapped]
         [Display(Name = "Team list")]
-        public ICollection<string>? TeamsList { get; set; }
+        public ICollection<Team>? TeamsList { get; set; }
 
         [Required]
         [Display(Name = "Prize pool")]

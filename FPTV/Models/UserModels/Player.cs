@@ -28,14 +28,18 @@ namespace FPTV.Models.UserModels
 
         [Required]
 		[NotMapped]
-		[Display(Name = "Teams")]
+		[Display(Name = "All Teams")]
 		public ICollection<Team>? Teams { get; set; }
 
 		[Required]
 		[Display(Name = "Nacionality")]
 		public string? Nacionality { get; set; }
 
-		[Required]
+        [Required]
+        [Display(Name = "Flag")]
+        public string? Flag { get; set; }
+
+        [Required]
 		[Display(Name = "Profile Picture")]
 		public string? Image { get; set; }
 	}
