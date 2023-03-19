@@ -11,8 +11,10 @@ using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Linq;
 using RestSharp;
 using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Numerics;
+using System.Reflection;
 using System.Reflection.Metadata.Ecma335;
 
 namespace FPTV.Controllers
@@ -22,6 +24,7 @@ namespace FPTV.Controllers
         private readonly FPTVContext _context;
         Random _random = new Random();
         MatchesController _matchesController;
+        List<MatchesCS> matchesCS = new List<MatchesCS>();
 
         public StatsController(FPTVContext context)
         {
@@ -34,11 +37,9 @@ namespace FPTV.Controllers
         
         public async Task<IActionResult> CSGOStats()
         {
-            getPastCSGOMatches();
+            getCSGOMatches();
             return View();
         }
-
-
 
         private String request(string category, string sort = "sort=-begin_at", string page = "&page=1", string filter = "past", string game = "csgo")
         {
@@ -90,7 +91,7 @@ namespace FPTV.Controllers
 
         }
 
-        private void getPastCSGOMatches()
+        private void getCSGOMatches(string time = "past")
         {
             //string url =https://api.pandascore.co/csgo/matches/past?sort=draw&sort=&page=1&per_page=50&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA
 
@@ -101,14 +102,142 @@ namespace FPTV.Controllers
             var jarrayMatches = JArray.Parse(jsonMatches);
             var jarrayTeams = JArray.Parse(jsonTeams);
             var jarrayPlayers = JArray.Parse(jsonPlayers);
-            List<MatchCS> pastMatches = new();
 
             var StaticResults = new[] { "16-12", "14-16", "16-9", "8-16", "10-16", "16-11", "3-16", "16-7" };
             var maps = new[] { "Inferno", "Mirage", "Nuke", "Overpass", "Vertigo", "Ancient", "Anubis" };
             var teamNames = new[] { "G2", "NAVI", "Liquid", "Furia", "BIG", "FTW", "FAZE" };
+            var coachNames = new[] { "Rui", "Nuno", "Miguel", "André", "João", "Guilherme"};
+
+            List<MatchCS>? matchCsList = new();
+            List<MatchPlayerStatsCS>? playerStatsList = new();
+            List<MatchTeamsCS>? teamsList = new();
+
+            foreach (var item in jarrayMatches.Cast<JObject>())
+            {
+                var status = item.GetValue("status");
+
+                if (!status.ToString().Equals("canceled"))
+                {
+                    var opponentArray = (JArray)item.GetValue("opponents");
+
+                    foreach (var opponentObject in opponentArray.Cast<JObject>())
+                    {
+                        var opponent = (JObject)opponentObject.GetValue("opponent");
+
+                        var teamIdValue = opponent.GetValue("id");
+                        var teamImage = opponent.GetValue("image_url");
+                        var teamName = opponent.GetValue("name");
+                        var teamId = teamIdValue.ToString() == "" ? -1 : teamIdValue.Value<int>();
+
+                        var team = new Team();
+                        team.TeamAPIID = teamId;
+                        team.Name = teamName.ToString() == "?" ? "undefined" : teamName.Value<string>();
+                        team.Image = teamImage.ToString() == "" ? "/images/logo1.jpg" : teamImage.Value<string>();
+
+                        var fullApiPath = "https://api.pandascore.co/csgo/teams?filter[id]=" + teamId + "&sort=&page=1&per_page=50&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA";
+                        var client = new RestClient(fullApiPath);
+                        var request = new RestRequest("", Method.Get);
+                        request.AddHeader("accept", "application/json");
+                        var response= client.Execute(request).Content;
+                        var teamsArray = JArray.Parse(response);
+
+                        foreach (var _team in teamsArray.Cast<JObject>())
+                        {
+                            var player = new Player();
+                            team.CouchName = coachNames[_random.Next(coachNames.Length)]; ;
+                            team.WorldRank = 1;
+                            team.Winnings = 1;
+                            team.Losses = 1;
+                            var players = (JArray)_team.GetValue("players");
+                            foreach (var _player in players.Cast<JObject>())
+                            {
+                                //inicializar cada player
+                            }
+                        }
+
+                        var matchTeam = new MatchTeamsCS();
+                        matchTeam.MatchCSAPIID = (int)item.GetValue("id");
+                        matchTeam.TeamCSAPIId = (int)team.TeamAPIID;
+                        matchTeam.TeamCS = team;
+                        matchTeam.Name = (string)opponent.GetValue("name");
+                        matchTeam.Location = (string?)opponent.GetValue("location");
+                        matchTeam.Image = (string)opponent.GetValue("image_url");
+
+
+                        var winnerTeam = new Team();
+                        var winner = gamesObject.GetValue("winner");
+                        winnerTeam.TeamAPIID = (int)winner.ToObject<JObject>().GetValue("id");
+                        if (winnerTeam.TeamAPIID == team.TeamCSAPIId)
+                        {
+                            winnerTeam.Name = team.Name;
+                        }
+                        teamsList.Add(team);
+
+                        foreach (JObject t in jarrayTeams.Cast<JObject>())
+                        {
+
+                            //Rever a linha abaixo
+                            //winnerTeam.TeamAPIID = winner.ToString() == "" ? null : winner.ToObject<JObject>().GetValue("id");
+
+                            //_context.MatchTeamsCS.Add(team);
+
+                            foreach (JObject p in jarrayPlayers.Cast<JObject>())
+                            {
+                                var player = new MatchPlayerStatsCS();
+                                player.MatchCSAPIID = ma.MatchCSAPIID;
+                                player.PlayerCSAPIId = (int)t.GetValue("id");
+                                player.Kills = _random.Next(1, 31);
+                                player.Deaths = _random.Next(1, 21);
+                                player.Assists = _random.Next(1, 11); ;
+                                player.FlashAssist = _random.Next(1, 6); ;
+                                player.ADR = _random.NextDouble();
+                                player.HeadShots = _random.NextDouble() * 100;
+                                player.KD_Diff = _random.NextDouble();
+                                player.PlayerName = (string)t.GetValue("name"); ;
+                                playerStatsList.Add(player);
+                                _context.MatchPlayerStatsCS.Add(player);
+                            }
+                            _context.MatchTeamsCS.Add(team);
+                        }
+                        ViewBag.playerStatsList = playerStatsList;
+                        ViewBag.teamsList = teamsList;
+                        ViewBag.matchCsList = matchCsList;
+                    }
+
+                    JArray games = (JArray)item["games"];
+
+                        foreach (var gamesObject in games.Children<JObject>())
+                        {
+                            var ma = new MatchCS();
+                            var matches = new MatchesCS();
+                            matches.MatchesList.Add(ma);
+                            matches.MatchesCSAPIID = (int)m.GetValue("id");
+
+                            var MatchCSAPIID = gamesObject.GetValue("id");
+                            var MatchesCSAPIId = (int)m.GetValue("id");
+                            ma.RoundsScore = StaticResults[_random.Next(maps.Length)];
+                            ma.Map = maps[_random.Next(maps.Length)];
+                            //var winnerTeamAPIId = winner.ToString() == "" ? null : winner.ToObject<JObject>().GetValue("id");
+
+                            ma.WinnerTeamName = teamNames[_random.Next(maps.Length)];
+                            ma.MatchCSAPIID = (int)MatchCSAPIID;
+                            ma.WinnerTeamAPIId = winnerTeamAPIId.ToString() == "" ? -1 : winnerTeamAPIId.Value<int>();
+                            matchCsList.Add(ma);
+                            _context.MatchCS.Add(ma);
+
+                    }
+                }
+            }
+            _context.SaveChanges();
+        }
+    }
+}
 
 
 
+
+
+            /*
             foreach (JObject m in jarrayMatches.Cast<JObject>())
             {
                 List<MatchCS>? matchCsList = new();
@@ -182,6 +311,5 @@ namespace FPTV.Controllers
                 }
                 _context.SaveChanges();
             }
-        }
-    }
-}
+            */
+ 
