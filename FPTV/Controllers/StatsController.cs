@@ -143,7 +143,7 @@ namespace FPTV.Controllers
                         team.Image = (string)t.GetValue("image_url");
                         teamsList.Add(team);
 
-                        _context.MatchTeamsCS.Add(team);*/
+                        _context.MatchTeamsCS.Add(team);
 
                         /*foreach (JObject p in jarrayPlayers.Cast<JObject>())
                         {
