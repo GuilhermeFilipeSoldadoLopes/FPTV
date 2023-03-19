@@ -135,3 +135,26 @@ td {
     border-color: #CC0033 !important;
     border: 1px solid;
 }
+.central {
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+    height: 100%;
+    /*background-color: white;*/
+}
+
+.btn1 {
+    background-color: #4b5b6e;
+    /*background-color: #e0eeff;*/
+    color: black;
+    width: 90%;
+    display: flex;
+    flex-direction: row;
+    border-bottom: 1px solid black;
+    border-radius: 0px;
+    color: white;
+}
+.bodycolor {
+    background-color: #373737;
+    color: white;
+}
