@@ -122,6 +122,10 @@ td {
     background-color: lightgray;
     color: black;
 }
+.darkcolor2 {
+    background-color: lightgray;
+    
+}
 
 .dark {
     background-color: white;
@@ -129,6 +133,7 @@ td {
 .bordercolor {
     border-color: black !important;
     border: 1px solid;
+    color:black;
 }
 .central {
     width: 100%;
@@ -151,5 +156,11 @@ td {
 }
 .bodycolor {
     background-color: white;
+    color: black;
+}
+.tablecolors {
+    border-color: lightgray;
+}
+.my-divColor {
     color: black;
 }
