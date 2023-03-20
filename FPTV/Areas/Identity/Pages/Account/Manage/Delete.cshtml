@@ -1,4 +1,6 @@
 ﻿@page
+@using FPTV.Models.Forum;
+@using FPTV.Models.UserModels;
 @model DeleteModel
 @{
     ViewData["Title"] = "Profile";
@@ -82,12 +84,12 @@
         height: 50px;
         margin: 10px;
     }
-
-
-        .my-div > div {
-            flex-basis: 25%;
-            flex-grow: 1;
-        }
+    
+    
+    .my-div > div {
+        flex-basis: 25%;
+        flex-grow: 1;
+    }
 
     .my-div2 > div {
         width: 100%
@@ -208,18 +210,22 @@
             <div style="width:80%;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:black;background-color:white;border-width:1px;border-radius:10px;padding:10px;">
                 <h4 >Favourite Players:</h4>
                 <div style="padding-left:20px">
-                    <span class="span2"> Player 1 </span>
-                    <img src="~/images/trash.png" style="width:20px;height:20px;" />
-                    <br />
-                    <span class="span2"> Player 2 </span>
-                    <img src="~/images/trash.png" style="width:20px;height:20px;" />
-                    <br />
-                    <span class="span2"> Player 3 </span>
-                    <img src="~/images/trash.png" style="width:20px;height:20px;" />
-                    <br />
-                    <span class="span2"> Player 4 </span>
-                    <img src="~/images/trash.png" style="width:20px;height:20px;" />
-                    <br />
+                    @if (((List<FavPlayerList>)ViewData["FavPlayerList"]).Count() == 0)
+                    {
+                        <span class="span2">No Favourite Players</span>
+                        <br />
+                    }
+                    else
+                    {
+                        foreach (var item in (List<FavPlayerList>)ViewData["FavPlayerList"])
+                        {
+                            foreach (var player in item.Players)
+                            {
+                                <span class="span2">item.Name</span>
+                                <br />
+                            }
+                        }
+                    }
                 </div>
             </div>
             <br />
@@ -227,55 +233,77 @@
             <div style="width:80%;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:black;background-color:white;border-width:1px;border-radius:10px;padding:10px;">
                 <h4>Favourite Teams:</h4>
                 <div style="padding-left:20px">
-                    <span class="span2"> Team 1 </span>
-                    <img src="~/images/trash.png" style="width:20px;height:20px;" />
-                    <br />
-                    <span class="span2"> Team 2 </span>
-                    <img src="~/images/trash.png" style="width:20px;height:20px;" />
-                    <br />
-                    <span class="span2"> Team 3 </span>
-                    <img src="~/images/trash.png" style="width:20px;height:20px;" />
-                    <br />
-                    <span class="span2"> Team 4 </span>
-                    <img src="~/images/trash.png" style="width:20px;height:20px;" />
-                    <br />
+                    @if (((List<FavTeamsList>)ViewData["FavTeamsList"]).Count() == 0)
+                    {
+                        <span class="span2">No Favourite Teams</span>
+                        <br />
+                    }
+                    else
+                    {
+                        foreach (var item in (List<FavTeamsList>)ViewData["FavTeamsList"])
+                        {
+                            foreach (var player in item.Teams)
+                            {
+                                <span class="span2">item.Name</span>
+                                <br />
+                            }
+                        }
+                    }
                 </div>
             </div>
             <br />
         </div>
-
-        <div class="box bordercolor" style="margin-top:0px;position:relative;border-width:0px;width:70%">
-            <form id="profile-form" method="Edit/post" enctype="multipart/form-data">
-                <img id="profilePicture" style="width:284px;height:284px;display:block;margin-left:auto;margin-right:auto;object-fit:cover;border-radius:50%" src="data:image/*;base64,@(Convert.ToBase64String(Model.Input.ProfilePicture))">
-
-                <input type="file"
-                       accept=".png,.jpg,.jpeg,.gif,.tif"
-                       asp-for="Input.ProfilePicture"
-                       class="form-control"
-                       style="border:0px!important;padding: 0px;padding-top: 10px;padding-bottom: 30px;"
-                       onchange="document.getElementById('profilePicture').src = window.URL.createObjectURL(this.files[0])" />
-                <span asp-validation-for="Input.ProfilePicture" class="text-danger"></span>
-                <br />
-                <div style="width:90%;position:relative;display:block;margin-left:auto;margin-right:auto;">
-                    <input asp-for="Input.Country" class="form-control" />
-                </div>
-                <br />
-                <div style="width:90%;position:relative;display:block;margin-left:auto;margin-right:auto;">
-                    <input asp-for="Input.Username" class="form-control"/>
-                </div>
-                <br />
-
-                <div style="width:90%;position:relative;display:block;margin-left:auto;margin-right:auto;">
-                    <input asp-for="Input.Bio" class="form-control"/>
-                </div>
-
-                <button id="update-profile-button" type="submit" class="button">Save</button>
-                <button id="update-profile-button" class="button">Cancel</button>
-            </form>
-        </div>
         
+        <div class="box bordercolor" style="margin-top:0px;position:relative;border-width:0px;width:70%">
+            <a style="position:absolute;top:2px;right:10%;align-items:center;" asp-area="Identity" asp-page="/Account/Manage/Edit" title="Manage">
+                <img style="width:30px;height:30px" src="~/images/Edit.png">
+            </a>
+
+            <img id="profilePicture" style="width:284px;height:284px;display:block;margin-left:auto;margin-right:auto;object-fit:cover;border-radius:50%" src="data:image/*;base64,@(Convert.ToBase64String(Model.Input.ProfilePicture))">
+            <br />
+
+            <div style="width:90%;position:relative;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:black;border-width:1px;border-radius:10px;padding:10px;background-color:white">
+                @Model.Input.Username
+                <img style="height:50%;width:auto;position:absolute;top:25%;right:10px;" src=@ViewData["CountryImage"]>
+            </div>
+            <br />
+
+            <div style="width:90%;position:relative;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:black;border-width:1px;border-radius:10px;padding:10px;background-color:white">
+                @if (Model.Input.Bio != null)
+                {
+                    @Model.Input.Bio
+                }
+                else
+                {
+                    <span class="span2">No Bio</span>
+                    <br />
+                }
+            </div>
+            <br />
+
+            <div style="width:90%;position:relative;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:black;border-width:1px;border-radius:10px;padding:10px;background-color:white">
+                <h4>Topics:</h4>
+                <div style="padding-left:20px">
+                    @if (((List<Topic>)ViewData["Topics"]).Count() == 0)
+                    {
+                        <span class="span2">No Topics</span>
+                        <br />
+                    }
+                    else
+                    {
+                        foreach (var item in (List<Topic>)ViewData["Topics"])
+                        {
+                            <span class="span2">item.Title</span>
+                            <br />
+                        }
+                    }
+                </div>
+            </div>
+            <br />
+        </div>
+            
         <div class="box darkcolor bordercolor" style="border-radius:15px;margin-top:0px">
-            <div style="width:100%;text-align:center;">
+            <div style="width=100%;text-align:center;">
                 <h1>Valorant</h1>
             </div>
             <br />
@@ -283,18 +311,22 @@
             <div style="width:80%;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:black;background-color:white;border-width:1px;border-radius:10px;padding:10px;">
                 <h4>Favourite Players:</h4>
                 <div style="padding-left:20px">
-                    <span class="span2"> Player 1 </span>
-                    <img src="~/images/trash.png" style="width:20px;height:20px;" />
-                    <br />
-                    <span class="span2"> Player 2 </span>
-                    <img src="~/images/trash.png" style="width:20px;height:20px;" />
-                    <br />
-                    <span class="span2"> Player 3 </span>
-                    <img src="~/images/trash.png" style="width:20px;height:20px;" />
-                    <br />
-                    <span class="span2"> Player 4 </span>
-                    <img src="~/images/trash.png" style="width:20px;height:20px;" />
-                    <br />
+                    @if (((List<FavPlayerList>)ViewData["FavPlayerList"]).Count() == 0)
+                    {
+                        <span class="span2">No Favourite Players</span>
+                        <br />
+                    }
+                    else
+                    {
+                        foreach (var item in (List<FavPlayerList>)ViewData["FavPlayerList"])
+                        {
+                            foreach (var player in item.Players)
+                            {
+                                <span class="span2">item.Name</span>
+                                <br />
+                            }
+                        }
+                    }
                 </div>
             </div>
             <br />
@@ -302,18 +334,22 @@
             <div style="width:80%;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:black;background-color:white;border-width:1px;border-radius:10px;padding:10px;">
                 <h4>Favourite Teams:</h4>
                 <div style="padding-left:20px">
-                    <span class="span2"> Team 1 </span>
-                    <img src="~/images/trash.png" style="width:20px;height:20px;" />
-                    <br />
-                    <span class="span2"> Team 2 </span>
-                    <img src="~/images/trash.png" style="width:20px;height:20px;" />
-                    <br />
-                    <span class="span2"> Team 3 </span>
-                    <img src="~/images/trash.png" style="width:20px;height:20px;" />
-                    <br />
-                    <span class="span2"> Team 4 </span>
-                    <img src="~/images/trash.png" style="width:20px;height:20px;" />
-                    <br />
+                    @if (((List<FavTeamsList>)ViewData["FavTeamsList"]).Count() == 0)
+                    {
+                        <span class="span2">No Favourite Teams</span>
+                        <br />
+                    }
+                    else
+                    {
+                        foreach (var item in (List<FavTeamsList>)ViewData["FavTeamsList"])
+                        {
+                            foreach (var player in item.Teams)
+                            {
+                                <span class="span2">item.Name</span>
+                                <br />
+                            }
+                        }
+                    }
                 </div>
             </div>
             <br />
