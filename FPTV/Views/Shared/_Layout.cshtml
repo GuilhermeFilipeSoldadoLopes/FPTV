@@ -9,19 +9,12 @@
     <title>@ViewData["Title"] - FPTV</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" /> 
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+	@*<link rel="stylesheet" href="~/css/siteDARK.css" asp-append-version="true" />*@
     <link rel="stylesheet" href="~/FPTV.styles.css" asp-append-version="true" />
     <link rel="icon" type="image/png" href="~/favicon.ico" />
     
     <style>
 		
-		/*#menu {
-			margin-right: 4%;
-			margin-left: 4%;
-		    color: #000;
-			cursor: pointer;
-		    display: inline-block;
-		}
-*/
 		#buttonMenu:hover {
 			background-color: transparent;
 			border: 2px solid #DE3C3C;
@@ -32,6 +25,12 @@
 			box-shadow: 0 0 5px 0 #DE3C3C inset, 0 0 10px 1px #DE3C3C;
 			
 		}
+
+		.leftitem{
+			justify-content:flex-end;
+
+		}
+		
     </style>
 </head>
 <body>
@@ -45,7 +44,7 @@
 					<span class="navbar-toggler-icon"></span>
 				</button>
 					<div style="width:100%; display:flex;">
-				<div class="navbar-collapse collapse d-sm-inline-flex justify-content-between" style="margin:auto; text-align:center">
+				<div class="navbar-collapse collapse d-sm-inline-flex justify-content-between" style="margin:auto; text-align:center;">
 					<ul class="navbar-nav flex-grow-1" style="display:flex;">
 						<li class="nav-item" id="menu" style="width:20%; margin:auto">
 								<a class="nav-link text-dark" id="buttonMenu" style="font-weight: bold; font-size: 24px;" asp-area="Home" asp-controller="Home" asp-action="Index">@*Game*@CS:GO</a>
@@ -65,9 +64,11 @@
 						<li class="nav-item" id="menu" style="width:20%; margin:auto">
 								<a class="nav-link text-dark" id="buttonMenu" style="font-size: 24px;" asp-area="" asp-controller="Stats" asp-action="CSGOStats">About</a>
 						</li>
+								
 					</ul>
 				</div>
 					<div class="navbar-nav flex-grow-1" style="justify-content: end;">
+						
 					@{
 						var result = Engine.FindView(ViewContext, "_LoginPartial", isMainPage: false);
 					}

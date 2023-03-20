@@ -305,7 +305,7 @@ namespace FPTV.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("WinnerTeamTeamId")
+                    b.Property<Guid>("WinnerTeamTeamId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("MatchesCSId");
@@ -381,7 +381,7 @@ namespace FPTV.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("WinnerTeamTeamId")
+                    b.Property<Guid>("WinnerTeamTeamId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("MatchesValId");
@@ -537,7 +537,7 @@ namespace FPTV.Migrations
                         .IsRequired()
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("PlayerCSPlayerId")
+                    b.Property<Guid>("PlayerCSPlayerId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("PlayerName")
@@ -601,7 +601,7 @@ namespace FPTV.Migrations
                         .IsRequired()
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("PlayerValPlayerId")
+                    b.Property<Guid>("PlayerValPlayerId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("MatchPlayerStatsValID");
@@ -807,6 +807,10 @@ namespace FPTV.Migrations
                     b.Property<Guid?>("FavPlayerListId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("Flag")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Image")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -849,6 +853,9 @@ namespace FPTV.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Country")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Flag")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<byte[]>("Picture")
@@ -1189,7 +1196,9 @@ namespace FPTV.Migrations
 
                     b.HasOne("FPTV.Models.UserModels.Team", "WinnerTeam")
                         .WithMany()
-                        .HasForeignKey("WinnerTeamTeamId");
+                        .HasForeignKey("WinnerTeamTeamId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("EventCS");
 
@@ -1206,7 +1215,9 @@ namespace FPTV.Migrations
 
                     b.HasOne("FPTV.Models.UserModels.Team", "WinnerTeam")
                         .WithMany()
-                        .HasForeignKey("WinnerTeamTeamId");
+                        .HasForeignKey("WinnerTeamTeamId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("EventVal");
 
@@ -1264,7 +1275,9 @@ namespace FPTV.Migrations
 
                     b.HasOne("FPTV.Models.UserModels.Player", "PlayerCS")
                         .WithMany()
-                        .HasForeignKey("PlayerCSPlayerId");
+                        .HasForeignKey("PlayerCSPlayerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("MatchCS");
 
@@ -1281,7 +1294,9 @@ namespace FPTV.Migrations
 
                     b.HasOne("FPTV.Models.UserModels.Player", "PlayerVal")
                         .WithMany()
-                        .HasForeignKey("PlayerValPlayerId");
+                        .HasForeignKey("PlayerValPlayerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("MatchVal");
 

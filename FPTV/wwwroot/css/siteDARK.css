@@ -18,8 +18,9 @@ body {
     font-family: Noto Sans;
     
 }
+
 .darktheme {
-    background-color: lightgray;
+    background-color: #373737;
 }
 
 button {
@@ -55,18 +56,17 @@ textarea {
     background-repeat: no-repeat;
     background-size: cover;
     font-family: Noto Sans;
-   
+    background-color: black;
 }
-
 
 .form {
     margin: auto;
     width: 50%;
-    
+   
 }
 
 .form p, a {
-    color: black;
+    color: White;
     font-family: Noto Sans;
 }
 
@@ -97,45 +97,47 @@ textarea {
     height: 100%;
     display: flex;
     flex-flow: column wrap;
-    /*background-color: lightgray;*/
+    /*background-color: #373737;*/
 }
-    .box1 p, h4 {
-        color: black;
-    }
+.box1 p,h4{
+    color:white;
+}
+.dark {
+    background-color:dimgrey;
+}
+.darkcolor {
+    background-color: #373737;
+    color:white;
+}
+.darkcolor2 {
+    background-color: #373737;
+    
+}
+
+.whiteText{
+    color:white;
+}
 
 .borders {
-    border-top: 10px solid white;
+    border-top: 10px solid dimgrey;
     padding: 20px
 }
 
 th {
-    border: 1px solid black;
+    border: 1px solid white;
     /*padding: 10px;*/
     text-align: center;
 }
 
 td {
-    border: 1px solid black;
+    border: 1px solid white;
     padding: 10px;
 }
-
-.darkcolor {
-    background-color: lightgray;
-    color: black;
-}
-.darkcolor2 {
-    background-color: lightgray;
-    
-}
-
-.dark {
-    background-color: white;
-}
 .bordercolor {
-    border-color: black !important;
+    border-color: #CC0033 !important;
     border: 1px solid;
-    color: black;
-    border-radius: 15px;
+    color:white;
+    border-radius:15px;
 }
 .central {
     width: 100%;
@@ -146,23 +148,24 @@ td {
 }
 
 .btn1 {
-    
-    background-color: #e0eeff;
+    background-color: #4b5b6e;
+    /*background-color: #e0eeff;*/
     color: black;
     width: 90%;
     display: flex;
     flex-direction: row;
     border-bottom: 1px solid black;
     border-radius: 0px;
-    color:black;
+    color: white;
 }
 .bodycolor {
-    background-color: white;
-    color: black;
+    background-color: #373737;
+    color: white;
 }
 .tablecolors {
-    border-color: lightgray;
+    border-color: #373737;
 }
 .my-divColor {
-    color: black;
+    color:white;
 }
+

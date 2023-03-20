@@ -13,7 +13,7 @@
 			margin: 0 auto;
 			text-align: center;
 			height:100%;
-			background-color: white;
+			/*background-color: white;*/
 		}
 
 		.center {
@@ -66,15 +66,7 @@
 			flex-grow: 1;
 			
 		}
-		.btn1{
-			background-color: #e0eeff;
-			color:black;
-			width: 90%;
-			display: flex;
-			flex-direction: row;
-			border-bottom: 1px solid black;
-			border-radius: 0px;
-		}
+		
 		span{
 			font-weight:bold;
 		}
@@ -138,12 +130,12 @@
 
 </style>
 
-<body class="bodytemp">
+<body class="bodytemp ">
 	
-	<div class="central">
+	<div class="central bodycolor bordercolor"style="border-radius:15px;">
 		<h1>Events</h1>
 
-		<div class="buttons">
+		<div class="buttons bodycolor">
 
 			<form method="post" action="@Url.Action("Index", "Events", new { sort = ViewBag.sort, filter = ViewBag.filter})">
 			<label class="search-container">
@@ -174,10 +166,10 @@
 						
 		</div>
 
-		<div class="center" style="flex-direction: column; background-color: white; ">
+		<div class="center bodycolor" style="flex-direction: column; ">
 			@foreach (FPTV.Models.EventsModels.EventCS e in Model)
 			{
-				<button class=" btn1" onclick ="location.href='@Url.Action("Details", "Events", new { id = e.EventAPIID, sort = ViewBag.sort, filter = ViewBag.filter})'">
+				<button class="btn1" onclick ="location.href='@Url.Action("Details", "Events", new { id = e.EventAPIID, sort = ViewBag.sort, filter = ViewBag.filter})'">
 					<div class="my-div">
 						<div>
 							<span>@e.EventName</span>

@@ -11,13 +11,15 @@ namespace FPTV.Models.StatisticsModels
 		[Display(Name = "Id of a MatchPlayerStatsVal")]
 		public Guid MatchPlayerStatsValID { get; set; }
 
-		[Display(Name = "MatchVal")]
+        [Required]
+        [Display(Name = "MatchVal")]
         public MatchVal MatchVal { get; set; }
 
 		[Required]
 		[Display(Name = "MatchVal API ID")]
 		public int MatchValAPIID { get; set; }
 
+        [Required]
         [Display(Name = "PlayerVal")]
         public Player? PlayerVal { get; set; }
 
