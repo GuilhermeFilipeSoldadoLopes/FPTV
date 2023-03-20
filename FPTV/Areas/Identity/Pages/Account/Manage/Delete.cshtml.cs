@@ -15,13 +15,13 @@ using System.Diagnostics.Metrics;
 
 namespace FPTV.Areas.Identity.Pages.Account.Manage
 {
-    public class IndexModel : PageModel
+    public class DeleteModel : PageModel
     {
         private readonly UserManager<UserBase> _userManager;
         private readonly SignInManager<UserBase> _signInManager;
         private readonly FPTVContext _context;
 
-        public IndexModel(
+        public DeleteModel(
             UserManager<UserBase> userManager,
             SignInManager<UserBase> signInManager,
             FPTVContext context)
@@ -105,13 +105,25 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
 
             var profile = _context.Profiles.Single(p => p.Id == user.ProfileId);
 
-            ViewData["CountryImage"] = "/images/Flags/1x1/" + profile.Country + ".svg";
-            ViewData["FavPlayerList"] = _context.FavPlayerList.Where(fpl => fpl.ProfileId == profile.Id).ToList();
-            ViewData["FavTeamsList"] = _context.FavTeamsList.Where(ftl => ftl.ProfileId == profile.Id).ToList();
-            ViewData["Topics"] = _context.Topics.Where(t => t.ProfileId == profile.Id).ToList();
-
             await LoadAsync(user, profile);
             return Page();
+        }
+
+        public async Task<IActionResult> OnPostAsync()
+        {
+            var user = await _userManager.GetUserAsync(User);
+
+            if (user == null)
+            {
+                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+            }
+
+            user.EmailConfirmed = false;
+
+            await _userManager.UpdateAsync(user);
+            //await _userManager.DeleteAsync(user);
+
+            return RedirectToAction("Index", "Home");
         }
     }
 }
