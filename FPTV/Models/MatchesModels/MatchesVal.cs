@@ -61,12 +61,10 @@ namespace FPTV.Models.MatchesModels
         public int? NumberOfGames { get; set; }
 
         [Required]
-        [NotMapped]
         [Display(Name = "Scores")]
         public ICollection<Score>? Scores { get; set; }
 
         [Required]
-        [NotMapped]
         [Display(Name = "Teams List")]
         public ICollection<Team>? TeamsList { get; set; }
 
