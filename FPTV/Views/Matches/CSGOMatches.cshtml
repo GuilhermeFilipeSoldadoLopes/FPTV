@@ -194,7 +194,7 @@
     }
 </style>
 <body class="bodytemp">
-    <div class="dark" style="padding:1%;">
+    <div class="" style="padding:1%;">
         <div class="buttons">
             <div class="dropdown">
                 <button class="button2">Sort by</button>
@@ -214,7 +214,7 @@
 
         </div>
         <div class="ola " style="border-radius:15px;">
-            <div class="box darkcolor bordercolor" style="border-radius:15px;margin-top:0px;">
+            <div class="box bordercolor colorformatch" style="border-radius:15px;margin-top:0px;">
                 <h4 style="font-weight: bold;text-align:center;">Finished Matches</h4>
                 @foreach (var item in ViewBag.pastMatches)
                 {
@@ -226,11 +226,16 @@
 
                             <div>
                                 <span style="text-align: center;">
+                                    
                                     <p style="font-size:25px">
+
+                                       
+                                        
                                         @foreach (var team in ViewBag.teams)
                                         {
                                             @if (team.TeamCSAPIId == item.TeamsAPIIDList[0])
                                             {
+                                                 <img src="~/images/WRU_Logo_Fundo_.png" alt="logo" style="width:15%">
                                                 <span> @team.Name </span>
                                             }
                                         }
@@ -248,8 +253,10 @@
                                             @if (team.TeamCSAPIId == item.TeamsAPIIDList[1])
                                             {
                                                 <span> @team.Name </span>
+                                                <img src="~/images/WRU_Logo_Fundo_.png" alt="logo" style="width:15%">
                                             }
                                         }
+                                      
                                     </p>
                                 </span>
                             </div>
@@ -262,18 +269,18 @@
                     </div>
                 }
             </div>
-            <div class="box bordercolor" style="margin-top:0px; border-radius:15px;">
-                <table class="darkcolor tablecolors" style="width:100%; border-radius:15px;">
+            <div class="box bordercolor" style="margin-top:0px; border-radius:15px;margin-left: 2%;margin-right: 2%; width:60%">
+                <table class="colorformatch tablecolors" style="width:100%; border-radius:15px;">
                     @foreach (var item in ViewBag.runningMatches)
                     {
                         <tr  style="border-radius:15px; width:100%">
                             <td class="tablecolors" style="width:100%; border-radius:15px;">
-                                <div class="my-div2 darkcolor2" style="width:100%;">
+                                <div class="my-div2 colorformatch" style="width:100%;">
                                     <div style="text-align:center">
                                         <h4 style="font-weight: bold;text-align:center;">@item.EventName</h4>
                                     </div>
                                     <div class="bordercolor" style="border-radius:15px;">
-                                        <table class="tablecolors bordercolor" style="margin:auto;text-align:center;">
+                                        <table class="bordercolor2" style="margin:auto;text-align:center;">
                                             <tr>
                                                 <td class="tablecolors" style="">
                                                     @foreach (var team in ViewBag.teams)
@@ -364,7 +371,7 @@
                 </table>
             </div>
 
-            <div class="box darkcolor bordercolor" style="margin-top:0px; border-radius:15px">
+            <div class="box colorformatch bordercolor" style="margin-top:0px; border-radius:15px">
                 <h4 style="font-weight: bold;text-align:center;">Upcoming Matches</h4>
                 @foreach (var item in ViewBag.upcomingMatches)
                 {
@@ -380,6 +387,7 @@
                                         {
                                             @if (team.TeamCSAPIId == item.TeamsAPIIDList[0])
                                             {
+                                                <img src="~/images/WRU_Logo_Fundo_.png" alt="logo" style="width:15%">
                                                 <span> @team.Name </span>
                                             }
                                         }
@@ -391,6 +399,7 @@
                                             @if (team.TeamCSAPIId == item.TeamsAPIIDList[1])
                                             {
                                                 <span> @team.Name </span>
+                                                <img src="~/images/WRU_Logo_Fundo_.png" alt="logo" style="width:15%">
                                             }
                                         }
                                     </p>

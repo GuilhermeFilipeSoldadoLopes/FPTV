@@ -51,10 +51,11 @@ textarea {
 }
 
 .bodytemp {
-    width: 100%;
+   /* width: 1920px;
+    height:1080px;*/
     background-image: url('../images/tempo.png');
-    background-repeat: no-repeat;
-    background-size: cover;
+    /*background-repeat: no-repeat;
+    background-size: cover;*/
     font-family: Noto Sans;
     background-color: black;
 }
@@ -139,6 +140,12 @@ td {
     color:white;
     border-radius:15px;
 }
+bordercolor2 {
+    border-color: #373737 !important;
+    border: 1px solid;
+    color: white;
+    border-radius: 15px;
+}
 .central {
     width: 100%;
     margin: 0 auto;
@@ -168,4 +175,9 @@ td {
 .my-divColor {
     color:white;
 }
-
+.colorformatch {
+    background-color: #373737
+}
+.tablestyle {
+    border-color: #373737
+}
