@@ -137,6 +137,7 @@ td {
     border-color: #CC0033 !important;
     border: 1px solid;
     color:white;
+    border-radius:15px;
 }
 .central {
     width: 100%;
