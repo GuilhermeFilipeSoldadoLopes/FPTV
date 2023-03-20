@@ -34,16 +34,17 @@ namespace FPTV.Controllers
 
         //De CSGO e de Valorant
         // GET: CSMatches
-        
+
         public async Task<IActionResult> CSGOStats()
         {
             getCSGOMatches();
-            return View();
+            return View("PlayerAndStats");
         }
 
-        private String request(string category, string sort = "sort=-begin_at", string page = "&page=1", string filter = "past", string game = "csgo")
+        private String request(string category, string sort = "sort=-status", string page = "&page=1", string filter = "past", string game = "csgo")
         {
-            if (category == "matches") { 
+            if (category == "matches")
+            {
                 var jsonFilter = filter + "?";
                 var jsonSort = sort;
                 var jsonPage = page;
@@ -57,7 +58,8 @@ namespace FPTV.Controllers
                 request.AddHeader("accept", "application/json");
 
                 return client.Execute(request).Content;
-            } else if(category == "teams")
+            }
+            else if (category == "teams")
             {
                 var jsonFilter = filter + "?";
                 var jsonSort = sort;
@@ -73,7 +75,8 @@ namespace FPTV.Controllers
 
                 return client.Execute(request).Content;
             }
-            else{
+            else
+            {
                 var jsonFilter = filter + "?";
                 var jsonSort = sort;
                 var jsonPage = page;
@@ -103,10 +106,15 @@ namespace FPTV.Controllers
             var jarrayTeams = JArray.Parse(jsonTeams);
             var jarrayPlayers = JArray.Parse(jsonPlayers);
 
+
+
             var StaticResults = new[] { "16-12", "14-16", "16-9", "8-16", "10-16", "16-11", "3-16", "16-7" };
             var maps = new[] { "Inferno", "Mirage", "Nuke", "Overpass", "Vertigo", "Ancient", "Anubis" };
             var teamNames = new[] { "G2", "NAVI", "Liquid", "Furia", "BIG", "FTW", "FAZE" };
-            var coachNames = new[] { "Rui", "Nuno", "Miguel", "André", "João", "Guilherme"};
+            var coachNames = new[] { "Rui", "Nuno", "Miguel", "André", "João", "Guilherme" };
+            var ranking = new[] { 0.68F, 0.94F, 1.42F, 1.08F, 1.09F, 1.23F, 0.78F, 0.89F, 0.97F, 0.72F,
+                0.82F, 0.62F, 1.45F, 1.11F, 1.37F, 1.27F, 1.05F, 1.07F, 1.16F, 1.29F, 1.15F, 0.97F, 0.83F,
+                1.36F, 1.10F, 1.07F, 1.19F, 0.77F, 0.90F, 1.14F, 1.52F, 1.54F, 0.58F }; //de 0.58 a 1.54
 
             List<MatchCS>? matchCsList = new();
             List<MatchPlayerStatsCS>? playerStatsList = new();
@@ -119,6 +127,16 @@ namespace FPTV.Controllers
                 if (!status.ToString().Equals("canceled"))
                 {
                     var opponentArray = (JArray)item.GetValue("opponents");
+                    var ma = new MatchCS();
+
+                    var matches = new MatchesCS();
+                    matches.MatchesList.Add(ma);
+                    matches.MatchesCSAPIID = (int)item.GetValue("id");
+                    ma.MatchesCSAPIId = matches.MatchesCSAPIID;
+                    ma.RoundsScore = StaticResults[_random.Next(maps.Length)];
+                    ma.Map = maps[_random.Next(maps.Length)];
+
+
 
                     foreach (var opponentObject in opponentArray.Cast<JObject>())
                     {
@@ -138,12 +156,14 @@ namespace FPTV.Controllers
                         var client = new RestClient(fullApiPath);
                         var request = new RestRequest("", Method.Get);
                         request.AddHeader("accept", "application/json");
-                        var response= client.Execute(request).Content;
+                        var response = client.Execute(request).Content;
                         var teamsArray = JArray.Parse(response);
+
+
+
 
                         foreach (var _team in teamsArray.Cast<JObject>())
                         {
-                            var player = new Player();
                             team.CouchName = coachNames[_random.Next(coachNames.Length)]; ;
                             team.WorldRank = 1;
                             team.Winnings = 1;
@@ -152,9 +172,15 @@ namespace FPTV.Controllers
                             foreach (var _player in players.Cast<JObject>())
                             {
                                 //inicializar cada player
+                                var player = new Player();
+                                player.PlayerAPIId = (int)_player.GetValue("id");
+                                player.Name = (string)_player.GetValue("name");
+                                player.Age = (int)_player.GetValue("age");
+                                player.Rating = ranking[_random.Next(ranking.Length)];
+                                player.Teams.Add(team);
                             }
-                        }
 
+                        }
                         var matchTeam = new MatchTeamsCS();
                         matchTeam.MatchCSAPIID = (int)item.GetValue("id");
                         matchTeam.TeamCSAPIId = (int)team.TeamAPIID;
@@ -162,29 +188,35 @@ namespace FPTV.Controllers
                         matchTeam.Name = (string)opponent.GetValue("name");
                         matchTeam.Location = (string?)opponent.GetValue("location");
                         matchTeam.Image = (string)opponent.GetValue("image_url");
+                        ma.TeamsList.Add(matchTeam);
 
-
-                        var winnerTeam = new Team();
-                        var winner = gamesObject.GetValue("winner");
-                        winnerTeam.TeamAPIID = (int)winner.ToObject<JObject>().GetValue("id");
-                        if (winnerTeam.TeamAPIID == team.TeamCSAPIId)
+                        JArray games = (JArray)item["games"];
+                        foreach (var game in games.Cast<JObject>())
                         {
-                            winnerTeam.Name = team.Name;
+                            var winnerTeam = new Team();
+                            var winner = game.GetValue("winner");
+                            winnerTeam.TeamAPIID = winner.Value<int>("id");
+                            ma.WinnerTeam = winnerTeam;
+                            ma.WinnerTeamAPIId = winnerTeam.TeamAPIID;
+                            ma.MatchCSAPIID = (int)game.GetValue("id");
+                            //var MatchCSAPIID = games.GetValue("id");
+                            //var MatchesCSAPIId = (int)m.GetValue("id");
+
+                            //var winnerTeamAPIId = winner.ToString() == "" ? null : winner.ToObject<JObject>().GetValue("id");
                         }
-                        teamsList.Add(team);
+                        matchCsList.Add(ma);
+                        _context.MatchCS.Add(ma);
+                        teamsList.Add(matchTeam);
+                        _context.MatchTeamsCS.Add(matchTeam);
+
 
                         foreach (JObject t in jarrayTeams.Cast<JObject>())
                         {
-
-                            //Rever a linha abaixo
-                            //winnerTeam.TeamAPIID = winner.ToString() == "" ? null : winner.ToObject<JObject>().GetValue("id");
-
-                            //_context.MatchTeamsCS.Add(team);
-
                             foreach (JObject p in jarrayPlayers.Cast<JObject>())
                             {
                                 var player = new MatchPlayerStatsCS();
-                                player.MatchCSAPIID = ma.MatchCSAPIID;
+                                player.MatchCS = ma;
+                                player.MatchCSAPIID = (int)item.GetValue("id");
                                 player.PlayerCSAPIId = (int)t.GetValue("id");
                                 player.Kills = _random.Next(1, 31);
                                 player.Deaths = _random.Next(1, 21);
@@ -195,16 +227,17 @@ namespace FPTV.Controllers
                                 player.KD_Diff = _random.NextDouble();
                                 player.PlayerName = (string)t.GetValue("name"); ;
                                 playerStatsList.Add(player);
+                                ma.PlayerStatsList.Add(player);
                                 _context.MatchPlayerStatsCS.Add(player);
                             }
-                            _context.MatchTeamsCS.Add(team);
                         }
                         ViewBag.playerStatsList = playerStatsList;
                         ViewBag.teamsList = teamsList;
                         ViewBag.matchCsList = matchCsList;
                     }
+                    /*
 
-                    JArray games = (JArray)item["games"];
+                    //JArray games = (JArray)item["games"];
 
                         foreach (var gamesObject in games.Children<JObject>())
                         {
@@ -225,13 +258,15 @@ namespace FPTV.Controllers
                             matchCsList.Add(ma);
                             _context.MatchCS.Add(ma);
 
-                    }
+                        }
+                }*/
                 }
+                _context.SaveChanges();
             }
-            _context.SaveChanges();
         }
     }
 }
+
 
 
 
