@@ -172,6 +172,9 @@
 				<button class="btn1" onclick ="location.href='@Url.Action("Details", "Events", new { id = e.EventAPIID, sort = ViewBag.sort, filter = ViewBag.filter})'">
 					<div class="my-div">
 						<div>
+							<img src=@e.EventImage style="max-width:65px;width:100%" />
+						</div>
+						<div>
 							<span>@e.EventName</span>
 							<p>@e.LeagueName</p>
 						</div>
