@@ -90,7 +90,7 @@ namespace FPTV.Controllers
         }
         public IActionResult PlayerAndStats()
         {
-	        return View();
+            return RedirectToAction("PlayerandStatsCs", "Stats");
         }
         public IActionResult Privacy()
         {
