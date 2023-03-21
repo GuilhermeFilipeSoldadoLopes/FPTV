@@ -186,3 +186,6 @@ bordercolor2 {
     border:1px solid;
     border-color: black;
 }
+.dropselected {
+    background-color: lightgray;
+}
