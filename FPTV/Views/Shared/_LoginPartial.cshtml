@@ -25,32 +25,57 @@
     }
 </script>
 <script>
-    document.onreadystatechange = function(e)
-    {
-        var checkBox = document.getElementById("myCheck");
-        var isDarkmode;
-        if (document.readyState === 'complete')
-        {
-            if (checkBox.checked == true) {
-                isDarkmode = true;
-            } else {
-                isDarkmode = false;
-            }
-            //dom is ready, window.onload fires later
-        }
-    };
-    window.onload = function(e)
-    {
-        var checkBox = document.getElementById("myCheck");
-        //document.readyState will be complete, it's one of the requirements for the window.onload event to be fired
-        //do stuff for when everything is loaded
-        if (checkBox.checked == true) {
-            document.getElementById("myCheck").checked = true;
-        } else {
-            document.getElementById("myCheck").checked = false;
-        }
-        changeCSS(0);
-    };
+    //document.onreadystatechange = function(e)
+    //{
+    //    var checkBox = document.getElementById("myCheck");
+    //    var isDarkmode;
+    //    if (document.readyState === 'complete')
+    //    {
+    //        if (checkBox.checked == true) {
+    //            isDarkmode = true;
+    //        } else {
+    //            isDarkmode = false;
+    //        }
+    //        //dom is ready, window.onload fires later
+    //    }
+    //};
+    //window.onload = function(e)
+    //{
+    //    var checkBox = document.getElementById("myCheck");
+    //    //document.readyState will be complete, it's one of the requirements for the window.onload event to be fired
+    //    //do stuff for when everything is loaded
+    //    if (checkBox.checked == true) {
+    //        document.getElementById("myCheck").checked = true;
+    //    } else {
+    //        document.getElementById("myCheck").checked = false;
+    //    }
+    //    changeCSS(0);
+    //};
+
+    //var checkboxValue = JSON.parse(localStorage.getItem('checkboxValue')) || {}
+    //var $checkbox = $("#checkbox-container :checkbox");
+
+    //$checkbox.on("change", function () {
+    //    $checkbox.each(function () {
+    //        checkboxValue[this.id] = this.checked;
+    //    });
+    //    localStorage.setItem("checkboxValue", JSON.stringify(checkboxValue));
+    //});
+
+    ////on page load
+    //$.each(checkboxValue, function (key, value) {
+    //    $("#" + key).prop('checked', value);
+    //});
+
+    //$(function(){
+    //    var test = localStorage.input === 'true'? true: false;
+    //    $('input').prop('checked', test || false);
+    //});
+
+    //$('input').on('change', function() {
+    //    localStorage.input = $(this).is(':checked');
+    //    console.log($(this).is(':checked'));
+    //});
 </script>
 
 <style>
@@ -77,11 +102,11 @@
         height: 34px;
     }
 
-        .switch1 input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
+    .switch1 input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
 
     .slider {
         position: absolute;
@@ -178,7 +203,7 @@
                         <div style="margin-right:5px; margin-left:0px; ">
                             <span class="" style="text-align:left;vertical-align:auto; " >DarkMode</span>
                        </div>
-                        <div style="text-align:right;width:100%">
+                    <div style="text-align:right;width:100%">
                             <label class="switch1" >
                             <input type="checkbox" id="myCheck" onclick="changeCSS(0);" value="DarkMode">
                                 <span class="slider round" style="text-align:right; "></span>
