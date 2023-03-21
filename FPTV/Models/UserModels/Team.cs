@@ -39,5 +39,9 @@ namespace FPTV.Models.UserModels
 		[Required]
 		[Display(Name = "Team Image")]
 		public string? Image { get; set; }
+
+		[Required]
+		[Display(Name = "Game")]
+		public GameType? Game { get; set; }
 	}
 }

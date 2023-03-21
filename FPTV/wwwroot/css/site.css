@@ -52,8 +52,8 @@ textarea {
 .bodytemp {
     width: 100%;
     background-image: url('../images/tempo.png');
-    /*background-repeat: no-repeat;
-    background-size: cover;*/
+    background-repeat: no-repeat;
+    background-size: cover;
     font-family: Noto Sans;
    
 }
