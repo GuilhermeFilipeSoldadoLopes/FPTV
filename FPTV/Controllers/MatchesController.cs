@@ -17,6 +17,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RestSharp;
 using SendGrid.Helpers.Mail;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -47,7 +48,7 @@ namespace FPTV.Controllers
 
         //De CSGO e de Valorant
         // GET: CSMatches
-        public async Task<ActionResult> CSGOMatchesAsync(string sort = "", string filter = "", string page = "&page=1", string game = "csgo")
+        public async Task<ActionResult> CSGOMatches(string sort = "", string filter = "", string page = "&page=1", string game = "csgo")
         {
             //Request processing with RestSharp
             var jsonFilter = (filter == "" || filter == "livestream") ? "" : "filter[" + filter + "]=true&";
@@ -58,28 +59,35 @@ namespace FPTV.Controllers
             var requestLink = "https://api.pandascore.co/" + game + "/matches/";
 
             var fullApiPath = requestLink + "past?" + jsonFilter + jsonSort + jsonPage + jsonPerPage + token;
-            List<MatchesCS> pastMatches = getAPICSGOMatches(fullApiPath);
+            /*var*/
+            List<MatchesCS> pastMatches = getAPICSGOMatches(fullApiPath, game);
             fullApiPath = requestLink + "running?" + jsonFilter + jsonSort + jsonPage + jsonPerPage + token;
-            List<MatchesCS> runningMatches = getAPICSGOMatches(fullApiPath);
+            /*var*/
+            List<MatchesCS> runningMatches = getAPICSGOMatches(fullApiPath, game);
             fullApiPath = requestLink + "upcoming?" + jsonFilter + jsonSort + jsonPage + jsonPerPage + token;
-            List<MatchesCS> upcomingMatches = getAPICSGOMatches(fullApiPath);
+            /*var*/
+            List<MatchesCS> upcomingMatches = getAPICSGOMatches(fullApiPath, game);
 
-			List<int> dbMatchesIds = _context.MatchesCS.Select(m => m.MatchesCSAPIID).ToList();
-
+            List<int> dbMatchesIds = game == "csgo" ? _context.MatchesCS.Select(m => m.MatchesCSAPIID).ToList() : _context.MatchesVal.Select(m => m.MatchesValAPIID).ToList();
+            
             foreach (var match in pastMatches)
             {
-                Console.WriteLine(match.MatchesCSAPIID);
-
-                foreach (var item in match.TeamsList)
+                if (game == "csgo")
                 {
-                    Console.WriteLine(item.Name);
+                    var m = (MatchesCS)match;
+                    if (!dbMatchesIds.Contains(m.MatchesCSAPIID))
+                    {
+                        _context.MatchesCS.Add(m);
+                    }
                 }
-                Console.WriteLine("");
-
-                if (!dbMatchesIds.Contains(match.MatchesCSAPIID))
+                /*else
                 {
-                    _context.MatchesCS.Add(match);
-                }
+                    var m = (MatchesVal)match;
+                    if (!dbMatchesIds.Contains(m.MatchesValAPIID))
+                    {
+                        _context.MatchesVal.Add(m);
+                    }
+                }*/
             }
 
             await _context.SaveChangesAsync();
@@ -100,7 +108,7 @@ namespace FPTV.Controllers
 
             var a = await _context.MatchesCS.ToListAsync();
 
-            /*foreach (var item in a)
+            foreach (var item in a)
             {
                 var b = item.TeamsList;
 
@@ -108,7 +116,7 @@ namespace FPTV.Controllers
                 {
                     var c = item2.Name;
                 }
-            }*/
+            }
 
             ViewBag.pastMatches = pastMatches;
 
@@ -121,27 +129,7 @@ namespace FPTV.Controllers
             return View();
 		}
 
-        private async void getPastMatches(string fullApiPath)
-        {
-            List<MatchesCS> pastMatches = getAPICSGOMatches(fullApiPath);
-            List<int> dbMatchesIds = _context.MatchesCS.Select(m => m.MatchesCSAPIID).ToList();
-
-            foreach (var matches in pastMatches)
-            {
-                var id = matches.MatchesCSAPIID;
-
-                if (!dbMatchesIds.Contains(id))
-                {
-                    _context.MatchesCS.Add(matches);
-
-                    dbMatchesIds.Add(id);
-                }
-            }
-
-            await _context.SaveChangesAsync();
-        }
-
-        private List<MatchesCS> getAPICSGOMatches(string fullApiPath)
+        private /*IList*/ List<MatchesCS> getAPICSGOMatches(string fullApiPath, string game)
         {
             //Request processing with RestSharp
             var client = new RestClient(fullApiPath);
@@ -154,7 +142,7 @@ namespace FPTV.Controllers
                 return null;
             }
 
-            List<MatchesCS> matchesCS = new List<MatchesCS>();
+            var matchesList = new List<MatchesCS>();// game == "csgo" ? new List<MatchesCS>() : new List<MatchesVal>();
 
             var matchesArray = JArray.Parse(json);
 
@@ -164,7 +152,7 @@ namespace FPTV.Controllers
 
                 if (!status.ToString().Equals("canceled"))
                 {
-                    MatchesCS matches = new MatchesCS();
+                    var matches = new MatchesCS();// game == "csgo" ? new MatchesCS() : new MatchesVal();
                     matches.TeamsAPIIDList = new List<int>();
 
                     matches.Scores = new List<Score>();
@@ -211,7 +199,7 @@ namespace FPTV.Controllers
                     matches.LeagueId = LeagueId.ToString() == null ? -1 : LeagueId.Value<int>();
                     matches.LeagueLink = leagueLink.ToString() == null ? "" : leagueLink.Value<string>();
 
-                    var eventCS = new EventCS();
+                    var eventCS = new EventCS();// game == "csgo" ? new EventCS() : new EventVal();
                     eventCS.EventAPIID = matches.EventAPIID;
                     eventCS.BeginAt = new DateTime();
                     eventCS.EndAt = new DateTime();
@@ -299,12 +287,12 @@ namespace FPTV.Controllers
                             }
                         }
 
-                        matchesCS.Add(matches);
+                        matchesList.Add(matches);
                     }
                 }
             }
 
-            return matchesCS;
+            return matchesList;
         }
 
         /*// De CSGO e de Valorant

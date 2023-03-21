@@ -307,10 +307,10 @@
                                                         <td class="tablecolors">
                                                             <span class="span2"> - </span>
                                                         </td>
-                                                        @if (item.TeamsList[0].Name == team.TeamName)
+                                                        @if (item.TeamsList[1].Name == team.TeamName)
                                                         {
-                                                            <td class="tablecolors">
-                                                                <span class="span2"> @result[item.TeamsAPIIDList[1]]</span>
+                                                        <td class="tablecolors">
+                                                            <span class="span2"> @team.TeamScore </span>
                                                             </td>
                                                         }
                                                         break;
