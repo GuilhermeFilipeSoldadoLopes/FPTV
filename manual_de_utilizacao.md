@@ -29,7 +29,14 @@ Bem-vindo ao projeto FPTV, a futura hub dos FPS E-Sports. O objetivo deste proje
 
 **Recuperação de Senha:** Caso o utilizador esqueça a sua senha, pode recuperá-la clicando no botão "Forgot your password?" que está na página de início de sessão. Irá será direcionado para uma página na qual irá ser pedido para inserir o seu endereço de e-mail (apenas no caso de o login ter sido realizado com email/password). Consequentemente um link para redefinir a sua senha será enviado para o seu e-mail.<p>
 
-![ForgotPassword](https://media.discordapp.net/attachments/783386747638775848/1083152044036206672/image.png?width=1380&height=662)<p>
+![ForgotPassword](https://cdn.discordapp.com/attachments/783386747638775848/1087760917799907380/image.png)<p>
+![ForgotPassword](https://cdn.discordapp.com/attachments/783386747638775848/1087761153817595914/image.png)<p>
+![ForgotPasswordConfirmation](https://cdn.discordapp.com/attachments/783386747638775848/1087762662324191333/image.png)<p>
+![ForgotPasswordConfirmation](https://cdn.discordapp.com/attachments/783386747638775848/1087762694792298547/image.png)<p>
+![ResetPassword](https://cdn.discordapp.com/attachments/783386747638775848/1087761432705253426/image.png)<p>
+![ResetPassword](https://cdn.discordapp.com/attachments/783386747638775848/1087761719826333916/image.png)<p>
+![ResetPasswordConfirmation](https://cdn.discordapp.com/attachments/783386747638775848/1087763598190850118/image.png)<p>
+![ResetPasswordConfirmation](https://cdn.discordapp.com/attachments/783386747638775848/1087763788033437706/image.png)<p>
 
 **Logout:** Para terminar a sua sessão, clique no botão "Logout" na barra de navegação superior.<p>
 
