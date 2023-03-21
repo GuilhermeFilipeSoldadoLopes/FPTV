@@ -376,14 +376,9 @@ namespace FPTV.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("WinnerTeamTeamId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("MatchesValId");
 
                     b.HasIndex("EventValID");
-
-                    b.HasIndex("WinnerTeamTeamId");
 
                     b.ToTable("MatchesVal");
                 });
@@ -811,6 +806,9 @@ namespace FPTV.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Game")
+                        .HasColumnType("int");
+
                     b.Property<string>("Image")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -833,9 +831,6 @@ namespace FPTV.Migrations
 
                     b.Property<Guid?>("TeamId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("game")
-                        .HasColumnType("int");
 
                     b.HasKey("PlayerId");
 
@@ -894,6 +889,9 @@ namespace FPTV.Migrations
                     b.Property<Guid?>("FavTeamsListId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<int>("Game")
+                        .HasColumnType("int");
+
                     b.Property<string>("Image")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -922,9 +920,6 @@ namespace FPTV.Migrations
 
                     b.Property<int?>("WorldRank")
                         .IsRequired()
-                        .HasColumnType("int");
-
-                    b.Property<int>("game")
                         .HasColumnType("int");
 
                     b.HasKey("TeamId");
@@ -1226,15 +1221,7 @@ namespace FPTV.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("FPTV.Models.UserModels.Team", "WinnerTeam")
-                        .WithMany()
-                        .HasForeignKey("WinnerTeamTeamId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("EventVal");
-
-                    b.Navigation("WinnerTeam");
                 });
 
             modelBuilder.Entity("FPTV.Models.MatchesModels.Score", b =>

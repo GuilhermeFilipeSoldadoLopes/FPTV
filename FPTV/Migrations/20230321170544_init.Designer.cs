@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FPTV.Migrations
 {
     [DbContext(typeof(FPTVContext))]
-    [Migration("20230321112839_init")]
+    [Migration("20230321170544_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -307,14 +307,9 @@ namespace FPTV.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("WinnerTeamTeamId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("MatchesCSId");
 
                     b.HasIndex("EventCSID");
-
-                    b.HasIndex("WinnerTeamTeamId");
 
                     b.ToTable("MatchesCS");
                 });
@@ -383,14 +378,9 @@ namespace FPTV.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("WinnerTeamTeamId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("MatchesValId");
 
                     b.HasIndex("EventValID");
-
-                    b.HasIndex("WinnerTeamTeamId");
 
                     b.ToTable("MatchesVal");
                 });
@@ -818,6 +808,9 @@ namespace FPTV.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Game")
+                        .HasColumnType("int");
+
                     b.Property<string>("Image")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -840,9 +833,6 @@ namespace FPTV.Migrations
 
                     b.Property<Guid?>("TeamId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("game")
-                        .HasColumnType("int");
 
                     b.HasKey("PlayerId");
 
@@ -901,6 +891,9 @@ namespace FPTV.Migrations
                     b.Property<Guid?>("FavTeamsListId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<int>("Game")
+                        .HasColumnType("int");
+
                     b.Property<string>("Image")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -929,9 +922,6 @@ namespace FPTV.Migrations
 
                     b.Property<int?>("WorldRank")
                         .IsRequired()
-                        .HasColumnType("int");
-
-                    b.Property<int>("game")
                         .HasColumnType("int");
 
                     b.HasKey("TeamId");
@@ -1222,15 +1212,7 @@ namespace FPTV.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("FPTV.Models.UserModels.Team", "WinnerTeam")
-                        .WithMany()
-                        .HasForeignKey("WinnerTeamTeamId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("EventCS");
-
-                    b.Navigation("WinnerTeam");
                 });
 
             modelBuilder.Entity("FPTV.Models.MatchesModels.MatchesVal", b =>
@@ -1241,15 +1223,7 @@ namespace FPTV.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("FPTV.Models.UserModels.Team", "WinnerTeam")
-                        .WithMany()
-                        .HasForeignKey("WinnerTeamTeamId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("EventVal");
-
-                    b.Navigation("WinnerTeam");
                 });
 
             modelBuilder.Entity("FPTV.Models.MatchesModels.Score", b =>
