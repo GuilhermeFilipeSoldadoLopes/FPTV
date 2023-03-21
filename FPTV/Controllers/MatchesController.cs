@@ -82,7 +82,8 @@ namespace FPTV.Controllers
                 }
             }
 
-            await _context.SaveChangesAsync();
+            //para nao dar erro
+            //await _context.SaveChangesAsync();
 
             if (sort == "tournament")
             {
