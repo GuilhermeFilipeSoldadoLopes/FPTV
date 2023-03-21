@@ -194,7 +194,7 @@
     }
 </style>
 <body class="bodytemp">
-    <div class="dark" style="padding:1%;">
+    <div class="" style="padding:1%;">
         <div class="buttons">
             <div class="dropdown">
                 <button class="button2">Sort by</button>
@@ -214,7 +214,7 @@
 
         </div>
         <div class="ola " style="border-radius:15px;">
-            <div class="box darkcolor bordercolor" style="border-radius:15px;margin-top:0px;margin:auto">
+            <div class="box darkcolor bordercolor" style="border-radius:15px;margin-top:0px;width:28%">
                 <h4 style="font-weight: bold;text-align:center;">Finished Matches</h4>
                 @foreach (var item in ViewBag.pastMatches)
                 {
@@ -226,7 +226,9 @@
 
                             <div>
                                 <span style="text-align: center;">
+
                                     <p style="font-size:25px">
+                                        <img src=@item.TeamsList[0].Image alt="logo" style="width:15%">
                                         <span> @item.TeamsList[0].Name </span>
                                         @foreach (var team in item.Scores)
                                         {
@@ -244,6 +246,7 @@
                                             }
                                         }
                                         <span> @item.TeamsList[1].Name </span>
+                                        <img src=@item.TeamsList[1].Image alt="logo" style="width:15%">
                                     </p>
                                 </span>
                             </div>
@@ -256,18 +259,18 @@
                     </div>
                 }
             </div>
-            <div class="box bordercolor" style="margin-top:0px; border-radius:15px;">
-                <table class="darkcolor tablecolors" style="width:100%; border-radius:15px;">
+            <div class="box bordercolor" style="margin-top:0px; border-radius:15px;margin-left: 2%;margin-right: 2%; width:60%">
+                <table class="colorformatch tablecolors" style="width:100%; border-radius:15px;">
                     @foreach (var item in ViewBag.runningMatches)
                     {
                         <tr  style="border-radius:15px; width:100%">
                             <td class="tablecolors" style="width:100%; border-radius:15px;">
-                                <div class="my-div2 darkcolor2" style="width:100%;">
+                                <div class="my-div2 colorformatch" style="width:100%;">
                                     <div style="text-align:center">
                                         <h4 style="font-weight: bold;text-align:center;">@item.EventName</h4>
                                     </div>
                                     <div class="bordercolor" style="border-radius:15px;">
-                                        <table class="tablecolors bordercolor" style="margin:auto;text-align:center;">
+                                        <table class="bordercolor2" style="margin:auto;text-align:center;">
                                             <tr>
                                                 <td class="tablecolors" style="">
                                                     <span>
@@ -295,39 +298,25 @@
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td style="border-color:lightgrey">
-                                                    @foreach (var team in item.Scores)
+                                                @foreach (var team in item.Scores)
+                                                {
+                                                    @if (item.TeamsList[0].Name == team.TeamName)
                                                     {
-                                                        @if (item.TeamsList[0].Name == team.TeamName)
-                                                        {
-                                                            <td class="tablecolors">
-                                                                <span class="span2"> @team.TeamScore </span>
-                                                            </td>
-                                                        }
                                                         <td class="tablecolors">
-                                                            <span class="span2"> - </span>
+                                                            <span class="span2"> @team.TeamScore </span>
                                                         </td>
-                                                        @if (item.TeamsList[1].Name == team.TeamName)
-                                                        {
+                                                    }
+                                                    <td class="tablecolors">
+                                                        <span class="span2"> vs </span>
+                                                    </td>
+                                                    @if (item.TeamsList[1].Name == team.TeamName)
+                                                    {
                                                         <td class="tablecolors">
                                                             <span class="span2"> @team.TeamScore </span>
-                                                            </td>
-                                                        }
-                                                        break;
+                                                        </td>
                                                     }
-                                                </td>
-                                                <td style="border-color:lightgrey">
-                                                    <span class="span2"> - </span>
-                                                </td>
-                                                <td style="border-color:lightgrey">
-                                                    @foreach (var team in item.Scores)
-                                                    {
-                                                        @if (item.TeamsList[1].Name == team.TeamName)
-                                                        {
-                                                            <span class="span2"> @team.TeamScore </span>
-                                                        }
-                                                    }
-                                                </td>
+                                                    break;
+                                                }
                                             </tr>
                                             <tr>
                                                 <td class="tablecolors">
@@ -349,7 +338,7 @@
                 </table>
             </div>
 
-            <div class="box darkcolor bordercolor" style="margin-top:0px; border-radius:15px">
+            <div class="box darkcolor bordercolor" style="margin-top:0px; border-radius:15px;width:28%">
                 <h4 style="font-weight: bold;text-align:center;">Upcoming Matches</h4>
                 @foreach (var item in ViewBag.upcomingMatches)
                 {
@@ -361,9 +350,11 @@
                             <div>
                                 <span style="text-align: center;">
                                     <p style="font-size:25px">
+                                        <img src=@item.TeamsList[0].Image alt="logo" style="width:15%">
                                         <span> @item.TeamsList[0].Name </span>
                                         <span class="span2"> vs </span>
                                         <span> @item.TeamsList[1].Name </span>
+                                        <img src=@item.TeamsList[1].Image alt="logo" style="width:15%">
                                     </p>
                                 </span>
                             </div>

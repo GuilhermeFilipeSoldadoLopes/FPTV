@@ -168,6 +168,7 @@ namespace FPTV.Areas.Identity.Pages.Account
                 profile.Picture = System.IO.File.ReadAllBytes(defaultImage);
                 profile.User = user;
                 profile.RegistrationDate = new DateTime();
+                profile.Country = "pt";
 				user.Profile = profile;
                 _context.Profiles.Add(profile);
                 await _userStore.SetUserNameAsync(user, Input.Username, CancellationToken.None);

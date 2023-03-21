@@ -108,7 +108,7 @@ namespace FPTV.Controllers
 
             var a = await _context.MatchesCS.ToListAsync();
 
-            foreach (var item in a)
+            /*foreach (var item in a)
             {
                 var b = item.TeamsList;
 
@@ -116,7 +116,7 @@ namespace FPTV.Controllers
                 {
                     var c = item2.Name;
                 }
-            }
+            }*/
 
             ViewBag.pastMatches = pastMatches;
 
@@ -127,7 +127,7 @@ namespace FPTV.Controllers
             ViewBag.sort = sort;
 
             return View();
-		}
+        }
 
         private /*IList*/ List<MatchesCS> getAPICSGOMatches(string fullApiPath, string game)
         {

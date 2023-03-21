@@ -52,8 +52,8 @@ textarea {
 .bodytemp {
     width: 100%;
     background-image: url('../images/tempo.png');
-    background-repeat: no-repeat;
-    background-size: cover;
+   /* background-repeat: no-repeat;
+    background-size: cover;*/
     font-family: Noto Sans;
    
 }
@@ -137,6 +137,12 @@ td {
     color: black;
     border-radius: 15px;
 }
+bordercolor2 {
+    border-color: white !important;
+    border: 1px solid;
+    color: white;
+    border-radius: 15px;
+}
 .central {
     width: 100%;
     margin: 0 auto;
@@ -161,8 +167,14 @@ td {
     color: black;
 }
 .tablecolors {
-    border-color: lightgray;
+    border-color: white;
 }
 .my-divColor {
     color: black;
+}
+.colorformatch {
+    background-color: white;
+}
+.tablestyle {
+    border-color: white;
 }
