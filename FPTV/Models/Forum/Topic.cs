@@ -23,11 +23,15 @@ namespace FPTV.Models.Forum
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime Date { get; set; }
 
-        [Display(Name = "User ID")]
-        [ForeignKey("ProfileId")]
-        public Guid ProfileId { get; set; }
+        //[Display(Name = "User ID")]
+        //[ForeignKey("ProfileId")]
+        //public Guid ProfileId { get; set; }
 
         [Display(Name = "User")]
-        public virtual Profile? Profile { get; set; }
-    }
+        public Profile? Profile { get; set; }
+
+		[Required]
+		[Display(Name = "Comments")]
+		public ICollection<Comment>? Comments { get; set; }
+	}
 }
