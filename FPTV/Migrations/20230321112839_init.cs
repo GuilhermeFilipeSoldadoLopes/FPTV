@@ -254,30 +254,6 @@ namespace FPTV.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Team",
-                columns: table => new
-                {
-                    TeamId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    TeamAPIID = table.Column<int>(type: "int", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CouchName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    WorldRank = table.Column<int>(type: "int", nullable: false),
-                    Winnings = table.Column<int>(type: "int", nullable: false),
-                    Losses = table.Column<int>(type: "int", nullable: false),
-                    Image = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FavTeamsListId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Team", x => x.TeamId);
-                    table.ForeignKey(
-                        name: "FK_Team_FavTeamsList_FavTeamsListId",
-                        column: x => x.FavTeamsListId,
-                        principalTable: "FavTeamsList",
-                        principalColumn: "FavTeamsListId");
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Comments",
                 columns: table => new
                 {
@@ -304,6 +280,31 @@ namespace FPTV.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Reactions",
+                columns: table => new
+                {
+                    ReactionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ReactionCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ProfileId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    CommentId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Reactions", x => x.ReactionId);
+                    table.ForeignKey(
+                        name: "FK_Reactions_Comments_CommentId",
+                        column: x => x.CommentId,
+                        principalTable: "Comments",
+                        principalColumn: "CommentId");
+                    table.ForeignKey(
+                        name: "FK_Reactions_Profiles_ProfileId",
+                        column: x => x.ProfileId,
+                        principalTable: "Profiles",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "EventCS",
                 columns: table => new
                 {
@@ -327,11 +328,6 @@ namespace FPTV.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_EventCS", x => x.EventCSID);
-                    table.ForeignKey(
-                        name: "FK_EventCS_Team_WinnerTeamTeamId",
-                        column: x => x.WinnerTeamTeamId,
-                        principalTable: "Team",
-                        principalColumn: "TeamId");
                 });
 
             migrationBuilder.CreateTable(
@@ -358,66 +354,25 @@ namespace FPTV.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_EventVal", x => x.EventValID);
-                    table.ForeignKey(
-                        name: "FK_EventVal_Team_WinnerTeamTeamId",
-                        column: x => x.WinnerTeamTeamId,
-                        principalTable: "Team",
-                        principalColumn: "TeamId");
                 });
 
             migrationBuilder.CreateTable(
-                name: "Player",
+                name: "MatchCS",
                 columns: table => new
                 {
-                    PlayerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    PlayerAPIId = table.Column<int>(type: "int", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Age = table.Column<int>(type: "int", nullable: false),
-                    Rating = table.Column<float>(type: "real", nullable: false),
-                    Nacionality = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Flag = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Image = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FavPlayerListId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    TeamId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    MatchCSId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    MatchCSAPIID = table.Column<int>(type: "int", nullable: false),
+                    MatchesCSId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    MatchesCSAPIId = table.Column<int>(type: "int", nullable: false),
+                    RoundsScore = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Map = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    WinnerTeamTeamId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    WinnerTeamAPIId = table.Column<int>(type: "int", nullable: false),
+                    WinnerTeamName = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Player", x => x.PlayerId);
-                    table.ForeignKey(
-                        name: "FK_Player_FavPlayerList_FavPlayerListId",
-                        column: x => x.FavPlayerListId,
-                        principalTable: "FavPlayerList",
-                        principalColumn: "FavPlayerListId");
-                    table.ForeignKey(
-                        name: "FK_Player_Team_TeamId",
-                        column: x => x.TeamId,
-                        principalTable: "Team",
-                        principalColumn: "TeamId");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Reactions",
-                columns: table => new
-                {
-                    ReactionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ReactionCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ProfileId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    CommentId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Reactions", x => x.ReactionId);
-                    table.ForeignKey(
-                        name: "FK_Reactions_Comments_CommentId",
-                        column: x => x.CommentId,
-                        principalTable: "Comments",
-                        principalColumn: "CommentId");
-                    table.ForeignKey(
-                        name: "FK_Reactions_Profiles_ProfileId",
-                        column: x => x.ProfileId,
-                        principalTable: "Profiles",
-                        principalColumn: "Id");
+                    table.PrimaryKey("PK_MatchCS", x => x.MatchCSId);
                 });
 
             migrationBuilder.CreateTable(
@@ -452,12 +407,6 @@ namespace FPTV.Migrations
                         column: x => x.EventCSID,
                         principalTable: "EventCS",
                         principalColumn: "EventCSID",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_MatchesCS_Team_WinnerTeamTeamId",
-                        column: x => x.WinnerTeamTeamId,
-                        principalTable: "Team",
-                        principalColumn: "TeamId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -494,40 +443,107 @@ namespace FPTV.Migrations
                         principalTable: "EventVal",
                         principalColumn: "EventValID",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_MatchesVal_Team_WinnerTeamTeamId",
-                        column: x => x.WinnerTeamTeamId,
-                        principalTable: "Team",
-                        principalColumn: "TeamId",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "MatchCS",
+                name: "Stream",
+                columns: table => new
+                {
+                    StreamId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    StreamLink = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    StreamLanguage = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    MatchesCSId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    MatchesValId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Stream", x => x.StreamId);
+                    table.ForeignKey(
+                        name: "FK_Stream_MatchesCS_MatchesCSId",
+                        column: x => x.MatchesCSId,
+                        principalTable: "MatchesCS",
+                        principalColumn: "MatchesCSId");
+                    table.ForeignKey(
+                        name: "FK_Stream_MatchesVal_MatchesValId",
+                        column: x => x.MatchesValId,
+                        principalTable: "MatchesVal",
+                        principalColumn: "MatchesValId");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Team",
+                columns: table => new
+                {
+                    TeamId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    TeamAPIID = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CouchName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    WorldRank = table.Column<int>(type: "int", nullable: false),
+                    Winnings = table.Column<int>(type: "int", nullable: false),
+                    Losses = table.Column<int>(type: "int", nullable: false),
+                    Image = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    game = table.Column<int>(type: "int", nullable: false),
+                    EventCSID = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    EventValID = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    FavTeamsListId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    MatchesCSId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    MatchesValId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Team", x => x.TeamId);
+                    table.ForeignKey(
+                        name: "FK_Team_EventCS_EventCSID",
+                        column: x => x.EventCSID,
+                        principalTable: "EventCS",
+                        principalColumn: "EventCSID");
+                    table.ForeignKey(
+                        name: "FK_Team_EventVal_EventValID",
+                        column: x => x.EventValID,
+                        principalTable: "EventVal",
+                        principalColumn: "EventValID");
+                    table.ForeignKey(
+                        name: "FK_Team_FavTeamsList_FavTeamsListId",
+                        column: x => x.FavTeamsListId,
+                        principalTable: "FavTeamsList",
+                        principalColumn: "FavTeamsListId");
+                    table.ForeignKey(
+                        name: "FK_Team_MatchesCS_MatchesCSId",
+                        column: x => x.MatchesCSId,
+                        principalTable: "MatchesCS",
+                        principalColumn: "MatchesCSId");
+                    table.ForeignKey(
+                        name: "FK_Team_MatchesVal_MatchesValId",
+                        column: x => x.MatchesValId,
+                        principalTable: "MatchesVal",
+                        principalColumn: "MatchesValId");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "MatchTeamsCS",
                 columns: table => new
                 {
                     MatchCSId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     MatchCSAPIID = table.Column<int>(type: "int", nullable: false),
-                    MatchesCSId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    MatchesCSAPIId = table.Column<int>(type: "int", nullable: false),
-                    RoundsScore = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Map = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    WinnerTeamTeamId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    WinnerTeamAPIId = table.Column<int>(type: "int", nullable: false),
-                    WinnerTeamName = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    TeamCSTeamId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    TeamCSAPIId = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Location = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Image = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    MatchCSId1 = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_MatchCS", x => x.MatchCSId);
+                    table.PrimaryKey("PK_MatchTeamsCS", x => x.MatchCSId);
                     table.ForeignKey(
-                        name: "FK_MatchCS_MatchesCS_MatchesCSId",
-                        column: x => x.MatchesCSId,
-                        principalTable: "MatchesCS",
-                        principalColumn: "MatchesCSId",
+                        name: "FK_MatchTeamsCS_MatchCS_MatchCSId1",
+                        column: x => x.MatchCSId1,
+                        principalTable: "MatchCS",
+                        principalColumn: "MatchCSId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_MatchCS_Team_WinnerTeamTeamId",
-                        column: x => x.WinnerTeamTeamId,
+                        name: "FK_MatchTeamsCS_Team_TeamCSTeamId",
+                        column: x => x.TeamCSTeamId,
                         principalTable: "Team",
                         principalColumn: "TeamId");
                 });
@@ -563,28 +579,95 @@ namespace FPTV.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Stream",
+                name: "Player",
                 columns: table => new
                 {
-                    StreamId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    StreamLink = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    StreamLanguage = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PlayerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    PlayerAPIId = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Age = table.Column<int>(type: "int", nullable: false),
+                    Rating = table.Column<float>(type: "real", nullable: false),
+                    Nacionality = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Flag = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Image = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    game = table.Column<int>(type: "int", nullable: false),
+                    FavPlayerListId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    TeamId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Player", x => x.PlayerId);
+                    table.ForeignKey(
+                        name: "FK_Player_FavPlayerList_FavPlayerListId",
+                        column: x => x.FavPlayerListId,
+                        principalTable: "FavPlayerList",
+                        principalColumn: "FavPlayerListId");
+                    table.ForeignKey(
+                        name: "FK_Player_Team_TeamId",
+                        column: x => x.TeamId,
+                        principalTable: "Team",
+                        principalColumn: "TeamId");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Score",
+                columns: table => new
+                {
+                    ScoreID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    TeamScore = table.Column<int>(type: "int", nullable: false),
+                    TeamId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    TeamName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     MatchesCSId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     MatchesValId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Stream", x => x.StreamId);
+                    table.PrimaryKey("PK_Score", x => x.ScoreID);
                     table.ForeignKey(
-                        name: "FK_Stream_MatchesCS_MatchesCSId",
+                        name: "FK_Score_MatchesCS_MatchesCSId",
                         column: x => x.MatchesCSId,
                         principalTable: "MatchesCS",
                         principalColumn: "MatchesCSId");
                     table.ForeignKey(
-                        name: "FK_Stream_MatchesVal_MatchesValId",
+                        name: "FK_Score_MatchesVal_MatchesValId",
                         column: x => x.MatchesValId,
                         principalTable: "MatchesVal",
                         principalColumn: "MatchesValId");
+                    table.ForeignKey(
+                        name: "FK_Score_Team_TeamId",
+                        column: x => x.TeamId,
+                        principalTable: "Team",
+                        principalColumn: "TeamId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "MatchTeamsVal",
+                columns: table => new
+                {
+                    MatchValId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    MatchValAPIID = table.Column<int>(type: "int", nullable: false),
+                    TeamValTeamId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    TeamValAPIId = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Location = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Image = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    MatchValId1 = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MatchTeamsVal", x => x.MatchValId);
+                    table.ForeignKey(
+                        name: "FK_MatchTeamsVal_MatchVal_MatchValId1",
+                        column: x => x.MatchValId1,
+                        principalTable: "MatchVal",
+                        principalColumn: "MatchValId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_MatchTeamsVal_Team_TeamValTeamId",
+                        column: x => x.TeamValTeamId,
+                        principalTable: "Team",
+                        principalColumn: "TeamId");
                 });
 
             migrationBuilder.CreateTable(
@@ -623,35 +706,6 @@ namespace FPTV.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "MatchTeamsCS",
-                columns: table => new
-                {
-                    MatchCSId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    MatchCSAPIID = table.Column<int>(type: "int", nullable: false),
-                    TeamCSTeamId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    TeamCSAPIId = table.Column<int>(type: "int", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Location = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Image = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    MatchCSId1 = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_MatchTeamsCS", x => x.MatchCSId);
-                    table.ForeignKey(
-                        name: "FK_MatchTeamsCS_MatchCS_MatchCSId1",
-                        column: x => x.MatchCSId1,
-                        principalTable: "MatchCS",
-                        principalColumn: "MatchCSId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_MatchTeamsCS_Team_TeamCSTeamId",
-                        column: x => x.TeamCSTeamId,
-                        principalTable: "Team",
-                        principalColumn: "TeamId");
-                });
-
-            migrationBuilder.CreateTable(
                 name: "MatchPlayerStatsVal",
                 columns: table => new
                 {
@@ -684,35 +738,6 @@ namespace FPTV.Migrations
                         principalTable: "Player",
                         principalColumn: "PlayerId",
                         onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "MatchTeamsVal",
-                columns: table => new
-                {
-                    MatchValId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    MatchValAPIID = table.Column<int>(type: "int", nullable: false),
-                    TeamValTeamId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    TeamValAPIId = table.Column<int>(type: "int", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Location = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Image = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    MatchValId1 = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_MatchTeamsVal", x => x.MatchValId);
-                    table.ForeignKey(
-                        name: "FK_MatchTeamsVal_MatchVal_MatchValId1",
-                        column: x => x.MatchValId1,
-                        principalTable: "MatchVal",
-                        principalColumn: "MatchValId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_MatchTeamsVal_Team_TeamValTeamId",
-                        column: x => x.TeamValTeamId,
-                        principalTable: "Team",
-                        principalColumn: "TeamId");
                 });
 
             migrationBuilder.CreateIndex(
@@ -900,6 +925,21 @@ namespace FPTV.Migrations
                 column: "ProfileId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Score_MatchesCSId",
+                table: "Score",
+                column: "MatchesCSId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Score_MatchesValId",
+                table: "Score",
+                column: "MatchesValId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Score_TeamId",
+                table: "Score",
+                column: "TeamId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Stream_MatchesCSId",
                 table: "Stream",
                 column: "MatchesCSId");
@@ -910,18 +950,103 @@ namespace FPTV.Migrations
                 column: "MatchesValId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Team_EventCSID",
+                table: "Team",
+                column: "EventCSID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Team_EventValID",
+                table: "Team",
+                column: "EventValID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Team_FavTeamsListId",
                 table: "Team",
                 column: "FavTeamsListId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Team_MatchesCSId",
+                table: "Team",
+                column: "MatchesCSId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Team_MatchesValId",
+                table: "Team",
+                column: "MatchesValId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Topics_ProfileId",
                 table: "Topics",
                 column: "ProfileId");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_EventCS_Team_WinnerTeamTeamId",
+                table: "EventCS",
+                column: "WinnerTeamTeamId",
+                principalTable: "Team",
+                principalColumn: "TeamId");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_EventVal_Team_WinnerTeamTeamId",
+                table: "EventVal",
+                column: "WinnerTeamTeamId",
+                principalTable: "Team",
+                principalColumn: "TeamId");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_MatchCS_MatchesCS_MatchesCSId",
+                table: "MatchCS",
+                column: "MatchesCSId",
+                principalTable: "MatchesCS",
+                principalColumn: "MatchesCSId",
+                onDelete: ReferentialAction.Cascade);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_MatchCS_Team_WinnerTeamTeamId",
+                table: "MatchCS",
+                column: "WinnerTeamTeamId",
+                principalTable: "Team",
+                principalColumn: "TeamId");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_MatchesCS_Team_WinnerTeamTeamId",
+                table: "MatchesCS",
+                column: "WinnerTeamTeamId",
+                principalTable: "Team",
+                principalColumn: "TeamId",
+                onDelete: ReferentialAction.Cascade);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_MatchesVal_Team_WinnerTeamTeamId",
+                table: "MatchesVal",
+                column: "WinnerTeamTeamId",
+                principalTable: "Team",
+                principalColumn: "TeamId",
+                onDelete: ReferentialAction.Cascade);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropForeignKey(
+                name: "FK_FavTeamsList_Profiles_ProfileId",
+                table: "FavTeamsList");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_EventCS_Team_WinnerTeamTeamId",
+                table: "EventCS");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_EventVal_Team_WinnerTeamTeamId",
+                table: "EventVal");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_MatchesCS_Team_WinnerTeamTeamId",
+                table: "MatchesCS");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_MatchesVal_Team_WinnerTeamTeamId",
+                table: "MatchesVal");
+
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
@@ -956,6 +1081,9 @@ namespace FPTV.Migrations
                 name: "Reactions");
 
             migrationBuilder.DropTable(
+                name: "Score");
+
+            migrationBuilder.DropTable(
                 name: "Stream");
 
             migrationBuilder.DropTable(
@@ -980,19 +1108,10 @@ namespace FPTV.Migrations
                 name: "FavPlayerList");
 
             migrationBuilder.DropTable(
-                name: "MatchesCS");
-
-            migrationBuilder.DropTable(
-                name: "MatchesVal");
-
-            migrationBuilder.DropTable(
                 name: "Topics");
 
             migrationBuilder.DropTable(
-                name: "EventCS");
-
-            migrationBuilder.DropTable(
-                name: "EventVal");
+                name: "Profiles");
 
             migrationBuilder.DropTable(
                 name: "Team");
@@ -1001,7 +1120,16 @@ namespace FPTV.Migrations
                 name: "FavTeamsList");
 
             migrationBuilder.DropTable(
-                name: "Profiles");
+                name: "MatchesCS");
+
+            migrationBuilder.DropTable(
+                name: "MatchesVal");
+
+            migrationBuilder.DropTable(
+                name: "EventCS");
+
+            migrationBuilder.DropTable(
+                name: "EventVal");
         }
     }
 }

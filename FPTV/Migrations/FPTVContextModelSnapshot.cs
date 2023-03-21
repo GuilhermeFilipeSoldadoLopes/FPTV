@@ -834,6 +834,9 @@ namespace FPTV.Migrations
                     b.Property<Guid?>("TeamId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<int>("game")
+                        .HasColumnType("int");
+
                     b.HasKey("PlayerId");
 
                     b.HasIndex("FavPlayerListId");
@@ -919,6 +922,9 @@ namespace FPTV.Migrations
 
                     b.Property<int?>("WorldRank")
                         .IsRequired()
+                        .HasColumnType("int");
+
+                    b.Property<int>("game")
                         .HasColumnType("int");
 
                     b.HasKey("TeamId");
