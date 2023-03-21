@@ -54,8 +54,8 @@ textarea {
    /* width: 1920px;
     height:1080px;*/
     background-image: url('../images/tempo.png');
-    background-repeat: no-repeat;
-    background-size: cover;
+    /*background-repeat: no-repeat;
+    background-size: cover;*/
     font-family: Noto Sans;
     background-color: black;
 }
@@ -180,4 +180,17 @@ bordercolor2 {
 }
 .tablestyle {
     border-color: #373737
+}
+.tablestats {
+    background-color: #4b5b6e;
+    border:1px solid;
+    border-color: white;
+}
+.tablestats tr{
+    
+    border: 1px solid;
+    border-color: white;
+}
+.dropselected {
+    background-color: lightgray;
 }

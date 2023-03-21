@@ -8,8 +8,11 @@ Bem-vindo ao projeto FPTV, a futura hub dos FPS E-Sports. O objetivo deste proje
 **Criação de uma Conta:** Para usar o projeto FPTV, você precisa criar uma conta. Há duas opções para criar uma conta:<p>
 
 1. Usando um endereço de e-mail e uma palavra-passe: clique no botão "Login/Register" na página inicial e siga as etapas para preencher as informações necessárias.<p>
-
-![Register](https://cdn.discordapp.com/attachments/783386747638775848/1083147697617371186/image.png)
+![Email](https://cdn.discordapp.com/attachments/783386747638775848/1087687754592301067/image.png)<p>
+![Email](https://cdn.discordapp.com/attachments/783386747638775848/1087688016803401789/image.png)
+2. Usando sua conta Steam ou Google: clique no botão de início de sessão correspondente e siga as etapas para fazer o login com sua conta existente.<p>
+![Login](https://cdn.discordapp.com/attachments/783386747638775848/1087689268220149800/image.png)
+![Login](https://cdn.discordapp.com/attachments/783386747638775848/1087689269872701550/image.png)<p>
 
 2. Usando sua conta Steam ou Google: clique no botão de início de sessão correspondente e siga as etapas para fazer o login com sua conta existente.<p>
 
@@ -19,11 +22,21 @@ Bem-vindo ao projeto FPTV, a futura hub dos FPS E-Sports. O objetivo deste proje
 
 **Perfil do Utilizador:** Após o início de sessão, clique no seu nome no canto superior direito e será direcionado para o seu perfil de usuário. Aqui, você pode visualizar o seu nome, imagem de perfil, descrição, data de registo, bandeira do país, autor de tópicos, jogadores favoritos e equipas favoritas. Além disso, você pode alterar essas informações clicando no botão de editar perfil que é um botão em forma de lápis.<p>
 
-![Profile](https://cdn.discordapp.com/attachments/783386747638775848/1083151355616698518/image.png)<p>
+![Profile](https://cdn.discordapp.com/attachments/783386747638775848/1087690434547027978/image.png)<p>
+![Profile](https://cdn.discordapp.com/attachments/783386747638775848/1087691595211604039/image.png)<p>
+![Profile](https://cdn.discordapp.com/attachments/783386747638775848/1087692959685824582/image.png)<p>
+![Profile](https://cdn.discordapp.com/attachments/783386747638775848/1087693005265305671/image.png)<p>
 
 **Recuperação de Senha:** Caso o utilizador esqueça a sua senha, pode recuperá-la clicando no botão "Forgot your password?" que está na página de início de sessão. Irá será direcionado para uma página na qual irá ser pedido para inserir o seu endereço de e-mail (apenas no caso de o login ter sido realizado com email/password). Consequentemente um link para redefinir a sua senha será enviado para o seu e-mail.<p>
 
-![ForgotPassword](https://media.discordapp.net/attachments/783386747638775848/1083152044036206672/image.png?width=1380&height=662)<p>
+![ForgotPassword](https://cdn.discordapp.com/attachments/783386747638775848/1087760917799907380/image.png)<p>
+![ForgotPassword](https://cdn.discordapp.com/attachments/783386747638775848/1087761153817595914/image.png)<p>
+![ForgotPasswordConfirmation](https://cdn.discordapp.com/attachments/783386747638775848/1087762662324191333/image.png)<p>
+![ForgotPasswordConfirmation](https://cdn.discordapp.com/attachments/783386747638775848/1087762694792298547/image.png)<p>
+![ResetPassword](https://cdn.discordapp.com/attachments/783386747638775848/1087761432705253426/image.png)<p>
+![ResetPassword](https://cdn.discordapp.com/attachments/783386747638775848/1087761719826333916/image.png)<p>
+![ResetPasswordConfirmation](https://cdn.discordapp.com/attachments/783386747638775848/1087763598190850118/image.png)<p>
+![ResetPasswordConfirmation](https://cdn.discordapp.com/attachments/783386747638775848/1087763788033437706/image.png)<p>
 
 **Logout:** Para terminar a sua sessão, clique no botão "Logout" na barra de navegação superior.<p>
 

@@ -72,9 +72,9 @@ namespace FPTV.Models.MatchesModels
         [Display(Name = "Teams API Id List")]
         public ICollection<int>? TeamsAPIIDList { get; set; }
 
-        [Required]
+        /*[Required]
         [Display(Name = "Winner Team")]
-        public Team? WinnerTeam { get; set; }
+        public Team? WinnerTeam { get; set; }*/
 
         [Required]
         [Display(Name = "Winner Team API Id")]

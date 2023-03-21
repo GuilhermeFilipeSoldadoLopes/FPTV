@@ -52,8 +52,8 @@ textarea {
 .bodytemp {
     width: 100%;
     background-image: url('../images/tempo.png');
-    background-repeat: no-repeat;
-    background-size: cover;
+    /*background-repeat: no-repeat;
+    background-size: cover;*/
     font-family: Noto Sans;
    
 }
@@ -150,6 +150,9 @@ bordercolor2 {
     height: 100%;
     /*background-color: white;*/
 }
+.whiteText {
+    color: black;
+}
 
 .btn1 {
     
@@ -177,4 +180,12 @@ bordercolor2 {
 }
 .tablestyle {
     border-color: white;
+}
+.tablestats {
+    background-color: white;
+    border:1px solid;
+    border-color: black;
+}
+.dropselected {
+    background-color: lightgray;
 }
