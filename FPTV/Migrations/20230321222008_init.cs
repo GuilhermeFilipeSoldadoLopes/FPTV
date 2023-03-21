@@ -260,7 +260,7 @@ namespace FPTV.Migrations
                     CommentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Text = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ProfileId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ProfileId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     TopicId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
@@ -270,8 +270,7 @@ namespace FPTV.Migrations
                         name: "FK_Comments_Profiles_ProfileId",
                         column: x => x.ProfileId,
                         principalTable: "Profiles",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Comments_Topics_TopicId",
                         column: x => x.TopicId,
@@ -284,8 +283,7 @@ namespace FPTV.Migrations
                 columns: table => new
                 {
                     ReactionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ReactionCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ReactionEmoji = table.Column<int>(type: "int", nullable: false),
                     ProfileId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     CommentId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },

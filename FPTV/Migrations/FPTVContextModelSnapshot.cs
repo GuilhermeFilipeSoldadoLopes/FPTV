@@ -167,7 +167,7 @@ namespace FPTV.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("ProfileId")
+                    b.Property<Guid?>("ProfileId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Text")
@@ -198,12 +198,8 @@ namespace FPTV.Migrations
                     b.Property<Guid?>("ProfileId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("ReactionCode")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("ReactionEmoji")
+                        .HasColumnType("int");
 
                     b.HasKey("ReactionId");
 
@@ -1163,12 +1159,10 @@ namespace FPTV.Migrations
                 {
                     b.HasOne("FPTV.Models.UserModels.Profile", "Profile")
                         .WithMany()
-                        .HasForeignKey("ProfileId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ProfileId");
 
                     b.HasOne("FPTV.Models.Forum.Topic", "Topic")
-                        .WithMany()
+                        .WithMany("Comments")
                         .HasForeignKey("TopicId");
 
                     b.Navigation("Profile");
@@ -1494,6 +1488,11 @@ namespace FPTV.Migrations
             modelBuilder.Entity("FPTV.Models.Forum.Comment", b =>
                 {
                     b.Navigation("Reactions");
+                });
+
+            modelBuilder.Entity("FPTV.Models.Forum.Topic", b =>
+                {
+                    b.Navigation("Comments");
                 });
 
             modelBuilder.Entity("FPTV.Models.MatchesModels.MatchesCS", b =>

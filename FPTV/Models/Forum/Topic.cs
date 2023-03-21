@@ -23,9 +23,9 @@ namespace FPTV.Models.Forum
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime Date { get; set; }
 
-        //[Display(Name = "User ID")]
-        //[ForeignKey("ProfileId")]
-        //public Guid ProfileId { get; set; }
+        [Display(Name = "User ID")]
+        [ForeignKey("ProfileId")]
+        public Guid ProfileId { get; set; }
 
         [Display(Name = "User")]
         public Profile? Profile { get; set; }
