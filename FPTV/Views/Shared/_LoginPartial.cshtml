@@ -5,6 +5,53 @@
 @inject UserManager<UserBase> UserManager
 @inject FPTVContext context
 
+<script>
+    function changeCSS(cssLinkIndex) {
+        var checkBox = document.getElementById("myCheck");
+        if (checkBox.checked == true) {
+            newstylesheet = "/css/siteDARK.css";
+        } else {
+            newstylesheet = "/css/site.css";
+        }
+
+        var oldlink = document.getElementsByTagName("link").item(cssLinkIndex);
+
+        var newlink = document.createElement("link");
+        newlink.setAttribute("rel", "stylesheet");
+        newlink.setAttribute("type", "text/css");
+        newlink.setAttribute("href", newstylesheet);
+
+        document.getElementsByTagName("head").item(cssLinkIndex).replaceChild(newlink, oldlink);
+    }
+</script>
+<script>
+    document.onreadystatechange = function(e)
+    {
+        var checkBox = document.getElementById("myCheck");
+        var isDarkmode;
+        if (document.readyState === 'complete')
+        {
+            if (checkBox.checked == true) {
+                isDarkmode = true;
+            } else {
+                isDarkmode = false;
+            }
+            //dom is ready, window.onload fires later
+        }
+    };
+    window.onload = function(e)
+    {
+        var checkBox = document.getElementById("myCheck");
+        //document.readyState will be complete, it's one of the requirements for the window.onload event to be fired
+        //do stuff for when everything is loaded
+        if (checkBox.checked == true) {
+            document.getElementById("myCheck").checked = true;
+        } else {
+            document.getElementById("myCheck").checked = false;
+        }
+        changeCSS(0);
+    };
+</script>
 
 <style>
 	#rl:hover {
@@ -129,11 +176,11 @@
 
                     <a class="dropdownItem1" style="display:flex;border-radius:15px;width:100%;padding:2px">
                         <div style="margin-right:5px; margin-left:0px; ">
-                            <span class="" style="text-align:left;vertical-align:auto; " >Dark Mode</span>
+                            <span class="" style="text-align:left;vertical-align:auto; " >DarkMode</span>
                        </div>
                         <div style="text-align:right;width:100%">
                             <label class="switch1" >
-                                <input type="checkbox" checked>
+                            <input type="checkbox" id="myCheck" onclick="changeCSS(0);" value="DarkMode">
                                 <span class="slider round" style="text-align:right; "></span>
                             </label>
                         </div>
@@ -144,7 +191,7 @@
                         </div>
                         <div style="text-align:right; width:100%">
                             <label class="switch1">
-                                <input type="checkbox" checked>
+                                <input type="checkbox">
                                 <span class="slider round" style="text-align:right; vertical-align:auto;"></span>
                             </label>
                             

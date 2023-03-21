@@ -54,8 +54,8 @@ textarea {
    /* width: 1920px;
     height:1080px;*/
     background-image: url('../images/tempo.png');
-    /*background-repeat: no-repeat;
-    background-size: cover;*/
+    background-repeat: no-repeat;
+    background-size: cover;
     font-family: Noto Sans;
     background-color: black;
 }
