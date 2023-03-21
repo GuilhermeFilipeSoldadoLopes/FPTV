@@ -118,6 +118,7 @@
 <body class="bodytemp">
 
     <h1 style="text-align: center;">@ViewBag.Event.EventName - @ViewBag.Event.LeagueName</h1>
+    <img src=@ViewBag.Event.EventImage style="max-width:70px;width:50%;display:block;margin-left: auto;margin-right: auto" />
     <div class="ola">
 
         <div class="box1" style="background-color:lightgrey">
@@ -133,11 +134,13 @@
                     <div>
                         <span style="text-align: center;">
                             <p style="font-size:25px">
+                                    <img src="@match.Scores.First().Team.Image" style="max-width:30px;width:50%" />
                                 <span> @match.Scores.First().TeamName </span>
                                 <span class="span2"> @match.Scores.First().TeamScore </span>
                                 <span class="span2"> vs </span>
                                 <span class="span2"> @match.Scores.Last().TeamScore </span>
                                 <span> @match.Scores.Last().TeamName </span>
+                                    <img src="@match.Scores.Last().Team.Image" style="max-width:30px;width:50%" />
                             </p>
                         </span>
                     </div>
@@ -202,11 +205,13 @@
                         <div>
                             <span style="text-align: center;">
                                 <p style="font-size:25px">
+                                    <img src="@match.Scores.First().Team.Image" style="max-width:30px;width:50%" />
                                     <span> @match.Scores.First().TeamName </span>
                                     <span class="span2"> @match.Scores.First().TeamScore </span>
                                     <span class="span2"> vs </span>
                                     <span class="span2"> @match.Scores.Last().TeamScore </span>
                                     <span> @match.Scores.Last().TeamName </span>
+                                    <img src="@match.Scores.Last().Team.Image" style="max-width:30px;width:50%" />
                                 </p>
                             </span>
                         </div>
@@ -247,11 +252,13 @@
                         <div>
                             <span style="text-align: center;">
                                 <p style="font-size:25px">
+                                        <img src="@scoreT1.Team.Image" style="max-width:30px;width:50%" />
                                     <span> @scoreT1.TeamName </span>
                                     <span class="span2">  </span>
                                     <span class="span2"> vs </span>
                                     <span class="span2">  </span>
                                     <span> @scoreT2.TeamName </span>
+                                        <img src="@scoreT2.Team.Image" style="max-width:30px;width:50%" />
                                 </p>
                             </span>
                         </div>

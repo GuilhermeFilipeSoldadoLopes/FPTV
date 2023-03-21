@@ -183,10 +183,10 @@ namespace FPTV.Controllers
 				ev.LeagueName = nameStage.ToString() == "" ? null : nameStage.Value<string>();
 				ev.PrizePool = prizePool.ToString() == "" ? "-" : new string(prizePool.Value<string>().Where(char.IsDigit).ToArray());
                 ev.WinnerTeamAPIID = winnerTeamId.ToString() == "" ? -1 : winnerTeamId.Value<int>();
-                ev.EventImage = league.Value<string>("image_url") ?? "~/images/missing.png";
-               
+                ev.EventImage = league.Value<string>("image_url") ?? "https://mizuwu.s-ul.eu/9UCb9vsT";
 
-				if (teams != null)
+
+                if (teams != null)
                 {
                     foreach (JObject o in teams.Cast<JObject>())
                     {
@@ -194,10 +194,13 @@ namespace FPTV.Controllers
                         var teamIdValue = o.GetValue("id");
                         var teamId = teamIdValue.ToString() == "" ? -1 : teamIdValue.Value<int>();
                         var teamName = teamNameValue.ToString() == "" ? null : teamNameValue.Value<string>();
+                        var teamImage = o.GetValue("image_url").Value<string>();
                         var team = new Team();
                         team.Name = teamName;
                         team.TeamAPIID = teamId;
+                        team.Image = teamImage;
                         teamList.Add(team);
+                        
                     }
                     ev.TeamsList = teamList;
                 }
