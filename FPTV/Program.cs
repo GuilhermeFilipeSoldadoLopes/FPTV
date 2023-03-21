@@ -21,7 +21,7 @@ services.AddAuthentication()
     googleOptions.ClientSecret = configuration["Authentication:Google:ClientSecret"];
 });
 
-var connectionString = builder.Configuration.GetConnectionString("FPTV_Context");
+var connectionString = builder.Configuration.GetConnectionString("FPTV_ContextProd");
 builder.Services.AddDbContext<FPTVContext>(options =>
     options.UseSqlServer(connectionString));
 
