@@ -115,13 +115,13 @@
         align-self: flex-start;
     }
 </style>
-<body class="bodytemp">
+<body class="bodytemp whiteText">
 
     <h1 style="text-align: center;">@ViewBag.Event.EventName - @ViewBag.Event.LeagueName</h1>
     <img src=@ViewBag.Event.EventImage style="max-width:70px;width:50%;display:block;margin-left: auto;margin-right: auto" />
     <div class="ola">
 
-        <div class="box1" style="background-color:lightgrey">
+        <div class="box1 darkcolor bordercolor" style=";padding:1%">
             <h4 style="font-weight: bold;">Finished Matches</h4>
             @foreach(MatchesCS match in ViewBag.pastMatches)
             {
@@ -157,9 +157,9 @@
 
         </div>
 
-        <div class="box" style="background-color: white; margin: 2%;">
+        <div class="box darkcolor bordercolor" style=" margin: 2%;">
 
-            <div style="text-align:center; background-color:#e0eeff;">
+            <div class="darkcolor bordercolor" style="text-align:center; ">
 
                 <div class="alinhar">
                     <div class="my-div">
@@ -231,7 +231,7 @@
         </div>
 
 
-        <div class="box1" style="background-color:lightgrey">
+        <div class="box1 darkcolor bordercolor" style="padding:1%">
             <h4 style="font-weight: bold;">Upcoming Matches</h4>
             @foreach (MatchesCS match in ViewBag.upcomingMatches)
             {
