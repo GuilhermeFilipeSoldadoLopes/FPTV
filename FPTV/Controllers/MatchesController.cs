@@ -47,7 +47,7 @@ namespace FPTV.Controllers
 
         //De CSGO e de Valorant
         // GET: CSMatches
-        public async Task<ActionResult> CSGOMatchesAsync(string sort = "", string filter = "", string page = "&page=1", string game = "csgo")
+        public async Task<ActionResult> CSGOMatches(string sort = "", string filter = "", string page = "&page=1", string game = "csgo")
         {
             //Request processing with RestSharp
             var jsonFilter = (filter == "" || filter == "livestream") ? "" : "filter[" + filter + "]=true&";
