@@ -28,6 +28,10 @@ namespace FPTV.Models.Forum
         public Guid ProfileId { get; set; }
 
         [Display(Name = "User")]
-        public virtual Profile? Profile { get; set; }
-    }
+        public Profile? Profile { get; set; }
+
+		[Required]
+		[Display(Name = "Comments")]
+		public ICollection<Comment>? Comments { get; set; }
+	}
 }
