@@ -7,22 +7,33 @@ Bem-vindo ao projeto FPTV, a futura hub dos FPS E-Sports. O objetivo deste proje
 **Criação de uma Conta :** Para usar o projeto FPTV, você precisa criar uma conta. Há duas opções para criar uma conta:<p>
 
 1. Usando um endereço de e-mail e uma palavra-passe: clique no botão "Login/Register" na página inicial e siga as etapas para preencher as informações necessárias.<p>
+<div align="center">
+
 ![Email](https://cdn.discordapp.com/attachments/783386747638775848/1087687754592301067/image.png)<p>
 ![Email](https://cdn.discordapp.com/attachments/783386747638775848/1087688016803401789/image.png)
+</div>
 2. Usando sua conta Steam ou Google: clique no botão de início de sessão correspondente e siga as etapas para fazer o login com sua conta existente.<p>
+<div align="center">
+
 ![Login](https://cdn.discordapp.com/attachments/783386747638775848/1087689268220149800/image.png)
 ![Login](https://cdn.discordapp.com/attachments/783386747638775848/1087689269872701550/image.png)<p>
+</div>
 
 **Autenticação :** Uma vez criada a sua conta, você pode iniciar sessão na página web. Para fazer isso, clique no botão "Login/Register" na página inicial e insira seu endereço de e-mail e palavra-passe ou faça o login com sua conta Steam ou Google.<p>
 
 **Confirmação de email :** Após ter efetuado o registo no website irá surgir uma mensagem a indicar que deve realizar a confirmação do registo.<p>
+<div align="center">
+
 ![ConfirmRegistration](https://cdn.discordapp.com/attachments/783386747638775848/1087845544279429222/image.png)<p>
 ![ConfirmRegistration](https://cdn.discordapp.com/attachments/783386747638775848/1087845577020149780/image.png)<p>
+</div>
 
 Após a confirmação do registo irá surgir uma mensagem a indicar que o email foi confirmado.<p>
+<div align="center">
 
 ![ConfirmRegistration](https://cdn.discordapp.com/attachments/783386747638775848/1087846302601199678/image.png)<p>
 ![ConfirmRegistration](https://cdn.discordapp.com/attachments/783386747638775848/1087846334385627316/image.png)<p>
+</div>
 
 **Perfil do Utilizador :** Após o início de sessão, clique no seu nome no canto superior direito e será direcionado para o seu perfil de usuário. Aqui, você pode visualizar o seu nome, imagem de perfil, descrição, data de registro, bandeira do país, autor de tópicos, jogadores favoritos e equipas favoritas. Além disso, você pode alterar essas informações clicando no botão de editar perfil que é um botão em forma de lápis.<p>
 <div align="center">
