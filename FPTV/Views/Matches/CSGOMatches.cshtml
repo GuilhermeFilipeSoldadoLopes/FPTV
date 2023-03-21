@@ -305,16 +305,18 @@
                                                             <span class="span2"> @team.TeamScore </span>
                                                         </td>
                                                     }
-                                                    <td class="tablecolors">
-                                                        <span class="span2"> vs </span>
-                                                    </td>
+                                                }
+                                                <td class="tablecolors">
+                                                    <span class="span2"> vs </span>
+                                                </td>
+                                                @foreach (var team in item.Scores)
+                                                {
                                                     @if (item.TeamsList[1].Name == team.TeamName)
                                                     {
                                                         <td class="tablecolors">
                                                             <span class="span2"> @team.TeamScore </span>
                                                         </td>
                                                     }
-                                                    break;
                                                 }
                                             </tr>
                                             <tr>

@@ -83,7 +83,7 @@ namespace FPTV.Controllers
             }
 
             //para nao dar erro
-            //await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
 
             if (sort == "tournament")
             {
@@ -271,9 +271,6 @@ namespace FPTV.Controllers
                         team.WorldRank = 0;
 
                         matches.TeamsList.Add(team);
-
-                        if (team.TeamAPIID == matches.WinnerTeamAPIId)
-                            matches.WinnerTeam = team;
                     }
 
                     if (matches.TeamsList.Count() == 2)
