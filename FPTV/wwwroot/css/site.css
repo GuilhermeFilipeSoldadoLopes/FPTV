@@ -18,6 +18,9 @@ body {
     font-family: Noto Sans;
     
 }
+.darktheme {
+    background-color: lightgray;
+}
 
 button {
     background-color: #CC0033;
@@ -131,7 +134,14 @@ td {
 .bordercolor {
     border-color: black !important;
     border: 1px solid;
-    color:black;
+    color: black;
+    border-radius: 15px;
+}
+bordercolor2 {
+    border-color: white !important;
+    border: 1px solid;
+    color: white;
+    border-radius: 15px;
 }
 .central {
     width: 100%;
@@ -157,8 +167,14 @@ td {
     color: black;
 }
 .tablecolors {
-    border-color: lightgray;
+    border-color: white;
 }
 .my-divColor {
     color: black;
+}
+.colorformatch {
+    background-color: white;
+}
+.tablestyle {
+    border-color: white;
 }
