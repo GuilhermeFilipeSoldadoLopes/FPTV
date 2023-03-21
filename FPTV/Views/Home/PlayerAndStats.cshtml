@@ -3,7 +3,7 @@
 }
 <style>
     
-    .box1 {
+    .teams {
         width: 22%; 
         height: 100%;
         display: inline-block; 
@@ -63,16 +63,18 @@
 
 
 </style>
-<body class="bodytemp">
-        <div class="box1">
+<body class="bodytemp whiteText">
+    
+        <div class="teams bordercolor dark" style="margin:5px;">
             <h3> Previous Team</h3>
             <img src="~/images/WRU_Logo 1.png" alt="logo" class="logo">
         </div>
-        <div class="box" style="background-color: #dadada">
+    
+    <div class="box " >
 
-
-            <div class="alinhar">
-                <div class="box2">
+        
+        <div class="alinhar bordercolor dark whiteText" style="margin:5px;">
+                <div class="teams">
                     <img src="~/images/WRU_Logo 1.png" alt="logo" class="logo">
                 </div>
 
@@ -83,12 +85,12 @@
                     <p>Nationality: Portuguese</p>
                 </div>
             </div>
-            
-            <div class="alinhar">
-                <table>
-                    <caption>Player Statistics</caption>
-                    <tbody>
-                        <tr>
+
+        <div class="alinhar bordercolor dark whiteText " style="padding:3%;margin:5px">
+                <table class="tablestats">
+                <caption class="whiteText" style="text-decoration:none">Player Statistics</caption>
+                <tbody>
+                        <tr class="">
                             <td>Total Kills</td>
                             <td>135</td>
                         </tr>
@@ -112,9 +114,9 @@
                 </table>    
             </div>
 
-            <div class="alinhar">
-                <table style="margin-top:30px;">
-                    <caption>Breakdown of Wonderfull's teams</caption>
+        <div class="alinhar bordercolor dark" style="padding:3%">
+            <table class="tablestats" style="margin-top:30px;">
+                <caption class="whiteText" style="text-decoration:none">Breakdown of Wonderfull's teams</caption>
                     <thead>
                         <tr>
                           <th>Time Period</th>
@@ -139,11 +141,14 @@
                 </table>
             </div>
 
-        </div>
         
-        <div class="box1" >
-            <h3>Current Team</h3>
-            <img src="~/images/WRU_Logo 1.png" alt="logo" class="logo">
-        </div>
+    </div>
+
+       
+            <div class="teams bordercolor dark">
+                <h3>Current Team</h3>
+                <img src="~/images/WRU_Logo 1.png" alt="logo" class="logo">
+            </div>
+       
         
 </body>

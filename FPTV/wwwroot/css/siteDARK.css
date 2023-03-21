@@ -181,3 +181,13 @@ bordercolor2 {
 .tablestyle {
     border-color: #373737
 }
+.tablestats {
+    background-color: #4b5b6e;
+    border:1px solid;
+    border-color: white;
+}
+.tablestats tr{
+    
+    border: 1px solid;
+    border-color: white;
+}

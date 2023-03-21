@@ -150,6 +150,9 @@ bordercolor2 {
     height: 100%;
     /*background-color: white;*/
 }
+.whiteText {
+    color: black;
+}
 
 .btn1 {
     
@@ -177,4 +180,9 @@ bordercolor2 {
 }
 .tablestyle {
     border-color: white;
+}
+.tablestats {
+    background-color: white;
+    border:1px solid;
+    border-color: black;
 }
