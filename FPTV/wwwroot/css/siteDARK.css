@@ -193,3 +193,22 @@ bordercolor2 {
 .dropselected {
     background-color: lightgray;
 }
+
+.tableDetails {
+    text-align:center;
+    background-color: #373737;
+    border: 1px solid;
+    border-color: white;
+}
+.tableDetails tr {
+    border: 1px solid;
+    border-color: white;
+}
+    .tableDetails td {
+        border: 1px solid;
+        border-color: white;
+    }
+    .tableDetails th {
+        border: 1px solid;
+        border-color: white;
+    }

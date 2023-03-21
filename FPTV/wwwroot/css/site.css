@@ -189,3 +189,22 @@ bordercolor2 {
 .dropselected {
     background-color: lightgray;
 }
+
+.tableDetails {
+    background-color: white;
+    border: 1px solid;
+    border-color: white;
+}
+.tableDetails tr {
+    border: 1px solid;
+    border-color: black;
+}
+    .tableDetails td {
+        border: 1px solid;
+        border-color: black;
+    }
+
+    .tableDetails th {
+        border: 1px solid;
+        border-color: black;
+    }
