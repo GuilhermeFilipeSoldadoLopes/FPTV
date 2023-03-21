@@ -118,6 +118,7 @@
 <body class="bodytemp">
 
     <h1 style="text-align: center;">@ViewBag.Event.EventName - @ViewBag.Event.LeagueName</h1>
+    <img src=@ViewBag.Event.EventImage style="max-width:70px;width:50%;display:block;margin-left: auto;margin-right: auto" />
     <div class="ola">
 
         <div class="box1" style="background-color:lightgrey">
@@ -133,11 +134,13 @@
                     <div>
                         <span style="text-align: center;">
                             <p style="font-size:25px">
-                               @* <span> @dict[match.Score.Keys.First()] </span>
-                                <span class="span2"> @match.Score.Values.First() </span>
+                                    <img src="@match.Scores.First().Team.Image" style="max-width:30px;width:50%" />
+                                <span> @match.Scores.First().TeamName </span>
+                                <span class="span2"> @match.Scores.First().TeamScore </span>
                                 <span class="span2"> vs </span>
-                                <span class="span2"> @match.Score.Values.Last() </span>
-                                <span> @dict[match.Score.Keys.Last()] </span>*@
+                                <span class="span2"> @match.Scores.Last().TeamScore </span>
+                                <span> @match.Scores.Last().TeamName </span>
+                                    <img src="@match.Scores.Last().Team.Image" style="max-width:30px;width:50%" />
                             </p>
                         </span>
                     </div>
@@ -202,11 +205,13 @@
                         <div>
                             <span style="text-align: center;">
                                 <p style="font-size:25px">
-                                    @*<span> @dict[match.Score.Keys.First()] </span>
-                                    <span class="span2"> match.Score.Values.First() </span>
+                                    <img src="@match.Scores.First().Team.Image" style="max-width:30px;width:50%" />
+                                    <span> @match.Scores.First().TeamName </span>
+                                    <span class="span2"> @match.Scores.First().TeamScore </span>
                                     <span class="span2"> vs </span>
-                                    <span class="span2"> match.Score.Values.Last() </span>
-                                    <span>@dict[match.Score.Keys.Last()] </span>*@
+                                    <span class="span2"> @match.Scores.Last().TeamScore </span>
+                                    <span> @match.Scores.Last().TeamName </span>
+                                    <img src="@match.Scores.Last().Team.Image" style="max-width:30px;width:50%" />
                                 </p>
                             </span>
                         </div>
@@ -231,10 +236,12 @@
             @foreach (MatchesCS match in ViewBag.upcomingMatches)
             {
 
-                @*var team1 = match.Score.Keys.FirstOrDefault();
-                var team2 = match.Score.Keys.LastOrDefault();*@
                 
-                @*if(team1 != 0 && team2 != 0)
+                var scoreT1 = match.Scores.First();
+                var scoreT2 = match.Scores.Last();
+                
+               
+                if(scoreT1.TeamName != default && scoreT2.Team != default)
                 {
                     <div class="alinhar" style="border-bottom: 1px solid black">
                     <div class="my-div2" style="width:90%;">
@@ -245,11 +252,13 @@
                         <div>
                             <span style="text-align: center;">
                                 <p style="font-size:25px">
-                                    <span> @dict[team1] </span>
+                                        <img src="@scoreT1.Team.Image" style="max-width:30px;width:50%" />
+                                    <span> @scoreT1.TeamName </span>
                                     <span class="span2">  </span>
                                     <span class="span2"> vs </span>
                                     <span class="span2">  </span>
-                                    <span> @dict[team2] </span>
+                                    <span> @scoreT2.TeamName </span>
+                                        <img src="@scoreT2.Team.Image" style="max-width:30px;width:50%" />
                                 </p>
                             </span>
                         </div>
@@ -261,7 +270,7 @@
 
                     </div>
                 </div>
-                }*@
+                }
                 
             }
             
