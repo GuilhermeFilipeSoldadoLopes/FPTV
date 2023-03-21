@@ -2,7 +2,7 @@ name: Build and deploy .NET Core application to Web App FPTVdev
 on:
   push:
     branches:
-    - Desenvolvimento
+    - DesenvolvimentoProd
 env:
   AZURE_WEBAPP_NAME: FPTVdev
   AZURE_WEBAPP_PACKAGE_PATH: FPTV\published
