@@ -4,6 +4,13 @@
     {
         public string? GetEventsFilterBy(string filter)
         {
+			return filter.ToLower() switch
+			{
+				"timetype" => null,
+				_ => null,
+			};
+
+			/*
             switch (filter.ToLower())
             {
                 case "timetype":
@@ -11,16 +18,28 @@
                     break;
 
                 default: return null;
-            }
-        }
+            } 
+             */
+		}
 
-        public string? GetEventsSearchBy(string name)
+		public string? GetEventsSearchBy(string name)
         {
             return name.ToLower();
         }
 
         public string? GetEventsSortBy(string sort)
         {
+			return sort.ToLower() switch
+			{
+				"event_name" => null,
+				"oldest" => null,
+				"newest" => null,
+				"prize_pool" => null,
+				"tier" => null,
+				_ => null,
+			};
+
+			/*
             switch (sort.ToLower())
             {
                 case "event_name":
@@ -44,8 +63,9 @@
                     break;
 
                 default: return null;
-            }
-        }
-    }
+            } 
+             */
+		}
+	}
 }
 

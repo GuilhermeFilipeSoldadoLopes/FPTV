@@ -19,6 +19,10 @@
 		align-items: center;
 	}
 
+	tr, td, th{
+		border-width: 1px;
+	}
+
 </style>
 
 <body class="bodytemp">
@@ -33,11 +37,10 @@
 		<br>
 		<h2 style="font-weight: bold;">Website Stats</h2>
 		<br>
-		<table  style="width:80%; margin-left: auto; margin-right: auto;">
+		<table style="width:80%; margin-left: auto; margin-right: auto;">
 			<tr>
 				<th style="width: 50%;">Number of registered accounts</th>
 				<th style="width: 50%;">Daily flow of users</th>
-
 			</tr>
 			<tr>
 				<td> <b id="noOfAccounts">@ViewData["accounts"]</b> <span id="accountText"> @ViewData["account_txt"] </span> </td>

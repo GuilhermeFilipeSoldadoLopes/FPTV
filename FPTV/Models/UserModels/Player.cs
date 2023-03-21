@@ -45,6 +45,6 @@ namespace FPTV.Models.UserModels
 
 		[Required]
 		[Display(Name = "Game")]
-		public GameType? game { get; set; }
+		public GameType? Game { get; set; }
 	}
 }
