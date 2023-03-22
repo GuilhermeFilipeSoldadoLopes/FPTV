@@ -208,3 +208,14 @@ bordercolor2 {
         border: 1px solid;
         border-color: black;
     }
+.btnResult {
+    width: 30%;
+    margin: auto;
+    background-color: white;
+    font-size: 25px;
+    border-radius: 15px;
+}
+
+.selectedbtn {
+    text-decoration: underline;
+}
