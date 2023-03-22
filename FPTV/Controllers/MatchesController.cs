@@ -47,6 +47,13 @@ namespace FPTV.Controllers
 
         //De CSGO e de Valorant
         // GET: CSMatches
+        public async Task<ActionResult> MatchDetails(int id)
+        {
+
+
+            return null;
+        }
+
         public async Task<ActionResult> CSGOMatches(string sort = "", string filter = "", string page = "&page=1", string game = "csgo")
         {
             //Request processing with RestSharp

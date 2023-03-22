@@ -1,6 +1,8 @@
 ﻿@{
     ViewData["Title"] = "MatchDetails";
+    
 }
+@using FPTV.Models.StatisticsModels
 
 
 <style>
@@ -353,7 +355,14 @@
                                         <th style="width:12%" title="Average Damage per Round">ADR</th>
                                     </tr>
                                     <tr>
-                                        <td>Stev0se</td>
+                                        @foreach (MatchPlayerStatsCS player in ViewBag.playerStatsList)
+                                        {
+                                            Console.WriteLine(player);
+                                            if(player!=null){
+                                                <td href="@Url.Action("getPlayer", "Stats", new {game = "csgo", id = player.PlayerCSAPIId})">player.PlayerName</td>
+                                            }
+                                        }
+                                        
                                         <td>23</td>
                                         <td>0</td>
                                         <td>11</td>

@@ -241,7 +241,7 @@
                                     <td>HeadShots %</td>
                                     <td style="width:30%">
 
-                                        <span> 29.3%</span>
+                                    <span> @ViewBag.player.HeadShots%</span>
                                         <span>
 
                                             <img src="~/images/red.png" style="width:15%;padding:2px;">
@@ -251,7 +251,7 @@
                                 </tr>
                                 <tr>
                                     <td>Maps Played</td>
-                                    <td>7</td>
+                                <td>@ViewBag.maps</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -269,15 +269,15 @@
                     <table class="tableDetails" style="width:100%">
                         <tr style="width:100%">
                             <td style="width:35%;border:none">
-                                <img src="~/images/WRU_Logo_Fundo_.png" style="width:100%;">
+                                <img src="/images/default-profile-icon-24.jpg" style="width:100%;">
                              </td>
                             <td style="width:70%; border:none">
                                 <div>
                                     <h4>
-                                        Team Name
+                                        @ViewBag.pastTeam1
                                     </h4>
                                     <p>
-                                       2022 - Present
+                                       2023 - Present
                                     </p>
                                 </div>
                             </td>
@@ -287,15 +287,15 @@
 
                         <tr style="width:100%">
                             <td style="width:35%;border:none">
-                                <img src="~/images/WRU_Logo_Fundo_.png" style="width:100%;">
+                                <img src="/images/default-profile-icon-24.jpg" style="width:100%;">
                             </td>
                             <td style="width:70%; border:none">
                                 <div>
                                     <h4>
-                                        Team Name
+                                        @ViewBag.pastTeam2
                                     </h4>
                                     <p>
-                                        2022 - Present
+                                        2018 - 2023
                                     </p>
                                 </div>
                             </td>
@@ -305,15 +305,15 @@
 
                         <tr style="width:100%">
                             <td style="width:35%;border:none">
-                                <img src="~/images/WRU_Logo_Fundo_.png" style="width:100%;">
+                                <img src="/images/default-profile-icon-24.jpg" style="width:100%;">
                             </td>
                             <td style="width:70%; border:none">
                                 <div>
                                     <h4>
-                                        Team Name
+                                        @ViewBag.pastTeam3
                                     </h4>
                                     <p>
-                                        2022 - Present
+                                        2016 - 2018
                                     </p>
                                 </div>
                             </td>

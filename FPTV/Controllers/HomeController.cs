@@ -138,7 +138,7 @@ namespace FPTV.Controllers
         public IActionResult About()
         {
 
-            return RedirectToAction("CSGOStats", "Stats");
+            return RedirectToAction("getPlayer", "Stats");
         }
         
         public IActionResult Register()
