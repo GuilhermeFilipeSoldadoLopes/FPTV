@@ -109,6 +109,7 @@ namespace FPTV.Controllers
             _player.Teams = new List<Team>();
             var teamm = new Team();
             _player.Teams.Add(teamm);
+            var KdRatio = player.Kills / player.Deaths;
 
             _player.Rating = ranking[_random.Next(ranking.Length)];
 
@@ -128,7 +129,7 @@ namespace FPTV.Controllers
                 _player.Age = item.GetValue("age") == null ? 20 : item.GetValue("age").Value<int>();
                 _player.Nacionality = (string)item.GetValue("nationality");
                 //_player.Image = (string)item.GetValue("image_url");
-                _player.Image = item.GetValue("image_url").ToString() == "" ? "/images/logo1.jpg" : item.GetValue("image_url").Value<string>();
+                _player.Image = item.GetValue("image_url").ToString() == "" ? "/images/default-profile-icon-24.jpg" : item.GetValue("image_url").Value<string>();
 
                 _context.MatchPlayerStatsCS.Add(player);
             }
@@ -147,6 +148,7 @@ namespace FPTV.Controllers
 
             ViewBag.player = player;
             ViewBag._player = _player;
+            ViewBag.KdRatio = KdRatio;
 
             return View("PlayerAndStats");
         }
