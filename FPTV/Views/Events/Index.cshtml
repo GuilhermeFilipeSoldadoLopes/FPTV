@@ -170,9 +170,9 @@
 			@foreach (FPTV.Models.EventsModels.EventCS e in Model)
 			{
 				<button class="btn1" onclick ="location.href='@Url.Action("Details", "Events", new { id = e.EventAPIID, sort = ViewBag.sort, filter = ViewBag.filter})'">
-					<div class="my-div">
-						<div>
-							<img src=@e.EventImage style="width:20%; max-width:40%; margin:auto"/>
+					<div class="my-div" style="margin:auto">
+						<div style="width:100%">
+							<img src=@e.EventImage style="width:20%; margin:auto; height:45px;"/>
 						</div>
 						<div>
 							<span>@e.EventName</span>
