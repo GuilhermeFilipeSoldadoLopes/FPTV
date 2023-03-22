@@ -32,4 +32,11 @@
     <Folder Include="Views\Matches\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="Views\Stats\TeamStats.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>
