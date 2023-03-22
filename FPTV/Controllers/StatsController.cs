@@ -39,6 +39,7 @@ namespace FPTV.Controllers
 
         //De CSGO e de Valorant
         // GET: CSMatches
+        /*
 
         public async Task<IActionResult> MatchDetails()
         {
@@ -202,12 +203,12 @@ namespace FPTV.Controllers
                             matchCsList.Add(ma);
                             _context.MatchCS.Add(ma);
                         }
-                }*/
+                }
                 }
                 _context.SaveChanges();
             }
             return View("MatchDeatils");
-        }
+        }*/
 
 
         public async Task<IActionResult> PlayerandStatsCs(int id)
