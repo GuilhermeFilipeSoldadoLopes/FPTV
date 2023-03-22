@@ -11,6 +11,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using FPTV.Models.UserModels;
 using FPTV.Data;
+using RestSharp;
+using FPTV.Models.MatchesModels;
+using Newtonsoft.Json.Linq;
+using System.Linq;
+using AngleSharp.Common;
 
 namespace FPTV.Areas.Identity.Pages.Account.Manage
 {
@@ -83,12 +88,30 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
 
             Username = userName;
 
+            var client = new RestClient("https://restcountries.com/v3.1/alpha/" + country);
+            var request = new RestRequest("", Method.Get);
+            request.AddHeader("accept", "application/json");
+            var json = client.Execute(request).Content;
+
+            List<string> countries = new List<string>();
+
+            var countriesArray = JArray.Parse(json);
+
+            foreach (var item in countriesArray.Cast<JObject>())
+            {
+                var countryObject = (JObject)item.GetValue("name");
+                var countryName = countryObject.GetValue("common");
+
+                if (countryName != null)
+                    countries.Add(countryName.Value<string>());
+            }
+
             Input = new InputModel
             {
                 PhoneNumber = phoneNumber,
                 Username = userName,
                 ProfilePicture = profilePicture,
-                Country = country,
+                Country = countries[0],
                 Bio = biography
             };
         }
@@ -102,6 +125,31 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
             }
             var profile = _context.Profiles.Single(p => p.Id == user.ProfileId);
 
+            var client = new RestClient("https://restcountries.com/v3.1/all");
+            var request = new RestRequest("", Method.Get);
+            request.AddHeader("accept", "application/json");
+            var json = client.Execute(request).Content;
+
+            if (json == null)
+            {
+                return null;
+            }
+
+            List<string> countries = new List<string>();
+
+            var countriesArray = JArray.Parse(json);
+
+            foreach (var item in countriesArray.Cast<JObject>())
+            {
+                var countryCode = item.GetValue("cca2");
+                var country = (JObject)item.GetValue("name");
+                var countryName = country.GetValue("common");
+
+                if (countryName != null && countryCode.ToString().ToLower() != profile.Country)
+                    countries.Add(countryName.Value<string>());
+            }
+
+            ViewData["Countries"] = countries.OrderBy(c => c).ToList();
             ViewData["FavPlayerListCSGO"] = _context.FavPlayerList.Where(fpl => fpl.ProfileId == profile.Id).ToList();
             ViewData["FavTeamsListCSGO"] = _context.FavTeamsList.Where(ftl => ftl.ProfileId == profile.Id).ToList();
             ViewData["FavPlayerListValorant"] = _context.FavPlayerList.Where(fpl => fpl.ProfileId == profile.Id).ToList();
@@ -134,12 +182,37 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
                 await _userManager.UpdateAsync(user);
             }
 
-            var country = profile.Country;
+            var formCountry = Request.Form["Country"].ToString();
+
+            var client = new RestClient("https://restcountries.com/v3.1/name/" + formCountry);
+            var request = new RestRequest("", Method.Get);
+            request.AddHeader("accept", "application/json");
+            var json = client.Execute(request).Content;
+
+            if (json == null)
+            {
+                return null;
+            }
+
+            List<string> countries = new List<string>();
+
+            var countriesArray = JArray.Parse(json);
+
+            foreach (var item in countriesArray.Cast<JObject>())
+            {
+                var countryCode = item.GetValue("cca2");
+
+                if (countryCode != null)
+                    countries.Add(countryCode.Value<string>());
+            }
+
+            var country = countries[0];
             if (Input.Country != country)
             {
-                profile.Country = Input.Country;
+                profile.Country = country;
                 await _context.SaveChangesAsync();
             }
+
             var biography = profile.Biography;
             if (Input.Bio != biography)
             {
