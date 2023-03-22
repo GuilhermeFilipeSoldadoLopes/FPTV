@@ -127,16 +127,14 @@ namespace FPTV.Controllers
 
 		public IActionResult MatchDetails()
 		{
-			
-			return View();
+			return RedirectToAction("Matches", "MatchDetails");
 		}
+
         public IActionResult Test()
         {
 
             return View();
         }
-
-        
         
 		public IActionResult Forum()
         {
