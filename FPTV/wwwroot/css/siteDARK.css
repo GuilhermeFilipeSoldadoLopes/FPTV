@@ -212,3 +212,13 @@ bordercolor2 {
         border: 1px solid;
         border-color: white;
     }
+.btnResult {
+    width: 30%;
+    margin: auto;
+    background-color: #373737;
+    font-size:25px;
+    border-radius:15px;
+}
+.selectedbtn{
+    text-decoration:underline;
+}
