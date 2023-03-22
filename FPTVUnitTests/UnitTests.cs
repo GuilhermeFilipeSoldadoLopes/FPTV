@@ -70,7 +70,7 @@ namespace FPTVUnitTests
         }
 
         //TU6
-        //HomeController -> MatchesController
+        //MatchesController
         [Fact]
         public void Matches_ReturnsViewResult()
         {
@@ -90,11 +90,11 @@ namespace FPTVUnitTests
         }
 
         //TU8
-        //HomeController -> StatsController
+        //MatchesController
         [Fact]
         public void Results_ReturnsViewResult()
         {
-            var controller = new HomeController(null, _context);
+            var controller = new MatchesController(_context);
             var result = controller.Results();
             Assert.IsType<ViewResult>(result);
         }

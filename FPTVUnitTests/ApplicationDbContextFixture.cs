@@ -53,8 +53,252 @@ namespace FPTVUnitTests
 
             DbContext.Database.EnsureCreated();
 
-			CreatePlayersAndTeams();
-			CreateEventAndMatch();
+
+			DbContext.Team.AddRange(
+				new Team
+				{
+					TeamId = team1CSID,
+					TeamAPIID = 1,
+					Name = "Test1",
+					Players = null,
+					CouchName = "Test",
+					WorldRank = 1,
+					Winnings = 100,
+					Losses = 50,
+					Image = "/images/iconMenu.jpg",
+					Game = GameType.CSGO
+				},
+				new Team
+				{
+					TeamId = team2CSID,
+					TeamAPIID = 2,
+					Name = "Test2",
+					Players = null,
+					CouchName = "Test",
+					WorldRank = 2,
+					Winnings = 99,
+					Losses = 50,
+					Image = "/images/iconMenu.jpg",
+					Game = GameType.CSGO
+				});
+
+			Team team1 = DbContext.Team.FirstOrDefault(t => t.TeamId == team1CSID);
+			teamsList1.Add(team1);
+			Team team2 = DbContext.Team.FirstOrDefault(t => t.TeamId == team2CSID);
+			teamsList2.Add(team2);
+			teamsList1.Add(team2);
+			teamsList2.Add(team1);
+
+			DbContext.Player.AddRange(
+				new Player
+				{
+					PlayerId = player1CSID,
+					PlayerAPIId = 1,
+					Name = "1",
+					Age = 20,
+					Rating = 1.20F,
+					Teams = teamsList1,
+					Nacionality = "Portuguese",
+					Flag = "/images/Flags/1x1/pt.svg",
+					Image = "/images/iconMenu.jpg",
+					Game = GameType.CSGO
+				},
+				new Player
+				{
+					PlayerId = player2CSID,
+					PlayerAPIId = 2,
+					Name = "2",
+					Age = 20,
+					Rating = 1.25F,
+					Teams = teamsList1,
+					Nacionality = "Portuguese",
+					Flag = "/images/Flags/1x1/pt.svg",
+					Image = "/images/iconMenu.jpg",
+					Game = GameType.CSGO
+				},
+				new Player
+				{
+					PlayerId = player3CSID,
+					PlayerAPIId = 3,
+					Name = "3",
+					Age = 20,
+					Rating = 1.30F,
+					Teams = teamsList1,
+					Nacionality = "Portuguese",
+					Flag = "/images/Flags/1x1/pt.svg",
+					Image = "/images/iconMenu.jpg",
+					Game = GameType.CSGO
+				},
+				new Player
+				{
+					PlayerId = player4CSID,
+					PlayerAPIId = 4,
+					Name = "4",
+					Age = 20,
+					Rating = 1.35F,
+					Teams = teamsList1,
+					Nacionality = "Portuguese",
+					Flag = "/images/Flags/1x1/pt.svg",
+					Image = "/images/iconMenu.jpg",
+					Game = GameType.CSGO
+				},
+				new Player
+				{
+					PlayerId = player5CSID,
+					PlayerAPIId = 5,
+					Name = "5",
+					Age = 20,
+					Rating = 1.40F,
+					Teams = teamsList1,
+					Nacionality = "Portuguese",
+					Flag = "/images/Flags/1x1/pt.svg",
+					Image = "/images/iconMenu.jpg",
+					Game = GameType.CSGO
+				},
+				new Player
+				{
+					PlayerId = player6CSID,
+					PlayerAPIId = 6,
+					Name = "6",
+					Age = 20,
+					Rating = 1.45F,
+					Teams = teamsList2,
+					Nacionality = "Portuguese",
+					Flag = "/images/Flags/1x1/pt.svg",
+					Image = "/images/iconMenu.jpg",
+					Game = GameType.CSGO
+				},
+				new Player
+				{
+					PlayerId = player7CSID,
+					PlayerAPIId = 7,
+					Name = "7",
+					Age = 20,
+					Rating = 1.50F,
+					Teams = teamsList2,
+					Nacionality = "Portuguese",
+					Flag = "/images/Flags/1x1/pt.svg",
+					Image = "/images/iconMenu.jpg",
+					Game = GameType.CSGO
+				},
+				new Player
+				{
+					PlayerId = player8CSID,
+					PlayerAPIId = 8,
+					Name = "8",
+					Age = 20,
+					Rating = 1.55F,
+					Teams = teamsList2,
+					Nacionality = "Portuguese",
+					Flag = "/images/Flags/1x1/pt.svg",
+					Image = "/images/iconMenu.jpg",
+					Game = GameType.CSGO
+				},
+				new Player
+				{
+					PlayerId = player9CSID,
+					PlayerAPIId = 9,
+					Name = "9",
+					Age = 20,
+					Rating = 1.60F,
+					Teams = teamsList2,
+					Nacionality = "Portuguese",
+					Flag = "/images/Flags/1x1/pt.svg",
+					Image = "/images/iconMenu.jpg",
+					Game = GameType.CSGO
+				},
+				new Player
+				{
+					PlayerId = player10CSID,
+					PlayerAPIId = 10,
+					Name = "10",
+					Age = 20,
+					Rating = 1.65F,
+					Teams = teamsList2,
+					Nacionality = "Portuguese",
+					Flag = "/images/Flags/1x1/pt.svg",
+					Image = "/images/iconMenu.jpg",
+					Game = GameType.CSGO
+				});
+
+			Player player1 = DbContext.Player.FirstOrDefault(p => p.PlayerId == player1CSID);
+			playersList1.Add(DbContext.Player.FirstOrDefault(p => p.PlayerId == player2CSID));
+			playersList1.Add(DbContext.Player.FirstOrDefault(p => p.PlayerId == player3CSID));
+			playersList1.Add(DbContext.Player.FirstOrDefault(p => p.PlayerId == player4CSID));
+			playersList1.Add(DbContext.Player.FirstOrDefault(p => p.PlayerId == player5CSID));
+			playersList2.Add(DbContext.Player.FirstOrDefault(p => p.PlayerId == player6CSID));
+			playersList2.Add(DbContext.Player.FirstOrDefault(p => p.PlayerId == player7CSID));
+			playersList2.Add(DbContext.Player.FirstOrDefault(p => p.PlayerId == player8CSID));
+			playersList2.Add(DbContext.Player.FirstOrDefault(p => p.PlayerId == player9CSID));
+			playersList2.Add(DbContext.Player.FirstOrDefault(p => p.PlayerId == player10CSID));
+
+			DbContext.Team.FirstOrDefault(t => t.TeamId == team1CSID).Players = playersList1;
+			DbContext.Team.FirstOrDefault(t => t.TeamId == team2CSID).Players = playersList2;
+
+			scoreList.Add(new Score
+			{
+				ScoreID = Score1ID,
+				Team = team1,
+				TeamName = "Test1",
+				TeamScore = 16
+			});
+
+			scoreList.Add(new Score
+			{
+				ScoreID = Score2ID,
+				Team = team2,
+				TeamName = "Test2",
+				TeamScore = 10
+			});
+
+			DbContext.EventCS.Add(
+				new EventCS
+				{
+					EventCSID = eventCSID,
+					EventAPIID = 10065,
+					EventName = "Test",
+					LeagueName = "Test",
+					EventImage = "/images/iconMenu.jpg",
+					EventLink = "Test",
+					TimeType = TimeType.Past,
+					Finished = false,
+					BeginAt = DateTime.Now.Subtract(TimeSpan.FromHours(2)),
+					EndAt = DateTime.Now,
+					MatchesCSAPIID = 736079,
+					TeamsList = teamsList1,
+					PrizePool = "1000000$",
+					WinnerTeamAPIID = 1,
+					WinnerTeamName = "Test1",
+					Tier = 'C'
+				});
+
+			DbContext.MatchesCS.Add(
+			new MatchesCS
+			{
+				MatchesCSId = matchesCSID,
+				MatchesCSAPIID = 1,
+				EventCS = DbContext.EventCS.FirstOrDefault(e => e.EventCSID == eventCSID),
+				EventAPIID = 10065,
+				EventName = "Test",
+				BeginAt = DateTime.Now.Subtract(TimeSpan.FromHours(2)),
+				EndAt = DateTime.Now,
+				IsFinished = false,
+				TimeType = TimeType.Past,
+				HaveStats = false,
+				MatchesList = null,
+				NumberOfGames = 1,
+				Scores = scoreList,
+				TeamsList = teamsList1,
+				TeamsAPIIDList = null,
+				WinnerTeamAPIId = 1,
+				WinnerTeamName = "Test1",
+				Tier = 'C',
+				LiveSupported = false,
+				StreamList = null,
+				LeagueName = "Test",
+				LeagueId = 1,
+				LeagueLink = null
+			});
 
 			DbContext.SaveChanges();
         }
@@ -84,289 +328,6 @@ namespace FPTVUnitTests
 		public List<Team> GetTeamsList()
 		{
 			return teamsList1;
-		}
-
-
-		public void CreatePlayersAndTeams()
-        {
-			DbContext.Player.Add(
-			   new Player
-			   {
-				   PlayerId = team1CSID,
-				   PlayerAPIId = 1,
-				   Name = "1",
-				   Age = 20,
-				   Rating = 1.20F,
-				   Teams = null,
-				   Nacionality = "Portuguese",
-				   Flag = "/images/Flags/1x1/pt.svg",
-				   Image = "/images/iconMenu.jpg",
-				   Game = GameType.CSGO
-			   });
-
-			DbContext.Player.Add(
-				new Player
-				{
-					PlayerId = team1CSID,
-					PlayerAPIId = 2,
-					Name = "2",
-					Age = 20,
-					Rating = 1.25F,
-					Teams = null,
-					Nacionality = "Portuguese",
-					Flag = "/images/Flags/1x1/pt.svg",
-					Image = "/images/iconMenu.jpg",
-					Game = GameType.CSGO
-				});
-
-			DbContext.Player.Add(
-				new Player
-				{
-					PlayerId = team1CSID,
-					PlayerAPIId = 3,
-					Name = "3",
-					Age = 20,
-					Rating = 1.30F,
-					Teams = null,
-					Nacionality = "Portuguese",
-					Flag = "/images/Flags/1x1/pt.svg",
-					Image = "/images/iconMenu.jpg",
-					Game = GameType.CSGO
-				});
-
-			DbContext.Player.Add(
-				new Player
-				{
-					PlayerId = team1CSID,
-					PlayerAPIId = 4,
-					Name = "4",
-					Age = 20,
-					Rating = 1.35F,
-					Teams = null,
-					Nacionality = "Portuguese",
-					Flag = "/images/Flags/1x1/pt.svg",
-					Image = "/images/iconMenu.jpg",
-					Game = GameType.CSGO
-				});
-
-			DbContext.Player.Add(
-				new Player
-				{
-					PlayerId = team1CSID,
-					PlayerAPIId = 5,
-					Name = "5",
-					Age = 20,
-					Rating = 1.40F,
-					Teams = null,
-					Nacionality = "Portuguese",
-					Flag = "/images/Flags/1x1/pt.svg",
-					Image = "/images/iconMenu.jpg",
-					Game = GameType.CSGO
-				});
-
-			DbContext.Player.Add(
-				new Player
-				{
-					PlayerId = team2CSID,
-					PlayerAPIId = 6,
-					Name = "6",
-					Age = 20,
-					Rating = 1.45F,
-					Teams = null,
-					Nacionality = "Portuguese",
-					Flag = "/images/Flags/1x1/pt.svg",
-					Image = "/images/iconMenu.jpg",
-					Game = GameType.CSGO
-				});
-
-			DbContext.Player.Add(
-				new Player
-				{
-					PlayerId = team2CSID,
-					PlayerAPIId = 7,
-					Name = "7",
-					Age = 20,
-					Rating = 1.50F,
-					Teams = null,
-					Nacionality = "Portuguese",
-					Flag = "/images/Flags/1x1/pt.svg",
-					Image = "/images/iconMenu.jpg",
-					Game = GameType.CSGO
-				});
-
-			DbContext.Player.Add(
-				new Player
-				{
-					PlayerId = team2CSID,
-					PlayerAPIId = 8,
-					Name = "8",
-					Age = 20,
-					Rating = 1.55F,
-					Teams = null,
-					Nacionality = "Portuguese",
-					Flag = "/images/Flags/1x1/pt.svg",
-					Image = "/images/iconMenu.jpg",
-					Game = GameType.CSGO
-				});
-
-			DbContext.Player.Add(
-				new Player
-				{
-					PlayerId = team2CSID,
-					PlayerAPIId = 9,
-					Name = "9",
-					Age = 20,
-					Rating = 1.60F,
-					Teams = null,
-					Nacionality = "Portuguese",
-					Flag = "/images/Flags/1x1/pt.svg",
-					Image = "/images/iconMenu.jpg",
-					Game = GameType.CSGO
-				});
-
-			DbContext.Player.Add(
-				new Player
-				{
-					PlayerId = team2CSID,
-					PlayerAPIId = 10,
-					Name = "10",
-					Age = 20,
-					Rating = 1.65F,
-					Teams = null,
-					Nacionality = "Portuguese",
-					Flag = "/images/Flags/1x1/pt.svg",
-					Image = "/images/iconMenu.jpg",
-					Game = GameType.CSGO
-				});
-
-			Player player1 = DbContext.Player.FirstOrDefault(p => p.PlayerId == player1CSID);
-			playersList1.Add(player1);
-			Player player2 = DbContext.Player.FirstOrDefault(p => p.PlayerId == player2CSID);
-			playersList1.Add(player2);
-			Player player3 = DbContext.Player.FirstOrDefault(p => p.PlayerId == player3CSID);
-			playersList1.Add(player3);
-			Player player4 = DbContext.Player.FirstOrDefault(p => p.PlayerId == player4CSID);
-			playersList1.Add(player4);
-			Player player5 = DbContext.Player.FirstOrDefault(p => p.PlayerId == player5CSID);
-			playersList1.Add(player5);
-			Player player6 = DbContext.Player.FirstOrDefault(p => p.PlayerId == player6CSID);
-			playersList2.Add(player6);
-			Player player7 = DbContext.Player.FirstOrDefault(p => p.PlayerId == player7CSID);
-			playersList2.Add(player7);
-			Player player8 = DbContext.Player.FirstOrDefault(p => p.PlayerId == player8CSID);
-			playersList2.Add(player8);
-			Player player9 = DbContext.Player.FirstOrDefault(p => p.PlayerId == player9CSID);
-			playersList2.Add(player9);
-			Player player10 = DbContext.Player.FirstOrDefault(p => p.PlayerId == player10CSID);
-			playersList2.Add(player10);
-
-			DbContext.Team.Add(
-				new Team
-				{
-					TeamId = team1CSID,
-					TeamAPIID = 1,
-					Name = "Test1",
-					Players = playersList1,
-					CouchName = "Test",
-					WorldRank = 1,
-					Winnings = 100,
-					Losses = 50,
-					Image = "/images/iconMenu.jpg",
-					Game = GameType.CSGO
-				});
-
-			DbContext.Team.Add(
-				new Team
-				{
-					TeamId = team2CSID,
-					TeamAPIID = 2,
-					Name = "Test2",
-					Players = playersList2,
-					CouchName = "Test",
-					WorldRank = 2,
-					Winnings = 99,
-					Losses = 50,
-					Image = "/images/iconMenu.jpg",
-					Game = GameType.CSGO
-				});
-
-			Team team1 = DbContext.Team.FirstOrDefault(t => t.TeamId == team1CSID);
-			teamsList1.Add(team1);
-			teamsList2.Add(team1);
-			Team team2 = DbContext.Team.FirstOrDefault(t => t.TeamId == team2CSID);
-			teamsList1.Add(team1);
-			teamsList2.Add(team1);
-
-			
-			scoreList.Add(new Score
-				{
-					ScoreID = Score1ID,
-					Team = team1,
-					TeamName = "Test1",
-					TeamScore = 16
-				});
-
-			scoreList.Add(new Score
-				{
-					ScoreID = Score2ID,
-					Team = team2,
-					TeamName = "Test2",
-					TeamScore = 10
-				});
-		}
-
-		public void CreateEventAndMatch()
-		{
-			DbContext.EventCS.Add(
-				new EventCS
-				{
-					EventCSID = eventCSID,
-					EventAPIID = 10065,
-					EventName = "Test",
-					LeagueName = "Test",
-					EventImage = "/images/iconMenu.jpg",
-					EventLink = "Test",
-					TimeType = TimeType.Past,
-					Finished = false,
-					BeginAt = DateTime.Now.Subtract(TimeSpan.FromHours(2)),
-					EndAt = DateTime.Now,
-					MatchesCSAPIID = 736079,
-					TeamsList = teamsList1,
-					PrizePool = "1000000$",
-					WinnerTeamAPIID = 1,
-					WinnerTeamName = "Test1",
-					Tier = 'C'
-				});
-
-			EventCS eventCS = DbContext.EventCS.FirstOrDefault(e => e.EventCSID == eventCSID);
-
-			DbContext.MatchesCS.Add(
-			new MatchesCS
-			{
-				MatchesCSId = matchesCSID,
-				MatchesCSAPIID = 1,
-				EventCS = eventCS,
-				EventAPIID = 10065,
-				EventName = "Test",
-				BeginAt = DateTime.Now.Subtract(TimeSpan.FromHours(2)),
-				EndAt = DateTime.Now,
-				IsFinished = false,
-				TimeType = TimeType.Past,
-				HaveStats = false,
-				MatchesList = null,
-				NumberOfGames = 1,
-				Scores = scoreList,
-				TeamsList = teamsList1,
-				TeamsAPIIDList = null,
-				WinnerTeamAPIId = 1,
-				WinnerTeamName = "Test1",
-				Tier = 'C',
-				LiveSupported = false,
-				StreamList = null,
-				LeagueName = "Test",
-				LeagueId = 1,
-				LeagueLink = null
-			});
 		}
     }
 }
