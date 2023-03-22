@@ -355,8 +355,6 @@
                                         <th style="width:12%" title="Average Damage per Round">ADR</th>
                                     </tr>
                                     <tr>
-                                        @foreach (MatchPlayerStatsCS player in ViewBag.playerStatsList)
-                                        {
                                             Console.WriteLine(player);
                                             if(player!=null){
                                                 <td href="@Url.Action("getPlayer", "Stats", new {game = "csgo", id = player.PlayerCSAPIId})">player.PlayerName</td>
