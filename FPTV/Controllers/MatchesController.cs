@@ -58,11 +58,11 @@ namespace FPTV.Controllers
             var requestLink = "https://api.pandascore.co/" + game + "/matches/";
 
             var fullApiPath = requestLink + "past?" + jsonFilter + jsonSort + jsonPage + jsonPerPage + token;
-            List<MatchesCS> pastMatches = getAPICSGOMatches(fullApiPath);
+            List<MatchesCS> pastMatches = getAPICSGOMatches(fullApiPath, game);
             fullApiPath = requestLink + "running?" + jsonFilter + jsonSort + jsonPage + jsonPerPage + token;
-            List<MatchesCS> runningMatches = getAPICSGOMatches(fullApiPath);
+            List<MatchesCS> runningMatches = getAPICSGOMatches(fullApiPath, game);
             fullApiPath = requestLink + "upcoming?" + jsonFilter + jsonSort + jsonPage + jsonPerPage + token;
-            List<MatchesCS> upcomingMatches = getAPICSGOMatches(fullApiPath);
+            List<MatchesCS> upcomingMatches = getAPICSGOMatches(fullApiPath, game);
 
             List<int> dbMatchesIds = _context.MatchesCS.Select(m => m.MatchesCSAPIID).ToList();
 
@@ -83,7 +83,7 @@ namespace FPTV.Controllers
             }
 
             //para nao dar erro
-            //await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
 
             if (sort == "tournament")
             {
@@ -124,7 +124,7 @@ namespace FPTV.Controllers
 
         private async void getPastMatches(string fullApiPath)
         {
-            List<MatchesCS> pastMatches = getAPICSGOMatches(fullApiPath);
+            List<MatchesCS> pastMatches = getAPICSGOMatches(fullApiPath, "");
             List<int> dbMatchesIds = _context.MatchesCS.Select(m => m.MatchesCSAPIID).ToList();
 
             foreach (var matches in pastMatches)
@@ -142,7 +142,7 @@ namespace FPTV.Controllers
             await _context.SaveChangesAsync();
         }
 
-        private List<MatchesCS> getAPICSGOMatches(string fullApiPath)
+        private List<MatchesCS> getAPICSGOMatches(string fullApiPath, string game)
         {
             //Request processing with RestSharp
             var client = new RestClient(fullApiPath);
@@ -269,11 +269,12 @@ namespace FPTV.Controllers
                         team.Losses = 0;
                         team.Winnings = 0;
                         team.WorldRank = 0;
+                        if(game == "csgo")
+                            team.Game = GameType.CSGO;
+                        else
+                            team.Game = GameType.Valorant;
 
                         matches.TeamsList.Add(team);
-
-                        if (team.TeamAPIID == matches.WinnerTeamAPIId)
-                            matches.WinnerTeam = team;
                     }
 
                     if (matches.TeamsList.Count() == 2)

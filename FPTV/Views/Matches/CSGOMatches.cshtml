@@ -214,7 +214,7 @@
 
         </div>
         <div class="ola " style="border-radius:15px;">
-            <div class="box darkcolor bordercolor" style="border-radius:15px;margin-top:0px;width:28%">
+            <div class="box darkcolor bordercolor" style="border-radius:15px;margin-top:0px;width:30%;padding:1%">
                 <h4 style="font-weight: bold;text-align:center;">Finished Matches</h4>
                 @foreach (var item in ViewBag.pastMatches)
                 {
@@ -278,7 +278,7 @@
                                                     </span>
                                                 </td>
                                                 <td class="tablecolors">
-                                                    <h4 style="font-weight: bold;text-align: center;">Live</h4>
+                                                    <img src="/images/live.png" style="width: 35%">
                                                 </td>
                                                 <td class="tablecolors">
                                                     <span>
@@ -293,7 +293,7 @@
                                                     <span>vs</span>
                                                 </td>
                                                 <td class="tablecolors">
-                                                    <span> @item.TeamsList[0].Name </span>
+                                                    <span> @item.TeamsList[1].Name </span>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -305,16 +305,18 @@
                                                             <span class="span2"> @team.TeamScore </span>
                                                         </td>
                                                     }
-                                                    <td class="tablecolors">
-                                                        <span class="span2"> vs </span>
-                                                    </td>
+                                                }
+                                                <td class="tablecolors">
+                                                    <span class="span2"> - </span>
+                                                </td>
+                                                @foreach (var team in item.Scores)
+                                                {
                                                     @if (item.TeamsList[1].Name == team.TeamName)
                                                     {
                                                         <td class="tablecolors">
                                                             <span class="span2"> @team.TeamScore </span>
                                                         </td>
                                                     }
-                                                    break;
                                                 }
                                             </tr>
                                             <tr>
@@ -337,11 +339,11 @@
                 </table>
             </div>
 
-            <div class="box darkcolor bordercolor" style="margin-top:0px; border-radius:15px;width:28%">
+            <div class="box darkcolor bordercolor" style="margin-top:0px; border-radius:15px;width:30%; padding:1%">
                 <h4 style="font-weight: bold;text-align:center;">Upcoming Matches</h4>
                 @foreach (var item in ViewBag.upcomingMatches)
                 {
-                    <div class="alinhar bordercolor" style="border-bottom: 1px solid black; border-radius:15px; margin-top: 2%; margin-bottom: 2%">
+                    <div class="alinhar bordercolor" style="border-bottom: 1px solid black; border-radius:15px; margin-top: 2%; margin-bottom: 2%;">
                         <div class="my-div2 " style="width:90%;">
                             <div>
                                 <span class="span2" style="margin-top:10px;">@item.BeginAt.ToString("dd/MM/yyyy hh:mm")</span>

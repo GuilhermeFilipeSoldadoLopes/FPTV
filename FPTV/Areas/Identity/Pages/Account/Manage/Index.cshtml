@@ -1,7 +1,7 @@
 ﻿@page
 @using FPTV.Models.Forum;
 @using FPTV.Models.UserModels;
-@model DeleteModel
+@model IndexModel
 @{
     ViewData["Title"] = "Profile";
     ViewData["ActivePage"] = ManageNavPages.Index;
@@ -210,14 +210,14 @@
             <div style="width:80%;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:black;background-color:white;border-width:1px;border-radius:10px;padding:10px;">
                 <h4 >Favourite Players:</h4>
                 <div style="padding-left:20px">
-                    @if (ViewData["FavPlayerList"] == null || ((List<FavPlayerList>)ViewData["FavPlayerList"]).Count() == 0)
+                    @if (ViewData["FavPlayerListCSGO"] == null || ((List<FavPlayerList>)ViewData["FavPlayerListCSGO"]).Count() == 0)
                     {
                         <span class="span2">No Favourite Players</span>
                         <br />
                     }
                     else
                     {
-                        foreach (var item in (List<FavPlayerList>)ViewData["FavPlayerList"])
+                        foreach (var item in (List<FavPlayerList>)ViewData["FavPlayerListCSGO"])
                         {
                             foreach (var player in item.Players)
                             {
@@ -233,14 +233,14 @@
             <div style="width:80%;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:black;background-color:white;border-width:1px;border-radius:10px;padding:10px;">
                 <h4>Favourite Teams:</h4>
                 <div style="padding-left:20px">
-                    @if (ViewData["FavTeamsList"] == null || ((List<FavTeamsList>)ViewData["FavTeamsList"]).Count() == 0)
+                    @if (ViewData["FavTeamsListCSGO"] == null || ((List<FavTeamsList>)ViewData["FavTeamsListCSGO"]).Count() == 0)
                     {
                         <span class="span2">No Favourite Teams</span>
                         <br />
                     }
                     else
                     {
-                        foreach (var item in (List<FavTeamsList>)ViewData["FavTeamsList"])
+                        foreach (var item in (List<FavTeamsList>)ViewData["FavTeamsListCSGO"])
                         {
                             foreach (var player in item.Teams)
                             {
@@ -255,7 +255,7 @@
         </div>
         
         <div class="box bordercolor" style="margin-top:0px;position:relative;border-width:0px;width:70%">
-            <a style="position:absolute;top:2px;right:10%;align-items:center;" asp-area="Identity" asp-page="/Account/Manage/Edit" title="Manage">
+            <a style="position:absolute;top:2px;right:10%;align-items:center;" asp-area="Identity" asp-page="/Account/Manage/Edit" title="Edit">
                 <img style="width:30px;height:30px" src="~/images/Edit.png">
             </a>
 
@@ -264,8 +264,9 @@
 
             <div style="width:90%;position:relative;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:black;border-width:1px;border-radius:10px;padding:10px;background-color:white">
                 @Model.Input.Username
-                <img style="height:50%;width:auto;position:absolute;top:25%;right:10px;" src=@ViewData["CountryImage"]>
+                <img style="height:50%;width:auto;position:absolute;top:25%;right:10px;" src=@Model.Input.CountryImage>
             </div>
+            <label asp-for="Input.Username" class="form-label" style="color:black;font-weight: bold;margin-left:5%"></label>
             <br />
 
             <div style="width:90%;position:relative;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:black;border-width:1px;border-radius:10px;padding:10px;background-color:white">
@@ -279,6 +280,7 @@
                     <br />
                 }
             </div>
+            <label asp-for="Input.Bio" class="form-label" style="color:black;font-weight: bold;margin-left:5%"></label>
             <br />
 
             <div style="width:90%;position:relative;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:black;border-width:1px;border-radius:10px;padding:10px;background-color:white">
@@ -311,14 +313,14 @@
             <div style="width:80%;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:black;background-color:white;border-width:1px;border-radius:10px;padding:10px;">
                 <h4>Favourite Players:</h4>
                 <div style="padding-left:20px">
-                    @if (ViewData["FavPlayerList"] == null || ((List<FavPlayerList>)ViewData["FavPlayerList"]).Count() == 0)
+                    @if (ViewData["FavPlayerListValorant"] == null || ((List<FavPlayerList>)ViewData["FavPlayerListValorant"]).Count() == 0)
                     {
                         <span class="span2">No Favourite Players</span>
                         <br />
                     }
                     else
                     {
-                        foreach (var item in (List<FavPlayerList>)ViewData["FavPlayerList"])
+                        foreach (var item in (List<FavPlayerList>)ViewData["FavPlayerListValorant"])
                         {
                             foreach (var player in item.Players)
                             {
@@ -334,14 +336,14 @@
             <div style="width:80%;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:black;background-color:white;border-width:1px;border-radius:10px;padding:10px;">
                 <h4>Favourite Teams:</h4>
                 <div style="padding-left:20px">
-                    @if (ViewData["FavTeamsList"] == null || ((List<FavTeamsList>)ViewData["FavTeamsList"]).Count() == 0)
+                    @if (ViewData["FavTeamsListValorant"] == null || ((List<FavTeamsList>)ViewData["FavTeamsListValorant"]).Count() == 0)
                     {
                         <span class="span2">No Favourite Teams</span>
                         <br />
                     }
                     else
                     {
-                        foreach (var item in (List<FavTeamsList>)ViewData["FavTeamsList"])
+                        foreach (var item in (List<FavTeamsList>)ViewData["FavTeamsListValorant"])
                         {
                             foreach (var player in item.Teams)
                             {

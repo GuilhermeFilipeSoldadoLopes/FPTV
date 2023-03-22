@@ -102,12 +102,18 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
             }
             var profile = _context.Profiles.Single(p => p.Id == user.ProfileId);
 
+            ViewData["FavPlayerListCSGO"] = _context.FavPlayerList.Where(fpl => fpl.ProfileId == profile.Id).ToList();
+            ViewData["FavTeamsListCSGO"] = _context.FavTeamsList.Where(ftl => ftl.ProfileId == profile.Id).ToList();
+            ViewData["FavPlayerListValorant"] = _context.FavPlayerList.Where(fpl => fpl.ProfileId == profile.Id).ToList();
+            ViewData["FavTeamsListValorant"] = _context.FavTeamsList.Where(ftl => ftl.ProfileId == profile.Id).ToList();
+
             await LoadAsync(user, profile);
             return Page();
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
+            Console.WriteLine("\n\n\n\nEntrou\n\n\n\n");
             var user = await _userManager.GetUserAsync(User);
             var profile = _context.Profiles.Single(p => p.Id == user.ProfileId);
             if (user == null)
@@ -120,22 +126,24 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
                 await LoadAsync(user, profile);
                 return Page();
             }
-            
-            var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
-            if (Input.PhoneNumber != phoneNumber)
+
+            var userName = user.UserName;
+            if (Input.Username != userName)
             {
-                var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, Input.PhoneNumber);
-                if (!setPhoneResult.Succeeded)
-                {
-                    StatusMessage = "Unexpected error when trying to set phone number.";
-                    return RedirectToPage();
-                }
+                user.UserName = Input.Username;
+                await _userManager.UpdateAsync(user);
             }
 
             var country = profile.Country;
-            if (Input.Country != country) 
+            if (Input.Country != country)
             {
                 profile.Country = Input.Country;
+                await _context.SaveChangesAsync();
+            }
+            var biography = profile.Biography;
+            if (Input.Bio != biography)
+            {
+                profile.Biography = Input.Bio;
                 await _context.SaveChangesAsync();
             }
 
@@ -152,7 +160,7 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
 
             await _signInManager.RefreshSignInAsync(user);
             StatusMessage = "Your profile has been updated";
-            return RedirectToPage();
+            return RedirectToPage("Index");
         }
     }
 }

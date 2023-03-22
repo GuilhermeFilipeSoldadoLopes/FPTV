@@ -20,8 +20,8 @@ namespace FPTV.Controllers
     public class StatsController : Controller
     {
         private readonly FPTVContext _context;
-        Random _random = new Random();
-        MatchesController _matchesController;
+        private readonly Random _random = new Random();
+        private MatchesController _matchesController;
 
         public StatsController(FPTVContext context)
         {

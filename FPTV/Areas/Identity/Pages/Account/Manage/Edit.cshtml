@@ -1,5 +1,6 @@
 ﻿@page
-@model DeleteModel
+@using FPTV.Models.UserModels;
+@model EditModel
 @{
     ViewData["Title"] = "Profile";
     ViewData["ActivePage"] = ManageNavPages.Index;
@@ -84,10 +85,10 @@
     }
 
 
-        .my-div > div {
-            flex-basis: 25%;
-            flex-grow: 1;
-        }
+    .my-div > div {
+        flex-basis: 25%;
+        flex-grow: 1;
+    }
 
     .my-div2 > div {
         width: 100%
@@ -208,18 +209,28 @@
             <div style="width:80%;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:black;background-color:white;border-width:1px;border-radius:10px;padding:10px;">
                 <h4 >Favourite Players:</h4>
                 <div style="padding-left:20px">
-                    <span class="span2"> Player 1 </span>
-                    <img src="~/images/trash.png" style="width:20px;height:20px;" />
-                    <br />
-                    <span class="span2"> Player 2 </span>
-                    <img src="~/images/trash.png" style="width:20px;height:20px;" />
-                    <br />
-                    <span class="span2"> Player 3 </span>
-                    <img src="~/images/trash.png" style="width:20px;height:20px;" />
-                    <br />
-                    <span class="span2"> Player 4 </span>
-                    <img src="~/images/trash.png" style="width:20px;height:20px;" />
-                    <br />
+                    @if (ViewData["FavPlayerListCSGO"] == null || ((List<FavPlayerList>)ViewData["FavPlayerListCSGO"]).Count() == 0)
+                    {
+                        <span class="span2">No Favourite Players</span>
+                        <br />
+                    }
+                    else
+                    {
+                        foreach (var item in (List<FavPlayerList>)ViewData["FavPlayerListCSGO"])
+                        {
+                            foreach (var player in item.Players)
+                            {
+                                <div class="ola">
+                                    <div class="box" style="margin-top:0px;width:80%">
+                                        <span class="span2"> item.Name </span>
+                                    </div>
+                                    <div class="box" style="margin-top:0px;width:20%">
+                                        <img src="~/images/trash.png" style="width:20px;height:20px;" />
+                                    </div>
+                                </div>
+                            }
+                        }
+                    }
                 </div>
             </div>
             <br />
@@ -227,27 +238,37 @@
             <div style="width:80%;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:black;background-color:white;border-width:1px;border-radius:10px;padding:10px;">
                 <h4>Favourite Teams:</h4>
                 <div style="padding-left:20px">
-                    <span class="span2"> Team 1 </span>
-                    <img src="~/images/trash.png" style="width:20px;height:20px;" />
-                    <br />
-                    <span class="span2"> Team 2 </span>
-                    <img src="~/images/trash.png" style="width:20px;height:20px;" />
-                    <br />
-                    <span class="span2"> Team 3 </span>
-                    <img src="~/images/trash.png" style="width:20px;height:20px;" />
-                    <br />
-                    <span class="span2"> Team 4 </span>
-                    <img src="~/images/trash.png" style="width:20px;height:20px;" />
-                    <br />
+                    @if (ViewData["FavTeamsListCSGO"] == null || ((List<FavTeamsList>)ViewData["FavTeamsListCSGO"]).Count() == 0)
+                    {
+                        <span class="span2">No Favourite Teams</span>
+                        <br />
+                    }
+                    else
+                    {
+                        foreach (var item in (List<FavTeamsList>)ViewData["FavTeamsListCSGO"])
+                        {
+                            foreach (var player in item.Teams)
+                            {
+                                <div class="ola">
+                                    <div class="box" style="margin-top:0px;width:80%">
+                                        <span class="span2"> item.Name </span>
+                                    </div>
+                                    <div class="box" style="margin-top:0px;width:20%">
+                                        <img src="~/images/trash.png" style="width:20px;height:20px;" />
+                                    </div>
+                                </div>
+                            }
+                        }
+                    }
                 </div>
             </div>
             <br />
         </div>
 
         <div class="box bordercolor" style="margin-top:0px;position:relative;border-width:0px;width:70%">
-            <form id="profile-form" method="Edit/post" enctype="multipart/form-data">
-                <img id="profilePicture" style="width:284px;height:284px;display:block;margin-left:auto;margin-right:auto;object-fit:cover;border-radius:50%" src="data:image/*;base64,@(Convert.ToBase64String(Model.Input.ProfilePicture))">
-
+            <partial name="_StatusMessage" for="StatusMessage" />
+            <form id="profile-form" method="post" enctype="multipart/form-data">
+                <img id="profilePicture" style="width:350px;height:350px; object-fit:cover;border-radius:50%" src="data:image/*;base64,@(Convert.ToBase64String(Model.Input.ProfilePicture))">
                 <input type="file"
                        accept=".png,.jpg,.jpeg,.gif,.tif"
                        asp-for="Input.ProfilePicture"
@@ -258,19 +279,21 @@
                 <br />
                 <div style="width:90%;position:relative;display:block;margin-left:auto;margin-right:auto;">
                     <input asp-for="Input.Country" class="form-control" />
+                    <label asp-for="Input.Country" class="form-label" style="color:black;font-weight: bold;"></label>
                 </div>
                 <br />
                 <div style="width:90%;position:relative;display:block;margin-left:auto;margin-right:auto;">
-                    <input asp-for="Input.Username" class="form-control"/>
+                    <input asp-for="Input.Username" class="form-control" />
+                    <label asp-for="Input.Username" class="form-label" style="color:black;font-weight: bold;"></label>
                 </div>
                 <br />
-
                 <div style="width:90%;position:relative;display:block;margin-left:auto;margin-right:auto;">
-                    <input asp-for="Input.Bio" class="form-control"/>
+                    <input asp-for="Input.Bio" class="form-control" />
+                    <label asp-for="Input.Bio" class="form-label" style="color:black;font-weight: bold;"></label>
                 </div>
-
+                <br />
                 <button id="update-profile-button" type="submit" class="button">Save</button>
-                <button id="update-profile-button" class="button">Cancel</button>
+                <button id="cancel" class="button">Cancel</button>
             </form>
         </div>
         
@@ -283,18 +306,30 @@
             <div style="width:80%;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:black;background-color:white;border-width:1px;border-radius:10px;padding:10px;">
                 <h4>Favourite Players:</h4>
                 <div style="padding-left:20px">
-                    <span class="span2"> Player 1 </span>
-                    <img src="~/images/trash.png" style="width:20px;height:20px;" />
-                    <br />
-                    <span class="span2"> Player 2 </span>
-                    <img src="~/images/trash.png" style="width:20px;height:20px;" />
-                    <br />
-                    <span class="span2"> Player 3 </span>
-                    <img src="~/images/trash.png" style="width:20px;height:20px;" />
-                    <br />
-                    <span class="span2"> Player 4 </span>
-                    <img src="~/images/trash.png" style="width:20px;height:20px;" />
-                    <br />
+                    <div class="ola">
+                        <div class="box" style="margin-top:0px;width:80%">
+                            <span class="span2"> Player 1 </span>
+                        </div>
+                        <div class="box" style="margin-top:0px;width:20%">
+                            <img src="~/images/trash.png" style="width:20px;height:20px;" />
+                        </div>
+                    </div>
+                    <div class="ola">
+                        <div class="box" style="margin-top:0px;width:80%">
+                            <span class="span2"> Player 2 </span>
+                        </div>
+                        <div class="box" style="margin-top:0px;width:20%">
+                            <img src="~/images/trash.png" style="width:20px;height:20px;" />
+                        </div>
+                    </div>
+                    <div class="ola">
+                        <div class="box" style="margin-top:0px;width:80%">
+                            <span class="span2"> Player 3 </span>
+                        </div>
+                        <div class="box" style="margin-top:0px;width:20%">
+                            <img src="~/images/trash.png" style="width:20px;height:20px;" />
+                        </div>
+                    </div>
                 </div>
             </div>
             <br />
@@ -302,18 +337,30 @@
             <div style="width:80%;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:black;background-color:white;border-width:1px;border-radius:10px;padding:10px;">
                 <h4>Favourite Teams:</h4>
                 <div style="padding-left:20px">
-                    <span class="span2"> Team 1 </span>
-                    <img src="~/images/trash.png" style="width:20px;height:20px;" />
-                    <br />
-                    <span class="span2"> Team 2 </span>
-                    <img src="~/images/trash.png" style="width:20px;height:20px;" />
-                    <br />
-                    <span class="span2"> Team 3 </span>
-                    <img src="~/images/trash.png" style="width:20px;height:20px;" />
-                    <br />
-                    <span class="span2"> Team 4 </span>
-                    <img src="~/images/trash.png" style="width:20px;height:20px;" />
-                    <br />
+                    <div class="ola">
+                        <div class="box" style="margin-top:0px;width:80%">
+                            <span class="span2"> Team 1 </span>
+                        </div>
+                        <div class="box" style="margin-top:0px;width:20%">
+                            <img src="~/images/trash.png" style="width:20px;height:20px;" />
+                        </div>
+                    </div>
+                    <div class="ola">
+                        <div class="box" style="margin-top:0px;width:80%">
+                            <span class="span2"> Team 2 </span>
+                        </div>
+                        <div class="box" style="margin-top:0px;width:20%">
+                            <img src="~/images/trash.png" style="width:20px;height:20px;" />
+                        </div>
+                    </div>
+                    <div class="ola">
+                        <div class="box" style="margin-top:0px;width:80%">
+                            <span class="span2"> Team 3 </span>
+                        </div>
+                        <div class="box" style="margin-top:0px;width:20%">
+                            <img src="~/images/trash.png" style="width:20px;height:20px;" />
+                        </div>
+                    </div>
                 </div>
             </div>
             <br />
