@@ -12,13 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FPTV.Migrations
 {
     [DbContext(typeof(FPTVContext))]
-<<<<<<<< HEAD:FPTV/Migrations/20230320192606_FPTVMigration.Designer.cs
-    [Migration("20230320192606_FPTVMigration")]
+    [Migration("20230322122132_FPTVMigration")]
     partial class FPTVMigration
-========
-    [Migration("20230321230223_init")]
-    partial class init
->>>>>>>> Desenvolvimento:FPTV/Migrations/20230321230223_init.Designer.cs
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -809,12 +804,9 @@ namespace FPTV.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-<<<<<<<< HEAD:FPTV/Migrations/20230320192606_FPTVMigration.Designer.cs
-========
                     b.Property<int>("Game")
                         .HasColumnType("int");
 
->>>>>>>> Desenvolvimento:FPTV/Migrations/20230321230223_init.Designer.cs
                     b.Property<string>("Image")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");

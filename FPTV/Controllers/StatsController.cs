@@ -14,13 +14,15 @@ using System;
 using System.Linq.Expressions;
 using System.Numerics;
 using System.Reflection.Metadata.Ecma335;
+using System.Security.Policy;
+using System.Xml.Linq;
 
 namespace FPTV.Controllers
 {
     public class StatsController : Controller
     {
         private readonly FPTVContext _context;
-        private readonly Random _random = new Random();
+        private Random _random = new Random();
         private MatchesController _matchesController;
 
         public StatsController(FPTVContext context)
@@ -31,11 +33,101 @@ namespace FPTV.Controllers
 
         //De CSGO e de Valorant
         // GET: CSMatches
-        
-        public async Task<IActionResult> CSGOStats()
+
+        public async Task<IActionResult> PlayerandStatsCs(int id)
         {
-            getPastCSGOMatches();
-            return View();
+            getCSGOMatches();
+            return View("PlayerAndStats");
+        }
+
+        public ActionResult getPlayer(int id, string filter = "", string game = "csgo")
+        {
+
+            var ranking = new[] { 0.68F, 0.94F, 1.42F, 1.08F, 1.09F, 1.23F, 0.78F, 0.89F, 0.97F, 0.72F,
+                0.82F, 0.62F, 1.45F, 1.11F, 1.37F, 1.27F, 1.05F, 1.07F, 1.16F, 1.29F, 1.15F, 0.97F, 0.83F,
+                1.36F, 1.10F, 1.07F, 1.19F, 0.77F, 0.90F, 1.14F, 1.52F, 1.54F, 0.58F }; //de 0.58 a 1.54
+
+
+            //Base url for requests
+            var _requestLink = "https://api.pandascore.co/";
+
+            //Filter to select from which pool to fetch the data (upcoming, running or finished/ended)
+            var _jsonFilter = filter + "?";
+            var _filterID = "filter[id]=132995"; //+ id.ToString();
+
+            //THIS SHOULD BE A CLIENT SECRET
+            var _token = "&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA";
+
+            //Request processing with RestSharp
+            var _fullRequest = _requestLink + game + "/teams?" + _filterID + _token;
+        https://api.pandascore.co/csgo/teams?sort=&page=1&per_page=50&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA
+            var _client = new RestClient(_fullRequest);
+            var _request = new RestRequest("", Method.Get);
+            _request.AddHeader("accept", "application/json");
+            var _json = _client.Execute(_request).Content;
+            var _jarray = JArray.Parse(_json);
+
+
+
+
+
+
+            //Base url for requests
+            var requestLink = "https://api.pandascore.co/";
+
+            //Filter to select from which pool to fetch the data (upcoming, running or finished/ended)
+            var jsonFilter = filter + "?";
+            var filterID = "filter[id]=48495"; //+ id.ToString();
+
+            //THIS SHOULD BE A CLIENT SECRET
+            var token = "&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA";
+
+            //Request processing with RestSharp
+            var fullRequest = requestLink + game + "/players?" + filterID + token;
+            var client = new RestClient(fullRequest);
+            var request = new RestRequest("", Method.Get);
+            request.AddHeader("accept", "application/json");
+            var json = client.Execute(request).Content;
+            var jarray = JArray.Parse(json);
+
+
+
+            var player = new MatchPlayerStatsCS();
+            var _player = new Player();
+            _player.Rating = ranking[_random.Next(ranking.Length)];
+
+            foreach (var item in jarray.Cast<JObject>())
+            {
+                player.PlayerCSAPIId = (int)item.GetValue("id");
+                player.Kills = _random.Next(30, 301);
+                player.Deaths = _random.Next(30, 300);
+                player.Assists = _random.Next(1, 11); ;
+                player.FlashAssist = _random.Next(1, 6); ;
+                player.ADR = _random.NextDouble();
+                player.HeadShots = Math.Round(_random.NextDouble() * 100, 2);
+                player.KD_Diff = _random.NextDouble();
+                player.PlayerName = (string)item.GetValue("name");
+
+                _player.Age = (int?)item.GetValue("age");
+                _player.Nacionality = (string)item.GetValue("nationality");
+                _player.Image = (string)item.GetValue("image_url");
+                _context.MatchPlayerStatsCS.Add(player);
+            }
+
+            foreach (var _item in _jarray.Cast<JObject>())
+            {
+                var _id = (int)_item.GetValue("id");
+                if (_id == player.PlayerCSAPIId)
+                {
+                    _player.PlayerAPIId = player.PlayerCSAPIId;
+                    _player.Name = player.PlayerName;
+                }
+            }
+
+            ViewBag.player = player;
+            ViewBag._player = _player;
+
+            return View("PlayerAndStats");
         }
 
 
