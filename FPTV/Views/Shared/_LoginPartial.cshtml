@@ -6,11 +6,197 @@
 @inject FPTVContext context
 
 
+<script>
+    //document.onreadystatechange = function(e)
+    //{
+    //    var checkBox = document.getElementById("myCheck");
+    //    if (document.readyState === 'complete')
+    //    {
+    //        changeCSS(0);
+    //        //dom is ready, window.onload fires later
+    //    }
+    //};
+    window.onload = function(e)
+    {
+        var checkBox = document.getElementById("myCheck");
+        //document.readyState will be complete, it's one of the requirements for the window.onload event to be fired
+        //do stuff for when everything is loaded
+        if (checkBox.checked == true) {
+            document.getElementById("myCheck").checked = true;
+        } else {
+            document.getElementById("myCheck").checked = false;
+        }
+        changeCSS(0);
+    };
+
+    function changeCSS(cssLinkIndex) {
+        var checkBox = document.getElementById("myCheck");
+        if (checkBox.checked == true) {
+            newstylesheet = "/css/siteDARK.css";
+        } else {
+            newstylesheet = "/css/site.css";
+        }
+
+        var oldlink = document.getElementsByTagName("link").item(cssLinkIndex);
+
+        var newlink = document.createElement("link");
+        newlink.setAttribute("rel", "stylesheet");
+        newlink.setAttribute("type", "text/css");
+        newlink.setAttribute("href", newstylesheet);
+
+        document.getElementsByTagName("head").item(cssLinkIndex).replaceChild(newlink, oldlink);
+    }
+
+    //var checkboxValue = JSON.parse(localStorage.getItem('checkboxValue')) || {}
+    //var $checkbox = $("#checkbox-container :checkbox");
+
+    //$checkbox.on("change", function () {
+    //    $checkbox.each(function () {
+    //        checkboxValue[this.id] = this.checked;
+    //    });
+    //    localStorage.setItem("checkboxValue", JSON.stringify(checkboxValue));
+    //});
+
+    ////on page load
+    //$.each(checkboxValue, function (key, value) {
+    //    $("#" + key).prop('checked', value);
+    //});
+
+    //$(function(){
+    //    var test = localStorage.input === 'true'? true: false;
+    //    $('input').prop('checked', test || false);
+    //});
+
+    //$('input').on('change', function() {
+    //    localStorage.input = $(this).is(':checked');
+    //    console.log($(this).is(':checked'));
+    //});
+</script>
+
+<script>
+    // document ready handler
+    // or $(document).ready(Function(){...
+    jQuery(function ($) {
+        var checkboxValue = JSON.parse(localStorage.getItem('checkboxValue')) || {}
+        var $checkbox = $("#checkbox-container :checkbox");
+
+        $checkbox.on("change", function () {
+            $checkbox.each(function () {
+                checkboxValue[this.id] = this.checked;
+            });
+            localStorage.setItem("checkboxValue", JSON.stringify(checkboxValue));
+        });
+
+        //on page load
+        $.each(checkboxValue, function (key, value) {
+            $("#" + key).prop('checked', value);
+        });
+    });
+</script>
+
 <style>
 	#rl:hover {
         text-decoration: underline;
        
 	}
+    .settingsBTN{
+        background-color: white;
+        border-color:white;
+        padding: 0px;
+        width: 30%;
+        color: white;
+        border: none;
+        cursor: pointer;
+        border-radius: 15px;
+        margin: 0px;
+    }
+
+    .switch1 {
+        position: relative;
+        display: inline-block;
+        width: 60px;
+        height: 34px;
+    }
+
+    .switch1 input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+
+    .slider:before {
+        position: absolute;
+        content: "";
+        height: 26px;
+        width: 26px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+
+    input:checked + .slider {
+        background-color: #2196F3;
+    }
+
+    input:focus + .slider {
+        box-shadow: 0 0 1px #2196F3;
+    }
+
+    input:checked + .slider:before {
+        -webkit-transform: translateX(26px);
+        -ms-transform: translateX(26px);
+        transform: translateX(26px);
+    }
+
+    /* Rounded sliders */
+    .slider.round {
+        border-radius: 34px;
+    }
+
+    .slider.round:before {
+        border-radius: 50%;
+    }
+
+    .dropdownItem1 {
+        z-index:1
+    }
+
+    .dropdownContent12 {
+        display: none;
+        position: absolute;
+        z-index: 1;
+        /*margin-left:%;*/
+    }
+
+    .dropdown123:hover .dropdownContent12 {
+        display: block;
+    }
+
+    .dropdown123 {
+        margin-left: 10px;
+        background-color: white;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+    }
+
+    
 </style>
 
 @{
@@ -22,7 +208,41 @@
     }
 }
 
-<ul class="navbar-nav" style="display:flex;align-content:end;">
+<ul class="navbar-nav" style="display:flex;align-content:end; width:30%; justify-content:end">
+
+    
+    
+    <div>
+        <div class="dropdown123" style="margin-top:15px; width:100%;">
+                <img src="~/images/settings.png" style="width:30px;margin-right:10px;">
+            <div class="dropdownContent12 bordercolor" style="background-color:white;padding:1%;">
+
+                <a class="dropdownItem1" style="display:flex;border-radius:15px;width:100%;padding:2%; text-decoration:none">
+                    <div style="margin-right:5px; margin-left:0px; text-decoration:none">
+                            <span class="" style="text-align:left;vertical-align:auto;color:black " >DarkMode</span>
+                       </div>
+                        <div id="checkbox-container" style="text-align:right;width:100%">
+                            <label class="switch1" >
+                            <input type="checkbox" id="myCheck" onclick="changeCSS(0);" value="DarkMode">
+                                <span class="slider round" style="text-align:right; "></span>
+                            </label>
+                        </div>
+                   </a>
+                <a class="dropdownItem1" style="display:flex;border-radius:15px;width:100%;padding:2%; text-decoration:none;margin:auto">
+                    <div style="margin-right:5px; margin-left:0px ;text-decoration:none">
+                        <span class="" style="text-align:left;text-decoration:none;color:black ">Português</span>
+                        </div>
+                        <div style="text-align:right; width:100%">
+                            <label class="switch1">
+                                <input type="checkbox">
+                                <span class="slider round" style="text-align:right; vertical-align:auto;"></span>
+                            </label>
+                        </div>
+                    </a>
+            </div>
+        </div>
+    </div>
+
     @if (SignInManager.IsSignedIn(User))
     {
         <li class="nav-item" style="align-self: center; margin-top: 5px; margin-right: -5px">
@@ -31,21 +251,26 @@
                 <a class="nav-link text-dark" id="rl" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"><img style="width:40px;height:40px; object-fit:cover; border-radius:30px" src="data:image/*;base64,@(Convert.ToBase64String(context.Profiles.Single(p => p.Id == UserManager.GetUserAsync(User).Result.ProfileId).Picture))"></a>
         }
         </li>
-        <li class="nav-item" style="font-size: 22px; margin-top: 2px">
+        <li class="nav-item" style="font-size: 22px; margin-top: 7px">
             <a class="nav-link text-dark" id="rl" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">@User.Identity!.Name</a>
 	    </li>
-        <li class="nav-item" style="font-size: 30px; margin-top: 1px">
+       @* <li class="nav-item" style="font-size: 30px; margin-top: 1px">
 		    /
-	    </li>
+	    </li>*@
         <li class="nav-item" style="margin-top: -8px;">
             <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="/">
-                <button type="submit" id="rl" style="font-size: 22px" class="nav-link btn btn-link text-dark">Logout</button>
+                <button type="submit" id="rl" style="font-size: 22px" class="nav-link btn btn-link text-dark settingsBTN">
+
+                    <img src="~/images/logout.png" style="width:30px;text-align:center;margin-top: 25px;margin-right:3px;">
+
+                </button>
+                
             </form>
         </li>
     }
     else
     {
-	   <div style="width:20%; display:flex;">
+	   
 	        <li class="nav-item">
                 <a class="nav-link text-dark" id="rl" style="font-size: 25px; border-left: 1.6px solid Black" asp-area="Identity" asp-page="/Account/Register" asp-route-returnUrl="@returnUrl">Register </a>
 	        </li>
@@ -55,6 +280,9 @@
             <li class="nav-item">
                 <a class="nav-link text-dark" id="rl" style="font-size: 25px;" asp-area="Identity" asp-page="/Account/Login" asp-route-returnUrl="@returnUrl">Login</a>
             </li>
-        </div>
+        
+        
+        
     }
+    @*</div>*@
 </ul>

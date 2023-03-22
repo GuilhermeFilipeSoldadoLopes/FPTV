@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using FPTV.Models.UserModels;
 using FPTV.Data;
+using System.Diagnostics.Metrics;
 
 namespace FPTV.Areas.Identity.Pages.Account.Manage
 {
@@ -96,63 +97,21 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
         public async Task<IActionResult> OnGetAsync()
         {
             var user = await _userManager.GetUserAsync(User);
+
             if (user == null)
             {
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
+
             var profile = _context.Profiles.Single(p => p.Id == user.ProfileId);
+
+            ViewData["CountryImage"] = "/images/Flags/1x1/" + profile.Country + ".svg";
+            ViewData["FavPlayerList"] = _context.FavPlayerList.Where(fpl => fpl.ProfileId == profile.Id).ToList();
+            ViewData["FavTeamsList"] = _context.FavTeamsList.Where(ftl => ftl.ProfileId == profile.Id).ToList();
+            ViewData["Topics"] = _context.Topics.Where(t => t.ProfileId == profile.Id).ToList();
 
             await LoadAsync(user, profile);
             return Page();
-        }
-
-        public async Task<IActionResult> OnPostAsync()
-        {
-            var user = await _userManager.GetUserAsync(User);
-            var profile = _context.Profiles.Single(p => p.Id == user.ProfileId);
-            if (user == null)
-            {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
-            }
-
-            if (!ModelState.IsValid)
-            {
-                await LoadAsync(user, profile);
-                return Page();
-            }
-            
-            var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
-            if (Input.PhoneNumber != phoneNumber)
-            {
-                var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, Input.PhoneNumber);
-                if (!setPhoneResult.Succeeded)
-                {
-                    StatusMessage = "Unexpected error when trying to set phone number.";
-                    return RedirectToPage();
-                }
-            }
-
-            var country = profile.Country;
-            if (Input.Country != country) 
-            {
-                profile.Country = Input.Country;
-                await _context.SaveChangesAsync();
-            }
-
-            if (Request.Form.Files.Count > 0)
-            {
-                IFormFile file = Request.Form.Files.FirstOrDefault();
-                using (var dataStream = new MemoryStream())
-                {
-                    await file.CopyToAsync(dataStream);
-                    profile.Picture = dataStream.ToArray();
-                }
-                await _context.SaveChangesAsync();
-            }
-
-            await _signInManager.RefreshSignInAsync(user);
-            StatusMessage = "Your profile has been updated";
-            return RedirectToPage();
         }
     }
 }

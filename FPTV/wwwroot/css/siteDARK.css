@@ -1,0 +1,224 @@
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+    font-family: Noto Sans;
+    
+}
+
+.darktheme {
+    background-color: #373737;
+}
+
+button {
+    background-color: #CC0033;
+    width: 30%;
+    color: white;
+    padding: 15px;
+    margin: 10px 0px;
+    border: none;
+    cursor: pointer;
+    border-radius: 15px;
+}
+
+textarea {
+    width: 100%;
+    margin: 8px 0;
+    padding: 12px;
+    border: 1px solid black;
+    border-radius: 15px;
+    resize: vertical;
+}
+
+.bodyLogin {
+    background-image: url('../images/valcs.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-family: Noto Sans;
+}
+
+.bodytemp {
+   /* width: 1920px;
+    height:1080px;*/
+    background-image: url('../images/tempo.png');
+    /*background-repeat: no-repeat;
+    background-size: cover;*/
+    font-family: Noto Sans;
+    background-color: black;
+}
+
+.form {
+    margin: auto;
+    width: 50%;
+   
+}
+
+.form p, a {
+    color: White;
+    font-family: Noto Sans;
+}
+
+.form-control {
+    width: 90%;
+    margin: auto;
+    padding: 12px;
+    border: 1px solid black;
+    border-radius: 15px;
+    resize: vertical;
+
+}
+
+.form-floating > label {
+    position: relative;
+    padding: 8px;
+}
+
+.form-control::-moz-placeholder {
+    color: black !important;
+}
+
+.form-control::placeholder {
+    color: black !important;
+}
+.box1 {
+    width: 40%;
+    height: 100%;
+    display: flex;
+    flex-flow: column wrap;
+    /*background-color: #373737;*/
+}
+.box1 p,h4{
+    color:white;
+}
+.dark {
+    background-color:dimgrey;
+}
+.darkcolor {
+    background-color: #373737;
+    color:white;
+}
+.darkcolor2 {
+    background-color: #373737;
+    
+}
+
+.whiteText{
+    color:white;
+}
+
+.borders {
+    border-top: 10px solid dimgrey;
+    padding: 20px
+}
+
+th {
+    border: 1px solid white;
+    /*padding: 10px;*/
+    text-align: center;
+}
+
+td {
+    border: 1px solid white;
+    padding: 10px;
+}
+.bordercolor {
+    border-color: #CC0033 !important;
+    border: 1px solid;
+    color:white;
+    border-radius:15px;
+}
+bordercolor2 {
+    border-color: #373737 !important;
+    border: 1px solid;
+    color: white;
+    border-radius: 15px;
+}
+.central {
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+    height: 100%;
+    /*background-color: white;*/
+}
+
+.btn1 {
+    background-color: #4b5b6e;
+    /*background-color: #e0eeff;*/
+    color: black;
+    width: 90%;
+    display: flex;
+    flex-direction: row;
+    border-bottom: 1px solid black;
+    border-radius: 0px;
+    color: white;
+}
+.bodycolor {
+    background-color: #373737;
+    color: white;
+}
+.tablecolors {
+    border-color: #373737;
+}
+.my-divColor {
+    color:white;
+}
+.colorformatch {
+    background-color: #373737
+}
+.tablestyle {
+    border-color: #373737
+}
+.tablestats {
+    background-color: #4b5b6e;
+    border:1px solid;
+    border-color: white;
+}
+.tablestats tr{
+    border: 1px solid;
+    border-color: white;
+}
+.dropselected {
+    background-color: lightgray;
+}
+
+.tableDetails {
+    
+    background-color: #373737;
+    border: 1px solid;
+    border-color: white;
+}
+.tableDetails tr {
+    border: 1px solid;
+    border-color: white;
+}
+    .tableDetails td {
+        border: 1px solid;
+        border-color: white;
+    }
+    .tableDetails th {
+        border: 1px solid;
+        border-color: white;
+    }
+.btnResult {
+    width: 30%;
+    margin: auto;
+    background-color: #373737;
+    font-size:25px;
+    border-radius:15px;
+}
+.selectedbtn{
+    text-decoration:underline;
+}

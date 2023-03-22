@@ -80,6 +80,7 @@
         margin: 10px;
     }
     
+    
     .my-div > div {
         flex-basis: 25%;
         flex-grow: 1;
@@ -193,7 +194,7 @@
     }
 </style>
 <body class="bodytemp">
-    <div class="" style="background-color:white;padding:1%;">
+    <div class="" style="padding:1%;">
         <div class="buttons">
             <div class="dropdown">
                 <button class="button2">Sort by</button>
@@ -212,43 +213,40 @@
             </div>
 
         </div>
-        <div class="ola">
-            <div class="box" style="background-color:lightgrey;margin-top:0px">
+        <div class="ola " style="border-radius:15px;">
+            <div class="box darkcolor bordercolor" style="border-radius:15px;margin-top:0px;width:30%;padding:1%">
                 <h4 style="font-weight: bold;text-align:center;">Finished Matches</h4>
                 @foreach (var item in ViewBag.pastMatches)
                 {
-                    <div class="alinhar" style="border-bottom: 1px solid black">
-                        <div class="my-div2" style="width:90%;">
+                    <div class="alinhar bordercolor" style=" border-radius:15px;border-bottom: 1px solid black;  margin-top: 2%; margin-bottom: 2%">
+                        <div class="my-div2 my-divColor" style="width:90%;">
                             <div>
                                 <span class="span2" style="margin-top:10px;">@item.BeginAt.ToString("dd/MM/yyyy hh:mm")</span>
                             </div>
 
                             <div>
                                 <span style="text-align: center;">
+
                                     <p style="font-size:25px">
-                                        @foreach (var team in ViewBag.teams)
+                                        <img src=@item.TeamsList[0].Image alt="logo" style="width:15%">
+                                        <span> @item.TeamsList[0].Name </span>
+                                        @foreach (var team in item.Scores)
                                         {
-                                            @if (team.TeamCSAPIId == item.TeamsAPIIDList[0])
+                                            @if (item.TeamsList[0].Name == team.TeamName)
                                             {
-                                                <span> @team.Name </span>
+                                                <span class="span2"> @team.TeamScore </span>
                                             }
                                         }
-                                        @foreach (var result in ViewBag.results)
+                                        <span class="span2"> - </span>
+                                        @foreach (var team in item.Scores)
                                         {
-                                            @if (result.ContainsKey(item.TeamsAPIIDList[0]) && result.ContainsKey(item.TeamsAPIIDList[1]))
+                                            @if (item.TeamsList[1].Name == team.TeamName)
                                             {
-                                                <span class="span2"> @result[item.TeamsAPIIDList[0]]</span>
-                                                <span class="span2"> vs </span>
-                                                <span class="span2"> @result[item.TeamsAPIIDList[1]]</span>
+                                                <span class="span2"> @team.TeamScore </span>
                                             }
                                         }
-                                        @foreach (var team in ViewBag.teams)
-                                        {
-                                            @if (team.TeamCSAPIId == item.TeamsAPIIDList[1])
-                                            {
-                                                <span> @team.Name </span>
-                                            }
-                                        }
+                                        <span> @item.TeamsList[1].Name </span>
+                                        <img src=@item.TeamsList[1].Image alt="logo" style="width:15%">                                      
                                     </p>
                                 </span>
                             </div>
@@ -261,96 +259,74 @@
                     </div>
                 }
             </div>
-            <div class="box" style="margin-top:0px">
-                <table>
+            <div class="box bordercolor" style="margin-top:0px; border-radius:15px;margin-left: 2%;margin-right: 2%; width:60%">
+                <table class="colorformatch tablecolors" style="width:100%; border-radius:15px;">
                     @foreach (var item in ViewBag.runningMatches)
                     {
-                        <tr>
-                            <td style="border-color:white">
-                                <div class="my-div2" style="width:100%;background-color:lightgrey">
+                        <tr  style="border-radius:15px; width:100%">
+                            <td class="tablecolors" style="width:100%; border-radius:15px;">
+                                <div class="my-div2 colorformatch" style="width:100%;">
                                     <div style="text-align:center">
                                         <h4 style="font-weight: bold;text-align:center;">@item.EventName</h4>
                                     </div>
-                                    <div>
-                                        <table style="margin:auto;text-align:center;">
+                                    <div class="bordercolor" style="border-radius:15px;">
+                                        <table class="bordercolor2" style="margin:auto;text-align:center;">
                                             <tr>
-                                                <td style="border-color:lightgrey">
-                                                    @foreach (var team in ViewBag.teams)
-                                                    {
-                                                        @if (team.TeamCSAPIId == item.TeamsAPIIDList[0])
-                                                        {
-                                                            <span>
-                                                                <img src=@team.Image width="82px" height="auto" />
-                                                            </span>
-                                                        }
-                                                    }
+                                                <td class="tablecolors" style="">
+                                                    <span>
+                                                        <img src=@item.TeamsList[0].Image width="82px" height="auto" />
+                                                    </span>
                                                 </td>
-                                                <td style="border-color:lightgrey">
-                                                    <h4 style="font-weight: bold;text-align: center;">Live</h4>
+                                                <td class="tablecolors">
+                                                    <img src="/images/live.png" style="width: 35%">
                                                 </td>
-                                                <td style="border-color:lightgrey">
-                                                    @foreach (var team in ViewBag.teams)
-                                                    {
-                                                        @if (team.TeamCSAPIId == item.TeamsAPIIDList[1])
-                                                        {
-                                                            <span>
-                                                                <img src=@team.Image width="82px" height="auto" />
-                                                            </span>
-                                                        }
-                                                    }
+                                                <td class="tablecolors">
+                                                    <span>
+                                                        <img src=@item.TeamsList[1].Image width="82px" height="auto" />
+                                                    </span>
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td style="border-color:lightgrey">
-                                                    @foreach (var team in ViewBag.teams)
-                                                    {
-                                                        @if (team.TeamCSAPIId == item.TeamsAPIIDList[0])
-                                                        {
-                                                            <span> @team.Name </span>
-                                                        }
-                                                    }
-                                                </td>
-                                                <td style="border-color:lightgrey">
+                                                <td class="tablecolors">
+                                                    <span> @item.TeamsList[0].Name </span>
+                                                <td class="tablecolors">
                                                     <span>vs</span>
                                                 </td>
-                                                <td style="border-color:lightgrey">
-                                                    @foreach (var team in ViewBag.teams)
-                                                    {
-                                                        @if (team.TeamCSAPIId == item.TeamsAPIIDList[1])
-                                                        {
-                                                            <span> @team.Name </span>
-
-                                                            <br />
-                                                        }
-                                                    }
+                                                <td class="tablecolors">
+                                                    <span> @item.TeamsList[0].Name </span>
                                                 </td>
                                             </tr>
                                             <tr>
-                                                @foreach (var result in ViewBag.results)
+                                                @foreach (var team in item.Scores)
                                                 {
-                                                    @if (result.ContainsKey(item.TeamsAPIIDList[0]) && result.ContainsKey(item.TeamsAPIIDList[1]))
+                                                    @if (item.TeamsList[0].Name == team.TeamName)
                                                     {
-                                                        <td style="border-color:lightgrey">
-                                                            <span class="span2"> @result[item.TeamsAPIIDList[0]]</span>
+                                                        <td class="tablecolors">
+                                                            <span class="span2"> @team.TeamScore </span>
                                                         </td>
-                                                        <td style="border-color:lightgrey">
-                                                            <span class="span2"> - </span>
+                                                    }
+                                                }
+                                                <td class="tablecolors">
+                                                    <span class="span2"> vs </span>
+                                                </td>
+                                                @foreach (var team in item.Scores)
+                                                {
+                                                    @if (item.TeamsList[1].Name == team.TeamName)
+                                                    {
+                                                        <td class="tablecolors">
+                                                            <span class="span2"> @team.TeamScore </span>
                                                         </td>
-                                                        <td style="border-color:lightgrey">
-                                                            <span class="span2"> @result[item.TeamsAPIIDList[1]]</span>
-                                                        </td>
-                                                        break;
                                                     }
                                                 }
                                             </tr>
                                             <tr>
-                                                <td style="border-color:lightgrey">
+                                                <td class="tablecolors">
                                                     <p>Best of @item.NumberOfGames</p>
                                                 </td>
-                                                <td style="border-color:lightgrey">
+                                                <td class="tablecolors">
                                                     <p/>
                                                 </td>
-                                                <td style="border-color:lightgrey">
+                                                <td class="tablecolors">
                                                     <a href="#">More details</a>
                                                 </td>
                                             </tr>
@@ -362,35 +338,24 @@
                     }
                 </table>
             </div>
-            <div class="box" style="background-color:lightgrey;margin-top:0px">
+
+            <div class="box darkcolor bordercolor" style="margin-top:0px; border-radius:15px;width:30%; padding:1%">
                 <h4 style="font-weight: bold;text-align:center;">Upcoming Matches</h4>
                 @foreach (var item in ViewBag.upcomingMatches)
                 {
-                    <div class="alinhar" style="border-bottom: 1px solid black">
-                        <div class="my-div2" style="width:90%;">
+                    <div class="alinhar bordercolor" style="border-bottom: 1px solid black; border-radius:15px; margin-top: 2%; margin-bottom: 2%;">
+                        <div class="my-div2 " style="width:90%;">
                             <div>
                                 <span class="span2" style="margin-top:10px;">@item.BeginAt.ToString("dd/MM/yyyy hh:mm")</span>
                             </div>
                             <div>
                                 <span style="text-align: center;">
                                     <p style="font-size:25px">
-                                        @foreach (var team in ViewBag.teams)
-                                        {
-                                            @if (team.TeamCSAPIId == item.TeamsAPIIDList[0])
-                                            {
-                                                <span> @team.Name </span>
-                                            }
-                                        }
-                                        <span class="span2">  </span>
+                                        <img src=@item.TeamsList[0].Image alt="logo" style="width:15%">
+                                        <span> @item.TeamsList[0].Name </span>
                                         <span class="span2"> vs </span>
-                                        <span class="span2">  </span>
-                                        @foreach (var team in ViewBag.teams)
-                                        {
-                                            @if (team.TeamCSAPIId == item.TeamsAPIIDList[1])
-                                            {
-                                                <span> @team.Name </span>
-                                            }
-                                        }
+                                        <span> @item.TeamsList[1].Name </span>
+                                        <img src=@item.TeamsList[1].Image alt="logo" style="width:15%">
                                     </p>
                                 </span>
                             </div>

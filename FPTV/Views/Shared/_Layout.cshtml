@@ -7,21 +7,46 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - FPTV</title>
+	<link rel="stylesheet" type="text/css" href="~/css/site.css" asp-append-version="true" />
+	
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" /> 
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/FPTV.styles.css" asp-append-version="true" />
     <link rel="icon" type="image/png" href="~/favicon.ico" />
-    
+
+		<script type="text/javascript">
+			window.onload = function() {
+				var url = window.location.href;
+				var activeTab = url.substring(url.indexOf("/") + 1);
+				var menuTab = document.getElementById('activeTab');
+				element.style.fontWeight = "bold";
+				console.log(activeTab);
+				console.log(menuTab);
+			}
+		</script>
+		<script src="https://js.pusher.com/4.0/pusher.min.js"></script>
+		<script>
+			// Enable pusher logging - don't include this in production
+			Pusher.logToConsole = true;
+
+			var pusher = new Pusher('PUSHER_APP_KEY', {
+				cluster:'PUSHER_APP_CLUSTER'
+			});
+
+			var channel = pusher.subscribe('general');
+
+			channel.bind('newVisit', function(data) {
+
+			  var visits = data.visits;
+			  var message = data.message;
+			  $('#noOfVisitors').text( visits );
+			  $('#visitorsText').text( message );
+			});
+		</script>
+		<script src="~/lib/jquery/dist/jquery.min.js"></script>
+		<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+		<script src="~/js/site.js" asp-append-version="true"></script>
+
     <style>
-		
-		/*#menu {
-			margin-right: 4%;
-			margin-left: 4%;
-		    color: #000;
-			cursor: pointer;
-		    display: inline-block;
-		}
-*/
 		#buttonMenu:hover {
 			background-color: transparent;
 			border: 2px solid #DE3C3C;
@@ -30,11 +55,23 @@
 			transition: all .15s ease-in-out;
 			color: #DE3C3C;
 			box-shadow: 0 0 5px 0 #DE3C3C inset, 0 0 10px 1px #DE3C3C;
-			
 		}
+
+		.leftitem{
+			justify-content:flex-end;
+		}
+
+		.btndrop{
+			background-color: transparent;
+			border-radius: 20px;			
+		}
+
+		
     </style>
 </head>
 <body>
+	
+
 <header>
 		<div>
 			<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3" style="margin-top: -5px;width:100%;text-align:center">
@@ -45,11 +82,34 @@
 					<span class="navbar-toggler-icon"></span>
 				</button>
 					<div style="width:100%; display:flex;">
-				<div class="navbar-collapse collapse d-sm-inline-flex justify-content-between" style="margin:auto; text-align:center">
+				<div class="navbar-collapse collapse d-sm-inline-flex justify-content-between" style="margin:auto; text-align:center;">
 					<ul class="navbar-nav flex-grow-1" style="display:flex;">
 						<li class="nav-item" id="menu" style="width:20%; margin:auto">
-								<a class="nav-link text-dark" id="buttonMenu" style="font-weight: bold; font-size: 24px;" asp-area="Home" asp-controller="Home" asp-action="Index">@*Game*@CS:GO</a>
+							@*-----------------------------dropdown para CSGO e VALORANT-------------------------*@
+							<div class="dropdown123" style=" width:100%;">
+								<a class="nav-link text-dark" id="buttonMenu" style="font-weight: bold; font-size: 24px; " asp-area="Home" asp-controller="Home" asp-action="Index">@*Game*@CS:GO</a>
+								<div class="dropdownContent12 bordercolor " style="background-color:white;padding:1%; width:10%;margin:auto">
+
+									<a class="dropdownItem1 bordercolor" style="display:flex;border-radius:15px;width:90%;padding:1%; text-decoration:none; text-align:center;">
+										<button class="btndrop"  style="width:100%;text-align:center">
+											<div style="text-decoration:none;">
+														<span class="" style="color:black ; font-weight:bold ; width:100%;margin:auto">VALORANT</span>
+											</div>
+										</button>
+									</a>
+
+									<a class="dropdownItem1 dropselected bordercolor" style="display:flex;border-radius:15px;width:90%;padding:1%; text-decoration:none; text-align:center;margin-top:3px">
+										<button class="btndrop"  style="width:100%;text-align:center">
+											<div style="text-decoration:none;">
+														<span class="" style="color:black ; font-weight:bold ; width:100%;margin:auto">CS:GO</span>
+											</div>
+										</button>
+									</a>
+											
+								</div>
+							</div>
 						</li>
+						@*-------------------------------------------------------------*@
 						<li class="nav-item" id="menu" style="width:20%; margin:auto">
 								<a class="nav-link text-dark" id="buttonMenu" style="font-size: 24px;" asp-area="" asp-controller="Home" asp-action="Matches">Matches</a>
 						</li>
@@ -65,9 +125,12 @@
 						<li class="nav-item" id="menu" style="width:20%; margin:auto">
 								<a class="nav-link text-dark" id="buttonMenu" style="font-size: 24px;" asp-area="" asp-controller="Stats" asp-action="getPlayer">About</a>
 						</li>
+								
 					</ul>
 				</div>
+
 					<div class="navbar-nav flex-grow-1" style="justify-content: end;">
+						
 					@{
 						var result = Engine.FindView(ViewContext, "_LoginPartial", isMainPage: false);
 					}
@@ -93,90 +156,12 @@
         </main>
     </div>
 
-	<footer class="border-top footer text-muted" style="background-color: white">
+	<footer class="border-top footer text-muted" style="background-color: white;">
 		<div class="container" style="color: black; margin-left: 4%">
 			&copy; 2023 - FPTV - <a asp-area="" style="color: black;" asp-controller="Home" asp-action="Privacy">Privacy</a>
 		</div>
 	</footer>
-	<script src="https://js.pusher.com/4.0/pusher.min.js"></script>
-	<script>
-		window.onload = function() {
-		    var url = window.location.href;)
-		    var activeTab = url.substring(url.indexOf("/") + 1);
-		    var menuTab = document.getElementById('activeTab');
-		    element.style.fontWeight = "bold";
-			console.log(activeTab);
-			console.log(menuTab);
-		}
-	</script>
-@*<script>
-		document.addEventListener('click', (e) => {
-			// Retrieve id from clicked element
-			let elementId = e.target.id;
-			
-			// If element has id
-			if (elementId !== 'buttonMenu') {
-				e.target.fontWeight = "bold";
-			}
-			// If element has no id
-			else {
-				console.log("An element without an id was clicked.");
-			}
-		}
-		);
-	</script>
-	<script>
-		// A little bit of JavaScript to make
-		// the items clickable
-		const anchors = Array.from(document.getElementById("buttonMenu"))
 
-		anchors.forEach(a => {
-		a.addEventListener('click', function(e) {
-		anchors.forEach(a => {
-		a.classList.remove('is-active')
-		})
-
-		e.currentTarget.classList.add('is-active')
-		})  
-		})
-	</script>
-	<script>
-		function change(){
-			var elements  = document.getElementById("buttonMenu");
-			for(var i = 0; i < elements .length; i++) {
-				
-			}
-	        if(document.getElementById("buttonMenu").style.fontWeight != "bold"){
-	            document.getElementById("buttonMenu").style.fontWeight="bold";
-	            
-	        }
-	        else{
-	            document.getElementById("buttonMenu").style.fontWeight="normal";
-	            
-	        }
-		}
-	</script>*@
-	<script>
-        // Enable pusher logging - don't include this in production
-        Pusher.logToConsole = true;
-
-        var pusher = new Pusher('PUSHER_APP_KEY', {
-            cluster:'PUSHER_APP_CLUSTER'
-        });
-
-        var channel = pusher.subscribe('general');
-
-        channel.bind('newVisit', function(data) {
-
-          var visits = data.visits;
-          var message = data.message;
-          $('#noOfVisitors').text( visits );
-          $('#visitorsText').text( message );
-        });
-    </script>
-	<script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

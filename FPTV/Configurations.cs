@@ -37,6 +37,7 @@ namespace FPTV
             profile.Picture = System.IO.File.ReadAllBytes(adminImage);
             profile.User = admin;
             profile.RegistrationDate = new DateTime();
+            profile.Country = "pt";
 			admin.Profile = profile;
             _context.Profiles.Add(profile);
 
@@ -83,7 +84,8 @@ namespace FPTV
             profile1.Picture = System.IO.File.ReadAllBytes(moderatorImage);
             profile1.User = moderator_AD;
             profile1.RegistrationDate = new DateTime();
-			moderator_AD.Profile = profile1;
+            profile1.Country = "pt";
+            moderator_AD.Profile = profile1;
             _context.Profiles.Add(profile1);
 
             moderator_AD.EmailConfirmed = true;
@@ -106,7 +108,8 @@ namespace FPTV
             profile2.Picture = System.IO.File.ReadAllBytes(moderatorImage);
             profile2.User = moderator_GL;
             profile2.RegistrationDate = new DateTime();
-			moderator_GL.Profile = profile2;
+            profile2.Country = "pt";
+            moderator_GL.Profile = profile2;
             _context.Profiles.Add(profile2);
 
             moderator_GL.EmailConfirmed = true;
@@ -129,7 +132,8 @@ namespace FPTV
             profile3.Picture = System.IO.File.ReadAllBytes(moderatorImage);
             profile3.User = moderator_MR;
             profile3.RegistrationDate = new DateTime();
-			moderator_MR.Profile = profile3;
+            profile3.Country = "pt";
+            moderator_MR.Profile = profile3;
             _context.Profiles.Add(profile3);
 
             moderator_MR.EmailConfirmed = true;
@@ -152,7 +156,8 @@ namespace FPTV
             profile4.Picture = System.IO.File.ReadAllBytes(moderatorImage);
             profile4.User = moderator_NR;
             profile4.RegistrationDate = new DateTime();
-			moderator_NR.Profile = profile4;
+            profile4.Country = "pt";
+            moderator_NR.Profile = profile4;
             _context.Profiles.Add(profile4);
 
             moderator_NR.EmailConfirmed = true;
@@ -174,6 +179,7 @@ namespace FPTV
             profile5.Picture = System.IO.File.ReadAllBytes(moderatorImage);
             profile5.User = moderator_RP;
             profile5.RegistrationDate = new DateTime();
+            profile5.Country = "pt";
             moderator_RP.Profile = profile5;
             _context.Profiles.Add(profile5);
 
@@ -196,6 +202,7 @@ namespace FPTV
             profile6.Picture = System.IO.File.ReadAllBytes(moderatorImage);
             profile6.User = moderator_JA;
             profile6.RegistrationDate = new DateTime();
+            profile6.Country = "pt";
             moderator_JA.Profile = profile6;
             _context.Profiles.Add(profile6);
 

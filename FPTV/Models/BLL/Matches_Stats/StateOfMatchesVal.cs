@@ -4,6 +4,16 @@
     {
         public string? GetMatchesFilterBy(string filter)
         {
+			return filter.ToLower() switch
+			{
+				"timetype" => null,
+				"have_stats" => null,
+				"live_suported" => null,
+				"event_name" => null,
+				_ => null,
+			};
+
+			/*
             switch (filter.ToLower())
             {
                 case "timetype":
@@ -23,11 +33,21 @@
                     break;
 
                 default: return null;
-            }
-        }
+            } 
+             */
+		}
 
         public string? GetMatchesSortBy(string sort)
         {
+			return sort.ToLower() switch
+			{
+				"event_name" => null,
+				"oldest" => null,
+				"newest" => null,
+				_ => null,
+			};
+
+			/*
             switch (sort.ToLower())
             {
                 case "event_name":
@@ -44,6 +64,7 @@
 
                 default: return null;
             }
-        }
-    }
+             */
+		}
+	}
 }

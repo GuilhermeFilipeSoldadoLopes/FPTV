@@ -1,117 +1,325 @@
 ﻿@page
-@model IndexModel
+@model DeleteModel
 @{
     ViewData["Title"] = "Profile";
     ViewData["ActivePage"] = ManageNavPages.Index;
 }
 
-<div class="row"style="width:100%;">
-    <div class="col-md-3" style="position:relative;">
-        <div style="width=100%;text-align:center;">
-            <h1>CS:GO</h1>
-        </div>
-        <br />
+<style>
+    .box1 {
+        width: 40%;
+        height: 100%;
+        display: flex;
+        flex-flow: column wrap;
+    }
 
-        <div style="width:80%;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:gray;border-width:2px;border-radius:10px;padding:10px;">
-            <h4 >Favourite Players:</h4>
-            <div style="padding-left:20px;">
-                Player 1<br />
-                Player 2<br />
-                Player 3<br />
-                Player 4<br />
-                Player 5<br />
-                Player 6<br />
-                Player 7<br />
+    .box {
+        width: 50%;
+        height: 100%;
+        display: flex;
+        flex-flow: column wrap;
+        margin-top: 60%;
+    }
+
+    .logo {
+        max-width: 100%;
+        height: auto;
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 95%;
+    }
+
+    th {
+        border: 1px solid black;
+        padding: 10px;
+    }
+
+    td {
+        border: 1px solid black;
+        padding: 10px;
+    }
+
+    h3 {
+        text-align: center;
+    }
+
+    .box2 {
+        width: calc(95% / 2);
+        height: 20%;
+        display: inline-block;
+    }
+
+    caption {
+        color: black;
+        text-decoration: underline;
+    }
+
+    .alinhar {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .alinhar2 {
+        display: inline-block;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .center {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .my-div {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        height: 50px;
+        margin: 10px;
+    }
+
+
+        .my-div > div {
+            flex-basis: 25%;
+            flex-grow: 1;
+        }
+
+    .my-div2 > div {
+        width: 100%
+    }
+
+    span {
+        font-weight: bold;
+    }
+
+
+    .span2 {
+        font-weight: normal;
+    }
+
+    .span3 {
+        font-weight: normal;
+    }
+
+    .central {
+        text-align: center;
+        background-color: white;
+    }
+
+    .ola {
+        display: flex;
+        align-self: flex-start;
+    }
+
+    .buttons {
+        display: flex;
+        margin-bottom: 30px;
+        margin-right: 25%;
+        justify-content: right;
+    }
+
+    .search-container {
+        display: flex;
+        align-items: center;
+    }
+
+    .dropdown-content a {
+        background-color: white;
+        display: block;
+        color: #000;
+        padding: 10px;
+        text-decoration: none;
+        border: 1px solid black;
+    }
+
+    .dropdown {
+        margin-left: 10px;
+        background-color: #e0eeff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+        border: 1px solid black;
+    }
+
+    .dropdown-content a:hover {
+        background-color: #bf7b8e;
+    }
+
+    .button2 {
+        background-color: #e0eeff;
+        color: black;
+        width: 100%;
+        padding: 10px 20px;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        z-index: 1;
+        margin-left: 5%;
+    }
+
+    .button:hover {
+        background-color: #2980b9;
+    }
+
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+
+    .central {
+        width: 100%;
+        margin: 0 auto;
+        text-align: center;
+        height: 100%;
+        background-color: white;
+    }
+
+    .search-container input[type="text"] {
+        background-color: #e0eeff;
+        color: black;
+        width: 100%;
+        padding: 10px 20px;
+        border: 1px solid black;
+    }
+
+    .search-container img {
+        margin-right: 10px;
+        height: 30px;
+        width: 30px;
+    }
+</style>
+
+<body class="bodyLogin">
+    <div class="ola " style="border-radius:15px;">
+        <div class="box darkcolor bordercolor" style="border-radius:15px;margin-top:0px">
+            <div style="width:100%;text-align:center;">
+                <h1>CS:GO</h1>
             </div>
-        </div>
-        <br />
+            <br />
 
-        <div style="width:80%;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:gray;border-width:2px;border-radius:10px">
-            <h4>Favourite Teams:</h4>
-            <div style="padding-left:20px;">
-                Team 1<br />
-                Team 2<br />
-                Team 3<br />
-                Team 4<br />
-                Team 5<br />
-                Team 6<br />
-                Team 7<br />
+            <div style="width:80%;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:black;background-color:white;border-width:1px;border-radius:10px;padding:10px;">
+                <h4 >Favourite Players:</h4>
+                <div style="padding-left:20px">
+                    <span class="span2"> Player 1 </span>
+                    <img src="~/images/trash.png" style="width:20px;height:20px;" />
+                    <br />
+                    <span class="span2"> Player 2 </span>
+                    <img src="~/images/trash.png" style="width:20px;height:20px;" />
+                    <br />
+                    <span class="span2"> Player 3 </span>
+                    <img src="~/images/trash.png" style="width:20px;height:20px;" />
+                    <br />
+                    <span class="span2"> Player 4 </span>
+                    <img src="~/images/trash.png" style="width:20px;height:20px;" />
+                    <br />
+                </div>
             </div>
+            <br />
+
+            <div style="width:80%;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:black;background-color:white;border-width:1px;border-radius:10px;padding:10px;">
+                <h4>Favourite Teams:</h4>
+                <div style="padding-left:20px">
+                    <span class="span2"> Team 1 </span>
+                    <img src="~/images/trash.png" style="width:20px;height:20px;" />
+                    <br />
+                    <span class="span2"> Team 2 </span>
+                    <img src="~/images/trash.png" style="width:20px;height:20px;" />
+                    <br />
+                    <span class="span2"> Team 3 </span>
+                    <img src="~/images/trash.png" style="width:20px;height:20px;" />
+                    <br />
+                    <span class="span2"> Team 4 </span>
+                    <img src="~/images/trash.png" style="width:20px;height:20px;" />
+                    <br />
+                </div>
+            </div>
+            <br />
         </div>
-    </div>
 
-    <div class="col-md-6" style="position:relative;">
-        <img style="width:30px;height:30px;position:absolute;top:2px;right:10%;align-items:center;" src="~/images/Edit.png">
+        <div class="box bordercolor" style="margin-top:0px;position:relative;border-width:0px;width:70%">
+            <form id="profile-form" method="Edit/post" enctype="multipart/form-data">
+                <img id="profilePicture" style="width:284px;height:284px;display:block;margin-left:auto;margin-right:auto;object-fit:cover;border-radius:50%" src="data:image/*;base64,@(Convert.ToBase64String(Model.Input.ProfilePicture))">
 
-        <img id="profilePicture" style="width:284px;height:284px;display:block;margin-left:auto;margin-right:auto;object-fit:cover" src="data:image/*;base64,@(Convert.ToBase64String(Model.Input.ProfilePicture))">
-        <br />
-
-        <div style="width:90%;position:relative;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:gray;border-width:2px;border-radius:10px;padding:10px;">
-            @Model.Input.Username
-            <img style="height:50%;width:auto;position:absolute;top:25%;right:10px;" src="~/images/Edit.png">
-        </div>
-        <br />
-
-        <div style="width:90%;position:relative;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:gray;border-width:2px;border-radius:10px;padding:10px;">
-            @if (Model.Input.Bio != null)
-            {
-                @Model.Input.Bio
-            }
-            else
-            {
+                <input type="file"
+                       accept=".png,.jpg,.jpeg,.gif,.tif"
+                       asp-for="Input.ProfilePicture"
+                       class="form-control"
+                       style="border:0px!important;padding: 0px;padding-top: 10px;padding-bottom: 30px;"
+                       onchange="document.getElementById('profilePicture').src = window.URL.createObjectURL(this.files[0])" />
+                <span asp-validation-for="Input.ProfilePicture" class="text-danger"></span>
                 <br />
-            }
-        </div>
-        <br />
+                <div style="width:90%;position:relative;display:block;margin-left:auto;margin-right:auto;">
+                    <input asp-for="Input.Country" class="form-control" />
+                </div>
+                <br />
+                <div style="width:90%;position:relative;display:block;margin-left:auto;margin-right:auto;">
+                    <input asp-for="Input.Username" class="form-control"/>
+                </div>
+                <br />
 
-        <div style="width:90%;position:relative;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:gray;border-width:2px;border-radius:10px;padding:10px;">
-            <h4>Topics:</h4>
-            <div style="padding-left:20px">
-                Topic 1<br />
-                Topic 2<br />
-                Topic 3<br />
-                Topic 4<br />
-                Topic 5<br />
-                Topic 6<br />
-                Topic 7<br />
+                <div style="width:90%;position:relative;display:block;margin-left:auto;margin-right:auto;">
+                    <input asp-for="Input.Bio" class="form-control"/>
+                </div>
+
+                <button id="update-profile-button" type="submit" class="button">Save</button>
+                <button id="update-profile-button" class="button">Cancel</button>
+            </form>
+        </div>
+        
+        <div class="box darkcolor bordercolor" style="border-radius:15px;margin-top:0px">
+            <div style="width:100%;text-align:center;">
+                <h1>Valorant</h1>
             </div>
+            <br />
+
+            <div style="width:80%;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:black;background-color:white;border-width:1px;border-radius:10px;padding:10px;">
+                <h4>Favourite Players:</h4>
+                <div style="padding-left:20px">
+                    <span class="span2"> Player 1 </span>
+                    <img src="~/images/trash.png" style="width:20px;height:20px;" />
+                    <br />
+                    <span class="span2"> Player 2 </span>
+                    <img src="~/images/trash.png" style="width:20px;height:20px;" />
+                    <br />
+                    <span class="span2"> Player 3 </span>
+                    <img src="~/images/trash.png" style="width:20px;height:20px;" />
+                    <br />
+                    <span class="span2"> Player 4 </span>
+                    <img src="~/images/trash.png" style="width:20px;height:20px;" />
+                    <br />
+                </div>
+            </div>
+            <br />
+
+            <div style="width:80%;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:black;background-color:white;border-width:1px;border-radius:10px;padding:10px;">
+                <h4>Favourite Teams:</h4>
+                <div style="padding-left:20px">
+                    <span class="span2"> Team 1 </span>
+                    <img src="~/images/trash.png" style="width:20px;height:20px;" />
+                    <br />
+                    <span class="span2"> Team 2 </span>
+                    <img src="~/images/trash.png" style="width:20px;height:20px;" />
+                    <br />
+                    <span class="span2"> Team 3 </span>
+                    <img src="~/images/trash.png" style="width:20px;height:20px;" />
+                    <br />
+                    <span class="span2"> Team 4 </span>
+                    <img src="~/images/trash.png" style="width:20px;height:20px;" />
+                    <br />
+                </div>
+            </div>
+            <br />
         </div>
     </div>
-
-    <div class="col-md-3" style="position:relative;">
-        <div style="width=100%;text-align:center;">
-            <h1>Valorant</h1>
-        </div>
-        <br />
-
-        <div style="width:80%;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:gray;border-width:2px;border-radius:10px;padding:10px;">
-            <h4>Favourite Players:</h4>
-            <div style="padding-left:20px">
-                Player 1<br />
-                Player 2<br />
-                Player 3<br />
-                Player 4<br />
-                Player 5<br />
-                Player 6<br />
-                Player 7<br />
-            </div>
-        </div>
-        <br />
-
-        <div style="width:80%;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:gray;border-width:2px;border-radius:10px">
-            <h4>Favourite Teams:</h4>
-            <div style="padding-left:20px">
-                Team 1<br />
-                Team 2<br />
-                Team 3<br />
-                Team 4<br />
-                Team 5<br />
-                Team 6<br />
-                Team 7<br />
-            </div>
-        </div>
-    </div>
-</div>
+</body>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

@@ -10,16 +10,16 @@ namespace FPTV.Models.Forum
 
         [Required]
         [Display(Name = "Reaction")]
-        public string? ReactionCode { get; set; } //rever o nome reactioncode //ReactionEmoji - o que achas?
+        public ReationType? ReactionEmoji { get; set; }
 
-        [Display(Name = "User Id")]
-        //[ForeignKey("User")]
-        public Guid UserId { get; set; }
+		//[Display(Name = "User ID")]
+		//[ForeignKey("ProfileId")]
+		//public Guid ProfileId { get; set; }
 
-        [Display(Name = "User")]
-        public virtual Profile? Profile { get; set; }
+		[Display(Name = "User")]
+        public Profile? Profile { get; set; }
 
         [Display(Name = "Comment")]
-        public virtual Comment? Comment { get; set; }
+        public Comment? Comment { get; set; }
     }
 }

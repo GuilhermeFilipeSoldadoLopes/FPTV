@@ -19,6 +19,10 @@
 		align-items: center;
 	}
 
+	tr, td, th{
+		border-width: 1px;
+	}
+
 </style>
 
 <body class="bodytemp">
@@ -29,22 +33,22 @@
 		<br><br>
 	</div>*@
 
-<div class="central">
+	<div class="box darkcolor bordercolor " style="text-align: center; border-radius:15px;margin-top:0px ;justify-content: center; align-items: center;">
 		<br>
-	<h2>Website Stats</h2>
-	<br>
-	<table class="table" style="text-align: center">
-		<tr>
-			<th style="width: 50%;">Number of registered accounts</th>
-			<th style="width: 50%;">Daily flow of users</th>
-
-		</tr>
-		<tr>
-			<td> <b id="noOfAccounts">@ViewData["accounts"]</b> <span id="accountText"> @ViewData["account_txt"] </span> </td>
-			<td> <b id="noOfVisitors">@ViewData["visitors"]</b> <span id="visitorsText"> @ViewData["visitors_txt"] </span> </td>
-		</tr>
-	</table>
-</div>
+		<h2 style="font-weight: bold;">Website Stats</h2>
+		<br>
+		<table style="width:80%; margin-left: auto; margin-right: auto;">
+			<tr>
+				<th style="width: 50%;">Number of registered accounts</th>
+				<th style="width: 50%;">Daily flow of users</th>
+			</tr>
+			<tr>
+				<td> <b id="noOfAccounts">@ViewData["accounts"]</b> <span id="accountText"> @ViewData["account_txt"] </span> </td>
+				<td> <b id="noOfVisitors">@ViewData["visitors"]</b> <span id="visitorsText"> @ViewData["visitors_txt"] </span> </td>
+			</tr>
+		</table>
+		<br>
+	</div>
 
 </body>
 

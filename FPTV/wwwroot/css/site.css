@@ -18,15 +18,9 @@ body {
     font-family: Noto Sans;
     
 }
-
-/*input[type=text], input[type=password] {
-    width: 100%;
-    margin: 8px 0;
-    padding: 12px 20px;
-    display: inline-block;
-    border: 1px solid black;
-    border-radius: 15px;
-}*/
+.darktheme {
+    background-color: lightgray;
+}
 
 button {
     background-color: #CC0033;
@@ -58,17 +52,17 @@ textarea {
 .bodytemp {
     width: 100%;
     background-image: url('../images/tempo.png');
-    background-repeat: no-repeat;
-    background-size: cover;
+    /*background-repeat: no-repeat;
+    background-size: cover;*/
     font-family: Noto Sans;
+   
 }
+
 
 .form {
     margin: auto;
     width: 50%;
-    /* background-color: #8b8b8b;
-    border-radius: 15px;
-    border: 1px solid black;*/
+    
 }
 
 .form p, a {
@@ -97,4 +91,131 @@ textarea {
 
 .form-control::placeholder {
     color: black !important;
+}
+.box1 {
+    width: 40%;
+    height: 100%;
+    display: flex;
+    flex-flow: column wrap;
+    /*background-color: lightgray;*/
+}
+    .box1 p, h4 {
+        color: black;
+    }
+
+.borders {
+    border-top: 10px solid white;
+    padding: 20px
+}
+
+th {
+    border: 1px solid black;
+    /*padding: 10px;*/
+    text-align: center;
+}
+
+td {
+    border: 1px solid black;
+    padding: 10px;
+}
+
+.darkcolor {
+    background-color: lightgray;
+    color: black;
+}
+.darkcolor2 {
+    background-color: lightgray;
+    
+}
+
+.dark {
+    background-color: white;
+}
+.bordercolor {
+    border-color: black !important;
+    border: 1px solid;
+    color: black;
+    border-radius: 15px;
+}
+bordercolor2 {
+    border-color: white !important;
+    border: 1px solid;
+    color: white;
+    border-radius: 15px;
+}
+.central {
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+    height: 100%;
+    /*background-color: white;*/
+}
+.whiteText {
+    color: black;
+}
+
+.btn1 {
+    
+    background-color: #e0eeff;
+    color: black;
+    width: 90%;
+    display: flex;
+    flex-direction: row;
+    border-bottom: 1px solid black;
+    border-radius: 0px;
+    color:black;
+}
+.bodycolor {
+    background-color: white;
+    color: black;
+}
+.tablecolors {
+    border-color: white;
+}
+.my-divColor {
+    color: black;
+}
+.colorformatch {
+    background-color: white;
+}
+.tablestyle {
+    border-color: white;
+}
+.tablestats {
+    background-color: white;
+    border:1px solid;
+    border-color: black;
+}
+.dropselected {
+    background-color: lightgray;
+}
+
+.tableDetails {
+    background-color: white;
+    border: 1px solid;
+    border-color: white;
+}
+.tableDetails tr {
+    border: 1px solid;
+    border-color: black;
+}
+    .tableDetails td {
+        border: 1px solid;
+        border-color: black;
+    }
+
+    .tableDetails th {
+        border: 1px solid;
+        border-color: black;
+    }
+.btnResult {
+    width: 30%;
+    margin: auto;
+    background-color: white;
+    font-size: 25px;
+    border-radius: 15px;
+}
+
+.selectedbtn {
+    text-decoration: underline;
 }

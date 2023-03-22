@@ -76,7 +76,16 @@ namespace FPTV.Controllers
 			ViewData["visitors"] = visitors;
 			ViewData["visitors_txt"] = visitText;
 
-			return View();
+            //if (System.IO.File.Exists("isDarkmode.txt"))
+            //{
+            //    System.IO.File.WriteAllText("isDarkmode.txt", "true");
+            //}
+            //else
+            //{
+            //    System.IO.File.WriteAllText("isDarkmode.txt", "false");
+            //}
+
+            return View();
         }
 
         public IActionResult Events()
@@ -106,6 +115,11 @@ namespace FPTV.Controllers
 			
 			return View();
 		}
+        public IActionResult Test()
+        {
+
+            return View();
+        }
 
         public IActionResult Matches()
         {

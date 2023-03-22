@@ -47,7 +47,7 @@ namespace FPTV.Controllers
 
         //De CSGO e de Valorant
         // GET: CSMatches
-        public ActionResult CSGOMatches(string sort = "", string filter = "", string page = "&page=1", string game = "csgo")
+        public async Task<ActionResult> CSGOMatches(string sort = "", string filter = "", string page = "&page=1", string game = "csgo")
         {
             //Request processing with RestSharp
             var jsonFilter = (filter == "" || filter == "livestream") ? "" : "filter[" + filter + "]=true&";
@@ -58,215 +58,32 @@ namespace FPTV.Controllers
             var requestLink = "https://api.pandascore.co/" + game + "/matches/";
 
             var fullApiPath = requestLink + "past?" + jsonFilter + jsonSort + jsonPage + jsonPerPage + token;
-            List<MatchesCS> pastMatches = getAPICSGOMatches(fullApiPath);
+            List<MatchesCS> pastMatches = getAPICSGOMatches(fullApiPath, game);
             fullApiPath = requestLink + "running?" + jsonFilter + jsonSort + jsonPage + jsonPerPage + token;
-            List<MatchesCS> runningMatches = getAPICSGOMatches(fullApiPath);
+            List<MatchesCS> runningMatches = getAPICSGOMatches(fullApiPath, game);
             fullApiPath = requestLink + "upcoming?" + jsonFilter + jsonSort + jsonPage + jsonPerPage + token;
-            List<MatchesCS> upcomingMatches = getAPICSGOMatches(fullApiPath);
+            List<MatchesCS> upcomingMatches = getAPICSGOMatches(fullApiPath, game);
 
-			List<int> dbMatchesIds = _context.MatchesCS.Select(m => m.MatchesCSAPIID).ToList();
-            List<Dictionary<int, int>> results = new List<Dictionary<int, int>>();
+            List<int> dbMatchesIds = _context.MatchesCS.Select(m => m.MatchesCSAPIID).ToList();
 
-			foreach (var matches in pastMatches)
-			{
-                var id = matches.MatchesCSAPIID;
-
-                if (!dbMatchesIds.Contains(id))
-                {
-                    _context.MatchesCS.Add(matches);
-
-					dbMatchesIds.Add(id);
-				}
-			}
-
-            List<MatchTeamsCS> teams = new List<MatchTeamsCS>();
-            List<int> dbTeamsIds = new List<int>();
-
-            foreach (var matches in pastMatches)
+            foreach (var match in pastMatches)
             {
-                var id = matches.MatchesCSAPIID;
+                Console.WriteLine(match.MatchesCSAPIID);
 
-                var client = new RestClient("https://api.pandascore.co/csgo/matches/past?filter[id]=" + id + "&sort=&page=1&per_page=50&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA");
-                var request = new RestRequest("", Method.Get);
-                request.AddHeader("accept", "application/json");
-                var json = client.Execute(request).Content;
-
-                if (json == null)
+                foreach (var item in match.TeamsList)
                 {
-                    break;
+                    Console.WriteLine(item.Name);
                 }
+                Console.WriteLine("");
 
-                var matchesArray = JArray.Parse(json);
-
-                foreach (var item in matchesArray.Cast<JObject>())
+                if (!dbMatchesIds.Contains(match.MatchesCSAPIID))
                 {
-                    var status = item.GetValue("status");
-
-                    if (!status.ToString().Equals("canceled"))
-                    {
-                        var opponentArray = (JArray)item.GetValue("opponents");
-                        var resultArray = (JArray)item.GetValue("results");
-
-                        foreach (var opponentObject in opponentArray.Cast<JObject>())
-                        {
-                            var opponent = (JObject)opponentObject.GetValue("opponent");
-
-                            var teamIdValue = opponent.GetValue("id");
-                            var teamImage = opponent.GetValue("image_url");
-                            var teamName = opponent.GetValue("name");
-                            var teamId = teamIdValue.ToString() == "" ? -1 : teamIdValue.Value<int>();
-
-                            var team = new MatchTeamsCS();
-                            team.TeamCSAPIId = teamId;
-                            team.Name = teamName.ToString() == "?" ? "undefined" : teamName.Value<string>();
-                            team.Image = teamImage.ToString() == "" ? "/images/logo1.jpg" : teamImage.Value<string>();
-
-                            if (!dbTeamsIds.Contains(team.TeamCSAPIId))
-                            {
-                                teams.Add(team);
-                                dbTeamsIds.Add(teamId);
-                            }
-                        }
-
-                        Dictionary<int, int> result = new Dictionary<int, int>();
-
-                        foreach (var resultObject in resultArray.Cast<JObject>())
-                        {
-                            var score = resultObject.GetValue("score");
-                            var team_id = resultObject.GetValue("team_id");
-
-                            var teamid = team_id.ToString() == null ? 1 : team_id.Value<int>();
-                            var points = score.ToString() == "" ? 0 : score.Value<int>();
-
-                            result.Add(teamid, points);
-                        }
-
-                        if(result.Count() == 2)
-                        {
-                            results.Add(result);
-                        }
-                    }
+                    _context.MatchesCS.Add(match);
                 }
             }
 
-            foreach (var matches in runningMatches)
-            {
-                var id = matches.MatchesCSAPIID;
-
-                var client = new RestClient("https://api.pandascore.co/csgo/matches/running?filter[id]=" + id + "&sort=&page=1&per_page=50&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA");
-                var request = new RestRequest("", Method.Get);
-                request.AddHeader("accept", "application/json");
-                var json = client.Execute(request).Content;
-
-                if (json == null)
-                {
-                    break;
-                }
-
-                var matchesArray = JArray.Parse(json);
-
-                foreach (var item in matchesArray.Cast<JObject>())
-                {
-                    var status = item.GetValue("status");
-
-                    if (!status.ToString().Equals("canceled"))
-                    {
-                        var opponentArray = (JArray)item.GetValue("opponents");
-                        var resultArray = (JArray)item.GetValue("results");
-
-                        foreach (var opponentObject in opponentArray.Cast<JObject>())
-                        {
-                            var opponent = (JObject)opponentObject.GetValue("opponent");
-
-                            var teamIdValue = opponent.GetValue("id");
-                            var teamImage = opponent.GetValue("image_url");
-                            var teamName = opponent.GetValue("name");
-                            var teamId = teamIdValue.ToString() == "" ? -1 : teamIdValue.Value<int>();
-
-                            var team = new MatchTeamsCS();
-                            team.TeamCSAPIId = teamId;
-                            team.Name = teamName.ToString() == "" ? "undefined" : teamName.Value<string>();
-                            team.Image = teamImage.ToString() == "" ? "/images/logo1.jpg" : teamImage.Value<string>();
-
-                            if (!dbTeamsIds.Contains(team.TeamCSAPIId))
-                            {
-                                teams.Add(team);
-                                dbTeamsIds.Add(teamId);
-                            }
-
-                            Dictionary<int, int> result = new Dictionary<int, int>();
-
-                            foreach (var resultObject in resultArray.Cast<JObject>())
-                            {
-                                var score = resultObject.GetValue("score");
-                                var team_id = resultObject.GetValue("team_id");
-
-                                var teamid = team_id.ToString() == null ? 1 : team_id.Value<int>();
-                                var points = score.ToString() == "" ? 0 : score.Value<int>();
-
-                                result.Add(teamid, points);
-                            }
-
-                            //result.;
-
-                            if (result.Count() == 2)
-                            {
-                                results.Add(result);
-                            }
-                        }
-                    }
-                }
-            }
-
-            foreach (var matches in upcomingMatches)
-            {
-                var id = matches.MatchesCSAPIID;
-
-                var client = new RestClient("https://api.pandascore.co/csgo/matches/upcoming?filter[id]=" + id + "&sort=&page=1&per_page=50&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA");
-                var request = new RestRequest("", Method.Get);
-                request.AddHeader("accept", "application/json");
-                var json = client.Execute(request).Content;
-
-                if (json == null)
-                {
-                    break;
-                }
-
-                var matchesArray = JArray.Parse(json);
-
-                foreach (var item in matchesArray.Cast<JObject>())
-                {
-                    var status = item.GetValue("status");
-
-                    if (!status.ToString().Equals("canceled"))
-                    {
-                        var opponentArray = (JArray)item.GetValue("opponents");
-
-                        foreach (var opponentObject in opponentArray.Cast<JObject>())
-                        {
-                            var opponent = (JObject)opponentObject.GetValue("opponent");
-
-                            var teamIdValue = opponent.GetValue("id");
-                            var teamImage = opponent.GetValue("image_url");
-                            var teamName = opponent.GetValue("name");
-                            var teamId = teamIdValue.ToString() == "" ? -1 : teamIdValue.Value<int>();
-
-                            var team = new MatchTeamsCS();
-                            team.TeamCSAPIId = teamId;
-                            team.Name = teamName.ToString() == "" ? "undefined" : teamName.Value<string>();
-                            team.Image = teamImage.ToString() == "" ? "/images/logo1.jpg" : teamImage.Value<string>();
-
-                            if (!dbTeamsIds.Contains(team.TeamCSAPIId))
-                            {
-                                teams.Add(team);
-                                dbTeamsIds.Add(teamId);
-                            }
-                        }
-                    }
-                }
-            }
-
-			//_context.SaveChanges();
+            //para nao dar erro
+            await _context.SaveChangesAsync();
 
             if (sort == "tournament")
             {
@@ -282,21 +99,50 @@ namespace FPTV.Controllers
                 upcomingMatches = upcomingMatches.Where(m => m.LiveSupported == true).ToList();
             }
 
-            ViewBag.pastMatches = pastMatches;//Tem de ir buscar os da base de dados
+            var a = await _context.MatchesCS.ToListAsync();
+
+            /*foreach (var item in a)
+            {
+                var b = item.TeamsList;
+
+                foreach (var item2 in b)
+                {
+                    var c = item2.Name;
+                }
+            }*/
+
+            ViewBag.pastMatches = pastMatches;
 
             ViewBag.runningMatches = runningMatches;
-			ViewBag.upcomingMatches = upcomingMatches;
-
-            ViewBag.teams = teams;
-            ViewBag.results = results;
+            ViewBag.upcomingMatches = upcomingMatches;
 
             ViewBag.filter = filter;
             ViewBag.sort = sort;
 
             return View();
-		}
+        }
 
-		private List<MatchesCS> getAPICSGOMatches(string fullApiPath)
+        private async void getPastMatches(string fullApiPath)
+        {
+            List<MatchesCS> pastMatches = getAPICSGOMatches(fullApiPath, "");
+            List<int> dbMatchesIds = _context.MatchesCS.Select(m => m.MatchesCSAPIID).ToList();
+
+            foreach (var matches in pastMatches)
+            {
+                var id = matches.MatchesCSAPIID;
+
+                if (!dbMatchesIds.Contains(id))
+                {
+                    _context.MatchesCS.Add(matches);
+
+                    dbMatchesIds.Add(id);
+                }
+            }
+
+            await _context.SaveChangesAsync();
+        }
+
+        private List<MatchesCS> getAPICSGOMatches(string fullApiPath, string game)
         {
             //Request processing with RestSharp
             var client = new RestClient(fullApiPath);
@@ -322,8 +168,9 @@ namespace FPTV.Controllers
                     MatchesCS matches = new MatchesCS();
                     matches.TeamsAPIIDList = new List<int>();
 
+                    matches.Scores = new List<Score>();
+                    matches.TeamsList = new List<Team>();
                     matches.StreamList = new List<Stream>();
-                    //matches.Score = new Dictionary<int, int>();
 
                     //Set up values from api
                     var league = (JObject)item.GetValue("league");
@@ -348,13 +195,6 @@ namespace FPTV.Controllers
                     var LeagueId = league.GetValue("id");
                     var leagueLink = league.GetValue("url");
 
-                    /*
-                    *Guid EventId
-                    *Guid? WinnerTeamId
-                    *List<Guid>? TeamsIDList
-                    *ICollection<MatchCS>? MatchesList
-                    */
-
                     //Handling for null values
                     matches.LeagueName = leagueName.ToString() == null ? "" : leagueName.Value<string>();
                     matches.MatchesCSAPIID = matchesCSId.ToString() == null ? -1 : matchesCSId.Value<int>();
@@ -371,6 +211,23 @@ namespace FPTV.Controllers
                     matches.Tier = tier.ToString() == "unranked" ? ' ' : tier.Value<char>();
                     matches.LeagueId = LeagueId.ToString() == null ? -1 : LeagueId.Value<int>();
                     matches.LeagueLink = leagueLink.ToString() == null ? "" : leagueLink.Value<string>();
+
+                    var eventCS = new EventCS();
+                    eventCS.EventAPIID = matches.EventAPIID;
+                    eventCS.BeginAt = new DateTime();
+                    eventCS.EndAt = new DateTime();
+                    eventCS.EventName = matches.EventName;
+                    eventCS.TimeType = TimeType.Running;
+                    eventCS.Finished = false;
+                    eventCS.MatchesCSAPIID = matches.MatchesCSAPIID;
+                    eventCS.EventImage = "";
+                    eventCS.EventLink = "";
+                    eventCS.LeagueName = "";
+                    eventCS.PrizePool = "";
+                    eventCS.Tier = ' ';
+                    eventCS.WinnerTeamAPIID = 1;
+                    eventCS.WinnerTeamName = "";
+                    matches.EventCS = eventCS;
 
                     matches.TimeType = TimeType.Running;
                     if (status.Equals("finished"))
@@ -396,28 +253,56 @@ namespace FPTV.Controllers
 
                     matches.LiveSupported = matches.StreamList.Count() > 0 ? true : false;
 
-                    foreach (var team in results.Cast<JObject>())
-                    {
-                        var score = team.GetValue("score");
-                        var team_id = team.GetValue("team_id");
-
-                        //matches.Score.Add((int)team_id, (int)score);
-                    }
-
                     foreach (var opponentObject in opponentArray.Cast<JObject>())
                     {
+                        var team = new Team();
                         var opponent = (JObject)opponentObject.GetValue("opponent");
 
-                        var teamIdValue = opponent.GetValue("id");
+                        var teamId = opponent.GetValue("id");
                         var teamImage = opponent.GetValue("image_url");
                         var teamName = opponent.GetValue("name");
-                        var teamId = teamIdValue.ToString() == "" ? -1 : teamIdValue.Value<int>();
 
-                        matches.TeamsAPIIDList.Add(teamId);
+                        team.TeamAPIID = teamId.ToString() == "" ? -1 : teamId.Value<int>();
+                        team.Name = teamName.ToString() == "" ? "undefined" : teamName.Value<string>();
+                        team.Image = teamImage.ToString() == "" ? "/images/logo1.jpg" : teamImage.Value<string>();
+                        team.CouchName = "";
+                        team.Losses = 0;
+                        team.Winnings = 0;
+                        team.WorldRank = 0;
+                        if(game == "csgo")
+                            team.Game = GameType.CSGO;
+                        else
+                            team.Game = GameType.Valorant;
+
+                        matches.TeamsList.Add(team);
                     }
 
-                    if(matches.TeamsAPIIDList.Count() == 2)
+                    if (matches.TeamsList.Count() == 2)
+                    {
+                        foreach (var teamResult in results.Cast<JObject>())
+                        {
+                            var score = teamResult.GetValue("score");
+                            var team_id = teamResult.GetValue("team_id");
+
+                            var teamid = team_id.ToString() == null ? 1 : team_id.Value<int>();
+                            var points = score.ToString() == "" ? 0 : score.Value<int>();
+
+                            foreach (var team in matches.TeamsList)
+                            {
+                                if (team.TeamAPIID == teamid)
+                                {
+                                    var result = new Score();
+                                    result.TeamScore = points;
+                                    result.Team = team;
+                                    result.TeamName = team.Name;
+
+                                    matches.Scores.Add(result);
+                                }
+                            }
+                        }
+
                         matchesCS.Add(matches);
+                    }
                 }
             }
 
