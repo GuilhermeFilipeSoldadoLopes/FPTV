@@ -21,10 +21,10 @@ public class EmailSender : IEmailSender
 
     public async Task SendEmailAsync(string toEmail, string subject, string message)
     {
-        if (string.IsNullOrEmpty(Options.SendGridKey))
-        {
-            throw new Exception("Null SendGridKey");
-        }
+        //if (string.IsNullOrEmpty(Options.SendGridKey))
+        //{
+            //throw new Exception("Null SendGridKey");
+        //}
         await Execute("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", subject, message, toEmail);
     }
 
