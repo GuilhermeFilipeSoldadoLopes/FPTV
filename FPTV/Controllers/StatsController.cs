@@ -39,8 +39,7 @@ namespace FPTV.Controllers
         }
 
 
-
-        private String request(string category, string sort = "sort=-begin_at", string page = "&page=1", string filter = "past", string game = "csgo")
+		private String request(string category, string sort = "sort=-begin_at", string page = "&page=1", string filter = "past", string game = "csgo")
         {
             if (category == "matches") { 
                 var jsonFilter = filter + "?";
@@ -170,5 +169,5 @@ namespace FPTV.Controllers
                 _context.SaveChanges();
             }
         }
-    }
+	}
 }

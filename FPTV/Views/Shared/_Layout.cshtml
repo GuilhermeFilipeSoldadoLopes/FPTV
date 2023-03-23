@@ -7,21 +7,41 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - FPTV</title>
-	<link rel="stylesheet" type="text/css" href="~/css/site.css" asp-append-version="true" />
+	<link rel="stylesheet" type="text/css" href="~/css/siteDARK.css" asp-append-version="true" />
 	
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" /> 
     <link rel="stylesheet" href="~/FPTV.styles.css" asp-append-version="true" />
     <link rel="icon" type="image/png" href="~/favicon.ico" />
 
-		<script type="text/javascript">
-			window.onload = function() {
+		<script>
+			/*window.onload = function(e)
+			{
 				var url = window.location.href;
-				var activeTab = url.substring(url.indexOf("/") + 1);
-				var menuTab = document.getElementById('activeTab');
-				element.style.fontWeight = "bold";
-				console.log(activeTab);
-				console.log(menuTab);
-			}
+
+				if (url.includes("/Results")) {
+					var menuTab1 = document.getElementsByClassName("nav-link text-dark resultsButton");
+					menuTab1.style.fontWeight = "bold";
+				} else if (url.includes("Matches/")) {
+					var menuTab2 = document.getElementsByClass("nav-link text-dark matchesButton");
+					menuTab2.style.fontWeight = "bold";
+				} else if (url.includes("Events/")) {
+					var menuTab3 = document.getElementsById("nav-link text-dark eventsButton");
+					menuTab3.style.fontWeight = "bold";
+				} else if (url.includes("Forum/")) {
+					var menuTab4 = document.getElementsById("nav-link text-dark forumButton");
+					menuTab4.style.fontWeight = "bold";
+				} else if (url.includes("/About")) {
+					var menuTab5 = document.getElementsById("nav-link text-dark aboutButton");
+					menuTab5.style.fontWeight = "bold";
+				}
+			};*/
+
+		//	if (elem != currElem) { //do thing if you're clicking on a bold link
+		//		if (currElem) //if a link bold right now unbold it
+		//			currElem.style.fontWeight = 'normal';
+		//		currElem = elem; //assign this element as the current one
+		//		elem.style.fontWeight = 'bold';  //make the element clicked bold
+		//	}
 		</script>
 		<script src="https://js.pusher.com/4.0/pusher.min.js"></script>
 		<script>
@@ -86,11 +106,12 @@
 					<ul class="navbar-nav flex-grow-1" style="display:flex;">
 						<li class="nav-item" id="menu" style="width:20%; margin:auto">
 							@*-----------------------------dropdown para CSGO e VALORANT-------------------------*@
-							<div class="dropdown123" style=" width:100%;">
-								<a class="nav-link text-dark" id="buttonMenu" style="font-weight: bold; font-size: 24px; " asp-area="Home" asp-controller="Home" asp-action="Index">@*Game*@CS:GO</a>
-								<div class="dropdownContent12 bordercolor " style="background-color:white;padding:1%; width:10%;margin:auto">
 
-									<a class="dropdownItem1 bordercolor" style="display:flex;border-radius:15px;width:90%;padding:1%; text-decoration:none; text-align:center;">
+							<div class="dropdown123" style=" width:100%;">
+										<a class="nav-link text-dark" id="buttonMenu" style="font-weight:bold ; font-size: 24px; " asp-area="Home" asp-controller="Home" asp-action="Index">@*Game*@CS:GO</a>
+								<div class="dropdownContent12 bordercolor " style="background-color:white;padding:1%;margin-left:5px">
+
+									<a class="dropdownItem1 bordercolor" style="display:flex;border-radius:15px;width:100%;padding:2%; text-decoration:none;">
 										<button class="btndrop"  style="width:100%;text-align:center">
 											<div style="text-decoration:none;">
 														<span class="" style="color:black ; font-weight:bold ; width:100%;margin:auto">VALORANT</span>
@@ -98,7 +119,7 @@
 										</button>
 									</a>
 
-									<a class="dropdownItem1 dropselected bordercolor" style="display:flex;border-radius:15px;width:90%;padding:1%; text-decoration:none; text-align:center;margin-top:3px">
+									<a class="dropdownItem1 dropselected bordercolor" style="display:flex;border-radius:15px;width:100%;padding:2%; text-decoration:none;margin-top:3px">
 										<button class="btndrop"  style="width:100%;text-align:center">
 											<div style="text-decoration:none;">
 														<span class="" style="color:black ; font-weight:bold ; width:100%;margin:auto">CS:GO</span>
@@ -111,19 +132,19 @@
 						</li>
 						@*-------------------------------------------------------------*@
 						<li class="nav-item" id="menu" style="width:20%; margin:auto">
-								<a class="nav-link text-dark" id="buttonMenu" style="font-size: 24px;" asp-area="" asp-controller="Home" asp-action="Matches">Matches</a>
+								<a class="nav-link text-dark matchesButton" id="buttonMenu" style="font-size: 24px;" asp-area="" asp-controller="Home" asp-action="Matches">Matches</a>
 						</li>
 						<li class="nav-item" id="menu" style="width:20%; margin:auto">
-								<a class="nav-link text-dark" id="buttonMenu" style="font-size: 24px;" asp-area="" asp-controller="Home" asp-action="Index">Results</a>
+								<a class="nav-link text-dark resultsButton" id="buttonMenu" style="font-size: 24px;" asp-area="" asp-controller="Home" asp-action="Results">Results</a>
 						</li>
 						<li class="nav-item" id="menu" style="width:20%; margin:auto">
-								<a class="nav-link text-dark" id="buttonMenu" style="font-size: 24px;" asp-area="" asp-controller="Home" asp-action="Events">Events</a>
+								<a class="nav-link text-dark eventsButton" id="buttonMenu" onclick="" style="font-size: 24px;" asp-area="" asp-controller="Home" asp-action="Events">Events</a>
 						</li>
 						<li class="nav-item" id="menu" style="width:20%; margin:auto">
-								<a class="nav-link text-dark" id="buttonMenu" style="font-size: 24px;" asp-area="" asp-controller="Home" asp-action="Index">Forum</a>
+								<a class="nav-link text-dark forumButton" id="buttonMenu" style="font-size: 24px;" asp-area="" asp-controller="Home" asp-action="Index">Forum</a>
 						</li>
 						<li class="nav-item" id="menu" style="width:20%; margin:auto">
-								<a class="nav-link text-dark" id="buttonMenu" style="font-size: 24px;" asp-area="" asp-controller="Stats" asp-action="CSGOStats">About</a>
+								<a class="nav-link text-dark aboutButton" id="buttonMenu" style="font-size: 24px;" asp-area="" asp-controller="Home" asp-action="CSGOStats">About</a>
 						</li>
 								
 					</ul>

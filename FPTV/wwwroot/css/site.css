@@ -52,8 +52,8 @@ textarea {
 .bodytemp {
     width: 100%;
     background-image: url('../images/tempo.png');
-    /*background-repeat: no-repeat;
-    background-size: cover;*/
+    background-repeat: no-repeat;
+    background-size: cover;
     font-family: Noto Sans;
    
 }
@@ -188,4 +188,34 @@ bordercolor2 {
 }
 .dropselected {
     background-color: lightgray;
+}
+
+.tableDetails {
+    background-color: white;
+    border: 1px solid;
+    border-color: white;
+}
+.tableDetails tr {
+    border: 1px solid;
+    border-color: black;
+}
+    .tableDetails td {
+        border: 1px solid;
+        border-color: black;
+    }
+
+    .tableDetails th {
+        border: 1px solid;
+        border-color: black;
+    }
+.btnResult {
+    width: 30%;
+    margin: auto;
+    background-color: white;
+    font-size: 25px;
+    border-radius: 15px;
+}
+
+.selectedbtn {
+    text-decoration: underline;
 }

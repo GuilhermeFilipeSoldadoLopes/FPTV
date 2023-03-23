@@ -10,6 +10,8 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RestSharp;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.Tracing;
 using System.Runtime.InteropServices;
@@ -44,13 +46,23 @@ namespace FPTV.Controllers
 			}
 
             var jarray = JArray.Parse(json);
-            List<EventCS> events = new(); 
-            
-            foreach(JObject e in jarray.Cast<JObject>()) 
+            IList events = game == "csgo" 
+                ? GetEventsCS(jarray, filter, sort, search) 
+                : GetEventsVal(jarray, filter, sort, search);
+
+            return View(events);
+        }
+
+        private List<EventCS> GetEventsCS(JArray jarray, string filter, string sort, string search)
+        {
+            List<EventCS> events = new();
+
+            foreach (JObject e in jarray.Cast<JObject>())
             {
-				//Set up values from api
-				List<Team> teamList = new();
-				var ev = new EventCS();
+                //Set up values from api
+                List<Team> teamList = new();
+                
+                EventCS ev = new();
                 var eventAPIID = e.GetValue("id");
                 var nameStage = e.GetValue("name");
                 var beginAt = e.GetValue("begin_at");
@@ -59,17 +71,17 @@ namespace FPTV.Controllers
                 var prizePool = e.GetValue("prizepool");
                 var winnerTeamId = e.GetValue("winner_id");
 
-				//Handling for null values
-				ev.EventAPIID = eventAPIID.ToString() == null ? -1 : eventAPIID.Value<int>();
+                //Handling for null values
+                ev.EventAPIID = eventAPIID.ToString() == null ? -1 : eventAPIID.Value<int>();
                 ev.BeginAt = beginAt.ToString() == "" ? null : beginAt.Value<DateTime>();
                 ev.EventName = league.ToString() == "" ? null : league.Value<string>("name");
                 ev.LeagueName = nameStage.ToString() == "" ? null : nameStage.Value<string>();
-				ev.PrizePool = prizePool.ToString() == "" ? "-" : new string(prizePool.Value<string>().Where(char.IsDigit).ToArray());
-				ev.WinnerTeamAPIID = winnerTeamId.ToString() == "" ? -1 : winnerTeamId.Value<int>();
+                ev.PrizePool = prizePool.ToString() == "" ? "-" : new string(prizePool.Value<string>().Where(char.IsDigit).ToArray());
+                ev.WinnerTeamAPIID = winnerTeamId.ToString() == "" ? -1 : winnerTeamId.Value<int>();
                 ev.EventImage = league.Value<string>("image_url") ?? "https://mizuwu.s-ul.eu/9UCb9vsT";
 
 
-				switch (filter)
+                switch (filter)
                 {
                     case "running":
                         ev.TimeType = TimeType.Running; break;
@@ -78,8 +90,8 @@ namespace FPTV.Controllers
                     case "upcoming":
                         ev.TimeType = TimeType.Upcoming; break;
 
-				}
-                   
+                }
+
 
                 if (teams != null)
                 {
@@ -101,23 +113,100 @@ namespace FPTV.Controllers
                 var winnerTeam = teamList.FirstOrDefault(t => t.TeamAPIID == ev.WinnerTeamAPIID);
                 ev.WinnerTeamName = winnerTeam == default ? "-" : winnerTeam.Name;
                 events.Add(ev);
-			}
+            }
 
-			if (sort == "&sort=name")
-			{
-				events.Sort((x, y) => x.EventName.CompareTo(y.EventName));
-			}
+            if (sort == "&sort=name")
+            {
+                events.Sort((x, y) => x.EventName.CompareTo(y.EventName));
+            }
 
-			if (search != "")
+            if (search != "")
             {
                 events = events.Where(e => e.EventName.Contains(search)).ToList();
             }
 
-           
+
             ViewBag.filter = filter;
             ViewBag.sort = sort;
+            return events;
+        }
 
-            return View(events);
+        private List<EventVal> GetEventsVal(JArray jarray, string filter, string sort, string search)
+        {
+            List<EventVal> events = new();
+
+            foreach (JObject e in jarray.Cast<JObject>())
+            {
+                //Set up values from api
+                List<Team> teamList = new();
+
+                EventVal ev = new();
+                var eventAPIID = e.GetValue("id");
+                var nameStage = e.GetValue("name");
+                var beginAt = e.GetValue("begin_at");
+                var league = e.GetValue("league");
+                var teams = e.GetValue("teams");
+                var prizePool = e.GetValue("prizepool");
+                var winnerTeamId = e.GetValue("winner_id");
+
+                //Handling for null values
+                ev.EventAPIID = eventAPIID.ToString() == null ? -1 : eventAPIID.Value<int>();
+                ev.BeginAt = beginAt.ToString() == "" ? null : beginAt.Value<DateTime>();
+                ev.EventName = league.ToString() == "" ? null : league.Value<string>("name");
+                ev.LeagueName = nameStage.ToString() == "" ? null : nameStage.Value<string>();
+                ev.PrizePool = prizePool.ToString() == "" ? "-" : new string(prizePool.Value<string>().Where(char.IsDigit).ToArray());
+                ev.WinnerTeamAPIID = winnerTeamId.ToString() == "" ? -1 : winnerTeamId.Value<int>();
+                ev.EventImage = league.Value<string>("image_url") ?? "https://mizuwu.s-ul.eu/9UCb9vsT";
+
+
+                switch (filter)
+                {
+                    case "running":
+                        ev.TimeType = TimeType.Running; break;
+                    case "past":
+                        ev.TimeType = TimeType.Past; break;
+                    case "upcoming":
+                        ev.TimeType = TimeType.Upcoming; break;
+
+                }
+
+
+                if (teams != null)
+                {
+                    foreach (JObject o in teams)
+                    {
+                        var teamNameValue = o.GetValue("name");
+                        var teamIdValue = o.GetValue("id");
+                        var teamId = teamIdValue.ToString() == "" ? -1 : teamIdValue.Value<int>();
+                        var teamName = teamNameValue.ToString() == "" ? null : teamNameValue.Value<string>();
+                        var team = new Team();
+                        team.Name = teamName;
+                        team.TeamAPIID = teamId;
+                        teamList.Add(team);
+                    }
+                }
+
+                //Filling remaining fields
+                ev.TeamsList = teamList;
+                var winnerTeam = teamList.FirstOrDefault(t => t.TeamAPIID == ev.WinnerTeamAPIID);
+                ev.WinnerTeamName = winnerTeam == default ? "-" : winnerTeam.Name;
+                events.Add(ev);
+            }
+
+            if (sort == "&sort=name")
+            {
+                events.Sort((x, y) => x.EventName.CompareTo(y.EventName));
+            }
+
+            if (search != "")
+            {
+                events = events.Where(e => e.EventName.Contains(search)).ToList();
+            }
+
+
+            ViewBag.filter = filter;
+            ViewBag.sort = sort;
+            return events;
         }
 
         // GET: EventsController/Details/5
@@ -240,7 +329,7 @@ namespace FPTV.Controllers
                             var m = new MatchesCS();
 							
 							m.MatchesCSAPIID = o.GetValue("id").Value<int>();
-							m.BeginAt = o.GetValue("begin_at").Value<DateTime>();
+							m.BeginAt = o.GetValue("begin_at").ToString() == "" ? null : o.GetValue("begin_at").Value<DateTime>();
 							m.TimeType = TimeType.Past;
 							m.NumberOfGames = o.GetValue("number_of_games").Value<int>();
 
@@ -270,8 +359,8 @@ namespace FPTV.Controllers
                             var m = new MatchesCS();
                             
                             m.MatchesCSAPIID = o.GetValue("id").Value<int>();
-							m.BeginAt = o.GetValue("begin_at").Value<DateTime>();
-							m.TimeType = TimeType.Running;
+							m.BeginAt = o.GetValue("begin_at").ToString() == "" ? null : o.GetValue("begin_at").Value<DateTime>();
+                            m.TimeType = TimeType.Running;
 							m.NumberOfGames = o.GetValue("number_of_games").Value<int>();
 
 							var results = o.GetValue("results");
@@ -299,8 +388,8 @@ namespace FPTV.Controllers
                             List<Score> scores = new();
                             
                             m.MatchesCSAPIID = o.GetValue("id").Value<int>();
-							m.BeginAt = o.GetValue("begin_at").Value<DateTime>();
-							m.TimeType = TimeType.Upcoming;
+							m.BeginAt = o.GetValue("begin_at").ToString() == "" ? null : o.GetValue("begin_at").Value<DateTime>();
+                            m.TimeType = TimeType.Upcoming;
 							m.NumberOfGames = o.GetValue("number_of_games").Value<int>();
 
 							var results = o.GetValue("results");

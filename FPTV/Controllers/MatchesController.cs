@@ -309,7 +309,27 @@ namespace FPTV.Controllers
             return matchesCS;
         }
 
-        /*// De CSGO e de Valorant
+		public ActionResult Results()
+		{
+			return View();
+		}
+
+		public ActionResult MatchDetails()
+		{
+			return View();
+		}
+
+		public ActionResult PlayerAndStats()
+		{
+			return View();
+		}
+
+		public ActionResult TeamStats()
+		{
+			return View();
+		}
+
+		/*// De CSGO e de Valorant
         // GET: Matches/CSMatcheDetails/5
         public ActionResult CSMatcheDetails(int id)
         {
@@ -390,5 +410,5 @@ namespace FPTV.Controllers
                 return View();
             }
         }*/
-    }
+	}
 }

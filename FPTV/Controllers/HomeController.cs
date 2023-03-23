@@ -93,14 +93,36 @@ namespace FPTV.Controllers
             return RedirectToAction("Index", "Events");
         }
 
-        public IActionResult LoginRegister()
+		public IActionResult Matches()
+		{
+			return RedirectToAction("CSGOMatches", "Matches");
+		}
+
+		public IActionResult Results()
+		{
+			return RedirectToAction("Results", "Matches");
+		}
+
+		public IActionResult CSGOStats()
+		{
+			return RedirectToAction("CSGOStats", "Stats");
+		}
+
+		public IActionResult PlayerAndStats()
+		{
+			return RedirectToAction("PlayerAndStats", "Matches");
+		}
+
+		public IActionResult TeamStats()
+		{
+			return RedirectToAction("TeamStats", "Matches");
+		}
+
+		public IActionResult LoginRegister()
         {
 	        return View();
         }
-        public IActionResult PlayerAndStats()
-        {
-	        return View();
-        }
+        
         public IActionResult Privacy()
         {
 	        return View();
@@ -112,22 +134,12 @@ namespace FPTV.Controllers
 
 		public IActionResult MatchDetails()
 		{
-			
-			return View();
+			return RedirectToAction("Matches", "MatchDetails");
 		}
+
         public IActionResult Test()
         {
 
-            return View();
-        }
-
-        public IActionResult Matches()
-        {
-            return RedirectToAction("CSGOMatches", "Matches");
-        }
-
-        public IActionResult Results()
-        {
             return View();
         }
         
@@ -150,10 +162,7 @@ namespace FPTV.Controllers
             return View();
         }
         
-        public IActionResult TeamStats()
-        {
-            return View();
-        }
+        
         
         public IActionResult StatisticsOfSite()
         {
