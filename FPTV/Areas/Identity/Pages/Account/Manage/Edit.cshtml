@@ -2,7 +2,7 @@
 @using FPTV.Models.UserModels;
 @model EditModel
 @{
-    ViewData["Title"] = "Profile";
+    ViewData["Title"] = "Edit Profile";
     ViewData["ActivePage"] = ManageNavPages.Index;
 }
 
@@ -388,6 +388,7 @@
             </div>
             <br />
         </div>
+        <a style="font-size:20px;color:red;order:1;align-self:flex-end;" asp-area="Identity" asp-page="/Account/Manage/Disable">Disable Account</a>
     </div>
 </body>
 
