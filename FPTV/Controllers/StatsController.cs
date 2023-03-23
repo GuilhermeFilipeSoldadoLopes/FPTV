@@ -219,9 +219,238 @@ namespace FPTV.Controllers
 
         public ActionResult getTeam(int id, string filter = "", string game = "csgo")
         {
+            if (game == "valorant")
+            {
+
+                var ranking = new[] { 0.68F, 0.94F, 1.42F, 1.08F, 1.09F, 1.23F, 0.78F, 0.89F, 0.97F, 0.72F,
+                    0.82F, 0.62F, 1.45F, 1.11F, 1.37F, 1.27F, 1.05F, 1.07F, 1.16F, 1.29F, 1.15F, 0.97F, 0.83F,
+                    1.36F, 1.10F, 1.07F, 1.19F, 0.77F, 0.90F, 1.14F, 1.52F, 1.54F, 0.58F }; //de 0.58 a 1.54
+
+                var teamsList = new[] { "G2", "Heroic", "Natus Vincere", "Liquid", "Vitality", "Outsiders", "Faze",
+                    "Complexity", "fnatic", "Cloud9", "Spirit", "Astralis", "MOUZ", "FURIA ", "BIG", "Ninjas in Pyjamas",
+                    "IHC", "Eternal Fire", "ENCE", "FORZE", "Bad News Eagles", "MIBR", "Movistar Riders", "9INE", "paiN",
+                    "GamerLegion", "Aurora", "Rare Atom", "Grayhound", "NRG", "SAW", "Avangar", "Spirit", "Nexus", "Grayhound",
+                    "TYLOO", "Renegates", "SINNERS", "HellRaisers", "Club Brugge", "North", "Dignitas", "Luminosity", "TeamOne",
+                    "Sprout", "Cheifs", "SK", "Endpoint", "GODSENT", "Envy", "HAVU", "Envy", "Gambit" };
 
 
-            return View("TeamStats");
+                //Base url for requests
+                var _requestLink = "https://api.pandascore.co/";
+
+                //Filter to select from which pool to fetch the data (upcoming, running or finished/ended)
+                var _jsonFilter = filter + "?";
+                var _filterID = "filter[id]=132995"; //+ id.ToString();
+
+                //THIS SHOULD BE A CLIENT SECRET
+                var _token = "&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA";
+
+                //Request processing with RestSharp
+                var _fullRequest = _requestLink + game + "/teams?" + _filterID + _token;
+            https://api.pandascore.co/valorant/teams?sort=&page=1&per_page=50&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA
+                var _client = new RestClient(_fullRequest);
+                var _request = new RestRequest("", Method.Get);
+                _request.AddHeader("accept", "application/json");
+                var _json = _client.Execute(_request).Content;
+                var _jarray = JArray.Parse(_json);
+
+
+
+
+
+
+                //Base url for requests
+                var requestLink = "https://api.pandascore.co/";
+
+                //Filter to select from which pool to fetch the data (upcoming, running or finished/ended)
+                var jsonFilter = filter + "?";
+                var filterID = "filter[id]=" + id.ToString();
+
+                //THIS SHOULD BE A CLIENT SECRET
+                var token = "&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA";
+
+                //Request processing with RestSharp
+                var fullRequest = requestLink + game + "/players?" + filterID + token;
+                var client = new RestClient(fullRequest);
+                var request = new RestRequest("", Method.Get);
+                request.AddHeader("accept", "application/json");
+                var json = client.Execute(request).Content;
+                var jarray = JArray.Parse(json);
+
+
+
+                var player = new MatchPlayerStatsVal();
+                var _player = new Player();
+                _player.Teams = new List<Team>();
+                var teamm = new Team();
+                _player.Teams.Add(teamm);
+
+
+                _player.Rating = ranking[_random.Next(ranking.Length)];
+
+                foreach (var item in jarray.Cast<JObject>())
+                {
+                    player.MatchValAPIID = (int)item.GetValue("id");
+                    player.Kills = _random.Next(30, 301);
+                    player.Deaths = _random.Next(30, 300);
+                    player.Assists = _random.Next(1, 11); ;
+                    player.ADR = _random.NextDouble();
+                    player.HeadShots = Math.Round(_random.NextDouble() * 100, 2);
+                    player.KD_Diff = _random.NextDouble();
+                    player.PlayerName = (string)item.GetValue("name");
+
+                    //_player.Age = (int?)item.GetValue("age");
+                    _player.Age = item.GetValue("age") == null ? 20 : item.GetValue("age").Value<int>();
+                    _player.Nacionality = (string)item.GetValue("nationality");
+                    //_player.Image = (string)item.GetValue("image_url");
+                    _player.Image = item.GetValue("image_url").ToString() == "" ? "/images/default-profile-icon-24.jpg" : item.GetValue("image_url").Value<string>();
+
+                    _context.MatchPlayerStatsVal.Add(player);
+                }
+
+                foreach (var _item in _jarray.Cast<JObject>())
+                {
+                    var _id = (int)_item.GetValue("id");
+                    if (_id == player.PlayerValAPIId)
+                    {
+                        _player.PlayerAPIId = player.PlayerValAPIId;
+                        _player.Name = player.PlayerName;
+                    }
+                    teamm.Name = (string?)_item.GetValue("name");
+                    teamm.Image = (string?)_item.GetValue("image_url");
+                }
+                double KdRatio = (double)player.Kills / (double)player.Deaths;
+                int maps = _random.Next(1, 8);
+                var pastTeam1 = teamsList[_random.Next(teamsList.Length)];
+                var pastTeam2 = teamsList[_random.Next(teamsList.Length)];
+                var pastTeam3 = teamsList[_random.Next(teamsList.Length)];
+                ViewBag.KdRatio = Math.Round(KdRatio, 2);
+                ViewBag.maps = maps;
+                ViewBag.player = player;
+                ViewBag._player = _player;
+                ViewBag.pastTeam1 = pastTeam1;
+                ViewBag.pastTeam2 = pastTeam2;
+                ViewBag.pastTeam3 = pastTeam3;
+
+                return View("TeamStats");
+            }
+            else
+            {
+                var ranking = new[] { 0.68F, 0.94F, 1.42F, 1.08F, 1.09F, 1.23F, 0.78F, 0.89F, 0.97F, 0.72F,
+                    0.82F, 0.62F, 1.45F, 1.11F, 1.37F, 1.27F, 1.05F, 1.07F, 1.16F, 1.29F, 1.15F, 0.97F, 0.83F,
+                    1.36F, 1.10F, 1.07F, 1.19F, 0.77F, 0.90F, 1.14F, 1.52F, 1.54F, 0.58F }; //de 0.58 a 1.54
+
+                var teamsList = new[] { "G2", "Heroic", "Natus Vincere", "Liquid", "Vitality", "Outsiders", "Faze",
+                    "Complexity", "fnatic", "Cloud9", "Spirit", "Astralis", "MOUZ", "FURIA ", "BIG", "Ninjas in Pyjamas",
+                    "IHC", "Eternal Fire", "ENCE", "FORZE", "Bad News Eagles", "MIBR", "Movistar Riders", "9INE", "paiN",
+                    "GamerLegion", "Aurora", "Rare Atom", "Grayhound", "NRG", "SAW", "Avangar", "Spirit", "Nexus", "Grayhound",
+                    "TYLOO", "Renegates", "SINNERS", "HellRaisers", "Club Brugge", "North", "Dignitas", "Luminosity", "TeamOne",
+                    "Sprout", "Cheifs", "SK", "Endpoint", "GODSENT", "Envy", "HAVU", "Envy", "Gambit" };
+
+
+                //Base url for requests
+                var _requestLink = "https://api.pandascore.co/";
+
+                //Filter to select from which pool to fetch the data (upcoming, running or finished/ended)
+                var _jsonFilter = filter + "?";
+                var _filterID = "filter[id]=" + id.ToString();
+
+                //THIS SHOULD BE A CLIENT SECRET
+                var _token = "&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA";
+
+                //Request processing with RestSharp
+                var _fullRequest = _requestLink + game + "/teams?" + _filterID + _token;
+            https://api.pandascore.co/csgo/teams?sort=&page=1&per_page=50&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA
+                var _client = new RestClient(_fullRequest);
+                var _request = new RestRequest("", Method.Get);
+                _request.AddHeader("accept", "application/json");
+                var _json = _client.Execute(_request).Content;
+                var _jarray = JArray.Parse(_json);
+
+
+
+
+
+
+                //Base url for requests
+                var requestLink = "https://api.pandascore.co/";
+
+                //Filter to select from which pool to fetch the data (upcoming, running or finished/ended)
+                var jsonFilter = filter + "?";
+                var filterID = "filter[id]=" + id.ToString();
+
+                //THIS SHOULD BE A CLIENT SECRET
+                var token = "&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA";
+
+                //Request processing with RestSharp
+                var fullRequest = requestLink + game + "/players?" + filterID + token;
+                var client = new RestClient(fullRequest);
+                var request = new RestRequest("", Method.Get);
+                request.AddHeader("accept", "application/json");
+                var json = client.Execute(request).Content;
+                var jarray = JArray.Parse(json);
+
+
+
+                var player = new MatchPlayerStatsCS();
+                var _player = new Player();
+                _player.Teams = new List<Team>();
+                var teamm = new Team();
+                _player.Teams.Add(teamm);
+
+
+                _player.Rating = ranking[_random.Next(ranking.Length)];
+
+                foreach (var item in jarray.Cast<JObject>())
+                {
+                    player.PlayerCSAPIId = (int)item.GetValue("id");
+                    player.Kills = _random.Next(30, 301);
+                    player.Deaths = _random.Next(30, 300);
+                    player.Assists = _random.Next(1, 11); ;
+                    player.FlashAssist = _random.Next(1, 6); ;
+                    player.ADR = _random.NextDouble();
+                    player.HeadShots = Math.Round(_random.NextDouble() * 100, 2);
+                    player.KD_Diff = _random.NextDouble();
+                    player.PlayerName = (string)item.GetValue("name");
+
+                    //_player.Age = (int?)item.GetValue("age");
+                    _player.Age = item.GetValue("age") == null ? 20 : item.GetValue("age").Value<int>();
+                    _player.Nacionality = (string)item.GetValue("nationality");
+                    //_player.Image = (string)item.GetValue("image_url");
+                    _player.Image = item.GetValue("image_url").ToString() == "" ? "/images/default-profile-icon-24.jpg" : item.GetValue("image_url").Value<string>();
+
+                    _context.MatchPlayerStatsCS.Add(player);
+                }
+
+                foreach (var _item in _jarray.Cast<JObject>())
+                {
+                    var _id = (int)_item.GetValue("id");
+                    if (_id == player.PlayerCSAPIId)
+                    {
+                        _player.PlayerAPIId = player.PlayerCSAPIId;
+                        _player.Name = player.PlayerName;
+                    }
+                    teamm.Name = (string?)_item.GetValue("name");
+                    teamm.Image = (string?)_item.GetValue("image_url");
+                }
+                double KdRatio = (double)player.Kills / (double)player.Deaths;
+                int maps = _random.Next(1, 8);
+                var pastTeam1 = teamsList[_random.Next(teamsList.Length)];
+                var pastTeam2 = teamsList[_random.Next(teamsList.Length)];
+                var pastTeam3 = teamsList[_random.Next(teamsList.Length)];
+                ViewBag.KdRatio = Math.Round(KdRatio, 2);
+                ViewBag.maps = maps;
+                ViewBag.player = player;
+                ViewBag._player = _player;
+                ViewBag.pastTeam1 = pastTeam1;
+                ViewBag.pastTeam2 = pastTeam2;
+                ViewBag.pastTeam3 = pastTeam3;
+                id = id;
+                ViewBag.id = id;
+                return View("TeamStats");
+            }
+
+
+            return null;
         }
 
         public ActionResult getPlayer(int id, string filter = "", string game = "csgo")
