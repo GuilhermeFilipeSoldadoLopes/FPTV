@@ -20,17 +20,18 @@ namespace FPTV.Models.Forum
         [Display(Name = "Comment")]
         public string? Text { get; set; }
 
-        [Display(Name = "User ID")]
-        [ForeignKey("ProfileId")]
-        public Guid ProfileId { get; set; }
+        //[Display(Name = "User ID")]
+        //[ForeignKey("ProfileId")]
+        //public Guid ProfileId { get; set; }
 
         [Display(Name = "User")]
-        public virtual Profile? Profile { get; set; }
+        public Profile? Profile { get; set; }
 
         [Display(Name = "Topic")]
-        public virtual Topic? Topic { get; set; }
+        public Topic? Topic { get; set; }
 
-        [Display(Name = "Reactions")]
+		[Required]
+		[Display(Name = "Reactions")]
         public ICollection<Reaction>? Reactions { get; set; }
     }
 }

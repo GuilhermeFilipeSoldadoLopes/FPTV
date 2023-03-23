@@ -115,36 +115,46 @@
         align-self: flex-start;
     }
 </style>
-<body class="bodytemp">
+<body class="bodytemp whiteText">
 
     <h1 style="text-align: center;">@ViewBag.Event.EventName - @ViewBag.Event.LeagueName</h1>
+    <img src=@ViewBag.Event.EventImage style="max-width:70px;width:50%;display:block;margin-left: auto;margin-right: auto" />
     <div class="ola">
 
-        <div class="box1" style="background-color:lightgrey">
+        <div class="box1 darkcolor bordercolor" style=";padding:1%">
             <h4 style="font-weight: bold;">Finished Matches</h4>
             @foreach(MatchesCS match in ViewBag.pastMatches)
             {
                 <div class="alinhar" style="border-bottom: 1px solid black">
                 <div class="my-div2" style="width:90%;">
                     <div>
-                            <span class="span2" style="margin-top:10px;">@ViewBag.Event.BeginAt.ToString("D", CultureInfo.GetCultureInfo("en-US"))</span>
+                             @if(match.BeginAt == null)
+                            {
+                                <span class="span2" style="margin-top:10px;">No date yet</span>
+                            }
+                            else
+                            {
+                                <span class="span2" style="margin-top:10px;">@match.BeginAt.Value.ToString("D", CultureInfo.GetCultureInfo("en-US"))</span>
+                            }
                     </div>
 
                     <div>
                         <span style="text-align: center;">
                             <p style="font-size:25px">
-                               @* <span> @dict[match.Score.Keys.First()] </span>
-                                <span class="span2"> @match.Score.Values.First() </span>
+                                    <img src="@match.Scores.First().Team.Image" style="max-width:30px;width:50%" />
+                                <span> @match.Scores.First().TeamName </span>
+                                <span class="span2"> @match.Scores.First().TeamScore </span>
                                 <span class="span2"> vs </span>
-                                <span class="span2"> @match.Score.Values.Last() </span>
-                                <span> @dict[match.Score.Keys.Last()] </span>*@
+                                <span class="span2"> @match.Scores.Last().TeamScore </span>
+                                <span> @match.Scores.Last().TeamName </span>
+                                    <img src="@match.Scores.Last().Team.Image" style="max-width:30px;width:50%" />
                             </p>
                         </span>
                     </div>
 
                     <div style="text-align:left; display: flex;">
                         <p>Best of @match.NumberOfGames</p>
-                        <a href="#" style="justify-content: space-around; margin-left: auto;">More details</a>
+                            <a href="@Url.Action("CSGOMatches", "Matches")" style="justify-content: space-around; margin-left: auto;">More details</a>
                     </div>
 
                 </div>
@@ -154,15 +164,17 @@
 
         </div>
 
-        <div class="box" style="background-color: white; margin: 2%;">
+        <div class="box darkcolor bordercolor" style=" margin: 2%;">
 
-            <div style="text-align:center; background-color:#e0eeff;">
+            <div class="darkcolor bordercolor" style="text-align:center; ">
 
                 <div class="alinhar">
                     <div class="my-div">
                         <div>
                             <span>Date</span>
-                            <p>@ViewBag.Event.BeginAt.ToString("D", CultureInfo.GetCultureInfo("en-US"))</p>
+                            <p>@ViewBag.Event.BeginAt.ToString("D", CultureInfo.GetCultureInfo("en-US"));
+                                
+                            </p>
                         </div>
 
                         <div>
@@ -196,24 +208,34 @@
                             <p style="font-weight:bold; margin-top:2%; margin-bottom:0px; ">
                                 <h4 style="font-weight: bold;">Live Match</h4>
                             </p>
-                            <span class="span2" style="margin-top:10px;">@match.BeginAt.Value.ToString("D", CultureInfo.GetCultureInfo("en-US"))</span>
+                            @if(match.BeginAt == null)
+                            {
+                                <span class="span2" style="margin-top:10px;">No date yet</span>
+                            }
+                            else
+                            {
+                                <span class="span2" style="margin-top:10px;">@match.BeginAt.Value.ToString("D", CultureInfo.GetCultureInfo("en-US"))</span>
+                            }
+                            
                         </div>
 
                         <div>
                             <span style="text-align: center;">
                                 <p style="font-size:25px">
-                                    @*<span> @dict[match.Score.Keys.First()] </span>
-                                    <span class="span2"> match.Score.Values.First() </span>
+                                    <img src="@match.Scores.First().Team.Image" style="max-width:30px;width:50%" />
+                                    <span> @match.Scores.First().TeamName </span>
+                                    <span class="span2"> @match.Scores.First().TeamScore </span>
                                     <span class="span2"> vs </span>
-                                    <span class="span2"> match.Score.Values.Last() </span>
-                                    <span>@dict[match.Score.Keys.Last()] </span>*@
+                                    <span class="span2"> @match.Scores.Last().TeamScore </span>
+                                    <span> @match.Scores.Last().TeamName </span>
+                                    <img src="@match.Scores.Last().Team.Image" style="max-width:30px;width:50%" />
                                 </p>
                             </span>
                         </div>
 
                         <div style="text-align:left; display: flex;">
                             <p>Best of @match.NumberOfGames</p>
-                            <a href="#" style="justify-content: space-around; margin-left: auto;">More details</a>
+                            <a href="@Url.Action("CSGOMatches", "Matches")" style="justify-content: space-around; margin-left: auto;">More details</a>
                         </div>
 
                     </div>
@@ -226,42 +248,56 @@
         </div>
 
 
-        <div class="box1" style="background-color:lightgrey">
+        <div class="box1 darkcolor bordercolor" style="padding:1%">
             <h4 style="font-weight: bold;">Upcoming Matches</h4>
             @foreach (MatchesCS match in ViewBag.upcomingMatches)
             {
 
-                @*var team1 = match.Score.Keys.FirstOrDefault();
-                var team2 = match.Score.Keys.LastOrDefault();*@
                 
-                @*if(team1 != 0 && team2 != 0)
+                var scoreT1 = match.Scores.FirstOrDefault();
+                var scoreT2 = match.Scores.LastOrDefault();
+                
+                if(scoreT1 != default && scoreT2 != default)
                 {
-                    <div class="alinhar" style="border-bottom: 1px solid black">
-                    <div class="my-div2" style="width:90%;">
-                        <div>
-                            <span class="span2" style="margin-top:10px;">@match.BeginAt.Value.ToString("D", CultureInfo.GetCultureInfo("en-US"))</span>
-                        </div>
+                    if (scoreT1.TeamName != default && scoreT2.Team != default)
+                    {
+                        <div class="alinhar" style="border-bottom: 1px solid black">
+                            <div class="my-div2" style="width:90%;">
+                                <div>
+                                    @if (match.BeginAt == null)
+                                    {
+                                        <span class="span2" style="margin-top:10px;">No date yet</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="span2" style="margin-top:10px;">@match.BeginAt.Value.ToString("D", CultureInfo.GetCultureInfo("en-US"))</span>
+                                    }
+                                </div>
 
-                        <div>
-                            <span style="text-align: center;">
-                                <p style="font-size:25px">
-                                    <span> @dict[team1] </span>
-                                    <span class="span2">  </span>
-                                    <span class="span2"> vs </span>
-                                    <span class="span2">  </span>
-                                    <span> @dict[team2] </span>
-                                </p>
-                            </span>
-                        </div>
+                                <div>
+                                    <span style="text-align: center;">
+                                        <p style="font-size:25px">
+                                            <img src="@scoreT1.Team.Image" style="max-width:30px;width:50%" />
+                                            <span> @scoreT1.TeamName </span>
+                                            <span class="span2">  </span>
+                                            <span class="span2"> vs </span>
+                                            <span class="span2">  </span>
+                                            <span> @scoreT2.TeamName </span>
+                                            <img src="@scoreT2.Team.Image" style="max-width:30px;width:50%" />
+                                        </p>
+                                    </span>
+                                </div>
 
-                        <div style="text-align:left; display: flex;">
-                                <p>Best of @match.NumberOfGames</p>
-                            <a href="#" style="justify-content: space-around; margin-left: auto;">More details</a>
-                        </div>
+                                <div style="text-align:left; display: flex;">
+                                    <p>Best of @match.NumberOfGames</p>
+                                    <a href="@Url.Action("CSGOMatches", "Matches")" style="justify-content: space-around; margin-left: auto;">More details</a>
+                                </div>
 
-                    </div>
-                </div>
-                }*@
+                            </div>
+                        </div>
+                    }
+                }
+                
                 
             }
             

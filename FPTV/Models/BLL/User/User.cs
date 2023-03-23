@@ -46,10 +46,10 @@ namespace FPTV.Models.BLL.User
         }
 
         //Retorna os comentários de um utilizador através do User ID
-        public List<Comment> getCommentsByUserID(FPTVContext _context, Guid userID)
-        {
-            return _context.Comments.ToList().FindAll(u => u.ProfileId == userID);
-        }
+        //public List<Comment> getCommentsByUserID(FPTVContext _context, Guid userID)
+        //{
+        //    return _context.Comments.ToList().FindAll(u => u.ProfileId == userID);
+        //}
 
         //Retorna os tópicos de um utilizador através do User ID
         public List<Topic> getTopicsByUserID(FPTVContext _context, Guid userID)
@@ -58,10 +58,10 @@ namespace FPTV.Models.BLL.User
         }
 
         //Retorna as reações de um utilizador através do User ID
-        public List<Reaction> getReactionsByUserID(FPTVContext _context, Guid userID)
-        {
-            return _context.Reactions.ToList().FindAll(u => u.UserId == userID);
-        }
+        //public List<Reaction> getReactionsByUserID(FPTVContext _context, Guid userID)
+        //{
+        //    return _context.Reactions.ToList().FindAll(u => u.UserId == userID);
+        //}
 
         //Retorna a lista de jogadores favoritos de um utilizador através do User ID
         public List<FavPlayerList> getFavPlayersByUserID(FPTVContext _context, Guid userID)

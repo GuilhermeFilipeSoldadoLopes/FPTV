@@ -1,0 +1,110 @@
+﻿@page
+@using FPTV.Models.Forum;
+@using FPTV.Models.UserModels;
+@model DisableModel
+@{
+    ViewData["Title"] = "Disable Account";
+    ViewData["ActivePage"] = ManageNavPages.Index;
+}
+
+<style>
+
+    .bodytemp {
+        text-align: center;
+    }
+
+    .container {
+        display: flex;
+        align-items: center;
+        height: 100%;
+    }
+
+    .box {
+        width: 100%
+    }
+
+    .row {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .buttons {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 30px;
+    }
+
+    .search-container {
+        display: flex;
+        align-items: center;
+    }
+
+        .search-container input[type="text"] {
+            background-color: #e0eeff;
+            color: black;
+            width: 100%;
+            padding: 10px 20px;
+            border: 1px solid black;
+        }
+
+    .button {
+        margin-left: 10px;
+        background-color: #e0eeff;
+        color: black;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+        border: 1px solid black;
+    }
+
+    .button2 {
+        margin-left: 10px;
+        background-color: red;
+        color: black;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+        border: 1px solid black;
+    }
+</style>
+<body class="bodytemp">
+    <div style="background-color:white">
+        <div class="container">
+
+            <div class="box">
+                <img src="~/images/delete.png" style="width:100%; margin-bottom: 15%; padding:20%">
+            </div>
+
+            <div class="box">
+
+                <div class="row">
+
+                    <h1>@ViewData["Title"]</h1>
+                    <h3>Are you sure you want to delete your account?</h3>
+                    <h4 style="margin-bottom: 10%">(This action is not reversible)</h4>
+
+                    <div class="col-md-4" style="width:70%; ">
+
+                        <div class="buttons">
+                            <partial name="_StatusMessage" for="StatusMessage" />
+                            <form id="profile-form" method="post" enctype="multipart/form-data">
+                                <button id="update-profile-button" type="submit" class="button2" style="border-radius:15px;margin:auto;width:100px">Confirm</button>
+                                <button id="cancel" class="button" style="border-radius:15px;margin:auto;width:100px" onClick="history.go(-1); return false;">Cancel</button>
+                            </form>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</body>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

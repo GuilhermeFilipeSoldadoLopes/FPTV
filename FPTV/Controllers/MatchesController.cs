@@ -90,6 +90,7 @@ namespace FPTV.Controllers
                 }*/
             }
 
+            //para nao dar erro
             await _context.SaveChangesAsync();
 
             if (sort == "tournament")
@@ -255,12 +256,14 @@ namespace FPTV.Controllers
                         team.CouchName = "";
                         team.Losses = 0;
                         team.Winnings = 0;
-                        team.WorldRank= 0;
+                        team.WorldRank = 0;
+                        
+                        if(game == "csgo")
+                            team.Game = GameType.CSGO;
+                        else
+                            team.Game = GameType.Valorant;
 
                         matches.TeamsList.Add(team);
-
-                        if(team.TeamAPIID == matches.WinnerTeamAPIId)
-                            matches.WinnerTeam = team;
                     }
 
                     if (matches.TeamsList.Count() == 2)
@@ -295,7 +298,27 @@ namespace FPTV.Controllers
             return matchesList;
         }
 
-        /*// De CSGO e de Valorant
+		public ActionResult Results()
+		{
+			return View();
+		}
+
+		public ActionResult MatchDetails()
+		{
+			return View();
+		}
+
+		public ActionResult PlayerAndStats()
+		{
+			return View();
+		}
+
+		public ActionResult TeamStats()
+		{
+			return View();
+		}
+
+		/*// De CSGO e de Valorant
         // GET: Matches/CSMatcheDetails/5
         public ActionResult CSMatcheDetails(int id)
         {
@@ -376,5 +399,5 @@ namespace FPTV.Controllers
                 return View();
             }
         }*/
-    }
+	}
 }

@@ -19,6 +19,6 @@ namespace FPTV.Models.MatchesModels
 
         [Required]
         [Display(Name = "TeamName")]
-        public string TeamName { get; set; }
+        public string? TeamName { get; set; }
     }
 }

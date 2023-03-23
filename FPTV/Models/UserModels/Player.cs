@@ -42,5 +42,9 @@ namespace FPTV.Models.UserModels
         [Required]
 		[Display(Name = "Profile Picture")]
 		public string? Image { get; set; }
+
+		[Required]
+		[Display(Name = "Game")]
+		public GameType? Game { get; set; }
 	}
 }

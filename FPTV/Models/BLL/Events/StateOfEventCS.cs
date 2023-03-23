@@ -6,6 +6,13 @@ namespace FPTV.Models.BLL.Events
     {
         public static string? GetEventsFilterBy(string filter)
         {
+			return filter.ToLower() switch
+			{
+				"timetype" => null,
+				_ => null,
+			};
+
+			/*
             switch (filter.ToLower())
             {
                 case "timetype":
@@ -13,16 +20,28 @@ namespace FPTV.Models.BLL.Events
                     break;
 
                 default: return null;
-            }
-        }
+            } 
+             */
+		}
 
-        public static string? GetEventsSearchBy(string name)
+		public static string? GetEventsSearchBy(string name)
         {
             return name.ToLower();
         }
 
         public static string? GetEventsSortBy(string sort)
         {
+			return sort.ToLower() switch
+			{
+				"event_name" => null,
+				"oldest" => null,
+				"newest" => null,
+				"prize_pool" => null,
+				"tier" => null,
+				_ => null,
+			};
+
+			/**
             switch (sort.ToLower())
             {
                 case "event_name":
@@ -46,7 +65,8 @@ namespace FPTV.Models.BLL.Events
                     break;
 
                 default: return null;
-            }
-        }
-    }
+            } 
+             */
+		}
+	}
 }

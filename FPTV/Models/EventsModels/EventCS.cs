@@ -56,7 +56,6 @@ namespace FPTV.Models.EventsModels
         public int MatchesCSAPIID { get; set; }
 
         [Required]
-        [NotMapped]
         [Display(Name = "Team list")]
         public ICollection<Team>? TeamsList { get; set; }
 

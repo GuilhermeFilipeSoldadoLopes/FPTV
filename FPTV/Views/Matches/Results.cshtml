@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "Events";
+	ViewData["Title"] = "Results";
 }
 <!DOCTYPE html>
 
@@ -11,7 +11,7 @@
 			margin: 0 auto;
 			text-align: center;
 			height:100%;
-			background-color: white;
+			
 		}
 
 		.center {
@@ -64,14 +64,13 @@
 			flex-grow: 1;
 			
 		}
-		.btn1{
-			background-color: #e0eeff;
+		.btn123{
 			color:black;
 			width: 90%;
 			display: flex;
 			flex-direction: row;
 			border-bottom: 1px solid black;
-			border-radius: 0px;
+			border-radius: 15px;
 		}
 		span{
 			font-weight:bold;
@@ -136,53 +135,62 @@
 
 </style>
 
-<body class="bodytemp">
+<body class="bodytemp whiteText">
 	
 	<div class="central">
-		<h1 style="margin-left: 10%;text-align: left;">
-			Results of yesterday
-		</h1>
 
-		<div class="center" style="flex-direction: column; background-color: white;width:90%;" >
+		<div style="display:flex; margin-bottom:3%">
+			<button class="btnResult selectedbtn bordercolor" style="">
+				Results of Today
+			</button>
 
-			<button class=" btn1">
-				<div class="my-div">
-					<div class="my-div">
-							<p style="font-size:25px">
-								<span> NGA </span>
-								<span class="span2"> 16 </span>
-								<span class="span2"> vs </span>
-								<span class="span2"> 11 </span>
-								<span> WAS </span>
-								<span style ="text-align: right;">Blast.tv Paris Major 2022</span>
-							</p>
+			<button class="btnResult bordercolor" style="">
+				Results of Yesterday
+			</button>
+
+			<button class="btnResult bordercolor">
+				<input class="bordercolor dark"type="text" id="name" name="name" required style="width:20%; padding:1px">
+				*Days Ago
+				<div style="font-size:13px;"> *2 to 365 days</div>
+			</button>
+
+		</div>
+
+		<div class="center bordercolor colorformatch " style=";width:100%; padding:1%;">
+			
+				<table class=" bordercolor" style="width:100%; border-radius:15px;" >
+
+				<tr style="border:1px solid black;">
+						<td>G2</td>
+						<td> 14 -16 </td>
+						<td> NaVi </td>
+					<td> BLAST.tv Paris Major 2023 Europe</td>
+
+				</tr>
+					<tr style="border:1px solid black">
+						<td>G2</td>
+						<td> 14 -16 </td>
+						<td> NaVi </td>
+					<td> BLAST.tv Paris Major 2023 Europe</td>
+
+				</tr>
+				<tr style="border:1px solid black">
+					<td>G2</td>
+					<td> 14 -16 </td>
+					<td> NaVi </td>
+					<td> BLAST.tv Paris Major 2023 Europe</td>
+
+				</tr>
+				<tr style="border:1px solid black">
+					<td>G2</td>
+					<td> 14 -16 </td>
+					<td> NaVi </td>
+					<td> BLAST.tv Paris Major 2023 Europe</td>
+
+				</tr>
+				</table>
 						
-
-					</div>
-
-				</div>
-			</button>
-
-			<h1 style="text-align: right;margin-right:30%">
-			Results of today
-			</h1>
-
-			<button class=" btn1" style="margin-left:30%">
-				<div class="my-div" >
-						<span style="text-align: center;">
-							<p style="font-size:25px">
-								<span> Fnatic </span>
-								<span class="span2"> 16 </span>
-								<span class="span2"> vs </span>
-								<span class="span2"> 10 </span>
-								<span> SAW </span>
-								<span >Blast.tv Paris Major 2022</span>
-							</p>
-						</span>
-
-				</div>
-			</button>
-
+			</div>
 		</div>
 
 	</div>
