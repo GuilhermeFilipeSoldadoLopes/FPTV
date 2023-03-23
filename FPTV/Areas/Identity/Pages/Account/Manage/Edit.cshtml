@@ -207,11 +207,11 @@
             <br />
 
             <div style="width:80%;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:black;background-color:white;border-width:1px;border-radius:10px;padding:10px;">
-                <h4 >Favourite Players:</h4>
+                <h4 class="text-dark">Favourite Players:</h4>
                 <div style="padding-left:20px">
                     @if (ViewData["FavPlayerListCSGO"] == null || ((List<FavPlayerList>)ViewData["FavPlayerListCSGO"]).Count() == 0)
                     {
-                        <span class="span2">No Favourite Players</span>
+                        <span class="span2 text-dark">No Favourite Players</span>
                         <br />
                     }
                     else
@@ -222,7 +222,7 @@
                             {
                                 <div class="ola">
                                     <div class="box" style="margin-top:0px;width:80%">
-                                        <span class="span2"> item.Name </span>
+                                        <span class="span2 text-dark"> item.Name </span>
                                     </div>
                                     <div class="box" style="margin-top:0px;width:20%">
                                         <img src="~/images/trash.png" style="width:20px;height:20px;" />
@@ -236,11 +236,11 @@
             <br />
 
             <div style="width:80%;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:black;background-color:white;border-width:1px;border-radius:10px;padding:10px;">
-                <h4>Favourite Teams:</h4>
+                <h4 class="text-dark">Favourite Teams:</h4>
                 <div style="padding-left:20px">
                     @if (ViewData["FavTeamsListCSGO"] == null || ((List<FavTeamsList>)ViewData["FavTeamsListCSGO"]).Count() == 0)
                     {
-                        <span class="span2">No Favourite Teams</span>
+                        <span class="span2 text-dark">No Favourite Teams</span>
                         <br />
                     }
                     else
@@ -251,7 +251,7 @@
                             {
                                 <div class="ola">
                                     <div class="box" style="margin-top:0px;width:80%">
-                                        <span class="span2"> item.Name </span>
+                                        <span class="span2 text-dark"> item.Name </span>
                                     </div>
                                     <div class="box" style="margin-top:0px;width:20%">
                                         <img src="~/images/trash.png" style="width:20px;height:20px;" />
@@ -300,17 +300,17 @@
                             }
                         </select>
                     </div>
-                    <label asp-for="Input.Country" class="form-label" style="color:black;font-weight: bold;margin-left:5%"></label>
+                    <label asp-for="Input.Country" class="form-label text-white" style="color:black;font-weight: bold;margin-left:5%"></label>
                 </div>
                 <br />
                 <div style="width:90%;position:relative;display:block;margin-left:auto;margin-right:auto;">
                     <input asp-for="Input.Username" class="form-control" />
-                    <label asp-for="Input.Username" class="form-label" style="color:black;font-weight: bold;"></label>
+                    <label asp-for="Input.Username" class="form-label text-white" style="color:black;font-weight: bold;"></label>
                 </div>
                 <br />
                 <div style="width:90%;position:relative;display:block;margin-left:auto;margin-right:auto;">
                     <input asp-for="Input.Bio" class="form-control" />
-                    <label asp-for="Input.Bio" class="form-label" style="color:black;font-weight: bold;"></label>
+                    <label asp-for="Input.Bio" class="form-label text-white" style="color:black;font-weight: bold;"></label>
                 </div>
                 <br />
                 <div class="ola " style="margin-top:0px;display:flex;margin:auto">
@@ -327,11 +327,11 @@
             <br />
 
             <div style="width:80%;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:black;background-color:white;border-width:1px;border-radius:10px;padding:10px;">
-                <h4>Favourite Players:</h4>
+                <h4 class="text-dark">Favourite Players:</h4>
                 <div style="padding-left:20px">
                     <div class="ola">
                         <div class="box" style="margin-top:0px;width:80%">
-                            <span class="span2"> Player 1 </span>
+                            <span class="span2 text-dark"> Player 1 </span>
                         </div>
                         <div class="box" style="margin-top:0px;width:20%">
                             <img src="~/images/trash.png" style="width:20px;height:20px;" />
@@ -339,7 +339,7 @@
                     </div>
                     <div class="ola">
                         <div class="box" style="margin-top:0px;width:80%">
-                            <span class="span2"> Player 2 </span>
+                            <span class="span2 text-dark"> Player 2 </span>
                         </div>
                         <div class="box" style="margin-top:0px;width:20%">
                             <img src="~/images/trash.png" style="width:20px;height:20px;" />
@@ -347,7 +347,7 @@
                     </div>
                     <div class="ola">
                         <div class="box" style="margin-top:0px;width:80%">
-                            <span class="span2"> Player 3 </span>
+                            <span class="span2 text-dark"> Player 3 </span>
                         </div>
                         <div class="box" style="margin-top:0px;width:20%">
                             <img src="~/images/trash.png" style="width:20px;height:20px;" />
@@ -358,11 +358,11 @@
             <br />
 
             <div style="width:80%;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:black;background-color:white;border-width:1px;border-radius:10px;padding:10px;">
-                <h4>Favourite Teams:</h4>
+                <h4 class="text-dark">Favourite Teams:</h4>
                 <div style="padding-left:20px">
                     <div class="ola">
                         <div class="box" style="margin-top:0px;width:80%">
-                            <span class="span2"> Team 1 </span>
+                            <span class="span2 text-dark"> Team 1 </span>
                         </div>
                         <div class="box" style="margin-top:0px;width:20%">
                             <img src="~/images/trash.png" style="width:20px;height:20px;" />
@@ -370,7 +370,7 @@
                     </div>
                     <div class="ola">
                         <div class="box" style="margin-top:0px;width:80%">
-                            <span class="span2"> Team 2 </span>
+                            <span class="span2 text-dark"> Team 2 </span>
                         </div>
                         <div class="box" style="margin-top:0px;width:20%">
                             <img src="~/images/trash.png" style="width:20px;height:20px;" />
@@ -378,7 +378,7 @@
                     </div>
                     <div class="ola">
                         <div class="box" style="margin-top:0px;width:80%">
-                            <span class="span2"> Team 3 </span>
+                            <span class="span2 text-dark"> Team 3 </span>
                         </div>
                         <div class="box" style="margin-top:0px;width:20%">
                             <img src="~/images/trash.png" style="width:20px;height:20px;" />
@@ -388,7 +388,7 @@
             </div>
             <br />
         </div>
-        <a style="font-size:20px;color:red;order:1;align-self:flex-end;" asp-area="Identity" asp-page="/Account/Manage/Disable">Disable Account</a>
+        <a style="width:auto ;font-size:20px;color:red;order:1;align-self:flex-end;" asp-area="Identity" asp-page="/Account/Manage/Disable">Disable Account</a>
     </div>
 </body>
 

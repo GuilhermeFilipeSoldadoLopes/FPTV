@@ -319,6 +319,15 @@ namespace FPTV.Controllers
 			return View();
 		}
 
+		public ActionResult PlayerAndStats()
+		{
+			return View();
+		}
+
+		public ActionResult TeamStats()
+		{
+			return View();
+		}
 
 		/*// De CSGO e de Valorant
         // GET: Matches/CSMatcheDetails/5

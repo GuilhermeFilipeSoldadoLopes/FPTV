@@ -105,17 +105,24 @@ namespace FPTV.Controllers
 
 		public IActionResult CSGOStats()
 		{
-			return RedirectToAction("Stats", "CSGOStats");
+			return RedirectToAction("CSGOStats", "Stats");
+		}
+
+		public IActionResult PlayerAndStats()
+		{
+			return RedirectToAction("PlayerAndStats", "Matches");
+		}
+
+		public IActionResult TeamStats()
+		{
+			return RedirectToAction("TeamStats", "Matches");
 		}
 
 		public IActionResult LoginRegister()
         {
 	        return View();
         }
-        public IActionResult PlayerAndStats()
-        {
-	        return View();
-        }
+        
         public IActionResult Privacy()
         {
 	        return View();
@@ -155,10 +162,7 @@ namespace FPTV.Controllers
             return View();
         }
         
-        public IActionResult TeamStats()
-        {
-            return View();
-        }
+        
         
         public IActionResult StatisticsOfSite()
         {
