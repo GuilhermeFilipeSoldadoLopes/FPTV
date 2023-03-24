@@ -152,9 +152,11 @@
 			</button>
 
 			<button class="btnResult bordercolor">
-				<input class="bordercolor dark"type="text" id="name" name="name" required style="width:20%; padding:1px">
-				*Days Ago
-				<div style="font-size:13px;"> *2 to 365 days</div>
+				<form method="post" action="@Url.Action("Results", "Matches", new {game = ViewBag.dropDownGame})">
+					<input class="bordercolor dark"type="text" name="days" required style="width:20%; padding:1px">
+					*Days Ago
+					<div style="font-size:13px;"> *2 to 365 days</div>
+				</form>
 			</button>
 
 		</div>

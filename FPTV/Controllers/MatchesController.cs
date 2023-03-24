@@ -323,7 +323,7 @@ namespace FPTV.Controllers
             ViewBag.dropDownGame = game;
             ViewBag.page = "Results";
 
-            var day = DateTime.Now.AddDays(-days).ToString("yyyy-MM-dd");
+			var day = DateTime.Now.AddDays(-days).ToString("yyyy-MM-dd");
 
             var jsonFilter = "filter[begin_at]="+ day;
             var token = "&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA";
