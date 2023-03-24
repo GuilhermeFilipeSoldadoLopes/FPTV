@@ -404,7 +404,9 @@ namespace FPTV.Controllers
                 {
                     player.PlayerCSAPIId = (int)item.GetValue("id");
                     player.Kills = _random.Next(30, 301);
+                    Console.WriteLine("Kills --------------->" + player.Kills);
                     player.Deaths = _random.Next(30, 300);
+                    Console.WriteLine("Kills --------------->" + player.Deaths);
                     player.Assists = _random.Next(1, 11); ;
                     player.FlashAssist = _random.Next(1, 6); ;
                     player.ADR = _random.NextDouble();
@@ -432,12 +434,13 @@ namespace FPTV.Controllers
                     teamm.Name = (string?)_item.GetValue("name");
                     teamm.Image = (string?)_item.GetValue("image_url");
                 }
-                double KdRatio = (double)player.Kills / (double)player.Deaths;
+                var KdRatio = player.Kills / player.Deaths;
+                Console.WriteLine("KdRatio --------------->"+KdRatio);
                 int maps = _random.Next(1, 8);
                 var pastTeam1 = teamsList[_random.Next(teamsList.Length)];
                 var pastTeam2 = teamsList[_random.Next(teamsList.Length)];
                 var pastTeam3 = teamsList[_random.Next(teamsList.Length)];
-                ViewBag.KdRatio = Math.Round(KdRatio, 2);
+                ViewBag.KdRatio = KdRatio;
                 ViewBag.maps = maps;
                 ViewBag.player = player;
                 ViewBag._player = _player;
@@ -453,7 +456,7 @@ namespace FPTV.Controllers
             return null;
         }
 
-        public ActionResult getPlayer(int id, string filter = "", string game = "csgo")
+        public ActionResult getPlayer(int id, string filter = "", string game = "csgo", string page = "&page=1")
         {
             if (game == "valorant") { 
 
@@ -480,7 +483,7 @@ namespace FPTV.Controllers
                 var _token = "&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA";
 
                 //Request processing with RestSharp
-                var _fullRequest = _requestLink + game + "/teams?" + _filterID + _token;
+                var _fullRequest = _requestLink + game + "/players?" + _filterID + _token;
             https://api.pandascore.co/valorant/teams?sort=&page=1&per_page=50&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA
                 var _client = new RestClient(_fullRequest);
                 var _request = new RestRequest("", Method.Get);
@@ -587,13 +590,16 @@ namespace FPTV.Controllers
 
                 //Filter to select from which pool to fetch the data (upcoming, running or finished/ended)
                 var _jsonFilter = filter + "?";
-                var _filterID = "filter[id]=" + id.ToString();
+                var _filterID = "filter[id]=1"; //+ id.ToString();
 
                 //THIS SHOULD BE A CLIENT SECRET
                 var _token = "&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA";
+                var jsonSort = "&sort=";
+                var jsonPage = page;
+                var jsonPerPage = "&per_page=50";
 
                 //Request processing with RestSharp
-                var _fullRequest = _requestLink + game + "/teams?" + _filterID + _token;
+                var _fullRequest = _requestLink + game + "/players?"/* + _filterID + jsonSort + jsonPage + jsonPerPage*/ + _token;
             https://api.pandascore.co/csgo/teams?sort=&page=1&per_page=50&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA
                 var _client = new RestClient(_fullRequest);
                 var _request = new RestRequest("", Method.Get);
@@ -639,7 +645,9 @@ namespace FPTV.Controllers
                 {
                     player.PlayerCSAPIId = (int)item.GetValue("id");
                     player.Kills = _random.Next(30, 301);
+                    Console.WriteLine("Kills ------------->" + player.Kills);
                     player.Deaths = _random.Next(30, 300);
+                    Console.WriteLine("Deaths ------------->" + player.Deaths);
                     player.Assists = _random.Next(1, 11); ;
                     player.FlashAssist = _random.Next(1, 6); ;
                     player.ADR = _random.NextDouble();
@@ -667,12 +675,12 @@ namespace FPTV.Controllers
                     teamm.Name = (string?)_item.GetValue("name");
                     teamm.Image = (string?)_item.GetValue("image_url");
                 }
-                double KdRatio = (double)player.Kills / (double)player.Deaths;
+                var KdRatio = player.Kills / player.Deaths;
                 int maps = _random.Next(1, 8);
                 var pastTeam1 = teamsList[_random.Next(teamsList.Length)];
                 var pastTeam2 = teamsList[_random.Next(teamsList.Length)];
                 var pastTeam3 = teamsList[_random.Next(teamsList.Length)];
-                ViewBag.KdRatio = Math.Round(KdRatio, 2);
+                ViewBag.KdRatio = KdRatio;
                 ViewBag.maps = maps;
                 ViewBag.player = player;
                 ViewBag._player = _player;
