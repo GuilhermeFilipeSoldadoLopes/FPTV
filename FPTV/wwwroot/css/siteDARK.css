@@ -231,3 +231,26 @@ bordercolor2 {
     background-color: #373737;
     color: white;
 }
+
+.backMap {
+    background-image: url('../images/tempo.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    
+    background-color:black;
+}
+
+.backMap1 {
+    background-image: url('../images/tempo.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-family: Noto Sans;
+    background-color: black;
+}
+
+.backMap2 {
+    background-image: url('../images/tempo.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: black;
+}
