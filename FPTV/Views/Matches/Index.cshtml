@@ -254,7 +254,7 @@
 
                             <div style="text-align:left; display: flex;">
                                 <p>Best of @item.NumberOfGames</p>
-                                <a href="#" style="justify-content: space-around; margin-left: auto;">More details</a>
+                                <a href="@Url.Action("MatchDetails", "Matches", new {game = ViewBag.dropDownGame})" style="justify-content: space-around; margin-left: auto;">More details</a>
                             </div>
                         </div>
                     </div>
@@ -329,7 +329,7 @@
                                                     <p/>
                                                 </td>
                                                 <td class="tablecolors">
-                                                    <a href="#">More details</a>
+                                                    <a href="@Url.Action("MatchDetails", "Matches", new {game = ViewBag.dropDownGame})">More details</a>
                                                 </td>
                                             </tr>
                                         </table>
@@ -363,7 +363,7 @@
                             </div>
                             <div style="text-align:left; display: flex;">
                                         <p>Best of @item.NumberOfGames</p>
-                                <a href="#" style="justify-content: space-around; margin-left: auto;">More details</a>
+                                <a href="@Url.Action("MatchDetails", "Matches", new {game = ViewBag.dropDownGame})" style="justify-content: space-around; margin-left: auto;">More details</a>
                             </div>
                         </div>
                     </div>

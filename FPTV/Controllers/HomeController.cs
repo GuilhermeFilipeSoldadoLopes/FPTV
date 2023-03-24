@@ -22,20 +22,20 @@ namespace FPTV.Controllers
             _context = context;
         }
 
-		public IActionResult VALORANT(string page = "Home")
+		public IActionResult VALORANT(string page = "Index")
 		{
-			return RedirectToAction("Index", page, new { game = "valorant" });
+			return RedirectToAction(page, "Home", new { game = "valorant" });
 		}
 
-		public IActionResult CSGO(string page = "Home")
+		public IActionResult CSGO(string page = "Index")
 		{
-			return RedirectToAction("Index", page, new {game = "csgo" });
+			return RedirectToAction(page, "Home", new {game = "csgo" });
 		}
 
 		public IActionResult Index(string game = "csgo")
 		{
 			dropDownGame = game;
-			page = "Home";
+			page = "Index";
 			var account = _context.Users.ToList().Count();
 
 			var accountTxt = (account == 1) ? " user" : " users";
@@ -123,7 +123,7 @@ namespace FPTV.Controllers
 		{
 			page = "Matches";
 			ViewBag.page = page;
-			return RedirectToAction("Results", page);
+			return RedirectToAction("Results", page, new {game = game });
 		}
 
 		public IActionResult CSGOStats()
