@@ -276,8 +276,8 @@ namespace FPTVUnitTests
 			new MatchesCS
 			{
 				MatchesCSId = matchesCSID,
-				MatchesCSAPIID = 1,
-				EventCS = DbContext.EventCS.FirstOrDefault(e => e.EventCSID == eventCSID),
+				MatchesAPIID = 1,
+				Event = DbContext.EventCS.FirstOrDefault(e => e.EventCSID == eventCSID),
 				EventAPIID = 10065,
 				EventName = "Test",
 				BeginAt = DateTime.Now.Subtract(TimeSpan.FromHours(2)),

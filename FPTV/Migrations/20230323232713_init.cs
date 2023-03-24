@@ -333,7 +333,7 @@ namespace FPTV.Migrations
                 columns: table => new
                 {
                     MatchesCSId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    MatchesCSAPIID = table.Column<int>(type: "int", nullable: false),
+                    MatchesAPIID = table.Column<int>(type: "int", nullable: false),
                     EventCSID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     EventAPIID = table.Column<int>(type: "int", nullable: false),
                     EventName = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -393,7 +393,7 @@ namespace FPTV.Migrations
                 columns: table => new
                 {
                     MatchesValId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    MatchesValAPIID = table.Column<int>(type: "int", nullable: false),
+                    MatchesAPIID = table.Column<int>(type: "int", nullable: false),
                     EventValID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     EventAPIID = table.Column<int>(type: "int", nullable: false),
                     EventName = table.Column<string>(type: "nvarchar(max)", nullable: false),

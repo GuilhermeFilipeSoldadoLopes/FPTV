@@ -328,7 +328,7 @@ namespace FPTV.Controllers
                             List<Score> scores = new();
                             var m = new MatchesCS();
 							
-							m.MatchesCSAPIID = o.GetValue("id").Value<int>();
+							m.MatchesAPIID = o.GetValue("id").Value<int>();
 							m.BeginAt = o.GetValue("begin_at").ToString() == "" ? null : o.GetValue("begin_at").Value<DateTime>();
 							m.TimeType = TimeType.Past;
 							m.NumberOfGames = o.GetValue("number_of_games").Value<int>();
@@ -358,7 +358,7 @@ namespace FPTV.Controllers
                             List<Score> scores = new();
                             var m = new MatchesCS();
                             
-                            m.MatchesCSAPIID = o.GetValue("id").Value<int>();
+                            m.MatchesAPIID = o.GetValue("id").Value<int>();
 							m.BeginAt = o.GetValue("begin_at").ToString() == "" ? null : o.GetValue("begin_at").Value<DateTime>();
                             m.TimeType = TimeType.Running;
 							m.NumberOfGames = o.GetValue("number_of_games").Value<int>();
@@ -387,7 +387,7 @@ namespace FPTV.Controllers
 							var m = new MatchesCS();
                             List<Score> scores = new();
                             
-                            m.MatchesCSAPIID = o.GetValue("id").Value<int>();
+                            m.MatchesAPIID = o.GetValue("id").Value<int>();
 							m.BeginAt = o.GetValue("begin_at").ToString() == "" ? null : o.GetValue("begin_at").Value<DateTime>();
                             m.TimeType = TimeType.Upcoming;
 							m.NumberOfGames = o.GetValue("number_of_games").Value<int>();

@@ -200,16 +200,16 @@
             <div class="dropdown">
                 <button class="button2">Sort by</button>
                 <div class="dropdown-content">
-                    <a href="@Url.Action("CSGOMatches", "Matches", new { sort = "", filter = ViewBag.filter})">Newest</a>
-                    <a href="@Url.Action("CSGOMatches", "Matches", new { sort = "&sort=begin_at", filter = ViewBag.filter})">Oldest</a>
-                    <a href="@Url.Action("CSGOMatches", "Matches", new { sort = "tournament", filter = ViewBag.filter})">Event Name</a>
+                    <a href="@Url.Action("Index", "Matches", new { sort = "", filter = ViewBag.filter})">Newest</a>
+                    <a href="@Url.Action("Index", "Matches", new { sort = "&sort=begin_at", filter = ViewBag.filter})">Oldest</a>
+                    <a href="@Url.Action("Index", "Matches", new { sort = "tournament", filter = ViewBag.filter})">Event Name</a>
                 </div>
             </div>
             <div class="dropdown">
                 <button class="button2">Filter by</button>
                 <div class="dropdown-content">
-                    <a href="@Url.Action("CSGOMatches", "Matches", new { sort = ViewBag.sort, filter = "detailed_stats"})">Have Stats</a>
-                    <a href="@Url.Action("CSGOMatches", "Matches", new { sort = ViewBag.sort, filter = "livestream"})">Have livestream</a>
+                    <a href="@Url.Action("Index", "Matches", new { sort = ViewBag.sort, filter = "detailed_stats"})">Have Stats</a>
+                    <a href="@Url.Action("Index", "Matches", new { sort = ViewBag.sort, filter = "livestream"})">Have livestream</a>
                 </div>
             </div>
 

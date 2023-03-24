@@ -279,7 +279,7 @@ namespace FPTV.Migrations
                     b.Property<bool>("LiveSupported")
                         .HasColumnType("bit");
 
-                    b.Property<int>("MatchesCSAPIID")
+                    b.Property<int>("MatchesAPIID")
                         .HasColumnType("int");
 
                     b.Property<int?>("NumberOfGames")
@@ -350,7 +350,7 @@ namespace FPTV.Migrations
                     b.Property<bool>("LiveSupported")
                         .HasColumnType("bit");
 
-                    b.Property<int>("MatchesValAPIID")
+                    b.Property<int>("MatchesAPIID")
                         .HasColumnType("int");
 
                     b.Property<int?>("NumberOfGames")
@@ -1198,24 +1198,24 @@ namespace FPTV.Migrations
 
             modelBuilder.Entity("FPTV.Models.MatchesModels.MatchesCS", b =>
                 {
-                    b.HasOne("FPTV.Models.EventsModels.EventCS", "EventCS")
+                    b.HasOne("FPTV.Models.EventsModels.EventCS", "Event")
                         .WithMany()
                         .HasForeignKey("EventCSID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("EventCS");
+                    b.Navigation("Event");
                 });
 
             modelBuilder.Entity("FPTV.Models.MatchesModels.MatchesVal", b =>
                 {
-                    b.HasOne("FPTV.Models.EventsModels.EventVal", "EventVal")
+                    b.HasOne("FPTV.Models.EventsModels.EventVal", "Event")
                         .WithMany()
                         .HasForeignKey("EventValID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("EventVal");
+                    b.Navigation("Event");
                 });
 
             modelBuilder.Entity("FPTV.Models.MatchesModels.Score", b =>
@@ -1233,19 +1233,6 @@ namespace FPTV.Migrations
                         .HasForeignKey("TeamId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Team");
-                });
-
-            modelBuilder.Entity("FPTV.Models.MatchesModels.Score", b =>
-                {
-                    b.HasOne("FPTV.Models.MatchesModels.MatchesCS", null)
-                        .WithMany("Scores")
-                        .HasForeignKey("MatchesCSId");
-
-                    b.HasOne("FPTV.Models.UserModels.Team", "Team")
-                        .WithMany()
-                        .HasForeignKey("TeamId");
 
                     b.Navigation("Team");
                 });

@@ -75,7 +75,7 @@ namespace FPTVUnitTests
         public void Matches_ReturnsViewResult()
         {
             var controller = new MatchesController(_context);
-            var result = controller.CSGOMatches();
+            var result = controller.Index();
             Assert.IsType<ViewResult>(result);
         }
 
@@ -125,15 +125,15 @@ namespace FPTVUnitTests
         public void Database_ModuleMatchesCSTest()
         {
             var controller = new MatchesController(_context);
-            var result = controller.CSGOMatches();
+            var result = controller.Index();
             var viewResult = Assert.IsType<ViewResult>(result);
 
             MatchesCS matchesCS = contextFixture.DbContext.MatchesCS.FirstOrDefault(m => m.MatchesCSId == contextFixture.GetMatchesCSId());
             var matchesResult = Assert.IsType<MatchesCS>(matchesCS);
 
             Assert.Equal(contextFixture.GetMatchesCSId(), matchesCS.MatchesCSId);
-            Assert.Equal(1, matchesCS.MatchesCSAPIID);
-            Assert.Equal(contextFixture.DbContext.EventCS.FirstOrDefault(e => e.EventCSID == contextFixture.GetEventsCSId()), matchesCS.EventCS);
+            Assert.Equal(1, matchesCS.MatchesAPIID);
+            Assert.Equal(contextFixture.DbContext.EventCS.FirstOrDefault(e => e.EventCSID == contextFixture.GetEventsCSId()), matchesCS.Event);
             Assert.Equal(10065, matchesCS.EventAPIID);
             Assert.Equal("Test", matchesCS.EventName);
             Assert.IsType<DateTime>(matchesCS.BeginAt);
