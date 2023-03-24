@@ -497,10 +497,182 @@ namespace FPTV.Controllers
             return View();
 		}
 
-		public ActionResult MatchDetails(int id)
-		{
-			return View();
-		}
+		public ActionResult MatchDetails(int id = 0, string type = "past", string game = "valorant")
+        {
+            ViewBag.dropDownGame = game;
+            ViewBag.page = "Matches";
+
+            /*var jsonFilter = "filter[id]=" + id;
+            var token = "&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA";
+            var requestLink = "https://api.pandascore.co/" + game + "/matches/";
+
+            var fullApiPath = requestLink + type+ "?" + jsonFilter + "&sort=&page=1&per_page=10" + token;
+
+            var client = new RestClient(fullApiPath);
+            var request = new RestRequest("", Method.Get);
+            request.AddHeader("accept", "application/json");
+            var json = client.Execute(request).Content;
+
+            if (json == null)
+            {
+                return null;
+            }
+
+            IList matchesList = game == "csgo" ? new List<MatchesCS>() : new List<MatchesVal>();
+
+            var matchesArray = JArray.Parse(json);
+
+            foreach (var item in matchesArray.Cast<JObject>())
+            {
+                var status = item.GetValue("status");
+
+                if (!status.ToString().Equals("canceled"))
+                {
+                    dynamic matches = game == "csgo" ? new MatchesCS() : new MatchesVal();
+                    matches.TeamsAPIIDList = new List<int>();
+
+                    matches.Scores = new List<Score>();
+                    matches.TeamsList = new List<Team>();
+                    matches.StreamList = new List<Stream>();
+
+                    //Set up values from api
+                    var league = (JObject)item.GetValue("league");
+                    var live = (JObject)item.GetValue("live");
+                    var tournament = (JObject)item.GetValue("tournament");
+                    var winner = item.GetValue("winner");
+                    var results = (JArray)item.GetValue("results");
+                    var opponentArray = (JArray)item.GetValue("opponents");
+                    var streamArray = (JArray)item.GetValue("streams_list");
+
+                    var matchesAPIId = item.GetValue("id");
+                    var eventAPIID = tournament.GetValue("id");
+                    var eventName = tournament.GetValue("name");
+                    var beginAt = item.GetValue("begin_at");
+                    var endAt = item.GetValue("end_at");
+                    var haveStats = item.GetValue("detailed_stats");
+                    var numberOfGames = item.GetValue("number_of_games");
+                    var winnerTeamAPIId = winner.ToString() == "" ? null : winner.ToObject<JObject>().GetValue("id");
+                    var winnerTeamName = winner.ToString() == "" ? null : winner.ToObject<JObject>().GetValue("name");
+                    var tier = tournament.GetValue("tier");
+                    var leagueName = league.GetValue("name");
+                    var LeagueId = league.GetValue("id");
+                    var leagueLink = league.GetValue("url");
+
+                    //Handling for null values
+                    matches.LeagueName = leagueName.ToString() == null ? "" : leagueName.Value<string>();
+                    matches.MatchesAPIID = matchesAPIId.ToString() == null ? -1 : matchesAPIId.Value<int>();
+                    matches.EventAPIID = eventAPIID.ToString() == null ? -1 : eventAPIID.Value<int>();
+                    matches.EventName = eventName.ToString() == null ? "" : matches.LeagueName + " " + eventName.Value<string>();
+                    matches.BeginAt = beginAt.ToString() == "" ? new DateTime() : beginAt.Value<DateTime>();
+                    matches.EndAt = endAt.ToString() == "" ? new DateTime() : endAt.Value<DateTime>();
+                    matches.IsFinished = status.ToString() == "finished" ? true : false;
+                    matches.HaveStats = haveStats.ToString() == "true" ? true : false;
+                    matches.NumberOfGames = numberOfGames.ToString() == null ? 1 : numberOfGames.Value<int>();
+                    matches.WinnerTeamAPIId = winnerTeamAPIId == null ? -1 : winnerTeamAPIId.Value<int>();
+                    matches.WinnerTeamName = winnerTeamName == null ? "" : winnerTeamName.Value<string>();
+                    matches.Tier = tier.ToString() == "unranked" ? ' ' : tier.Value<char>();
+                    matches.LeagueId = LeagueId.ToString() == null ? -1 : LeagueId.Value<int>();
+                    matches.LeagueLink = leagueLink.ToString() == null ? "" : leagueLink.Value<string>();
+
+                    dynamic matchEvent = game == "csgo" ? new EventCS() : new EventVal();
+                    matchEvent.EventAPIID = matches.EventAPIID;
+                    matchEvent.BeginAt = new DateTime();
+                    matchEvent.EndAt = new DateTime();
+                    matchEvent.EventName = matches.EventName;
+                    matchEvent.TimeType = TimeType.Running;
+                    matchEvent.Finished = false;
+                    matchEvent.EventImage = "";
+                    matchEvent.EventLink = "";
+                    matchEvent.LeagueName = "";
+                    matchEvent.PrizePool = "";
+                    matchEvent.Tier = ' ';
+                    matchEvent.WinnerTeamAPIID = 1;
+                    matchEvent.WinnerTeamName = "";
+                    matches.Event = matchEvent;
+
+                    matches.TimeType = TimeType.Running;
+                    if (status.Equals("finished"))
+                    {
+                        matches.IsFinished = true;
+                        matches.TimeType = TimeType.Past;
+                    }
+                    if (status.Equals("not_started"))
+                        matches.TimeType = TimeType.Upcoming;
+
+                    foreach (var streamObject in streamArray.Cast<JObject>())
+                    {
+                        Stream stream = new Stream();
+
+                        var streamLink = streamObject.GetValue("raw_url");
+                        var streamLanguage = streamObject.GetValue("language");
+
+                        stream.StreamLink = streamLink.ToString() == "" ? "" : streamLink.Value<string>();
+                        stream.StreamLanguage = streamLanguage.ToString() == "" ? "" : streamLanguage.Value<string>();
+
+                        matches.StreamList.Add(stream);
+                    }
+
+                    matches.LiveSupported = streamArray.Count() > 0 ? true : false;
+
+                    foreach (var opponentObject in opponentArray.Cast<JObject>())
+                    {
+                        var team = new Team();
+                        var opponent = (JObject)opponentObject.GetValue("opponent");
+
+                        var teamId = opponent.GetValue("id");
+                        var teamImage = opponent.GetValue("image_url");
+                        var teamName = opponent.GetValue("name");
+
+                        team.TeamAPIID = teamId.ToString() == "" ? -1 : teamId.Value<int>();
+                        team.Name = teamName.ToString() == "" ? "undefined" : teamName.Value<string>();
+                        team.Image = teamImage.ToString() == "" ? "https://mizuwu.s-ul.eu/9UCb9vsT" : teamImage.Value<string>();
+                        team.CouchName = "";
+                        team.Losses = 0;
+                        team.Winnings = 0;
+                        team.WorldRank = 0;
+
+                        if (game == "csgo")
+                            team.Game = GameType.CSGO;
+                        else
+                            team.Game = GameType.Valorant;
+
+                        matches.TeamsList.Add(team);
+                    }
+
+                    if (opponentArray.Count() == 2)
+                    {
+                        foreach (var teamResult in results.Cast<JObject>())
+                        {
+                            var score = teamResult.GetValue("score");
+                            var team_id = teamResult.GetValue("team_id");
+
+                            var teamid = team_id.ToString() == null ? 1 : team_id.Value<int>();
+                            var points = score.ToString() == "" ? 0 : score.Value<int>();
+
+                            foreach (var team in matches.TeamsList)
+                            {
+                                if (team.TeamAPIID == teamid)
+                                {
+                                    var result = new Score();
+                                    result.TeamScore = points;
+                                    result.Team = team;
+                                    result.TeamName = team.Name;
+
+                                    matches.Scores.Add(result);
+                                }
+                            }
+                        }
+
+                        matchesList.Add(matches);
+                    }
+
+                }
+            }
+
+            ViewBag.matches = matchesList;*/
+
+            return View();
+        }
 
 		public ActionResult PlayerAndStats()
 		{
