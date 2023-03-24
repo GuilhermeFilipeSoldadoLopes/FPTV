@@ -19,11 +19,13 @@ using System.Runtime.InteropServices;
 namespace FPTV.Controllers
 {
     public class EventsController : Controller
-    {
-        // GET: EventsController
-        public ActionResult Index(string sort = "&sort=-begin_at", string filter = "running", string search = "", string page = "&page=1", string game = "csgo")
-        {
-            search ??= "";
+	{
+		// GET: EventsController
+		public ActionResult Index(string sort = "&sort=-begin_at", string filter = "running", string search = "", string page = "&page=1", string game = "valorant")
+		{
+			ViewBag.dropDownGame = game;
+			ViewBag.page = "Events";
+			search ??= "";
             //Request processing with RestSharp
             var jsonFilter = filter + "?";
             var jsonSort = sort == "&sort=name" ? "&sort=-begin_at" : sort;

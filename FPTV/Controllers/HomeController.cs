@@ -4,6 +4,7 @@ using FPTV.Models;
 using FPTV.Models.UserModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using PusherServer;
 
 namespace FPTV.Controllers
@@ -12,6 +13,8 @@ namespace FPTV.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly FPTVContext _context;
+        private string dropDownGame;
+		private string page;
 
 		public HomeController(ILogger<HomeController> logger, FPTVContext context)
         {
@@ -19,12 +22,26 @@ namespace FPTV.Controllers
             _context = context;
         }
 
-        public IActionResult Index()
-        {
-	        var account = _context.Users.ToList().Count();
+		public IActionResult VALORANT(string page = "Home")
+		{
+			return RedirectToAction("Index", page, new { game = "valorant" });
+		}
+
+		public IActionResult CSGO(string page = "Home")
+		{
+			return RedirectToAction("Index", page, new {game = "csgo" });
+		}
+
+		public IActionResult Index(string game = "csgo")
+		{
+			dropDownGame = game;
+			page = "Home";
+			var account = _context.Users.ToList().Count();
 
 			var accountTxt = (account == 1) ? " user" : " users";
 
+			ViewBag.dropDownGame = game;
+			ViewBag.page = page;
 			ViewData["accounts"] = account;
 	        ViewData["account_txt"] = accountTxt;
 
@@ -88,91 +105,110 @@ namespace FPTV.Controllers
             return View();
         }
 
-        public IActionResult Events()
-        {
-            return RedirectToAction("Index", "Events");
+        public IActionResult Events(string game = "csgo")
+		{
+			page = "Events";
+			ViewBag.page = page;
+			return RedirectToAction("Index", page, new { sort = "&sort=-begin_at", filter = "running", game = game });
         }
 
-		public IActionResult Matches()
+		public IActionResult Matches(string game = "csgo")
 		{
-			return RedirectToAction("Index", "Matches");
+			page = "Matches";
+			ViewBag.page = page;
+			return RedirectToAction("Index", page, new { sort = "", filter = "", game = game });
 		}
 
-		public IActionResult Results()
+		public IActionResult Results(string game = "csgo")
 		{
-			return RedirectToAction("Results", "Matches");
+			page = "Matches";
+			ViewBag.page = page;
+			return RedirectToAction("Results", page);
 		}
 
 		public IActionResult CSGOStats()
 		{
+			page = "Index";
 			return RedirectToAction("CSGOStats", "Stats");
 		}
 
 		public IActionResult PlayerAndStats()
 		{
+			page = "Index";
 			return RedirectToAction("PlayerAndStats", "Matches");
 		}
 
 		public IActionResult TeamStats()
 		{
+			page = "Index";
 			return RedirectToAction("TeamStats", "Matches");
 		}
 
 		public IActionResult LoginRegister()
-        {
-	        return View();
+		{
+			page = "Index";
+			return View();
         }
         
         public IActionResult Privacy()
-        {
-	        return View();
+		{
+			page = "Index";
+			return View();
         }
         public IActionResult ConfirmDelete()
-        {
-            return View();
+		{
+			page = "Index";
+			return View();
         }
 
 		public IActionResult MatchDetails()
 		{
+			page = "Index";
 			return RedirectToAction("Matches", "MatchDetails");
 		}
 
         public IActionResult Test()
-        {
-
-            return View();
+		{
+			page = "Index";
+			return View();
         }
         
 		public IActionResult Forum()
-        {
-            return View();
+		{
+			page = "Index";
+			return View();
         }
         public IActionResult About()
-        {
-            return View();
+		{
+			page = "Index";
+			return View();
         }
         
         public IActionResult Register()
-        {
-            return View();
+		{
+			page = "Index";
+			return View();
         }
 
         public IActionResult SendEmail()
-        {
-            return View();
+		{
+			page = "Index";
+			return View();
         }
         
         
         
         public IActionResult StatisticsOfSite()
-        {
-            return View();
+		{
+			page = "Index";
+			return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+		{
+			page = "Index";
+			return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }

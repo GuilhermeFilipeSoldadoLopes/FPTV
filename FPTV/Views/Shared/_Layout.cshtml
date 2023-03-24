@@ -96,7 +96,8 @@
 		<div>
 			<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3" style="margin-top: -5px;width:100%;text-align:center">
 				<div class="container-fluid" style="width:100%">
-					<a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img class="logo" src="~/images/iconMenu.jpg" style="width: 85px; height: 100%;"> </a>
+					<a href="@Url.Action("Index", "Home", new { game = ViewBag.dropDownGame})"><img class="logo" src="~/images/iconMenu.jpg" style="width: 85px; height: 100%;"></a>
+					@*<a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img class="logo" src="~/images/iconMenu.jpg" style="width: 85px; height: 100%;"> </a>*@
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
 							aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
@@ -108,21 +109,30 @@
 							@*-----------------------------dropdown para CSGO e VALORANT-------------------------*@
 
 							<div class="dropdown123" style=" width:100%;">
-										<a class="nav-link text-dark" id="buttonMenu" style="font-weight:bold ; font-size: 24px; " asp-area="Home" asp-controller="Home" asp-action="Index">@*Game*@CS:GO</a>
-								<div class="dropdownContent12 bordercolor " style="background-color:white;padding:1%;margin-left:5px">
+									@if (ViewBag.dropDownGame == "csgo")
+									{
+										<a class="nav-link text-dark" id="buttonMenu" style="font-weight:bold ; font-size: 24px; " asp-area="Home" asp-controller="Home" asp-action="Index">CS:GO</a>
+									}
+									else
+									{
+										<a class="nav-link text-dark" id="buttonMenu" style="font-weight:bold ; font-size: 24px; " asp-area="Home" asp-controller="Home" asp-action="Index">VALORANT</a>
+									}
+									<div class="dropdownContent12 bordercolor " style="background-color:white;padding:1%;margin-left:5px">
 
 									<a class="dropdownItem1 bordercolor" style="display:flex;border-radius:15px;width:100%;padding:2%; text-decoration:none;">
 										<button class="btndrop"  style="width:100%;text-align:center">
-											<div style="text-decoration:none;">
-														<span class="" style="color:black ; font-weight:bold ; width:100%;margin:auto">VALORANT</span>
+													<div style="text-decoration:none;">
+														<a href="@Url.Action("VALORANT", "Home", new { game = ViewBag.dropDownGame, page = ViewBag.page})">VALORANT</a>
+														@*<span class="" style="color:black ; font-weight:bold ; width:100%;margin:auto"><a asp-area="Home" asp-controller="Home" asp-action="VALORANT">VALORANT</a></span>*@
 											</div>
 										</button>
 									</a>
 
 									<a class="dropdownItem1 dropselected bordercolor" style="display:flex;border-radius:15px;width:100%;padding:2%; text-decoration:none;margin-top:3px">
 										<button class="btndrop"  style="width:100%;text-align:center">
-											<div style="text-decoration:none;">
-														<span class="" style="color:black ; font-weight:bold ; width:100%;margin:auto">CS:GO</span>
+													<div style="text-decoration:none;">
+														<a href="@Url.Action("CSGO", "Home", new { game = ViewBag.dropDownGame, page = ViewBag.page})">CS:GO</a>
+														@*<span class="" style="color:black ; font-weight:bold ; width:100%;margin:auto"><a asp-area="Home" asp-controller="Home" asp-action="CSGO">CS:GO</a></span>*@
 											</div>
 										</button>
 									</a>
@@ -132,13 +142,16 @@
 						</li>
 						@*-------------------------------------------------------------*@
 						<li class="nav-item" id="menu" style="width:20%; margin:auto">
-								<a class="nav-link text-dark matchesButton" id="buttonMenu" style="font-size: 24px;" asp-area="" asp-controller="Home" asp-action="Matches">Matches</a>
+							<a href="@Url.Action("Matches", "Home", new { game = ViewBag.dropDownGame})">Matches</a>
+							@*<a class="nav-link text-dark matchesButton" id="buttonMenu" style="font-size: 24px;" asp-area="" asp-controller="Home" asp-action="Matches">Matches</a>*@
 						</li>
 						<li class="nav-item" id="menu" style="width:20%; margin:auto">
-								<a class="nav-link text-dark resultsButton" id="buttonMenu" style="font-size: 24px;" asp-area="" asp-controller="Home" asp-action="Results">Results</a>
+							<a href="@Url.Action("Results", "Home", new { game = ViewBag.dropDownGame})">Results</a>
+									@*<<a class="nav-link text-dark resultsButton" id="buttonMenu" style="font-size: 24px;" asp-area="" asp-controller="Home" asp-action="Results">Results</a>*@
 						</li>
 						<li class="nav-item" id="menu" style="width:20%; margin:auto">
-								<a class="nav-link text-dark eventsButton" id="buttonMenu" onclick="" style="font-size: 24px;" asp-area="" asp-controller="Home" asp-action="Events">Events</a>
+							<a href="@Url.Action("Events", "Home", new { game = ViewBag.dropDownGame})">Events</a>
+									@*<<a class="nav-link text-dark eventsButton" id="buttonMenu" onclick="" style="font-size: 24px;" asp-area="" asp-controller="Home" asp-action="Events">Events</a>*@
 						</li>
 						<li class="nav-item" id="menu" style="width:20%; margin:auto">
 								<a class="nav-link text-dark forumButton" id="buttonMenu" style="font-size: 24px;" asp-area="" asp-controller="Home" asp-action="Index">Forum</a>

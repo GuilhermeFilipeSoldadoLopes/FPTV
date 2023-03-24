@@ -41,7 +41,7 @@ namespace FPTV.Controllers
     {
         private readonly FPTVContext _context;
 
-        public MatchesController(FPTVContext context)
+		public MatchesController(FPTVContext context)
         {
             _context = context;
         }
@@ -49,9 +49,11 @@ namespace FPTV.Controllers
         //De CSGO e de Valorant
         // GET: CSMatches
         public async Task<ActionResult> Index(string sort = "", string filter = "", string page = "&page=1", string game = "valorant")
-        {
-            //Request processing with RestSharp
-            var jsonFilter = (filter == "" || filter == "livestream") ? "" : "filter[" + filter + "]=true&";
+		{
+			ViewBag.dropDownGame = game;
+			ViewBag.page = "Matches";
+			//Request processing with RestSharp
+			var jsonFilter = (filter == "" || filter == "livestream") ? "" : "filter[" + filter + "]=true&";
             var jsonSort = (sort == "" || sort == "tournament") ? "" : sort;
             var jsonPage = page;
             var jsonPerPage = "&per_page=10";
@@ -145,9 +147,9 @@ namespace FPTV.Controllers
         }
 
         private IList getAPIMatches(string fullApiPath, string game)
-        {
-            //Request processing with RestSharp
-            var client = new RestClient(fullApiPath);
+		{
+			//Request processing with RestSharp
+			var client = new RestClient(fullApiPath);
             var request = new RestRequest("", Method.Get);
             request.AddHeader("accept", "application/json");
             var json = client.Execute(request).Content;
