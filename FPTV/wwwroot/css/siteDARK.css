@@ -221,3 +221,13 @@ bordercolor2 {
 .selectedbtn{
     text-decoration:underline;
 }
+
+.btnPlayer {
+    background-color: #373737;
+    color:white;
+}
+
+.btnTeam {
+    background-color: #373737;
+    color: white;
+}
