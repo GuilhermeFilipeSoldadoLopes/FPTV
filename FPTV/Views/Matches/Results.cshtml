@@ -160,22 +160,22 @@
 			
 				@if (ViewBag.days == 1) {
 				<button class="btnResult selectedbtn bordercolor" style="">
-					<a class="text-dark" style="text-decoration: none; color: white" href="@Url.Action("Results", "Matches", new { days = 1, game = ViewBag.dropDownGame})">Results of Yesterday</a>
-					</button>
+					<a class="whiteText" style="text-decoration: none; color: white" href="@Url.Action("Results", "Matches", new { days = 1, game = ViewBag.dropDownGame})">Results of Yesterday</a>
+				</button>
 				} else {
 					<button class="btnResult bordercolor" style="">
-					<a class="text-dark" style="text-decoration: none; color: white" href="@Url.Action("Results", "Matches", new { days = 1, game = ViewBag.dropDownGame})">Results of Yesterday</a>
-					</button>
+					<a class="whiteText" style="text-decoration: none; color: white" href="@Url.Action("Results", "Matches", new { days = 1, game = ViewBag.dropDownGame})">Results of Yesterday</a>
+				</button>
 				}
 			
 				@if (ViewBag.days == 0) {
 				<button class="btnResult selectedbtn bordercolor" style="">
-					<a class="text-dark" style="text-decoration: none; color: white" href="@Url.Action("Results", "Matches", new { game = ViewBag.dropDownGame})">Results of Today</a>
-					</button>
+					<a class="whiteText" style="text-decoration: none; color: white" href="@Url.Action("Results", "Matches", new { game = ViewBag.dropDownGame})">Results of Today</a>
+				</button>
 				} else {
-					<button class="btnResult bordercolor" style="">
-					<a class="text-dark" style="text-decoration: none; color: white" href="@Url.Action("Results", "Matches", new { game = ViewBag.dropDownGame})">Results of Today</a>
-					</button>
+				<button class="btnResult bordercolor" style="">
+					<a class="whiteText" style="text-decoration: none; color: white" href="@Url.Action("Results", "Matches", new { game = ViewBag.dropDownGame})">Results of Today</a>
+				</button>
 				}
 
 			<button class="btnResult bordercolor">
@@ -185,10 +185,9 @@
 					<div style="font-size:13px;"> *2 to 365 days</div>*@
 				</form>
 			</button>
-
 		</div>
 
-		<div class="center bordercolor colorformatch " style=";width:100%; padding:1%;">
+		<div class="center bordercolor colorformatch " style="width:100%; padding:1%">
 			
 				<table class=" bordercolor" style="width:100%; border-radius:15px;" >
 
