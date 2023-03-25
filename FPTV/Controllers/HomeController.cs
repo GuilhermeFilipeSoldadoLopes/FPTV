@@ -183,7 +183,7 @@ namespace FPTV.Controllers
 		{
 			page = "About";
             ViewBag.page = page;
-            return View("Index"); //apagar index - quando a pagina tiver feita
+            return View(); //apagar index - quando a pagina tiver feita
 		}
         
         public IActionResult Register()
