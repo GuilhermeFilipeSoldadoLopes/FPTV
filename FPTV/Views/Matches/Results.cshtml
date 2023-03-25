@@ -136,6 +136,10 @@
 			width: 30px;
 		}
 
+		::placeholder {
+			color: green;
+		}
+
 </style>
 
 <body class="bodytemp whiteText">
@@ -153,9 +157,9 @@
 
 			<button class="btnResult bordercolor">
 				<form method="post" action="@Url.Action("Results", "Matches", new {game = ViewBag.dropDownGame})">
-					<input class="bordercolor dark"type="text" name="days" required style="width:20%; padding:1px">
-					*Days Ago
-					<div style="font-size:13px;"> *2 to 365 days</div>
+					<input class="bordercolor dark" type="text" name="days" placeholder="2 to 365 days ago" required style="width:53%; padding:1px;">
+					@**Days Ago
+					<div style="font-size:13px;"> *2 to 365 days</div>*@
 				</form>
 			</button>
 
