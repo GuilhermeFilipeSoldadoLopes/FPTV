@@ -617,7 +617,7 @@ namespace FPTV.Controllers
 
                 //Filter to select from which pool to fetch the data (upcoming, running or finished/ended)
                 var jsonFilter = filter + "?";
-                var filterID = "filter[id]=" + id.ToString();
+                var filterID = "filter[id]=48528";//+ id.ToString();
 
                 //THIS SHOULD BE A CLIENT SECRET
                 var token = "&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA";
@@ -675,12 +675,13 @@ namespace FPTV.Controllers
                     teamm.Name = (string?)_item.GetValue("name");
                     teamm.Image = (string?)_item.GetValue("image_url");
                 }
-                var KdRatio = player.Kills / player.Deaths;
+                double KdRatio = (double)player.Kills / (double)player.Deaths;
+                double roundKdRatio = Math.Round(KdRatio, 2);
                 int maps = _random.Next(1, 8);
                 var pastTeam1 = teamsList[_random.Next(teamsList.Length)];
                 var pastTeam2 = teamsList[_random.Next(teamsList.Length)];
                 var pastTeam3 = teamsList[_random.Next(teamsList.Length)];
-                ViewBag.KdRatio = KdRatio;
+                ViewBag.KdRatio = roundKdRatio;
                 ViewBag.maps = maps;
                 ViewBag.player = player;
                 ViewBag._player = _player;
