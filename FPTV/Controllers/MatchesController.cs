@@ -380,9 +380,10 @@ namespace FPTV.Controllers
                     var leagueName = league.GetValue("name");
                     var LeagueId = league.GetValue("id");
                     var leagueLink = league.GetValue("url");
+					var leagueImage = league.GetValue("image_url");
 
-                    //Handling for null values
-                    matches.LeagueName = leagueName.ToString() == null ? "" : leagueName.Value<string>();
+					//Handling for null values
+					matches.LeagueName = leagueName.ToString() == null ? "" : leagueName.Value<string>();
                     matches.MatchesAPIID = matchesAPIId.ToString() == null ? -1 : matchesAPIId.Value<int>();
                     matches.EventAPIID = eventAPIID.ToString() == null ? -1 : eventAPIID.Value<int>();
                     matches.EventName = eventName.ToString() == null ? "" : matches.LeagueName + " " + eventName.Value<string>();
@@ -404,8 +405,8 @@ namespace FPTV.Controllers
                     matchEvent.EventName = matches.EventName;
                     matchEvent.TimeType = TimeType.Running;
                     matchEvent.Finished = false;
-                    matchEvent.EventImage = "";
-                    matchEvent.EventLink = "";
+                    matchEvent.EventImage = leagueImage.ToString() == "" ? "https://mizuwu.s-ul.eu/9UCb9vsT" : leagueImage.Value<string>();
+					matchEvent.EventLink = "";
                     matchEvent.LeagueName = "";
                     matchEvent.PrizePool = "";
                     matchEvent.Tier = ' ';
