@@ -1,5 +1,6 @@
 html {
     font-size: 14px;
+
 }
 
 @media (min-width: 768px) {
@@ -14,7 +15,7 @@ html {
 }
 
 body {
-    margin-bottom: 60px;
+   /* margin-bottom: 60px;*/
     font-family: Noto Sans;
     
 }
@@ -49,6 +50,7 @@ textarea {
     background-size: cover;
     font-family: Noto Sans;
     background-color: black;
+    margin-bottom: 5%;
 }
 
 .bodytemp {
@@ -57,6 +59,7 @@ textarea {
     background-size: cover;
     font-family: Noto Sans;
     background-color: black;
+    margin-bottom:5%;
 }
 
 .form {
