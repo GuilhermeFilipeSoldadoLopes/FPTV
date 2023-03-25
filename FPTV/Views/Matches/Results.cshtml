@@ -143,13 +143,13 @@
 	<div class="central">
 
 		<div style="display:flex; margin-bottom:3%">
-			<button class="btnResult selectedbtn bordercolor" style="">
-				<a href="@Url.Action("Results", "Matches", new { game = ViewBag.dropDownGame})">Results of Today</a>
-            </button>
-
 			<button class="btnResult bordercolor" style="">
                 <a href="@Url.Action("Results", "Matches", new { days = 1, game = ViewBag.dropDownGame})">Results of Yesterday</a>
 			</button>
+
+			<button class="btnResult selectedbtn bordercolor" style="">
+				<a href="@Url.Action("Results", "Matches", new { game = ViewBag.dropDownGame})">Results of Today</a>
+            </button>
 
 			<button class="btnResult bordercolor">
 				<form method="post" action="@Url.Action("Results", "Matches", new {game = ViewBag.dropDownGame})">
@@ -170,6 +170,9 @@
 					<tr style="border:1px solid black;">
 						<td>@item.TeamsList[0].Name</td>
 						<td>
+							<img src=@item.TeamsList[0].Image style="width:40px; margin:auto; height:40px;" />
+						</td>
+						<td>
 							@foreach (var team in item.Scores)
 							{
 								@if (item.TeamsList[0].Name == team.TeamName)
@@ -186,8 +189,14 @@
 								}
 							}
 						</td>
+						<td>
+							<img src=@item.TeamsList[1].Image style="width:40px; margin:auto; height:40px;" />
+						</td>
 						<td> @item.TeamsList[1].Name </td>
 						<td> @item.EventName</td>
+						<td>
+							<img src=@item.Event.EventImage style="width:40px; margin:auto; height:40px;" />
+						</td>
                     </tr>
 				}
 				</table>
