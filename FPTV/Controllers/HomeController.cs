@@ -29,7 +29,7 @@ namespace FPTV.Controllers
 
 		public IActionResult CSGO(string page = "Index")
 		{
-			return RedirectToAction(page, "Home", new {game = "csgo" });
+			return RedirectToAction(page, "Home", new { game = "csgo" });
 		}
 
 		public IActionResult Index(string game = "csgo")
@@ -170,19 +170,21 @@ namespace FPTV.Controllers
         public IActionResult Test()
 		{
 			page = "Index";
-			return View();
+            return View();
         }
         
 		public IActionResult Forum()
 		{
-			page = "Index";
-			return View();
-        }
+			page = "Forum";
+            ViewBag.page = page;
+            return View("Index"); //apagar index - quando a pagina tiver feita
+		}
         public IActionResult About()
 		{
-			page = "Index";
-			return View();
-        }
+			page = "About";
+            ViewBag.page = page;
+            return View("Index"); //apagar index - quando a pagina tiver feita
+		}
         
         public IActionResult Register()
 		{

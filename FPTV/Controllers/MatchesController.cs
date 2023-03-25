@@ -322,6 +322,7 @@ namespace FPTV.Controllers
         {
             ViewBag.dropDownGame = game;
             ViewBag.page = "Results";
+			ViewBag.days = days;
 
 			var day = DateTime.Now.AddDays(-days).ToString("yyyy-MM-dd");
 
