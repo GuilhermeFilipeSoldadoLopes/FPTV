@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Linq;
+using NuGet.ProjectModel;
 using RestSharp;
 using SendGrid.Helpers.Mail;
 using System;
@@ -187,7 +188,7 @@ namespace FPTV.Controllers
 
         public async Task<IActionResult> PlayerandStatsCs(int id)
         {
-            getCSGOMatches();
+            getCSGOMatchesAsync();
             return View("PlayerAndStats");
         }
 
@@ -274,7 +275,7 @@ namespace FPTV.Controllers
 
                     //_player.Age = (int?)item.GetValue("age");
                     _player.Age = item.GetValue("age") == null ? 20 : item.GetValue("age").Value<int>();
-                    _player.Nacionality = (string)item.GetValue("nationality");
+                    _player.Nationality = (string)item.GetValue("nationality");
                     //_player.Image = (string)item.GetValue("image_url");
                     _player.Image = item.GetValue("image_url").ToString() == "" ? "/images/default-profile-icon-24.jpg" : item.GetValue("image_url").Value<string>();
 
@@ -390,7 +391,7 @@ namespace FPTV.Controllers
 
                     //_player.Age = (int?)item.GetValue("age");
                     _player.Age = item.GetValue("age") == null ? 20 : item.GetValue("age").Value<int>();
-                    _player.Nacionality = (string)item.GetValue("nationality");
+                    _player.Nationality = (string)item.GetValue("nationality");
                     //_player.Image = (string)item.GetValue("image_url");
                     _player.Image = item.GetValue("image_url").ToString() == "" ? "/images/default-profile-icon-24.jpg" : item.GetValue("image_url").Value<string>();
 
@@ -513,7 +514,7 @@ namespace FPTV.Controllers
 
                     //_player.Age = (int?)item.GetValue("age");
                     _player.Age = item.GetValue("age") == null ? 20 : item.GetValue("age").Value<int>();
-                    _player.Nacionality = (string)item.GetValue("nationality");
+                    _player.Nationality = (string)item.GetValue("nationality");
                     //_player.Image = (string)item.GetValue("image_url");
                     _player.Image = item.GetValue("image_url").ToString() == "" ? "/images/default-profile-icon-24.jpg" : item.GetValue("image_url").Value<string>();
 
@@ -632,7 +633,8 @@ namespace FPTV.Controllers
 
                     //_player.Age = (int?)item.GetValue("age");
                     _player.Age = item.GetValue("age") == null ? 20 : item.GetValue("age").Value<int>();
-                    _player.Nacionality = (string)item.GetValue("nationality");
+                    _player.Nationality = (string)item.GetValue("nationality");
+                    ViewBag.NacionalityImg = "/images/Flags/4x3/" + _player.Nationality + ".svg";
                     //_player.Image = (string)item.GetValue("image_url");
                     _player.Image = item.GetValue("image_url").ToString() == "" ? "/images/default-profile-icon-24.jpg" : item.GetValue("image_url").Value<string>();
 
@@ -696,7 +698,7 @@ namespace FPTV.Controllers
                 var jsonFilter = filter + "?";
                 var jsonSort = sort;
                 var jsonPage = page;
-                var jsonPerPage = "&per_page=10";
+                var jsonPerPage = "&per_page=50";
                 var token = "&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA";
                 var requestLink = "https://api.pandascore.co/" + game + "/" + category + "/";
                 var fullApiPath = requestLink + "?" + jsonPage + jsonPerPage + token;
@@ -726,7 +728,7 @@ namespace FPTV.Controllers
 
         }
 
-        private void getCSGOMatches(string time = "past")
+        public async Task<ActionResult> getCSGOMatchesAsync(string time = "past")
         {
             //string url =https://api.pandascore.co/csgo/matches/past?sort=draw&sort=&page=1&per_page=50&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA
 
@@ -752,6 +754,8 @@ namespace FPTV.Controllers
             List<MatchPlayerStatsCS>? playerStatsList = new();
             List<MatchTeamsCS>? teamsList = new();
 
+
+
             foreach (var item in jarrayMatches.Cast<JObject>())
             {
                 var status = item.GetValue("status");
@@ -760,9 +764,11 @@ namespace FPTV.Controllers
                 {
                     var opponentArray = (JArray)item.GetValue("opponents");
                     var ma = new MatchCS();
-
+                    ma.PlayerStatsList = new List<MatchPlayerStatsCS>();
+                    ma.TeamsList = new List<MatchTeamsCS>();
                     var matches = new MatchesCS();
-                    matches.MatchesList.Add(ma);
+                    matches.MatchesList = new List<MatchCS>();
+
                     matches.MatchesAPIID = (int)item.GetValue("id");
                     ma.MatchesCSAPIId = matches.MatchesAPIID;
                     ma.RoundsScore = StaticResults[_random.Next(maps.Length)];
@@ -781,8 +787,31 @@ namespace FPTV.Controllers
 
                         var team = new Team();
                         team.TeamAPIID = teamId;
-                        team.Name = teamName.ToString() == "?" ? "undefined" : teamName.Value<string>();
+                        team.Name = teamName.ToString() == "" ? "undefined" : teamName.Value<string>();
+                        var something = teamName.ToString() == "" ? "undefined" : teamName.Value<string>();
                         team.Image = teamImage.ToString() == "" ? "/images/logo1.jpg" : teamImage.Value<string>();
+                        team.CoachName = "";
+                        team.Game = GameType.CSGO;
+                        matches.WinnerTeamAPIId = team.TeamAPIID;
+                        matches.WinnerTeamName = team.Name;
+                        EventCS evt = new EventCS();
+                        var events = (JObject)item.GetValue("tournament");
+
+                        matches.EventName = (string)events.GetValue("name");
+                        matches.Event = evt;
+                        matches.EventAPIID = (int)item.GetValue("tournament_id");
+                        evt.BeginAt = new DateTime();
+                        evt.EndAt = new DateTime();
+                        evt.EventName = matches.EventName;
+                        evt.TimeType = TimeType.Running;
+                        evt.Finished = false;
+                        evt.EventImage = "";
+                        evt.EventLink = "";
+                        evt.LeagueName = "";
+                        evt.PrizePool = "";
+                        evt.Tier = ' ';
+                        evt.WinnerTeamAPIID = 1;
+                        evt.WinnerTeamName = "";
 
                         var fullApiPath = "https://api.pandascore.co/csgo/teams?filter[id]=" + teamId + "&sort=&page=1&per_page=50&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA";
                         var client = new RestClient(fullApiPath);
@@ -794,22 +823,31 @@ namespace FPTV.Controllers
 
 
 
+
                         foreach (var _team in teamsArray.Cast<JObject>())
                         {
-                            team.CouchName = coachNames[_random.Next(coachNames.Length)]; ;
+                            team.CoachName = coachNames[_random.Next(coachNames.Length)]; ;
                             team.WorldRank = 1;
                             team.Winnings = 1;
                             team.Losses = 1;
+                            _context.Team.Add(team);
                             var players = (JArray)_team.GetValue("players");
                             foreach (var _player in players.Cast<JObject>())
                             {
                                 //inicializar cada player
                                 var player = new Player();
+                                player.Teams = new List<Team>();
                                 player.PlayerAPIId = (int)_player.GetValue("id");
                                 player.Name = (string)_player.GetValue("name");
                                 player.Age = (int)_player.GetValue("age");
                                 player.Rating = ranking[_random.Next(ranking.Length)];
+                                team.Name = teamName.ToString() == "" ? "undefined" : teamName.Value<string>();
+                                player.Flag= (string)item.GetValue("nationality") == null ? "undefined" : item.GetValue("nationality").Value<string>();
+                                player.Game = GameType.CSGO;
+                                player.Image = "";
+                                player.Nationality = (string)item.GetValue("nationality") == null ? "undefined" : item.GetValue("nationality").Value<string>();
                                 player.Teams.Add(team);
+                                _context.Player.Add(player);
                             }
 
                         }
@@ -828,13 +866,20 @@ namespace FPTV.Controllers
                             var winnerTeam = new Team();
                             var winner = game.GetValue("winner");
                             winnerTeam.TeamAPIID = winner.Value<int>("id");
+                            if (winnerTeam.TeamAPIID == team.TeamAPIID)
+                            {
+                                winnerTeam.Name = team.Name;
+                                winnerTeam.Image = team.Image;
+                                winnerTeam.CoachName = team.CoachName;
+                                winnerTeam.Game = team.Game;
+                                winnerTeam.WorldRank = 1;
+                                winnerTeam.Winnings = team.Winnings;
+                                winnerTeam.Losses = team.Losses;
+                                ma.WinnerTeamName = winnerTeam.Name;
+                            }
                             ma.WinnerTeam = winnerTeam;
                             ma.WinnerTeamAPIId = winnerTeam.TeamAPIID;
                             ma.MatchCSAPIID = (int)game.GetValue("id");
-                            //var MatchCSAPIID = games.GetValue("id");
-                            //var MatchesCSAPIId = (int)m.GetValue("id");
-
-                            //var winnerTeamAPIId = winner.ToString() == "" ? null : winner.ToObject<JObject>().GetValue("id");
                         }
                         matchCsList.Add(ma);
                         _context.MatchCS.Add(ma);
@@ -860,38 +905,34 @@ namespace FPTV.Controllers
                                 player.PlayerName = (string)p.GetValue("name"); ;
                                 playerStatsList.Add(player);
                                 ma.PlayerStatsList.Add(player);
-                                _context.MatchPlayerStatsCS.Add(player);
+                                //playerStatsList.Add(player);
+                               // _context.MatchPlayerStatsCS.Add(player);
+
                             }
                         }
-                        ViewBag.playerStatsList = playerStatsList;
 
-
-                        ViewBag.teamsList = teamsList;
-                        ViewBag.matchCsList = matchCsList;
                     }
-                    /*
-                    //JArray games = (JArray)item["games"];
-                        foreach (var gamesObject in games.Children<JObject>())
-                        {
-                            var ma = new MatchCS();
-                            var matches = new MatchesCS();
-                            matches.MatchesList.Add(ma);
-                            matches.MatchesCSAPIID = (int)m.GetValue("id");
-                            var MatchCSAPIID = gamesObject.GetValue("id");
-                            var MatchesCSAPIId = (int)m.GetValue("id");
-                            ma.RoundsScore = StaticResults[_random.Next(maps.Length)];
-                            ma.Map = maps[_random.Next(maps.Length)];
-                            //var winnerTeamAPIId = winner.ToString() == "" ? null : winner.ToObject<JObject>().GetValue("id");
-                            ma.WinnerTeamName = teamNames[_random.Next(maps.Length)];
-                            ma.MatchCSAPIID = (int)MatchCSAPIID;
-                            ma.WinnerTeamAPIId = winnerTeamAPIId.ToString() == "" ? -1 : winnerTeamAPIId.Value<int>();
-                            matchCsList.Add(ma);
-                            _context.MatchCS.Add(ma);
-                        }
-                }*/
+                    matches.MatchesList.Add(ma);
+                    _context.MatchesCS.Add(matches);
+                    await _context.SaveChangesAsync();
                 }
-                _context.SaveChanges();
             }
+            foreach (MatchCS mpCS in matchCsList)
+            {
+                Console.WriteLine("matchCsList -->" + mpCS);
+            }
+            foreach (MatchPlayerStatsCS mpCS in playerStatsList)
+            {
+                Console.WriteLine("playerStatsList -->" + mpCS);
+            }
+            foreach (MatchTeamsCS mpCS in teamsList)
+            {
+                Console.WriteLine("teamsList -->" + mpCS);
+            }
+            ViewBag.playerStatsList = playerStatsList;
+            ViewBag.teamsList = teamsList;
+            ViewBag.matchCsList = matchCsList;
+            return View("PlayerAndStats");
         }
     }
 }

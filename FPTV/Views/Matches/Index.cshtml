@@ -254,11 +254,8 @@
 
                             <div style="text-align:left; display: flex;">
                                 <p>Best of @item.NumberOfGames</p>
-<<<<<<< HEAD:FPTV/Views/Matches/CSGOMatches.cshtml
-                                <a href="@Url.Action("MatchDetails", "Stats")" style="justify-content: space-around; margin-left: auto;" >More details</a>
-=======
+
                                 <a href="@Url.Action("MatchDetails", "Matches", new {id = item.MatchesAPIID, type = item.TimeType.ToString().ToLower() ,game = ViewBag.dropDownGame})" style="justify-content: space-around; margin-left: auto;">More details</a>
->>>>>>> Desenvolvimento:FPTV/Views/Matches/Index.cshtml
                             </div>
                         </div>
                     </div>

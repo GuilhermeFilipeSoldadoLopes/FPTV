@@ -273,7 +273,7 @@ namespace FPTV.Controllers
                         team.TeamAPIID = teamId.ToString() == "" ? -1 : teamId.Value<int>();
                         team.Name = teamName.ToString() == "" ? "undefined" : teamName.Value<string>();
                         team.Image = teamImage.ToString() == "" ? "https://mizuwu.s-ul.eu/9UCb9vsT" : teamImage.Value<string>();
-                        team.CouchName = "";
+                        team.CoachName = "";
                         team.Losses = 0;
                         team.Winnings = 0;
                         team.WorldRank = 0;
@@ -450,7 +450,7 @@ namespace FPTV.Controllers
                         team.TeamAPIID = teamId.ToString() == "" ? -1 : teamId.Value<int>();
                         team.Name = teamName.ToString() == "" ? "undefined" : teamName.Value<string>();
                         team.Image = teamImage.ToString() == "" ? "https://mizuwu.s-ul.eu/9UCb9vsT" : teamImage.Value<string>();
-                        team.CouchName = "";
+                        team.CoachName = "";
                         team.Losses = 0;
                         team.Winnings = 0;
                         team.WorldRank = 0;
