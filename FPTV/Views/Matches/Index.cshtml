@@ -3,6 +3,7 @@
 }
 
 <style>
+
     .box1 {
         width: 40%;
         height: 100%;
@@ -199,16 +200,16 @@
             <div class="dropdown">
                 <button class="button2">Sort by</button>
                 <div class="dropdown-content">
-                    <a href="@Url.Action("CSGOMatches", "Matches", new { sort = "", filter = ViewBag.filter})">Newest</a>
-                    <a href="@Url.Action("CSGOMatches", "Matches", new { sort = "&sort=begin_at", filter = ViewBag.filter})">Oldest</a>
-                    <a href="@Url.Action("CSGOMatches", "Matches", new { sort = "tournament", filter = ViewBag.filter})">Event Name</a>
+                    <a href="@Url.Action("Index", "Matches", new { sort = "", filter = ViewBag.filter})">Newest</a>
+                    <a href="@Url.Action("Index", "Matches", new { sort = "&sort=begin_at", filter = ViewBag.filter})">Oldest</a>
+                    <a href="@Url.Action("Index", "Matches", new { sort = "tournament", filter = ViewBag.filter})">Event Name</a>
                 </div>
             </div>
             <div class="dropdown">
                 <button class="button2">Filter by</button>
                 <div class="dropdown-content">
-                    <a href="@Url.Action("CSGOMatches", "Matches", new { sort = ViewBag.sort, filter = "detailed_stats"})">Have Stats</a>
-                    <a href="@Url.Action("CSGOMatches", "Matches", new { sort = ViewBag.sort, filter = "livestream"})">Have livestream</a>
+                    <a href="@Url.Action("Index", "Matches", new { sort = ViewBag.sort, filter = "detailed_stats"})">Have Stats</a>
+                    <a href="@Url.Action("Index", "Matches", new { sort = ViewBag.sort, filter = "livestream"})">Have livestream</a>
                 </div>
             </div>
 
@@ -246,14 +247,18 @@
                                             }
                                         }
                                         <span> @item.TeamsList[1].Name </span>
-                                        <img src=@item.TeamsList[1].Image alt="logo" style="width:15%">                                      
+                                        <img src=@item.TeamsList[1].Image alt="logo" style="width:15%">
                                     </p>
                                 </span>
                             </div>
 
                             <div style="text-align:left; display: flex;">
                                 <p>Best of @item.NumberOfGames</p>
+<<<<<<< HEAD:FPTV/Views/Matches/CSGOMatches.cshtml
                                 <a href="@Url.Action("MatchDetails", "Stats")" style="justify-content: space-around; margin-left: auto;" >More details</a>
+=======
+                                <a href="@Url.Action("MatchDetails", "Matches", new {id = item.MatchesAPIID, type = item.TimeType.ToString().ToLower() ,game = ViewBag.dropDownGame})" style="justify-content: space-around; margin-left: auto;">More details</a>
+>>>>>>> Desenvolvimento:FPTV/Views/Matches/Index.cshtml
                             </div>
                         </div>
                     </div>
@@ -289,11 +294,12 @@
                                             <tr>
                                                 <td class="tablecolors">
                                                     <span> @item.TeamsList[0].Name </span>
+                                                </td>
                                                 <td class="tablecolors">
                                                     <span>vs</span>
                                                 </td>
                                                 <td class="tablecolors">
-                                                    <span> @item.TeamsList[0].Name </span>
+                                                    <span> @item.TeamsList[1].Name </span>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -307,7 +313,7 @@
                                                     }
                                                 }
                                                 <td class="tablecolors">
-                                                    <span class="span2"> vs </span>
+                                                    <span class="span2"> - </span>
                                                 </td>
                                                 @foreach (var team in item.Scores)
                                                 {
@@ -327,7 +333,7 @@
                                                     <p/>
                                                 </td>
                                                 <td class="tablecolors">
-                                                    <a href="#">More details</a>
+                                                    <a href="@Url.Action("MatchDetails", "Matches", new {id = item.MatchesAPIID, type = item.TimeType.ToString().ToLower() ,game = ViewBag.dropDownGame})">More details</a>
                                                 </td>
                                             </tr>
                                         </table>
@@ -361,7 +367,7 @@
                             </div>
                             <div style="text-align:left; display: flex;">
                                         <p>Best of @item.NumberOfGames</p>
-                                <a href="#" style="justify-content: space-around; margin-left: auto;">More details</a>
+                                <a href="@Url.Action("MatchDetails", "Matches", new {id = item.MatchesAPIID, type = item.TimeType.ToString().ToLower() ,game = ViewBag.dropDownGame})" style="justify-content: space-around; margin-left: auto;">More details</a>
                             </div>
                         </div>
                     </div>

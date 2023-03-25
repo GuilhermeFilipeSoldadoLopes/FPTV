@@ -52,8 +52,8 @@ textarea {
 .bodytemp {
     width: 100%;
     background-image: url('../images/tempo.png');
-    /*background-repeat: no-repeat;
-    background-size: cover;*/
+    background-repeat: no-repeat;
+    background-size: cover;
     font-family: Noto Sans;
    
 }
@@ -218,4 +218,37 @@ bordercolor2 {
 
 .selectedbtn {
     text-decoration: underline;
+}
+
+.btnPlayer {
+    background-color: white;
+    color:black;
+}
+
+.btnTeam {
+    background-color: lightgray;
+    color: white;
+}
+
+.backMap {
+    background-image: url('../images/Maps/overpass.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-family: Noto Sans;
+    background-color: white;
+}
+
+.backMap1 {
+    background-image: url('../images/Maps/vertigo.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-family: Noto Sans;
+    background-color: white;
+}
+
+.backMap2 {
+    background-image: url('../images/Maps/mirage.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: white;
 }

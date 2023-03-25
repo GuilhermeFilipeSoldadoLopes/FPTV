@@ -14,10 +14,10 @@ namespace FPTV.Models.MatchesModels
 
         [Required]
         [Display(Name = "MatchesCS API ID")]
-        public int MatchesCSAPIID { get; set; }
+        public int MatchesAPIID { get; set; }
 
         [Display(Name = "EventCS")]
-        public EventCS EventCS { get; set; }
+        public EventCS Event { get; set; }
 
         [Required]
         [Display(Name = "Event API ID")]

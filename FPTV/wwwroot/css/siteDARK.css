@@ -48,14 +48,13 @@ textarea {
     background-repeat: no-repeat;
     background-size: cover;
     font-family: Noto Sans;
+    background-color: black;
 }
 
 .bodytemp {
-   /* width: 1920px;
-    height:1080px;*/
     background-image: url('../images/tempo.png');
-    /*background-repeat: no-repeat;
-    background-size: cover;*/
+    background-repeat: no-repeat;
+    background-size: cover;
     font-family: Noto Sans;
     background-color: black;
 }
@@ -221,4 +220,38 @@ bordercolor2 {
 }
 .selectedbtn{
     text-decoration:underline;
+}
+
+.btnPlayer {
+    background-color: #373737;
+    color:white;
+}
+
+.btnTeam {
+    background-color: #373737;
+    color: white;
+}
+
+.backMap {
+    background-image: url('../images/Maps/overpass.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    
+    background-color:black;
+}
+
+.backMap1 {
+    background-image: url('../images/Maps/vertigo.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-family: Noto Sans;
+    background-color: black;
+}
+
+.backMap2 {
+    background-image: url('../images/Maps/mirage.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: black;
+    
 }

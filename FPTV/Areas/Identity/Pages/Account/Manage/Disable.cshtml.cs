@@ -15,13 +15,13 @@ using System.Diagnostics.Metrics;
 
 namespace FPTV.Areas.Identity.Pages.Account.Manage
 {
-    public class DeleteModel : PageModel
+    public class DisableModel : PageModel
     {
         private readonly UserManager<UserBase> _userManager;
         private readonly SignInManager<UserBase> _signInManager;
         private readonly FPTVContext _context;
 
-        public DeleteModel(
+        public DisableModel(
             UserManager<UserBase> userManager,
             SignInManager<UserBase> signInManager,
             FPTVContext context)
@@ -123,6 +123,7 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
             await _userManager.UpdateAsync(user);
             //await _userManager.DeleteAsync(user);
 
+            await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
     }

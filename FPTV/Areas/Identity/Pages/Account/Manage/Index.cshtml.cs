@@ -72,6 +72,8 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
             public byte[] ProfilePicture { get; set; }
             [Display(Name = "Country")]
             public string Country { get; set; }
+            [Display(Name = "CountryImage")]
+            public string CountryImage { get; set; }
         }
 
         private async Task LoadAsync(UserBase user, Profile profile)
@@ -90,8 +92,9 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
                 Username = userName,
                 ProfilePicture = profilePicture,
                 Country = country,
-                Bio = biography
-            };
+                Bio = biography,
+                CountryImage = "/images/Flags/4x3/" + profile.Country + ".svg"
+        };
         }
 
         public async Task<IActionResult> OnGetAsync()
@@ -105,9 +108,10 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
 
             var profile = _context.Profiles.Single(p => p.Id == user.ProfileId);
 
-            ViewData["CountryImage"] = "/images/Flags/1x1/" + profile.Country + ".svg";
-            ViewData["FavPlayerList"] = _context.FavPlayerList.Where(fpl => fpl.ProfileId == profile.Id).ToList();
-            ViewData["FavTeamsList"] = _context.FavTeamsList.Where(ftl => ftl.ProfileId == profile.Id).ToList();
+            ViewData["FavPlayerListCSGO"] = _context.FavPlayerList.Where(fpl => fpl.ProfileId == profile.Id).ToList();
+            ViewData["FavTeamsListCSGO"] = _context.FavTeamsList.Where(ftl => ftl.ProfileId == profile.Id).ToList();
+            ViewData["FavPlayerListValorant"] = _context.FavPlayerList.Where(fpl => fpl.ProfileId == profile.Id).ToList();
+            ViewData["FavTeamsListValorant"] = _context.FavTeamsList.Where(ftl => ftl.ProfileId == profile.Id).ToList();
             ViewData["Topics"] = _context.Topics.Where(t => t.ProfileId == profile.Id).ToList();
 
             await LoadAsync(user, profile);

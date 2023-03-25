@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "Events";
+	ViewData["Title"] = "Results";
 }
 <!DOCTYPE html>
 
@@ -76,6 +76,9 @@
 			font-weight:bold;
 		}
 
+		.span2 {
+			font-weight: normal;
+		}
 		.dropdown {
 			margin-left:10px;
 			background-color: #e0eeff;
@@ -133,6 +136,10 @@
 			width: 30px;
 		}
 
+		::placeholder {
+			color: green;
+		}
+
 </style>
 
 <body class="bodytemp whiteText">
@@ -140,55 +147,65 @@
 	<div class="central">
 
 		<div style="display:flex; margin-bottom:3%">
-			<button class="btnResult selectedbtn bordercolor" style="">
-				Results of Today
-			</button>
 			<button class="btnResult bordercolor" style="">
-				Results of Yesterday
+                <a href="@Url.Action("Results", "Matches", new { days = 1, game = ViewBag.dropDownGame})">Results of Yesterday</a>
 			</button>
+
+			<button class="btnResult selectedbtn bordercolor" style="">
+				<a href="@Url.Action("Results", "Matches", new { game = ViewBag.dropDownGame})">Results of Today</a>
+            </button>
+
 			<button class="btnResult bordercolor">
-				-  *Days Ago
-				<div style="font-size:10px;"> *2 to 365 days</div>
+				<form method="post" action="@Url.Action("Results", "Matches", new {game = ViewBag.dropDownGame})">
+					<input class="bordercolor dark" type="text" name="days" placeholder="2 to 365 days ago" required style="width:53%; padding:1px;">
+					@**Days Ago
+					<div style="font-size:13px;"> *2 to 365 days</div>*@
+				</form>
 			</button>
+
 		</div>
 
 		<div class="center bordercolor colorformatch " style=";width:100%; padding:1%;">
 			
 				<table class=" bordercolor" style="width:100%; border-radius:15px;" >
 
-				<tr style="border:1px solid black;">
-						<td>G2</td>
-						<td> 14 -16 </td>
-						<td> NaVi </td>
-					<td> BLAST.tv Paris Major 2023 Europe</td>
-
-				</tr>
-					<tr style="border:1px solid black">
-						<td>G2</td>
-						<td> 14 -16 </td>
-						<td> NaVi </td>
-					<td> BLAST.tv Paris Major 2023 Europe</td>
-
-				</tr>
-				<tr style="border:1px solid black">
-					<td>G2</td>
-					<td> 14 -16 </td>
-					<td> NaVi </td>
-					<td> BLAST.tv Paris Major 2023 Europe</td>
-
-				</tr>
-				<tr style="border:1px solid black">
-					<td>G2</td>
-					<td> 14 -16 </td>
-					<td> NaVi </td>
-					<td> BLAST.tv Paris Major 2023 Europe</td>
-
-				</tr>
+				@foreach (var item in ViewBag.matches)
+                {
+					<tr style="border:1px solid black;">
+						<td>@item.TeamsList[0].Name</td>
+						<td>
+							<img src=@item.TeamsList[0].Image style="width:40px; margin:auto; height:40px;" />
+						</td>
+						<td>
+							@foreach (var team in item.Scores)
+							{
+								@if (item.TeamsList[0].Name == team.TeamName)
+								{
+									@team.TeamScore
+								}
+							}
+							<span class="span2"> - </span>
+							@foreach (var team in item.Scores)
+							{
+								@if (item.TeamsList[0].Name == team.TeamName)
+								{
+									@team.TeamScore
+								}
+							}
+						</td>
+						<td>
+							<img src=@item.TeamsList[1].Image style="width:40px; margin:auto; height:40px;" />
+						</td>
+						<td> @item.TeamsList[1].Name </td>
+						<td> @item.EventName</td>
+						<td>
+							<img src=@item.Event.EventImage style="width:40px; margin:auto; height:40px;" />
+						</td>
+                    </tr>
+				}
 				</table>
-						
 			</div>
 		</div>
-
 	</div>
 </body>
 </html>

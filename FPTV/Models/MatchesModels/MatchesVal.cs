@@ -15,10 +15,10 @@ namespace FPTV.Models.MatchesModels
 
         [Required]
         [Display(Name = "MatchesVal API ID")]
-        public int MatchesValAPIID { get; set; }
+        public int MatchesAPIID { get; set; }
 
         [Display(Name = "EventVal")]
-        public EventVal EventVal { get; set; }
+        public EventVal Event { get; set; }
 
         [Required]
         [Display(Name = "Event API ID")]
