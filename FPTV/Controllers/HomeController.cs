@@ -173,16 +173,18 @@ namespace FPTV.Controllers
             return View();
         }
         
-		public IActionResult Forum()
+		public IActionResult Forum(string game = "csgo")
 		{
 			page = "Forum";
             ViewBag.page = page;
+            ViewBag.dropDownGame = game;
             return View("Index"); //apagar index - quando a pagina tiver feita
 		}
-        public IActionResult About()
+        public IActionResult About(string game = "csgo")
 		{
 			page = "About";
             ViewBag.page = page;
+            ViewBag.dropDownGame = game;
             return View(); //apagar index - quando a pagina tiver feita
 		}
         
