@@ -13,7 +13,7 @@ namespace FPTV.Models.UserModels
         [Display(Name = "Team API ID")]
         public int? TeamAPIID { get; set; }
 
-		[Display(Name = "Teams Name")]
+        [Display(Name = "Teams Name")]
 		public string? Name { get; set; }
 
 		[Display(Name = "Players of the team")]
@@ -22,7 +22,6 @@ namespace FPTV.Models.UserModels
 		[Display(Name = "Coach Name")]
 		public string? CoachName { get; set; }
 
-		[Required]
 		[Display(Name = "World Rank")]
 		public int? WorldRank { get; set; }
 
