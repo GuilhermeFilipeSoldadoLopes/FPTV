@@ -1,8 +1,9 @@
-﻿@{
+﻿@using System.Collections;
+@{
     ViewData["Title"] = "Events";
 	
 }
-@model List<FPTV.Models.EventsModels.EventCS>
+@model dynamic
 <!DOCTYPE html>
 
 
@@ -170,9 +171,9 @@
 		</div>
 
 		<div class="center bodycolor" style="flex-direction: column; ">
-			@foreach (FPTV.Models.EventsModels.EventCS e in Model)
+			@foreach (var e in Model)
 			{
-				<button class="btn1" onclick ="location.href='@Url.Action("Details", "Events", new { id = e.EventAPIID, sort = ViewBag.sort, filter = ViewBag.filter})'">
+				<button class="btn1" onclick="location.href='@Url.Action("Details", "Events", new { id = e.EventAPIID, sort = ViewBag.sort, filter = ViewBag.filter,  game = ViewBag.dropDownGame})'">
 					<div class="my-div" style="margin:auto">
 						<div style="width:100%">
 							<img src=@e.EventImage style="width:20%; margin:auto; height:45px;"/>
@@ -193,7 +194,15 @@
 						</div>
 
 						<div>
-							<span>@e.BeginAt.Value.ToString("dd/MM/yyyy")</span>
+							@if (e.BeginAt == null)
+							{
+								<span>-</span>
+							}
+							else
+							{
+								<span>@e.BeginAt.ToString("dd/MM/yyyy")</span>
+							}
+							
 							<p>State: @e.TimeType</p>
 						</div>
 
