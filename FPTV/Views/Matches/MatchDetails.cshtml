@@ -199,16 +199,16 @@
                     var lista = (List<string>)ViewBag.pickedMaps;
                     <div class=" darkcolor borders bordercolor" style="margin-top: 5%;border-radius:15px;">
                         <p>
-                            1. @ViewBag.matches.TeamsList[0].Name picked @ViewBag.pickedMaps[0]
+                            1. @ViewBag.matches.TeamsList[0].Name removed @ViewBag.removedMaps[0]
                         </p>
                         <p>
-                            2. @ViewBag.matches.TeamsList[1].Name picked @ViewBag.pickedMaps[1]
+                            2. @ViewBag.matches.TeamsList[1].Name removed @ViewBag.removedMaps[1]
                         </p>
                         <p>
-                            3. @ViewBag.matches.TeamsList[0].Name removed @ViewBag.removedMaps[0]
+                            3. @ViewBag.matches.TeamsList[0].Name picked @ViewBag.pickedMaps[0]
                         </p>
                         <p>
-                            4. @ViewBag.matches.TeamsList[1].Name removed @ViewBag.removedMaps[1]
+                            4. @ViewBag.matches.TeamsList[1].Name picked @ViewBag.pickedMaps[1]
                         </p>
                         @if (lista.Count() > 3)
                         {
