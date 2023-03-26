@@ -236,10 +236,10 @@ bordercolor2 {
 }
 
 .backMap {
-    background-image: url('../images/Maps/overpass.jpg');
+    background-image: url('../images/Maps/overpass1.png');
     background-repeat: no-repeat;
     background-size: cover;
-    background-color:black;
+    background-color: black; 
 }
 
 .backMap1 {
