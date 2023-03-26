@@ -21,6 +21,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Numerics;
 using System.Runtime.Intrinsics.Arm;
 using System.Runtime.Intrinsics.X86;
 using System.Text.RegularExpressions;
@@ -91,23 +92,7 @@ namespace FPTV.Controllers
 
             await _context.SaveChangesAsync();
 			
-			/*pastMatches = game == "csgo" ? _context.MatchesCS.Include(m => m.TeamsList).ToList() : _context.MatchesVal.Include(m => m.TeamsList).ToList();
-
-			foreach (var item in pastMatches)
-            {
-				dynamic match = game == "csgo" ? (List<MatchesCS>)item : (List<MatchesVal>)item;
-                dynamic teams = game == "csgo" ? (List<MatchesCS>)item : (List<MatchesVal>)item;
-
-                //Console.WriteLine(match.MatchesAPIID);
-                var b = match.TeamsList;
-
-				foreach (var item2 in b)
-				{
-					//Console.WriteLine(item2.Name);
-					var c = item2.Name;
-				}
-				Console.WriteLine("");
-			}*/
+			pastMatches = game == "csgo" ? _context.MatchesCS.Include(m => m.TeamsList).Include(m => m.Scores).ToList() : _context.MatchesVal.Include(m => m.TeamsList).Include(m => m.Scores).ToList();
 
 			if (sort == "tournament")
             {
@@ -705,7 +690,64 @@ namespace FPTV.Controllers
                 }
             }
 
+            List<string> mapsNames = new List<string>();
+            List<string> mapsImages = new List<string>();
+
+            token = "&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA";
+            requestLink = "https://api.pandascore.co/" + game + "/maps";
+
+            fullApiPath = requestLink + "?" + token;
+
+            client = new RestClient(fullApiPath);
+            request = new RestRequest("", Method.Get);
+            request.AddHeader("accept", "application/json");
+            var mapsJson = client.Execute(request).Content;
+
+            if (mapsJson == null)
+            {
+                return null;
+            }
+
+            var maps = JArray.Parse(mapsJson);
+
+            foreach (var mapObject in maps.Cast<JObject>())
+            {
+                var name = mapObject.GetValue("name");
+                var image = mapObject.GetValue("image_url");
+
+                mapsNames.Add(name.ToString() == "" ? "undefined" : name.Value<string>());
+                mapsImages.Add(image.ToString() == "" ? "undefined" : image.Value<string>());
+            }
+
+            List<string> removedMaps = new List<string>();
+            List<string> pickedMaps = new List<string>();
+
+            Random rnd = new Random();
+
+            if(matches.NumberOfGames != 1)
+            {
+                for (int i = 0; i < 7; i++)
+                {
+                    var n = rnd.Next(mapsNames.Count());
+
+                    if (!pickedMaps.Contains(mapsNames.GetItemByIndex(n)) && !removedMaps.Contains(mapsNames.GetItemByIndex(n)))
+                    {
+                        if (pickedMaps.Count() < matches.NumberOfGames)
+                            pickedMaps.Add(mapsNames.GetItemByIndex(n));
+                        else
+                            removedMaps.Add(mapsNames.GetItemByIndex(n));
+                    }
+                    else
+                        i--;
+                }
+            }
+            else
+                pickedMaps.Add(mapsNames.GetItemByIndex(rnd.Next(mapsNames.Count())));
+
             ViewBag.matches = matches;
+            ViewBag.removedMaps = removedMaps;
+            ViewBag.pickedMaps = pickedMaps;
+            ViewBag.mapsImages = mapsImages;
 
             return View();
         }

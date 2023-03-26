@@ -1,6 +1,10 @@
 ﻿@{
     ViewData["Title"] = "CS:GO Matches";
 }
+@using System.Linq;
+@using System.Collections;
+@using FPTV.Models;
+@using FPTV.Models.UserModels;
 
 <style>
 
@@ -219,21 +223,22 @@
                 <h4 style="font-weight: bold;text-align:center;">Finished Matches</h4>
                 @foreach (var item in ViewBag.pastMatches)
                 {
+                    HashSet<Team> teams = item.TeamsList;
                     <div class="alinhar bordercolor" style=" border-radius:15px;border-bottom: 1px solid black;  margin-top: 2%; margin-bottom: 2%">
                         <div class="my-div2 my-divColor" style="width:90%;">
                             <div>
-                                <span class="span2" style="margin-top:10px;">Saturday - @item.BeginAt.ToString("dd-MM-yyyy hh:mm")</span>
+                                <span class="span2" style="margin-top:10px;"> @item.BeginAt.ToString("dddd - dd-MM-yyyy hh:mm")</span>
                             </div>
 
                             <div>
                                 <span style="text-align: center;">
 
                                     <p style="font-size:25px">
-                                        <img src=@item.TeamsList[0].Image alt="logo" style="width:15%">
-                                        <span> @item.TeamsList[0].Name </span>
+                                        <img src=@teams.ToList()[0].Image alt="logo" style="width:15%">
+                                        <span> @teams.ToList()[0].Name </span>
                                         @foreach (var team in item.Scores)
                                         {
-                                            @if (item.TeamsList[0].Name == team.TeamName)
+                                            @if (teams.ToList()[0].Name == team.TeamName)
                                             {
                                                 <span class="span2"> @team.TeamScore </span>
                                             }
@@ -241,13 +246,13 @@
                                         <span class="span2"> - </span>
                                         @foreach (var team in item.Scores)
                                         {
-                                            @if (item.TeamsList[1].Name == team.TeamName)
+                                            @if (teams.ToList()[1].Name == team.TeamName)
                                             {
                                                 <span class="span2"> @team.TeamScore </span>
                                             }
                                         }
-                                        <span> @item.TeamsList[1].Name </span>
-                                        <img src=@item.TeamsList[1].Image alt="logo" style="width:15%">
+                                        <span> @teams.ToList()[1].Name </span>
+                                        <img src=@teams.ToList()[1].Image alt="logo" style="width:15%">
                                     </p>
                                 </span>
                             </div>
@@ -348,7 +353,7 @@
                     <div class="alinhar bordercolor" style="border-bottom: 1px solid black; border-radius:15px; margin-top: 2%; margin-bottom: 2%;">
                         <div class="my-div2 " style="width:90%;">
                             <div>
-                                <span class="span2" style="margin-top:10px;">Saturday - @item.BeginAt.ToString("dd-MM-yyyy hh:mm")</span>
+                                <span class="span2" style="margin-top:10px;">@item.BeginAt.ToString("dddd - dd-MM-yyyy hh:mm")</span>
                             </div>
                             <div>
                                 <span style="text-align: center;">
