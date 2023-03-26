@@ -54,7 +54,7 @@ namespace FPTVUnitTests
         [Fact]
         public void Events_ReturnsViewResult()
         {
-            var controller = new EventsController();
+            var controller = new EventsController(_context);
             var result = controller.Index();
             Assert.IsType<ViewResult>(result);
         }
@@ -64,7 +64,7 @@ namespace FPTVUnitTests
         [Fact]
         public void EventDetails_ReturnsViewResult()
         {
-            var controller = new EventsController();
+            var controller = new EventsController(_context);
             var result = controller.Details(1);
             Assert.IsType<ViewResult>(result);
         }
@@ -161,7 +161,7 @@ namespace FPTVUnitTests
         [Fact]
         public void Database_ModuleEventsCSTest()
         {
-            var controller = new EventsController();
+            var controller = new EventsController(_context);
             var result = controller.Index();
             var viewResult = Assert.IsType<ViewResult>(result);
 

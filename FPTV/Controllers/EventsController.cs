@@ -1,4 +1,5 @@
-﻿using FPTV.Models.BLL.Events;
+﻿using FPTV.Data;
+using FPTV.Models.BLL.Events;
 using FPTV.Models.EventsModels;
 using FPTV.Models.MatchesModels;
 using FPTV.Models.StatisticsModels;
@@ -20,8 +21,15 @@ namespace FPTV.Controllers
 {
     public class EventsController : Controller
 	{
-		// GET: EventsController
-		public ActionResult Index(string sort = "&sort=-begin_at", string filter = "running", string search = "", string page = "&page=1", string game = "valorant")
+        private readonly FPTVContext _context;
+
+        public EventsController(FPTVContext context)
+        {
+            _context = context;
+        }
+
+        // GET: EventsController
+        public ActionResult Index(string sort = "&sort=-begin_at", string filter = "running", string search = "", string page = "&page=1", string game = "csgo")
 		{
 			ViewBag.dropDownGame = game;
 			ViewBag.page = "Events";
@@ -56,9 +64,9 @@ namespace FPTV.Controllers
         }
 
         private List<EventCS> GetEventsCS(JArray jarray, string filter, string sort, string search)
-        {
+        { 
             List<EventCS> events = new();
-
+ 
             foreach (JObject e in jarray.Cast<JObject>())
             {
                 //Set up values from api
@@ -72,6 +80,8 @@ namespace FPTV.Controllers
                 var teams = e.GetValue("teams");
                 var prizePool = e.GetValue("prizepool");
                 var winnerTeamId = e.GetValue("winner_id");
+                var matches = e.GetValue("matches");
+                var tier = e.GetValue("tier");
 
                 //Handling for null values
                 ev.EventAPIID = eventAPIID.ToString() == null ? -1 : eventAPIID.Value<int>();
@@ -81,19 +91,24 @@ namespace FPTV.Controllers
                 ev.PrizePool = prizePool.ToString() == "" ? "-" : new string(prizePool.Value<string>().Where(char.IsDigit).ToArray());
                 ev.WinnerTeamAPIID = winnerTeamId.ToString() == "" ? -1 : winnerTeamId.Value<int>();
                 ev.EventImage = league.Value<string>("image_url") ?? "https://mizuwu.s-ul.eu/9UCb9vsT";
-
+                ev.MatchesCSAPIID = matches.ToString() == "" ? -1 : matches[0].Value<int>("id");
+                ev.Tier = tier.ToString() == "" ? null : tier.Value<char>();
 
                 switch (filter)
                 {
                     case "running":
-                        ev.TimeType = TimeType.Running; break;
+                        ev.TimeType = TimeType.Running;
+                        ev.Finished = false;
+                        break;
                     case "past":
-                        ev.TimeType = TimeType.Past; break;
+                        ev.TimeType = TimeType.Past;
+                        ev.Finished = true;
+                        break;
                     case "upcoming":
-                        ev.TimeType = TimeType.Upcoming; break;
-
+                        ev.TimeType = TimeType.Upcoming;
+                        ev.Finished = false;
+                        break;
                 }
-
 
                 if (teams != null)
                 {
@@ -103,9 +118,12 @@ namespace FPTV.Controllers
                         var teamIdValue = o.GetValue("id");
                         var teamId = teamIdValue.ToString() == "" ? -1 : teamIdValue.Value<int>();
                         var teamName = teamNameValue.ToString() == "" ? null : teamNameValue.Value<string>();
+                        var teamImage = o.GetValue("image_url").Value<string>();
                         var team = new Team();
                         team.Name = teamName;
                         team.TeamAPIID = teamId;
+                        team.Image = teamImage;
+                        team.Game = GameType.CSGO;
                         teamList.Add(team);
                     }
                 }
@@ -114,7 +132,25 @@ namespace FPTV.Controllers
                 ev.TeamsList = teamList;
                 var winnerTeam = teamList.FirstOrDefault(t => t.TeamAPIID == ev.WinnerTeamAPIID);
                 ev.WinnerTeamName = winnerTeam == default ? "-" : winnerTeam.Name;
+                ev.WinnerTeamAPIID = winnerTeam == default ? -1 : winnerTeam.TeamAPIID;
                 events.Add(ev);
+            }
+
+            if (filter == "past")
+            {
+                var dbEvents = _context.EventCS.ToList();
+                var newEvents = events.Except(dbEvents);
+                _context.EventCS.AddRange(newEvents);
+                _context.SaveChanges();
+                events = _context.EventCS.ToList();
+                if (sort == "&sort=begin_at")
+                {
+                    events.Sort((x, y) => Nullable.Compare(x.BeginAt, y.BeginAt));
+                }
+                else
+                {
+                    events.Sort((x, y) => Nullable.Compare(y.BeginAt, x.BeginAt));
+                }
             }
 
             if (sort == "&sort=name")
@@ -124,7 +160,7 @@ namespace FPTV.Controllers
 
             if (search != "")
             {
-                events = events.Where(e => e.EventName.Contains(search)).ToList();
+                events = events.Where(e => e.EventName.ToLower().Contains(search.ToLower())).ToList();
             }
 
 
@@ -150,6 +186,7 @@ namespace FPTV.Controllers
                 var teams = e.GetValue("teams");
                 var prizePool = e.GetValue("prizepool");
                 var winnerTeamId = e.GetValue("winner_id");
+                var matches = e.GetValue("matches");
 
                 //Handling for null values
                 ev.EventAPIID = eventAPIID.ToString() == null ? -1 : eventAPIID.Value<int>();
@@ -159,6 +196,7 @@ namespace FPTV.Controllers
                 ev.PrizePool = prizePool.ToString() == "" ? "-" : new string(prizePool.Value<string>().Where(char.IsDigit).ToArray());
                 ev.WinnerTeamAPIID = winnerTeamId.ToString() == "" ? -1 : winnerTeamId.Value<int>();
                 ev.EventImage = league.Value<string>("image_url") ?? "https://mizuwu.s-ul.eu/9UCb9vsT";
+                ev.MatchesValAPIID = matches.ToString() == "" ? -1 : matches.Value<int>("id");
 
 
                 switch (filter)
@@ -181,9 +219,12 @@ namespace FPTV.Controllers
                         var teamIdValue = o.GetValue("id");
                         var teamId = teamIdValue.ToString() == "" ? -1 : teamIdValue.Value<int>();
                         var teamName = teamNameValue.ToString() == "" ? null : teamNameValue.Value<string>();
+                        var teamImage = o.GetValue("image_url").Value<string>();
                         var team = new Team();
                         team.Name = teamName;
                         team.TeamAPIID = teamId;
+                        team.Game = GameType.Valorant;
+                        team.Image = teamImage;
                         teamList.Add(team);
                     }
                 }
@@ -192,7 +233,25 @@ namespace FPTV.Controllers
                 ev.TeamsList = teamList;
                 var winnerTeam = teamList.FirstOrDefault(t => t.TeamAPIID == ev.WinnerTeamAPIID);
                 ev.WinnerTeamName = winnerTeam == default ? "-" : winnerTeam.Name;
+                ev.WinnerTeamAPIID = winnerTeam == default ? -1 : winnerTeam.TeamAPIID;
                 events.Add(ev);
+            }
+
+            if (filter == "past")
+            {
+                var dbEvents = _context.EventVal.ToList();
+                var newEvents = events.Except(dbEvents);
+                _context.EventVal.AddRange(newEvents);
+                _context.SaveChanges();
+                events = _context.EventVal.ToList();
+                if (sort == "&sort=begin_at")
+                {
+                    events.Sort((x, y) => Nullable.Compare(y.BeginAt, x.BeginAt));
+                }
+                else
+                {
+                    events.Sort((x, y) => Nullable.Compare(x.BeginAt, y.BeginAt));
+                }
             }
 
             if (sort == "&sort=name")
@@ -341,7 +400,7 @@ namespace FPTV.Controllers
 							{
                                 var s = new Score();
                                 s.Team = ev.TeamsList.FirstOrDefault(t => t.TeamAPIID == r.Value<int>("team_id"));
-                                Console.WriteLine(s.Team.Name);
+                                
                                 s.TeamName = s.Team.Name;
                                 s.TeamScore = r.Value<int>("score");
                                 scores.Add(s);

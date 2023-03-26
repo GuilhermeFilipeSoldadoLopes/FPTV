@@ -29,11 +29,9 @@ namespace FPTV.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("BeginAt")
-                        .IsRequired()
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("EndAt")
-                        .IsRequired()
                         .HasColumnType("datetime2");
 
                     b.Property<int>("EventAPIID")
@@ -44,7 +42,6 @@ namespace FPTV.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("EventLink")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("EventName")
@@ -73,7 +70,6 @@ namespace FPTV.Migrations
                         .HasColumnType("int");
 
                     b.Property<int?>("WinnerTeamAPIID")
-                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<string>("WinnerTeamName")
@@ -873,7 +869,6 @@ namespace FPTV.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("CouchName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid?>("EventCSID")
@@ -889,11 +884,9 @@ namespace FPTV.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Image")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("Losses")
-                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<Guid?>("MatchesCSId")
@@ -911,11 +904,9 @@ namespace FPTV.Migrations
                         .HasColumnType("int");
 
                     b.Property<int?>("Winnings")
-                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<int?>("WorldRank")
-                        .IsRequired()
                         .HasColumnType("int");
 
                     b.HasKey("TeamId");
