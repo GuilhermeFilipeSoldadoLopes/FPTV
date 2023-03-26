@@ -1,4 +1,5 @@
-﻿@{
+﻿@using System.Collections;
+@{
     ViewData["Title"] = "MatchDetails";
 }
 
@@ -193,29 +194,45 @@
                     }
                 </div>
 
-                <div class=" darkcolor borders bordercolor" style="margin-top: 5%;border-radius:15px;">
-                    <p>
-                        1. Case removed Anubis
-                    </p>
-                    <p>
-                        2. Case removed Overpass
-                    </p>
-                    <p>
-                        3. Case removed Vertigo
-                    </p>
-                    <p>
-                        4. Case removed Mirage
-                    </p>
-                    <p>
-                        5. Case removed Ancient
-                    </p>
-                    <p>
-                        6. Case removed Nuke
-                    </p>
-                    <p>
-                        7. Case removed Inferno
-                    </p>
-                </div>
+                @if (@ViewBag.matches.NumberOfGames != 1)
+                {
+                    var lista = (List<string>)ViewBag.pickedMaps;
+                    <div class=" darkcolor borders bordercolor" style="margin-top: 5%;border-radius:15px;">
+                        <p>
+                            1. @ViewBag.matches.TeamsList[0].Name picked @ViewBag.pickedMaps[0]
+                        </p>
+                        <p>
+                            2. @ViewBag.matches.TeamsList[1].Name picked @ViewBag.pickedMaps[1]
+                        </p>
+                        <p>
+                            3. @ViewBag.matches.TeamsList[0].Name removed @ViewBag.removedMaps[0]
+                        </p>
+                        <p>
+                            4. @ViewBag.matches.TeamsList[1].Name removed @ViewBag.removedMaps[1]
+                        </p>
+                        @if (lista.Count() > 3)
+                        {
+                            <p>
+                                5. @ViewBag.matches.TeamsList[0].Name picked @ViewBag.pickedMaps[2]
+                            </p>
+                            <p>
+                                6. @ViewBag.matches.TeamsList[1].Name picked @ViewBag.pickedMaps[3]
+                            </p>
+                        }
+                        else
+                        {
+                            <p>
+                                5. @ViewBag.matches.TeamsList[0].Name removed @ViewBag.removedMaps[2]
+                            </p>
+                            <p>
+                                6. @ViewBag.matches.TeamsList[1].Name removed @ViewBag.removedMaps[3]
+                            </p>
+                        }
+                        <p>
+                            7. @ViewBag.pickedMaps[lista.Count() - 1] was left over
+                        </p>
+                    </div>
+                }
             </div>
 
 
@@ -271,10 +288,9 @@
 
                         </div>
                         <div>
-
                          <div class="" style="display:flex; text-align:left;width:100%;margin-top:3%;margin-bottom:3%">
                                 <span class="bestof" style="text-align:left">Best of @ViewBag.matches.NumberOfGames</span>
-                                <span style="margin:auto">Dust2</span>
+                                <span style="margin:auto">@ViewBag.pickedMaps[0]</span>
                                 <span style="text-align:right">Tier:@ViewBag.matches.Tier</span><br />
                             
                          </div>
@@ -282,8 +298,7 @@
                             <div class="" style="display:flex; text-align:left;width:100%;margin-top:3%;margin-bottom:3%">
                                 <span class="bestof" style="text-align:left">Duration: 53min</span>
                                 <span style="margin:auto"> </span>
-                                <span style="text-align:right;"> Saturday - @ViewBag.matches.BeginAt.ToString("dd-MM-yyyy hh:mm") </span><br />
-
+                                <span style="text-align:right;"> @ViewBag.matches.BeginAt.ToString("dddd - dd-MM-yyyy hh:mm") </span><br />
                             </div>
 
                             @*<div style="display:flex; width:100%; padding:0px;">

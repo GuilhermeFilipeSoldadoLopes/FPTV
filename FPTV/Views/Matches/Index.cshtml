@@ -1,6 +1,10 @@
 ﻿@{
     ViewData["Title"] = "CS:GO Matches";
 }
+@using System.Linq;
+@using System.Collections;
+@using FPTV.Models;
+@using FPTV.Models.UserModels;
 
 <style>
 
@@ -219,10 +223,11 @@
                 <h4 style="font-weight: bold;text-align:center;">Finished Matches</h4>
                 @foreach (var item in ViewBag.pastMatches)
                 {
+                    HashSet<Team> teams = item.TeamsList;
                     <div class="alinhar bordercolor" style=" border-radius:15px;border-bottom: 1px solid black;  margin-top: 2%; margin-bottom: 2%">
                         <div class="my-div2 my-divColor" style="width:90%;">
                             <div>
-                                <span class="span2" style="margin-top:10px;">Saturday - @item.BeginAt.ToString("dd-MM-yyyy hh:mm")</span>
+                                <span class="span2" style="margin-top:10px;"> @item.BeginAt.ToString("dddd - dd-MM-yyyy hh:mm")</span>
                             </div>
 
                             <div style="width:100%;text-align: center;font-size:20px;margin-top:8px;margin-bottom:8px">
@@ -232,7 +237,6 @@
                                             <img src=@item.TeamsList[0].Image alt="logo" style="width:10%">
                                             <span > @item.TeamsList[0].Name </span>
                                         </p>
-
                                         <p style="padding:0px; margin-bottom:0px;">
                                                 @foreach (var team in item.Scores)
                                                 {
@@ -255,7 +259,6 @@
                                                 <span> @item.TeamsList[1].Name </span>
                                                 <img src=@item.TeamsList[1].Image alt="logo" style="width:10%">
                                         </p>
-                                    
                             </div>
 
                             <div style="text-align:left; display: flex;">
@@ -356,7 +359,7 @@
                     <div class="alinhar bordercolor" style="border-bottom: 1px solid black; border-radius:15px; margin-top: 2%; margin-bottom: 2%;">
                         <div class="my-div2 " style="width:90%;">
                             <div>
-                                <span class="span2" style="margin-top:10px;">Saturday - @item.BeginAt.ToString("dd-MM-yyyy hh:mm")</span>
+                                <span class="span2" style="margin-top:10px;">@item.BeginAt.ToString("dddd - dd-MM-yyyy hh:mm")</span>
                             </div>
                             <div style="font-size:20px; text-align:center">
                                 <p style="font-size:20px; text-align:center">
