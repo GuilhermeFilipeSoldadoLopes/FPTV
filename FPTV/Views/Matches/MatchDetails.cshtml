@@ -233,7 +233,7 @@
                         </p>
                     </div>*@
 
-                    <div class="bordercolor backMap blackcolor" style="border-radius:15px;padding:1%">
+                    <div class="bordercolor backMap blackcolor" style="border-radius:15px;padding:1%; width:100%">
                         
                             
                         <h2><span class="alinhar">@ViewBag.matches.EventName</span></h2>
@@ -246,31 +246,52 @@
                         }
                                
                         <div class=" " style="border-top-left-radius:15px;border-top-right-radius:15px; " name="FirstTeam">
-                            <span style="text-align: left;margin-left:10%">
-                                <img src=@ViewBag.matches.TeamsList[0].Image width="82px" height="112px" />
+
+                            <div style="display:flex;width:100%;margin:auto; justify-content:center ">
+                                <span style=" display: flex;align-items: center;justify-content: center;margin:auto">
+                                    <img src=@ViewBag.matches.TeamsList[0].Image style="width:100px" />
+                                </span>
+                                <span style="text-align: center;font-weight:bold;font-size:15px;margin:auto"> vs </span>
+
+                                <span style=" display: flex;align-items: center;justify-content: center;margin:auto">
+                                    <img src=@ViewBag.matches.TeamsList[1].Image style="width:100px" />
+                                </span>
+                            </div>
+                            
+
+                            <div style="display:flex; margin-top:3%;margin-bottom:3%;margin-left:0px; padding:0px">
+                                <span style="font-weight:bold; width:50%;text-align:center"> @ViewBag.matches.TeamsList[0].Name </span>
+                                <span style="font-weight:bold; width:50%;text-align:center"> @ViewBag.matches.TeamsList[1].Name </span><br />
+                            </div>
+                            <span style="width:100%;display:flex;justify-content:center">
+                                <span style="text-align: center;" class="span2"> 11 </span>
+                                <span style="text-align: center;">-</span>
+                                <span style="text-align: center;" class="span2"> 16 </span>
                             </span>
-                            <span style="text-align: center;margin-left:23%;font-weight:bold;font-size:15px">vs</span>
-                            <span style="text-align: left;margin-left:25%">
-                                <img src=@ViewBag.matches.TeamsList[1].Image width="82px" height="112px" />
-                            </span>
-                            <span style="text-align: left;margin-left:14%;font-weight:bold"> @ViewBag.matches.TeamsList[0].Name </span>
-                            <span style="text-align: left;margin-left:55%;font-weight:bold"> @ViewBag.matches.TeamsList[1].Name </span><br />
-                            <span style="text-align: left;margin-left:16%" class="span2"> 11 </span>
-                            <span style="text-align: left;margin-left:29%;">-</span>
-                            <span style="text-align: left;margin-left:30%" class="span2"> 16 </span>
+
                         </div>
                         <div>
 
-                        <div class="" style="display:flex; text-align:left;width:100%">
-                                <span class="bestof" style="margin:auto">Best of @ViewBag.matches.NumberOfGames</span>
-                            <span style="margin:auto">Dust2</span>
-                                <span style="margin:auto">Tier: @ViewBag.matches.Tier</span><br />
+                         <div class="" style="display:flex; text-align:left;width:100%;margin-top:3%;margin-bottom:3%">
+                                <span class="bestof" style="text-align:left">Best of @ViewBag.matches.NumberOfGames</span>
+                                <span style="margin:auto">Dust2</span>
+                                <span style="text-align:right">Tier:@ViewBag.matches.Tier</span><br />
                             
-                        </div>
-                            <div style="display:flex; width:100%; padding:0px;">
-                                <p style="text-align:left;margin-top:1%;margin-bottom:0px;font-size:15px; margin:auto"> Duration: 53min    </p>
-                                <p style="text-align:right;margin-top:1%;margin-bottom:0px;font-size:15px; margin:auto"> Saturday - @ViewBag.matches.BeginAt.ToString("dd-MM-yyyy hh:mm")    </p>
+                         </div>
+
+                            <div class="" style="display:flex; text-align:left;width:100%;margin-top:3%;margin-bottom:3%">
+                                <span class="bestof" style="text-align:left">Duration: 53min</span>
+                                <span style="margin:auto"> </span>
+                                <span style="text-align:right;"> Saturday - @ViewBag.matches.BeginAt.ToString("dd-MM-yyyy hh:mm") </span><br />
+
                             </div>
+
+                            @*<div style="display:flex; width:100%; padding:0px;">
+                                <span style="width:100%">
+                                <span style="text-align:left;margin-top:1%;margin-bottom:0px;font-size:15px; width:50%"> Duration: 53min    </span>
+                                <span style="text-align:right;margin-top:1%;margin-bottom:0px;font-size:15px;width:50% "> Saturday - @ViewBag.matches.BeginAt.ToString("dd-MM-yyyy hh:mm")    </span>
+                                </span>
+                            </div>*@
                         </div>
                        
                     </div>
@@ -286,7 +307,8 @@
 
                                 <span style="text-align: left;margin-left:38%;font-weight:bold"> Vertigo </span><br />
                                 <span style="text-align: left;margin-left:38%" class="span2"> 16 vs 6</span><br />
-                                <span style="text-align: left;margin-left:14%;font-weight:bold"> Picked up by<span> EC Brugge</span> </span>
+                                <p style="text-align: center;font-weight:bold;margin-bottom:0px"> Picked up by
+                                <p style="text-align: center;margin-top:0px;margin-bottom:0px"> EC Brugge</p>
                                 <p style=";margin-top:1%;margin-bottom:2px;font-size:15px; margin-left:2%;"> Duration: 53min    </p>
 
                             </div>
@@ -294,7 +316,8 @@
                             <div class=" bordercolor backMap2" style="width:40% ;border-radius:15px;margin:auto" name="Maps">
                                 <span style="text-align: center;margin-left:38%;font-weight:bold"> Mirage </span><br />
                                 <span style="text-align: right;margin-left:38%" class="span2"> 16 vs 4</span><br />
-                                <span style="text-align: center;margin-left:20%;font-weight:bold "> Picked up by<span> Case</span> </span>
+                                <p style="text-align: center;;font-weight:bold;margin-bottom:0px "> Picked up by
+                                <p style="text-align: center;margin-top:0px;margin-bottom:0px"> Case</p>
                                 <p style="margin-top:1%;margin-bottom:2px;font-size:15px; margin-left:2%;"> Duration: 53min    </p>
                             </div>
 
