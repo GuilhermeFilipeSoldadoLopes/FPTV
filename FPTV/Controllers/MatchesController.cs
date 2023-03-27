@@ -748,6 +748,7 @@ namespace FPTV.Controllers
             ViewBag.removedMaps = removedMaps;
             ViewBag.pickedMaps = pickedMaps;
             ViewBag.mapsImages = mapsImages;
+            ViewBag.mapsNames = mapsNames;
 
             return View();
         }
