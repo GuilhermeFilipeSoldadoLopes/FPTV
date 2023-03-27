@@ -232,13 +232,13 @@
 
                             <div style="width:100%;text-align: center;font-size:20px;margin-top:8px;margin-bottom:8px">
                                 <p style="padding:0px; margin-bottom:0px;">
-                                    <img src=@teams.ToList()[0].Image alt="logo" style="width:10%">
-                                    <span> @teams.ToList()[0].Name </span>
+                                    <img src=@teams[0].Image alt="logo" style="width:10%">
+                                    <span> @teams[0].Name </span>
                                 </p>
                                 <p style="padding:0px; margin-bottom:0px;">
                                         @foreach (var team in item.Scores)
                                         {
-                                        @if (teams.ToList()[0].Name == team.TeamName)
+                                        @if (teams[0].Name == team.TeamName)
                                             {
                                                 <span class="span2"> @team.TeamScore </span>
                                             }
@@ -246,15 +246,15 @@
                                         <span class="span2"> - </span>
                                         @foreach (var team in item.Scores)
                                         {
-                                        @if (teams.ToList()[1].Name == team.TeamName)
+                                        @if (teams[1].Name == team.TeamName)
                                             {
                                                 <span class="span2"> @team.TeamScore </span>
                                             }
                                         }
                                 </p>
                                 <p style="padding:0px; margin-bottom:0px;">
-                                    <span> @teams.ToList()[1].Name </span>
-                                    <img src=@teams.ToList()[1].Image alt="logo" style="width:10%">
+                                    <span> @teams[1].Name </span>
+                                    <img src=@teams[1].Image alt="logo" style="width:10%">
                                 </p>
                             </div>
 
@@ -285,7 +285,7 @@
                                                     </span>
                                                 </td>
                                                 <td class="tablecolors">
-                                                    <img src="/images/live.png" style="width: 35%">
+                                                    <img src="/images/live.png" style="width:100px">
                                                 </td>
                                                 <td class="tablecolors">
                                                     <span>
@@ -294,13 +294,13 @@
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td class="tablecolors">
+                                                <td class="tablecolors" style="font-size:25px;">
                                                     <span> @item.TeamsList[0].Name </span>
                                                 </td>
-                                                <td class="tablecolors">
+                                                <td class="tablecolors" style="font-size:25px;">
                                                     <span>vs</span>
                                                 </td>
-                                                <td class="tablecolors">
+                                                <td class="tablecolors" style="font-size:25px;">
                                                     <span> @item.TeamsList[1].Name </span>
                                                 </td>
                                             </tr>
@@ -330,14 +330,16 @@
                                                 
                                             </tr>
                                             <tr>
-                                                <td class="tablecolors">
-                                                    <p>Best of @item.NumberOfGames</p>
+                                                <td class="tablecolors" style="margin-bottom:0px;width:50%">
+                                                    <p style="margin-bottom:0px;">Best of @item.NumberOfGames</p>
                                                 </td>
-                                                <td class="tablecolors">
+                                                <td class="tablecolors" style="margin-bottom:0px">
                                                     <p/>
                                                 </td>
-                                                <td class="tablecolors">
-                                                    <a href="@Url.Action("MatchDetails", "Matches", new {id = item.MatchesAPIID, type = item.TimeType.ToString().ToLower() ,game = ViewBag.dropDownGame})">More details</a>
+                                                <td class="tablecolors" style="margin-bottom:0px;width:50%" >
+
+                                                    <a href="@Url.Action("MatchDetails", "Matches", new {id = item.MatchesAPIID, type = item.TimeType.ToString().ToLower() ,game = ViewBag.dropDownGame})" style="margin-bottom:0px;">More details</a>
+                                                    
                                                 </td>
                                             </tr>
                                         </table>

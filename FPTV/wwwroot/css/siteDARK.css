@@ -253,3 +253,7 @@ bordercolor2 {
     background-size: cover;
     background-color: black;
 }
+
+.headshot {
+   filter:invert(1);
+}

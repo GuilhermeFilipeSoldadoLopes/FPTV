@@ -285,7 +285,7 @@
                                 </span>
 
                             </div>
-                            <div>
+                            
                                 <div class="" style="display:flex; text-align:left;width:100%;margin-top:3%;margin-bottom:3%">
                                     <span class="bestof" style="text-align:left">Best of @ViewBag.matches.NumberOfGames</span>
                                     <span style="margin:auto">@ViewBag.pickedMaps[0]</span>
@@ -293,10 +293,10 @@
                             
                                 </div>
 
-                                <div class="" style="display:flex; text-align:left;width:100%;margin-top:3%;margin-bottom:3%">
-                                    <span class="bestof" style="text-align:left">Duration: 53min</span>
-                                    <span style="margin:auto"> </span>
-                                    <span style="text-align:right;"> @ViewBag.matches.BeginAt.ToString("dddd - dd-MM-yyyy hh:mm") </span><br />
+                                <div class="" style="display:flex; text-align:left;width:100%;margin-top:3%;margin-bottom:0px">
+                                        <span class="bestof" style="text-align:left;margin-top:0pc;margin-bottom:0px">Duration: 53min</span>
+                                        <span style="margin:auto;margin-top:0pc;margin-bottom:0px"> </span>
+                                        <span style="text-align:right;margin-top:0pc;margin-bottom:0px"> @ViewBag.matches.BeginAt.ToString("dddd - dd-MM-yyyy hh:mm") </span><br />
                                 </div>
 
                                 @*<div style="display:flex; width:100%; padding:0px;">
@@ -305,7 +305,7 @@
                                     <span style="text-align:right;margin-top:1%;margin-bottom:0px;font-size:15px;width:50% "> Saturday - @ViewBag.matches.BeginAt.ToString("dd-MM-yyyy hh:mm")    </span>
                                     </span>
                                 </div>*@
-                                </div>
+                               
                             </div>
                         }
                     }
@@ -330,7 +330,7 @@
                                             <span style="text-align: left;margin-left:38%" class="span2"> 16 vs 6</span><br />
                                             <p style="text-align: center;font-weight:bold;margin-bottom:0px"> Picked up by
                                                 <p style="text-align: center;margin-top:0px;margin-bottom:0px"> EC Brugge</p>
-                                                <p style=";margin-top:1%;margin-bottom:2px;font-size:15px; margin-left:2%;"> Duration: 53min    </p>
+                                                <p style="margin-top:1%;margin-bottom:2px;font-size:15px; margin-left:2%;"> Duration: 53min    </p>
 
                                         </div>
                                     }
@@ -366,7 +366,7 @@
                                                 <span style="text-align: left;margin-left:38%" class="span2"> 16 vs 6</span><br />
                                                 <p style="text-align: center;font-weight:bold;margin-bottom:0px"> Picked up by
                                                 <p style="text-align: center;margin-top:0px;margin-bottom:0px"> EC Brugge</p>
-                                                <p style=";margin-top:1%;margin-bottom:2px;font-size:15px; margin-left:2%;"> Duration: 53min    </p>
+                                                <p style="margin-top:1%;margin-bottom:2px;font-size:15px; margin-left:2%;"> Duration: 53min    </p>
 
                                             </div>
                                         }
@@ -380,7 +380,7 @@
                                             <div class=" bordercolor backMap2" style="width:40% ;border-radius:15px;margin:auto;background-image:(@image)" name="Maps">
                                                 <span style="text-align: center;margin-left:38%;font-weight:bold"> @ViewBag.pickedMaps[4] </span><br />
                                                 <span style="text-align: right;margin-left:38%" class="span2"> 16 vs 4</span><br />
-                                                <p style="text-align: center;;font-weight:bold;margin-bottom:0px "> Picked up by
+                                                <p style="text-align: center;font-weight:bold;margin-bottom:0px "> Picked up by
                                                 <p style="text-align: center;margin-top:0px;margin-bottom:0px"> Case</p>
                                                 <p style="margin-top:1%;margin-bottom:2px;font-size:15px; margin-left:2%;"> Duration: 53min    </p>
                                             </div>
@@ -402,18 +402,20 @@
                                 <table class="tableDetails" name="FirstTeam" style="width:100% !important;margin:auto;margin-bottom:5%; text-align:center">
                                     <tr>
                                         <th style="width:12%">@ViewBag.matches.TeamsList[0].Name</th>
-                                        <th style="width:12%" title="Kills">
+                                        <th class="headshot" style="width:12%" title="Kills">
                                             <img src="~/images/kills2.png" width="50%" />
                                         </th>
-                                        <th style="width:12%" title="Assists">
+                                        <th class="headshot"  style="width:12%" title="Assists">
                                             <img src="~/images/assists.png" width="60%" />
                                         </th>
-                                        <th style="width:12%" title="Deaths">
+                                        <th  class="headshot" style="width:12%" title="Deaths">
                                             <img src="~/images/deaths2.png" width="40%" />
                                         </th>
                                         <th style="width:12%" title="K/D Ratio">K/D</th>
-                                        <th style="width:12%" title="HeadShot %">
-                                            <img src="~/images/headshot2.png" width="40%" /> %
+                                        <th class="headshot" style="width:12%" title="HeadShot %">
+
+                                            <img src="~/images/headshot2.png" width="40%" /> 
+
                                         </th>
                                         <th style="width:12%" title="Kill per Round">KpR</th>
                                         <th style="width:12%" title="Average Damage per Round">ADR</th>
@@ -439,18 +441,18 @@
                                     <tr>
 
                                         <th style="width:12%">@ViewBag.matches.TeamsList[1].Name</th>
-                                        <th style="width:12%" title="Kills">
+                                        <th  class="headshot" style="width:12%" title="Kills">
                                             <img src="~/images/kills2.png" width="50%" />
                                         </th>
-                                        <th style="width:12%" title="Assists">
+                                        <th  class="headshot" style="width:12%" title="Assists">
                                             <img src="~/images/assists.png" width="60%" />
                                         </th>
-                                        <th style="width:12%" title="Deaths">
+                                        <th  class="headshot" style="width:12%" title="Deaths">
                                             <img src="~/images/deaths2.png" width="40%" />
                                         </th>
                                         <th style="width:12%" title="K/D Ratio">K/D</th>
-                                        <th style="width:12%" title="HeadShot %">
-                                            <img src="~/images/headshot2.png" width="40%" /> %
+                                        <th class="headshot"  style="width:12%" title="HeadShot %">
+                                            <img src="~/images/headshot2.png" width="40%" />
                                             @*</th>*@
                                         <th style="width:12%" title="Kill per Round">KpR</th>
                                         <th style="width:12%" title="Average Damage per Round">ADR</th>

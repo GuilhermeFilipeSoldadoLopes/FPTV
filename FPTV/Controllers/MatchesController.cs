@@ -258,7 +258,7 @@ namespace FPTV.Controllers
 
                         team.TeamAPIID = teamId.ToString() == "" ? -1 : teamId.Value<int>();
                         team.Name = teamName.ToString() == "" ? "undefined" : teamName.Value<string>();
-                        team.Image = teamImage.ToString() == "" ? "https://mizuwu.s-ul.eu/9UCb9vsT" : teamImage.Value<string>();
+                        team.Image = teamImage.ToString() == "" ? "/images/missing.png" : teamImage.Value<string>();
                         team.CoachName = "";
                         team.Losses = 0;
                         team.Winnings = 0;
@@ -392,7 +392,7 @@ namespace FPTV.Controllers
                     matchEvent.EventName = matches.EventName;
                     matchEvent.TimeType = TimeType.Running;
                     matchEvent.Finished = false;
-                    matchEvent.EventImage = leagueImage.ToString() == "" ? "https://mizuwu.s-ul.eu/9UCb9vsT" : leagueImage.Value<string>();
+                    matchEvent.EventImage = leagueImage.ToString() == "" ? "/images/missing.png" : leagueImage.Value<string>();
 					matchEvent.EventLink = "";
                     matchEvent.LeagueName = "";
                     matchEvent.PrizePool = "";
@@ -437,7 +437,7 @@ namespace FPTV.Controllers
 
                         team.TeamAPIID = teamId.ToString() == "" ? -1 : teamId.Value<int>();
                         team.Name = teamName.ToString() == "" ? "undefined" : teamName.Value<string>();
-                        team.Image = teamImage.ToString() == "" ? "https://mizuwu.s-ul.eu/9UCb9vsT" : teamImage.Value<string>();
+                        team.Image = teamImage.ToString() == "" ? "/images/missing.png" : teamImage.Value<string>();
                         team.CoachName = "";
                         team.Losses = 0;
                         team.Winnings = 0;
@@ -614,7 +614,7 @@ namespace FPTV.Controllers
 
                 team.TeamAPIID = teamId.ToString() == "" ? -1 : teamId.Value<int>();
                 team.Name = teamName.ToString() == "" ? "undefined" : teamName.Value<string>();
-                team.Image = teamImage.ToString() == "" ? "https://mizuwu.s-ul.eu/9UCb9vsT" : teamImage.Value<string>();
+                team.Image = teamImage.ToString() == "" ? "/images/missing.png" : teamImage.Value<string>();
                 team.CoachName = "";
                 team.Losses = 0;
                 team.Winnings = 0;
