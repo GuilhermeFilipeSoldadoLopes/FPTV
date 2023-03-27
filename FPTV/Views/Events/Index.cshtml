@@ -152,19 +152,19 @@
 			<div class="dropdown">
 				<button class="button2">Sort by</button>
 				<div class="dropdown-content" style="margin-left:5%;">
-					<a href="@Url.Action("Index", "Events", new { sort = "&sort=-begin_at", filter = ViewBag.filter})">Newest</a>
-					<a href="@Url.Action("Index", "Events", new { sort = "&sort=begin_at", filter = ViewBag.filter})">Oldest</a>
-					<a href="@Url.Action("Index", "Events", new { sort = "&sort=prizepool", filter = ViewBag.filter})">Prizepool</a>
-					<a href="@Url.Action("Index", "Events", new { sort = "&sort=name", filter = ViewBag.filter})">Name</a>
-					<a href="@Url.Action("Index", "Events", new { sort = "&sort=tier", filter = ViewBag.filter})">Tier</a>
+					<a href="@Url.Action("Index", "Events", new { sort = "&sort=-begin_at", filter = ViewBag.filter, game = ViewBag.dropDownGame})">Newest</a>
+					<a href="@Url.Action("Index", "Events", new { sort = "&sort=begin_at", filter = ViewBag.filter, game = ViewBag.dropDownGame})">Oldest</a>
+					<a href="@Url.Action("Index", "Events", new { sort = "&sort=prizepool", filter = ViewBag.filter, game = ViewBag.dropDownGame})">Prizepool</a>
+					<a href="@Url.Action("Index", "Events", new { sort = "&sort=name", filter = ViewBag.filter, game = ViewBag.dropDownGame})">Name</a>
+					<a href="@Url.Action("Index", "Events", new { sort = "&sort=-tier", filter = ViewBag.filter, game = ViewBag.dropDownGame})">Tier</a>
 			  </div>
 			</div>
 			<div class="dropdown">
 			  <button class="button2">Filter by</button>
 			  <div class="dropdown-content">
-					<a href="@Url.Action("Index", "Events", new { sort = ViewBag.sort, filter = "running"})">On going</a>
-					<a href="@Url.Action("Index", "Events", new { sort = ViewBag.sort, filter = "past"})">Finished</a>
-					<a href="@Url.Action("Index", "Events", new { sort = ViewBag.sort, filter = "upcoming"})">Upcoming</a>
+					<a href="@Url.Action("Index", "Events", new { sort = ViewBag.sort, filter = "running", game = ViewBag.dropDownGame})">On going</a>
+					<a href="@Url.Action("Index", "Events", new { sort = ViewBag.sort, filter = "past", game = ViewBag.dropDownGame})">Finished</a>
+					<a href="@Url.Action("Index", "Events", new { sort = ViewBag.sort, filter = "upcoming", game = ViewBag.dropDownGame})">Upcoming</a>
 			  </div>
 			</div>
 						
