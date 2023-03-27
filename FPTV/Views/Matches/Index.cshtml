@@ -223,7 +223,7 @@
                 <h4 style="font-weight: bold;text-align:center;">Finished Matches</h4>
                 @foreach (var item in ViewBag.pastMatches)
                 {
-                    HashSet<Team> teams = item.TeamsList;
+                    dynamic teams = item.TeamsList.GetType() == typeof(List<Team>) ? item.TeamsList : ((HashSet<Team>)item.TeamsList).ToList();
                     <div class="alinhar bordercolor" style=" border-radius:15px;border-bottom: 1px solid black;  margin-top: 2%; margin-bottom: 2%">
                         <div class="my-div2 my-divColor" style="width:90%;">
                             <div>
