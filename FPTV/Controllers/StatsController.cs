@@ -431,7 +431,7 @@ namespace FPTV.Controllers
             return null;
         }
 
-        public ActionResult getPlayer(int id, string filter = "", string game = "csgo", string page = "&page=1")
+        public ActionResult getPlayer(int id= 132995, string filter = "past", string game = "csgo", string page = "&page=1")
         {
             if (game == "valorant")
             {
@@ -453,7 +453,7 @@ namespace FPTV.Controllers
 
                 //Filter to select from which pool to fetch the data (upcoming, running or finished/ended)
                 var _jsonFilter = filter + "?";
-                var _filterID = "filter[id]=132995"; //+ id.ToString();
+                var _filterID = "filter[id]=" + id.ToString();
 
                 //THIS SHOULD BE A CLIENT SECRET
                 var _token = "&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA";
@@ -566,7 +566,7 @@ namespace FPTV.Controllers
 
                 //Filter to select from which pool to fetch the data (upcoming, running or finished/ended)
                 var _jsonFilter = filter + "?";
-                var _filterID = "filter[id]=1"; //+ id.ToString();
+                var _filterID = "filter[id]=" + id.ToString();
 
                 //THIS SHOULD BE A CLIENT SECRET
                 var _token = "&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA";
@@ -575,8 +575,7 @@ namespace FPTV.Controllers
                 var jsonPerPage = "&per_page=50";
 
                 //Request processing with RestSharp
-                var _fullRequest = _requestLink + game + "/players?"/* + _filterID + jsonSort + jsonPage + jsonPerPage*/ + _token;
-                https://api.pandascore.co/csgo/teams?sort=&page=1&per_page=50&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA
+                var _fullRequest = _requestLink + game + "/players?" + _filterID + jsonSort + jsonPage + jsonPerPage + _token;
                 var _client = new RestClient(_fullRequest);
                 var _request = new RestRequest("", Method.Get);
                 _request.AddHeader("accept", "application/json");
