@@ -1,6 +1,10 @@
 ﻿@{
     ViewData["Title"] = "CS:GO Matches";
 }
+@using System.Linq;
+@using System.Collections;
+@using FPTV.Models;
+@using FPTV.Models.UserModels;
 
 <style>
 
@@ -215,25 +219,26 @@
 
         </div>
         <div class="ola " style="border-radius:15px;">
-            <div class="box darkcolor bordercolor" style="border-radius:15px;margin-top:0px;width:30%;padding:1%">
+            <div class="box darkcolor bordercolor" style="border-radius:15px;margin-top:0px;width:40%;padding:1%">
                 <h4 style="font-weight: bold;text-align:center;">Finished Matches</h4>
                 @foreach (var item in ViewBag.pastMatches)
                 {
+                    HashSet<Team> teams = item.TeamsList;
                     <div class="alinhar bordercolor" style=" border-radius:15px;border-bottom: 1px solid black;  margin-top: 2%; margin-bottom: 2%">
                         <div class="my-div2 my-divColor" style="width:90%;">
                             <div>
-                                <span class="span2" style="margin-top:10px;">@item.BeginAt.ToString("dd/MM/yyyy hh:mm")</span>
+                                <span class="span2" style="margin-top:10px;"> @item.BeginAt.ToString("dddd - dd-MM-yyyy hh:mm")</span>
                             </div>
 
-                            <div>
-                                <span style="text-align: center;">
-
-                                    <p style="font-size:25px">
-                                        <img src=@item.TeamsList[0].Image alt="logo" style="width:15%">
-                                        <span> @item.TeamsList[0].Name </span>
+                            <div style="width:100%;text-align: center;font-size:20px;margin-top:8px;margin-bottom:8px">
+                                <p style="padding:0px; margin-bottom:0px;">
+                                    <img src=@teams.ToList()[0].Image alt="logo" style="width:10%">
+                                    <span> @teams.ToList()[0].Name </span>
+                                </p>
+                                <p style="padding:0px; margin-bottom:0px;">
                                         @foreach (var team in item.Scores)
                                         {
-                                            @if (item.TeamsList[0].Name == team.TeamName)
+                                        @if (teams.ToList()[0].Name == team.TeamName)
                                             {
                                                 <span class="span2"> @team.TeamScore </span>
                                             }
@@ -241,21 +246,21 @@
                                         <span class="span2"> - </span>
                                         @foreach (var team in item.Scores)
                                         {
-                                            @if (item.TeamsList[1].Name == team.TeamName)
+                                        @if (teams.ToList()[1].Name == team.TeamName)
                                             {
                                                 <span class="span2"> @team.TeamScore </span>
                                             }
                                         }
-                                        <span> @item.TeamsList[1].Name </span>
-                                        <img src=@item.TeamsList[1].Image alt="logo" style="width:15%">
-                                    </p>
-                                </span>
+                                </p>
+                                <p style="padding:0px; margin-bottom:0px;">
+                                    <span> @teams.ToList()[1].Name </span>
+                                    <img src=@teams.ToList()[1].Image alt="logo" style="width:10%">
+                                </p>
                             </div>
 
                             <div style="text-align:left; display: flex;">
-                                <p>Best of @item.NumberOfGames</p>
-
-                                <a href="@Url.Action("MatchDetails", "Matches", new {id = item.MatchesAPIID, type = item.TimeType.ToString().ToLower() ,game = ViewBag.dropDownGame})" style="justify-content: space-around; margin-left: auto;">More details</a>
+                                <p style="margin-bottom:0px">Best of @item.NumberOfGames</p>
+                                <a href="@Url.Action("MatchDetails", "Matches", new {id = item.MatchesAPIID, type = item.TimeType.ToString().ToLower() ,game = ViewBag.dropDownGame})" style="justify-content: space-around; margin-left: auto; margin-bottom:0px">More details</a>
                             </div>
                         </div>
                     </div>
@@ -266,7 +271,7 @@
                     @foreach (var item in ViewBag.runningMatches)
                     {
                         <tr  style="border-radius:15px; width:100%">
-                            <td class="tablecolors" style="width:100%; border-radius:15px;">
+                            <td class="tablecolors" style="width:100%; border-radius:15px; border: transparent;">
                                 <div class="my-div2 colorformatch" style="width:100%;">
                                     <div style="text-align:center">
                                         <h4 style="font-weight: bold;text-align:center;">@item.EventName</h4>
@@ -299,28 +304,30 @@
                                                     <span> @item.TeamsList[1].Name </span>
                                                 </td>
                                             </tr>
-                                            <tr>
-                                                @foreach (var team in item.Scores)
-                                                {
-                                                    @if (item.TeamsList[0].Name == team.TeamName)
+                                            <tr style="text-align:center">
+                                                
+                                                <td class="tablecolors" >
+                                                    @foreach (var team in item.Scores)
                                                     {
-                                                        <td class="tablecolors">
+                                                        @if (item.TeamsList[0].Name == team.TeamName)
+                                                        {
+                                                        
                                                             <span class="span2"> @team.TeamScore </span>
-                                                        </td>
+                                                        
+                                                        }
                                                     }
-                                                }
-                                                <td class="tablecolors">
                                                     <span class="span2"> - </span>
-                                                </td>
-                                                @foreach (var team in item.Scores)
-                                                {
-                                                    @if (item.TeamsList[1].Name == team.TeamName)
+                                                    @foreach (var team in item.Scores)
                                                     {
-                                                        <td class="tablecolors">
+                                                        @if (item.TeamsList[1].Name == team.TeamName)
+                                                        {
+                                                       
                                                             <span class="span2"> @team.TeamScore </span>
-                                                        </td>
+                                                        
+                                                        }
                                                     }
-                                                }
+                                                </td>
+                                                
                                             </tr>
                                             <tr>
                                                 <td class="tablecolors">
@@ -342,29 +349,33 @@
                 </table>
             </div>
 
-            <div class="box darkcolor bordercolor" style="margin-top:0px; border-radius:15px;width:30%; padding:1%">
+            <div class="box darkcolor bordercolor" style="margin-top:0px; border-radius:15px;width:40%; padding:1%">
                 <h4 style="font-weight: bold;text-align:center;">Upcoming Matches</h4>
                 @foreach (var item in ViewBag.upcomingMatches)
                 {
                     <div class="alinhar bordercolor" style="border-bottom: 1px solid black; border-radius:15px; margin-top: 2%; margin-bottom: 2%;">
                         <div class="my-div2 " style="width:90%;">
                             <div>
-                                <span class="span2" style="margin-top:10px;">@item.BeginAt.ToString("dd/MM/yyyy hh:mm")</span>
+                                <span class="span2" style="margin-top:10px;">@item.BeginAt.ToString("dddd - dd-MM-yyyy hh:mm")</span>
                             </div>
-                            <div>
-                                <span style="text-align: center;">
-                                    <p style="font-size:25px">
+                            <div style="font-size:20px; text-align:center">
+                                <p style="font-size:20px; text-align:center">
+                                    <p style="margin-bottom:0px;">
                                         <img src=@item.TeamsList[0].Image alt="logo" style="width:15%">
                                         <span> @item.TeamsList[0].Name </span>
+                                    </p>
+                                    <p style="margin-bottom:0px;">
                                         <span class="span2"> vs </span>
+                                    </p>
+                                    <p style="margin-bottom:0px;">
                                         <span> @item.TeamsList[1].Name </span>
                                         <img src=@item.TeamsList[1].Image alt="logo" style="width:15%">
                                     </p>
-                                </span>
+                                </p>
                             </div>
-                            <div style="text-align:left; display: flex;">
-                                        <p>Best of @item.NumberOfGames</p>
-                                <a href="@Url.Action("MatchDetails", "Matches", new {id = item.MatchesAPIID, type = item.TimeType.ToString().ToLower() ,game = ViewBag.dropDownGame})" style="justify-content: space-around; margin-left: auto;">More details</a>
+                            <div style="text-align:left; display: flex;margin-bottom:0px">
+                                <p style="margin-bottom:0px"> Best of @item.NumberOfGames</p>
+                                <a href="@Url.Action("MatchDetails", "Matches", new {id = item.MatchesAPIID, type = item.TimeType.ToString().ToLower() ,game = ViewBag.dropDownGame})" style="justify-content: space-around; margin-left: auto; margin-bottom:0px">More details</a>
                             </div>
                         </div>
                     </div>

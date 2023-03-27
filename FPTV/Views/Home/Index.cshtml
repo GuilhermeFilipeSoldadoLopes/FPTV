@@ -4,28 +4,27 @@
 <!DOCTYPE html>
 
 <html>
-<style>
-	.central {
-		width: 100%;
-		margin: 0 auto;
-		text-align: center;
-		height:100%;
-		background-color: white;
-	}
+	<style>
+		.central {
+			width: 100%;
+			margin: 0 auto;
+			text-align: center;
+			height:100%;
+			background-color: white;
+		}
 
-	.center {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-	}
+		.center {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
 
-	tr, td, th{
-		border-width: 1px;
-	}
+		tr, td, th{
+			border-width: 1px;
+		}
+	</style>
 
-</style>
-
-<body class="bodytemp">
+<body onload="chart()" class="bodytemp">
 
 	@*<div class="text-center">
 		<h1 class="display-4">Welcome</h1>
@@ -45,7 +44,7 @@
 			<tr>
 				<td> <b id="noOfAccounts">@ViewData["accounts"]</b> <span id="accountText"> @ViewData["account_txt"] </span> </td>
 				<td> <b id="noOfVisitors">@ViewData["visitors"]</b> <span id="visitorsText"> @ViewData["visitors_txt"] </span> </td>
-			</tr>
+			</tr> 
 		</table>
 		<br>
 	</div>

@@ -4,6 +4,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+	@*<script>
+		window.onload = function()
+		{
+			window.location.reload();
+			const page = '@(ViewBag.page)';
+
+			if (page === "Results") {
+				var menuTab1 = document.getElementById("menuBarButtonResults");
+				menuTab1.style.fontWeight = "bold";
+			} else if (page === "Matches") {
+				var menuTab2 = document.getElementById("menuBarButtonMatches");
+				menuTab2.style.fontWeight = "bold";
+			} else if (page === "Events") {
+				var menuTab3 = document.getElementById("menuBarButtonEvents");
+				menuTab3.style.fontWeight = "bold";
+			} else if (page === "Forum") {
+				var menuTab4 = document.getElementById("menuBarButtonForum");
+				menuTab4.style.fontWeight = "bold";
+			} else if (page === "About") {
+				var menuTab5 = document.getElementById("menuBarButtonAbout");
+				menuTab5.style.fontWeight = "bold";
+			}
+		};
+	</script>*@
+
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - FPTV</title>
@@ -13,58 +38,29 @@
     <link rel="stylesheet" href="~/FPTV.styles.css" asp-append-version="true" />
     <link rel="icon" type="image/png" href="~/favicon.ico" />
 
-		<script>
-			/*window.onload = function(e)
-			{
-				var url = window.location.href;
+	
+	<script src="https://js.pusher.com/4.0/pusher.min.js"></script>
+	<script>
+		// Enable pusher logging - don't include this in production
+		Pusher.logToConsole = true;
 
-				if (url.includes("/Results")) {
-					var menuTab1 = document.getElementsByClassName("nav-link text-dark resultsButton");
-					menuTab1.style.fontWeight = "bold";
-				} else if (url.includes("Matches/")) {
-					var menuTab2 = document.getElementsByClass("nav-link text-dark matchesButton");
-					menuTab2.style.fontWeight = "bold";
-				} else if (url.includes("Events/")) {
-					var menuTab3 = document.getElementsById("nav-link text-dark eventsButton");
-					menuTab3.style.fontWeight = "bold";
-				} else if (url.includes("Forum/")) {
-					var menuTab4 = document.getElementsById("nav-link text-dark forumButton");
-					menuTab4.style.fontWeight = "bold";
-				} else if (url.includes("/About")) {
-					var menuTab5 = document.getElementsById("nav-link text-dark aboutButton");
-					menuTab5.style.fontWeight = "bold";
-				}
-			};*/
+		var pusher = new Pusher('PUSHER_APP_KEY', {
+			cluster:'PUSHER_APP_CLUSTER'
+		});
 
-		//	if (elem != currElem) { //do thing if you're clicking on a bold link
-		//		if (currElem) //if a link bold right now unbold it
-		//			currElem.style.fontWeight = 'normal';
-		//		currElem = elem; //assign this element as the current one
-		//		elem.style.fontWeight = 'bold';  //make the element clicked bold
-		//	}
-		</script>
-		<script src="https://js.pusher.com/4.0/pusher.min.js"></script>
-		<script>
-			// Enable pusher logging - don't include this in production
-			Pusher.logToConsole = true;
+		var channel = pusher.subscribe('general');
 
-			var pusher = new Pusher('PUSHER_APP_KEY', {
-				cluster:'PUSHER_APP_CLUSTER'
-			});
+		channel.bind('newVisit', function(data) {
 
-			var channel = pusher.subscribe('general');
-
-			channel.bind('newVisit', function(data) {
-
-			  var visits = data.visits;
-			  var message = data.message;
-			  $('#noOfVisitors').text( visits );
-			  $('#visitorsText').text( message );
-			});
-		</script>
-		<script src="~/lib/jquery/dist/jquery.min.js"></script>
-		<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-		<script src="~/js/site.js" asp-append-version="true"></script>
+			var visits = data.visits;
+			var message = data.message;
+			$('#noOfVisitors').text( visits );
+			$('#visitorsText').text( message );
+		});
+	</script>
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="~/js/site.js" asp-append-version="true"></script>
 
     <style>
 		#buttonMenu:hover {
@@ -85,8 +81,23 @@
 			background-color: transparent;
 			border-radius: 20px;			
 		}
+		footer {
+		   position:absolute;
+		   bottom:0;
+		   width:100%;
+		   height:60px;   /* Height of the footer */
+		 }
 
-		
+		#dropdownItem1:hover{
+			background-color: transparent;
+			border: 2px solid #DE3C3C;
+			border-radius: 20px;
+			-webkit-transition: all .15s ease-in-out;
+			transition: all .15s ease-in-out;
+			color: #DE3C3C;
+			box-shadow: 0 0 5px 0 #DE3C3C inset, 0 0 10px 1px #DE3C3C;
+		}
+
     </style>
 </head>
 <body>
@@ -108,58 +119,67 @@
 						<li class="nav-item" id="menu" style="width:20%; margin:auto">
 							@*-----------------------------dropdown para CSGO e VALORANT-------------------------*@
 
-							<div class="dropdown123" style=" width:100%;">
-									@if (ViewBag.dropDownGame == "csgo")
-									{
-										<a class="nav-link text-dark" id="buttonMenu" style="font-weight:bold ; font-size: 24px; " asp-area="Home" asp-controller="Home" asp-action="Index">CS:GO</a>
+							<div class="dropdown123 bordercolor" id="buttonMenu" style=" width:100%;margin:auto">
+									@if (ViewBag.dropDownGame == "csgo") {
+										<a class="nav-link text-dark" style="font-weight:bold;font-size: 24px" asp-area="Home" asp-controller="Home" asp-action="Index">CS:GO</a>
+									} else {
+										<a class="nav-link text-dark" style="font-weight:bold;font-size: 24px" asp-area="Home" asp-controller="Home" asp-action="Index">VALORANT</a>
 									}
-									else
-									{
-										<a class="nav-link text-dark" id="buttonMenu" style="font-weight:bold ; font-size: 24px; " asp-area="Home" asp-controller="Home" asp-action="Index">VALORANT</a>
-									}
-									<div class="dropdownContent12 bordercolor " style="background-color:white;padding:1%;margin-left:5px">
-
-									<a class="dropdownItem1 bordercolor" style="display:flex;border-radius:15px;width:100%;padding:2%; text-decoration:none;">
-										<button class="btndrop"  style="width:100%;text-align:center">
-													<div style="text-decoration:none;">
-														<a href="@Url.Action("VALORANT", "Home", new { game = ViewBag.dropDownGame, page = ViewBag.page})">VALORANT</a>
-														@*<span class="" style="color:black ; font-weight:bold ; width:100%;margin:auto"><a asp-area="Home" asp-controller="Home" asp-action="VALORANT">VALORANT</a></span>*@
-											</div>
-										</button>
+								<div class="dropdownContent12 bordercolor" style="background-color:white;padding:1%;margin-left:5px">
+									<a class="dropdownItem1" style="display:flex;border-radius:15px;width:100%">
+										<div class=" bordercolor" id="dropdownItem1" style="text-decoration:none; width:100%; padding:2px">
+											<a style="color:black ; font-weight:bold ; width:100%;margin:auto; text-decoration:none;font-size: 20px" href="@Url.Action("VALORANT", "Home", new { game = ViewBag.dropDownGame, page = ViewBag.page})">VALORANT</a>
+										</div>
 									</a>
-
-									<a class="dropdownItem1 dropselected bordercolor" style="display:flex;border-radius:15px;width:100%;padding:2%; text-decoration:none;margin-top:3px">
-										<button class="btndrop"  style="width:100%;text-align:center">
-													<div style="text-decoration:none;">
-														<a href="@Url.Action("CSGO", "Home", new { game = ViewBag.dropDownGame, page = ViewBag.page})">CS:GO</a>
-														@*<span class="" style="color:black ; font-weight:bold ; width:100%;margin:auto"><a asp-area="Home" asp-controller="Home" asp-action="CSGO">CS:GO</a></span>*@
-											</div>
-										</button>
+									<a class="dropdownItem1" style="display:flex;border-radius:15px;width:100%;margin-top:3px;">
+										<div class=" bordercolor" id="dropdownItem1" style="text-decoration:none; width:100%;">
+											<a style="color:black ; font-weight:bold ; width:100%;margin:auto;text-decoration:none;font-size: 20px;" href="@Url.Action("CSGO", "Home", new { game = ViewBag.dropDownGame, page = ViewBag.page})">CS:GO</a>
+										</div>
 									</a>
-											
 								</div>
 							</div>
 						</li>
 						@*-------------------------------------------------------------*@
-						<li class="nav-item" id="menu" style="width:20%; margin:auto">
-							<a href="@Url.Action("Matches", "Home", new { game = ViewBag.dropDownGame})">Matches</a>
+						<li class="nav-item text-dark" id="buttonMenu" style="width:20%; margin:auto">
+							@if (ViewBag.page == "Matches") {
+								<a style="font-weight: bold;text-decoration: none; font-size: 24px; color: black" href="@Url.Action("Matches", "Home", new { game = ViewBag.dropDownGame})">Matches</a>
+							} else {
+								<a style="font-weight: normal;text-decoration: none; font-size: 24px; color: black" href="@Url.Action("Matches", "Home", new { game = ViewBag.dropDownGame})">Matches</a>
+							}
 							@*<a class="nav-link text-dark matchesButton" id="buttonMenu" style="font-size: 24px;" asp-area="" asp-controller="Home" asp-action="Matches">Matches</a>*@
 						</li>
-						<li class="nav-item" id="menu" style="width:20%; margin:auto">
-							<a href="@Url.Action("Results", "Home", new { game = ViewBag.dropDownGame})">Results</a>
-									@*<<a class="nav-link text-dark resultsButton" id="buttonMenu" style="font-size: 24px;" asp-area="" asp-controller="Home" asp-action="Results">Results</a>*@
+						<li class="nav-item text-dark" id="buttonMenu" style="width:20%; margin:auto">
+							@if (ViewBag.page == "Results") {
+								<a style="font-weight: bold; text-decoration: none; font-size: 24px; color: black" href="@Url.Action("Results", "Home", new { game = ViewBag.dropDownGame})">Results</a>
+							} else {
+								<a style="font-weight: normal;text-decoration: none; font-size: 24px; color: black" href="@Url.Action("Results", "Home", new { game = ViewBag.dropDownGame})">Results</a>
+							}
+							@*<<a class="nav-link text-dark resultsButton" id="buttonMenu" style="font-size: 24px;" asp-area="" asp-controller="Home" asp-action="Results">Results</a>*@
 						</li>
-						<li class="nav-item" id="menu" style="width:20%; margin:auto">
-							<a href="@Url.Action("Events", "Home", new { game = ViewBag.dropDownGame})">Events</a>
-									@*<<a class="nav-link text-dark eventsButton" id="buttonMenu" onclick="" style="font-size: 24px;" asp-area="" asp-controller="Home" asp-action="Events">Events</a>*@
+						<li class="nav-item text-dark" id="buttonMenu" style="width:20%; margin:auto">
+							@if (ViewBag.page == "Events") {
+								<a style="font-weight: bold; text-decoration: none; font-size: 24px; color: black" href="@Url.Action("Events", "Home", new { game = ViewBag.dropDownGame})">Events</a>
+							} else {
+								<a style="font-weight: normal; text-decoration: none; font-size: 24px; color: black" href="@Url.Action("Events", "Home", new { game = ViewBag.dropDownGame})">Events</a>
+							}
+							@*<<a class="nav-link text-dark eventsButton" id="buttonMenu" onclick="" style="font-size: 24px;" asp-area="" asp-controller="Home" asp-action="Events">Events</a>*@
 						</li>
-						<li class="nav-item" id="menu" style="width:20%; margin:auto">
-								<a class="nav-link text-dark forumButton" id="buttonMenu" style="font-size: 24px;" asp-area="" asp-controller="Home" asp-action="Index">Forum</a>
+						<li class="nav-item text-dark" id="buttonMenu" style="width:20%; margin:auto">
+							@if (ViewBag.page == "Forum") {
+								<a style="font-weight: bold; text-decoration: none; font-size: 24px; color: black" href="@Url.Action("Forum", "Home", new { game = ViewBag.dropDownGame})">Forum</a>
+							} else {
+								<a style="font-weight: normal; text-decoration: none; font-size: 24px; color: black" href="@Url.Action("Forum", "Home", new { game = ViewBag.dropDownGame})">Forum</a>
+							}
+							@*<a class="nav-link text-dark forumButton" id="buttonMenu" style="font-size: 24px;" asp-area="" asp-controller="Home" asp-action="Index">Forum</a>*@
 						</li>
-						<li class="nav-item" id="menu" style="width:20%; margin:auto">
-								<a class="nav-link text-dark" id="buttonMenu" style="font-size: 24px;" asp-area="" asp-controller="Stats" asp-action="getPlayer">About</a>
+						<li class="nav-item text-dark" id="buttonMenu" style="width:20%; margin:auto">
+							@if (ViewBag.page == "About") {
+								<a style="font-weight: bold; text-decoration: none; font-size: 24px; color: black" href="@Url.Action("About", "Home", new { game = ViewBag.dropDownGame})">About</a>
+							} else {
+								<a style="font-weight: normal; text-decoration: none; font-size: 24px; color: black" href="@Url.Action("About", "Home", new { game = ViewBag.dropDownGame})">About</a>
+							}
+							@*<a class="nav-link text-dark aboutButton" id="buttonMenu" style="font-size: 24px;" asp-area="" asp-controller="Home" asp-action="CSGOStats">About</a>*@
 						</li>
-								
 					</ul>
 				</div>
 
@@ -184,17 +204,27 @@
 		</nav>
 	</div>
 </header>
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
+	
 
-	<footer class="border-top footer text-muted" style="background-color: white;">
-		<div class="container" style="color: black; margin-left: 4%">
+	<footer class="bg-light text-muted">
+		
+		<div class=" p-3" style="margin-left:10%">
 			&copy; 2023 - FPTV - <a asp-area="" style="color: black;" asp-controller="Home" asp-action="Privacy">Privacy</a>
 		</div>
+		
 	</footer>
+
+	@*<footer class="footerPage text-muted" style="background-color: white;">
+		<div class="container" style="color: black; margin-left: 5%">
+			&copy; 2023 - FPTV - <a asp-area="" style="color: black;" asp-controller="Home" asp-action="Privacy">Privacy</a>
+		</div>
+	</footer>*@
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>

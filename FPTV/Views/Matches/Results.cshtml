@@ -136,36 +136,59 @@
 			width: 30px;
 		}
 
-		::placeholder {
-			color: green;
+		input::placeholder {
+			color: black;
+			font-size: 80%;
 		}
 
 </style>
+
+<script>
+	function selected(element) {
+		var elements = document.getElementsByClassName("btnYau");
+		for (var i = 0; i < elements.length; i++) {
+			elements[i].classList.remove('selectedbtn');
+		}
+		element.classList.add('selectedbtn');
+    }
+</script>
 
 <body class="bodytemp whiteText">
 	
 	<div class="central">
 
 		<div style="display:flex; margin-bottom:3%">
-			<button class="btnResult bordercolor" style="">
-                <a href="@Url.Action("Results", "Matches", new { days = 1, game = ViewBag.dropDownGame})">Results of Yesterday</a>
-			</button>
-
-			<button class="btnResult selectedbtn bordercolor" style="">
-				<a href="@Url.Action("Results", "Matches", new { game = ViewBag.dropDownGame})">Results of Today</a>
-            </button>
+			
+				@if (ViewBag.days == 1) {
+				<button class="btnResult selectedbtn bordercolor whiteText" style="">
+					<a class="whiteText" style="text-decoration: none; " href="@Url.Action("Results", "Matches", new { days = 1, game = ViewBag.dropDownGame})">Results of  Yesterday</a>
+				</button>
+				} else {
+				<button class="btnResult bordercolor whiteText" style="">
+					<a class="whiteText" style="text-decoration: none; " href="@Url.Action("Results", "Matches", new { days = 1, game = ViewBag.dropDownGame})">Results of  Yesterday</a>
+				</button>
+				}
+			
+				@if (ViewBag.days == 0) {
+				<button class="btnResult selectedbtn bordercolor whiteText" style="">
+					<a class="whiteText" style="text-decoration: none; " href="@Url.Action("Results", "Matches", new { game = ViewBag.dropDownGame})">Results of Today</a>
+				</button>
+				} else {
+				<button class="btnResult bordercolor whiteText" style="">
+					<a class="whiteText" style="text-decoration: none;" href="@Url.Action("Results", "Matches", new { game = ViewBag.dropDownGame})">Results of Today</a>
+				</button>
+				}
 
 			<button class="btnResult bordercolor">
 				<form method="post" action="@Url.Action("Results", "Matches", new {game = ViewBag.dropDownGame})">
-					<input class="bordercolor dark" type="text" name="days" placeholder="2 to 365 days ago" required style="width:53%; padding:1px;">
+					<input class="bordercolor dark" type="text" name="days" placeholder=" 2 to 365 days ago" required style="width:50%; padding:1px; text-align:center">
 					@**Days Ago
 					<div style="font-size:13px;"> *2 to 365 days</div>*@
 				</form>
 			</button>
-
 		</div>
 
-		<div class="center bordercolor colorformatch " style=";width:100%; padding:1%;">
+		<div class="center bordercolor colorformatch " style="width:100%; padding:1%">
 			
 				<table class=" bordercolor" style="width:100%; border-radius:15px;" >
 
