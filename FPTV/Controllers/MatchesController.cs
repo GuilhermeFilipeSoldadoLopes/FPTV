@@ -42,7 +42,7 @@ namespace FPTV.Controllers
     {
         private readonly FPTVContext _context;
 
-		public MatchesController(FPTVContext context)
+        public MatchesController(FPTVContext context)
         {
             _context = context;
         }
@@ -50,11 +50,11 @@ namespace FPTV.Controllers
         //De CSGO e de Valorant
         // GET: CSMatches
         public async Task<ActionResult> Index(string sort = "", string filter = "", string page = "&page=1", string game = "valorant")
-		{
-			ViewBag.dropDownGame = game;
-			ViewBag.page = "Matches";
-			//Request processing with RestSharp
-			var jsonFilter = (filter == "" || filter == "livestream") ? "" : "filter[" + filter + "]=true&";
+        {
+            ViewBag.dropDownGame = game;
+            ViewBag.page = "Matches";
+            //Request processing with RestSharp
+            var jsonFilter = (filter == "" || filter == "livestream") ? "" : "filter[" + filter + "]=true&";
             var jsonSort = (sort == "" || sort == "tournament") ? "" : sort;
             var jsonPage = page;
             var jsonPerPage = "&per_page=10";
@@ -69,7 +69,7 @@ namespace FPTV.Controllers
             var upcomingMatches = getAPIMatches(fullApiPath, game);
 
             List<int> dbMatchesIds = game == "csgo" ? _context.MatchesCS.Select(m => m.MatchesAPIID).ToList() : _context.MatchesVal.Select(m => m.MatchesAPIID).ToList();
-            
+
             foreach (var match in pastMatches)
             {
                 if (game == "csgo")
@@ -91,14 +91,14 @@ namespace FPTV.Controllers
             }
 
             await _context.SaveChangesAsync();
-			
-			pastMatches = game == "csgo" ? _context.MatchesCS.Include(m => m.TeamsList).Include(m => m.Scores).ToList() : _context.MatchesVal.Include(m => m.TeamsList).Include(m => m.Scores).ToList();
 
-			if (sort == "tournament")
+            pastMatches = game == "csgo" ? _context.MatchesCS.Include(m => m.TeamsList).Include(m => m.Scores).ToList() : _context.MatchesVal.Include(m => m.TeamsList).Include(m => m.Scores).ToList();
+
+            if (sort == "tournament")
             {
                 if (game == "csgo")
                 {
-                    pastMatches = ((List <MatchesCS>)pastMatches).OrderBy(m => m.EventName).ToList();
+                    pastMatches = ((List<MatchesCS>)pastMatches).OrderBy(m => m.EventName).ToList();
                     runningMatches = ((List<MatchesCS>)runningMatches).OrderBy(m => m.EventName).ToList();
                     upcomingMatches = ((List<MatchesCS>)upcomingMatches).OrderBy(m => m.EventName).ToList();
                 }
@@ -129,7 +129,7 @@ namespace FPTV.Controllers
             ViewBag.pastMatches = pastMatches;
 
             ViewBag.runningMatches = runningMatches;
-			ViewBag.upcomingMatches = upcomingMatches;
+            ViewBag.upcomingMatches = upcomingMatches;
 
             ViewBag.filter = filter;
             ViewBag.sort = sort;
@@ -138,9 +138,9 @@ namespace FPTV.Controllers
         }
 
         private IList getAPIMatches(string fullApiPath, string game)
-		{
-			//Request processing with RestSharp
-			var client = new RestClient(fullApiPath);
+        {
+            //Request processing with RestSharp
+            var client = new RestClient(fullApiPath);
             var request = new RestRequest("", Method.Get);
             request.AddHeader("accept", "application/json");
             var json = client.Execute(request).Content;
@@ -229,10 +229,10 @@ namespace FPTV.Controllers
                     }
                     if ((string)status == "not_started")
                         matches.TimeType = TimeType.Upcoming;
-					if ((string)status == "running")
-						matches.TimeType = TimeType.Running;
+                    if ((string)status == "running")
+                        matches.TimeType = TimeType.Running;
 
-					foreach (var streamObject in streamArray.Cast<JObject>())
+                    foreach (var streamObject in streamArray.Cast<JObject>())
                     {
                         Stream stream = new Stream();
 
@@ -263,8 +263,8 @@ namespace FPTV.Controllers
                         team.Losses = 0;
                         team.Winnings = 0;
                         team.WorldRank = 0;
-                        
-                        if(game == "csgo")
+
+                        if (game == "csgo")
                             team.Game = GameType.CSGO;
                         else
                             team.Game = GameType.Valorant;
@@ -284,7 +284,7 @@ namespace FPTV.Controllers
 
                             foreach (var team in matches.TeamsList)
                             {
-                                if(team.TeamAPIID == teamid)
+                                if (team.TeamAPIID == teamid)
                                 {
                                     var result = new Score();
                                     result.TeamScore = points;
@@ -304,15 +304,15 @@ namespace FPTV.Controllers
             return matchesList;
         }
 
-		public ActionResult Results(int days = 0, string game = "valorant")
+        public ActionResult Results(int days = 0, string game = "csgo")
         {
             ViewBag.dropDownGame = game;
             ViewBag.page = "Results";
-			ViewBag.days = days;
+            ViewBag.days = days;
 
-			var day = DateTime.Now.AddDays(-days).ToString("yyyy-MM-dd");
+            var day = DateTime.Now.AddDays(-days).ToString("yyyy-MM-dd");
 
-            var jsonFilter = "filter[begin_at]="+ day;
+            var jsonFilter = "filter[begin_at]=" + day;
             var token = "&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA";
             var requestLink = "https://api.pandascore.co/" + game + "/matches/";
 
@@ -367,10 +367,10 @@ namespace FPTV.Controllers
                     var leagueName = league.GetValue("name");
                     var LeagueId = league.GetValue("id");
                     var leagueLink = league.GetValue("url");
-					var leagueImage = league.GetValue("image_url");
+                    var leagueImage = league.GetValue("image_url");
 
-					//Handling for null values
-					matches.LeagueName = leagueName.ToString() == null ? "" : leagueName.Value<string>();
+                    //Handling for null values
+                    matches.LeagueName = leagueName.ToString() == null ? "" : leagueName.Value<string>();
                     matches.MatchesAPIID = matchesAPIId.ToString() == null ? -1 : matchesAPIId.Value<int>();
                     matches.EventAPIID = eventAPIID.ToString() == null ? -1 : eventAPIID.Value<int>();
                     matches.EventName = eventName.ToString() == null ? "" : matches.LeagueName + " " + eventName.Value<string>();
@@ -393,7 +393,7 @@ namespace FPTV.Controllers
                     matchEvent.TimeType = TimeType.Running;
                     matchEvent.Finished = false;
                     matchEvent.EventImage = leagueImage.ToString() == "" ? "/images/missing.png" : leagueImage.Value<string>();
-					matchEvent.EventLink = "";
+                    matchEvent.EventLink = "";
                     matchEvent.LeagueName = "";
                     matchEvent.PrizePool = "";
                     matchEvent.Tier = ' ';
@@ -408,10 +408,10 @@ namespace FPTV.Controllers
                     }
                     if ((string)status == "not_started")
                         matches.TimeType = TimeType.Upcoming;
-					if ((string)status == "running")
-						matches.TimeType = TimeType.Running;
+                    if ((string)status == "running")
+                        matches.TimeType = TimeType.Running;
 
-					foreach (var streamObject in streamArray.Cast<JObject>())
+                    foreach (var streamObject in streamArray.Cast<JObject>())
                     {
                         Stream stream = new Stream();
 
@@ -484,18 +484,18 @@ namespace FPTV.Controllers
             ViewBag.matches = matchesList;
 
             return View();
-		}
+        }
 
-		public ActionResult MatchDetails(int id = 0, string type = "past", string game = "valorant")
+        public ActionResult MatchDetails(int id = 0, string type = "past", string game = "csgo")
         {
             ViewBag.dropDownGame = game;
             ViewBag.page = "Matches";
 
-			var jsonFilter = "filter[id]=" + id;
+            var jsonFilter = "filter[id]=" + id;
             var token = "&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA";
             var requestLink = "https://api.pandascore.co/" + game + "/matches/";
 
-            var fullApiPath = requestLink + type+ "?" + jsonFilter + "&sort=" + token;
+            var fullApiPath = requestLink + type + "?" + jsonFilter + "&sort=" + token;
 
             var client = new RestClient(fullApiPath);
             var request = new RestRequest("", Method.Get);
@@ -724,7 +724,7 @@ namespace FPTV.Controllers
 
             Random rnd = new Random();
 
-            if(matches.NumberOfGames != 1)
+            if (matches.NumberOfGames != 1)
             {
                 for (int i = 0; i < 7; i++)
                 {
@@ -753,17 +753,17 @@ namespace FPTV.Controllers
             return View();
         }
 
-		public ActionResult PlayerAndStats()
-		{
-			return View();
-		}
+        public ActionResult PlayerAndStats()
+        {
+            return View();
+        }
 
-		public ActionResult TeamStats()
-		{
-			return View();
-		}
+        public ActionResult TeamStats()
+        {
+            return View();
+        }
 
-		/*// De CSGO e de Valorant
+        /*// De CSGO e de Valorant
         // GET: Matches/CSMatcheDetails/5
         public ActionResult CSMatcheDetails(int id)
         {
@@ -844,5 +844,5 @@ namespace FPTV.Controllers
                 return View();
             }
         }*/
-	}
+    }
 }
