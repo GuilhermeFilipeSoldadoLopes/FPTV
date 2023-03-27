@@ -532,12 +532,12 @@ namespace FPTV.Controllers
                     teamm.Name = (string?)_item.GetValue("name");
                     teamm.Image = (string?)_item.GetValue("image_url");
                 }
-                double KdRatio = (double)player.Kills / (double)player.Deaths;
+                var KdRatio = player.Kills / player.Deaths;
                 int maps = _random.Next(1, 8);
                 var pastTeam1 = teamsList[_random.Next(teamsList.Length)];
                 var pastTeam2 = teamsList[_random.Next(teamsList.Length)];
                 var pastTeam3 = teamsList[_random.Next(teamsList.Length)];
-                ViewBag.KdRatio = Math.Round(KdRatio, 2);
+                ViewBag.KdRatio = KdRatio;
                 ViewBag.maps = maps;
                 ViewBag.player = player;
                 ViewBag._player = _player;
@@ -576,7 +576,7 @@ namespace FPTV.Controllers
 
                 //Request processing with RestSharp
                 var _fullRequest = _requestLink + game + "/players?"/* + _filterID + jsonSort + jsonPage + jsonPerPage*/ + _token;
-            https://api.pandascore.co/csgo/teams?sort=&page=1&per_page=50&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA
+                https://api.pandascore.co/csgo/teams?sort=&page=1&per_page=50&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA
                 var _client = new RestClient(_fullRequest);
                 var _request = new RestRequest("", Method.Get);
                 _request.AddHeader("accept", "application/json");
@@ -593,7 +593,7 @@ namespace FPTV.Controllers
 
                 //Filter to select from which pool to fetch the data (upcoming, running or finished/ended)
                 var jsonFilter = filter + "?";
-                var filterID = "filter[id]=48528";//+ id.ToString();
+                var filterID = "filter[id]=48526";//+ id.ToString();
 
                 //THIS SHOULD BE A CLIENT SECRET
                 var token = "&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA";
@@ -637,7 +637,7 @@ namespace FPTV.Controllers
                     ViewBag.NacionalityImg = "/images/Flags/4x3/" + _player.Nationality + ".svg";
                     //_player.Image = (string)item.GetValue("image_url");
                     _player.Image = item.GetValue("image_url").ToString() == "" ? "/images/default-profile-icon-24.jpg" : item.GetValue("image_url").Value<string>();
-
+                    _player.Rating= ranking[_random.Next(ranking.Length)];
                     _context.MatchPlayerStatsCS.Add(player);
                 }
 
@@ -652,13 +652,13 @@ namespace FPTV.Controllers
                     teamm.Name = (string?)_item.GetValue("name");
                     teamm.Image = (string?)_item.GetValue("image_url");
                 }
-                double KdRatio = (double)player.Kills / (double)player.Deaths;
-                double roundKdRatio = Math.Round(KdRatio, 2);
+                var KdRatio = player.Kills / player.Deaths;
+                //double roundKdRatio = Math.Round(KdRatio, 2);
                 int maps = _random.Next(1, 8);
                 var pastTeam1 = teamsList[_random.Next(teamsList.Length)];
                 var pastTeam2 = teamsList[_random.Next(teamsList.Length)];
                 var pastTeam3 = teamsList[_random.Next(teamsList.Length)];
-                ViewBag.KdRatio = roundKdRatio;
+                ViewBag.KdRatio = KdRatio;
                 ViewBag.maps = maps;
                 ViewBag.player = player;
                 ViewBag._player = _player;
@@ -753,6 +753,7 @@ namespace FPTV.Controllers
             List<MatchCS>? matchCsList = new();
             List<MatchPlayerStatsCS>? playerStatsList = new();
             List<MatchTeamsCS>? teamsList = new();
+            List<Player>? playerList = new();
 
 
 
@@ -829,6 +830,7 @@ namespace FPTV.Controllers
 
                         foreach (JObject t in jarrayTeams.Cast<JObject>())
                         {
+                            var count = 0;
                             foreach (JObject p in jarrayPlayers.Cast<JObject>())
                             {
                                 var matchPlayer = new MatchPlayerStatsCS();
@@ -842,11 +844,22 @@ namespace FPTV.Controllers
                                 matchPlayer.ADR = _random.NextDouble();
                                 matchPlayer.HeadShots = _random.NextDouble() * 100;
                                 matchPlayer.KD_Diff = _random.NextDouble();
-                                matchPlayer.PlayerName = (string)p.GetValue("name"); ;
+                                matchPlayer.PlayerName = (string)p.GetValue("name");
+                                //if(playerList.Count != 0)
+                                //{
+                                //    for (int i = 0; i < playerList.Count; i++)
+                                //    {
+                                //        if (count == i)
+                                //        {
+                                //            matchPlayer.PlayerCS=playerList[i];
+                                //            count++;
+                                //        }
+                                //    }
+                                //}
                                 playerStatsList.Add(matchPlayer);
                                 ma.PlayerStatsList.Add(matchPlayer);
                                 //playerStatsList.Add(player);
-                                // _context.MatchPlayerStatsCS.Add(player);
+                                _context.MatchPlayerStatsCS.Add(matchPlayer);
                                 foreach (var _team in teamsArray.Cast<JObject>())
                                 {
                                     var players = (JArray)_team.GetValue("players");
@@ -866,7 +879,15 @@ namespace FPTV.Controllers
                                         player.Image = "";
                                         player.Nationality = (string)item.GetValue("nationality") == null ? "undefined" : item.GetValue("nationality").Value<string>();
                                         player.Teams.Add(team);
+                                        playerList.Add(player);
+                                        if (matchPlayer.PlayerCS == null)
+                                        {
+                                            matchPlayer.PlayerCS = player;
+                                        }
+                                        //for (int i = 0; i < _context.Player.Count; i++) {
                                         _context.Player.Add(player);
+                                        
+                                        //}
                                     }
 
                                 }
@@ -881,7 +902,8 @@ namespace FPTV.Controllers
                         matchTeam.TeamCS = team;
                         matchTeam.Name = (string)opponent.GetValue("name");
                         matchTeam.Location = (string?)opponent.GetValue("location");
-                        matchTeam.Image = (string)opponent.GetValue("image_url");
+                        matchTeam.Image = (string)opponent.GetValue("image_url") == null ? "undefined" : opponent.GetValue("image_url").Value<string>();
+
                         ma.TeamsList.Add(matchTeam);
 
                         JArray games = (JArray)item["games"];
@@ -933,8 +955,11 @@ namespace FPTV.Controllers
                 Console.WriteLine("teamsList -->" + mpCS);
             }
             ViewBag.playerStatsList = playerStatsList;
+            ViewBag.matchPlayerStatsCS = playerStatsList;
             ViewBag.teamsList = teamsList;
             ViewBag.matchCsList = matchCsList;
+            ViewBag.player = playerList;
+           
             return View("PlayerAndStats");
         }
     }
