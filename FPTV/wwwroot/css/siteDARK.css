@@ -257,3 +257,9 @@ bordercolor2 {
 .headshot {
    filter:invert(1);
 }
+.backerror {
+    background-image: url('../images/backgroundError2.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: black;
+}
