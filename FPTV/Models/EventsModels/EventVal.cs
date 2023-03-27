@@ -39,13 +39,13 @@ namespace FPTV.Models.EventsModels
         [Display(Name = "Finished")]
         public bool Finished { get; set; }
 
-        [Required]
+        
         [Display(Name = "Begin At")]
         [DataType(DataType.Date)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime? BeginAt { get; set; }
 
-        [Required]
+        
         [Display(Name = "End At")]
         [DataType(DataType.Date)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
