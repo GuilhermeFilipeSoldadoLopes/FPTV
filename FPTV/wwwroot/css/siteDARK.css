@@ -236,14 +236,12 @@ bordercolor2 {
 }
 
 .backMap {
-    background-image: url('../images/Maps/overpass1.png');
     background-repeat: no-repeat;
     background-size: cover;
     background-color: black; 
 }
 
 .backMap1 {
-    background-image: url('../images/Maps/vertigo.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     font-family: Noto Sans;
@@ -251,7 +249,6 @@ bordercolor2 {
 }
 
 .backMap2 {
-    background-image: url('../images/Maps/mirage.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     background-color: black;
