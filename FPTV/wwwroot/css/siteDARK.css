@@ -236,14 +236,12 @@ bordercolor2 {
 }
 
 .backMap {
-    background-image: url('../images/Maps/overpass.jpg');
     background-repeat: no-repeat;
     background-size: cover;
-    background-color:black;
+    background-color: black; 
 }
 
 .backMap1 {
-    background-image: url('../images/Maps/vertigo.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     font-family: Noto Sans;
@@ -251,8 +249,29 @@ bordercolor2 {
 }
 
 .backMap2 {
-    background-image: url('../images/Maps/mirage.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     background-color: black;
+}
+
+.headshot {
+   filter:invert(1);
+}
+.backerror {
+    background-image: url('../images/backgroundError2.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: black;
+}
+.stroke {
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: black;
+}
+.stroke2 {
+    -webkit-text-stroke-width: 0.5px;
+    -webkit-text-stroke-color: black;
+}
+
+.whitecolor {
+    color: white;
 }

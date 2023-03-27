@@ -256,7 +256,7 @@
         
         <div class="box bordercolor" style="padding-top:20px;position:relative;border-width:0px;width:70%;margin-top: 0px">
             <a style="position:absolute;top:2px;right:10%;align-items:center;" asp-area="Identity" asp-page="/Account/Manage/Edit" title="Edit">
-                <img style="width:30px;height:30px" src="~/images/Edit.png">
+                <img class="headshot" style="width:30px;height:30px" src="~/images/Edit.png">
             </a>
 
             <img id="profilePicture" style="width:284px;height:284px;display:block;margin-left:auto;margin-right:auto;object-fit:cover;border-radius:50%" src="data:image/*;base64,@(Convert.ToBase64String(Model.Input.ProfilePicture))">

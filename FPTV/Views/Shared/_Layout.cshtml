@@ -88,6 +88,16 @@
 		   height:60px;   /* Height of the footer */
 		 }
 
+		#dropdownItem1:hover{
+			background-color: transparent;
+			border: 2px solid #DE3C3C;
+			border-radius: 20px;
+			-webkit-transition: all .15s ease-in-out;
+			transition: all .15s ease-in-out;
+			color: #DE3C3C;
+			box-shadow: 0 0 5px 0 #DE3C3C inset, 0 0 10px 1px #DE3C3C;
+		}
+
     </style>
 </head>
 <body>
@@ -109,33 +119,23 @@
 						<li class="nav-item" id="menu" style="width:20%; margin:auto">
 							@*-----------------------------dropdown para CSGO e VALORANT-------------------------*@
 
-							<div class="dropdown123 bordercolor" style=" width:100%;">
+							<div class="dropdown123 bordercolor" id="buttonMenu" style=" width:100%;margin:auto">
 									@if (ViewBag.dropDownGame == "csgo") {
-										<a class="nav-link text-dark" id="buttonMenu" style="font-weight:bold ; font-size: 24px; " asp-area="Home" asp-controller="Home" asp-action="Index">CS:GO</a>
+										<a class="nav-link text-dark" style="font-weight:bold;font-size: 24px" asp-area="Home" asp-controller="Home" asp-action="Index">CS:GO</a>
 									} else {
-										<a class="nav-link text-dark" id="buttonMenu" style="font-weight:bold ; font-size: 24px; " asp-area="Home" asp-controller="Home" asp-action="Index">VALORANT</a>
+										<a class="nav-link text-dark" style="font-weight:bold;font-size: 24px" asp-area="Home" asp-controller="Home" asp-action="Index">VALORANT</a>
 									}
-										<div class="dropdownContent12 bordercolor" style="background-color:white;padding:1%;margin-left:5px">
-
-									<a class="dropdownItem1 " style="display:flex;border-radius:15px;width:100%; ">
-
-												<div class=" bordercolor" style="text-decoration:none; width:100%; padding:2px;">
-														
-														<a style="color:black ; font-weight:bold ; width:100%;margin:auto; text-decoration:none;" href="@Url.Action("VALORANT", "Home", new { game = ViewBag.dropDownGame, page = ViewBag.page})">VALORANT</a>
-														
-												</div>
-										
+								<div class="dropdownContent12 bordercolor" style="background-color:white;padding:1%;margin-left:5px">
+									<a class="dropdownItem1" style="display:flex;border-radius:15px;width:100%">
+										<div class=" bordercolor" id="dropdownItem1" style="text-decoration:none; width:100%; padding:2px">
+											<a style="color:black ; font-weight:bold ; width:100%;margin:auto; text-decoration:none;font-size: 20px" href="@Url.Action("VALORANT", "Home", new { game = ViewBag.dropDownGame, page = ViewBag.page})">VALORANT</a>
+										</div>
 									</a>
-
-									<a class="dropdownItem1 " style="display:flex;border-radius:15px;width:100%;margin-top:3px">
-
-												<div class=" bordercolor" style="text-decoration:none; width:100%">
-														
-														<a style="color:black ; font-weight:bold ; width:100%;margin:auto;text-decoration:none;" href="@Url.Action("CSGO", "Home", new { game = ViewBag.dropDownGame, page = ViewBag.page})">CS:GO</a>
-														
-												</div>
+									<a class="dropdownItem1" style="display:flex;border-radius:15px;width:100%;margin-top:3px;">
+										<div class=" bordercolor" id="dropdownItem1" style="text-decoration:none; width:100%;">
+											<a style="color:black ; font-weight:bold ; width:100%;margin:auto;text-decoration:none;font-size: 20px;" href="@Url.Action("CSGO", "Home", new { game = ViewBag.dropDownGame, page = ViewBag.page})">CS:GO</a>
+										</div>
 									</a>
-											
 								</div>
 							</div>
 						</li>

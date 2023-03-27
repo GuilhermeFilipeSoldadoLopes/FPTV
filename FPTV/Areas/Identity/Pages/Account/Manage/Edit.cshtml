@@ -200,7 +200,7 @@
 
 <body class="bodyLogin">
     <div class="ola " style="border-radius:15px;padding-top:20px;margin-top:0px">
-        <div class="box darkcolor bordercolor" style="border-radius:15px;margin-top:0px">
+        <div class="box darkcolor bordercolor" style="border-radius:15px;margin-top:0px; width:40%">
             <div style="width:100%;text-align:center;">
                 <h1>CS:GO</h1>
             </div>
@@ -275,7 +275,7 @@
                     <div class="box" style="width:50%;margin-top:0px">
                         <img id="profilePicture" style="width:195px;height:195px;display:block;margin-left:auto;margin-right:auto;object-fit:cover;border-radius:50%" src="data:image/*;base64,@(Convert.ToBase64String(Model.Input.ProfilePicture))">
                         <div style="position:relative; margin-left:15%">
-                            <img src="/images/camera.png" style="width:75px;height:auto;position:absolute" />
+                            <img class="headshot" src="/images/camera.png" style="width:75px;height:auto;position:absolute" />
                             <input type="file"
                                    accept=".png,.jpg,.jpeg,.gif,.tif"
                                    asp-for="Input.ProfilePicture"
@@ -319,8 +319,8 @@
                 </div>
             </form>
         </div>
-        
-        <div class="box darkcolor bordercolor" style="border-radius:15px;margin-top:0px">
+        <div style="width:40%">
+            <div class="box darkcolor bordercolor" style="border-radius:15px;margin-top:0px;width:100%;height: fit-content;">
             <div style="width:100%;text-align:center;">
                 <h1>Valorant</h1>
             </div>
@@ -387,8 +387,15 @@
                 </div>
             </div>
             <br />
+            
         </div>
-        <a style="width:auto ;font-size:20px;color:red;order:1;align-self:flex-end;" asp-area="Identity" asp-page="/Account/Manage/Disable">Disable Account</a>
+        
+        <div style="display:flex;justify-content:end;margin-top:60%">
+            <span>
+                <a style="width:auto ;font-size:20px;color:red;order:1;" asp-area="Identity" asp-page="/Account/Manage/Disable">Disable Account</a>
+            </span>
+        </div>
+        </div>
     </div>
 </body>
 
