@@ -27,7 +27,7 @@ namespace FPTV.Models.EventsModels
         [Display(Name = "EventImage")]
         public string? EventImage { get; set; }
 
-        [Required]
+        
         [Display(Name = "Event Link")]
         public string? EventLink { get; set; }
 

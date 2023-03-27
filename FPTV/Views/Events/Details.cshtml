@@ -155,7 +155,7 @@
 
                     <div style="text-align:left; display: flex;">
                         <p>Best of @match.NumberOfGames</p>
-                            <a href="@Url.Action("MatchDetails", "Matches", new {id = match.MatchesAPIID, type = match.TimeType, game = ViewBag.dropDownGame})" style="justify-content: space-around; margin-left: auto;">More details</a>
+                            <a href="@Url.Action("MatchDetails", "Matches", new {id = match.MatchesAPIID, type = match.TimeType.ToString().ToLower(), game = ViewBag.dropDownGame})" style="justify-content: space-around; margin-left: auto;">More details</a>
                     </div>
 
                 </div>
@@ -237,7 +237,7 @@
 
                         <div style="text-align:left; display: flex;">
                             <p>Best of @match.NumberOfGames</p>
-                            <a href="@Url.Action("MatchDetails", "Matches", new {id = match.MatchesAPIID, type = match.TimeType, game = ViewBag.dropDownGame})" style="justify-content: space-around; margin-left: auto;">More details</a>
+                            <a href="@Url.Action("MatchDetails", "Matches", new {id = match.MatchesAPIID, type = match.TimeType.ToString().ToLower(), game = ViewBag.dropDownGame})" style="justify-content: space-around; margin-left: auto;">More details</a>
                         </div>
 
                     </div>
@@ -292,7 +292,7 @@
 
                                 <div style="text-align:left; display: flex;">
                                     <p>Best of @match.NumberOfGames</p>
-                                    <a href="@Url.Action("MatchDetails", "Matches", new {id = match.MatchesAPIID, type = match.TimeType, game = ViewBag.dropDownGame})" style="justify-content: space-around; margin-left: auto;">More details</a>
+                                    <a href="@Url.Action("MatchDetails", "Matches", new {id = match.MatchesAPIID, type = match.TimeType.ToString().ToLower(), game = ViewBag.dropDownGame})" style="justify-content: space-around; margin-left: auto;">More details</a>
                                 </div>
 
                             </div>
