@@ -245,9 +245,13 @@
                         @if (ViewBag.mapsNames[i] == ViewBag.pickedMaps[0])
                         {
                             var image = ViewBag.mapsImages[i];
-                            <div class="bordercolor backMap blackcolor" style="border-radius:15px;padding:1%; width:100%;background-image:url(@image)">
-                        
-                            <h2><span class="alinhar">@ViewBag.matches.EventName</span></h2>
+
+                            <div class="bordercolor backMap whitecolor" style="border-radius:15px;padding:1%; width:100%;background-image:url(@image)">
+
+
+                                <h2 class="stroke" style="font-weight:700">
+                                    <span class="alinhar">@ViewBag.matches.EventName</span>
+                                </h2>
 
                             @if(ViewBag.matches.TimeType.ToString().ToLower() == "running")
                             {
@@ -259,40 +263,40 @@
                             <div class=" " style="border-top-left-radius:15px;border-top-right-radius:15px; " name="FirstTeam">
 
                                 <div style="display:flex;width:100%;margin:auto; justify-content:center; ">
-                                    <span style=" display: flex;align-items: center;justify-content: center;margin:auto">
+                                        <span style=" display: flex;align-items: center;justify-content: center;margin:auto;font-weight:500" class="stroke">
                                         <img src=@ViewBag.matches.TeamsList[0].Image style="width:100px" />
                                     </span>
-                                        <span style="text-align: center;font-weight:bold;font-size:15px;margin:auto;font-size:25px"> vs </span>
+                                        <span class="stroke" style="text-align: center;font-weight:bold;font-size:15px;margin:auto;font-size:25px;font-weight:700"> vs </span>
 
-                                    <span style=" display: flex;align-items: center;justify-content: center;margin:auto">
+                                    <span class="stroke" style=" display: flex;align-items: center;justify-content: center;margin:auto">
                                         <img src=@ViewBag.matches.TeamsList[1].Image style="width:100px" />
                                     </span>
                                 </div>
 
 
                                     <div style="display:flex; margin-top:3%;margin-bottom:3%;margin-left:0px; padding:0px;font-size:25px">
-                                    <span style="font-weight:bold; width:50%;text-align:center"> @ViewBag.matches.TeamsList[0].Name </span>
-                                    <span style="font-weight:bold; width:50%;text-align:center"> @ViewBag.matches.TeamsList[1].Name </span><br />
+                                        <span class="stroke" style="font-weight:bold; width:50%;text-align:center;font-weight:700"> @ViewBag.matches.TeamsList[0].Name </span>
+                                        <span class="stroke" style="font-weight:bold; width:50%;text-align:center;font-weight:700"> @ViewBag.matches.TeamsList[1].Name </span><br />
                                 </div>
                                 <span style="width:100%;display:flex;justify-content:center">
-                                    <span style="text-align: center;font-size:25px" class="span2"> 11 </span>
-                                    <span style="text-align: center;font-size:25px">-</span>
-                                        <span style="text-align: center;font-size:25px" class="span2"> 16 </span>
+                                        <span style="text-align: center;font-size:25px;font-weight:700" class="span2 "> 11 </span>
+                                        <span style="text-align: center;font-size:25px;font-weight:700" class="">-</span>
+                                        <span style="text-align: center;font-size:25px;font-weight:700" class="span2 "> 16 </span>
                                 </span>
 
                             </div>
                             
                                 <div class="" style="display:flex; text-align:left;width:100%;margin-top:3%;margin-bottom:3%">
-                                    <span class="bestof" style="text-align:left">Best of @ViewBag.matches.NumberOfGames</span>
-                                    <span style="margin:auto">@ViewBag.pickedMaps[0]</span>
-                                    <span style="text-align:right">Tier:@ViewBag.matches.Tier</span><br />
+                                    <span class="bestof " style="text-align:left;font-weight:700">Best of @ViewBag.matches.NumberOfGames</span>
+                                    <span style="margin:auto;font-weight:700" class="">@ViewBag.pickedMaps[0]</span>
+                                    <span style="text-align:right;font-weight:700" class="">Tier:@ViewBag.matches.Tier</span><br />
                             
                                 </div>
 
                                 <div class="" style="display:flex; text-align:left;width:100%;margin-top:3%;margin-bottom:0px">
-                                        <span class="bestof" style="text-align:left;margin-top:0pc;margin-bottom:0px">Duration: 53min</span>
-                                        <span style="margin:auto;margin-top:0pc;margin-bottom:0px"> </span>
-                                        <span style="text-align:right;margin-top:0pc;margin-bottom:0px"> @ViewBag.matches.BeginAt.ToString("dddd - dd-MM-yyyy hh:mm") </span><br />
+                                    <span class="bestof " style="text-align:left;margin-top:0pc;margin-bottom:0px;font-weight:700">Duration: 53min</span>
+                                    <span class="" style="margin:auto;margin-top:0pc;margin-bottom:0px;font-weight:700"> </span>
+                                    <span class="" style="text-align:right;margin-top:0pc;margin-bottom:0px;font-weight:700"> @ViewBag.matches.BeginAt.ToString("dddd - dd-MM-yyyy hh:mm") </span><br />
                                 </div>
 
                                 @*<div style="display:flex; width:100%; padding:0px;">
@@ -320,13 +324,13 @@
                                     if (ViewBag.mapsNames[i] == ViewBag.pickedMaps[1])
                                     {
                                         var image = ViewBag.mapsImages[i];
-                                        <div class="bordercolor backMap1" style="width:40% ;border-radius:15px;margin:auto;background-image:url(@image)" name="Maps">
-                                    
-                                            <span style="text-align: left;margin-left:38%;font-weight:bold"> @ViewBag.pickedMaps[1] </span><br />
-                                            <span style="text-align: left;margin-left:38%" class="span2"> 16 vs 6</span><br />
-                                            <p style="text-align: center;font-weight:bold;margin-bottom:0px"> Picked up by
-                                                <p style="text-align: center;margin-top:0px;margin-bottom:0px"> EC Brugge</p>
-                                                <p style="margin-top:1%;margin-bottom:2px;font-size:15px; margin-left:2%;"> Duration: 53min    </p>
+                                        <div class="bordercolor whitecolor backMap1 stroke2" style="width:40% ;border-radius:15px;margin:auto;font-weight:700;background-image:url(@image)" name="Maps">
+
+                                            <span style="text-align: left;margin-left:38%;font-weight:700"> @ViewBag.pickedMaps[1] </span><br />
+                                            <span style="text-align: left;margin-left:38%;font-weight:700" class="span2"> 16 vs 6</span><br />
+                                            <p style="text-align: center;margin-bottom:0px;font-weight:700"> Picked up by
+                                            <p style="text-align: center;margin-top:0px;margin-bottom:0px;font-weight:700"> EC Brugge</p>
+                                            <p style="margin-top:1%;margin-bottom:2px;font-size:15px; margin-left:2%;font-weight:700"> Duration: 53min    </p>
 
                                         </div>
                                     }
@@ -337,12 +341,12 @@
                                     if (ViewBag.mapsNames[i] == ViewBag.pickedMaps[2])
                                     {
                                         var image = ViewBag.mapsImages[i];
-                                        <div class=" bordercolor backMap2" style="width:40% ;border-radius:15px;margin:auto;background-image:url(@image)" name="Maps">
-                                            <span style="text-align: center;margin-left:38%;font-weight:bold"> @ViewBag.pickedMaps[2] </span><br />
-                                            <span style="text-align: right;margin-left:38%" class="span2"> 16 vs 4</span><br />
-                                            <p style="text-align: center;font-weight:bold;margin-bottom:0px "> Picked up by
-                                                <p style="text-align: center;margin-top:0px;margin-bottom:0px"> Case</p>
-                                                <p style="margin-top:1%;margin-bottom:2px;font-size:15px; margin-left:2%;"> Duration: 53min    </p>
+                                        <div class=" bordercolor whitecolor backMap2 stroke2" style="width:40% ;border-radius:15px;font-weight:700;margin:auto;background-image:url(@image)" name="Maps">
+                                            <span style="text-align: center;margin-left:38%;font-weight:700"> @ViewBag.pickedMaps[2] </span><br />
+                                            <span style="text-align: right;margin-left:38%;font-weight:700" class="span2"> 16 vs 4</span><br />
+                                            <p style="text-align: center;font-weight:700;margin-bottom:0px "> Picked up by
+                                            <p style="text-align: center;margin-top:0px;margin-bottom:0px;font-weight:700"> Case</p>
+                                            <p style="margin-top:1%;margin-bottom:2px;font-size:15px;font-weight:700; margin-left:2%;"> Duration: 53min    </p>
                                         </div>
                                     }
                                 }

@@ -263,3 +263,15 @@ bordercolor2 {
     background-size: cover;
     background-color: black;
 }
+.stroke {
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: black;
+}
+.stroke2 {
+    -webkit-text-stroke-width: 0.5px;
+    -webkit-text-stroke-color: black;
+}
+
+.whitecolor {
+    color: white;
+}
