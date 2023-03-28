@@ -141,7 +141,7 @@
 
 <body class="bodytemp ">
 	
-	<div class="central bodycolor bordercolor"style="border-radius:15px;">
+	<div class="central bodycolor bordercolor"style="border-radius:15px; padding:1%">
 		<h1>Events</h1>
 
 		<div class="buttons bodycolor">
@@ -175,10 +175,10 @@
 						
 		</div>
 
-		<div class="center bodycolor" style="flex-direction: column; ">
+		<div class="center bodycolor" style="flex-direction: column; border-radius:15px ">
 			@foreach (var e in Model)
 			{
-				<button class="btn1" onclick="location.href='@Url.Action("Details", "Events", new { id = e.EventAPIID, sort = ViewBag.sort, filter = ViewBag.filter,  game = ViewBag.dropDownGame})'">
+				<button style="margin:1%" class="btn1" onclick="location.href='@Url.Action("Details", "Events", new { id = e.EventAPIID, sort = ViewBag.sort, filter = ViewBag.filter,  game = ViewBag.dropDownGame})'">
 					<div class="my-div" style="margin:auto">
 						<div style="width:100%">
 							<img src=@e.EventImage style="width:20%; margin:auto; height:45px;"/>
