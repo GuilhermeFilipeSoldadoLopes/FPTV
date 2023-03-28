@@ -147,14 +147,21 @@
                     <div>
                         <span style="text-align: center;">
                             <p style="font-size:25px">
-                                    <img src="@scores.First().Team.Image" style="max-width:30px;width:50%" />
-                                <span> @scores.First().TeamName </span>
+
+                                <img src="@scores.First().Team.Image" style="max-width:30px;width:50%" />
+                                <span> @scores.First().TeamName </span> 
+                            </p>
+                            <p>
                                 <span class="span2"> @scores.First().TeamScore </span>
                                 <span class="span2"> vs </span>
-                                <span class="span2"> @scores.Last().TeamScore </span>
-                                <span> @scores.Last().TeamName </span>
-                                    <img src="@scores.Last().Team.Image" style="max-width:30px;width:50%" />
+                                    <span class="span2"> @scores.Last().TeamScore </span> <br>
                             </p>
+                            <p>
+                                
+                                <span> @scores.Last().TeamName </span>
+                                <img src="@scores.Last().Team.Image" style="max-width:30px;width:50%" />
+                            </p>
+                            
                         </span>
                     </div>
 
@@ -232,11 +239,11 @@
                             <span style="text-align: center;">
                                 <p style="font-size:25px">
                                     <img src="@scores.First().Team.Image" style="max-width:30px;width:50%" />
-                                    <span> @scores.First().TeamName </span>
-                                    <span class="span2"> @scores.First().TeamScore </span>
-                                    <span class="span2"> vs </span>
-                                    <span class="span2"> @scores.Last().TeamScore </span>
-                                    <span> @scores.Last().TeamName </span>
+                                    <span style="font-size:20px"> @scores.First().TeamName </span>
+                                    <span style="font-size:20px" class="span2"> @scores.First().TeamScore </span>
+                                    <span style="font-size:20px" class="span2"> vs </span>
+                                    <span style="font-size:20px" class="span2"> @scores.Last().TeamScore </span>
+                                    <span style="font-size:20px"> @scores.Last().TeamName </span>
                                     <img src="@scores.Last().Team.Image" style="max-width:30px;width:50%" />
                                 </p>
                             </span>
@@ -287,13 +294,19 @@
                                 <div>
                                     <span style="text-align: center;">
                                         <p style="font-size:25px">
-                                            <img src="@scoreT1.Team.Image" style="max-width:30px;width:50%" />
-                                            <span> @scoreT1.TeamName </span>
-                                            <span class="span2">  </span>
+
+                                            <img src="@scores.First().Team.Image" style="max-width:30px;width:50%" />
+                                            <span> @scores.First().TeamName </span>
+                                        </p>
+                                        <p>
+                                            <span class="span2"> @scores.First().TeamScore </span>
                                             <span class="span2"> vs </span>
-                                            <span class="span2">  </span>
-                                            <span> @scoreT2.TeamName </span>
-                                            <img src="@scoreT2.Team.Image" style="max-width:30px;width:50%" />
+                                            <span class="span2"> @scores.Last().TeamScore </span> <br>
+                                        </p>
+                                        <p>
+
+                                            <span> @scores.Last().TeamName </span>
+                                            <img src="@scores.Last().Team.Image" style="max-width:30px;width:50%" />
                                         </p>
                                     </span>
                                 </div>
