@@ -532,21 +532,6 @@
                             </div>
                         </div>
                     }
-                    @foreach (var item in @ViewBag.matches.TeamsList[0].Players)
-                    {
-                        <div style="display:flex;align-items: center;">
-                            <div class="" style="padding:10px;width:50%;text-align:right">
-                                <a href="@Url.Action("getPlayer", "Stats", new {id = item.PlayerAPIId, type = @ViewBag.matches.TimeType.ToString().ToLower() ,game = ViewBag.dropDownGame})" style="justify-content: space-around; margin-left: auto; margin-bottom:0px">
-                                    <img src=@item.Image style="width:50%;height:auto" />
-                                </a>
-                            </div>
-                            <div style="width:50%; text-align:left">
-                                <a href="@Url.Action("getPlayer", "Stats", new {id = item.PlayerAPIId, type = @ViewBag.matches.TimeType.ToString().ToLower() ,game = ViewBag.dropDownGame})" style="justify-content: space-around; margin-left: auto; margin-bottom:0px">
-                                    <p style="margin:auto"> @item.Name </p>
-                                </a>
-                            </div>
-                        </div>
-                    }
 
 
                 </div>
