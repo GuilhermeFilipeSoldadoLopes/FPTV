@@ -189,7 +189,12 @@
             <div class="box1" style="border-radius:15px;">
 
                 <div class="darkcolor borders bordercolor" style="border-radius:15px">
-                    <h4 style="font-weight: bold;text-align:center;">@ViewBag.matches.TeamsList[0].Name</h4>
+
+                                <a href="@Url.Action("getTeam", "Stats", new {id = @ViewBag.matches.TeamsList[0].TeamAPIID, type = @ViewBag.matches.TimeType.ToString().ToLower() ,game = ViewBag.dropDownGame})" style="justify-content: space-around; margin-left: auto; margin-bottom:0px">
+                                <h4 style="font-weight: bold;text-align:center;">@ViewBag.matches.TeamsList[0].Name</h4>
+                                </a>
+
+                    @*<h4 style="font-weight: bold;text-align:center;">@ViewBag.matches.TeamsList[0].Name</h4>*@
                     @if (((List<Player>)@ViewBag.matches.TeamsList[0].Players).Count() != 0)
                     {
                         @foreach (var item in @ViewBag.matches.TeamsList[0].Players)
