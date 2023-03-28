@@ -23,51 +23,51 @@ namespace FPTV.Models.MatchesModels
         [Display(Name = "Event API ID")]
         public int EventAPIID { get; set; }
 
-        [Required]
+        
         [Display(Name = "Event Name")]
         public string? EventName { get; set; }
 
-        [Required]
+        
         [Display(Name = "Begin At")]
         [DataType(DataType.Date)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime? BeginAt { get; set; }
 
-        [Required]
+
         [Display(Name = "End At")]
         [DataType(DataType.Date)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime? EndAt { get; set; }
 
-        [Required]
+ 
         [Display(Name = "Finished")]
         public bool IsFinished { get; set; }
 
-        [Required]
+
         [Display(Name = "Time Type")]
         public TimeType TimeType { get; set; }
 
-        [Required]
+ 
         [Display(Name = "Have Stats")]
         public bool HaveStats { get; set; }
 
-        [Required]
+ 
         [Display(Name = "MatchesCS List")]
         public ICollection<MatchCS>? MatchesList { get; set; }
 
-        [Required]
+
         [Display(Name = "Number Of Games")]
         public int? NumberOfGames { get; set; }
 
-        [Required]
+
         [Display(Name = "Scores")]
         public ICollection<Score>? Scores { get; set; }
 
-        [Required]
+ 
         [Display(Name = "Teams List")]
         public ICollection<Team>? TeamsList { get; set; }
 
-        [Required]
+
         [NotMapped]
         [Display(Name = "Teams API Id List")]
         public ICollection<int>? TeamsAPIIDList { get; set; }
@@ -76,23 +76,22 @@ namespace FPTV.Models.MatchesModels
         [Display(Name = "Winner Team")]
         public Team? WinnerTeam { get; set; }*/
 
-        [Required]
+
         [Display(Name = "Winner Team API Id")]
         public int? WinnerTeamAPIId { get; set; }
 
-        [Required]
+   
         [Display(Name = "Winner Team Name")]
         public string? WinnerTeamName { get; set; }
 
-        [Required]
         [Display(Name = "Tier")]
         public char? Tier { get; set; }
 
-        [Required]
+
         [Display(Name = "Live Supported")]
         public bool LiveSupported { get; set; }
 
-        [Required]
+
         [Display(Name = "Stream List")]
         public ICollection<Stream>? StreamList { get; set; }
 

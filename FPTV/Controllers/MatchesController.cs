@@ -49,7 +49,7 @@ namespace FPTV.Controllers
 
         //De CSGO e de Valorant
         // GET: CSMatches
-        public async Task<ActionResult> Index(string sort = "", string filter = "", string page = "&page=1", string game = "valorant")
+        public async Task<ActionResult> Index(string sort = "", string filter = "", string page = "&page=1", string game = "csgo")
         {
             ViewBag.dropDownGame = game;
             ViewBag.page = "Matches";
@@ -259,7 +259,7 @@ namespace FPTV.Controllers
                         team.TeamAPIID = teamId.ToString() == "" ? -1 : teamId.Value<int>();
                         team.Name = teamName.ToString() == "" ? "undefined" : teamName.Value<string>();
                         team.Image = teamImage.ToString() == "" ? "/images/missing.png" : teamImage.Value<string>();
-                        team.CouchName = "";
+                        team.CoachName = "";
                         team.Losses = 0;
                         team.Winnings = 0;
                         team.WorldRank = 0;
@@ -438,7 +438,7 @@ namespace FPTV.Controllers
                         team.TeamAPIID = teamId.ToString() == "" ? -1 : teamId.Value<int>();
                         team.Name = teamName.ToString() == "" ? "undefined" : teamName.Value<string>();
                         team.Image = teamImage.ToString() == "" ? "/images/missing.png" : teamImage.Value<string>();
-                        team.CouchName = "";
+                        team.CoachName = "";
                         team.Losses = 0;
                         team.Winnings = 0;
                         team.WorldRank = 0;
@@ -487,6 +487,7 @@ namespace FPTV.Controllers
         }
 
         public ActionResult MatchDetails(int id = 0, string type = "past", string game = "csgo")
+
         {
             ViewBag.dropDownGame = game;
             ViewBag.page = "Matches";
@@ -615,7 +616,7 @@ namespace FPTV.Controllers
                 team.TeamAPIID = teamId.ToString() == "" ? -1 : teamId.Value<int>();
                 team.Name = teamName.ToString() == "" ? "undefined" : teamName.Value<string>();
                 team.Image = teamImage.ToString() == "" ? "/images/missing.png" : teamImage.Value<string>();
-                team.CouchName = "";
+                team.CoachName = "";
                 team.Losses = 0;
                 team.Winnings = 0;
                 team.WorldRank = 0;
