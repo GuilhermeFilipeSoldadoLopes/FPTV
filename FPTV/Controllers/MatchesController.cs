@@ -304,7 +304,7 @@ namespace FPTV.Controllers
             return matchesList;
         }
 
-        public ActionResult Results(int days = 0, string game = "valorant")
+        public ActionResult Results(int days = 0, string game = "csgo")
         {
             ViewBag.dropDownGame = game;
             ViewBag.page = "Results";
@@ -486,7 +486,8 @@ namespace FPTV.Controllers
             return View();
         }
 
-        public ActionResult MatchDetails(int id = 0, string type = "past", string game = "valorant")
+        public ActionResult MatchDetails(int id = 0, string type = "past", string game = "csgo")
+
         {
             ViewBag.dropDownGame = game;
             ViewBag.page = "Matches";
