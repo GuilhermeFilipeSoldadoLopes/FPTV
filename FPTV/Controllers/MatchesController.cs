@@ -49,7 +49,7 @@ namespace FPTV.Controllers
 
         //De CSGO e de Valorant
         // GET: CSMatches
-        public async Task<ActionResult> Index(string sort = "", string filter = "", string page = "&page=1", string game = "valorant")
+        public async Task<ActionResult> Index(string sort = "", string filter = "", string page = "&page=1", string game = "csgo")
         {
             ViewBag.dropDownGame = game;
             ViewBag.page = "Matches";
@@ -660,7 +660,10 @@ namespace FPTV.Controllers
                     player.Name = playerName.ToString() == "" ? "undefined" : playerName.Value<string>();
                     player.Image = playerImage.ToString() == "" ? "/images/default-profile-icon-24.jpg" : playerImage.Value<string>();
 
-                    team.Players.Add(player);
+                    if (team.Players.Count() < 5)
+                    {
+                        team.Players.Add(player);
+                    }
                 }
 
                 matches.TeamsList.Add(team);

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FPTV.Migrations
 {
     [DbContext(typeof(FPTVContext))]
-    [Migration("20230327211548_FPTVMigration")]
+    [Migration("20230328175409_FPTVMigration")]
     partial class FPTVMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -31,11 +31,9 @@ namespace FPTV.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("BeginAt")
-                        .IsRequired()
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("EndAt")
-                        .IsRequired()
                         .HasColumnType("datetime2");
 
                     b.Property<int>("EventAPIID")
@@ -46,7 +44,6 @@ namespace FPTV.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("EventLink")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("EventName")
@@ -68,18 +65,15 @@ namespace FPTV.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Tier")
-                        .IsRequired()
                         .HasColumnType("nvarchar(1)");
 
                     b.Property<int>("TimeType")
                         .HasColumnType("int");
 
                     b.Property<int?>("WinnerTeamAPIID")
-                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<string>("WinnerTeamName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid?>("WinnerTeamTeamId")
@@ -99,11 +93,9 @@ namespace FPTV.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("BeginAt")
-                        .IsRequired()
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("EndAt")
-                        .IsRequired()
                         .HasColumnType("datetime2");
 
                     b.Property<int>("EventAPIID")
@@ -114,7 +106,6 @@ namespace FPTV.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("EventLink")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("EventName")
