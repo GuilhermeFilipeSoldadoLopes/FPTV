@@ -3,6 +3,11 @@
 }
 <!DOCTYPE html>
 
+<head>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
 
 <html>
 	<style>
@@ -76,6 +81,9 @@
 			font-weight:bold;
 		}
 
+		.span2 {
+			font-weight: normal;
+		}
 		.dropdown {
 			margin-left:10px;
 			background-color: #e0eeff;
@@ -133,66 +141,99 @@
 			width: 30px;
 		}
 
+		input::placeholder {
+			color: black;
+			font-size: 80%;
+		}
+
 </style>
+
+<script>
+	function selected(element) {
+		var elements = document.getElementsByClassName("btnYau");
+		for (var i = 0; i < elements.length; i++) {
+			elements[i].classList.remove('selectedbtn');
+		}
+		element.classList.add('selectedbtn');
+    }
+</script>
 
 <body class="bodytemp whiteText">
 	
 	<div class="central">
 
 		<div style="display:flex; margin-bottom:3%">
-			<button class="btnResult selectedbtn bordercolor" style="">
-				Results of Today
-			</button>
-
-			<button class="btnResult bordercolor" style="">
-				Results of Yesterday
-			</button>
+			
+				@if (ViewBag.days == 1) {
+				<button class="btnResult selectedbtn bordercolor whiteText" style="">
+					<a class="whiteText" style="text-decoration: none; " href="@Url.Action("Results", "Matches", new { days = 1, game = ViewBag.dropDownGame})">Results of  Yesterday</a>
+				</button>
+				} else {
+				<button class="btnResult bordercolor whiteText" style="">
+					<a class="whiteText" style="text-decoration: none; " href="@Url.Action("Results", "Matches", new { days = 1, game = ViewBag.dropDownGame})">Results of  Yesterday</a>
+				</button>
+				}
+			
+				@if (ViewBag.days == 0) {
+				<button class="btnResult selectedbtn bordercolor whiteText" style="">
+					<a class="whiteText" style="text-decoration: none; " href="@Url.Action("Results", "Matches", new { game = ViewBag.dropDownGame})">Results of Today</a>
+				</button>
+				} else {
+				<button class="btnResult bordercolor whiteText" style="">
+					<a class="whiteText" style="text-decoration: none;" href="@Url.Action("Results", "Matches", new { game = ViewBag.dropDownGame})">Results of Today</a>
+				</button>
+				}
 
 			<button class="btnResult bordercolor">
-				<input class="bordercolor dark"type="text" id="name" name="name" required style="width:20%; padding:1px">
-				*Days Ago
-				<div style="font-size:13px;"> *2 to 365 days</div>
+				<form method="post" action="@Url.Action("Results", "Matches", new {game = ViewBag.dropDownGame})">
+					<input class="bordercolor dark" type="text" name="days" placeholder=" 2 to 365 days ago" required style="width:50%; padding:1px; text-align:center">
+					@**Days Ago
+					<div style="font-size:13px;"> *2 to 365 days</div>*@
+				</form>
 			</button>
-
 		</div>
 
-		<div class="center bordercolor colorformatch " style=";width:100%; padding:1%;">
+		<div class="center bordercolor colorformatch " style="width:100%; padding:1%">
 			
 				<table class=" bordercolor" style="width:100%; border-radius:15px;" >
 
-				<tr style="border:1px solid black;">
-						<td>G2</td>
-						<td> 14 -16 </td>
-						<td> NaVi </td>
-					<td> BLAST.tv Paris Major 2023 Europe</td>
-
-				</tr>
-					<tr style="border:1px solid black">
-						<td>G2</td>
-						<td> 14 -16 </td>
-						<td> NaVi </td>
-					<td> BLAST.tv Paris Major 2023 Europe</td>
-
-				</tr>
-				<tr style="border:1px solid black">
-					<td>G2</td>
-					<td> 14 -16 </td>
-					<td> NaVi </td>
-					<td> BLAST.tv Paris Major 2023 Europe</td>
-
-				</tr>
-				<tr style="border:1px solid black">
-					<td>G2</td>
-					<td> 14 -16 </td>
-					<td> NaVi </td>
-					<td> BLAST.tv Paris Major 2023 Europe</td>
-
-				</tr>
+				@foreach (var item in ViewBag.matches)
+                {
+					<tr style="border:1px solid black;">
+						<td>@item.TeamsList[0].Name</td>
+						<td>
+							<img src=@item.TeamsList[0].Image style="width:40px; margin:auto; height:40px;" />
+						</td>
+						<td>
+							@foreach (var team in item.Scores)
+							{
+								@if (item.TeamsList[0].Name == team.TeamName)
+								{
+									@team.TeamScore
+								}
+							}
+							<span class="span2"> - </span>
+							@foreach (var team in item.Scores)
+							{
+								@if (item.TeamsList[0].Name == team.TeamName)
+								{
+									@team.TeamScore
+								}
+							}
+						</td>
+						<td>
+							<img src=@item.TeamsList[1].Image style="width:40px; margin:auto; height:40px;" />
+						</td>
+						<td> @item.TeamsList[1].Name </td>
+						<td> @item.EventName</td>
+						<td>
+							<img src=@item.Event.EventImage style="width:40px; margin:auto; height:40px;" />
+						</td>
+                    </tr>
+				}
 				</table>
-						
 			</div>
 		</div>
-
 	</div>
 </body>
 </html>

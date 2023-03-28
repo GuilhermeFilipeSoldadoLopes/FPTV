@@ -5,6 +5,11 @@
 @inject UserManager<UserBase> UserManager
 @inject FPTVContext context
 
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
 
 <script>
     //document.onreadystatechange = function(e)
@@ -219,7 +224,7 @@
 
                 <a class="dropdownItem1" style="display:flex;border-radius:15px;width:100%;padding:2%; text-decoration:none">
                     <div style="margin-right:5px; margin-left:0px; text-decoration:none">
-                            <span class="" style="text-align:left;vertical-align:auto;color:black " >Dark Mode</span>
+                            <span class="" style="text-align:left;vertical-align:auto;color:black " >DarkMode</span>
                        </div>
                         <div id="checkbox-container" style="text-align:right;width:100%">
                             <label class="switch1" >
@@ -274,7 +279,7 @@
 	        <li class="nav-item">
                 <a class="nav-link text-dark" id="rl" style="font-size: 25px; border-left: 1.6px solid Black" asp-area="Identity" asp-page="/Account/Register" asp-route-returnUrl="@returnUrl">Register </a>
 	        </li>
-            <li class="nav-item" style="padding: 8px 0; font-size: 25px">
+            <li class="nav-item" style="color: black; padding: 8px 0; font-size: 25px">
 		        /
 	        </li>
             <li class="nav-item">

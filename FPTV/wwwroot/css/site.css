@@ -47,6 +47,7 @@ textarea {
     background-repeat: no-repeat;
     background-size: cover;
     font-family: Noto Sans;
+    margin-bottom: 5%;
 }
 
 .bodytemp {
@@ -55,7 +56,7 @@ textarea {
     background-repeat: no-repeat;
     background-size: cover;
     font-family: Noto Sans;
-   
+    margin-bottom: 5%;
 }
 
 
@@ -218,4 +219,54 @@ bordercolor2 {
 
 .selectedbtn {
     text-decoration: underline;
+}
+
+.btnPlayer {
+    background-color: white;
+    color:black;
+}
+
+.btnTeam {
+    background-color: lightgray;
+    color: white;
+}
+
+.backMap {
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-family: Noto Sans;
+    background-color: white;
+}
+
+.backMap1 {
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-family: Noto Sans;
+    background-color: white;
+}
+
+.backMap2 {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: white;
+}
+
+.backerror {
+    background-image: url('../images/backgroundError2.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color:white;
+
+}
+.stroke {
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: black;
+}
+.stroke2 {
+    -webkit-text-stroke-width: 0.5px;
+    -webkit-text-stroke-color: black;
+}
+
+.whitecolor{
+    color:white;
 }

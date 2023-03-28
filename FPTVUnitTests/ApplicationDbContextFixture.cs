@@ -82,14 +82,18 @@ namespace FPTVUnitTests
 					Game = GameType.CSGO
 				});
 
-			Team team1 = DbContext.Team.FirstOrDefault(t => t.TeamId == team1CSID);
+            DbContext.SaveChanges();
+
+            Team team1 = DbContext.Team.FirstOrDefault(t => t.TeamId == team1CSID);
 			teamsList1.Add(team1);
 			Team team2 = DbContext.Team.FirstOrDefault(t => t.TeamId == team2CSID);
 			teamsList2.Add(team2);
 			teamsList1.Add(team2);
 			teamsList2.Add(team1);
 
-			DbContext.Player.AddRange(
+            DbContext.SaveChanges();
+
+            DbContext.Player.AddRange(
 				new Player
 				{
 					PlayerId = player1CSID,
@@ -221,7 +225,9 @@ namespace FPTVUnitTests
 					Game = GameType.CSGO
 				});
 
-			Player player1 = DbContext.Player.FirstOrDefault(p => p.PlayerId == player1CSID);
+            DbContext.SaveChanges();
+
+            Player player1 = DbContext.Player.FirstOrDefault(p => p.PlayerId == player1CSID);
 			playersList1.Add(DbContext.Player.FirstOrDefault(p => p.PlayerId == player2CSID));
 			playersList1.Add(DbContext.Player.FirstOrDefault(p => p.PlayerId == player3CSID));
 			playersList1.Add(DbContext.Player.FirstOrDefault(p => p.PlayerId == player4CSID));
@@ -232,10 +238,14 @@ namespace FPTVUnitTests
 			playersList2.Add(DbContext.Player.FirstOrDefault(p => p.PlayerId == player9CSID));
 			playersList2.Add(DbContext.Player.FirstOrDefault(p => p.PlayerId == player10CSID));
 
-			DbContext.Team.FirstOrDefault(t => t.TeamId == team1CSID).Players = playersList1;
-			DbContext.Team.FirstOrDefault(t => t.TeamId == team2CSID).Players = playersList2;
+            DbContext.SaveChanges();
 
-			scoreList.Add(new Score
+            team1.Players = playersList1;
+            team2.Players = playersList2;
+
+            DbContext.SaveChanges();
+
+            scoreList.Add(new Score
 			{
 				ScoreID = Score1ID,
 				Team = team1,
@@ -251,7 +261,9 @@ namespace FPTVUnitTests
 				TeamScore = 10
 			});
 
-			DbContext.EventCS.Add(
+            DbContext.SaveChanges();
+
+            DbContext.EventCS.Add(
 				new EventCS
 				{
 					EventCSID = eventCSID,
@@ -272,12 +284,14 @@ namespace FPTVUnitTests
 					Tier = 'C'
 				});
 
-			DbContext.MatchesCS.Add(
+            DbContext.SaveChanges();
+
+            DbContext.MatchesCS.Add(
 			new MatchesCS
 			{
 				MatchesCSId = matchesCSID,
-				MatchesCSAPIID = 1,
-				EventCS = DbContext.EventCS.FirstOrDefault(e => e.EventCSID == eventCSID),
+				MatchesAPIID = 736079,
+				Event = DbContext.EventCS.FirstOrDefault(e => e.EventCSID == eventCSID),
 				EventAPIID = 10065,
 				EventName = "Test",
 				BeginAt = DateTime.Now.Subtract(TimeSpan.FromHours(2)),

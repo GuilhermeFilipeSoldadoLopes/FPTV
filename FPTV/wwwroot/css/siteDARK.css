@@ -1,5 +1,6 @@
 html {
     font-size: 14px;
+
 }
 
 @media (min-width: 768px) {
@@ -14,7 +15,7 @@ html {
 }
 
 body {
-    margin-bottom: 60px;
+   /* margin-bottom: 60px;*/
     font-family: Noto Sans;
     
 }
@@ -49,6 +50,7 @@ textarea {
     background-size: cover;
     font-family: Noto Sans;
     background-color: black;
+    margin-bottom: 5%;
 }
 
 .bodytemp {
@@ -57,6 +59,7 @@ textarea {
     background-size: cover;
     font-family: Noto Sans;
     background-color: black;
+    margin-bottom:5%;
 }
 
 .form {
@@ -220,4 +223,55 @@ bordercolor2 {
 }
 .selectedbtn{
     text-decoration:underline;
+}
+
+.btnPlayer {
+    background-color: #373737;
+    color:white;
+}
+
+.btnTeam {
+    background-color: #373737;
+    color: white;
+}
+
+.backMap {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: black; 
+}
+
+.backMap1 {
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-family: Noto Sans;
+    background-color: black;
+}
+
+.backMap2 {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: black;
+}
+
+.headshot {
+   filter:invert(1);
+}
+.backerror {
+    background-image: url('../images/backgroundError2.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: black;
+}
+.stroke {
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: black;
+}
+.stroke2 {
+    -webkit-text-stroke-width: 0.5px;
+    -webkit-text-stroke-color: black;
+}
+
+.whitecolor {
+    color: white;
 }

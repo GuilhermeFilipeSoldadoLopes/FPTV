@@ -93,7 +93,7 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
                 ProfilePicture = profilePicture,
                 Country = country,
                 Bio = biography,
-                CountryImage = "/images/Flags/1x1/" + profile.Country + ".svg"
+                CountryImage = "/images/Flags/4x3/" + profile.Country + ".svg"
         };
         }
 

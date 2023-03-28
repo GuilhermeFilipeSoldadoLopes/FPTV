@@ -1,10 +1,16 @@
-﻿@{
+﻿@using System.Collections;
+@{
     ViewData["Title"] = "Events";
 	
 }
-@model List<FPTV.Models.EventsModels.EventCS>
+@model dynamic
 <!DOCTYPE html>
 
+<head>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
 
 <html>
 	<style>
@@ -36,10 +42,13 @@
 			margin-left:10px;
 			background-color: #e0eeff;
 			color: black;
-			border: none;
 			border-radius: 5px;
 			cursor: pointer;
 			transition: all 0.2s ease-in-out;
+			border: 1px solid black;
+		}
+
+		.btn1 {
 			border: 1px solid black;
 		}
 
@@ -148,28 +157,28 @@
 			<div class="dropdown">
 				<button class="button2">Sort by</button>
 				<div class="dropdown-content" style="margin-left:5%;">
-					<a href="@Url.Action("Index", "Events", new { sort = "&sort=-begin_at", filter = ViewBag.filter})">Newest</a>
-					<a href="@Url.Action("Index", "Events", new { sort = "&sort=begin_at", filter = ViewBag.filter})">Oldest</a>
-					<a href="@Url.Action("Index", "Events", new { sort = "&sort=prizepool", filter = ViewBag.filter})">Prizepool</a>
-					<a href="@Url.Action("Index", "Events", new { sort = "&sort=name", filter = ViewBag.filter})">Name</a>
-					<a href="@Url.Action("Index", "Events", new { sort = "&sort=tier", filter = ViewBag.filter})">Tier</a>
+					<a href="@Url.Action("Index", "Events", new { sort = "&sort=-begin_at", filter = ViewBag.filter, game = ViewBag.dropDownGame})">Newest</a>
+					<a href="@Url.Action("Index", "Events", new { sort = "&sort=begin_at", filter = ViewBag.filter, game = ViewBag.dropDownGame})">Oldest</a>
+					<a href="@Url.Action("Index", "Events", new { sort = "&sort=prizepool", filter = ViewBag.filter, game = ViewBag.dropDownGame})">Prizepool</a>
+					<a href="@Url.Action("Index", "Events", new { sort = "&sort=name", filter = ViewBag.filter, game = ViewBag.dropDownGame})">Name</a>
+					<a href="@Url.Action("Index", "Events", new { sort = "&sort=-tier", filter = ViewBag.filter, game = ViewBag.dropDownGame})">Tier</a>
 			  </div>
 			</div>
 			<div class="dropdown">
 			  <button class="button2">Filter by</button>
 			  <div class="dropdown-content">
-					<a href="@Url.Action("Index", "Events", new { sort = ViewBag.sort, filter = "running"})">On going</a>
-					<a href="@Url.Action("Index", "Events", new { sort = ViewBag.sort, filter = "past"})">Finished</a>
-					<a href="@Url.Action("Index", "Events", new { sort = ViewBag.sort, filter = "upcoming"})">Upcoming</a>
+					<a href="@Url.Action("Index", "Events", new { sort = ViewBag.sort, filter = "running", game = ViewBag.dropDownGame})">On going</a>
+					<a href="@Url.Action("Index", "Events", new { sort = ViewBag.sort, filter = "past", game = ViewBag.dropDownGame})">Finished</a>
+					<a href="@Url.Action("Index", "Events", new { sort = ViewBag.sort, filter = "upcoming", game = ViewBag.dropDownGame})">Upcoming</a>
 			  </div>
 			</div>
 						
 		</div>
 
 		<div class="center bodycolor" style="flex-direction: column; ">
-			@foreach (FPTV.Models.EventsModels.EventCS e in Model)
+			@foreach (var e in Model)
 			{
-				<button class="btn1" onclick ="location.href='@Url.Action("Details", "Events", new { id = e.EventAPIID, sort = ViewBag.sort, filter = ViewBag.filter})'">
+				<button class="btn1" onclick="location.href='@Url.Action("Details", "Events", new { id = e.EventAPIID, sort = ViewBag.sort, filter = ViewBag.filter,  game = ViewBag.dropDownGame})'">
 					<div class="my-div" style="margin:auto">
 						<div style="width:100%">
 							<img src=@e.EventImage style="width:20%; margin:auto; height:45px;"/>
@@ -190,7 +199,15 @@
 						</div>
 
 						<div>
-							<span>@e.BeginAt.Value.ToString("dd/MM/yyyy")</span>
+							@if (e.BeginAt == null)
+							{
+								<span>-</span>
+							}
+							else
+							{
+								<span>@e.BeginAt.ToString("dd/MM/yyyy")</span>
+							}
+							
 							<p>State: @e.TimeType</p>
 						</div>
 

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FPTV.Migrations
 {
-    public partial class init : Migration
+    public partial class FPTVMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -333,19 +333,19 @@ namespace FPTV.Migrations
                 columns: table => new
                 {
                     MatchesCSId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    MatchesCSAPIID = table.Column<int>(type: "int", nullable: false),
+                    MatchesAPIID = table.Column<int>(type: "int", nullable: false),
                     EventCSID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     EventAPIID = table.Column<int>(type: "int", nullable: false),
-                    EventName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    BeginAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    EndAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EventName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    BeginAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    EndAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     IsFinished = table.Column<bool>(type: "bit", nullable: false),
                     TimeType = table.Column<int>(type: "int", nullable: false),
                     HaveStats = table.Column<bool>(type: "bit", nullable: false),
-                    NumberOfGames = table.Column<int>(type: "int", nullable: false),
-                    WinnerTeamAPIId = table.Column<int>(type: "int", nullable: false),
-                    WinnerTeamName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Tier = table.Column<string>(type: "nvarchar(1)", nullable: false),
+                    NumberOfGames = table.Column<int>(type: "int", nullable: true),
+                    WinnerTeamAPIId = table.Column<int>(type: "int", nullable: true),
+                    WinnerTeamName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Tier = table.Column<string>(type: "nvarchar(1)", nullable: true),
                     LiveSupported = table.Column<bool>(type: "bit", nullable: false),
                     LeagueName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LeagueId = table.Column<int>(type: "int", nullable: true),
@@ -393,7 +393,7 @@ namespace FPTV.Migrations
                 columns: table => new
                 {
                     MatchesValId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    MatchesValAPIID = table.Column<int>(type: "int", nullable: false),
+                    MatchesAPIID = table.Column<int>(type: "int", nullable: false),
                     EventValID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     EventAPIID = table.Column<int>(type: "int", nullable: false),
                     EventName = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -453,13 +453,13 @@ namespace FPTV.Migrations
                 {
                     TeamId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     TeamAPIID = table.Column<int>(type: "int", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CouchName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    WorldRank = table.Column<int>(type: "int", nullable: false),
-                    Winnings = table.Column<int>(type: "int", nullable: false),
-                    Losses = table.Column<int>(type: "int", nullable: false),
-                    Image = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Game = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CoachName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    WorldRank = table.Column<int>(type: "int", nullable: true),
+                    Winnings = table.Column<int>(type: "int", nullable: true),
+                    Losses = table.Column<int>(type: "int", nullable: true),
+                    Image = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Game = table.Column<int>(type: "int", nullable: true),
                     EventCSID = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     EventValID = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     FavTeamsListId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
@@ -565,8 +565,8 @@ namespace FPTV.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Age = table.Column<int>(type: "int", nullable: false),
                     Rating = table.Column<float>(type: "real", nullable: false),
-                    Nacionality = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Flag = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Nationality = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Flag = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Image = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Game = table.Column<int>(type: "int", nullable: false),
                     FavPlayerListId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
@@ -724,10 +724,10 @@ namespace FPTV.Migrations
                     Kills = table.Column<int>(type: "int", nullable: false),
                     Deaths = table.Column<int>(type: "int", nullable: false),
                     Assists = table.Column<int>(type: "int", nullable: false),
-                    ADR = table.Column<float>(type: "real", nullable: false),
+                    ADR = table.Column<double>(type: "float", nullable: false),
                     Kast = table.Column<float>(type: "real", nullable: false),
-                    HeadShots = table.Column<float>(type: "real", nullable: false),
-                    KD_Diff = table.Column<float>(type: "real", nullable: false),
+                    HeadShots = table.Column<double>(type: "float", nullable: false),
+                    KD_Diff = table.Column<double>(type: "float", nullable: false),
                     PlayerName = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>

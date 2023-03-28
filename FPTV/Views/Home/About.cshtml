@@ -1,0 +1,114 @@
+﻿@{
+    ViewData["Title"] = "About";
+}
+<!DOCTYPE html>
+
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<style>
+	.central {
+		width: 100%;
+		margin: 0 auto;
+		text-align: center;
+		height: 100%;
+		background-color: white;
+	}
+
+	.center {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	
+	.logo2 {
+		max-width: 100%;
+		height: auto;
+		margin: auto;
+		padding: 20px;
+	}
+
+    table {
+        border-collapse: collapse;
+        width: 95%;
+    }
+</style>
+<html>
+	
+<body  class="bodytemp">
+    <div class="box bodycolor bordercolor" style="text-align: justify; border-radius:15px; width:100%; padding:3%">
+		<h1 style="text-align:center">@ViewData["Title"]</h1>
+		<br />
+		<h1> Mission:</h1>
+		<p style="width:100%;">
+            The <img src="~/images/logo1.jpg" title="FPTV" style="width:4%;"> project's mission is to provide users an online platform that monitors matches of first-person shooter E-Sports tournaments and events, primarily VALORANT and CS:GO, functioning as their main hub to minimize clicks and present information centrally and concisely.
+		</p>
+
+        <div style="width:100%;padding:3%;overflow-x:auto;">
+        <table class="tableDetails" name="FirstTeam" style="width:90%;margin:auto; text-align:center; ">
+            <tr style ="width:100%" >
+                
+                <th style="width:12%;padding:1%" title="Guilherme">
+                    <img src="~/images/Team/gui.png" width="100%" />
+                </th>
+                <th style="width:12%;padding:1%" title="André">
+                    <img src="~/images/Team/andre.png" width="100%" />
+                </th>
+                <th style="width:12%;padding:1%" title="joao">
+                    <img src="~/images/Team/joao.png" width="100%" />
+                </th>
+                <th style="width:12%;padding:1%" title="Miguel">
+                    <img src="~/images/Team/miguel.png" width="100%" />
+                </th>
+                <th style="width:12%;padding:1%" title="Nuno">
+                    <img src="~/images/Team/nuno.png" width="100%" />
+                </th>
+                <th style="width:12%;padding:1%" title="Rui">
+                    <img src="~/images/Team/rui.png" width="100%" />
+                </th>
+                
+            </tr>
+            <tr style="width:100%; font-weight:bold">
+                
+                <td >Guilherme Lopes</td>
+                <td >André Dias</td>
+                <td >João Afonso</td>
+                <td >Miguel Rebelo</td>
+                <td >Nuno Reis</td>
+                <td >Rui Plínio</td>
+           
+            </tr>
+            <tr style="width:100%">
+                <td>Project Manager</td>
+                <td>Developer</td>
+                <td>Developer</td>
+                <td>Developer</td>
+                <td>Developer</td>
+                <td>Developer</td>
+                
+            </tr>
+            <tr style="width:100%">
+                    <td>BackEnd, FrontEnd e Documentação</td>
+                    <td>BackEnd e Documentação</td>
+                    <td>FrontEnd </td>
+                    <td>BackEnd, FrontEnd e Documentação</td>
+                    <td>BackEnd e Documentação</td>
+                    <td>FrontEnd e Documentação</td>
+            </tr>
+
+                
+            
+        </table>
+        </div>
+        <h3>Email: FPTV@gmail.com </h3>
+
+	</div>
+
+</body>
+
+</html>
+
