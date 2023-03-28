@@ -379,13 +379,17 @@
                             <div class=" " style="border-top-left-radius:15px;border-top-right-radius:15px; " name="FirstTeam">
 
                                 <div style="display:flex;width:100%;margin:auto; justify-content:center; ">
-                                    <span style=" display: flex;align-items: center;justify-content: center;margin:auto;font-weight:500" class="stroke">
-                                        <img src=@ViewBag.matches.TeamsList[0].Image style="width:100px" />
+                                    <a href="@Url.Action("getTeam", "Stats", new {id = @ViewBag.matches.TeamsList[0].TeamAPIID, type = @ViewBag.matches.TimeType.ToString().ToLower() ,game = ViewBag.dropDownGame})" style="justify-content: space-around; margin-left: auto; margin-bottom:0px">
+                                    <span style=" display: flex;align-items: center;justify-content: center;margin:auto;font-weight:500" class="stroke">                                       
+                                        <img src=@ViewBag.matches.TeamsList[0].Image style="width:100px" />                               
                                     </span>
+                                    </a>
                                     <span class="stroke" style="text-align: center;font-weight:bold;font-size:15px;margin:auto;font-size:25px;font-weight:700"> vs </span>
 
                                     <span class="stroke" style=" display: flex;align-items: center;justify-content: center;margin:auto">
+                                        <a href="@Url.Action("getTeam", "Stats", new {id = @ViewBag.matches.TeamsList[1].TeamAPIID, type = @ViewBag.matches.TimeType.ToString().ToLower() ,game = ViewBag.dropDownGame})" style="justify-content: space-around; margin-left: auto; margin-bottom:0px">
                                         <img src=@ViewBag.matches.TeamsList[1].Image style="width:100px" />
+                                        </a>
                                     </span>
                                 </div>
                                 <div style="display:flex; margin-top:3%;margin-bottom:3%;margin-left:0px; padding:0px;font-size:25px">
@@ -601,7 +605,9 @@
 
                                     <table class="tableDetails" name="FirstTeam" style="width:100% !important;margin:auto;margin-bottom:5%; text-align:center">
                                         <tr>
+                                            <a href="@Url.Action("getTeam", "Stats", new {id = @ViewBag.matches.TeamsList[0].TeamAPIID, type = @ViewBag.matches.TimeType.ToString().ToLower() ,game = ViewBag.dropDownGame})" style="justify-content: space-around; margin-left: auto; margin-bottom:0px">
                                             <th style="width:12%">@ViewBag.matches.TeamsList[0].Name</th>
+                                            </a>
                                             <th class="headshot" style="width:12%" title="Kills">
                                                 <img src="~/images/kills2.png" width="50%" />
                                             </th>
@@ -624,7 +630,7 @@
                                                 <td style="/*display:flex;*/ text-align:center">
                                                     <p style="margin-bottom:0px">  @item.Name</p>
                                                 </td>
-                                                <td>23</td>
+                                                <td>@item.</td>
                                                 <td>0</td>
                                                 <td>11</td>
                                                 <td>1.34</td>
