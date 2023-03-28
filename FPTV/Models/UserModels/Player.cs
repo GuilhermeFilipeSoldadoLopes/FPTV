@@ -32,10 +32,9 @@ namespace FPTV.Models.UserModels
 		public ICollection<Team>? Teams { get; set; }
 
 		[Required]
-		[Display(Name = "Nacionality")]
-		public string? Nacionality { get; set; }
+		[Display(Name = "Nationality")]
+		public string? Nationality { get; set; }
 
-        [Required]
         [Display(Name = "Flag")]
         public string? Flag { get; set; }
 

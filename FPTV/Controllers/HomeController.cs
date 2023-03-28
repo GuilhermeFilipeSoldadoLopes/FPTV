@@ -189,7 +189,7 @@ namespace FPTV.Controllers
 			page = "About";
             ViewBag.page = page;
             ViewBag.dropDownGame = game;
-            return View(); //apagar index - quando a pagina tiver feita
+            return RedirectToAction("getCSGOMatches", "Stats"); //return View(); //apagar index - quando a pagina tiver feita
 		}
         
         public IActionResult Register()

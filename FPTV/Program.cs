@@ -17,10 +17,10 @@ var configuration = builder.Configuration;
 services.AddAuthentication()
     .AddSteam()
     .AddGoogle(googleOptions =>
-{
-    googleOptions.ClientId = configuration["Authentication:Google:ClientId"];
-    googleOptions.ClientSecret = configuration["Authentication:Google:ClientSecret"];
-});
+    {
+        googleOptions.ClientId = configuration["Authentication:Google:ClientId"];
+        googleOptions.ClientSecret = configuration["Authentication:Google:ClientSecret"];
+    });
 
 //var connectionString = builder.Configuration.GetConnectionString("FPTV_ContextProd"); //AZURE
 var connectionString = builder.Configuration.GetConnectionString("FPTV_Context"); //LocalHost
@@ -29,12 +29,13 @@ builder.Services.AddDbContext<FPTVContext>(options =>
     options.UseSqlServer(connectionString));
 
 builder.Services.AddIdentity<UserBase, IdentityRole>(options =>
-    { options.SignIn.RequireConfirmedAccount = true;
-        options.Tokens.ProviderMap.Add("CustomEmailConfirmation",
-            new TokenProviderDescriptor(
-                typeof(CustomEmailConfirmationTokenProvider<UserBase>)));
-        options.Tokens.EmailConfirmationTokenProvider = "CustomEmailConfirmation";
-    }).AddEntityFrameworkStores<FPTVContext>()
+{
+    options.SignIn.RequireConfirmedAccount = true;
+    options.Tokens.ProviderMap.Add("CustomEmailConfirmation",
+        new TokenProviderDescriptor(
+            typeof(CustomEmailConfirmationTokenProvider<UserBase>)));
+    options.Tokens.EmailConfirmationTokenProvider = "CustomEmailConfirmation";
+}).AddEntityFrameworkStores<FPTVContext>()
     .AddTokenProvider<DataProtectorTokenProvider<UserBase>>(TokenOptions.DefaultProvider);
 
 builder.Services.AddTransient<CustomEmailConfirmationTokenProvider<UserBase>>();
