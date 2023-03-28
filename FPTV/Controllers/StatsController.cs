@@ -804,10 +804,10 @@ namespace FPTV.Controllers
             }
                 
 
-                double KdRatio = (double)player.Kills / (double)player.Deaths;
-                double roundKdRatio = Math.Round(KdRatio, 2);
+                //double KdRatio = (double)player.Kills / (double)player.Deaths;
+                //double roundKdRatio = Math.Round(KdRatio, 2);
                 int maps = _random.Next(1, 8);
-                ViewBag.roundKdRatio = roundKdRatio;
+                //ViewBag.roundKdRatio = roundKdRatio;
                 ViewBag.maps = maps;
                 ViewBag.player = player;
                 ViewBag._player = _player;
