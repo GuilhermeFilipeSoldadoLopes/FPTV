@@ -660,7 +660,10 @@ namespace FPTV.Controllers
                     player.Name = playerName.ToString() == "" ? "undefined" : playerName.Value<string>();
                     player.Image = playerImage.ToString() == "" ? "/images/default-profile-icon-24.jpg" : playerImage.Value<string>();
 
-                    team.Players.Add(player);
+                    if (team.Players.Count() < 5)
+                    {
+                        team.Players.Add(player);
+                    }
                 }
 
                 matches.TeamsList.Add(team);
