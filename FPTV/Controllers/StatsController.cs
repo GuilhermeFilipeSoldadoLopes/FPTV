@@ -396,6 +396,7 @@ namespace FPTV.Controllers
                     team.Winnings = 1;
                     team.Losses = 1;
                     team.Game = GameType.CSGO;
+                    team.Players = new List<Player>();
                     var playersOfTeam = (JArray)_team.GetValue("players");
                     foreach (var playerObject in playersOfTeam.Cast<JObject>())
                     {
@@ -412,8 +413,9 @@ namespace FPTV.Controllers
                     }
 
                 }
-
+                var randomMapsPlayed = _random.Next(1, 8);
                 ViewBag.team = team;
+                ViewBag.randomMapsPlayed = randomMapsPlayed;
 
 
 
