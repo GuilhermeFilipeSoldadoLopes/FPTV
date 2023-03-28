@@ -189,7 +189,7 @@ namespace FPTV.Controllers
 			page = "About";
             ViewBag.page = page;
             ViewBag.dropDownGame = game;
-            return RedirectToAction("getCSGOMatches", "Stats"); //return View(); //apagar index - quando a pagina tiver feita
+			return View(); //return View(); //apagar index - quando a pagina tiver feita
 		}
         
         public IActionResult Register()
@@ -203,8 +203,6 @@ namespace FPTV.Controllers
 			page = "Index";
 			return View();
         }
-        
-        
         
         public IActionResult StatisticsOfSite()
 		{
