@@ -214,13 +214,13 @@
             <div class="box1 bordercolor colorformatch" style="border-radius:15px; padding:1%;">
                 <h3> @ViewBag.player.PlayerName </h3>
                 <div class="teams" style="display:flex; justify-content:center">
-                    <img src=@ViewBag._player.Image alt="logo" class="logo" style="border-radius:15px;width:15%;">
+                    <img src=@ViewBag._player.Image alt="logo" class="logo" style="border-radius:15px;width:45%;">
                 </div>
 
                 <div class="box2" style="margin:auto;margin-top: 10%; width:70%">
                     <p>Age:  @ViewBag._player.Age </p>
-                    <p>Team: @ViewBag._player.Teams[0].Name <img src=@ViewBag._player.Teams[0].Image style="width:15%;margin-left:1%;margin-bottom:1%"> </p>
-                    <p>Nationality: @ViewBag._player.Nacionality <img src="~/images/Flags/1x1/pt.svg" style="width:7%;margin-left:1%;margin-bottom:1%"> </p>
+                    <p>Team: @ViewBag._player.Teams[0].Name <img src=@ViewBag._player.Teams[0].Image style="width:10%;margin-left:1%;margin-bottom:1%"> </p>
+                    <p>Nationality: <img src=@ViewBag.NacionalityImg style="width:11%;margin-left:1%;margin-bottom:1%"> </p>
                 </div>
 
                 <div class="box2" style="margin:auto; width:100%;padding:0px;">
@@ -261,7 +261,7 @@
                                     <td>Rating</td>
                                     <td style="width:30%">
 
-                                        <span> 1.09</span>
+                                    <span>@ViewBag._player.Rating</span>
                                         <span>
 
                                             <img src="~/images/yellow.png" style="width:15%;padding:2px;">
@@ -281,7 +281,7 @@
                                     <td>K/D Ratio</td>
                                     <td style="width:30%">
 
-                                    <span> @ViewBag.KdRatio</span>
+                                    <span> @ViewBag.roundKdRatio</span>
                                         <span>
 
                                             <img src="~/images/green.png" style="width:15%;padding:2px;">
@@ -322,30 +322,30 @@
                     <table class="tableDetails" style="width:100%">
                         <tr style="width:100%">
                             <td style="width:35%;border:none">
-                                <img src="/images/default-profile-icon-24.jpg" style="width:100%;">
-                             </td>
+                                <img src=@ViewBag.pastTeam1.Image style="width:100%;">
+                            </td>
                             <td style="width:70%; border:none">
                                 <div>
                                     <h4>
-                                        @ViewBag.pastTeam1
+                                        @ViewBag.pastTeam1.Name
                                     </h4>
                                     <p>
-                                       2023 - Present
+                                        2023 - Present
                                     </p>
                                 </div>
                             </td>
 
-                            
+
                         </tr>
 
                         <tr style="width:100%">
                             <td style="width:35%;border:none">
-                                <img src="/images/default-profile-icon-24.jpg" style="width:100%;">
+                                <img src=@ViewBag.pastTeam2.Image style="width:100%;">
                             </td>
                             <td style="width:70%; border:none">
                                 <div>
                                     <h4>
-                                        @ViewBag.pastTeam2
+                                        @ViewBag.pastTeam2.Name
                                     </h4>
                                     <p>
                                         2018 - 2023
@@ -358,12 +358,12 @@
 
                         <tr style="width:100%">
                             <td style="width:35%;border:none">
-                                <img src="/images/default-profile-icon-24.jpg" style="width:100%;">
+                                <img src=@ViewBag.pastTeam3.Image style="width:100%;">
                             </td>
                             <td style="width:70%; border:none">
                                 <div>
                                     <h4>
-                                        @ViewBag.pastTeam3
+                                        @ViewBag.pastTeam3.Name
                                     </h4>
                                     <p>
                                         2016 - 2018
@@ -374,10 +374,10 @@
 
                         </tr>
                     </table>
-                    
+
                 </div>
 
-               
+
             </div>
 
         </div>
