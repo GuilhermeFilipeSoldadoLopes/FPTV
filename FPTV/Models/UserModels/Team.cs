@@ -21,7 +21,7 @@ namespace FPTV.Models.UserModels
 
 		[Display(Name = "Coach Name")]
 		public string? CoachName { get; set; }
-
+    
 		[Display(Name = "World Rank")]
 		public int? WorldRank { get; set; }
 
