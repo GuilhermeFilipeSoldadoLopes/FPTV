@@ -681,7 +681,7 @@ namespace FPTV.Controllers
                     _player.Teams.Add(pastTeam3);
 
                     _context.MatchPlayerStatsCS.Add(player);
-            }
+                }
                 
 
                 double KdRatio = (double)player.Kills / (double)player.Deaths;
@@ -694,7 +694,10 @@ namespace FPTV.Controllers
                 
                 id = id;
                 ViewBag.id = id;
+                //_context.MatchPlayerStatsCS.Add(player);
+                //await _context.SaveChangesAsync();
                 return View("PlayerAndStats");
+
             }
             return null;
         }
