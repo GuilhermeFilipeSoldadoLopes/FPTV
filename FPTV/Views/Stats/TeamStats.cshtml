@@ -64,7 +64,7 @@
 
                 <div style="width:50%; text-align:right; margin-right:5px">
                     <span>
-                        Jun, 2008 <img src="~/images/Flags/4x3/pt.svg" style="width:6%;margin-left:1%;">
+                        Jun, 2008 <img src=@ViewBag.NacionalityImg style="width:11%;margin-left:1%;margin-bottom:1%">
                     </span>
                 </div>
 
@@ -75,8 +75,10 @@
             @foreach (var item in @ViewBag.team.Players)
             {
                 <div style="align-items: center">
-                    <img src=@item.Image alt="logo" class="logo2">
+                    <a href="@Url.Action("getPLayer", "Stats", new {id = @item.PlayerAPIId, @*type = @ViewBag.matches.TimeType.ToString().ToLower()*@ game = ViewBag.dropDownGame})" style="justify-content: space-around; margin-left: auto; margin-bottom:0px">
+                        <img src=@item.Image alt="logo" class="logo2" height="170px" width="auto">
                     <h3 class="h3">@item.Name</h3>
+                    </a>
                 </div>
                 @*<div>
                     <img src="~/images/WRU_Logo_Fundo_.png" alt="logo" class="logo2">
