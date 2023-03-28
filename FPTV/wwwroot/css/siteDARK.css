@@ -237,20 +237,19 @@ bordercolor2 {
 
 .backMap {
     background-repeat: no-repeat;
-    background-size: cover;
+    /*background-size: cover;*/
     background-color: black; 
 }
 
 .backMap1 {
     background-repeat: no-repeat;
-    background-size: cover;
-    font-family: Noto Sans;
+    /*background-size: cover;*/
     background-color: black;
 }
 
 .backMap2 {
     background-repeat: no-repeat;
-    background-size: cover;
+    /*background-size: cover;*/
     background-color: black;
 }
 
