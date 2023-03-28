@@ -27,7 +27,7 @@ namespace FPTV.Models.EventsModels
         [Display(Name = "EventImage")]
         public string? EventImage { get; set; }
 
-        [Required]
+        
         [Display(Name = "Event Link")]
         public string? EventLink { get; set; }
 
@@ -39,13 +39,13 @@ namespace FPTV.Models.EventsModels
         [Display(Name = "Finished")]
         public bool Finished { get; set; }
 
-        [Required]
+
         [Display(Name = "Begin At")]
         [DataType(DataType.Date)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime? BeginAt { get; set; }
 
-        [Required]
+
         [Display(Name = "End At")]
         [DataType(DataType.Date)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
@@ -66,15 +66,14 @@ namespace FPTV.Models.EventsModels
         [Display(Name = "Winner Team")]
         public Team? WinnerTeam { get; set; }
 
-        [Required]
         [Display(Name = "Winner Team API ID")]
         public int? WinnerTeamAPIID { get; set; }
 
-        [Required]
+        
         [Display(Name = "Winner Team Name")]
         public string? WinnerTeamName { get; set; }
 
-        [Required]
+        
         [Display(Name = "Tier")]
         public char? Tier { get; set; }
     }
