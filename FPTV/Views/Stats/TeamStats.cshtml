@@ -74,10 +74,10 @@
         <div class="center darkcolor bordercolor" style="margin:auto;margin-top:3%; font-size:25px;width:90%; margin-top:3%">
             @foreach (var item in @ViewBag.team.Players)
             {
-                <div style="align-items: center">
+                <div style="align-items: center;padding:1%">
                     <a href="@Url.Action("getPLayer", "Stats", new {id = @item.PlayerAPIId, @*type = @ViewBag.matches.TimeType.ToString().ToLower()*@ game = ViewBag.dropDownGame})" style="justify-content: space-around; margin-left: auto; margin-bottom:0px">
-                        <img src=@item.Image alt="logo" class="logo2" height="170px" width="auto" style="max-width: 200px">
-                    <h3 class="h3">@item.Name</h3>
+                        <img src=@item.Image alt="logo" @*class="logo2"*@ height="210px" width="210px" style="max-width: 200px;padding:3%">
+                        <h3 class="h3">@item.Name</h3>
                     </a>
                 </div>
                 @*<div>
