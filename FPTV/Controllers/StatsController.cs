@@ -517,7 +517,7 @@ namespace FPTV.Controllers
                     _player.Nationality = (string)item.GetValue("nationality");
                     //_player.Image = (string)item.GetValue("image_url");
                     _player.Image = item.GetValue("image_url").ToString() == "" ? "/images/default-profile-icon-24.jpg" : item.GetValue("image_url").Value<string>();
-
+                    _player.Rating = ranking[_random.Next(ranking.Length)];
                     _context.MatchPlayerStatsVal.Add(player);
                 }
 
@@ -566,7 +566,7 @@ namespace FPTV.Controllers
 
                 //Filter to select from which pool to fetch the data (upcoming, running or finished/ended)
                 var _jsonFilter = filter + "?";
-                var _filterID = "filter[id]=" + id.ToString();
+                var _filterID = "filter[id]="; //+ id.ToString();
 
                 //THIS SHOULD BE A CLIENT SECRET
                 var _token = "&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA";
@@ -575,7 +575,7 @@ namespace FPTV.Controllers
                 var jsonPerPage = "&per_page=50";
 
                 //Request processing with RestSharp
-                var _fullRequest = _requestLink + game + "/players?" + _filterID + jsonSort + jsonPage + jsonPerPage + _token;
+                var _fullRequest = _requestLink + game + "/teams?" + _filterID + jsonSort + jsonPage + jsonPerPage + _token;
                 var _client = new RestClient(_fullRequest);
                 var _request = new RestRequest("", Method.Get);
                 _request.AddHeader("accept", "application/json");
@@ -592,7 +592,7 @@ namespace FPTV.Controllers
 
                 //Filter to select from which pool to fetch the data (upcoming, running or finished/ended)
                 var jsonFilter = filter + "?";
-                var filterID = "filter[id]=48526";//+ id.ToString();
+                var filterID = "filter[id]=" + id.ToString();
 
                 //THIS SHOULD BE A CLIENT SECRET
                 var token = "&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA";
@@ -611,7 +611,9 @@ namespace FPTV.Controllers
                 var _player = new Player();
                 _player.Teams = new List<Team>();
                 var teamm = new Team();
-                _player.Teams.Add(teamm);
+
+                var coachNames = new[] { "Rui", "Nuno", "Miguel", "André", "João", "Guilherme" };
+
 
 
                 _player.Rating = ranking[_random.Next(ranking.Length)];
@@ -637,20 +639,46 @@ namespace FPTV.Controllers
                     //_player.Image = (string)item.GetValue("image_url");
                     _player.Image = item.GetValue("image_url").ToString() == "" ? "/images/default-profile-icon-24.jpg" : item.GetValue("image_url").Value<string>();
                     _player.Rating= ranking[_random.Next(ranking.Length)];
+                    _player.PlayerAPIId = player.PlayerCSAPIId;
+                    _player.Name = player.PlayerName;
+
+                    var current_team = (JObject)item.GetValue("current_team");
+                    
+                    var current_team_id = (int)current_team.GetValue("id");
+                    foreach (var _team in _jarray.Cast<JObject>())
+                    {
+                        var team_id = (int)_team.GetValue("id");
+                        var team_name = _team.GetValue("name");
+                        var team_image = _team.GetValue("image_url");
+                        if (current_team_id == team_id)
+                        {
+                            teamm.TeamAPIID = team_id;
+                            teamm.Name = team_name.ToString() == "" ? "undefined" : team_name.Value<string>();
+                            teamm.Image = team_image.ToString() == "" ? "/images/logo1.jpg" : team_image.Value<string>();
+                            teamm.CoachName = coachNames[_random.Next(coachNames.Length)];
+                            teamm.WorldRank = 1;
+                            teamm.Winnings = 1;
+                            teamm.Losses = 1;
+                            teamm.Game = GameType.CSGO;
+                        }
+                        else
+                        {
+                            teamm.TeamAPIID = team_id;
+                            teamm.Name = team_name.ToString() == "" ? "undefined" : team_name.Value<string>();
+                            teamm.Image = team_image.ToString() == "" ? "/images/logo1.jpg" : team_image.Value<string>();
+                            teamm.CoachName = coachNames[_random.Next(coachNames.Length)];
+                            teamm.WorldRank = 1;
+                            teamm.Winnings = 1;
+                            teamm.Losses = 1;
+                            teamm.Game = GameType.CSGO;
+                        }
+                        
+                    }
+
                     _context.MatchPlayerStatsCS.Add(player);
                 }
+                _player.Teams.Add(teamm);
 
-                foreach (var _item in _jarray.Cast<JObject>())
-                {
-                    var _id = (int)_item.GetValue("id");
-                    if (_id == player.PlayerCSAPIId)
-                    {
-                        _player.PlayerAPIId = player.PlayerCSAPIId;
-                        _player.Name = player.PlayerName;
-                    }
-                    teamm.Name = (string?)_item.GetValue("name");
-                    teamm.Image = (string?)_item.GetValue("image_url");
-                }
                 var KdRatio = player.Kills / player.Deaths;
                 //double roundKdRatio = Math.Round(KdRatio, 2);
                 int maps = _random.Next(1, 8);
@@ -789,7 +817,6 @@ namespace FPTV.Controllers
                         team.TeamAPIID = teamId;
                         team.Name = teamName.ToString() == "" ? "undefined" : teamName.Value<string>();
                         team.Image = teamImage.ToString() == "" ? "/images/logo1.jpg" : teamImage.Value<string>();
-                        team.CoachName = "";
                         team.Game = GameType.CSGO;
                         team.CoachName = coachNames[_random.Next(coachNames.Length)]; ;
                         team.WorldRank = 1;
