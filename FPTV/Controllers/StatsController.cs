@@ -375,7 +375,7 @@ namespace FPTV.Controllers
                     {
                         var player = new Player();
                         player.PlayerAPIId = (int)playerObject.GetValue("id");
-                        player.Age = playerObject.GetValue("age") == null ? 20 : playerObject.GetValue("age").Value<int>();
+                        player.Age = playerObject.GetValue("age").ToString() == "" ? 20 : playerObject.GetValue("age").Value<int>();
                         player.Nationality = (string)playerObject.GetValue("nationality");
                         ViewBag.NacionalityImg = "/images/Flags/4x3/" + player.Nationality + ".svg";
                         //_player.Image = (string)item.GetValue("image_url");
