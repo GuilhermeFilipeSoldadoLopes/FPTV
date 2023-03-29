@@ -280,18 +280,13 @@
 
                                     <span>@ViewBag._player.Rating</span>
                                         <span>
-                                        @if (@ViewBag._player.Rating > 0 && @ViewBag._player.Rating <= 0.7)
-                                            {
+                                        @if (@ViewBag._player.Rating > 0 && @ViewBag._player.Rating <= 0.79) {
                                             <img src="~/images/rating_down.png" style="width:15%;padding:2px;">
-                                        }
-                                        else if (@ViewBag._player.Rating > 0.7 && @ViewBag._player.Rating <= 1.2)
-                                        {
+                                        } else if (@ViewBag._player.Rating > 0.79 && @ViewBag._player.Rating <= 1.14) {
                                             <img src="~/images/rating_middle.png" style="width:15%;padding:2px;">
-                                        }
-                                        else if(@ViewBag._player.Rating > 1.2)
-                                        {
+                                        } else if(@ViewBag._player.Rating > 1.2) {
                                             <img src="~/images/rating_up.png" style="width:15%;padding:2px;">
-                                        }                                          
+                                        }
                                         </span>
                                     </td>
                                 </tr>
@@ -309,20 +304,13 @@
 
                                     <span> @ViewBag.roundKdRatio</span>
                                         <span>
-
-                                        @if (@ViewBag.roundKdRatio > 0 && @ViewBag.roundKdRatio <= 0.7)
-                                        {
+                                        @if (@ViewBag.roundKdRatio > 0 && @ViewBag.roundKdRatio <= 1) {
                                             <img src="~/images/rating_down.png" style="width:15%;padding:2px;">
-                                        }
-                                        else if (@ViewBag.roundKdRatio > 0.7 && @ViewBag.roundKdRatio <= 1.2)
-                                        {
+                                        } else if (@ViewBag.roundKdRatio > 1 && @ViewBag.roundKdRatio <= 1.5) {
                                             <img src="~/images/rating_middle.png" style="width:15%;padding:2px;">
-                                        }
-                                        else if (@ViewBag.roundKdRatio > 1.2)
-                                        {
+                                        } else if (@ViewBag.roundKdRatio > 1.5) {
                                             <img src="~/images/rating_up.png" style="width:15%;padding:2px;">
                                         }
-
                                         </span>
 
                                     </td>
@@ -333,20 +321,13 @@
 
                                     <span> @ViewBag.player.HeadShots%</span>
                                         <span>
-
-                                        @if (@ViewBag.player.HeadShots > 0 && @ViewBag.player.HeadShots <= 0.7)
-                                        {
+                                        @if (@ViewBag.player.HeadShots > 0 && @ViewBag.player.HeadShots <= 40) {
                                             <img src="~/images/rating_down.png" style="width:15%;padding:2px;">
-                                        }
-                                        else if (@ViewBag.player.HeadShots > 0.7 && @ViewBag.player.HeadShots <= 1.2)
-                                        {
+                                        } else if (@ViewBag.player.HeadShots > 40 && @ViewBag.player.HeadShots <= 65) {
                                             <img src="~/images/rating_middle.png" style="width:15%;padding:2px;">
-                                        }
-                                        else if (@ViewBag.player.HeadShots > 1.2)
-                                        {
+                                        } else if (@ViewBag.player.HeadShots > 65) {
                                             <img src="~/images/rating_up.png" style="width:15%;padding:2px;">
                                         }
-
                                         </span>
                                     </td>
                                 </tr>

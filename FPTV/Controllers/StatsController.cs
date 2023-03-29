@@ -194,6 +194,7 @@ namespace FPTV.Controllers
 
         public ActionResult getTeam(int id = 132991, string filter = "past", string game = "csgo", string page = "&page=1")
         {
+            ViewBag.dropDownGame = game;
             if (game == "valorant")
             {
 
@@ -396,6 +397,8 @@ namespace FPTV.Controllers
 
         public ActionResult getPlayer(int id= 132995, string filter = "past", string game = "csgo", string page = "&page=1")
         {
+            ViewBag.dropDownGame = game;
+
             if (game == "valorant")
             {
 
@@ -705,6 +708,7 @@ namespace FPTV.Controllers
 
         private String request(string category, string sort = "sort=-status", string page = "&page=1", string filter = "past", string game = "csgo")
         {
+            ViewBag.dropDownGame = game;
             if (category == "matches")
             {
                 var jsonFilter = filter + "?";
@@ -866,8 +870,8 @@ namespace FPTV.Controllers
                                 matchPlayer.PlayerAPIId = (int)p.GetValue("id");
                                 matchPlayer.Kills = _random.Next(1, 31);
                                 matchPlayer.Deaths = _random.Next(1, 21);
-                                matchPlayer.Assists = _random.Next(1, 11); ;
-                                matchPlayer.FlashAssist = _random.Next(1, 6); ;
+                                matchPlayer.Assists = _random.Next(1, 11);
+                                matchPlayer.FlashAssist = _random.Next(1, 6);
                                 matchPlayer.ADR = _random.NextDouble();
                                 matchPlayer.HeadShots = _random.NextDouble() * 100;
                                 matchPlayer.KD_Diff = _random.NextDouble();
