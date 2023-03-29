@@ -678,8 +678,9 @@ namespace FPTV.Controllers
                     matchPlayerStats.Assists = rnd.Next(1, 11);
                     matchPlayerStats.FlashAssist = rnd.Next(1, 6);
                     matchPlayerStats.ADR = rnd.Next(30, 155);
-                    matchPlayerStats.HeadShots = rnd.NextDouble() * 100;
-                    matchPlayerStats.KD_Diff = matchPlayerStats.Kills/ matchPlayerStats.Deaths;
+                    matchPlayerStats.HeadShots = Math.Round((rnd.NextDouble() * 100), 1);
+                    double kd_diff = (double)matchPlayerStats.Kills / (double)matchPlayerStats.Deaths;
+                    matchPlayerStats.KD_Diff = Math.Round(kd_diff, 2);
 
                     if (team.Players.Count() < 5)
                     {
@@ -768,6 +769,16 @@ namespace FPTV.Controllers
             }
             else
                 pickedMaps.Add(mapsNames.GetItemByIndex(rnd.Next(mapsNames.Count())));
+
+            string MVP_PlayerName = "";
+            double bestADR = 0.0;
+            foreach (var item in matchesPlayer) {
+                if (bestADR < ((double)item.Kills / 16) * 100) { 
+                    MVP_PlayerName = item.PlayerName;
+                    bestADR = ((double)item.Kills / 16) * 100;
+                }
+            }
+            ViewBag.MVP_Player = MVP_PlayerName;
 
             ViewBag.matches = matches;
             ViewBag.matchesPlayer = matchesPlayer;
