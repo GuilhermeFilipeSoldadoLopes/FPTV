@@ -118,10 +118,6 @@ namespace FPTV.Controllers
 			ViewBag.page = page;
 			return RedirectToAction("Index", page, new { sort = "", filter = "", game = game });
 		}
-        public IActionResult Error404()
-        {
-            return View();
-        }
 
         public IActionResult Results(string game = "csgo")
 		{
@@ -208,6 +204,11 @@ namespace FPTV.Controllers
 		{
 			page = "Index";
 			return View();
+        }
+        public IActionResult Error404()
+        {
+            page = "Index";
+            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
