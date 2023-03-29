@@ -361,6 +361,8 @@ namespace FPTV.Controllers
                     1.36F, 1.10F, 1.07F, 1.19F, 0.77F, 0.90F, 1.14F, 1.52F, 1.54F, 0.58F }; //de 0.58 a 1.54
 
 
+                var teamDB = _context.Team.Include(t => t.Players).SingleOrDefault(t => t.TeamAPIID == id);
+
                 var team = new Team();
                 foreach (var _team in _jarray.Cast<JObject>())
                 {
@@ -386,12 +388,34 @@ namespace FPTV.Controllers
                         player.Image = playerObject.GetValue("image_url").ToString() == "" ? "/images/default-profile-icon-24.jpg" : playerObject.GetValue("image_url").Value<string>();
                         player.Rating = ranking[_random.Next(ranking.Length)];
                         player.Name = (string)playerObject.GetValue("name");
+                        player.Game = GameType.CSGO;
                         team.Players.Add(player);
                     }
 
                 }
-                var randomMapsPlayed = _random.Next(1, 8);
-                ViewBag.team = team;
+
+
+                if (teamDB == null)
+                {  
+                    _context.Team.Add(team);
+                    teamDB = team;
+                }
+                else
+                {
+                    if (teamDB.Winnings == null || teamDB.Winnings == 0 || teamDB.Losses == null || teamDB.Losses == 0 || teamDB.WorldRank == null || teamDB.WorldRank == 0)
+                    {
+                        teamDB.Winnings = team.Winnings;
+                        teamDB.WorldRank = team.WorldRank;
+                        teamDB.Losses = team.Losses;
+                        teamDB.Players= team.Players;
+                        teamDB.CoachName= team.CoachName;
+                        _context.SaveChanges();
+                    }
+                }
+                
+                
+                var randomMapsPlayed = teamDB.Winnings + teamDB.Losses;
+                ViewBag.team = teamDB;
                 ViewBag.randomMapsPlayed = randomMapsPlayed;
 
                 return View("TeamStats");
