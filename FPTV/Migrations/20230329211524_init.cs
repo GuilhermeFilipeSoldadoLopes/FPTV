@@ -682,9 +682,9 @@ namespace FPTV.Migrations
                 {
                     MatchPlayerStatsCSID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     MatchCSId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    MatchCSAPIID = table.Column<int>(type: "int", nullable: false),
-                    PlayerCSPlayerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    PlayerCSAPIId = table.Column<int>(type: "int", nullable: false),
+                    MatchAPIID = table.Column<int>(type: "int", nullable: false),
+                    PlayerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    PlayerAPIId = table.Column<int>(type: "int", nullable: false),
                     Kills = table.Column<int>(type: "int", nullable: false),
                     Deaths = table.Column<int>(type: "int", nullable: false),
                     Assists = table.Column<int>(type: "int", nullable: false),
@@ -704,8 +704,8 @@ namespace FPTV.Migrations
                         principalColumn: "MatchCSId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_MatchPlayerStatsCS_Player_PlayerCSPlayerId",
-                        column: x => x.PlayerCSPlayerId,
+                        name: "FK_MatchPlayerStatsCS_Player_PlayerId",
+                        column: x => x.PlayerId,
                         principalTable: "Player",
                         principalColumn: "PlayerId",
                         onDelete: ReferentialAction.Cascade);
@@ -716,10 +716,10 @@ namespace FPTV.Migrations
                 columns: table => new
                 {
                     MatchPlayerStatsValID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    MatchValId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    MatchValAPIID = table.Column<int>(type: "int", nullable: false),
-                    PlayerValPlayerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    PlayerValAPIId = table.Column<int>(type: "int", nullable: false),
+                    MatchValId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    MatchAPIID = table.Column<int>(type: "int", nullable: false),
+                    PlayerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    PlayerAPIId = table.Column<int>(type: "int", nullable: false),
                     Kills = table.Column<int>(type: "int", nullable: false),
                     Deaths = table.Column<int>(type: "int", nullable: false),
                     Assists = table.Column<int>(type: "int", nullable: false),
@@ -736,11 +736,10 @@ namespace FPTV.Migrations
                         name: "FK_MatchPlayerStatsVal_MatchVal_MatchValId",
                         column: x => x.MatchValId,
                         principalTable: "MatchVal",
-                        principalColumn: "MatchValId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "MatchValId");
                     table.ForeignKey(
-                        name: "FK_MatchPlayerStatsVal_Player_PlayerValPlayerId",
-                        column: x => x.PlayerValPlayerId,
+                        name: "FK_MatchPlayerStatsVal_Player_PlayerId",
+                        column: x => x.PlayerId,
                         principalTable: "Player",
                         principalColumn: "PlayerId",
                         onDelete: ReferentialAction.Cascade);
@@ -856,9 +855,9 @@ namespace FPTV.Migrations
                 column: "MatchCSId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MatchPlayerStatsCS_PlayerCSPlayerId",
+                name: "IX_MatchPlayerStatsCS_PlayerId",
                 table: "MatchPlayerStatsCS",
-                column: "PlayerCSPlayerId");
+                column: "PlayerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_MatchPlayerStatsVal_MatchValId",
@@ -866,9 +865,9 @@ namespace FPTV.Migrations
                 column: "MatchValId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MatchPlayerStatsVal_PlayerValPlayerId",
+                name: "IX_MatchPlayerStatsVal_PlayerId",
                 table: "MatchPlayerStatsVal",
-                column: "PlayerValPlayerId");
+                column: "PlayerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_MatchTeamsCS_MatchCSId1",

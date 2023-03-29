@@ -264,7 +264,7 @@ namespace FPTV.Controllers
 
                 foreach (var item in jarray.Cast<JObject>())
                 {
-                    player.MatchValAPIID = (int)item.GetValue("id");
+                    player.MatchAPIID = (int)item.GetValue("id");
                     player.Kills = _random.Next(30, 301);
                     player.Deaths = _random.Next(30, 300);
                     player.Assists = _random.Next(1, 11); ;
@@ -285,9 +285,9 @@ namespace FPTV.Controllers
                 foreach (var _item in _jarray.Cast<JObject>())
                 {
                     var _id = (int)_item.GetValue("id");
-                    if (_id == player.PlayerValAPIId)
+                    if (_id == player.PlayerAPIId)
                     {
-                        _player.PlayerAPIId = player.PlayerValAPIId;
+                        _player.PlayerAPIId = player.PlayerAPIId;
                         _player.Name = player.PlayerName;
                     }
                     teamm.Name = (string?)_item.GetValue("name");
@@ -486,7 +486,7 @@ namespace FPTV.Controllers
 
                 foreach (var item in jarray.Cast<JObject>())
                 {
-                    player.PlayerValAPIId = (int)item.GetValue("id");
+                    player.PlayerAPIId = (int)item.GetValue("id");
                     player.Kills = _random.Next(30, 301);
                     Console.WriteLine("Kills ------------->" + player.Kills);
                     player.Deaths = _random.Next(30, 300);
@@ -504,7 +504,7 @@ namespace FPTV.Controllers
                     //_player.Image = (string)item.GetValue("image_url");
                     _player.Image = item.GetValue("image_url").ToString() == "" ? "/images/default-profile-icon-24.jpg" : item.GetValue("image_url").Value<string>();
                     _player.Rating = ranking[_random.Next(ranking.Length)];
-                    _player.PlayerAPIId = player.PlayerValAPIId;
+                    _player.PlayerAPIId = player.PlayerAPIId;
                     _player.Name = player.PlayerName;
 
                     var current_team = (JObject)item.GetValue("current_team");
@@ -635,7 +635,7 @@ namespace FPTV.Controllers
 
                 foreach (var item in jarray.Cast<JObject>())
                 {
-                    player.PlayerCSAPIId = (int)item.GetValue("id");
+                    player.PlayerAPIId = (int)item.GetValue("id");
                     player.Kills = _random.Next(30, 301);
                     Console.WriteLine("Kills ------------->" + player.Kills);
                     player.Deaths = _random.Next(30, 300);
@@ -654,7 +654,7 @@ namespace FPTV.Controllers
                     //_player.Image = (string)item.GetValue("image_url");
                     _player.Image = item.GetValue("image_url").ToString() == "" ? "/images/default-profile-icon-24.jpg" : item.GetValue("image_url").Value<string>();
                     _player.Rating= ranking[_random.Next(ranking.Length)];
-                    _player.PlayerAPIId = player.PlayerCSAPIId;
+                    _player.PlayerAPIId = player.PlayerAPIId;
                     _player.Name = player.PlayerName;
 
                     var current_team = (JObject)item.GetValue("current_team");
@@ -861,9 +861,9 @@ namespace FPTV.Controllers
                             foreach (JObject p in jarrayPlayers.Cast<JObject>())
                             {
                                 var matchPlayer = new MatchPlayerStatsCS();
-                                matchPlayer.MatchCS = ma;
-                                matchPlayer.MatchCSAPIID = (int)item.GetValue("id");
-                                matchPlayer.PlayerCSAPIId = (int)p.GetValue("id");
+                                matchPlayer.Match = ma;
+                                matchPlayer.MatchAPIID = (int)item.GetValue("id");
+                                matchPlayer.PlayerAPIId = (int)p.GetValue("id");
                                 matchPlayer.Kills = _random.Next(1, 31);
                                 matchPlayer.Deaths = _random.Next(1, 21);
                                 matchPlayer.Assists = _random.Next(1, 11); ;
@@ -907,9 +907,9 @@ namespace FPTV.Controllers
                                         player.Nationality = (string)item.GetValue("nationality") == null ? "undefined" : item.GetValue("nationality").Value<string>();
                                         player.Teams.Add(team);
                                         playerList.Add(player);
-                                        if (matchPlayer.PlayerCS == null)
+                                        if (matchPlayer.Player == null)
                                         {
-                                            matchPlayer.PlayerCS = player;
+                                            matchPlayer.Player = player;
                                         }
                                         //for (int i = 0; i < _context.Player.Count; i++) {
                                         _context.Player.Add(player);

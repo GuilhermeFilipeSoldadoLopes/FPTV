@@ -505,17 +505,17 @@ namespace FPTV.Migrations
                         .IsRequired()
                         .HasColumnType("int");
 
-                    b.Property<int>("MatchCSAPIID")
+                    b.Property<int>("MatchAPIID")
                         .HasColumnType("int");
 
                     b.Property<Guid>("MatchCSId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int?>("PlayerCSAPIId")
+                    b.Property<int?>("PlayerAPIId")
                         .IsRequired()
                         .HasColumnType("int");
 
-                    b.Property<Guid>("PlayerCSPlayerId")
+                    b.Property<Guid>("PlayerId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("PlayerName")
@@ -526,7 +526,7 @@ namespace FPTV.Migrations
 
                     b.HasIndex("MatchCSId");
 
-                    b.HasIndex("PlayerCSPlayerId");
+                    b.HasIndex("PlayerId");
 
                     b.ToTable("MatchPlayerStatsCS");
                 });
@@ -565,28 +565,28 @@ namespace FPTV.Migrations
                         .IsRequired()
                         .HasColumnType("int");
 
-                    b.Property<int>("MatchValAPIID")
+                    b.Property<int>("MatchAPIID")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("MatchValId")
+                    b.Property<Guid?>("MatchValId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int?>("PlayerAPIId")
+                        .IsRequired()
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("PlayerId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("PlayerName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("PlayerValAPIId")
-                        .IsRequired()
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("PlayerValPlayerId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("MatchPlayerStatsValID");
 
                     b.HasIndex("MatchValId");
 
-                    b.HasIndex("PlayerValPlayerId");
+                    b.HasIndex("PlayerId");
 
                     b.ToTable("MatchPlayerStatsVal");
                 });
@@ -1243,40 +1243,38 @@ namespace FPTV.Migrations
 
             modelBuilder.Entity("FPTV.Models.StatisticsModels.MatchPlayerStatsCS", b =>
                 {
-                    b.HasOne("FPTV.Models.StatisticsModels.MatchCS", "MatchCS")
+                    b.HasOne("FPTV.Models.StatisticsModels.MatchCS", "Match")
                         .WithMany("PlayerStatsList")
                         .HasForeignKey("MatchCSId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("FPTV.Models.UserModels.Player", "PlayerCS")
+                    b.HasOne("FPTV.Models.UserModels.Player", "Player")
                         .WithMany()
-                        .HasForeignKey("PlayerCSPlayerId")
+                        .HasForeignKey("PlayerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("MatchCS");
+                    b.Navigation("Match");
 
-                    b.Navigation("PlayerCS");
+                    b.Navigation("Player");
                 });
 
             modelBuilder.Entity("FPTV.Models.StatisticsModels.MatchPlayerStatsVal", b =>
                 {
-                    b.HasOne("FPTV.Models.StatisticsModels.MatchVal", "MatchVal")
+                    b.HasOne("FPTV.Models.StatisticsModels.MatchVal", "Match")
                         .WithMany("PlayerStatsList")
-                        .HasForeignKey("MatchValId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("MatchValId");
 
-                    b.HasOne("FPTV.Models.UserModels.Player", "PlayerVal")
+                    b.HasOne("FPTV.Models.UserModels.Player", "Player")
                         .WithMany()
-                        .HasForeignKey("PlayerValPlayerId")
+                        .HasForeignKey("PlayerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("MatchVal");
+                    b.Navigation("Match");
 
-                    b.Navigation("PlayerVal");
+                    b.Navigation("Player");
                 });
 
             modelBuilder.Entity("FPTV.Models.StatisticsModels.MatchTeamsCS", b =>
