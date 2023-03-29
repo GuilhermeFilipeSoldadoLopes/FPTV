@@ -217,7 +217,7 @@
                     <img src=@ViewBag._player.Image alt="logo" class="logo" style="border-radius:15px;width:45%;">
                 </div>
 
-                <div class="box2" style="margin:auto;margin-top: 10%; width:70%">
+                <div class="box2" style="margin:auto;margin-top: 10%; width:100%">
                     <p>Age:  @ViewBag._player.Age </p>
                     <a href="@Url.Action("getTeam", "Stats", new {id = @ViewBag._player.Teams[0].TeamAPIID, game = ViewBag.dropDownGame})" style="justify-content: space-around; margin-left: auto; margin-bottom:0px">
                     <p>Team: @ViewBag._player.Teams[0].Name <img src=@ViewBag._player.Teams[0].Image style="width:10%;margin-left:1%;margin-bottom:1%"> </p>
