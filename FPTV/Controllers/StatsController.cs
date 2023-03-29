@@ -293,6 +293,9 @@ namespace FPTV.Controllers
                     }
                     teamm.Name = (string?)_item.GetValue("name");
                     teamm.Image = (string?)_item.GetValue("image_url");
+                    teamm.WorldRank = _random.Next(1, 100);
+                    teamm.Winnings = _random.Next(1, 1000);
+                    teamm.Losses = _random.Next(1, 601);
                 }
                 double KdRatio = (double)player.Kills / (double)player.Deaths;
                 int maps = _random.Next(1, 8);
@@ -306,6 +309,7 @@ namespace FPTV.Controllers
                 ViewBag.pastTeam1 = pastTeam1;
                 ViewBag.pastTeam2 = pastTeam2;
                 ViewBag.pastTeam3 = pastTeam3;
+                ViewBag.team = teamm;
 
                 return View("TeamStats");
             }
@@ -365,9 +369,9 @@ namespace FPTV.Controllers
                     team.Name = _team.GetValue("name").ToString() == "" ? "undefined" : _team.GetValue("name").Value<string>();
                     team.Image = _team.GetValue("image_url").ToString() == "" ? "/images/missing.png" : _team.GetValue("image_url").Value<string>();
                     team.CoachName = coachNames[_random.Next(coachNames.Length)];
-                    team.WorldRank = 1;
-                    team.Winnings = 1;
-                    team.Losses = 1;
+                    team.WorldRank = _random.Next(1, 100);
+                    team.Winnings = _random.Next(1, 1000);
+                    team.Losses = _random.Next(1, 601);
                     team.Game = GameType.CSGO;
                     team.Players = new List<Player>();
                     var playersOfTeam = (JArray)_team.GetValue("players");
@@ -448,9 +452,9 @@ namespace FPTV.Controllers
                     team.Name = _team.GetValue("name").ToString() == "" ? "undefined" : _team.GetValue("name").Value<string>();
                     team.Image = _team.GetValue("image_url").ToString() == "" ? "/images/missing.png" : _team.GetValue("image_url").Value<string>();
                     team.CoachName = coachNames[_random.Next(coachNames.Length)];
-                    team.WorldRank = 1;
-                    team.Winnings = 1;
-                    team.Losses = 1;
+                    team.WorldRank = _random.Next(1, 100);
+                    team.Winnings = _random.Next(1, 1000);
+                    team.Losses = _random.Next(1, 601);
                     team.Game = GameType.CSGO;
                     teamsList.Add(team);
 
@@ -518,9 +522,9 @@ namespace FPTV.Controllers
                     teamm.Name = current_team.GetValue("name").ToString() == "" ? "undefined" : current_team.GetValue("name").Value<string>();
                     teamm.Image = current_team.GetValue("image_url").ToString() == "" ? "/images/logo1.jpg" : current_team.GetValue("image_url").Value<string>();
                     teamm.CoachName = coachNames[_random.Next(coachNames.Length)];
-                    teamm.WorldRank = 1;
-                    teamm.Winnings = 1;
-                    teamm.Losses = 1;
+                    teamm.WorldRank = _random.Next(1, 100);
+                    teamm.Winnings = _random.Next(1, 1000);
+                    teamm.Losses = _random.Next(1, 601);
                     teamm.Game = GameType.CSGO;
 
                     var pastTeam1 = teamm;
@@ -597,9 +601,9 @@ namespace FPTV.Controllers
                     team.Name = _team.GetValue("name").ToString() == "" ? "undefined" : _team.GetValue("name").Value<string>();
                     team.Image = _team.GetValue("image_url").ToString() == "" ? "/images/missing.png" : _team.GetValue("image_url").Value<string>();
                     team.CoachName = coachNames[_random.Next(coachNames.Length)];
-                    team.WorldRank = 1;
-                    team.Winnings = 1;
-                    team.Losses = 1;
+                    team.WorldRank = _random.Next(1, 100);
+                    team.Winnings = _random.Next(1, 1000);
+                    team.Losses = _random.Next(1, 601);
                     team.Game = GameType.CSGO;
                     teamsList.Add(team);
 
@@ -668,9 +672,9 @@ namespace FPTV.Controllers
                     teamm.Name = current_team.GetValue("name").ToString() == "" ? "undefined" : current_team.GetValue("name").Value<string>();
                     teamm.Image = current_team.GetValue("image_url").ToString() == "" ? "/images/logo1.jpg" : current_team.GetValue("image_url").Value<string>();
                     teamm.CoachName = coachNames[_random.Next(coachNames.Length)];
-                    teamm.WorldRank = 1;
-                    teamm.Winnings = 1;
-                    teamm.Losses = 1;
+                    teamm.WorldRank = _random.Next(1, 100);
+                    teamm.Winnings = _random.Next(1, 1000);
+                    teamm.Losses = _random.Next(1, 601);
                     teamm.Game = GameType.CSGO;
 
                     var pastTeam1 = teamm;
