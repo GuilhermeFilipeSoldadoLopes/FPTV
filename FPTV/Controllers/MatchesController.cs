@@ -49,7 +49,7 @@ namespace FPTV.Controllers
 
         //De CSGO e de Valorant
         // GET: CSMatches
-        public async Task<ActionResult> Index(string sort = "", string filter = "", string page = "&page=1", string game = "csgo")
+        public ActionResult Index(string sort = "", string filter = "", string page = "&page=1", string game = "csgo")
         {
             ViewBag.dropDownGame = game;
             ViewBag.page = "Matches";
@@ -90,7 +90,7 @@ namespace FPTV.Controllers
                 }
             }
 
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
 
             pastMatches = game == "csgo" ? _context.MatchesCS.Include(m => m.TeamsList).Include(m => m.Scores).ToList() : _context.MatchesVal.Include(m => m.TeamsList).Include(m => m.Scores).ToList();
 
