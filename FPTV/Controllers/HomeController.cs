@@ -118,10 +118,6 @@ namespace FPTV.Controllers
 			ViewBag.page = page;
 			return RedirectToAction("Index", page, new { sort = "", filter = "", game = game });
 		}
-        public IActionResult Error404()
-        {
-            return View();
-        }
 
         public IActionResult Results(string game = "csgo")
 		{
@@ -189,7 +185,7 @@ namespace FPTV.Controllers
 			page = "About";
             ViewBag.page = page;
             ViewBag.dropDownGame = game;
-            return RedirectToAction("getCSGOMatches", "Stats"); //return View(); //apagar index - quando a pagina tiver feita
+			return View(); //return View(); //apagar index - quando a pagina tiver feita
 		}
         
         public IActionResult Register()
@@ -204,12 +200,15 @@ namespace FPTV.Controllers
 			return View();
         }
         
-        
-        
         public IActionResult StatisticsOfSite()
 		{
 			page = "Index";
 			return View();
+        }
+        public IActionResult Error404()
+        {
+            page = "Index";
+            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

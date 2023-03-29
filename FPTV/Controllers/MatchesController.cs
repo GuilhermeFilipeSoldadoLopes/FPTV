@@ -17,9 +17,11 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RestSharp;
 using SendGrid.Helpers.Mail;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Numerics;
 using System.Runtime.Intrinsics.Arm;
@@ -49,7 +51,7 @@ namespace FPTV.Controllers
 
         //De CSGO e de Valorant
         // GET: CSMatches
-        public async Task<ActionResult> Index(string sort = "", string filter = "", string page = "&page=1", string game = "csgo")
+        public ActionResult Index(string sort = "", string filter = "", string page = "&page=1", string game = "csgo")
         {
             ViewBag.dropDownGame = game;
             ViewBag.page = "Matches";
@@ -90,7 +92,7 @@ namespace FPTV.Controllers
                 }
             }
 
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
 
             pastMatches = game == "csgo" ? _context.MatchesCS.Include(m => m.TeamsList).Include(m => m.Scores).ToList() : _context.MatchesVal.Include(m => m.TeamsList).Include(m => m.Scores).ToList();
 
@@ -206,7 +208,7 @@ namespace FPTV.Controllers
                     matches.LeagueId = LeagueId.ToString() == null ? -1 : LeagueId.Value<int>();
                     matches.LeagueLink = leagueLink.ToString() == null ? "" : leagueLink.Value<string>();
 
-                    dynamic matchEvent = game == "csgo" ? new EventCS() : new EventVal();
+                    /*dynamic matchEvent = game == "csgo" ? new EventCS() : new EventVal();
                     matchEvent.EventAPIID = matches.EventAPIID;
                     matchEvent.BeginAt = new DateTime();
                     matchEvent.EndAt = new DateTime();
@@ -220,7 +222,7 @@ namespace FPTV.Controllers
                     matchEvent.Tier = ' ';
                     matchEvent.WinnerTeamAPIID = 1;
                     matchEvent.WinnerTeamName = "";
-                    matches.Event = matchEvent;
+                    matches.Event = matchEvent;*/
 
                     if ((string)status == "finished")
                     {
@@ -385,7 +387,7 @@ namespace FPTV.Controllers
                     matches.LeagueId = LeagueId.ToString() == null ? -1 : LeagueId.Value<int>();
                     matches.LeagueLink = leagueLink.ToString() == null ? "" : leagueLink.Value<string>();
 
-                    dynamic matchEvent = game == "csgo" ? new EventCS() : new EventVal();
+                    /*dynamic matchEvent = game == "csgo" ? new EventCS() : new EventVal();
                     matchEvent.EventAPIID = matches.EventAPIID;
                     matchEvent.BeginAt = new DateTime();
                     matchEvent.EndAt = new DateTime();
@@ -399,7 +401,7 @@ namespace FPTV.Controllers
                     matchEvent.Tier = ' ';
                     matchEvent.WinnerTeamAPIID = 1;
                     matchEvent.WinnerTeamName = "";
-                    matches.Event = matchEvent;
+                    matches.Event = matchEvent;*/
 
                     if ((string)status == "finished")
                     {
@@ -491,6 +493,7 @@ namespace FPTV.Controllers
         {
             ViewBag.dropDownGame = game;
             ViewBag.page = "Matches";
+            Random rnd = new Random();
 
             var jsonFilter = "filter[id]=" + id;
             var token = "&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA";
@@ -509,6 +512,7 @@ namespace FPTV.Controllers
             }
 
             dynamic matches = game == "csgo" ? new MatchesCS() : new MatchesVal();
+            dynamic matchesPlayer = game == "csgo" ? new List<MatchPlayerStatsCS>() : new List<MatchPlayerStatsVal>();
 
             var matchesArray = JArray.Parse(json);
             var matchesObject = (JObject)matchesArray[0];
@@ -560,7 +564,7 @@ namespace FPTV.Controllers
             matches.LeagueId = LeagueId.ToString() == null ? -1 : LeagueId.Value<int>();
             matches.LeagueLink = leagueLink.ToString() == null ? "" : leagueLink.Value<string>();
 
-            dynamic matchEvent = game == "csgo" ? new EventCS() : new EventVal();
+            /*dynamic matchEvent = game == "csgo" ? new EventCS() : new EventVal();
             matchEvent.EventAPIID = matches.EventAPIID;
             matchEvent.BeginAt = new DateTime();
             matchEvent.EndAt = new DateTime();
@@ -574,7 +578,7 @@ namespace FPTV.Controllers
             matchEvent.Tier = ' ';
             matchEvent.WinnerTeamAPIID = 1;
             matchEvent.WinnerTeamName = "";
-            matches.Event = matchEvent;
+            matches.Event = matchEvent;*/
 
             if ((string)status == "finished")
             {
@@ -651,6 +655,8 @@ namespace FPTV.Controllers
 
                 foreach (var playerObject in players.Cast<JObject>())
                 {
+                    var matchPlayer = new Player();
+                    dynamic matchPlayerStats = game == "csgo" ? new MatchPlayerStatsCS() : new MatchPlayerStatsVal();
                     var player = new Player();
                     var playerId = playerObject.GetValue("id");
                     var playerName = playerObject.GetValue("name");
@@ -659,10 +665,27 @@ namespace FPTV.Controllers
                     player.PlayerAPIId = playerId.ToString() == "" ? 1 : playerId.Value<int>();
                     player.Name = playerName.ToString() == "" ? "undefined" : playerName.Value<string>();
                     player.Image = playerImage.ToString() == "" ? "/images/default-profile-icon-24.jpg" : playerImage.Value<string>();
+                    matchPlayer.PlayerAPIId = playerId.ToString() == "" ? 1 : playerId.Value<int>();
+                    matchPlayer.Name = playerName.ToString() == "" ? "undefined" : playerName.Value<string>();
+                    matchPlayer.Image = playerImage.ToString() == "" ? "/images/default-profile-icon-24.jpg" : playerImage.Value<string>();
+
+                    matchPlayerStats.Player = matchPlayer;
+                    matchPlayerStats.MatchAPIID = 0;
+                    matchPlayerStats.PlayerAPIId = playerId.ToString() == "" ? 1 : playerId.Value<int>();
+                    matchPlayerStats.PlayerName = playerName.ToString() == "" ? "undefined" : playerName.Value<string>();;
+                    matchPlayerStats.Kills = rnd.Next(1, 31);
+                    matchPlayerStats.Deaths = rnd.Next(1, 21);
+                    matchPlayerStats.Assists = rnd.Next(1, 11);
+                    matchPlayerStats.FlashAssist = rnd.Next(1, 6);
+                    matchPlayerStats.ADR = rnd.Next(30, 155);
+                    matchPlayerStats.HeadShots = rnd.NextDouble() * 100;
+                    matchPlayerStats.KD_Diff = matchPlayerStats.Kills/ matchPlayerStats.Deaths;
 
                     if (team.Players.Count() < 5)
                     {
                         team.Players.Add(player);
+
+                        matchesPlayer.Add(matchPlayerStats);
                     }
                 }
 
@@ -726,8 +749,6 @@ namespace FPTV.Controllers
             List<string> removedMaps = new List<string>();
             List<string> pickedMaps = new List<string>();
 
-            Random rnd = new Random();
-
             if (matches.NumberOfGames != 1)
             {
                 for (int i = 0; i < 7; i++)
@@ -749,6 +770,7 @@ namespace FPTV.Controllers
                 pickedMaps.Add(mapsNames.GetItemByIndex(rnd.Next(mapsNames.Count())));
 
             ViewBag.matches = matches;
+            ViewBag.matchesPlayer = matchesPlayer;
             ViewBag.removedMaps = removedMaps;
             ViewBag.pickedMaps = pickedMaps;
             ViewBag.mapsImages = mapsImages;

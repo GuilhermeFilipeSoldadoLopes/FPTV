@@ -10,6 +10,10 @@ namespace FPTV.Models.Forum
         public Guid TopicId { get; set; }
 
         [Required]
+        [Display(Name = "GameType")]
+        public GameType? GameType { get; set; }
+
+        [Required]
         [Display(Name = "Title")]
         public string? Title { get; set; }
 
