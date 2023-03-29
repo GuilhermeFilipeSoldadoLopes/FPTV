@@ -206,7 +206,7 @@ namespace FPTV.Controllers
                     matches.LeagueId = LeagueId.ToString() == null ? -1 : LeagueId.Value<int>();
                     matches.LeagueLink = leagueLink.ToString() == null ? "" : leagueLink.Value<string>();
 
-                    dynamic matchEvent = game == "csgo" ? new EventCS() : new EventVal();
+                    /*dynamic matchEvent = game == "csgo" ? new EventCS() : new EventVal();
                     matchEvent.EventAPIID = matches.EventAPIID;
                     matchEvent.BeginAt = new DateTime();
                     matchEvent.EndAt = new DateTime();
@@ -220,7 +220,7 @@ namespace FPTV.Controllers
                     matchEvent.Tier = ' ';
                     matchEvent.WinnerTeamAPIID = 1;
                     matchEvent.WinnerTeamName = "";
-                    matches.Event = matchEvent;
+                    matches.Event = matchEvent;*/
 
                     if ((string)status == "finished")
                     {
@@ -385,7 +385,7 @@ namespace FPTV.Controllers
                     matches.LeagueId = LeagueId.ToString() == null ? -1 : LeagueId.Value<int>();
                     matches.LeagueLink = leagueLink.ToString() == null ? "" : leagueLink.Value<string>();
 
-                    dynamic matchEvent = game == "csgo" ? new EventCS() : new EventVal();
+                    /*dynamic matchEvent = game == "csgo" ? new EventCS() : new EventVal();
                     matchEvent.EventAPIID = matches.EventAPIID;
                     matchEvent.BeginAt = new DateTime();
                     matchEvent.EndAt = new DateTime();
@@ -399,7 +399,7 @@ namespace FPTV.Controllers
                     matchEvent.Tier = ' ';
                     matchEvent.WinnerTeamAPIID = 1;
                     matchEvent.WinnerTeamName = "";
-                    matches.Event = matchEvent;
+                    matches.Event = matchEvent;*/
 
                     if ((string)status == "finished")
                     {
@@ -560,7 +560,7 @@ namespace FPTV.Controllers
             matches.LeagueId = LeagueId.ToString() == null ? -1 : LeagueId.Value<int>();
             matches.LeagueLink = leagueLink.ToString() == null ? "" : leagueLink.Value<string>();
 
-            dynamic matchEvent = game == "csgo" ? new EventCS() : new EventVal();
+            /*dynamic matchEvent = game == "csgo" ? new EventCS() : new EventVal();
             matchEvent.EventAPIID = matches.EventAPIID;
             matchEvent.BeginAt = new DateTime();
             matchEvent.EndAt = new DateTime();
@@ -574,7 +574,7 @@ namespace FPTV.Controllers
             matchEvent.Tier = ' ';
             matchEvent.WinnerTeamAPIID = 1;
             matchEvent.WinnerTeamName = "";
-            matches.Event = matchEvent;
+            matches.Event = matchEvent;*/
 
             if ((string)status == "finished")
             {

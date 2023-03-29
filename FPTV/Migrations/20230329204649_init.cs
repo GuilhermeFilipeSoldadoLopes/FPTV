@@ -335,7 +335,7 @@ namespace FPTV.Migrations
                 {
                     MatchesCSId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     MatchesAPIID = table.Column<int>(type: "int", nullable: false),
-                    EventCSID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    EventCSID = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     EventAPIID = table.Column<int>(type: "int", nullable: false),
                     EventName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     BeginAt = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -359,8 +359,7 @@ namespace FPTV.Migrations
                         name: "FK_MatchesCS_EventCS_EventCSID",
                         column: x => x.EventCSID,
                         principalTable: "EventCS",
-                        principalColumn: "EventCSID",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "EventCSID");
                 });
 
             migrationBuilder.CreateTable(
@@ -395,7 +394,7 @@ namespace FPTV.Migrations
                 {
                     MatchesValId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     MatchesAPIID = table.Column<int>(type: "int", nullable: false),
-                    EventValID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    EventValID = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     EventAPIID = table.Column<int>(type: "int", nullable: false),
                     EventName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     BeginAt = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -419,8 +418,7 @@ namespace FPTV.Migrations
                         name: "FK_MatchesVal_EventVal_EventValID",
                         column: x => x.EventValID,
                         principalTable: "EventVal",
-                        principalColumn: "EventValID",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "EventValID");
                 });
 
             migrationBuilder.CreateTable(

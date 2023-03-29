@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FPTV.Migrations
 {
     [DbContext(typeof(FPTVContext))]
-    [Migration("20230328185519_init")]
+    [Migration("20230329204649_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -248,7 +248,7 @@ namespace FPTV.Migrations
                     b.Property<int>("EventAPIID")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("EventCSID")
+                    b.Property<Guid?>("EventCSID")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("EventName")
@@ -318,7 +318,7 @@ namespace FPTV.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("EventValID")
+                    b.Property<Guid?>("EventValID")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("HaveStats")
@@ -1182,9 +1182,7 @@ namespace FPTV.Migrations
                 {
                     b.HasOne("FPTV.Models.EventsModels.EventCS", "Event")
                         .WithMany()
-                        .HasForeignKey("EventCSID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("EventCSID");
 
                     b.Navigation("Event");
                 });
@@ -1193,9 +1191,7 @@ namespace FPTV.Migrations
                 {
                     b.HasOne("FPTV.Models.EventsModels.EventVal", "Event")
                         .WithMany()
-                        .HasForeignKey("EventValID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("EventValID");
 
                     b.Navigation("Event");
                 });
