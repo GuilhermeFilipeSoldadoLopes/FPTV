@@ -110,7 +110,18 @@
                         <span> @ViewBag.team.WorldRank</span>
                         <span>
 
-                            <img src="~/images/green.png" style="width:4%;padding:5px;">
+                            @if (@ViewBag.team.WorldRank > 0 && @ViewBag.team.WorldRank <= 0.7)
+                            {
+                                <img src="~/images/rating_down.png" style="width:15%;padding:2px;">
+                            }
+                            else if (@ViewBag.team.WorldRank > 0.7 && @ViewBag.team.WorldRank <= 1.2)
+                            {
+                                <img src="~/images/rating_middle.png" style="width:15%;padding:2px;">
+                            }
+                            else if (@ViewBag.team.WorldRank > 1.2)
+                            {
+                                <img src="~/images/rating_up.png" style="width:15%;padding:2px;">
+                            }
 
                         </span>
                     </td>
