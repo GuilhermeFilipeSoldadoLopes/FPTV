@@ -189,10 +189,9 @@
             <div class="box1" style="border-radius:15px;">
 
                 <div class="darkcolor borders bordercolor" style="border-radius:15px">
-
-                    <a href="@Url.Action("getTeam", "Stats", new {id = @ViewBag.matches.TeamsList[0].TeamAPIID, type = @ViewBag.matches.TimeType.ToString().ToLower() ,game = ViewBag.dropDownGame})" style="justify-content: space-around; margin-left: auto; margin-bottom:0px">
-                    <h4 style="font-weight: bold;text-align:center;">@ViewBag.matches.TeamsList[0].Name</h4>
-                    </a>
+                                <a style="text-decoration: none" href="@Url.Action("getTeam", "Stats", new {id = @ViewBag.matches.TeamsList[0].TeamAPIID, type = @ViewBag.matches.TimeType.ToString().ToLower() ,game = ViewBag.dropDownGame})" style="justify-content: space-around; margin-left: auto; margin-bottom:0px">
+                        <h4 style="font-weight: bold;text-align:center;">@ViewBag.matches.TeamsList[0].Name</h4>
+                                </a>
 
                     @*<h4 style="font-weight: bold;text-align:center;">@ViewBag.matches.TeamsList[0].Name</h4>*@
                     @if (((List<Player>)@ViewBag.matches.TeamsList[0].Players).Count() != 0)
@@ -201,12 +200,12 @@
                         {
                             <div style="display:flex;align-items: center;">
                                 <div class="" style="padding:10px;width:50%;text-align:right">
-                                    <a href="@Url.Action("getPlayer", "Stats", new {id = item.PlayerAPIId, type = @ViewBag.matches.TimeType.ToString().ToLower() ,game = ViewBag.dropDownGame})" style="justify-content: space-around; margin-left: auto; margin-bottom:0px">
+                                    <a style="text-decoration: none" href="@Url.Action("getPlayer", "Stats", new {id = item.PlayerAPIId, type = @ViewBag.matches.TimeType.ToString().ToLower() ,game = ViewBag.dropDownGame})" style="justify-content: space-around; margin-left: auto; margin-bottom:0px">
                                         <img src=@item.Image style="width:50%;height:auto" />
                                     </a>
                                 </div>
                                 <div style="width:50%; text-align:left">
-                                    <a href="@Url.Action("getPlayer", "Stats", new {id = item.PlayerAPIId, type = @ViewBag.matches.TimeType.ToString().ToLower() ,game = ViewBag.dropDownGame})" style="justify-content: space-around; margin-left: auto; margin-bottom:0px">
+                                    <a style="text-decoration: none" href="@Url.Action("getPlayer", "Stats", new {id = item.PlayerAPIId, type = @ViewBag.matches.TimeType.ToString().ToLower() ,game = ViewBag.dropDownGame})" style="justify-content: space-around; margin-left: auto; margin-bottom:0px">
                                         <p style="margin:auto"> @item.Name </p>
                                     </a>
                                 </div>
@@ -851,7 +850,7 @@
 
             <div class="box1" style="border-radius:15px;">
                 <div class="borders bordercolor darkcolor" style="border-radius:15px">
-                    <a href="@Url.Action("getTeam", "Stats", new {id = @ViewBag.matches.TeamsList[1].TeamAPIID, type = @ViewBag.matches.TimeType.ToString().ToLower() ,game = ViewBag.dropDownGame})" style="justify-content: space-around; margin-left: auto; margin-bottom:0px">
+                    <a style="text-decoration: none" href="@Url.Action("getTeam", "Stats", new {id = @ViewBag.matches.TeamsList[1].TeamAPIID, type = @ViewBag.matches.TimeType.ToString().ToLower() ,game = ViewBag.dropDownGame})" style="justify-content: space-around; margin-left: auto; margin-bottom:0px">
                         <h4 style="font-weight: bold;text-align:center;">@ViewBag.matches.TeamsList[1].Name</h4>
                     </a>
                     @if (((List<Player>)@ViewBag.matches.TeamsList[1].Players).Count() != 0)
@@ -860,12 +859,12 @@
                         {
                             <div style="display:flex;align-items: center;">
                                 <div class="" style="padding:10px;width:50%;text-align:right">
-                                    <a href="@Url.Action("getPlayer", "Stats", new {id = item.PlayerAPIId, type = @ViewBag.matches.TimeType.ToString().ToLower() ,game = ViewBag.dropDownGame})" style="justify-content: space-around; margin-left: auto; margin-bottom:0px">
+                                    <a style="text-decoration: none" href="@Url.Action("getPlayer", "Stats", new {id = item.PlayerAPIId, type = @ViewBag.matches.TimeType.ToString().ToLower() ,game = ViewBag.dropDownGame})" style="justify-content: space-around; margin-left: auto; margin-bottom:0px">
                                         <img src=@item.Image style="width:50%;height:auto" />
                                     </a>
                                 </div>
                                 <div style="width:50%; text-align:left">
-                                    <a href="@Url.Action("getPlayer", "Stats", new {id = item.PlayerAPIId, type = @ViewBag.matches.TimeType.ToString().ToLower() ,game = ViewBag.dropDownGame})" style="justify-content: space-around; margin-left: auto; margin-bottom:0px">
+                                    <a style="text-decoration: none" href="@Url.Action("getPlayer", "Stats", new {id = item.PlayerAPIId, type = @ViewBag.matches.TimeType.ToString().ToLower() ,game = ViewBag.dropDownGame})" style="justify-content: space-around; margin-left: auto; margin-bottom:0px">
                                         <p style="margin:auto"> @item.Name </p>
                                     </a>
                                 </div>
@@ -885,7 +884,7 @@
                     {
                         @foreach (var item in @ViewBag.matches.StreamList)
                         {
-                            <a href=@item.StreamLink>
+                            <a style="text-decoration: none" href=@item.StreamLink>
                                 <div style="display:flex;align-items: center;margin-bottom:5%">
                                     <div class="" style="width:35%;text-align:left">
                                         <img src=@item.StreamLanguage style="width:50%" />
