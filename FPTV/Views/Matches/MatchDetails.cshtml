@@ -316,9 +316,27 @@
                                     @if (ViewBag.matches.TimeType.ToString().ToLower() != "upcoming")
                                     {
                                         <span class="stroke2" style="width:100%;display:flex;justify-content:center">
-                                            <span style="text-align: center;font-size:25px" class="span2"> 11 </span>
-                                            <span style="text-align: center;font-size:25px">-</span>
-                                            <span style="text-align: center;font-size:25px" class="span2"> 16 </span>
+                                            @if (ViewBag.matches.Scores[0].TeamScore == 0)
+                                            {
+                                                Random rnd = new Random();
+                                                <span style="text-align: center;font-size:25px" class="span2"> @rnd.Next(14) </span>
+                                                <span style="text-align: center;font-size:25px">-</span>
+                                                <span style="text-align: center;font-size:25px" class="span2"> @rnd.Next(14) </span>
+                                            }
+                                            else if (ViewBag.matches.Scores[0].TeamScore != 0)
+                                            {
+                                                Random rnd = new Random();
+                                                <span style="text-align: center;font-size:25px" class="span2"> 16 </span>
+                                                <span style="text-align: center;font-size:25px">-</span>
+                                                <span style="text-align: center;font-size:25px" class="span2"> @rnd.Next(14) </span>
+                                            }
+                                            else
+                                            {
+                                                Random rnd = new Random();
+                                                <span style="text-align: center;font-size:25px" class="span2"> @rnd.Next(14) </span>
+                                                <span style="text-align: center;font-size:25px">-</span>
+                                                <span style="text-align: center;font-size:25px" class="span2"> 16 </span>
+                                            }
                                         </span>
                                     }
 
@@ -341,7 +359,8 @@
                                     <div class="" style="display:flex; text-align:left;width:100%;margin-top:3%;margin-bottom:3%">
                                         @if (ViewBag.matches.TimeType.ToString().ToLower() != "upcoming")
                                         {
-                                            <span class="bestof" style="text-align:left">Duration: 53min</span>
+                                            Random rnd = new Random();
+                                            <span class="bestof" style="text-align:left">Duration: @(rnd.Next(15) + 45) min</span>
                                         }
                                         <span style="margin:auto"> </span>
                                         <span style="text-align:right;"> @ViewBag.matches.BeginAt.ToString("dddd - dd-MM-yyyy hh:mm") </span><br />
@@ -404,9 +423,20 @@
                                 @if (ViewBag.matches.TimeType.ToString().ToLower() != "upcoming")
                                 {
                                     <span style="width:100%;display:flex;justify-content:center">
-                                        <span style="text-align: center;font-size:25px;font-weight:700" class="span2 "> 11 </span>
-                                        <span style="text-align: center;font-size:25px;font-weight:700" class="">-</span>
-                                        <span style="text-align: center;font-size:25px;font-weight:700" class="span2 "> 16 </span>
+                                        @if (ViewBag.matches.Scores[1].TeamScore != 0)
+                                        {
+                                            Random rnd = new Random();
+                                            <span style="text-align: center;font-size:25px" class="span2"> 16 </span>
+                                            <span style="text-align: center;font-size:25px">-</span>
+                                            <span style="text-align: center;font-size:25px" class="span2"> @rnd.Next(14) </span>
+                                        }
+                                        else
+                                        {
+                                            Random rnd = new Random();
+                                            <span style="text-align: center;font-size:25px" class="span2"> @rnd.Next(14) </span>
+                                            <span style="text-align: center;font-size:25px">-</span>
+                                            <span style="text-align: center;font-size:25px" class="span2"> 16 </span>
+                                        }
                                     </span>
                                 }
 
@@ -429,7 +459,8 @@
                             <div class="" style="display:flex; text-align:left;width:100%;margin-top:3%;margin-bottom:0px">
                                 @if (ViewBag.matches.TimeType.ToString().ToLower() != "upcoming")
                                 {
-                                    <span class="bestof" style="text-align:left;margin-top:0pc;margin-bottom:0px;font-weight:700">Duration: 53min</span>
+                                    Random rnd = new Random();
+                                    <span class="bestof" style="text-align:left;margin-top:0pc;margin-bottom:0px;font-weight:700">Duration: @(rnd.Next(15) + 45) min</span>
                                 }
                                 <span style="margin:auto;margin-top:0pc;margin-bottom:0px;font-weight:700"> </span>
                                 <span style="text-align:right;margin-top:0pc;margin-bottom:0px;font-weight:700;"> @ViewBag.matches.BeginAt.ToString("dddd - dd-MM-yyyy hh:mm") </span><br />
@@ -456,7 +487,7 @@
 
                                     @for (int i = 0; i < ((List<string>)ViewBag.mapsNames).Count(); i++)
                                     {
-                                        if (ViewBag.mapsNames[i] == ViewBag.pickedMaps[1])
+                                        if (ViewBag.mapsNames[i] == ViewBag.pickedMaps[0])
                                         {
                                             var nGames = ViewBag.matches.Scores[0].TeamScore + ViewBag.matches.Scores[1].TeamScore;
                                             var image = ViewBag.mapsImages[i];
@@ -464,13 +495,24 @@
                                                 <span style="text-align: left;margin-left:38%;font-weight:700"> @ViewBag.pickedMaps[1] </span><br />
                                                 @if (nGames > 1)
                                                 {
-                                                    <span style="text-align: left;margin-left:38%;font-weight:700" class="span2"> 16 vs 6</span><br />
+                                                    @if (ViewBag.matches.Scores[1].TeamScore != 0)
+                                                    {
+                                                        Random rnd = new Random();
+                                                        <span style="text-align: left;margin-left:38%;font-weight:700" class="span2"> @rnd.Next(14) vs 16</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        Random rnd = new Random();
+                                                        <span style="text-align: left;margin-left:38%;font-weight:700" class="span2"> 16 vs @rnd.Next(14) </span>
+                                                    }
+                                                    <br />
                                                 }
                                                 <p style="text-align: center;margin-bottom:0px;font-weight:700"> Picked up by
-                                                <p style="text-align: center;margin-top:0px;margin-bottom:0px;font-weight:700"> EC Brugge</p>
+                                                <p style="text-align: center;margin-top:0px;margin-bottom:0px;font-weight:700"> @ViewBag.matches.TeamsList[0].Name</p>
                                                 @if (nGames > 1)
                                                 {
-                                                    <p style="margin-top:1%;margin-bottom:2px;font-size:15px; margin-left:2%;font-weight:700"> Duration: 53min    </p>
+                                                    Random rnd = new Random();
+                                                    <p style="margin-top:1%;margin-bottom:2px;font-size:15px; margin-left:2%;font-weight:700"> Duration: @(rnd.Next(15) + 45) min </p>
                                                 }
 
                                             </div>
@@ -480,7 +522,7 @@
                                     {
                                         @for (int i = 0; i < ((List<string>)ViewBag.mapsNames).Count(); i++)
                                         {
-                                            if (ViewBag.mapsNames[i] == ViewBag.pickedMaps[2])
+                                            if (ViewBag.mapsNames[i] == ViewBag.pickedMaps[1])
                                             {
                                                 var nGames = ViewBag.matches.Scores[0].TeamScore + ViewBag.matches.Scores[1].TeamScore;
                                                 var image = ViewBag.mapsImages[i];
@@ -488,14 +530,24 @@
                                                     <span style="text-align: center;margin-left:38%;font-weight:700"> @ViewBag.pickedMaps[2] </span><br />
                                                     @if (nGames > 2)
                                                     {
-                                                        <span style="text-align: right;margin-left:38%;font-weight:700" class="span2"> 16 vs 4</span><br />
+                                                        @if (ViewBag.matches.Scores[0].TeamScore > 1)
+                                                        {
+                                                            Random rnd = new Random();
+                                                            <span style="text-align: left;margin-left:38%;font-weight:700" class="span2"> 16 vs @rnd.Next(14) </span>
+                                                        }
+                                                        else
+                                                        {
+                                                            Random rnd = new Random();
+                                                            <span style="text-align: left;margin-left:38%;font-weight:700" class="span2"> @rnd.Next(14) vs 16</span>
+                                                        }
                                                     }
 
                                                     <p style="text-align: center;margin-bottom:0px;font-weight:700"> Picked up by</p>
-                                                    <p style="text-align: center;margin-top:0px;margin-bottom:0px;font-weight:700"> Case</p>
+                                                    <p style="text-align: center;margin-top:0px;margin-bottom:0px;font-weight:700"> @ViewBag.matches.TeamsList[1].Name</p>
                                                     @if (nGames > 2)
                                                     {
-                                                        <p style="margin-top:1%;margin-bottom:2px;font-size:15px;font-weight:700; margin-left:2%;"> Duration: 53min    </p>
+                                                        Random rnd = new Random();
+                                                        <p style="margin-top:1%;margin-bottom:2px;font-size:15px;font-weight:700; margin-left:2%;"> Duration: @(rnd.Next(15) + 45) min    </p>
                                                     }
                                                 </div>
                                             }
@@ -509,7 +561,7 @@
 
                                         @for (int i = 0; i < ((List<string>)ViewBag.mapsNames).Count(); i++)
                                         {
-                                            if (ViewBag.mapsNames[i] == ViewBag.pickedMaps[3])
+                                            if (ViewBag.mapsNames[i] == ViewBag.pickedMaps[2])
                                             {
                                                 var nGames = ViewBag.matches.Scores[0].TeamScore + ViewBag.matches.Scores[1].TeamScore;
                                                 var image = ViewBag.mapsImages[i];
@@ -517,13 +569,23 @@
                                                     <span style="text-align: left;margin-left:38%;font-weight:bold"> @ViewBag.pickedMaps[0] </span><br />
                                                     @if (nGames > 3)
                                                     {
-                                                        <span style="text-align: left;margin-left:38%" class="span2"> 16 vs 6</span><br />
+                                                        @if (ViewBag.matches.Scores[1].TeamScore > 1)
+                                                        {
+                                                            Random rnd = new Random();
+                                                            <span style="text-align: left;margin-left:38%;font-weight:700" class="span2"> @rnd.Next(14) vs 16</span>
+                                                        }
+                                                        else
+                                                        {
+                                                            Random rnd = new Random();
+                                                            <span style="text-align: left;margin-left:38%;font-weight:700" class="span2"> 16 vs @rnd.Next(14) </span>
+                                                        }
                                                     }
                                                     <p style="text-align: center;font-weight:bold;margin-bottom:0px"> Picked up by
                                                     <p style="text-align: center;margin-top:0px;margin-bottom:0px"> @ViewBag.matches.TeamsList[0].Name</p>
                                                     @if (nGames > 3)
                                                     {
-                                                        <p style="margin-top:1%;margin-bottom:2px;font-size:15px; margin-left:2%;"> Duration: 53min    </p>
+                                                            Random rnd = new Random();
+                                                        <p style="margin-top:1%;margin-bottom:2px;font-size:15px; margin-left:2%;"> Duration: @(rnd.Next(15) + 45) min    </p>
                                                     }
                                                 </div>
                                             }
@@ -531,7 +593,7 @@
 
                                         @for (int i = 0; i < ((List<string>)ViewBag.mapsNames).Count(); i++)
                                         {
-                                            if (ViewBag.mapsNames[i] == ViewBag.pickedMaps[4])
+                                            if (ViewBag.mapsNames[i] == ViewBag.pickedMaps[3])
                                             {
                                                 var nGames = ViewBag.matches.Scores[0].TeamScore + ViewBag.matches.Scores[1].TeamScore;
                                                 var image = ViewBag.mapsImages[i];
@@ -539,14 +601,24 @@
                                                     <span style="text-align: center;margin-left:38%;font-weight:bold"> @ViewBag.pickedMaps[1] </span><br />
                                                     @if (nGames > 4)
                                                     {
-                                                        <span style="text-align: right;margin-left:38%" class="span2"> 16 vs 4</span>
+                                                        @if (ViewBag.matches.Scores[0].TeamScore > 2)
+                                                        {
+                                                            Random rnd = new Random();
+                                                            <span style="text-align: left;margin-left:38%;font-weight:700" class="span2"> 16 vs @rnd.Next(14) </span>
+                                                        }
+                                                        else
+                                                        {
+                                                            Random rnd = new Random();
+                                                            <span style="text-align: left;margin-left:38%;font-weight:700" class="span2"> @rnd.Next(14) vs 16</span>
+                                                        }
                                                         <br />
                                                     }
                                                     <p style="text-align: center;font-weight:bold;margin-bottom:0px "> Picked up by
                                                     <p style="text-align: center;margin-top:0px;margin-bottom:0px"> @ViewBag.matches.TeamsList[1].Name</p>
                                                     @if (nGames > 4)
                                                     {
-                                                        <p style="margin-top:1%;margin-bottom:2px;font-size:15px; margin-left:2%;"> Duration: 53min    </p>
+                                                            Random rnd = new Random();
+                                                        <p style="margin-top:1%;margin-bottom:2px;font-size:15px; margin-left:2%;"> Duration: @(rnd.Next(15) + 45) min    </p>
                                                     }
                                                 </div>
                                             }
