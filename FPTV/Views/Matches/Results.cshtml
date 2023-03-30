@@ -195,9 +195,13 @@
 
 		<div class="center bordercolor colorformatch " style="width:100%; padding:1%">
 			<table class=" bordercolor" style="width:100%; border-radius:15px;" >
+				@{ 
+					var team1Score = 0;
+					var team2Score = 0;
+				}
 				@foreach (var item in ViewBag.matches)
 				{
-					<tr style="border:1px solid black;" onclick="location.href = '@Url.Action("MatchDetails", "Matches", new {id = item.MatchesAPIID, type = item.TimeType.ToString().ToLower(), game = ViewBag.dropDownGame})'">
+					<tr style="border:1px solid black; cursor:pointer;" onclick="location.href = '@Url.Action("MatchDetails", "Matches", new {id = item.MatchesAPIID, type = item.TimeType.ToString().ToLower(), game = ViewBag.dropDownGame})'">
 						<td>@item.TeamsList[0].Name</td>
 						<td>
 							<img src=@item.TeamsList[0].Image style="width:40px; margin:auto; height:40px;" />
@@ -207,16 +211,36 @@
 							{
 								@if (item.TeamsList[0].Name == team.TeamName)
 								{
-									@team.TeamScore
+									team1Score = team.TeamScore;
 								}
 							}
-							<span class="span2"> - </span>
+							
 							@foreach (var team in item.Scores)
 							{
-								@if (item.TeamsList[0].Name == team.TeamName)
+								@if (item.TeamsList[1].Name == team.TeamName)
 								{
-									@team.TeamScore
+									team2Score = team.TeamScore;
 								}
+							}
+
+							@if (team1Score < team2Score) {
+								<span>
+									<span style="color: #B71919; font-size: 120%">@team1Score</span>
+									<span class="span2"> - </span>
+									<span style="color: #11871D; font-size: 120%">@team2Score</span>
+								</span>
+							} else if (team1Score > team2Score){
+								<span>
+									<span style="color: #11871D; font-size: 120%">@team1Score</span>
+									<span class="span2"> - </span>
+									<span style="color: #B71919; font-size: 120%">@team2Score</span>
+								</span>
+							} else if(team1Score == team2Score){
+								<span>
+									<span style="color: #CD8417; font-size: 120%">@team1Score</span>
+									<span class="span2"> - </span>
+									<span style="color: #CD8417; font-size: 120%">@team2Score</span>
+								</span>
 							}
 						</td>
 						<td>
