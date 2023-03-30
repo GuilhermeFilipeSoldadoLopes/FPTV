@@ -676,7 +676,7 @@ namespace FPTV.Controllers
                     matchPlayerStats.Kills = rnd.Next(1, 31);
                     matchPlayerStats.Deaths = rnd.Next(1, 21);
                     matchPlayerStats.Assists = rnd.Next(1, 11);
-                    matchPlayerStats.FlashAssist = rnd.Next(1, 6);
+                    if(game == "csgo")matchPlayerStats.FlashAssist = rnd.Next(1, 6);
                     matchPlayerStats.ADR = rnd.Next(30, 155);
                     matchPlayerStats.HeadShots = Math.Round((rnd.NextDouble() * 100), 1);
                     double kd_diff = (double)matchPlayerStats.Kills / (double)matchPlayerStats.Deaths;
