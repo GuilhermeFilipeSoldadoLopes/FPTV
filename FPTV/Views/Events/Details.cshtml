@@ -209,7 +209,18 @@
 
                 </div>
                 <p style="margin-right:20%; text-align:right;margin-bottom:0px">
-                    <span>Link: <a href="@ViewBag.Event.EventLink">@ViewBag.Event.EventName</a></span>
+                    <span>
+                        Link:
+                    @if(ViewBag.Event.EventLink == null)
+                    {
+                    
+                        <a>Not available</a>
+                    }
+                    else
+                    {
+                        <a href="@ViewBag.Event.EventLink">@ViewBag.Event.EventName</a>
+                    }
+                    </span>
                 </p>
             </div>
 
