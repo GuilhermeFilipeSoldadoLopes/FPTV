@@ -411,7 +411,7 @@ namespace FPTV.Controllers
                     player.PlayerName = (string)item.GetValue("name");
 
                     //_player.Age = (int?)item.GetValue("age");
-                    _player.Age = item.GetValue("age") == null ? 20 : item.GetValue("age").Value<int>();
+                    _player.Age = item.GetValue("age").ToString() == "" ? 20 : item.GetValue("age").Value<int>();
                     _player.Nationality = (string)item.GetValue("nationality");
                     ViewBag.NacionalityImg = "/images/Flags/4x3/" + _player.Nationality + ".svg";
                     //_player.Image = (string)item.GetValue("image_url");
@@ -433,15 +433,15 @@ namespace FPTV.Controllers
                     teamm.Losses = _random.Next(1, 601);
                     teamm.Game = GameType.CSGO;
 
-                    var pastTeam1 = teamm;
-                    var pastTeam2 = teamsList[_random.Next(teamsList.Count())];
-                    var pastTeam3 = teamsList[_random.Next(teamsList.Count())];
-                    ViewBag.pastTeam1 = pastTeam1;
-                    ViewBag.pastTeam2 = pastTeam2;
-                    ViewBag.pastTeam3 = pastTeam3;
+                    var _pastTeam1 = teamm;
+                    var _pastTeam2 = teamsList[_random.Next(teamsList.Count())];
+                    var _pastTeam3 = teamsList[_random.Next(teamsList.Count())];
+                    ViewBag.pastTeam1 = _pastTeam1;
+                    ViewBag.pastTeam2 = _pastTeam2;
+                    ViewBag.pastTeam3 = _pastTeam3;
                     _player.Teams.Add(teamm);
-                    _player.Teams.Add(pastTeam2);
-                    _player.Teams.Add(pastTeam3);
+                    _player.Teams.Add(_pastTeam2);
+                    _player.Teams.Add(_pastTeam3);
 
                     _context.MatchPlayerStatsVal.Add(player);
                 }
@@ -454,6 +454,12 @@ namespace FPTV.Controllers
                 ViewBag.maps = maps;
                 ViewBag.player = player;
                 ViewBag._player = _player;
+                var pastTeam1 = teamm;
+                var pastTeam2 = teamsList[_random.Next(teamsList.Count())];
+                var pastTeam3 = teamsList[_random.Next(teamsList.Count())];
+                ViewBag.pastTeam1 = pastTeam1;
+                ViewBag.pastTeam2 = pastTeam2;
+                ViewBag.pastTeam3 = pastTeam3;
 
                 id = id;
                 ViewBag.id = id;
