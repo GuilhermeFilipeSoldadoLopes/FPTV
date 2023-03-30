@@ -226,7 +226,7 @@
         </div>
         <div class="ola " style="border-radius:15px;">
             <div class="box darkcolor bordercolor" style="border-radius:15px;margin-top:0px;width:40%;padding:1%">
-                <h4 style="font-weight: bold;text-align:center;">Finished Matches</h4>
+                <h4 style="font-weight: bold;text-align:left;">Finished Matches</h4>
                 @foreach (var item in ViewBag.pastMatches)
                 {
                     dynamic teams = item.TeamsList.GetType() == typeof(List<Team>) ? item.TeamsList : ((HashSet<Team>)item.TeamsList).ToList();
@@ -383,7 +383,7 @@
             </div>
 
             <div class="box darkcolor bordercolor" style="margin-top:0px; border-radius:15px;width:40%; padding:1%">
-                <h4 style="font-weight: bold;text-align:center;">Upcoming Matches</h4>
+                <h4 style="font-weight: bold;text-align:left;">Upcoming Matches</h4>
                 @foreach (var item in ViewBag.upcomingMatches)
                 {
                     <div class="alinhar bordercolor" style="border-bottom: 1px solid black; border-radius:15px; margin-top: 2%; margin-bottom: 2%;">

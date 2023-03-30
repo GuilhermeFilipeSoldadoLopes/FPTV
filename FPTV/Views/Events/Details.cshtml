@@ -146,21 +146,21 @@
 
                     <div>
                         <span style="text-align: center;">
-                            <p style="font-size:25px">
+                                <p style="font-size:25px">
 
-                                <img src="@scores.First().Team.Image" style="max-width:30px;width:50%" />
-                                <span> @scores.First().TeamName </span> 
-                            </p>
-                            <p>
-                                <span class="span2"> @scores.First().TeamScore </span>
-                                <span class="span2"> vs </span>
-                                    <span class="span2"> @scores.Last().TeamScore </span> <br>
-                            </p>
-                            <p>
+                                    <img src="@scores.First().Team.Image" style="max-width:30px;width:50%" />
+                                    <span style="font-size:25px"> @scores.First().TeamName </span>
+                                </p>
+                                <p style="font-size:25px">
+                                    <span  class="span2"> @scores.First().TeamScore </span>
+                                    <span  class="span2"> vs </span>
+                                    <span  class="span2"> @scores.Last().TeamScore </span> <br>
+                                </p>
+                                <p style="font-size:25px">
                                 
-                                <span> @scores.Last().TeamName </span>
-                                <img src="@scores.Last().Team.Image" style="max-width:30px;width:50%" />
-                            </p>
+                                    <span> @scores.Last().TeamName </span>
+                                    <img src="@scores.Last().Team.Image" style="max-width:30px;width:50%" />
+                                </p>
                             
                         </span>
                     </div>
