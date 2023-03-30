@@ -5,8 +5,6 @@ VisualStudioVersion = 17.4.33122.133
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FPTV", "FPTV\FPTV.csproj", "{DB2865A1-8D6F-44BB-BC7F-951998213462}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FPTVUnitTests", "FPTVUnitTests\FPTVUnitTests.csproj", "{8B415FF5-183E-4F4B-A136-6D9C330C1C81}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,10 +15,6 @@ Global
 		{DB2865A1-8D6F-44BB-BC7F-951998213462}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DB2865A1-8D6F-44BB-BC7F-951998213462}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DB2865A1-8D6F-44BB-BC7F-951998213462}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8B415FF5-183E-4F4B-A136-6D9C330C1C81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8B415FF5-183E-4F4B-A136-6D9C330C1C81}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8B415FF5-183E-4F4B-A136-6D9C330C1C81}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8B415FF5-183E-4F4B-A136-6D9C330C1C81}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
