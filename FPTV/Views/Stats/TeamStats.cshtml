@@ -104,7 +104,7 @@
 
             <table class="tablecolors">
                 @{
-                    var winnig_ratio = Math.Round((double)@ViewBag.randomMapsPlayed / @ViewBag.team.Winnings, 2);
+                    var winning_ratio = Math.Round((double)@ViewBag.randomMapsPlayed / @ViewBag.team.Winnings, 2);
                     var losses_ratio = Math.Round((double)@ViewBag.randomMapsPlayed / @ViewBag.team.Losses, 2);
                 }
                 <tr>
@@ -112,11 +112,11 @@
                     <td>
                         <span> @ViewBag.team.WorldRank</span>
                         <span>
-                            @if (@ViewBag.team.WorldRank > 0 && @ViewBag.team.WorldRank <= 10) {
+                            @if (@ViewBag.team.WorldRank > 0 && @ViewBag.team.WorldRank <= 25) {
                                 <img src="~/images/rating_up.png" style="width:5%;padding:2px;">
-                            } else if (@ViewBag.team.WorldRank > 10 && @ViewBag.team.WorldRank <= 30) {
+                            } else if (@ViewBag.team.WorldRank > 25 && @ViewBag.team.WorldRank <= 70) {
                                 <img src="~/images/rating_middle.png" style="width:5%;padding:2px;">
-                            } else if (@ViewBag.team.WorldRank > 30) {
+                            } else if (@ViewBag.team.WorldRank > 70) {
                                 <img src="~/images/rating_down.png" style="width:5%;padding:2px;">
                             }
                         </span>
@@ -127,35 +127,37 @@
                     <td style="width:40%">Total Wins</td>
                     <td>
                         <span> @ViewBag.team.Winnings</span>
+                        <p> @winning_ratio </p>
                         <span>
-                            @if (@winnig_ratio > 0 && @winnig_ratio <= 0.75) {
-                                <img src="~/images/rating_down.png" style="width:5%;padding:2px;">
-                            } else if (@winnig_ratio > 0.75 && @winnig_ratio <= 1.2) {
-                                <img src="~/images/rating_middle.png" style="width:5%;padding:2px;">
-                            } else if (@winnig_ratio > 1.2) {
+                            @if (@winning_ratio > 0 && @winning_ratio <= 1.4) {
                                 <img src="~/images/rating_up.png" style="width:5%;padding:2px;">
+                            } else if (@winning_ratio > 1.4 && @winning_ratio <= 3) {
+                                <img src="~/images/rating_middle.png" style="width:5%;padding:2px;">
+                            } else if (@winning_ratio > 3) {
+                                <img src="~/images/rating_down.png" style="width:5%;padding:2px;">
                             }
                         </span>
                     </td>
                 </tr>
                 <tr>
-                    <td style="width:40%">Total Loses</td>
+                    <td style="width:40%">Total Losses</td>
                     <td>
                         <span> @ViewBag.team.Losses</span>
+                        <p> @losses_ratio </p>
                         <span>
-                            @if (@losses_ratio > 0 && @losses_ratio <= 0.6) {
-                                <img src="~/images/rating_up.png" style="width:5%;padding:2px;">
-                            } else if (@losses_ratio > 0.6 && @losses_ratio <= 1.2) {
-                                <img src="~/images/rating_middle.png" style="width:5%;padding:2px;">
-                            } else if (@losses_ratio > 1.2) {
+                            @if (@losses_ratio > 0 && @losses_ratio <= 1.4) {
                                 <img src="~/images/rating_down.png" style="width:5%;padding:2px;">
+                            } else if (@losses_ratio > 1.4 && @losses_ratio <= 3) {
+                                <img src="~/images/rating_middle.png" style="width:5%;padding:2px;">
+                            } else if (@losses_ratio > 3) {
+                                <img src="~/images/rating_up.png" style="width:5%;padding:2px;">
                             }
                         </span>
                     </td>
 
                 </tr>
                 <tr>
-                    <td style="width:40%">Maps Played</td>
+                    <td style="width:40%">Matches Played</td>
                     <td>@ViewBag.randomMapsPlayed</td>
                 </tr>
             </table>
