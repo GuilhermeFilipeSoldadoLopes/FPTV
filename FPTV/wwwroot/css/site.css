@@ -48,6 +48,8 @@ textarea {
     background-size: cover;
     font-family: Noto Sans;
     margin-bottom: 5%;
+    background-attachment: fixed;
+    width: 100%;
 }
 
 .bodytemp {
@@ -57,6 +59,8 @@ textarea {
     background-size: cover;
     font-family: Noto Sans;
     margin-bottom: 5%;
+    background-attachment: fixed;
+    width: 100%;
 }
 
 

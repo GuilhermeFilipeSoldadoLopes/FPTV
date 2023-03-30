@@ -252,9 +252,21 @@ namespace FPTV.Controllers
                 team.Name = _team.GetValue("name").ToString() == "" ? "undefined" : _team.GetValue("name").Value<string>();
                 team.Image = _team.GetValue("image_url").ToString() == "" ? "/images/missing.png" : _team.GetValue("image_url").Value<string>();
                 team.CoachName = coachNames[_random.Next(coachNames.Length)];
-                team.WorldRank = _random.Next(1, 100);
+                
                 team.Winnings = _random.Next(1, 1000);
                 team.Losses = _random.Next(1, 601);
+
+                var winning_ratio = Math.Round((double)(team.Winnings + team.Losses) / (double)team.Winnings, 2);
+                if (winning_ratio < 1.4) {
+                    team.WorldRank = _random.Next(1, 11);
+                } else if (winning_ratio > 1.4 && winning_ratio < 3) {
+                    team.WorldRank = _random.Next(10, 26);
+                } else if (winning_ratio > 3)  {
+                    team.WorldRank = _random.Next(25, 111);
+                } else if(winning_ratio < 0) {
+                    team.WorldRank = 150;
+                }
+                
                 team.Game = game == "csgo" ? GameType.CSGO : GameType.Valorant;
                 //team.location =
                 team.Players = new List<Player>();
