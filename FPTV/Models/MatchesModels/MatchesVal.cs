@@ -18,7 +18,7 @@ namespace FPTV.Models.MatchesModels
         public int MatchesAPIID { get; set; }
 
         [Display(Name = "EventVal")]
-        public EventVal Event { get; set; }
+        public EventVal? Event { get; set; }
 
         [Required]
         [Display(Name = "Event API ID")]

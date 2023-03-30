@@ -11,21 +11,20 @@ namespace FPTV.Models.StatisticsModels
 		[Display(Name = "Id of a MatchPlayerStatsCS")]
 		public Guid MatchPlayerStatsCSID { get; set; }
 
-        [Required]
         [Display(Name = "MatchCS")]
-        public MatchCS MatchCS { get; set; }
+        public MatchCS Match { get; set; }
 
 		[Required]
 		[Display(Name = "MatchCS API ID")]
-		public int MatchCSAPIID { get; set; }
+		public int MatchAPIID { get; set; }
 
         [Required]
         [Display(Name = "PlayerCS")]
-        public Player? PlayerCS { get; set; }
+        public Player? Player { get; set; }
 
 		[Required]
 		[Display(Name = "API Id of a csgo player")]
-		public int? PlayerCSAPIId { get; set; }
+		public int? PlayerAPIId { get; set; }
 
 		[Required]
         [Display(Name = "Kills")]

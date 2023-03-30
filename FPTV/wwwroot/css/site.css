@@ -234,14 +234,12 @@ bordercolor2 {
 .backMap {
     background-repeat: no-repeat;
     background-size: cover;
-    font-family: Noto Sans;
     background-color: white;
 }
 
 .backMap1 {
     background-repeat: no-repeat;
     background-size: cover;
-    font-family: Noto Sans;
     background-color: white;
 }
 
@@ -269,4 +267,8 @@ bordercolor2 {
 
 .whitecolor{
     color:white;
+}
+
+.prizepoolColor {
+    background-color: #e0eeff;
 }

@@ -194,12 +194,10 @@
 		</div>
 
 		<div class="center bordercolor colorformatch " style="width:100%; padding:1%">
-			
-				<table class=" bordercolor" style="width:100%; border-radius:15px;" >
-
+			<table class=" bordercolor" style="width:100%; border-radius:15px;" >
 				@foreach (var item in ViewBag.matches)
-                {
-					<tr style="border:1px solid black;">
+				{
+					<tr style="border:1px solid black;" onclick="location.href = '@Url.Action("MatchDetails", "Matches", new {id = item.MatchesAPIID, type = item.TimeType.ToString().ToLower(), game = ViewBag.dropDownGame})'">
 						<td>@item.TeamsList[0].Name</td>
 						<td>
 							<img src=@item.TeamsList[0].Image style="width:40px; margin:auto; height:40px;" />
@@ -229,9 +227,9 @@
 						<td>
 							<img src=@item.Event.EventImage style="width:40px; margin:auto; height:40px;" />
 						</td>
-                    </tr>
+					</tr>
 				}
-				</table>
+			</table>
 			</div>
 		</div>
 	</div>

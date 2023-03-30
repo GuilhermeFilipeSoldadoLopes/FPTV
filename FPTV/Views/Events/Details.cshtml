@@ -123,7 +123,7 @@
 <body class="bodytemp whiteText">
 
     <h1 style="text-align: center;">@ViewBag.Event.EventName - @ViewBag.Event.LeagueName</h1>
-    <img src=@ViewBag.Event.EventImage style="max-width:70px;width:50%;display:block;margin-left: auto;margin-right: auto" />
+    <img src=@ViewBag.Event.EventImage style="max-width:120px;width:50%;display:block;margin-left: auto;margin-right: auto" />
     <div class="ola">
 
         <div class="box1 darkcolor bordercolor" style=";padding:1%">
@@ -131,7 +131,7 @@
             @foreach(var match in ViewBag.pastMatches)
             {
                 IList<Score> scores = match.Scores;
-                <div class="alinhar" style="border-bottom: 1px solid black">
+                <div class="alinhar bordercolor" style="border-bottom: 1px solid black;margin-top:3%">
                 <div class="my-div2" style="width:90%;">
                     <div>
                              @if(match.BeginAt == null)
@@ -147,14 +147,21 @@
                     <div>
                         <span style="text-align: center;">
                             <p style="font-size:25px">
-                                    <img src="@scores.First().Team.Image" style="max-width:30px;width:50%" />
-                                <span> @scores.First().TeamName </span>
+
+                                <img src="@scores.First().Team.Image" style="max-width:30px;width:50%" />
+                                <span> @scores.First().TeamName </span> 
+                            </p>
+                            <p>
                                 <span class="span2"> @scores.First().TeamScore </span>
                                 <span class="span2"> vs </span>
-                                <span class="span2"> @scores.Last().TeamScore </span>
-                                <span> @scores.Last().TeamName </span>
-                                    <img src="@scores.Last().Team.Image" style="max-width:30px;width:50%" />
+                                    <span class="span2"> @scores.Last().TeamScore </span> <br>
                             </p>
+                            <p>
+                                
+                                <span> @scores.Last().TeamName </span>
+                                <img src="@scores.Last().Team.Image" style="max-width:30px;width:50%" />
+                            </p>
+                            
                         </span>
                     </div>
 
@@ -170,11 +177,11 @@
 
         </div>
 
-        <div class="box darkcolor bordercolor" style=" margin: 2%;">
+        <div class="box " style=" margin: 2%;">
 
-            <div class="darkcolor bordercolor" style="text-align:center; ">
+            <div class="prizepoolColor" style="text-align:center; border:1px solid black;">
 
-                <div class="alinhar">
+                <div class="alinhar" >
                     <div class="my-div">
                         <div>
                             <span>Date</span>
@@ -201,7 +208,7 @@
                     </div>
 
                 </div>
-                <p style="margin-right:20%; text-align:right">
+                <p style="margin-right:20%; text-align:right;margin-bottom:0px">
                     <span>Link: <a href="@ViewBag.Event.EventLink">@ViewBag.Event.EventName</a></span>
                 </p>
             </div>
@@ -209,12 +216,14 @@
             @foreach (var match in ViewBag.runningMatches)
             {
                 IList<Score> scores = match.Scores;
-                <div class="alinhar">
-                    <div class="my-div2" style="width:90%">
-                        <div>
-                            <p style="font-weight:bold; margin-top:2%; margin-bottom:0px; ">
-                                <h4 style="font-weight: bold;">Live Match</h4>
-                            </p>
+                <div class="alinhar darkcolor bordercolor" style="margin-top:3% ">
+                    <div class="my-div2" style="width:90%;padding:3%">
+                        <p style="font-weight:bold; margin-top:2%; margin-bottom:0px; ">
+                            <h4 style="font-weight: bold;">Live Match</h4>
+                        </p>
+                        <div class="bordercolor">
+                        <div style="padding:3%;">
+                            
                             @if(match.BeginAt == null)
                             {
                                 <span class="span2" style="margin-top:10px;">No date yet</span>
@@ -226,23 +235,24 @@
                             
                         </div>
 
-                        <div>
+                        <div class="">
                             <span style="text-align: center;">
                                 <p style="font-size:25px">
                                     <img src="@scores.First().Team.Image" style="max-width:30px;width:50%" />
-                                    <span> @scores.First().TeamName </span>
-                                    <span class="span2"> @scores.First().TeamScore </span>
-                                    <span class="span2"> vs </span>
-                                    <span class="span2"> @scores.Last().TeamScore </span>
-                                    <span> @scores.Last().TeamName </span>
+                                    <span style="font-size:20px"> @scores.First().TeamName </span>
+                                    <span style="font-size:20px" class="span2"> @scores.First().TeamScore </span>
+                                    <span style="font-size:20px" class="span2"> vs </span>
+                                    <span style="font-size:20px" class="span2"> @scores.Last().TeamScore </span>
+                                    <span style="font-size:20px"> @scores.Last().TeamName </span>
                                     <img src="@scores.Last().Team.Image" style="max-width:30px;width:50%" />
                                 </p>
                             </span>
                         </div>
-
-                        <div style="text-align:left; display: flex;">
+                        
+                            <div style="text-align:left; display: flex;padding-left:2%;padding-right:2%">
                             <p>Best of @match.NumberOfGames</p>
                             <a href="@Url.Action("MatchDetails", "Matches", new {id = match.MatchesAPIID, type = match.TimeType.ToString().ToLower(), game = ViewBag.dropDownGame})" style="justify-content: space-around; margin-left: auto;">More details</a>
+                        </div>
                         </div>
 
                     </div>
@@ -268,7 +278,7 @@
                 {
                     if (scoreT1.TeamName != default && scoreT2.Team != default)
                     {
-                        <div class="alinhar" style="border-bottom: 1px solid black">
+                        <div class="alinhar bordercolor" style="border-bottom: 1px solid black;margin-top:3%">
                             <div class="my-div2" style="width:90%;">
                                 <div>
                                     @if (match.BeginAt == null)
@@ -284,13 +294,19 @@
                                 <div>
                                     <span style="text-align: center;">
                                         <p style="font-size:25px">
-                                            <img src="@scoreT1.Team.Image" style="max-width:30px;width:50%" />
-                                            <span> @scoreT1.TeamName </span>
-                                            <span class="span2">  </span>
+
+                                            <img src="@scores.First().Team.Image" style="max-width:30px;width:50%" />
+                                            <span style="font-size:20px"> @scores.First().TeamName </span>
+                                        </p>
+                                        <p>
+                                            <span class="span2"> @scores.First().TeamScore </span>
                                             <span class="span2"> vs </span>
-                                            <span class="span2">  </span>
-                                            <span> @scoreT2.TeamName </span>
-                                            <img src="@scoreT2.Team.Image" style="max-width:30px;width:50%" />
+                                            <span class="span2"> @scores.Last().TeamScore </span> <br>
+                                        </p>
+                                        <p>
+
+                                            <span style="font-size:20px"> @scores.Last().TeamName </span>
+                                            <img src="@scores.Last().Team.Image" style="max-width:30px;width:50%" />
                                         </p>
                                     </span>
                                 </div>

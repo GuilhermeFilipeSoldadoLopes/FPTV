@@ -192,247 +192,123 @@ namespace FPTV.Controllers
             return View("PlayerAndStats");
         }
 
-        public ActionResult getTeam(int id, string filter = "", string game = "csgo")
+        public ActionResult getTeam(int id = 132991, string filter = "past", string game = "csgo", string page = "&page=1")
         {
-            if (game == "valorant")
-            {
+            ViewBag.dropDownGame = game;
 
-                var ranking = new[] { 0.68F, 0.94F, 1.42F, 1.08F, 1.09F, 1.23F, 0.78F, 0.89F, 0.97F, 0.72F,
+            //Base url for requests
+            var _requestLink = "https://api.pandascore.co/";
+
+            //Filter to select from which pool to fetch the data (upcoming, running or finished/ended)
+            var _jsonFilter = filter + "?";
+            var _filterID = "filter[id]=" + id.ToString();
+
+            //THIS SHOULD BE A CLIENT SECRET
+            var _token = "&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA";
+            var jsonSort = "&sort=";
+            var jsonPage = page;
+            var jsonPerPage = "&per_page=50";
+
+            //Request processing with RestSharp
+            var _fullRequest = _requestLink + game + "/teams?" + _filterID + jsonSort + jsonPage + jsonPerPage + _token;
+            var _client = new RestClient(_fullRequest);
+            var _request = new RestRequest("", Method.Get);
+            _request.AddHeader("accept", "application/json");
+            var _json = _client.Execute(_request).Content;
+            var _jarray = JArray.Parse(_json);
+
+            var teamsList = new List<Team>();
+            var coachNames = new[] { "Rui", "Nuno", "Miguel", "André", "João", "Guilherme" };
+
+
+            //Base url for requests
+            var requestLink = "https://api.pandascore.co/";
+
+            //Filter to select from which pool to fetch the data (upcoming, running or finished/ended)
+            var jsonFilter = filter + "?";
+            var filterID = "filter[id]="; //+ id.ToString();
+                                          //THIS SHOULD BE A CLIENT SECRET
+            var token = "&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA";
+
+            //Request processing with RestSharp
+            var fullRequest = requestLink + game + "/players?" + filterID + token;
+            var client = new RestClient(fullRequest);
+            var request = new RestRequest("", Method.Get);
+            request.AddHeader("accept", "application/json");
+            var json = client.Execute(request).Content;
+            var jarray = JArray.Parse(json);
+            var ranking = new[] { 0.68F, 0.94F, 1.42F, 1.08F, 1.09F, 1.23F, 0.78F, 0.89F, 0.97F, 0.72F,
                     0.82F, 0.62F, 1.45F, 1.11F, 1.37F, 1.27F, 1.05F, 1.07F, 1.16F, 1.29F, 1.15F, 0.97F, 0.83F,
                     1.36F, 1.10F, 1.07F, 1.19F, 0.77F, 0.90F, 1.14F, 1.52F, 1.54F, 0.58F }; //de 0.58 a 1.54
 
-                var teamsList = new[] { "G2", "Heroic", "Natus Vincere", "Liquid", "Vitality", "Outsiders", "Faze",
-                    "Complexity", "fnatic", "Cloud9", "Spirit", "Astralis", "MOUZ", "FURIA ", "BIG", "Ninjas in Pyjamas",
-                    "IHC", "Eternal Fire", "ENCE", "FORZE", "Bad News Eagles", "MIBR", "Movistar Riders", "9INE", "paiN",
-                    "GamerLegion", "Aurora", "Rare Atom", "Grayhound", "NRG", "SAW", "Avangar", "Spirit", "Nexus", "Grayhound",
-                    "TYLOO", "Renegates", "SINNERS", "HellRaisers", "Club Brugge", "North", "Dignitas", "Luminosity", "TeamOne",
-                    "Sprout", "Cheifs", "SK", "Endpoint", "GODSENT", "Envy", "HAVU", "Envy", "Gambit" };
 
+            var teamDB = _context.Team.Include(t => t.Players).SingleOrDefault(t => t.TeamAPIID == id);
 
-                //Base url for requests
-                var _requestLink = "https://api.pandascore.co/";
-
-                //Filter to select from which pool to fetch the data (upcoming, running or finished/ended)
-                var _jsonFilter = filter + "?";
-                var _filterID = "filter[id]=132995"; //+ id.ToString();
-
-                //THIS SHOULD BE A CLIENT SECRET
-                var _token = "&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA";
-
-                //Request processing with RestSharp
-                var _fullRequest = _requestLink + game + "/teams?" + _filterID + _token;
-            https://api.pandascore.co/valorant/teams?sort=&page=1&per_page=50&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA
-                var _client = new RestClient(_fullRequest);
-                var _request = new RestRequest("", Method.Get);
-                _request.AddHeader("accept", "application/json");
-                var _json = _client.Execute(_request).Content;
-                var _jarray = JArray.Parse(_json);
-
-
-
-
-
-
-                //Base url for requests
-                var requestLink = "https://api.pandascore.co/";
-
-                //Filter to select from which pool to fetch the data (upcoming, running or finished/ended)
-                var jsonFilter = filter + "?";
-                var filterID = "filter[id]=" + id.ToString();
-
-                //THIS SHOULD BE A CLIENT SECRET
-                var token = "&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA";
-
-                //Request processing with RestSharp
-                var fullRequest = requestLink + game + "/players?" + filterID + token;
-                var client = new RestClient(fullRequest);
-                var request = new RestRequest("", Method.Get);
-                request.AddHeader("accept", "application/json");
-                var json = client.Execute(request).Content;
-                var jarray = JArray.Parse(json);
-
-
-
-                var player = new MatchPlayerStatsVal();
-                var _player = new Player();
-                _player.Teams = new List<Team>();
-                var teamm = new Team();
-                _player.Teams.Add(teamm);
-
-
-                _player.Rating = ranking[_random.Next(ranking.Length)];
-
-                foreach (var item in jarray.Cast<JObject>())
+            var team = new Team();
+            foreach (var _team in _jarray.Cast<JObject>())
+            {
+                team.TeamAPIID = (int)_team.GetValue("id");
+                //if(teamm.TeamAPIID == _player.)
+                team.Name = _team.GetValue("name").ToString() == "" ? "undefined" : _team.GetValue("name").Value<string>();
+                team.Image = _team.GetValue("image_url").ToString() == "" ? "/images/missing.png" : _team.GetValue("image_url").Value<string>();
+                team.CoachName = coachNames[_random.Next(coachNames.Length)];
+                team.WorldRank = _random.Next(1, 100);
+                team.Winnings = _random.Next(1, 1000);
+                team.Losses = _random.Next(1, 601);
+                team.Game = game == "csgo" ? GameType.CSGO : GameType.Valorant;
+                team.Players = new List<Player>();
+                var playersOfTeam = (JArray)_team.GetValue("players");
+                foreach (var playerObject in playersOfTeam.Cast<JObject>())
                 {
-                    player.MatchValAPIID = (int)item.GetValue("id");
-                    player.Kills = _random.Next(30, 301);
-                    player.Deaths = _random.Next(30, 300);
-                    player.Assists = _random.Next(1, 11); ;
-                    player.ADR = _random.NextDouble();
-                    player.HeadShots = Math.Round(_random.NextDouble() * 100, 2);
-                    player.KD_Diff = _random.NextDouble();
-                    player.PlayerName = (string)item.GetValue("name");
-
-                    //_player.Age = (int?)item.GetValue("age");
-                    _player.Age = item.GetValue("age") == null ? 20 : item.GetValue("age").Value<int>();
-                    _player.Nationality = (string)item.GetValue("nationality");
+                    var player = new Player();
+                    player.PlayerAPIId = (int)playerObject.GetValue("id");
+                    player.Age = playerObject.GetValue("age").ToString() == "" ? 20 : playerObject.GetValue("age").Value<int>();
+                    player.Nationality = (string)playerObject.GetValue("nationality");
+                    ViewBag.NacionalityImg = "/images/Flags/4x3/" + player.Nationality + ".svg";
                     //_player.Image = (string)item.GetValue("image_url");
-                    _player.Image = item.GetValue("image_url").ToString() == "" ? "/images/default-profile-icon-24.jpg" : item.GetValue("image_url").Value<string>();
-
-                    _context.MatchPlayerStatsVal.Add(player);
+                    player.Image = playerObject.GetValue("image_url").ToString() == "" ? "/images/default-profile-icon-24.jpg" : playerObject.GetValue("image_url").Value<string>();
+                    player.Rating = ranking[_random.Next(ranking.Length)];
+                    player.Name = (string)playerObject.GetValue("name");
+                    player.Game = game == "csgo" ? GameType.CSGO : GameType.Valorant;
+                    team.Players.Add(player);
                 }
 
-                foreach (var _item in _jarray.Cast<JObject>())
-                {
-                    var _id = (int)_item.GetValue("id");
-                    if (_id == player.PlayerValAPIId)
-                    {
-                        _player.PlayerAPIId = player.PlayerValAPIId;
-                        _player.Name = player.PlayerName;
-                    }
-                    teamm.Name = (string?)_item.GetValue("name");
-                    teamm.Image = (string?)_item.GetValue("image_url");
-                }
-                double KdRatio = (double)player.Kills / (double)player.Deaths;
-                int maps = _random.Next(1, 8);
-                var pastTeam1 = teamsList[_random.Next(teamsList.Length)];
-                var pastTeam2 = teamsList[_random.Next(teamsList.Length)];
-                var pastTeam3 = teamsList[_random.Next(teamsList.Length)];
-                ViewBag.KdRatio = Math.Round(KdRatio, 2);
-                ViewBag.maps = maps;
-                ViewBag.player = player;
-                ViewBag._player = _player;
-                ViewBag.pastTeam1 = pastTeam1;
-                ViewBag.pastTeam2 = pastTeam2;
-                ViewBag.pastTeam3 = pastTeam3;
+            }
 
-                return View("TeamStats");
+
+            if (teamDB == null)
+            {
+                _context.Team.Add(team);
+                teamDB = team;
+                _context.SaveChanges();
             }
             else
             {
-                var ranking = new[] { 0.68F, 0.94F, 1.42F, 1.08F, 1.09F, 1.23F, 0.78F, 0.89F, 0.97F, 0.72F,
-                    0.82F, 0.62F, 1.45F, 1.11F, 1.37F, 1.27F, 1.05F, 1.07F, 1.16F, 1.29F, 1.15F, 0.97F, 0.83F,
-                    1.36F, 1.10F, 1.07F, 1.19F, 0.77F, 0.90F, 1.14F, 1.52F, 1.54F, 0.58F }; //de 0.58 a 1.54
-
-                var teamsList = new[] { "G2", "Heroic", "Natus Vincere", "Liquid", "Vitality", "Outsiders", "Faze",
-                    "Complexity", "fnatic", "Cloud9", "Spirit", "Astralis", "MOUZ", "FURIA ", "BIG", "Ninjas in Pyjamas",
-                    "IHC", "Eternal Fire", "ENCE", "FORZE", "Bad News Eagles", "MIBR", "Movistar Riders", "9INE", "paiN",
-                    "GamerLegion", "Aurora", "Rare Atom", "Grayhound", "NRG", "SAW", "Avangar", "Spirit", "Nexus", "Grayhound",
-                    "TYLOO", "Renegates", "SINNERS", "HellRaisers", "Club Brugge", "North", "Dignitas", "Luminosity", "TeamOne",
-                    "Sprout", "Cheifs", "SK", "Endpoint", "GODSENT", "Envy", "HAVU", "Envy", "Gambit" };
-
-
-                //Base url for requests
-                var _requestLink = "https://api.pandascore.co/";
-
-                //Filter to select from which pool to fetch the data (upcoming, running or finished/ended)
-                var _jsonFilter = filter + "?";
-                var _filterID = "filter[id]=" + id.ToString();
-
-                //THIS SHOULD BE A CLIENT SECRET
-                var _token = "&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA";
-
-                //Request processing with RestSharp
-                var _fullRequest = _requestLink + game + "/teams?" + _filterID + _token;
-            https://api.pandascore.co/csgo/teams?sort=&page=1&per_page=50&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA
-                var _client = new RestClient(_fullRequest);
-                var _request = new RestRequest("", Method.Get);
-                _request.AddHeader("accept", "application/json");
-                var _json = _client.Execute(_request).Content;
-                var _jarray = JArray.Parse(_json);
-
-
-
-
-
-
-                //Base url for requests
-                var requestLink = "https://api.pandascore.co/";
-
-                //Filter to select from which pool to fetch the data (upcoming, running or finished/ended)
-                var jsonFilter = filter + "?";
-                var filterID = "filter[id]=" + id.ToString();
-
-                //THIS SHOULD BE A CLIENT SECRET
-                var token = "&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA";
-
-                //Request processing with RestSharp
-                var fullRequest = requestLink + game + "/players?" + filterID + token;
-                var client = new RestClient(fullRequest);
-                var request = new RestRequest("", Method.Get);
-                request.AddHeader("accept", "application/json");
-                var json = client.Execute(request).Content;
-                var jarray = JArray.Parse(json);
-
-
-
-                var player = new MatchPlayerStatsCS();
-                var _player = new Player();
-                _player.Teams = new List<Team>();
-                var teamm = new Team();
-                _player.Teams.Add(teamm);
-
-
-                _player.Rating = ranking[_random.Next(ranking.Length)];
-
-                foreach (var item in jarray.Cast<JObject>())
+                if (teamDB.Winnings == null || teamDB.Winnings == 0 || teamDB.Losses == null || teamDB.Losses == 0 || teamDB.WorldRank == null || teamDB.WorldRank == 0)
                 {
-                    player.PlayerCSAPIId = (int)item.GetValue("id");
-                    player.Kills = _random.Next(30, 301);
-                    Console.WriteLine("Kills --------------->" + player.Kills);
-                    player.Deaths = _random.Next(30, 300);
-                    Console.WriteLine("Kills --------------->" + player.Deaths);
-                    player.Assists = _random.Next(1, 11); ;
-                    player.FlashAssist = _random.Next(1, 6); ;
-                    player.ADR = _random.NextDouble();
-                    player.HeadShots = Math.Round(_random.NextDouble() * 100, 2);
-                    player.KD_Diff = _random.NextDouble();
-                    player.PlayerName = (string)item.GetValue("name");
-
-                    //_player.Age = (int?)item.GetValue("age");
-                    _player.Age = item.GetValue("age") == null ? 20 : item.GetValue("age").Value<int>();
-                    _player.Nationality = (string)item.GetValue("nationality");
-                    //_player.Image = (string)item.GetValue("image_url");
-                    _player.Image = item.GetValue("image_url").ToString() == "" ? "/images/default-profile-icon-24.jpg" : item.GetValue("image_url").Value<string>();
-
-                    _context.MatchPlayerStatsCS.Add(player);
+                    teamDB.Winnings = team.Winnings;
+                    teamDB.WorldRank = team.WorldRank;
+                    teamDB.Losses = team.Losses;
+                    teamDB.Players = team.Players;
+                    teamDB.CoachName = team.CoachName;
+                    _context.SaveChanges();
                 }
-
-                foreach (var _item in _jarray.Cast<JObject>())
-                {
-                    var _id = (int)_item.GetValue("id");
-                    if (_id == player.PlayerCSAPIId)
-                    {
-                        _player.PlayerAPIId = player.PlayerCSAPIId;
-                        _player.Name = player.PlayerName;
-                    }
-                    teamm.Name = (string?)_item.GetValue("name");
-                    teamm.Image = (string?)_item.GetValue("image_url");
-                }
-                var KdRatio = player.Kills / player.Deaths;
-                Console.WriteLine("KdRatio --------------->" + KdRatio);
-                int maps = _random.Next(1, 8);
-                var pastTeam1 = teamsList[_random.Next(teamsList.Length)];
-                var pastTeam2 = teamsList[_random.Next(teamsList.Length)];
-                var pastTeam3 = teamsList[_random.Next(teamsList.Length)];
-                ViewBag.KdRatio = KdRatio;
-                ViewBag.maps = maps;
-                ViewBag.player = player;
-                ViewBag._player = _player;
-                ViewBag.pastTeam1 = pastTeam1;
-                ViewBag.pastTeam2 = pastTeam2;
-                ViewBag.pastTeam3 = pastTeam3;
-                id = id;
-                ViewBag.id = id;
-                return View("TeamStats");
             }
 
 
-            return null;
+            var randomMapsPlayed = teamDB.Winnings + teamDB.Losses;
+            ViewBag.team = teamDB;
+            ViewBag.randomMapsPlayed = randomMapsPlayed;
+
+            return View("TeamStats");
+
+
         }
 
         public ActionResult getPlayer(int id= 132995, string filter = "past", string game = "csgo", string page = "&page=1")
         {
+            ViewBag.dropDownGame = game;
+
             if (game == "valorant")
             {
 
@@ -440,125 +316,12 @@ namespace FPTV.Controllers
                     0.82F, 0.62F, 1.45F, 1.11F, 1.37F, 1.27F, 1.05F, 1.07F, 1.16F, 1.29F, 1.15F, 0.97F, 0.83F,
                     1.36F, 1.10F, 1.07F, 1.19F, 0.77F, 0.90F, 1.14F, 1.52F, 1.54F, 0.58F }; //de 0.58 a 1.54
 
-                var teamsList = new[] { "G2", "Heroic", "Natus Vincere", "Liquid", "Vitality", "Outsiders", "Faze",
-                    "Complexity", "fnatic", "Cloud9", "Spirit", "Astralis", "MOUZ", "FURIA ", "BIG", "Ninjas in Pyjamas",
-                    "IHC", "Eternal Fire", "ENCE", "FORZE", "Bad News Eagles", "MIBR", "Movistar Riders", "9INE", "paiN",
-                    "GamerLegion", "Aurora", "Rare Atom", "Grayhound", "NRG", "SAW", "Avangar", "Spirit", "Nexus", "Grayhound",
-                    "TYLOO", "Renegates", "SINNERS", "HellRaisers", "Club Brugge", "North", "Dignitas", "Luminosity", "TeamOne",
-                    "Sprout", "Cheifs", "SK", "Endpoint", "GODSENT", "Envy", "HAVU", "Envy", "Gambit" };
-
-
-                //Base url for requests
-                var _requestLink = "https://api.pandascore.co/";
-
-                //Filter to select from which pool to fetch the data (upcoming, running or finished/ended)
-                var _jsonFilter = filter + "?";
-                var _filterID = "filter[id]=" + id.ToString();
-
-                //THIS SHOULD BE A CLIENT SECRET
-                var _token = "&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA";
-
-                //Request processing with RestSharp
-                var _fullRequest = _requestLink + game + "/players?" + _filterID + _token;
-            https://api.pandascore.co/valorant/teams?sort=&page=1&per_page=50&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA
-                var _client = new RestClient(_fullRequest);
-                var _request = new RestRequest("", Method.Get);
-                _request.AddHeader("accept", "application/json");
-                var _json = _client.Execute(_request).Content;
-                var _jarray = JArray.Parse(_json);
-
-
-
-
-
-
-                //Base url for requests
-                var requestLink = "https://api.pandascore.co/";
-
-                //Filter to select from which pool to fetch the data (upcoming, running or finished/ended)
-                var jsonFilter = filter + "?";
-                var filterID = "filter[id]=" + id.ToString();
-
-                //THIS SHOULD BE A CLIENT SECRET
-                var token = "&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA";
-
-                //Request processing with RestSharp
-                var fullRequest = requestLink + game + "/players?" + filterID + token;
-                var client = new RestClient(fullRequest);
-                var request = new RestRequest("", Method.Get);
-                request.AddHeader("accept", "application/json");
-                var json = client.Execute(request).Content;
-                var jarray = JArray.Parse(json);
-
-
-
-                var player = new MatchPlayerStatsVal();
-                var _player = new Player();
-                _player.Teams = new List<Team>();
-                var teamm = new Team();
-                _player.Teams.Add(teamm);
-
-
-                _player.Rating = ranking[_random.Next(ranking.Length)];
-
-                foreach (var item in jarray.Cast<JObject>())
-                {
-                    player.MatchValAPIID = (int)item.GetValue("id");
-                    player.Kills = _random.Next(30, 301);
-                    player.Deaths = _random.Next(30, 300);
-                    player.Assists = _random.Next(1, 11); ;
-                    player.ADR = _random.NextDouble();
-                    player.HeadShots = Math.Round(_random.NextDouble() * 100, 2);
-                    player.KD_Diff = _random.NextDouble();
-                    player.PlayerName = (string)item.GetValue("name");
-
-                    //_player.Age = (int?)item.GetValue("age");
-                    _player.Age = item.GetValue("age") == null ? 20 : item.GetValue("age").Value<int>();
-                    _player.Nationality = (string)item.GetValue("nationality");
-                    //_player.Image = (string)item.GetValue("image_url");
-                    _player.Image = item.GetValue("image_url").ToString() == "" ? "/images/default-profile-icon-24.jpg" : item.GetValue("image_url").Value<string>();
-                    _player.Rating = ranking[_random.Next(ranking.Length)];
-                    _context.MatchPlayerStatsVal.Add(player);
-                }
-
-                foreach (var _item in _jarray.Cast<JObject>())
-                {
-                    var _id = (int)_item.GetValue("id");
-                    if (_id == player.PlayerValAPIId)
-                    {
-                        _player.PlayerAPIId = player.PlayerValAPIId;
-                        _player.Name = player.PlayerName;
-                    }
-                    teamm.Name = (string?)_item.GetValue("name");
-                    teamm.Image = (string?)_item.GetValue("image_url");
-                }
-                var KdRatio = player.Kills / player.Deaths;
-                int maps = _random.Next(1, 8);
-                var pastTeam1 = teamsList[_random.Next(teamsList.Length)];
-                var pastTeam2 = teamsList[_random.Next(teamsList.Length)];
-                var pastTeam3 = teamsList[_random.Next(teamsList.Length)];
-                ViewBag.KdRatio = KdRatio;
-                ViewBag.maps = maps;
-                ViewBag.player = player;
-                ViewBag._player = _player;
-                ViewBag.pastTeam1 = pastTeam1;
-                ViewBag.pastTeam2 = pastTeam2;
-                ViewBag.pastTeam3 = pastTeam3;
-
-                return View("PlayerAndStats");
-            }
-            else
-            {
-                var ranking = new[] { 0.68F, 0.94F, 1.42F, 1.08F, 1.09F, 1.23F, 0.78F, 0.89F, 0.97F, 0.72F,
-                    0.82F, 0.62F, 1.45F, 1.11F, 1.37F, 1.27F, 1.05F, 1.07F, 1.16F, 1.29F, 1.15F, 0.97F, 0.83F,
-                    1.36F, 1.10F, 1.07F, 1.19F, 0.77F, 0.90F, 1.14F, 1.52F, 1.54F, 0.58F }; //de 0.58 a 1.54
-
-                var teamsList = new[] { "G2", "Heroic", "Natus Vincere", "Liquid", "Vitality", "Outsiders", "Faze",
-                    "Complexity", "fnatic", "Cloud9", "Spirit", "Astralis", "MOUZ", "FURIA ", "BIG", "Ninjas in Pyjamas",
-                    "IHC", "Eternal Fire", "ENCE", "FORZE", "Bad News Eagles", "MIBR", "Movistar Riders", "9INE", "paiN",
-                    "GamerLegion", "Aurora", "Rare Atom", "Grayhound", "NRG", "SAW", "Avangar", "Spirit", "Nexus", "Grayhound",
-                    "TYLOO", "Renegates", "SINNERS", "HellRaisers", "Club Brugge", "North", "Dignitas", "Luminosity", "TeamOne",
-                    "Sprout", "Cheifs", "SK", "Endpoint", "GODSENT", "Envy", "HAVU", "Envy", "Gambit" };
+                //var teamsList = new[] { "G2", "Heroic", "Natus Vincere", "Liquid", "Vitality", "Outsiders", "Faze",
+                //    "Complexity", "fnatic", "Cloud9", "Spirit", "Astralis", "MOUZ", "FURIA ", "BIG", "Ninjas in Pyjamas",
+                //    "IHC", "Eternal Fire", "ENCE", "FORZE", "Bad News Eagles", "MIBR", "Movistar Riders", "9INE", "paiN",
+                //    "GamerLegion", "Aurora", "Rare Atom", "Grayhound", "NRG", "SAW", "Avangar", "Spirit", "Nexus", "Grayhound",
+                //    "TYLOO", "Renegates", "SINNERS", "HellRaisers", "Club Brugge", "North", "Dignitas", "Luminosity", "TeamOne",
+                //    "Sprout", "Cheifs", "SK", "Endpoint", "GODSENT", "Envy", "HAVU", "Envy", "Gambit" };
 
 
                 //Base url for requests
@@ -582,9 +345,175 @@ namespace FPTV.Controllers
                 var _json = _client.Execute(_request).Content;
                 var _jarray = JArray.Parse(_json);
 
+                var teamsList = new List<Team>();
+                var coachNames = new[] { "Rui", "Nuno", "Miguel", "André", "João", "Guilherme" };
+
+
+                foreach (var _team in _jarray.Cast<JObject>())
+                {
+
+                    var team = new Team();
+                    team.TeamAPIID = (int)_team.GetValue("id");
+                    //if(teamm.TeamAPIID == _player.)
+                    team.Name = _team.GetValue("name").ToString() == "" ? "undefined" : _team.GetValue("name").Value<string>();
+                    team.Image = _team.GetValue("image_url").ToString() == "" ? "/images/missing.png" : _team.GetValue("image_url").Value<string>();
+                    team.CoachName = coachNames[_random.Next(coachNames.Length)];
+                    team.WorldRank = _random.Next(1, 100);
+                    team.Winnings = _random.Next(1, 1000);
+                    team.Losses = _random.Next(1, 601);
+                    team.Game = GameType.CSGO;
+                    teamsList.Add(team);
+
+                }
+
+
+                //Base url for requests
+                var requestLink = "https://api.pandascore.co/";
+
+                //Filter to select from which pool to fetch the data (upcoming, running or finished/ended)
+                var jsonFilter = filter + "?";
+                var filterID = "filter[id]=" + id.ToString();
+
+                //THIS SHOULD BE A CLIENT SECRET
+                var token = "&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA";
+
+                //Request processing with RestSharp
+                var fullRequest = requestLink + game + "/players?" + filterID + token;
+                var client = new RestClient(fullRequest);
+                var request = new RestRequest("", Method.Get);
+                request.AddHeader("accept", "application/json");
+                var json = client.Execute(request).Content;
+                var jarray = JArray.Parse(json);
 
 
 
+                var player = new MatchPlayerStatsVal();
+                var _player = new Player();
+                _player.Teams = new List<Team>();
+                var teamm = new Team();
+
+
+
+
+                _player.Rating = ranking[_random.Next(ranking.Length)];
+
+                foreach (var item in jarray.Cast<JObject>())
+                {
+                    player.PlayerAPIId = (int)item.GetValue("id");
+                    player.Kills = _random.Next(30, 301);
+                    Console.WriteLine("Kills ------------->" + player.Kills);
+                    player.Deaths = _random.Next(30, 300);
+                    Console.WriteLine("Deaths ------------->" + player.Deaths);
+                    player.Assists = _random.Next(1, 11); ;
+                    player.ADR = _random.NextDouble();
+                    player.HeadShots = Math.Round(_random.NextDouble() * 100, 2);
+                    player.KD_Diff = _random.NextDouble();
+                    player.PlayerName = (string)item.GetValue("name");
+
+                    //_player.Age = (int?)item.GetValue("age");
+                    _player.Age = item.GetValue("age") == null ? 20 : item.GetValue("age").Value<int>();
+                    _player.Nationality = (string)item.GetValue("nationality");
+                    ViewBag.NacionalityImg = "/images/Flags/4x3/" + _player.Nationality + ".svg";
+                    //_player.Image = (string)item.GetValue("image_url");
+                    _player.Image = item.GetValue("image_url").ToString() == "" ? "/images/default-profile-icon-24.jpg" : item.GetValue("image_url").Value<string>();
+                    _player.Rating = ranking[_random.Next(ranking.Length)];
+                    _player.PlayerAPIId = player.PlayerAPIId;
+                    _player.Name = player.PlayerName;
+
+                    var current_team = (JObject)item.GetValue("current_team");
+
+                    var current_team_id = (int)current_team.GetValue("id");
+                    teamm.TeamAPIID = (int)current_team.GetValue("id");
+                    //if(teamm.TeamAPIID == _player.)
+                    teamm.Name = current_team.GetValue("name").ToString() == "" ? "undefined" : current_team.GetValue("name").Value<string>();
+                    teamm.Image = current_team.GetValue("image_url").ToString() == "" ? "/images/logo1.jpg" : current_team.GetValue("image_url").Value<string>();
+                    teamm.CoachName = coachNames[_random.Next(coachNames.Length)];
+                    teamm.WorldRank = _random.Next(1, 100);
+                    teamm.Winnings = _random.Next(1, 1000);
+                    teamm.Losses = _random.Next(1, 601);
+                    teamm.Game = GameType.CSGO;
+
+                    var pastTeam1 = teamm;
+                    var pastTeam2 = teamsList[_random.Next(teamsList.Count())];
+                    var pastTeam3 = teamsList[_random.Next(teamsList.Count())];
+                    ViewBag.pastTeam1 = pastTeam1;
+                    ViewBag.pastTeam2 = pastTeam2;
+                    ViewBag.pastTeam3 = pastTeam3;
+                    _player.Teams.Add(teamm);
+                    _player.Teams.Add(pastTeam2);
+                    _player.Teams.Add(pastTeam3);
+
+                    _context.MatchPlayerStatsVal.Add(player);
+                }
+
+
+                double KdRatio = (double)player.Kills / (double)player.Deaths;
+                double roundKdRatio = Math.Round(KdRatio, 2);
+                int maps = _random.Next(1, 8);
+                ViewBag.roundKdRatio = roundKdRatio;
+                ViewBag.maps = maps;
+                ViewBag.player = player;
+                ViewBag._player = _player;
+
+                id = id;
+                ViewBag.id = id;
+                return View("PlayerAndStats");
+            }
+            else
+            {
+                var ranking = new[] { 0.68F, 0.94F, 1.42F, 1.08F, 1.09F, 1.23F, 0.78F, 0.89F, 0.97F, 0.72F,
+                    0.82F, 0.62F, 1.45F, 1.11F, 1.37F, 1.27F, 1.05F, 1.07F, 1.16F, 1.29F, 1.15F, 0.97F, 0.83F,
+                    1.36F, 1.10F, 1.07F, 1.19F, 0.77F, 0.90F, 1.14F, 1.52F, 1.54F, 0.58F }; //de 0.58 a 1.54
+
+                //var teamsList = new[] { "G2", "Heroic", "Natus Vincere", "Liquid", "Vitality", "Outsiders", "Faze",
+                //    "Complexity", "fnatic", "Cloud9", "Spirit", "Astralis", "MOUZ", "FURIA ", "BIG", "Ninjas in Pyjamas",
+                //    "IHC", "Eternal Fire", "ENCE", "FORZE", "Bad News Eagles", "MIBR", "Movistar Riders", "9INE", "paiN",
+                //    "GamerLegion", "Aurora", "Rare Atom", "Grayhound", "NRG", "SAW", "Avangar", "Spirit", "Nexus", "Grayhound",
+                //    "TYLOO", "Renegates", "SINNERS", "HellRaisers", "Club Brugge", "North", "Dignitas", "Luminosity", "TeamOne",
+                //    "Sprout", "Cheifs", "SK", "Endpoint", "GODSENT", "Envy", "HAVU", "Envy", "Gambit" };
+
+
+                //Base url for requests
+                var _requestLink = "https://api.pandascore.co/";
+
+                //Filter to select from which pool to fetch the data (upcoming, running or finished/ended)
+                var _jsonFilter = filter + "?";
+                var _filterID = "filter[id]="; //+ id.ToString();
+
+                //THIS SHOULD BE A CLIENT SECRET
+                var _token = "&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA";
+                var jsonSort = "&sort=";
+                var jsonPage = page;
+                var jsonPerPage = "&per_page=50";
+
+                //Request processing with RestSharp
+                var _fullRequest = _requestLink + game + "/teams?" + _filterID + jsonSort + jsonPage + jsonPerPage + _token;
+                var _client = new RestClient(_fullRequest);
+                var _request = new RestRequest("", Method.Get);
+                _request.AddHeader("accept", "application/json");
+                var _json = _client.Execute(_request).Content;
+                var _jarray = JArray.Parse(_json);
+
+                var teamsList = new List<Team>();
+                var coachNames = new[] { "Rui", "Nuno", "Miguel", "André", "João", "Guilherme" };
+
+
+                foreach (var _team in _jarray.Cast<JObject>())
+                {
+
+                    var team = new Team();
+                    team.TeamAPIID = (int)_team.GetValue("id");
+                    //if(teamm.TeamAPIID == _player.)
+                    team.Name = _team.GetValue("name").ToString() == "" ? "undefined" : _team.GetValue("name").Value<string>();
+                    team.Image = _team.GetValue("image_url").ToString() == "" ? "/images/missing.png" : _team.GetValue("image_url").Value<string>();
+                    team.CoachName = coachNames[_random.Next(coachNames.Length)];
+                    team.WorldRank = _random.Next(1, 100);
+                    team.Winnings = _random.Next(1, 1000);
+                    team.Losses = _random.Next(1, 601);
+                    team.Game = GameType.CSGO;
+                    teamsList.Add(team);
+
+                }
 
 
                 //Base url for requests
@@ -612,7 +541,6 @@ namespace FPTV.Controllers
                 _player.Teams = new List<Team>();
                 var teamm = new Team();
 
-                var coachNames = new[] { "Rui", "Nuno", "Miguel", "André", "João", "Guilherme" };
 
 
 
@@ -620,7 +548,7 @@ namespace FPTV.Controllers
 
                 foreach (var item in jarray.Cast<JObject>())
                 {
-                    player.PlayerCSAPIId = (int)item.GetValue("id");
+                    player.PlayerAPIId = (int)item.GetValue("id");
                     player.Kills = _random.Next(30, 301);
                     Console.WriteLine("Kills ------------->" + player.Kills);
                     player.Deaths = _random.Next(30, 300);
@@ -639,71 +567,58 @@ namespace FPTV.Controllers
                     //_player.Image = (string)item.GetValue("image_url");
                     _player.Image = item.GetValue("image_url").ToString() == "" ? "/images/default-profile-icon-24.jpg" : item.GetValue("image_url").Value<string>();
                     _player.Rating= ranking[_random.Next(ranking.Length)];
-                    _player.PlayerAPIId = player.PlayerCSAPIId;
+                    _player.PlayerAPIId = player.PlayerAPIId;
                     _player.Name = player.PlayerName;
 
                     var current_team = (JObject)item.GetValue("current_team");
                     
                     var current_team_id = (int)current_team.GetValue("id");
-                    foreach (var _team in _jarray.Cast<JObject>())
-                    {
-                        var team_id = (int)_team.GetValue("id");
-                        var team_name = _team.GetValue("name");
-                        var team_image = _team.GetValue("image_url");
-                        if (current_team_id == team_id)
-                        {
-                            teamm.TeamAPIID = team_id;
-                            teamm.Name = team_name.ToString() == "" ? "undefined" : team_name.Value<string>();
-                            teamm.Image = team_image.ToString() == "" ? "/images/logo1.jpg" : team_image.Value<string>();
-                            teamm.CoachName = coachNames[_random.Next(coachNames.Length)];
-                            teamm.WorldRank = 1;
-                            teamm.Winnings = 1;
-                            teamm.Losses = 1;
-                            teamm.Game = GameType.CSGO;
-                        }
-                        else
-                        {
-                            teamm.TeamAPIID = team_id;
-                            teamm.Name = team_name.ToString() == "" ? "undefined" : team_name.Value<string>();
-                            teamm.Image = team_image.ToString() == "" ? "/images/logo1.jpg" : team_image.Value<string>();
-                            teamm.CoachName = coachNames[_random.Next(coachNames.Length)];
-                            teamm.WorldRank = 1;
-                            teamm.Winnings = 1;
-                            teamm.Losses = 1;
-                            teamm.Game = GameType.CSGO;
-                        }
-                        
-                    }
+                    teamm.TeamAPIID = (int)current_team.GetValue("id");
+                    //if(teamm.TeamAPIID == _player.)
+                    teamm.Name = current_team.GetValue("name").ToString() == "" ? "undefined" : current_team.GetValue("name").Value<string>();
+                    teamm.Image = current_team.GetValue("image_url").ToString() == "" ? "/images/logo1.jpg" : current_team.GetValue("image_url").Value<string>();
+                    teamm.CoachName = coachNames[_random.Next(coachNames.Length)];
+                    teamm.WorldRank = _random.Next(1, 100);
+                    teamm.Winnings = _random.Next(1, 1000);
+                    teamm.Losses = _random.Next(1, 601);
+                    teamm.Game = GameType.CSGO;
+
+                    var pastTeam1 = teamm;
+                    var pastTeam2 = teamsList[_random.Next(teamsList.Count())];
+                    var pastTeam3 = teamsList[_random.Next(teamsList.Count())];
+                    ViewBag.pastTeam1 = pastTeam1;
+                    ViewBag.pastTeam2 = pastTeam2;
+                    ViewBag.pastTeam3 = pastTeam3;
+                    _player.Teams.Add(teamm);
+                    _player.Teams.Add(pastTeam2);
+                    _player.Teams.Add(pastTeam3);
 
                     _context.MatchPlayerStatsCS.Add(player);
                 }
-                _player.Teams.Add(teamm);
+                
 
-                var KdRatio = player.Kills / player.Deaths;
-                //double roundKdRatio = Math.Round(KdRatio, 2);
+                double KdRatio = (double)player.Kills / (double)player.Deaths;
+                double roundKdRatio = Math.Round(KdRatio, 2);
                 int maps = _random.Next(1, 8);
-                var pastTeam1 = teamsList[_random.Next(teamsList.Length)];
-                var pastTeam2 = teamsList[_random.Next(teamsList.Length)];
-                var pastTeam3 = teamsList[_random.Next(teamsList.Length)];
-                ViewBag.KdRatio = KdRatio;
+                ViewBag.roundKdRatio = roundKdRatio;
                 ViewBag.maps = maps;
                 ViewBag.player = player;
                 ViewBag._player = _player;
-                ViewBag.pastTeam1 = pastTeam1;
-                ViewBag.pastTeam2 = pastTeam2;
-                ViewBag.pastTeam3 = pastTeam3;
+                
                 id = id;
                 ViewBag.id = id;
+                //_context.MatchPlayerStatsCS.Add(player);
+                //await _context.SaveChangesAsync();
                 return View("PlayerAndStats");
+
             }
-
-
             return null;
         }
 
 
         private String request(string category, string sort = "sort=-status", string page = "&page=1", string filter = "past", string game = "csgo")
         {
+            ViewBag.dropDownGame = game;
             if (category == "matches")
             {
                 var jsonFilter = filter + "?";
@@ -860,13 +775,13 @@ namespace FPTV.Controllers
                             foreach (JObject p in jarrayPlayers.Cast<JObject>())
                             {
                                 var matchPlayer = new MatchPlayerStatsCS();
-                                matchPlayer.MatchCS = ma;
-                                matchPlayer.MatchCSAPIID = (int)item.GetValue("id");
-                                matchPlayer.PlayerCSAPIId = (int)p.GetValue("id");
+                                matchPlayer.Match = ma;
+                                matchPlayer.MatchAPIID = (int)item.GetValue("id");
+                                matchPlayer.PlayerAPIId = (int)p.GetValue("id");
                                 matchPlayer.Kills = _random.Next(1, 31);
                                 matchPlayer.Deaths = _random.Next(1, 21);
-                                matchPlayer.Assists = _random.Next(1, 11); ;
-                                matchPlayer.FlashAssist = _random.Next(1, 6); ;
+                                matchPlayer.Assists = _random.Next(1, 11);
+                                matchPlayer.FlashAssist = _random.Next(1, 6);
                                 matchPlayer.ADR = _random.NextDouble();
                                 matchPlayer.HeadShots = _random.NextDouble() * 100;
                                 matchPlayer.KD_Diff = _random.NextDouble();
@@ -906,9 +821,9 @@ namespace FPTV.Controllers
                                         player.Nationality = (string)item.GetValue("nationality") == null ? "undefined" : item.GetValue("nationality").Value<string>();
                                         player.Teams.Add(team);
                                         playerList.Add(player);
-                                        if (matchPlayer.PlayerCS == null)
+                                        if (matchPlayer.Player == null)
                                         {
-                                            matchPlayer.PlayerCS = player;
+                                            matchPlayer.Player = player;
                                         }
                                         //for (int i = 0; i < _context.Player.Count; i++) {
                                         _context.Player.Add(player);

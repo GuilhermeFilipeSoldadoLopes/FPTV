@@ -61,7 +61,7 @@ namespace FPTVUnitTests
 					TeamAPIID = 1,
 					Name = "Test1",
 					Players = null,
-					CouchName = "Test",
+					CoachName = "Test",
 					WorldRank = 1,
 					Winnings = 100,
 					Losses = 50,
@@ -74,7 +74,7 @@ namespace FPTVUnitTests
 					TeamAPIID = 2,
 					Name = "Test2",
 					Players = null,
-					CouchName = "Test",
+					CoachName = "Test",
 					WorldRank = 2,
 					Winnings = 99,
 					Losses = 50,
@@ -102,7 +102,7 @@ namespace FPTVUnitTests
 					Age = 20,
 					Rating = 1.20F,
 					Teams = teamsList1,
-					Nacionality = "Portuguese",
+					Nationality = "Portuguese",
 					Flag = "/images/Flags/1x1/pt.svg",
 					Image = "/images/iconMenu.jpg",
 					Game = GameType.CSGO
@@ -115,7 +115,7 @@ namespace FPTVUnitTests
 					Age = 20,
 					Rating = 1.25F,
 					Teams = teamsList1,
-					Nacionality = "Portuguese",
+					Nationality = "Portuguese",
 					Flag = "/images/Flags/1x1/pt.svg",
 					Image = "/images/iconMenu.jpg",
 					Game = GameType.CSGO
@@ -128,7 +128,7 @@ namespace FPTVUnitTests
 					Age = 20,
 					Rating = 1.30F,
 					Teams = teamsList1,
-					Nacionality = "Portuguese",
+					Nationality = "Portuguese",
 					Flag = "/images/Flags/1x1/pt.svg",
 					Image = "/images/iconMenu.jpg",
 					Game = GameType.CSGO
@@ -141,7 +141,7 @@ namespace FPTVUnitTests
 					Age = 20,
 					Rating = 1.35F,
 					Teams = teamsList1,
-					Nacionality = "Portuguese",
+					Nationality = "Portuguese",
 					Flag = "/images/Flags/1x1/pt.svg",
 					Image = "/images/iconMenu.jpg",
 					Game = GameType.CSGO
@@ -154,7 +154,7 @@ namespace FPTVUnitTests
 					Age = 20,
 					Rating = 1.40F,
 					Teams = teamsList1,
-					Nacionality = "Portuguese",
+					Nationality = "Portuguese",
 					Flag = "/images/Flags/1x1/pt.svg",
 					Image = "/images/iconMenu.jpg",
 					Game = GameType.CSGO
@@ -167,7 +167,7 @@ namespace FPTVUnitTests
 					Age = 20,
 					Rating = 1.45F,
 					Teams = teamsList2,
-					Nacionality = "Portuguese",
+					Nationality = "Portuguese",
 					Flag = "/images/Flags/1x1/pt.svg",
 					Image = "/images/iconMenu.jpg",
 					Game = GameType.CSGO
@@ -180,7 +180,7 @@ namespace FPTVUnitTests
 					Age = 20,
 					Rating = 1.50F,
 					Teams = teamsList2,
-					Nacionality = "Portuguese",
+					Nationality = "Portuguese",
 					Flag = "/images/Flags/1x1/pt.svg",
 					Image = "/images/iconMenu.jpg",
 					Game = GameType.CSGO
@@ -193,7 +193,7 @@ namespace FPTVUnitTests
 					Age = 20,
 					Rating = 1.55F,
 					Teams = teamsList2,
-					Nacionality = "Portuguese",
+					Nationality = "Portuguese",
 					Flag = "/images/Flags/1x1/pt.svg",
 					Image = "/images/iconMenu.jpg",
 					Game = GameType.CSGO
@@ -206,7 +206,7 @@ namespace FPTVUnitTests
 					Age = 20,
 					Rating = 1.60F,
 					Teams = teamsList2,
-					Nacionality = "Portuguese",
+					Nationality = "Portuguese",
 					Flag = "/images/Flags/1x1/pt.svg",
 					Image = "/images/iconMenu.jpg",
 					Game = GameType.CSGO
@@ -219,7 +219,7 @@ namespace FPTVUnitTests
 					Age = 20,
 					Rating = 1.65F,
 					Teams = teamsList2,
-					Nacionality = "Portuguese",
+					Nationality = "Portuguese",
 					Flag = "/images/Flags/1x1/pt.svg",
 					Image = "/images/iconMenu.jpg",
 					Game = GameType.CSGO
