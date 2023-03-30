@@ -127,7 +127,6 @@
                     <td style="width:40%">Total Wins</td>
                     <td>
                         <span> @ViewBag.team.Winnings</span>
-                        <p> @winning_ratio </p>
                         <span>
                             @if (@winning_ratio > 0 && @winning_ratio <= 1.4) {
                                 <img src="~/images/rating_up.png" style="width:5%;padding:2px;">
@@ -143,7 +142,6 @@
                     <td style="width:40%">Total Losses</td>
                     <td>
                         <span> @ViewBag.team.Losses</span>
-                        <p> @losses_ratio </p>
                         <span>
                             @if (@losses_ratio > 0 && @losses_ratio <= 1.4) {
                                 <img src="~/images/rating_down.png" style="width:5%;padding:2px;">

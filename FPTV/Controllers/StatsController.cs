@@ -266,7 +266,6 @@ namespace FPTV.Controllers
                 } else if(winning_ratio < 0) {
                     team.WorldRank = 150;
                 }
-                Console.WriteLine("winning_ratio: " + winning_ratio);
                 
                 team.Game = game == "csgo" ? GameType.CSGO : GameType.Valorant;
                 //team.location =
