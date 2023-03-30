@@ -271,7 +271,10 @@ namespace FPTV.Controllers
                     player.Rating = ranking[_random.Next(ranking.Length)];
                     player.Name = (string)playerObject.GetValue("name");
                     player.Game = game == "csgo" ? GameType.CSGO : GameType.Valorant;
-                    team.Players.Add(player);
+                    if (team.Players.Count() < 5)
+                    {
+                        team.Players.Add(player);
+                    }
                 }
 
             }
