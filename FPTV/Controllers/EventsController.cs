@@ -127,7 +127,7 @@ namespace FPTV.Controllers
                         var team = new Team();
                         team.Name = teamName;
                         team.TeamAPIID = teamId;
-                        team.Image = teamImage;
+                        team.Image = teamImage ?? "/images/missing.png";
                         team.Game = GameType.CSGO;
                         teamList.Add(team);
                     }
@@ -258,7 +258,7 @@ namespace FPTV.Controllers
                         team.Name = teamName;
                         team.TeamAPIID = teamId;
                         team.Game = GameType.Valorant;
-                        team.Image = teamImage;
+                        team.Image = teamImage ?? "/images/missing.png";
                         teamList.Add(team);
                     }
                 }
@@ -426,8 +426,8 @@ namespace FPTV.Controllers
 						team.Name = teamName;
 						team.TeamAPIID = teamId;
 						team.Game = GameType.Valorant;
-						team.Image = teamImage;
-						teamList.Add(team);
+                        team.Image = teamImage ?? "/images/missing.png";
+                        teamList.Add(team);
 
 					}
 					ev.TeamsList = teamList;
@@ -513,8 +513,10 @@ namespace FPTV.Controllers
 						team.Name = teamName;
 						team.TeamAPIID = teamId;
 						team.Game = GameType.Valorant;
-						team.Image = teamImage;
-						teamList.Add(team);
+						
+                        team.Image = teamImage ?? "/images/missing.png";
+                        
+                        teamList.Add(team);
 
 					}
 					ev.TeamsList = teamList;
