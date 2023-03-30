@@ -716,7 +716,10 @@ namespace FPTV.Controllers
 					{
 						var s = new Score();
 						s.Team = ev.TeamsList.FirstOrDefault(t => t.TeamAPIID == r.Value<int>("team_id"));
-
+						if (s.Team == null)
+						{
+							continue;
+						}
 						s.TeamName = s.Team.Name;
 						s.TeamScore = r.Value<int>("score");
 						scores.Add(s);
@@ -725,6 +728,7 @@ namespace FPTV.Controllers
 					m.Scores = scores;
 					pMatches.Add(m);
 				}
+				pMatches.RemoveAll(m => m.BeginAt== null);
 			}
 
 			if (runningMatches != null)
