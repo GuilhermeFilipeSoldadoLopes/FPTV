@@ -327,7 +327,7 @@ namespace FPTV.Controllers
 
             if (json == null)
             {
-                return null;
+                return View("~/Views/Home/Error404.cshtml");
             }
 
             IList matchesList = game == "csgo" ? new List<MatchesCS>() : new List<MatchesVal>();
@@ -387,7 +387,7 @@ namespace FPTV.Controllers
                     matches.LeagueId = LeagueId.ToString() == null ? -1 : LeagueId.Value<int>();
                     matches.LeagueLink = leagueLink.ToString() == null ? "" : leagueLink.Value<string>();
 
-                    /*dynamic matchEvent = game == "csgo" ? new EventCS() : new EventVal();
+                    dynamic matchEvent = game == "csgo" ? new EventCS() : new EventVal();
                     matchEvent.EventAPIID = matches.EventAPIID;
                     matchEvent.BeginAt = new DateTime();
                     matchEvent.EndAt = new DateTime();
@@ -401,7 +401,7 @@ namespace FPTV.Controllers
                     matchEvent.Tier = ' ';
                     matchEvent.WinnerTeamAPIID = 1;
                     matchEvent.WinnerTeamName = "";
-                    matches.Event = matchEvent;*/
+                    matches.Event = matchEvent;
 
                     if ((string)status == "finished")
                     {
@@ -508,7 +508,7 @@ namespace FPTV.Controllers
 
             if (json == null)
             {
-                return null;
+                return View("~/Views/Home/Error404.cshtml");
             }
 
             dynamic matches = game == "csgo" ? new MatchesCS() : new MatchesVal();
@@ -645,7 +645,7 @@ namespace FPTV.Controllers
 
                 if (teamsJson == null)
                 {
-                    return null;
+                    return View("~/Views/Home/Error404.cshtml");
                 }
 
                 var teams = JArray.Parse(teamsJson);
@@ -676,7 +676,7 @@ namespace FPTV.Controllers
                     matchPlayerStats.Kills = rnd.Next(1, 31);
                     matchPlayerStats.Deaths = rnd.Next(1, 21);
                     matchPlayerStats.Assists = rnd.Next(1, 11);
-                    matchPlayerStats.FlashAssist = rnd.Next(1, 6);
+                    if(game == "csgo")matchPlayerStats.FlashAssist = rnd.Next(1, 6);
                     matchPlayerStats.ADR = rnd.Next(30, 155);
                     matchPlayerStats.HeadShots = Math.Round((rnd.NextDouble() * 100), 1);
                     double kd_diff = (double)matchPlayerStats.Kills / (double)matchPlayerStats.Deaths;
@@ -733,7 +733,7 @@ namespace FPTV.Controllers
 
             if (mapsJson == null)
             {
-                return null;
+                return View("~/Views/Home/Error404.cshtml");
             }
 
             var maps = JArray.Parse(mapsJson);
