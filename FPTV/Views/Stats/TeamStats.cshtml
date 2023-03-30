@@ -47,7 +47,7 @@
 
     <div style="display: flex; flex-direction: column; text-align:center">
 
-        <div style="padding-top:3%; width:50%;margin:auto" class=" darkcolor bordercolor">
+        <div style="padding-top:3%; width:40%;margin:auto" class=" darkcolor bordercolor">
             <div style="display: flex ; justify-content:center;width:100%;margin:auto">
                 <img src=@ViewBag.team.Image alt ="logo" class="logo" style="width:20%;margin:auto">
                 <h1 style="margin-top: 20px; text-align:center; margin:auto">@ViewBag.team.Name</h1>
@@ -71,38 +71,23 @@
             </div>
         </div>
 
-        <div class="center darkcolor bordercolor" style="margin:auto;margin-top:3%; font-size:25px;width:90%; margin-top:3%">
+        <div class="center darkcolor bordercolor" style="margin:auto;margin-top:3%; font-size:25px;width:70%; margin-top:3%">
             @foreach (var item in @ViewBag.team.Players)
             {
-                <div style="align-items: center;padding:1%">
-                    <a href="@Url.Action("getPLayer", "Stats", new {id = @item.PlayerAPIId, @*type = @ViewBag.matches.TimeType.ToString().ToLower()*@ game = ViewBag.dropDownGame})" style="justify-content: space-around; margin-left: auto; margin-bottom:0px">
-                        <img src=@item.Image alt="logo" @*class="logo2"*@ height="210px" width="210px" style="max-width: 200px;padding:3%">
+                <div style="display:flex; justify-content:center; align-items: center;padding:1%;width:100%">
+                    <a href="@Url.Action("getPLayer", "Stats", new {id = @item.PlayerAPIId, @*type = @ViewBag.matches.TimeType.ToString().ToLower()*@ game = ViewBag.dropDownGame})" style="justify-content: space-around; margin-bottom:0px">
+                        <img src=@item.Image alt="logo" @*class="logo2"*@ height="125px" width="100px" style="max-width: 150px;padding:3%">
                         <h3 class="h3">@item.Name</h3>
                     </a>
                 </div>
-                @*<div>
-                    <img src="~/images/WRU_Logo_Fundo_.png" alt="logo" class="logo2">
-                    <h3 class="h3">Miguel Rebelo</h3>
-                </div>
-                <div>
-                    <img src="~/images/WRU_Logo_Fundo_.png" alt="logo" class="logo2">
-                    <h3 class="h3">João Afonso</h3>
-                </div>
-                <div>
-                    <img src="~/images/WRU_Logo_Fundo_.png" alt="logo" class="logo2">
-                    <h3 class="h3">Gui Lopes</h3>
-                </div>
-                <div>
-                    <img src="~/images/WRU_Logo_Fundo_.png" alt="logo" class="logo2">
-                    <h3 class="h3">os outros</h3>
-                </div>*@
+               
             }
         </div>
 
 
-        <div class="darkcolor bordercolor" style="padding: 3%; margin:auto; margin-top:3%; font-size:25px; width:90%; margin-bottom:10%">
+        <div class="darkcolor bordercolor" style="padding: 3%; margin:auto; margin-top:3%; font-size:25px; width:70%; ">
 
-            <table class="tablecolors">
+            <table class="tablecolors" style="width:100%">
                 @{
                     var winning_ratio = Math.Round((double)@ViewBag.randomMapsPlayed / @ViewBag.team.Winnings, 2);
                     var losses_ratio = Math.Round((double)@ViewBag.randomMapsPlayed / @ViewBag.team.Losses, 2);
