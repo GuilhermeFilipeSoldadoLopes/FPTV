@@ -51,6 +51,8 @@ textarea {
     font-family: Noto Sans;
     background-color: black;
     margin-bottom: 5%;
+    background-attachment: fixed;
+    width:100%;
 }
 
 .bodytemp {
@@ -59,7 +61,9 @@ textarea {
     background-size: cover;
     font-family: Noto Sans;
     background-color: black;
-    margin-bottom:5%;
+    margin-bottom: 5%;
+    width: 100%;
+    background-attachment: fixed;
 }
 
 .form {
@@ -197,7 +201,6 @@ bordercolor2 {
 }
 
 .tableDetails {
-    
     background-color: #373737;
     border: 1px solid;
     border-color: white;

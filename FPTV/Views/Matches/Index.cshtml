@@ -226,7 +226,7 @@
         </div>
         <div class="ola " style="border-radius:15px;">
             <div class="box darkcolor bordercolor" style="border-radius:15px;margin-top:0px;width:40%;padding:1%">
-                <h4 style="font-weight: bold;text-align:center;">Finished Matches</h4>
+                <h4 style="font-weight: bold;text-align:left;">Finished Matches</h4>
                 @foreach (var item in ViewBag.pastMatches)
                 {
                     dynamic teams = item.TeamsList.GetType() == typeof(List<Team>) ? item.TeamsList : ((HashSet<Team>)item.TeamsList).ToList();
@@ -242,21 +242,45 @@
                                     <span> @teams[0].Name </span>
                                 </p>
                                 <p style="padding:0px; margin-bottom:0px;">
-                                        @foreach (var team in item.Scores)
-                                        {
+                                    @{
+                                        var team1Score = 0;
+                                        var team2Score = 0;
+                                    }
+
+                                    @foreach (var team in item.Scores)
+                                    {
                                         @if (teams[0].Name == team.TeamName)
-                                            {
-                                                <span class="span2"> @team.TeamScore </span>
-                                            }
-                                        }
-                                        <span class="span2"> - </span>
-                                        @foreach (var team in item.Scores)
                                         {
-                                        @if (teams[1].Name == team.TeamName)
-                                            {
-                                                <span class="span2"> @team.TeamScore </span>
-                                            }
+                                            team1Score = team.TeamScore;
                                         }
+                                    }
+
+                                    @foreach (var team in item.Scores)
+                                    {
+                                        @if (teams[1].Name == team.TeamName)
+                                        {
+                                            team2Score = team.TeamScore;
+                                        }
+                                    }
+                                    @if (team1Score < team2Score) {
+								        <span>
+									        <span style="color: #B71919; font-size: 120%">@team1Score</span>
+									        <span class="span2"> - </span>
+									        <span style="color: #11871D; font-size: 120%">@team2Score</span>
+								        </span>
+							        } else if (team1Score > team2Score){
+								        <span>
+									        <span style="color: #11871D; font-size: 120%">@team1Score</span>
+									        <span class="span2"> - </span>
+									        <span style="color: #B71919; font-size: 120%">@team2Score</span>
+								        </span>
+							        } else if(team1Score == team2Score){
+								        <span>
+									        <span style="color: #CD8417; font-size: 120%">@team1Score</span>
+									        <span class="span2"> - </span>
+									        <span style="color: #CD8417; font-size: 120%">@team2Score</span>
+								        </span>
+							        }
                                 </p>
                                 <p style="padding:0px; margin-bottom:0px;">
                                     <span> @teams[1].Name </span>
@@ -359,7 +383,7 @@
             </div>
 
             <div class="box darkcolor bordercolor" style="margin-top:0px; border-radius:15px;width:40%; padding:1%">
-                <h4 style="font-weight: bold;text-align:center;">Upcoming Matches</h4>
+                <h4 style="font-weight: bold;text-align:left;">Upcoming Matches</h4>
                 @foreach (var item in ViewBag.upcomingMatches)
                 {
                     <div class="alinhar bordercolor" style="border-bottom: 1px solid black; border-radius:15px; margin-top: 2%; margin-bottom: 2%;">

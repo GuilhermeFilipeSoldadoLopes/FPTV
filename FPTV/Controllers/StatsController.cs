@@ -252,10 +252,23 @@ namespace FPTV.Controllers
                 team.Name = _team.GetValue("name").ToString() == "" ? "undefined" : _team.GetValue("name").Value<string>();
                 team.Image = _team.GetValue("image_url").ToString() == "" ? "/images/missing.png" : _team.GetValue("image_url").Value<string>();
                 team.CoachName = coachNames[_random.Next(coachNames.Length)];
-                team.WorldRank = _random.Next(1, 100);
+                
                 team.Winnings = _random.Next(1, 1000);
                 team.Losses = _random.Next(1, 601);
+
+                var winning_ratio = Math.Round((double)(team.Winnings + team.Losses) / (double)team.Winnings, 2);
+                if (winning_ratio < 1.4) {
+                    team.WorldRank = _random.Next(1, 11);
+                } else if (winning_ratio > 1.4 && winning_ratio < 3) {
+                    team.WorldRank = _random.Next(10, 26);
+                } else if (winning_ratio > 3)  {
+                    team.WorldRank = _random.Next(25, 111);
+                } else if(winning_ratio < 0) {
+                    team.WorldRank = 150;
+                }
+                
                 team.Game = game == "csgo" ? GameType.CSGO : GameType.Valorant;
+                //team.location =
                 team.Players = new List<Player>();
                 var playersOfTeam = (JArray)_team.GetValue("players");
                 foreach (var playerObject in playersOfTeam.Cast<JObject>())
@@ -263,14 +276,17 @@ namespace FPTV.Controllers
                     var player = new Player();
                     player.PlayerAPIId = (int)playerObject.GetValue("id");
                     player.Age = playerObject.GetValue("age").ToString() == "" ? 20 : playerObject.GetValue("age").Value<int>();
-                    player.Nationality = (string)playerObject.GetValue("nationality");
+                    player.Nationality = (string)playerObject.GetValue("nationality").ToString() == "" ? "/images/missing.png" : playerObject.GetValue("nationality").Value<string>();
                     ViewBag.NacionalityImg = "/images/Flags/4x3/" + player.Nationality + ".svg";
                     //_player.Image = (string)item.GetValue("image_url");
                     player.Image = playerObject.GetValue("image_url").ToString() == "" ? "/images/default-profile-icon-24.jpg" : playerObject.GetValue("image_url").Value<string>();
                     player.Rating = ranking[_random.Next(ranking.Length)];
                     player.Name = (string)playerObject.GetValue("name");
                     player.Game = game == "csgo" ? GameType.CSGO : GameType.Valorant;
-                    team.Players.Add(player);
+                    if (team.Players.Count() < 5)
+                    {
+                        team.Players.Add(player);
+                    }
                 }
 
             }
@@ -411,7 +427,7 @@ namespace FPTV.Controllers
                     player.PlayerName = (string)item.GetValue("name");
 
                     //_player.Age = (int?)item.GetValue("age");
-                    _player.Age = item.GetValue("age") == null ? 20 : item.GetValue("age").Value<int>();
+                    _player.Age = item.GetValue("age").ToString() == "" ? 20 : item.GetValue("age").Value<int>();
                     _player.Nationality = (string)item.GetValue("nationality");
                     ViewBag.NacionalityImg = "/images/Flags/4x3/" + _player.Nationality + ".svg";
                     //_player.Image = (string)item.GetValue("image_url");
@@ -426,22 +442,22 @@ namespace FPTV.Controllers
                     teamm.TeamAPIID = (int)current_team.GetValue("id");
                     //if(teamm.TeamAPIID == _player.)
                     teamm.Name = current_team.GetValue("name").ToString() == "" ? "undefined" : current_team.GetValue("name").Value<string>();
-                    teamm.Image = current_team.GetValue("image_url").ToString() == "" ? "/images/logo1.jpg" : current_team.GetValue("image_url").Value<string>();
+                    teamm.Image = current_team.GetValue("image_url").ToString() == "" ? "/images/missing.png" : current_team.GetValue("image_url").Value<string>();
                     teamm.CoachName = coachNames[_random.Next(coachNames.Length)];
                     teamm.WorldRank = _random.Next(1, 100);
                     teamm.Winnings = _random.Next(1, 1000);
                     teamm.Losses = _random.Next(1, 601);
                     teamm.Game = GameType.CSGO;
 
-                    var pastTeam1 = teamm;
-                    var pastTeam2 = teamsList[_random.Next(teamsList.Count())];
-                    var pastTeam3 = teamsList[_random.Next(teamsList.Count())];
-                    ViewBag.pastTeam1 = pastTeam1;
-                    ViewBag.pastTeam2 = pastTeam2;
-                    ViewBag.pastTeam3 = pastTeam3;
+                    var _pastTeam1 = teamm;
+                    var _pastTeam2 = teamsList[_random.Next(teamsList.Count())];
+                    var _pastTeam3 = teamsList[_random.Next(teamsList.Count())];
+                    ViewBag.pastTeam1 = _pastTeam1;
+                    ViewBag.pastTeam2 = _pastTeam2;
+                    ViewBag.pastTeam3 = _pastTeam3;
                     _player.Teams.Add(teamm);
-                    _player.Teams.Add(pastTeam2);
-                    _player.Teams.Add(pastTeam3);
+                    _player.Teams.Add(_pastTeam2);
+                    _player.Teams.Add(_pastTeam3);
 
                     _context.MatchPlayerStatsVal.Add(player);
                 }
@@ -454,6 +470,12 @@ namespace FPTV.Controllers
                 ViewBag.maps = maps;
                 ViewBag.player = player;
                 ViewBag._player = _player;
+                var pastTeam1 = teamm;
+                var pastTeam2 = teamsList[_random.Next(teamsList.Count())];
+                var pastTeam3 = teamsList[_random.Next(teamsList.Count())];
+                ViewBag.pastTeam1 = pastTeam1;
+                ViewBag.pastTeam2 = pastTeam2;
+                ViewBag.pastTeam3 = pastTeam3;
 
                 id = id;
                 ViewBag.id = id;
@@ -576,7 +598,7 @@ namespace FPTV.Controllers
                     teamm.TeamAPIID = (int)current_team.GetValue("id");
                     //if(teamm.TeamAPIID == _player.)
                     teamm.Name = current_team.GetValue("name").ToString() == "" ? "undefined" : current_team.GetValue("name").Value<string>();
-                    teamm.Image = current_team.GetValue("image_url").ToString() == "" ? "/images/logo1.jpg" : current_team.GetValue("image_url").Value<string>();
+                    teamm.Image = current_team.GetValue("image_url").ToString() == "" ? "/images/missing.png" : current_team.GetValue("image_url").Value<string>();
                     teamm.CoachName = coachNames[_random.Next(coachNames.Length)];
                     teamm.WorldRank = _random.Next(1, 100);
                     teamm.Winnings = _random.Next(1, 1000);
