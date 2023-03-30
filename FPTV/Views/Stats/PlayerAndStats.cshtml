@@ -349,13 +349,13 @@
                 <div class="borders bordercolor colorformatch" style="border-radius:15px">
                     <h3> Player's Team History</h3>
                     <table class="tableDetails" style="width:100%">
-                        <tr style="width:100%">
+                        <tr style="width:100%">             
                             <td style="width:35%;border:none">
-                                <img src=@ViewBag.pastTeam1.Image style="width:100%;">
+                                <img onclick="location.href = '@Url.Action("getTeam", "Stats", new {id = @ViewBag.pastTeam1.TeamAPIID, game = ViewBag.dropDownGame})'" src=@ViewBag.pastTeam1.Image style="width:100%;">
                             </td>
                             <td style="width:70%; border:none">
                                 <div>
-                                    <h4>
+                                    <h4 onclick="location.href = '@Url.Action("getTeam", "Stats", new {id = @ViewBag.pastTeam1.TeamAPIID, game = ViewBag.dropDownGame})'">
                                         @ViewBag.pastTeam1.Name
                                     </h4>
                                     <p>
@@ -364,16 +364,15 @@
                                 </div>
                             </td>
 
-
                         </tr>
 
                         <tr style="width:100%">
                             <td style="width:35%;border:none">
-                                <img src=@ViewBag.pastTeam2.Image style="width:100%;">
+                                <img onclick="location.href = '@Url.Action("getTeam", "Stats", new {id = @ViewBag.pastTeam2.TeamAPIID, game = ViewBag.dropDownGame})'" src=@ViewBag.pastTeam2.Image style="width:100%;">
                             </td>
                             <td style="width:70%; border:none">
                                 <div>
-                                    <h4>
+                                    <h4 onclick="location.href = '@Url.Action("getTeam", "Stats", new {id = @ViewBag.pastTeam2.TeamAPIID, game = ViewBag.dropDownGame})'">
                                         @ViewBag.pastTeam2.Name
                                     </h4>
                                     <p>
@@ -387,11 +386,11 @@
 
                         <tr style="width:100%">
                             <td style="width:35%;border:none">
-                                <img src=@ViewBag.pastTeam3.Image style="width:100%;">
+                                <img onclick="location.href = '@Url.Action("getTeam", "Stats", new {id = @ViewBag.pastTeam3.TeamAPIID, game = ViewBag.dropDownGame})'" src=@ViewBag.pastTeam3.Image style="width:100%;">
                             </td>
                             <td style="width:70%; border:none">
                                 <div>
-                                    <h4>
+                                    <h4 onclick="location.href = '@Url.Action("getTeam", "Stats", new {id = @ViewBag.pastTeam3.TeamAPIID, game = ViewBag.dropDownGame})'">
                                         @ViewBag.pastTeam3.Name
                                     </h4>
                                     <p>

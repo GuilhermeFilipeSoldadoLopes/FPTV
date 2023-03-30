@@ -298,19 +298,19 @@
 
                                     <div style="display:flex;width:100%;margin:auto; justify-content:center ">
                                         <span style=" display: flex;align-items: center;justify-content: center;margin:auto">
-                                            <img src=@ViewBag.matches.TeamsList[0].Image style="width:100px" />
+                                            <img onclick="location.href = '@Url.Action("getTeam", "Stats", new {id = @ViewBag.matches.TeamsList[0].TeamAPIID, game = ViewBag.dropDownGame})'" src=@ViewBag.matches.TeamsList[0].Image style="width:100px" />
                                         </span>
                                         <span style="text-align: center;font-weight:bold;font-size:15px;margin:auto;font-size:25px"> vs </span>
 
                                         <span style=" display: flex;align-items: center;justify-content: center;margin:auto">
-                                            <img src=@ViewBag.matches.TeamsList[1].Image style="width:100px" />
+                                            <img onclick="location.href = '@Url.Action("getTeam", "Stats", new {id = @ViewBag.matches.TeamsList[1].TeamAPIID, game = ViewBag.dropDownGame})'" src=@ViewBag.matches.TeamsList[1].Image style="width:100px" />
                                         </span>
                                     </div>
 
 
                                     <div class="stroke" style="display:flex; margin-top:3%;margin-bottom:3%;margin-left:0px; padding:0px">
-                                        <span style="font-weight:bold; width:50%;text-align:center;font-size:25px"> @ViewBag.matches.TeamsList[0].Name </span>
-                                        <span style="font-weight:bold; width:50%;text-align:center;font-size:25px"> @ViewBag.matches.TeamsList[1].Name </span><br />
+                                        <span onclick="location.href = '@Url.Action("getTeam", "Stats", new {id = @ViewBag.matches.TeamsList[0].TeamAPIID, game = ViewBag.dropDownGame})'" style="font-weight:bold; width:50%;text-align:center;font-size:25px"> @ViewBag.matches.TeamsList[0].Name </span>
+                                        <span onclick="location.href = '@Url.Action("getTeam", "Stats", new {id = @ViewBag.matches.TeamsList[1].TeamAPIID, game = ViewBag.dropDownGame})'" style="font-weight:bold; width:50%;text-align:center;font-size:25px"> @ViewBag.matches.TeamsList[1].Name </span><br />
                                     </div>
 
                                     @if (ViewBag.matches.TimeType.ToString().ToLower() != "upcoming")
