@@ -130,7 +130,16 @@
             <h4 style="font-weight: bold;">Finished Matches</h4>
             @foreach(var match in ViewBag.pastMatches)
             {
+
+
+
+
+
                 IList<Score> scores = match.Scores;
+                var team1Score = scores.First().TeamScore;
+                var team2Score = scores.Last().TeamScore;
+
+                
                 <div class="alinhar bordercolor" style="border-bottom: 1px solid black;margin-top:3%">
                 <div class="my-div2" style="width:90%;">
                     <div>
@@ -152,9 +161,30 @@
                                     <span style="font-size:25px"> @scores.First().TeamName </span>
                                 </p>
                                 <p style="font-size:25px">
-                                    <span  class="span2"> @scores.First().TeamScore </span>
-                                    <span  class="span2"> vs </span>
-                                    <span  class="span2"> @scores.Last().TeamScore </span> <br>
+                                    @if (team1Score < team2Score)
+                                    {
+                                        <span>
+                                            <span style="color: #B71919; font-size: 120%">@team1Score</span>
+                                            <span class="span2"> - </span>
+                                            <span style="color: #11871D; font-size: 120%">@team2Score</span>
+                                        </span>
+                                    }
+                                    else if (team1Score > team2Score)
+                                    {
+                                        <span>
+                                            <span style="color: #11871D; font-size: 120%">@team1Score</span>
+                                            <span class="span2"> - </span>
+                                            <span style="color: #B71919; font-size: 120%">@team2Score</span>
+                                        </span>
+                                    }
+                                    else if (team1Score == team2Score)
+                                    {
+                                        <span>
+                                            <span style="color: #CD8417; font-size: 120%">@team1Score</span>
+                                            <span class="span2"> - </span>
+                                            <span style="color: #CD8417; font-size: 120%">@team2Score</span>
+                                        </span>
+                                    }
                                 </p>
                                 <p style="font-size:25px">
                                 
@@ -209,7 +239,18 @@
 
                 </div>
                 <p style="margin-right:20%; text-align:right;margin-bottom:0px">
-                    <span>Link: <a href="@ViewBag.Event.EventLink">@ViewBag.Event.EventName</a></span>
+                    <span>
+                        Link:
+                    @if(ViewBag.Event.EventLink == null)
+                    {
+                    
+                        <a>Not available</a>
+                    }
+                    else
+                    {
+                        <a href="@ViewBag.Event.EventLink">@ViewBag.Event.EventName</a>
+                    }
+                    </span>
                 </p>
             </div>
 
@@ -299,9 +340,9 @@
                                             <span style="font-size:20px"> @scores.First().TeamName </span>
                                         </p>
                                         <p>
-                                            <span class="span2"> @scores.First().TeamScore </span>
+                                            <span class="span2">  </span>
                                             <span class="span2"> vs </span>
-                                            <span class="span2"> @scores.Last().TeamScore </span> <br>
+                                            <span class="span2">  </span> <br>
                                         </p>
                                         <p>
 
