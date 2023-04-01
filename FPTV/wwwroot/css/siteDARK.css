@@ -281,3 +281,18 @@ bordercolor2 {
 .prizepoolColor {
     background-color: #4b5b6e;
 }
+
+.button3 {
+    background-color: #373737;
+    color: white;
+    width: 100%;
+    padding: 10px 20px;
+    margin-left: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.hrstyle {
+    border: 1px solid white;
+    width:100%;
+}

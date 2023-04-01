@@ -112,6 +112,15 @@ namespace FPTV.Controllers
 			return RedirectToAction("Index", page, new { sort = "&sort=-begin_at", filter = "running", game = game });
         }
 
+		public IActionResult ForumIndex()
+		{
+			return View();
+		}
+		public IActionResult ForumRules()
+		{
+			return View();
+		}
+
 		public IActionResult Matches(string game = "csgo")
 		{
 			page = "Matches";
