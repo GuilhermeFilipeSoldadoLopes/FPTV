@@ -114,10 +114,14 @@ namespace FPTV.Controllers
 
 		public IActionResult ForumIndex()
 		{
+			page = "Forum";
+			//return RedirectToAction("Forum", "ForumIndex");
 			return View();
 		}
 		public IActionResult ForumRules()
 		{
+			page = "Forum";
+			//return RedirectToAction("Forum", "ForumRules");
 			return View();
 		}
 

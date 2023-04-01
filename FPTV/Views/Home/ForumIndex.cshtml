@@ -140,6 +140,9 @@
 			width: 30px;
 		}
 
+	a {
+		color: inherit;
+	}
 </style>
 
 <body class="bodytemp ">
@@ -172,7 +175,7 @@
 			</div>
 
 			<div style="padding:3px">
-				<button class="button3 bordercolor">Forum Rules</button>
+				<button class="button3 bordercolor"> <a href="@Url.Action("ForumRules", "Home")" style="text-decoration:none;">Forum Rules</a></button> @*trocar controlador home para forum*@
 			</div>
 
 		</div>
