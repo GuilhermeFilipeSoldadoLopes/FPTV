@@ -1,7 +1,6 @@
 ﻿@using System.Collections;
 @{
-    ViewData["Title"] = "Events";
-	
+	ViewData["Title"] = "Forum";
 }
 @model dynamic
 <!DOCTYPE html>
@@ -38,7 +37,7 @@
 			margin-bottom: 30px;
 		}
 		.button {
-			
+
 			margin-left:10px;
 			background-color: #e0eeff;
 			color: black;
@@ -57,9 +56,13 @@
 			color: black;
 			width:100%;
 			padding: 10px 20px;
-			
-		
+			border-radius:5px;
 		}
+
+		.button{
+			background-color:
+		}
+
 		.button:hover {
 			background-color: #2980b9;
 		}
@@ -73,9 +76,9 @@
 		.my-div > div {
 			flex-basis: 25%;
 			flex-grow: 1;
-			
+
 		}
-		
+
 		span{
 			font-weight:bold;
 		}
@@ -97,7 +100,7 @@
 			z-index: 1;
 			margin-left:5%;
 			margin-top: 2px;
-			
+
 		}
 
 		.dropdown:hover .dropdown-content {
@@ -128,7 +131,7 @@
 			width:100%;
 			padding: 10px 20px;
 			border:1px solid black;
-			
+
 		}
 
 		.search-container img {
@@ -140,20 +143,19 @@
 </style>
 
 <body class="bodytemp ">
-	
+
 	<div class="central bodycolor bordercolor"style="border-radius:15px; padding:1%">
-		<h1>Events</h1>
+		<h1>Forum</h1>
 
 		<div class="buttons bodycolor">
 
 			<form method="post" action="@Url.Action("Index", "Events", new { sort = ViewBag.sort, filter = ViewBag.filter})">
-			<label class="search-container">
-				<img src="~/images/procurar.png" />
-				<input name = "search" type = "text" placeholder = "Search...">
-			</label>
-
-			
+				<label class="search-container">
+					<img src="~/images/procurar.png" />
+					<input name = "search" type = "text" placeholder = "Search...">
+				</label>	
 			</form>
+
 			<div class="dropdown">
 				<button class="button2">Sort by</button>
 				<div class="dropdown-content" style="margin-left:0px;">
@@ -164,56 +166,90 @@
 					<a href="@Url.Action("Index", "Events", new { sort = "&sort=-tier", filter = ViewBag.filter, game = ViewBag.dropDownGame})">Tier</a>
 			  </div>
 			</div>
-			<div class="dropdown">
-			  <button class="button2">Filter by</button>
-				<div class="dropdown-content" style="margin-left:0px;">
-					<a href="@Url.Action("Index", "Events", new { sort = ViewBag.sort, filter = "running", game = ViewBag.dropDownGame})">On going</a>
-					<a href="@Url.Action("Index", "Events", new { sort = ViewBag.sort, filter = "past", game = ViewBag.dropDownGame})">Finished</a>
-					<a href="@Url.Action("Index", "Events", new { sort = ViewBag.sort, filter = "upcoming", game = ViewBag.dropDownGame})">Upcoming</a>
-			  </div>
+
+			<div style="padding:3px">
+					<button class="button3 bordercolor">New Topic +</button>
 			</div>
-						
+
+			<div style="padding:3px">
+				<button class="button3 bordercolor">Forum Rules</button>
+			</div>
+
 		</div>
 
+		<!-- -------------------------------MENU DOS BUGS -------------------------------------------------------- -->
 		<div class="center bodycolor" style="flex-direction: column; border-radius:15px ">
-			@foreach (var e in Model)
-			{
-				<button style="margin:1%" class="btn1" onclick="location.href='@Url.Action("Details", "Events", new { id = e.EventAPIID, sort = ViewBag.sort, filter = ViewBag.filter,  game = ViewBag.dropDownGame})'">
-					<div class="my-div" style="margin:auto">
-						<div style="width:100%">
-							<img src=@e.EventImage style="width:20%; margin:auto; height:45px;"/>
-						</div>
-						<div>
-							<span>@e.EventName</span>
-							<p>@e.LeagueName</p>
-						</div>
+			
+			<button style="margin:1%; width:100%;border-radius:5px" class="btn1 bordercolor">
 
-						<div>
-							<span>Prize pool</span>
-							<p>$@e.PrizePool</p>
-						</div>
+				<div style="width:20%">
+					<img src="~/images/settingForum.png" style="width:40%" />
+				</div>
 
-						<div>
-							<span>Winner</span>
-							<p>@e.WinnerTeamName</p>
-						</div>
+				<div style="width:60%; text-align:center">
+					<h3>Bugs, Suggestions & Support</h3>
+					<p style="margin-bottom:0px;font-size:20px">Report bugs and provide suggestions and clear doubts</p>
+				</div>
 
-						<div>
-							@if (e.BeginAt == null)
-							{
-								<span>-</span>
-							}
-							else
-							{
-								<span>@e.BeginAt.ToString("dd/MM/yyyy")</span>
-							}
-							
-							<p>State: @e.TimeType</p>
-						</div>
+				<div style="width:20%;text-align:right" >
+					<img src="~/images/logo2.png" style="width:30%" />
+					<p style="margin-bottom:0px;font-size:20px">1021 Comments</p>
+					<p style="margin-bottom:0px;font-size:20px">621 Reactions</p>
+					
+				</div>
 
-					</div>
-				</button>
-			}
+			</button>
+			<hr class="hrstyle"/>
+			<!-- ---------------------------------------BOTÕES DOS TOPICOS DO FORUM------------------------------------------------ -->
+
+			<button style="margin:1%; width:100%;border-radius:5px" class="btn1 bordercolor">
+
+				<div style="width:60%;margin: auto;">
+					<p style="margin-bottom:0px;margin-left:3%;text-align: left;font-size:25px">What is your favorite sticker [CS:GO] ?</p>
+				</div>
+
+				<div style="width:20%; margin: auto;text-align:center;display:flex;justify-content:center">
+					
+					<span style="margin-bottom:0px;font-size:20px;display:flex;justify-content:center">
+						<img src="~/images/default-profile-icon-24.jpg" style="width:30%" />
+						<p style="margin-top:25px;margin-left:5px;margin-right:5px;font-size:20px;font-weight:normal">Carlos </p>
+						<img src="~/images/Flags/4x3/pt.svg" style="width:10%" />
+					</span>
+				</div>
+
+				<div style="width:20%;text-align:right">
+					<p style="font-size:17px">21-02-2023</p>
+					<p style="margin-bottom:0px;font-size:15px">1021 Comments</p>
+					<p style="margin-bottom:0px;font-size:15px">621 Reactions</p>
+
+				</div>
+
+			</button>
+
+			<button style="margin:1%; width:100%;border-radius:5px" class="btn1 bordercolor">
+
+				<div style="width:60%;margin: auto;">
+					<p style="margin-bottom:0px;margin-left:3%;text-align: left;font-size:25px">CS2 anti-cheat?</p>
+				</div>
+
+				<div style="width:20%; margin: auto;text-align:center;display:flex;justify-content:center">
+
+					<span style="margin-bottom:0px;font-size:20px;display:flex;justify-content:center">
+						<img src="~/images/default-profile-icon-24.jpg" style="width:30%" />
+						<p style="margin-top:25px;margin-left:5px;margin-right:5px;font-size:20px;font-weight:normal">Carlos </p>
+						<img src="~/images/Flags/4x3/pt.svg" style="width:10%" />
+					</span>
+				</div>
+
+				<div style="width:20%;text-align:right">
+					<p style="font-size:17px">21-02-2023</p>
+					<p style="margin-bottom:0px;font-size:15px">1021 Comments</p>
+					<p style="margin-bottom:0px;font-size:15px">621 Reactions</p>
+
+				</div>
+
+			</button>
+
 
 		</div>
 

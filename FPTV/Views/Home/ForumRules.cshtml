@@ -1,0 +1,208 @@
+﻿@using System.Collections;
+@{
+	ViewData["Title"] = "Forum Rules";
+}
+@model dynamic
+<!DOCTYPE html>
+
+<head>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<html>
+	<style>
+		.central {
+			width: 100%;
+			margin: 0 auto;
+			text-align: center;
+			height:100%;
+			/*background-color: white;*/
+		}
+
+		.center {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+		h1 {
+			font-size: 36px;
+			margin-bottom: 30px;
+		}
+		.buttons {
+			display: flex;
+			justify-content: center;
+			margin-bottom: 30px;
+		}
+		.button {
+
+			margin-left:10px;
+			background-color: #e0eeff;
+			color: black;
+			border-radius: 5px;
+			cursor: pointer;
+			transition: all 0.2s ease-in-out;
+			border: 1px solid black;
+		}
+
+		.btn1 {
+			border: 1px solid black;
+		}
+
+		.button2 {
+			background-color: #e0eeff;
+			color: black;
+			width:100%;
+			padding: 10px 20px;
+			border-radius:5px;
+		}
+
+		.button{
+			background-color:
+		}
+
+		.button:hover {
+			background-color: #2980b9;
+		}
+		.my-div {
+			width:100%;
+			display: flex;
+			flex-direction: row;
+			height: 50px;
+			margin: 10px;
+		}
+		.my-div > div {
+			flex-basis: 25%;
+			flex-grow: 1;
+
+		}
+
+		span{
+			font-weight:bold;
+		}
+
+		.dropdown {
+			margin-left:10px;
+			background-color: #e0eeff;
+			color: #fff;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			transition: all 0.2s ease-in-out;
+			border: 1px solid black;
+		}
+
+		.dropdown-content {
+			display: none;
+			position: absolute;
+			z-index: 1;
+			margin-left:5%;
+			margin-top: 2px;
+
+		}
+
+		.dropdown:hover .dropdown-content {
+			display: block;
+		}
+
+		.dropdown-content a {
+			background-color:white;
+			display: block;
+			color: #000;
+			padding: 10px;
+			text-decoration: none;
+			border: 1px solid black;
+		}
+
+		.dropdown-content a:hover {
+			background-color: #bf7b8e;
+		}
+
+		.search-container {
+			display: flex;
+			align-items: center;
+		}
+
+		.search-container input[type="text"] {
+			background-color: #e0eeff;
+			color: black;
+			width:100%;
+			padding: 10px 20px;
+			border:1px solid black;
+
+		}
+
+		.search-container img {
+			margin-right: 10px;
+			height: 30px;
+			width: 30px;
+		}
+
+</style>
+
+<body class="bodytemp ">
+
+	<div class="central bodycolor bordercolor" style="width:70%;border-radius:15px; padding:3%">
+		<h1 style="margin-top:0px">@ViewData["Title"]</h1>
+		
+		<h2 style="font-weight:normal;text-align:left">
+			Topics and comment Guidelines
+		</h2>
+		<p style="margin-bottom:0px;font-size:20px;text-align:justify;font-weight:normal">
+			There are a few guidelines we enforce to ensure exchanges that are informative, respectful of diverse viewpoints, and lawful. 
+			Forum topics and comments are moderated and are reviewed by a FPTV editor. 
+			FPTV may choose not to post or to remove the comment if it does not meet our comment guidelines. 
+			FPTV does not assume any liability for content posted by others. FPTV reserves the right to delete any message under circumstances that, in FPTV's judgment, 
+			are inappropriate, unlawful or otherwise detrimental to the community dialogue, such as the following:
+		</p>
+
+
+		<h3 style="font-weight:normal;text-align:left;margin-top:3%">
+			1. Be Respectful
+		</h3>
+		<p style="margin-bottom:0px;font-size:20px;text-align:justify;font-weight:normal">
+			Personal attacks, hateful, racially or ethnically derogatory comments, and harassment 
+			against other participants in the community will not be tolerated. You can certainly disagree 
+			with another, but be respectful and keep your comments relevant to the topic of conversation.
+		</p>
+
+
+		<h3 style="font-weight:normal;text-align:left;margin-top:3%">
+			2. Avoid Nasty Language
+		</h3>
+		<p style="margin-bottom:0px;font-size:20px;text-align:justify;font-weight:normal">
+			Foul, obscene or sexually explicit language or other content that a reasonable person would find objectionable is not permitted.
+		</p>
+
+
+		<h3 style="font-weight:normal;text-align:left;margin-top:3%">
+			3. Don't Spam
+
+		</h3>
+		<p style="margin-bottom:0px;font-size:20px;text-align:justify;font-weight:normal">
+			Advertisements, referral links, solicitations or promotions will not be allowed.
+		</p>
+
+
+		<h3 style="font-weight:normal;text-align:left;margin-top:3%">
+			4. Use Your Own Words
+		</h3>
+		<p style="margin-bottom:0px;font-size:20px;text-align:justify;font-weight:normal">
+			The distribution of intellectual property not belonging to you is not permitted. Another way of saying it: speak your mind, but use your own words to do so.
+		</p>
+
+
+		<h3 style="font-weight:normal;text-align:left;margin-top:3%">
+			5. Make Yourself at Home
+		</h3>
+		<p style="margin-bottom:0px;font-size:20px;text-align:justify;font-weight:normal">
+			Remember, this is your community. Don't be shy to chime in and interact with the FPTV community. Feel free to express yourself, ask questions and mix it up.
+		</p>
+
+
+	</div>
+</body>
+</html>
+
