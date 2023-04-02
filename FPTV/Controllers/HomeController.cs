@@ -120,6 +120,10 @@ namespace FPTV.Controllers
 		{
 			return View();
 		}
+		public IActionResult NewTopic()
+		{
+			return View();
+		}
 
 		public IActionResult Matches(string game = "csgo")
 		{
