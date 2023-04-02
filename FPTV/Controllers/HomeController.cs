@@ -124,6 +124,10 @@ namespace FPTV.Controllers
 			//return RedirectToAction("Forum", "ForumRules");
 			return View();
 		}
+		public IActionResult NewTopic()
+		{
+			return View();
+		}
 
 		public IActionResult Matches(string game = "csgo")
 		{

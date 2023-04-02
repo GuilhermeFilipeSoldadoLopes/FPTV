@@ -296,3 +296,7 @@ bordercolor2 {
     border: 1px solid white;
     width:100%;
 }
+
+.btncancel {
+    background-color: lightgray;
+}
