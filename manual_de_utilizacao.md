@@ -115,8 +115,23 @@ Tópicos do fórum da FPTV:
 <div align="center">
   
 ![Forum](https://cdn.discordapp.com/attachments/783386747638775848/1092869324349382796/image.png)<p>
+</div>
+
+Tópico das regras dos fóruns da FPTV:
+<div align="center">
+  
 ![Forum](https://cdn.discordapp.com/attachments/783386747638775848/1092869372411904111/image.png)<p>
+</div>
+
+Criação de um novo tópico no fórum:
+<div align="center">
+  
 ![Forum](https://cdn.discordapp.com/attachments/783386747638775848/1092869416137527366/image.png)<p>
+</div>
+
+Detalhes de um tópico:
+<div align="center">
+  
 ![Forum](https://cdn.discordapp.com/attachments/783386747638775848/1092869480239087666/image.png)<p>
 </div>
 
