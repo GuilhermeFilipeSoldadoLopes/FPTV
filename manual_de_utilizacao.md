@@ -100,9 +100,11 @@ Se quiser ver os detalhes de uma partida pode fazê-lo ao clicar na mesma.<p>
 **Estatísticas :** Para poder aceder às estatísticas disponibilizadas pela FPTV clique no nome “Matches” ou "Events", que está situado na barra de navegação que se encontra na parte superior do website. Caso carregue em "Events" terá de aceder aos detalhes do evento de forma a serem apresentadas as partidas do mesmo e aí irá aceder aos detalhes das mesmas clicando numa das partidas apresentadas. Quando se encontrar nos detalhes das partidas pode ver as estatísticas dos jogadores naquela partida.<p>
 
 Se quiser ver as estatísticas desde o inicio da carreira de um jogador em específico clique no nome/imagem do mesmo.<p>
-
+<div align="center">
+  
 ![StatsAllTime](https://cdn.discordapp.com/attachments/783386747638775848/1087818560795062302/image.png)<p>
 ![StatsAllTime](https://cdn.discordapp.com/attachments/783386747638775848/1087834290605260840/image.png)<p>
+</div>
 
 Se quiser ver as estatísticas desde de uma equipa em específico clique no nome/imagem do mesma.<p>
 <div align="center">
