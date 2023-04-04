@@ -139,6 +139,14 @@ Detalhes de um tópico:
 ![Forum](https://cdn.discordapp.com/attachments/783386747638775848/1092869480239087666/image.png)<p>
 </div>
 
+**Definições :** Para poder aceder ás definições passe o rato no ícone da roda dentada, que está situado na barra de navegação que se encontra na parte superior do website. Quando o rato estiver por cima da roda dentada irá surgir um dropdown que contem os "features" do website, onde permite colocar o website em dark mode.
+
+<div align="center">
+  
+![Definitions](https://cdn.discordapp.com/attachments/783386747638775848/1092886051577679892/image.png)<p>
+</div>
+
+
 **Conclusão :** Este manual de utilização foi criado para ajudar os utilizadores a compreender e usar as funcionalidades do site FPTV. Esperamos que este manual tenha respondido a todas as suas perguntas sobre como usar o site FPTV e que você tenha uma excelente experiência ao usá-lo. <p>
 
 Se precisar de mais ajuda, entre em contato connosco através de email ou telefone. Não hesite em nos enviar comentários ou sugestões para melhorarmos continuamente o site FPTV. Obrigado por usar o site FPTV e boa sorte nos seus jogos!
