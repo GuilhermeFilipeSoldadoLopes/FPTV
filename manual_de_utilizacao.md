@@ -105,9 +105,11 @@ Se quiser ver as estatísticas desde o inicio da carreira de um jogador em espec
 ![StatsAllTime](https://cdn.discordapp.com/attachments/783386747638775848/1087834290605260840/image.png)<p>
 
 Se quiser ver as estatísticas desde de uma equipa em específico clique no nome/imagem do mesma.<p>
-
+<div align="center">
+  
 ![StatsAllTime](https://cdn.discordapp.com/attachments/783386747638775848/1087834606159536229/image.png)<p>
 ![StatsAllTime](https://cdn.discordapp.com/attachments/783386747638775848/1087834637394509974/image.png)<p>
+</div>
   
 **Fórum :** Para poder aceder ao fórum clique no nome “Forum”, que está situado na barra de navegação que se encontra na parte superior do website. Após ter clicado serão apresentados os tópicos (e os seus respetivos atributos(nome do criador/tópico, data de criação do tópico, número de comentários e reações aos comentários)) criados por utilizadores ou administradores. Nesta interface pode criar um novo tópico, ver as regras dos fóruns, sortear os tópicos ou pesquisar por tópicos. Caso queira criar um novo tópico, clique em "New Topic" que irá apresentar uma interface onde irá definir o titulo e descrição do mesmo. Se quiser ver os detalhes de um tópico basta clicar no mesmo e aí pode ver os atributos do tópico e a sua descrição, os comentários (que pode reportar clicando no sinal de perigo), as reações aos mesmos e pode sorteá-los. Se quiser pode adicionar um comentário escrevendo em New comment.<p>
   
