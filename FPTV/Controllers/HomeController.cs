@@ -129,6 +129,11 @@ namespace FPTV.Controllers
 			return View();
 		}
 
+		public IActionResult Topic()
+		{
+			return View();
+		}
+
 		public IActionResult Matches(string game = "csgo")
 		{
 			page = "Matches";
