@@ -1,17 +1,21 @@
 ﻿using FPTV.Data;
 using FPTV.Models.EventsModels;
+using FPTV.Models.Forum;
 using FPTV.Models.MatchesModels;
-using FPTV.Models.StatisticsModels;
 using FPTV.Models.UserModels;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
-using NuGet.Packaging;
 
 namespace FPTVUnitTests
 {
     public class ApplicationDbContextFixture : IDisposable
     {
+        private readonly IWebHostEnvironment env;
+
         public FPTVContext DbContext { get; private set; }
+        //
+        protected static Guid adminID = Guid.NewGuid();
         //
         protected static Guid matchesCSID = Guid.NewGuid();
 		//
@@ -21,8 +25,11 @@ namespace FPTVUnitTests
 		protected static Guid team2CSID = Guid.NewGuid();
 		protected static List<Team> teamsList1 = new List<Team>();
 		protected static List<Team> teamsList2 = new List<Team>();
-		//
-		protected static Guid player1CSID = Guid.NewGuid();
+        protected static List<Team> teamsList3 = new List<Team>();
+        protected static Team team1;
+        protected static Team team2;
+        //
+        protected static Guid player1CSID = Guid.NewGuid();
 		protected static Guid player2CSID = Guid.NewGuid();
 		protected static Guid player3CSID = Guid.NewGuid();
 		protected static Guid player4CSID = Guid.NewGuid();
@@ -40,8 +47,10 @@ namespace FPTVUnitTests
 		protected static Guid Score1ID = Guid.NewGuid();
 		protected static Guid Score2ID = Guid.NewGuid();
 		protected static List<Score> scoreList = new List<Score>();
+        //
+        protected static Guid topicID = Guid.NewGuid();
 
-		public ApplicationDbContextFixture()
+        public ApplicationDbContextFixture()
         {
             var connection = new SqliteConnection("DataSource=:memory:");
             connection.Open();
@@ -53,8 +62,11 @@ namespace FPTVUnitTests
 
             DbContext.Database.EnsureCreated();
 
+            //DbContext.Profiles.Add(CreateAdmin());
 
-			DbContext.Team.AddRange(
+            //DbContext.SaveChanges();
+
+            DbContext.Team.AddRange(
 				new Team
 				{
 					TeamId = team1CSID,
@@ -84,9 +96,9 @@ namespace FPTVUnitTests
 
             DbContext.SaveChanges();
 
-            Team team1 = DbContext.Team.FirstOrDefault(t => t.TeamId == team1CSID);
+            team1 = DbContext.Team.FirstOrDefault(t => t.TeamId == team1CSID);
 			teamsList1.Add(team1);
-			Team team2 = DbContext.Team.FirstOrDefault(t => t.TeamId == team2CSID);
+			team2 = DbContext.Team.FirstOrDefault(t => t.TeamId == team2CSID);
 			teamsList2.Add(team2);
 			teamsList1.Add(team2);
 			teamsList2.Add(team1);
@@ -227,7 +239,7 @@ namespace FPTVUnitTests
 
             DbContext.SaveChanges();
 
-            Player player1 = DbContext.Player.FirstOrDefault(p => p.PlayerId == player1CSID);
+            playersList1.Add(DbContext.Player.FirstOrDefault(p => p.PlayerId == player1CSID));
 			playersList1.Add(DbContext.Player.FirstOrDefault(p => p.PlayerId == player2CSID));
 			playersList1.Add(DbContext.Player.FirstOrDefault(p => p.PlayerId == player3CSID));
 			playersList1.Add(DbContext.Player.FirstOrDefault(p => p.PlayerId == player4CSID));
@@ -240,12 +252,12 @@ namespace FPTVUnitTests
 
             DbContext.SaveChanges();
 
-            team1.Players = playersList1;
-            team2.Players = playersList2;
+			team1.Players = playersList1;
+			team2.Players = playersList2;
 
-            DbContext.SaveChanges();
+			DbContext.SaveChanges();
 
-            scoreList.Add(new Score
+			scoreList.Add(new Score
 			{
 				ScoreID = Score1ID,
 				Team = team1,
@@ -263,6 +275,8 @@ namespace FPTVUnitTests
 
             DbContext.SaveChanges();
 
+            teamsList3 = new List<Team>() { team1, team2};
+
             DbContext.EventCS.Add(
 				new EventCS
 				{
@@ -277,7 +291,7 @@ namespace FPTVUnitTests
 					BeginAt = DateTime.Now.Subtract(TimeSpan.FromHours(2)),
 					EndAt = DateTime.Now,
 					MatchesCSAPIID = 736079,
-					TeamsList = teamsList1,
+					TeamsList = teamsList3,
 					PrizePool = "1000000$",
 					WinnerTeamAPIID = 1,
 					WinnerTeamName = "Test1",
@@ -302,7 +316,7 @@ namespace FPTVUnitTests
 				MatchesList = null,
 				NumberOfGames = 1,
 				Scores = scoreList,
-				TeamsList = teamsList1,
+				TeamsList = teamsList3,
 				TeamsAPIIDList = null,
 				WinnerTeamAPIId = 1,
 				WinnerTeamName = "Test1",
@@ -319,7 +333,63 @@ namespace FPTVUnitTests
 
         public void Dispose() => DbContext.Dispose();
 
-		public Guid GetMatchesCSId()
+		public Profile CreateAdmin()
+		{
+            var admin = CreateUser();
+
+            Profile profile = new();
+            profile.Id = adminID;
+
+            var adminImage = Path.Combine(env.WebRootPath, "images", "Mods_Image.png");
+            profile.Picture = System.IO.File.ReadAllBytes(adminImage);
+            profile.User = admin;
+            profile.RegistrationDate = new DateTime();
+            profile.Country = "pt";
+			admin.Profile = profile;
+
+            admin.EmailConfirmed = true;
+
+			return profile;
+        }
+
+        private static UserBase CreateUser()
+        {
+            try {
+                return Activator.CreateInstance<UserBase>();
+            } catch {
+                throw new InvalidOperationException($"Can't create an instance of '{nameof(UserBase)}'.");
+            }
+        }
+
+        public void CreateNewTopic()
+        {
+            DbContext.Topics.Add(
+            new Topic
+            {
+                TopicId = topicID,
+				GameType = GameType.CSGO,
+				Title = "Test",
+                Content = "Test123",
+                Date = DateTime.Now,
+                ProfileId = adminID,
+                Profile = DbContext.Profiles.FirstOrDefault(p => p.Id == adminID),
+				Comments = new List<Comment>()
+            });
+
+            DbContext.SaveChanges();
+        }
+
+        public Guid GetAdminId()
+        {
+            return adminID;
+        }
+
+        public Guid GetTopicId()
+        {
+            return topicID;
+        }
+
+        public Guid GetMatchesCSId()
 		{
 			return matchesCSID;
 		}

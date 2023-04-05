@@ -63,21 +63,16 @@ namespace FPTV.Controllers
 
 				string noOfVisitors = System.IO.File.ReadAllText("visitors.txt");
 				visitors = Int32.Parse(noOfVisitors);
-			}
+            }
+            else
+            {
+                System.IO.File.WriteAllText("visitors.txt", 1.ToString());
+            }
 
-			++visitors;
-			var visitText = (visitors == 1) ? " view" : " views";
+            ++visitors;
+            var visitText = (visitors == 1) ? " view" : " views";
 
-			if (System.IO.File.Exists("visitors.txt"))
-			{
-				System.IO.File.WriteAllText("visitors.txt", visitors.ToString());
-			}
-			else
-			{
-				System.IO.File.WriteAllText("visitors.txt", 1.ToString());
-			}
-
-			var options = new PusherOptions();
+            var options = new PusherOptions();
 			options.Cluster = "PUSHER_APP_CLUSTER";
 
 			var pusher = new Pusher(
@@ -92,15 +87,6 @@ namespace FPTV.Controllers
 
 			ViewData["visitors"] = visitors;
 			ViewData["visitors_txt"] = visitText;
-
-            //if (System.IO.File.Exists("isDarkmode.txt"))
-            //{
-            //    System.IO.File.WriteAllText("isDarkmode.txt", "true");
-            //}
-            //else
-            //{
-            //    System.IO.File.WriteAllText("isDarkmode.txt", "false");
-            //}
 
             return View();
         }
