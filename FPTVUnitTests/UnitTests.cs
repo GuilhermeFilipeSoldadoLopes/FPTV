@@ -72,7 +72,7 @@ namespace FPTVUnitTests
         public void EventDetails_ReturnsViewResult()
         {
             var controller = new EventsController(_context);
-            var result = controller.Details(10065);
+            var result = controller.Details(10065, "past", "csgo");
             Assert.IsType<ViewResult>(result);
         }
 
