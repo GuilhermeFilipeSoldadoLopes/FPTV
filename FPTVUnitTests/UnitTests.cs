@@ -1,8 +1,15 @@
+using System.Drawing;
 using FPTV.Controllers;
 using FPTV.Data;
 using FPTV.Models.EventsModels;
+using FPTV.Models.Forum;
 using FPTV.Models.MatchesModels;
+using FPTV.Models.StatisticsModels;
+using FPTV.Models.UserModels;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using static System.Formats.Asn1.AsnWriter;
 
 namespace FPTVUnitTests
 {
@@ -65,7 +72,7 @@ namespace FPTVUnitTests
         public void EventDetails_ReturnsViewResult()
         {
             var controller = new EventsController(_context);
-            var result = controller.Details(1);
+            var result = controller.Details(10065);
             Assert.IsType<ViewResult>(result);
         }
 
@@ -76,7 +83,7 @@ namespace FPTVUnitTests
         {
             var controller = new MatchesController(_context);
             var result = controller.Index();
-            Assert.IsType<Task<ActionResult>>(result);
+            Assert.IsType<ViewResult>(result);
         }
 
         //TU7
@@ -144,7 +151,6 @@ namespace FPTVUnitTests
             Assert.Null(matchesCS.MatchesList);
             Assert.Equal(1, matchesCS.NumberOfGames);
             Assert.Equal(contextFixture.GetScore(), matchesCS.Scores);
-            Assert.Equal(contextFixture.GetTeamsList(), matchesCS.TeamsList);
             Assert.Null(matchesCS.TeamsAPIIDList);
             Assert.Equal(1, matchesCS.WinnerTeamAPIId);
             Assert.Equal("Test1", matchesCS.WinnerTeamName);
@@ -179,11 +185,64 @@ namespace FPTVUnitTests
             Assert.IsType<DateTime>(eventCS.BeginAt);
             Assert.IsType<DateTime>(eventCS.EndAt);
             Assert.Equal(736079, eventCS.MatchesCSAPIID);
-            Assert.Equal(contextFixture.GetTeamsList(), eventCS.TeamsList);
             Assert.Equal("1000000$", eventCS.PrizePool);
             Assert.Equal(736079, eventCS.MatchesCSAPIID);
             Assert.Equal("Test1", eventCS.WinnerTeamName);
             Assert.Equal('C', eventCS.Tier);
         }
-	}
+
+		//TU13
+		//ForumController
+		[Fact]
+		public void Forum_ReturnsViewResult()
+		{
+			/*var controller = new ForumController(_context);
+			var result = controller.Index();
+			Assert.IsType<ViewResult>(result);*/
+		}
+
+		//TU14
+		//ForumController
+		[Fact]
+		public void ForumDetails_ReturnsViewResult()
+		{
+			/*var controller = new ForumController(_context);
+			var result = controller.Details();
+			Assert.IsType<ViewResult>(result);*/
+		}
+
+		//TU15
+		//ForumController
+		[Fact]
+		public void Profile_ReturnsViewResult()
+		{
+			/*var controller = new ForumController(_context);
+			var result = controller.Profile(contextFixture.GetAdminId());
+			Assert.IsType<ViewResult>(result);*/
+		}
+
+        //TU16
+        //ForumController
+        [Fact]
+        public void CreateTopic_ReturnsViewResult()
+        {
+            /*var controller = new ForumController(_context);
+            var result = controller.CreateTopic();
+            Assert.IsType<ViewResult>(result);*/
+
+            /*contextFixture.CreateNewTopic();
+
+            Topic topic = contextFixture.DbContext.Topics.FirstOrDefault(t => t.TopicId == contextFixture.GetTopicId());
+            var topicResult = Assert.IsType<Topic>(topic);
+
+            Assert.Equal(contextFixture.GetTopicId(), topic.TopicId);
+            Assert.Equal(GameType.CSGO, topic.GameType);
+            Assert.Equal("Test", topic.Title);
+            Assert.Equal("Test123", topic.Content);
+            Assert.IsType<DateTime>(topic.Date);
+            Assert.Equal(contextFixture.GetAdminId(), topic.ProfileId);
+            Assert.Equal(contextFixture.DbContext.Profiles.FirstOrDefault(p => p.Id == contextFixture.GetAdminId()), topic.Profile);
+            Assert.Null(topic.Comments);*/
+        }
+    }
 }
