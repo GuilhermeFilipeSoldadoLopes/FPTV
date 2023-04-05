@@ -36,7 +36,7 @@ namespace FPTV.Controllers
 		{
 			dropDownGame = game;
 			page = "Index";
-			var account = _context.Users.ToList().Count();
+			var account = _context.Users.Where(u => u.EmailConfirmed == true).ToList().Count();
 
 			var accountTxt = (account == 1) ? " user" : " users";
 
@@ -46,8 +46,10 @@ namespace FPTV.Controllers
 	        ViewData["account_txt"] = accountTxt;
 
 			var visitors = 0;
+			var visitText = "views";
 
-			if (System.IO.File.Exists("visitors.txt"))
+
+            if (System.IO.File.Exists("visitors.txt"))
 			{
 				DateTime lastModificationFileDateTime = System.IO.File.GetLastWriteTime("visitors.txt");
 				DateTime lasModificationDate =
@@ -63,21 +65,16 @@ namespace FPTV.Controllers
 
 				string noOfVisitors = System.IO.File.ReadAllText("visitors.txt");
 				visitors = Int32.Parse(noOfVisitors);
-			}
 
-			++visitors;
-			var visitText = (visitors == 1) ? " view" : " views";
+                ++visitors;
+                visitText = (visitors == 1) ? " view" : " views";
 
-			if (System.IO.File.Exists("visitors.txt"))
-			{
-				System.IO.File.WriteAllText("visitors.txt", visitors.ToString());
-			}
-			else
-			{
-				System.IO.File.WriteAllText("visitors.txt", 1.ToString());
-			}
-
-			var options = new PusherOptions();
+                System.IO.File.WriteAllText("visitors.txt", visitors.ToString());
+            } else {
+                System.IO.File.WriteAllText("visitors.txt", 1.ToString());
+            }
+            
+            var options = new PusherOptions();
 			options.Cluster = "PUSHER_APP_CLUSTER";
 
 			var pusher = new Pusher(
@@ -92,15 +89,6 @@ namespace FPTV.Controllers
 
 			ViewData["visitors"] = visitors;
 			ViewData["visitors_txt"] = visitText;
-
-            //if (System.IO.File.Exists("isDarkmode.txt"))
-            //{
-            //    System.IO.File.WriteAllText("isDarkmode.txt", "true");
-            //}
-            //else
-            //{
-            //    System.IO.File.WriteAllText("isDarkmode.txt", "false");
-            //}
 
             return View();
         }
