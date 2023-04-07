@@ -217,14 +217,16 @@ namespace FPTV.Controllers
         }
         public IActionResult Error404()
         {
+            ViewBag.dropDownGame = "csgo";
             page = "Index";
             return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
-		{
-			page = "Index";
+        {
+            ViewBag.dropDownGame = "csgo";
+            page = "Index";
 			return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }

@@ -69,6 +69,10 @@ namespace FPTV.Controllers
             var runningMatches = getAPIMatches(fullApiPath, game);
             fullApiPath = requestLink + "upcoming?" + jsonFilter + jsonSort + jsonPage + jsonPerPage + token;
             var upcomingMatches = getAPIMatches(fullApiPath, game);
+            if (pastMatches == null || runningMatches == null || upcomingMatches == null)
+            {
+                return RedirectToAction("Error404", "Home");
+            }
 
             List<int> dbMatchesIds = game == "csgo" ? _context.MatchesCS.Select(m => m.MatchesAPIID).ToList() : _context.MatchesVal.Select(m => m.MatchesAPIID).ToList();
 
@@ -145,7 +149,13 @@ namespace FPTV.Controllers
             var client = new RestClient(fullApiPath);
             var request = new RestRequest("", Method.Get);
             request.AddHeader("accept", "application/json");
-            var json = client.Execute(request).Content;
+            var response = client.Execute(request);
+            var json = response.Content;
+
+            if(response.StatusCode != System.Net.HttpStatusCode.OK)
+            {
+                return null;
+            }
 
             if (json == null)
             {
@@ -323,7 +333,14 @@ namespace FPTV.Controllers
             var client = new RestClient(fullApiPath);
             var request = new RestRequest("", Method.Get);
             request.AddHeader("accept", "application/json");
-            var json = client.Execute(request).Content;
+            var response = client.Execute(request);
+            var json = response.Content;
+
+            if (response.StatusCode != System.Net.HttpStatusCode.OK)
+            {
+                ViewBag.dropDownGame = game;
+                return RedirectToAction("Error404", "Home");
+            }
 
             if (json == null)
             {
@@ -504,17 +521,30 @@ namespace FPTV.Controllers
             var client = new RestClient(fullApiPath);
             var request = new RestRequest("", Method.Get);
             request.AddHeader("accept", "application/json");
-            var json = client.Execute(request).Content;
+            var response = client.Execute(request);
+            var json = response.Content;
+
+            if (response.StatusCode != System.Net.HttpStatusCode.OK)
+            {
+                ViewBag.dropDownGame = game;
+                return RedirectToAction("Error404", "Home");
+            }
 
             if (json == null)
             {
-                return View("~/Views/Home/Error404.cshtml");
+                ViewBag.dropDownGame = game;
+                return RedirectToAction("Error404", "Home");
             }
 
             dynamic matches = game == "csgo" ? new MatchesCS() : new MatchesVal();
             dynamic matchesPlayer = game == "csgo" ? new List<MatchPlayerStatsCS>() : new List<MatchPlayerStatsVal>();
 
             var matchesArray = JArray.Parse(json);
+            if (matchesArray.Count() == 0)
+            {
+                ViewBag.dropDownGame = game;
+                return RedirectToAction("Error404", "Home");
+            }
             var matchesObject = (JObject)matchesArray[0];
 
             var status = matchesObject.GetValue("status");
@@ -641,11 +671,19 @@ namespace FPTV.Controllers
                 client = new RestClient(fullApiPath);
                 request = new RestRequest("", Method.Get);
                 request.AddHeader("accept", "application/json");
-                var teamsJson = client.Execute(request).Content;
+                response = client.Execute(request);
+                var teamsJson = response.Content;
+
+                if (response.StatusCode != System.Net.HttpStatusCode.OK)
+                {
+                    ViewBag.dropDownGame = game;
+                    return RedirectToAction("Error404", "Home");
+                }
 
                 if (teamsJson == null)
                 {
-                    return View("~/Views/Home/Error404.cshtml");
+                    ViewBag.dropDownGame = game;
+                    return RedirectToAction("Error404", "Home");
                 }
 
                 var teams = JArray.Parse(teamsJson);
@@ -729,11 +767,19 @@ namespace FPTV.Controllers
             client = new RestClient(fullApiPath);
             request = new RestRequest("", Method.Get);
             request.AddHeader("accept", "application/json");
-            var mapsJson = client.Execute(request).Content;
+            response = client.Execute(request);
+            var mapsJson = response.Content;
+
+            if (response.StatusCode != System.Net.HttpStatusCode.OK)
+            {
+                ViewBag.dropDownGame = game;
+                return RedirectToAction("Error404", "Home");
+            }
 
             if (mapsJson == null)
             {
-                return View("~/Views/Home/Error404.cshtml");
+                ViewBag.dropDownGame = game;
+                return RedirectToAction("Error404", "Home");
             }
 
             var maps = JArray.Parse(mapsJson);
