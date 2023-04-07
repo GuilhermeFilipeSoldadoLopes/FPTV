@@ -296,6 +296,6 @@ bordercolor2 {
     background-color: lightgray;
 }
 
-.bordertop1 {
-    border-color: black;
+.borderRedTop {
+    border-top: 1px solid black;
 }
