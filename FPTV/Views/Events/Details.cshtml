@@ -149,7 +149,7 @@
                             }
                             else
                             {
-                                <span class="span2" style="margin-top:10px;">@match.BeginAt.ToString("D", CultureInfo.GetCultureInfo("en-US"))</span>
+                                <span class="span2" style="margin-top:10px;">@match.BeginAt.ToString("dddd - dd-MM-yyyy hh:mm")</span>
                             }
                     </div>
 
@@ -215,7 +215,8 @@
                     <div class="my-div">
                         <div>
                             <span>Date</span>
-                            <p>@ViewBag.Event.BeginAt.ToString("D", CultureInfo.GetCultureInfo("en-US"));
+                            <p>
+                                @ViewBag.Event.BeginAt.ToString("dddd - dd-MM-yyyy hh:mm");
                                 
                             </p>
                         </div>
@@ -271,7 +272,7 @@
                             }
                             else
                             {
-                                <span class="span2" style="margin-top:10px;">@match.BeginAt.ToString("D", CultureInfo.GetCultureInfo("en-US"))</span>
+                                    <span class="span2" style="margin-top:10px;">@match.BeginAt.ToString("dddd - dd-MM-yyyy hh:mm")</span>
                             }
                             
                         </div>
@@ -328,7 +329,7 @@
                                     }
                                     else
                                     {
-                                        <span class="span2" style="margin-top:10px;">@match.BeginAt.ToString("D", CultureInfo.GetCultureInfo("en-US"))</span>
+                                        <span class="span2" style="margin-top:10px;">@match.BeginAt.ToString("dddd - dd-MM-yyyy hh:mm")</span>
                                     }
                                 </div>
 
