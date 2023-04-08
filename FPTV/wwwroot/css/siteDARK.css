@@ -300,6 +300,7 @@ bordercolor2 {
 .btncancel {
     background-color: lightgray;
 }
-.bordertop1 {
-    border-color: #CC0033;
+
+.borderRedTop {
+    border-top: 1px solid #CC0033;
 }

@@ -8,28 +8,25 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
+<style>
+	.central {
+		width: 100%;
+		margin: 0 auto;
+		text-align: center;
+		height: 100%;
+	}
 
+	.center {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	tr, td, th {
+		border-width: 1px;
+	}
+</style>
 <html>
-	<style>
-		.central {
-			width: 100%;
-			margin: 0 auto;
-			text-align: center;
-			height:100%;
-			background-color: white;
-		}
-
-		.center {
-			display: flex;
-			justify-content: center;
-			align-items: center;
-		}
-
-		tr, td, th{
-			border-width: 1px;
-		}
-	</style>
-
 <body onload="chart()" class="bodytemp">
 
 	@*<div class="text-center">
@@ -40,10 +37,10 @@
 	<!----------------------------------LIVE MATCHES------------------------------------------------->
 	<div class="box" style="border-radius:15px;margin-top:0px ;justify-content: center;display:flex ;margin-bottom:3%">
 		<!-------------------esquerda------------------------->
-		<div class="bordercolor darkcolor"style=" width:45%;margin:auto;text-align:center">
+		<div class="bordercolor darkcolor"style=" width:40%;margin:auto;text-align:center">
 			<h3> Live/Next Matches</h3>
 			<h3> Valorant</h3>
-			<div class="bordertop1" style="padding:1%;padding-bottom:2%;border-top: 1px solid">
+			<div class="borderRedTop" style="padding:1%;padding-bottom:2%;">
 				<div  style="display:flex; width:100%;justify-content:center;border-radius:0px">
 					<div style="text-align:right;font-size: 20px;margin-right:15px">
 						<img src="~/images/image_bruge.png" style="width:20%" /> <span> G2 </span>
@@ -62,7 +59,7 @@
 				</div>
 			</div>
 			
-			<div class="bordertop1" style="padding:1%;padding-bottom:2%;border-top: 1px solid">
+			<div class="borderRedTop" style="padding:1%;padding-bottom:2%;">
 				<div style="display:flex; width:100%;justify-content:center;border-radius:0px">
 					<div style="text-align:right;font-size: 20px;margin-right:15px">
 						<img src="~/images/image_bruge.png" style="width:20%" /> <span> G2 </span>
@@ -83,10 +80,10 @@
 			
 		</div>
 		<!-----------------direita-------------------->
-		<div class="bordercolor darkcolor" style=" width:45%;margin:auto;text-align:center">
+		<div class="bordercolor darkcolor" style=" width:40%;margin:auto;text-align:center">
 			<h3> Live/Next Matches</h3>
 			<h3>CS:GO</h3>
-			<div class="bordertop1" style="padding:1%;padding-bottom:2%;border-top: 1px solid">
+			<div class="borderRedTop" style="padding:1%;padding-bottom:2%;">
 				<div style="display:flex; width:100%;justify-content:center;border-radius:0px">
 					<div style="text-align:right;font-size: 20px;margin-right:15px">
 						<img src="~/images/image_bruge.png" style="width:20%" /> <span> G2 </span>
@@ -105,7 +102,7 @@
 				</div>
 			</div>
 
-			<div class="bordertop1" style="padding:1%;padding-bottom:2%;border-top: 1px solid">
+			<div class="borderRedTop" style="padding:1%;padding-bottom:2%;">
 				<div style="display:flex; width:100%;justify-content:center;border-radius:0px">
 					<div style="text-align:right;font-size: 20px;margin-right:15px">
 						<img src="~/images/image_bruge.png" style="width:20%" /> <span> G2 </span>
@@ -131,10 +128,10 @@
 	<!----------------------------REsults---------------------------------------------->
 	<div class="box" style="border-radius:15px;margin-top:0px ;justify-content: center;display:flex ;margin-bottom:3%">
 
-		<div class="bordercolor darkcolor" style=" width:45%;margin:auto;text-align:center">
+		<div class="bordercolor darkcolor" style=" width:40%;margin:auto;text-align:center">
 			<h3> Matches Results</h3>
 			<h3> Valorant</h3>
-			<div class="bordertop1" style="padding:1%;padding-bottom:2%;border-top: 1px solid">
+			<div class="borderRedTop" style="padding:1%;padding-bottom:2%;">
 				<div style="display:flex; width:100%;justify-content:center;border-radius:0px">
 					<div style="text-align:right;font-size: 20px;margin-right:15px">
 						<img src="~/images/image_bruge.png" style="width:20%" /> <span> G2 </span>
@@ -153,7 +150,7 @@
 				</div>
 			</div>
 
-			<div class="bordertop1" style="padding:1%;padding-bottom:2%;border-top: 1px solid">
+			<div class="borderRedTop" style="padding:1%;padding-bottom:2%;">
 				<div style="display:flex; width:100%;justify-content:center;border-radius:0px">
 					<div style="text-align:right;font-size: 20px;margin-right:15px">
 						<img src="~/images/image_bruge.png" style="width:20%" /> <span> G2 </span>
@@ -174,10 +171,10 @@
 
 		</div>
 		<!-----------------direita-------------------->
-		<div class="bordercolor darkcolor" style=" width:45%;margin:auto;text-align:center">
+		<div class="bordercolor darkcolor" style=" width:40%;margin:auto;text-align:center">
 			<h3>Matches Results</h3>
 			<h3>CS:GO</h3>
-			<div class="bordertop1" style="padding:1%;padding-bottom:2%;border-top: 1px solid">
+			<div class="borderRedTop" style="padding:1%;padding-bottom:2%;">
 				<div style="display:flex; width:100%;justify-content:center;border-radius:0px">
 					<div style="text-align:right;font-size: 20px;margin-right:15px">
 						<img src="~/images/image_bruge.png" style="width:20%" /> <span> G2 </span>
@@ -196,7 +193,7 @@
 				</div>
 			</div>
 
-			<div class="bordertop1" style="padding:1%;padding-bottom:2%;border-top: 1px solid">
+			<div class="borderRedTop" style="padding:1%;padding-bottom:2%;">
 				<div style="display:flex; width:100%;justify-content:center;border-radius:0px">
 					<div style="text-align:right;font-size: 20px;margin-right:15px">
 						<img src="~/images/image_bruge.png" style="width:20%" /> <span> G2 </span>
