@@ -15,6 +15,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileSystemGlobbing;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using NuGet.Common;
 using RestSharp;
 using SendGrid.Helpers.Mail;
 using System;
@@ -22,7 +23,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Net;
 using System.Numerics;
 using System.Runtime.Intrinsics.Arm;
 using System.Runtime.Intrinsics.X86;
@@ -69,9 +72,10 @@ namespace FPTV.Controllers
             var runningMatches = getAPIMatches(fullApiPath, game);
             fullApiPath = requestLink + "upcoming?" + jsonFilter + jsonSort + jsonPage + jsonPerPage + token;
             var upcomingMatches = getAPIMatches(fullApiPath, game);
+
             if (pastMatches == null || runningMatches == null || upcomingMatches == null)
             {
-                return RedirectToAction("Error404", "Home");
+                return View("~/Views/Home/Error404.cshtml");
             }
 
             List<int> dbMatchesIds = game == "csgo" ? _context.MatchesCS.Select(m => m.MatchesAPIID).ToList() : _context.MatchesVal.Select(m => m.MatchesAPIID).ToList();
@@ -152,13 +156,9 @@ namespace FPTV.Controllers
             var response = client.Execute(request);
             var json = response.Content;
 
-            if(response.StatusCode != System.Net.HttpStatusCode.OK)
+            if(response.StatusCode != System.Net.HttpStatusCode.OK || json == null)
             {
-                return null;
-            }
-
-            if (json == null)
-            {
+                registerErrorLog(response.StatusCode);
                 return null;
             }
 
@@ -336,14 +336,10 @@ namespace FPTV.Controllers
             var response = client.Execute(request);
             var json = response.Content;
 
-            if (response.StatusCode != System.Net.HttpStatusCode.OK)
+            if (response.StatusCode != System.Net.HttpStatusCode.OK || json == null)
             {
                 ViewBag.dropDownGame = game;
-                return RedirectToAction("Error404", "Home");
-            }
-
-            if (json == null)
-            {
+                registerErrorLog(response.StatusCode);
                 return View("~/Views/Home/Error404.cshtml");
             }
 
@@ -524,16 +520,11 @@ namespace FPTV.Controllers
             var response = client.Execute(request);
             var json = response.Content;
 
-            if (response.StatusCode != System.Net.HttpStatusCode.OK)
+            if (response.StatusCode != System.Net.HttpStatusCode.OK || json == null)
             {
                 ViewBag.dropDownGame = game;
-                return RedirectToAction("Error404", "Home");
-            }
-
-            if (json == null)
-            {
-                ViewBag.dropDownGame = game;
-                return RedirectToAction("Error404", "Home");
+                registerErrorLog(response.StatusCode);
+                return View("~/Views/Home/Error404.cshtml");
             }
 
             dynamic matches = game == "csgo" ? new MatchesCS() : new MatchesVal();
@@ -543,7 +534,8 @@ namespace FPTV.Controllers
             if (matchesArray.Count() == 0)
             {
                 ViewBag.dropDownGame = game;
-                return RedirectToAction("Error404", "Home");
+                registerErrorLog(response.StatusCode);
+                return View("~/Views/Home/Error404.cshtml");
             }
             var matchesObject = (JObject)matchesArray[0];
 
@@ -674,16 +666,11 @@ namespace FPTV.Controllers
                 response = client.Execute(request);
                 var teamsJson = response.Content;
 
-                if (response.StatusCode != System.Net.HttpStatusCode.OK)
+                if (response.StatusCode != System.Net.HttpStatusCode.OK || teamsJson == null)
                 {
                     ViewBag.dropDownGame = game;
-                    return RedirectToAction("Error404", "Home");
-                }
-
-                if (teamsJson == null)
-                {
-                    ViewBag.dropDownGame = game;
-                    return RedirectToAction("Error404", "Home");
+                    registerErrorLog(response.StatusCode);
+                    return View("~/Views/Home/Error404.cshtml");
                 }
 
                 var teams = JArray.Parse(teamsJson);
@@ -770,16 +757,11 @@ namespace FPTV.Controllers
             response = client.Execute(request);
             var mapsJson = response.Content;
 
-            if (response.StatusCode != System.Net.HttpStatusCode.OK)
+            if (response.StatusCode != System.Net.HttpStatusCode.OK || mapsJson == null)
             {
                 ViewBag.dropDownGame = game;
-                return RedirectToAction("Error404", "Home");
-            }
-
-            if (mapsJson == null)
-            {
-                ViewBag.dropDownGame = game;
-                return RedirectToAction("Error404", "Home");
+                registerErrorLog(response.StatusCode);
+                return View("~/Views/Home/Error404.cshtml");
             }
 
             var maps = JArray.Parse(mapsJson);
@@ -844,6 +826,23 @@ namespace FPTV.Controllers
         public ActionResult TeamStats()
         {
             return View();
+        }
+
+        private void registerErrorLog(HttpStatusCode statusCode)
+        {
+            /*
+            public string? Error { get; set; }
+            public DateTime Date { get; set; }
+            public Guid UserId { get; set; }
+            public virtual Profile? Profile { get; set; }*/
+
+            ErrorLog error = new ErrorLog();
+
+            error.Error = "MatchesController.cs -> " + statusCode.ToString();
+            error.Date = DateTime.Now;
+
+            _context.ErrorLog.Add(error);
+            _context.SaveChanges();
         }
 
         /*// De CSGO e de Valorant

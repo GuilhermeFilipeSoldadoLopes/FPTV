@@ -100,7 +100,7 @@ namespace FPTV.Migrations
                     ErrorLogId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Error = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -109,8 +109,7 @@ namespace FPTV.Migrations
                         name: "FK_ErrorLog_Profiles_UserId",
                         column: x => x.UserId,
                         principalTable: "Profiles",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(

@@ -726,7 +726,7 @@ namespace FPTV.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("UserId")
+                    b.Property<Guid?>("UserId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("ErrorLogId");
@@ -1328,9 +1328,7 @@ namespace FPTV.Migrations
                 {
                     b.HasOne("FPTV.Models.UserModels.Profile", "Profile")
                         .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
 
                     b.Navigation("Profile");
                 });
