@@ -927,15 +927,5 @@ namespace FPTV.Controllers
             return View("PlayerAndStats");
         }
 
-        private void registerErrorLog(HttpStatusCode statusCode)
-        {
-            ErrorLog error = new ErrorLog();
-
-            error.Error = "StatsController.cs -> " + statusCode.ToString();
-            error.Date = DateTime.Now;
-
-            _context.ErrorLog.Add(error);
-            _context.SaveChanges();
-        }
     }
 }
