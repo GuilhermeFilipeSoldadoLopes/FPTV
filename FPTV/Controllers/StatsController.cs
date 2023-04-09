@@ -17,6 +17,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq.Expressions;
+using System.Net;
 using System.Numerics;
 using System.Reflection;
 using System.Reflection.Metadata.Ecma335;
@@ -924,6 +925,17 @@ namespace FPTV.Controllers
             ViewBag.player = playerList;
            
             return View("PlayerAndStats");
+        }
+
+        private void registerErrorLog(HttpStatusCode statusCode)
+        {
+            ErrorLog error = new ErrorLog();
+
+            error.Error = "StatsController.cs -> " + statusCode.ToString();
+            error.Date = DateTime.Now;
+
+            _context.ErrorLog.Add(error);
+            _context.SaveChanges();
         }
     }
 }
