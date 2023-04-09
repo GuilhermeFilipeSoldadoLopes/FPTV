@@ -830,12 +830,6 @@ namespace FPTV.Controllers
 
         private void registerErrorLog(HttpStatusCode statusCode)
         {
-            /*
-            public string? Error { get; set; }
-            public DateTime Date { get; set; }
-            public Guid UserId { get; set; }
-            public virtual Profile? Profile { get; set; }*/
-
             ErrorLog error = new ErrorLog();
 
             error.Error = "MatchesController.cs -> " + statusCode.ToString();
@@ -844,87 +838,5 @@ namespace FPTV.Controllers
             _context.ErrorLog.Add(error);
             _context.SaveChanges();
         }
-
-        /*// De CSGO e de Valorant
-        // GET: Matches/CSMatcheDetails/5
-        public ActionResult CSMatcheDetails(int id)
-        {
-            return View();
-        }
-
-        // GET: Matches/ValMatcheDetails/5
-        public ActionResult ValMatcheDetails(Guid id)
-        {
-            return View();
-        }
-
-        //De CSGO e de Valorant
-        // GET: Matches/CSMatcheCreate
-        public ActionResult CSMatcheCreate()
-        {
-            return View();
-        }
-
-        //De CSGO e de Valorant
-        // POST: Matches/CSMatcheCreate
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult CSMatcheCreate(IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        //De CSGO e de Valorant
-        // GET: Matches/CSMatcheEdit/5
-        public ActionResult CSMatcheEdit(int id)
-        {
-            return View();
-        }
-
-        //De CSGO e de Valorant
-        // POST: Matches/CSMatcheEdit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult CSMatcheEdit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        //De CSGO e de Valorant
-        // GET: Matches/CSMatcheDelete/5
-        public ActionResult CSMatcheDelete(int id)
-        {
-            return View();
-        }
-
-        //De CSGO e de Valorant
-        // POST: Matches/CSMatcheDelete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult CSMatcheDelete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }*/
     }
 }
