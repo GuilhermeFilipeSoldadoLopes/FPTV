@@ -227,6 +227,10 @@
         <div class="ola " style="border-radius:15px;">
             <div class="box darkcolor bordercolor" style="border-radius:15px;margin-top:0px;width:40%;padding:1%">
                 <h4 style="font-weight: bold;text-align:left;">Finished Matches</h4>
+                @if (ViewBag.pastMatches.Count == 0)
+                {
+                    <span> No Past Matches </span>
+                }
                 @foreach (var item in ViewBag.pastMatches)
                 {
                     dynamic teams = item.TeamsList.GetType() == typeof(List<Team>) ? item.TeamsList : ((HashSet<Team>)item.TeamsList).ToList();
@@ -297,6 +301,10 @@
                 }
             </div>
             <div class="box bordercolor" style="margin-top:0px; border-radius:15px;margin-left: 2%;margin-right: 2%; width:60%">
+                @if (ViewBag.runningMatches.Count == 0)
+                {
+                    <span> No Live Matches </span>
+                }
                 <table class="colorformatch tablecolors" style="width:100%; border-radius:15px;">
                     @foreach (var item in ViewBag.runningMatches)
                     {
@@ -384,6 +392,10 @@
 
             <div class="box darkcolor bordercolor" style="margin-top:0px; border-radius:15px;width:40%; padding:1%">
                 <h4 style="font-weight: bold;text-align:left;">Upcoming Matches</h4>
+                @if (ViewBag.upcomingMatches.Count == 0)
+                {
+                    <span> No Upcoming Matches </span>
+                }
                 @foreach (var item in ViewBag.upcomingMatches)
                 {
                     <div class="alinhar bordercolor" style="border-bottom: 1px solid black; border-radius:15px; margin-top: 2%; margin-bottom: 2%;">
