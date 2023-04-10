@@ -2,20 +2,14 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 
-using System;
 using System.ComponentModel.DataAnnotations;
-using System.Text.Encodings.Web;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using FPTV.Models.UserModels;
 using FPTV.Data;
 using RestSharp;
-using FPTV.Models.MatchesModels;
 using Newtonsoft.Json.Linq;
-using System.Linq;
-using AngleSharp.Common;
 
 namespace FPTV.Areas.Identity.Pages.Account.Manage
 {
@@ -176,11 +170,23 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
             }
 
             var userName = user.UserName;
-            if (Input.Username != userName)
-            {
-                user.UserName = Input.Username;
-                await _userManager.UpdateAsync(user);
+            
+
+			if (Input.Username != userName) {
+                if (Input.Username != null && Input.Username != "") {
+                    var userExists = await _userManager.FindByNameAsync(Input.Username);
+                    if (userExists == null)
+                    {
+                        user.UserName = Input.Username;
+                        await _userManager.UpdateAsync(user);
+                    } else {
+                        ModelState.AddModelError("CustomError", "Already exists a user with that name. Try another one.");
+                    }
+                } else {
+                    ModelState.AddModelError("CustomError", "Your name is same as before");
+                }
             }
+                
 
             var formCountry = Request.Form["Country"].ToString();
 
