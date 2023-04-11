@@ -347,9 +347,15 @@ namespace FPTV.Controllers
 
                     _context.MatchPlayerStatsVal.Add(player);
                 }
-
-
-                double KdRatio = (double)player.Kills / (double)player.Deaths;
+                double KdRatio;
+                if(player.Kills != 0 || player.Deaths != 0)
+                {
+                    KdRatio = (double)player.Kills / (double)player.Deaths;
+                }
+                else
+                {
+                    KdRatio = 1;
+                }
                 double roundKdRatio = Math.Round(KdRatio, 2);
                 int maps = _random.Next(1, 8);
                 ViewBag.roundKdRatio = roundKdRatio;
@@ -519,9 +525,17 @@ namespace FPTV.Controllers
 
                     _context.MatchPlayerStatsCS.Add(player);
                 }
-                
 
-                var KdRatio = (double)player.Kills / (double)player.Deaths;
+                double KdRatio;
+
+                if (player.Kills != 0 || player.Deaths != 0 || player.Kills != null || player.Deaths != null)
+                {
+                    KdRatio = (double)player.Kills / (double)player.Deaths;
+                }
+                else
+                {
+                    KdRatio = 1;
+                }
                 double roundKdRatio = Math.Round(KdRatio, 2);
                 int maps = _random.Next(1, 8);
                 ViewBag.roundKdRatio = roundKdRatio;
