@@ -98,7 +98,7 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
                 Country = country,
                 Bio = biography,
                 CountryImage = "/images/Flags/4x3/" + profile.Country + ".svg",
-                Date = ("Registration Date: " + date.Date.ToShortDateString())
+                Date = ("Member since: " + date.Date.ToShortDateString())
 			};
         }
 
