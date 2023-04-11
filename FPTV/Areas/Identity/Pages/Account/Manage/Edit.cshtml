@@ -312,7 +312,7 @@
                 <div style="width:90%;position:relative;display:block;margin-left:auto;margin-right:auto;">
                     <input asp-for="Input.Username" class="form-control" />
                     <label asp-for="Input.Username" class="form-label text-white" style="color:black;font-weight: bold;"></label>
-                    @Html.ValidationMessage("CustomError")
+                    <span asp-validation-for="Input.Username" class="text-danger"></span>
                 </div>
                 <br />
                 <div style="width:90%;position:relative;display:block;margin-left:auto;margin-right:auto;">
@@ -322,7 +322,7 @@
                 <br />
                 <div class="ola " style="margin-top:0px;display:flex;margin:auto">
                     <button id="update-profile-button" type="submit" class="button" style="border-radius:15px;margin:auto">Save</button>
-                    <button id="cancel" class="button" style="border-radius:15px;margin:auto" onClick="history.go(-1); return false;">Cancel</button>
+                    <button id="cancel" class="button" style="border-radius:15px;margin:auto" ; return false;"><a id="cancel" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage" style="text-decoration: none; color: white">Cancel</a></button>
                 </div>
             </form>
         </div>

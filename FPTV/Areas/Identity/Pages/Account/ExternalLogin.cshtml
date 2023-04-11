@@ -66,7 +66,8 @@
                                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                                 <div class="form-floating">
                                 <input asp-for="Input.Username" class="form-control" autocomplete="username" aria-required="true" style="background-color: #e0eeff" placeholder="Username" />
-                                    <span asp-validation-for="Input.Username" class="text-danger"></span>
+                                <span asp-validation-for="Input.Username" class="text-danger"></span>
+                                @Html.ValidationMessage("CustomErrorUsername")
                                 </div>
                                 <p> </p>
                                 <button type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
