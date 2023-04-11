@@ -72,7 +72,7 @@ namespace FPTV.Controllers
             var _jarray = JArray.Parse(_json);
 
             var _response = _client.Execute(_request);
-            if (_response.StatusCode != System.Net.HttpStatusCode.OK || _json == null)
+            if (_response.StatusCode != System.Net.HttpStatusCode.OK || _json == null || _jarray.Count() == 0)
             {
                 ViewBag.dropDownGame = game;
                 registerErrorLog(_response.StatusCode);
@@ -101,7 +101,7 @@ namespace FPTV.Controllers
             var jarray = JArray.Parse(json);
 
             var response = client.Execute(request);
-            if (response.StatusCode != System.Net.HttpStatusCode.OK || json == null)
+            if (response.StatusCode != System.Net.HttpStatusCode.OK || json == null || _jarray.Count() == 0)
             {
                 ViewBag.dropDownGame = game;
                 registerErrorLog(response.StatusCode);
@@ -166,8 +166,8 @@ namespace FPTV.Controllers
             if (teamDB == null)
             {
                 _context.Team.Add(team);
-                _context.SaveChanges();
                 teamDB = team;
+                _context.SaveChanges();
             }
             else
             {
@@ -233,7 +233,7 @@ namespace FPTV.Controllers
                 var _jarray = JArray.Parse(_json);
 
                 var _response = _client.Execute(_request);
-                if (_response.StatusCode != System.Net.HttpStatusCode.OK || _json == null)
+                if (_response.StatusCode != System.Net.HttpStatusCode.OK || _json == null || _jarray.Count() == 0)
                 {
                     ViewBag.dropDownGame = game;
                     registerErrorLog(_response.StatusCode);
@@ -281,7 +281,7 @@ namespace FPTV.Controllers
                 var jarray = JArray.Parse(json);
 
                 var response = client.Execute(request);
-                if (response.StatusCode != System.Net.HttpStatusCode.OK || json == null)
+                if (response.StatusCode != System.Net.HttpStatusCode.OK || json == null || _jarray.Count() == 0)
                 {
                     ViewBag.dropDownGame = game;
                     registerErrorLog(response.StatusCode);
@@ -403,7 +403,7 @@ namespace FPTV.Controllers
                 var _jarray = JArray.Parse(_json);
 
                 var _response = _client.Execute(_request);
-                if (_response.StatusCode != System.Net.HttpStatusCode.OK || _json == null)
+                if (_response.StatusCode != System.Net.HttpStatusCode.OK || _json == null || _jarray.Count() == 0)
                 {
                     ViewBag.dropDownGame = game;
                     registerErrorLog(_response.StatusCode);
@@ -451,7 +451,7 @@ namespace FPTV.Controllers
                 var jarray = JArray.Parse(json);
 
                 var response = client.Execute(request);
-                if (response.StatusCode != System.Net.HttpStatusCode.OK || json == null)
+                if (response.StatusCode != System.Net.HttpStatusCode.OK || json == null || _jarray.Count() == 0)
                 {
                     ViewBag.dropDownGame = game;
                     registerErrorLog(response.StatusCode);
@@ -521,7 +521,7 @@ namespace FPTV.Controllers
                 }
                 
 
-                double KdRatio = (double)player.Kills / (double)player.Deaths;
+                var KdRatio = (double)player.Kills / (double)player.Deaths;
                 double roundKdRatio = Math.Round(KdRatio, 2);
                 int maps = _random.Next(1, 8);
                 ViewBag.roundKdRatio = roundKdRatio;
