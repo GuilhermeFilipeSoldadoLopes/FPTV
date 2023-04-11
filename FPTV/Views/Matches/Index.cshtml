@@ -225,7 +225,7 @@
 
         </div>
         <div class="ola " style="border-radius:15px;">
-            <div class="box darkcolor bordercolor" style="border-radius:15px;margin-top:0px;width:40%;padding:1%">
+            <div class="box darkcolor bordercolor" style="border-radius:15px;margin-top:0px;width:40%;padding:1%;margin-bottom:3%">
                 <h4 style="font-weight: bold;text-align:left;">Finished Matches</h4>
                 @if (ViewBag.pastMatches.Count == 0)
                 {
@@ -303,7 +303,7 @@
             <div class="box bordercolor" style="margin-top:0px; border-radius:15px;margin-left: 2%;margin-right: 2%; width:60%">
                 @if (ViewBag.runningMatches.Count == 0)
                 {
-                    <span> No Live Matches </span>
+                    <span style="text-align:center"> No Live Matches </span>
                 }
                 <table class="colorformatch tablecolors" style="width:100%; border-radius:15px;">
                     @foreach (var item in ViewBag.runningMatches)
