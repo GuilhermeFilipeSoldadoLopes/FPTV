@@ -9,6 +9,7 @@ namespace FPTV.Models.UserModels
         [Display(Name = "Error Log ID")]
         public Guid ErrorLogId { get; set; }
 
+        //Descrição do erro
         [Required]
         [Display(Name = "Error")]
         public string? Error { get; set; }
