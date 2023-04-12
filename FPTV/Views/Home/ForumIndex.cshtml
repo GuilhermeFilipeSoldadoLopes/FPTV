@@ -162,11 +162,11 @@
 			<div class="dropdown">
 				<button class="button2">Sort by</button>
 				<div class="dropdown-content" style="margin-left:0px;">
-					<a href="@Url.Action("Index", "Events", new { sort = "&sort=-begin_at", filter = ViewBag.filter, game = ViewData["game"].ToString()})">Newest</a>
-					<a href="@Url.Action("Index", "Events", new { sort = "&sort=begin_at", filter = ViewBag.filter, game = ViewData["game"].ToString()})">Oldest</a>
-					<a href="@Url.Action("Index", "Events", new { sort = "&sort=prizepool", filter = ViewBag.filter, game = ViewData["game"].ToString()})">Prizepool</a>
-					<a href="@Url.Action("Index", "Events", new { sort = "&sort=name", filter = ViewBag.filter, game = ViewData["game"].ToString()})">Name</a>
-					<a href="@Url.Action("Index", "Events", new { sort = "&sort=-tier", filter = ViewBag.filter, game = ViewData["game"].ToString()})">Tier</a>
+					<a href="@Url.Action("Index", "Events", new { sort = "&sort=-begin_at", filter = ViewBag.filter, game = ViewData["game"]})">Newest</a>
+					<a href="@Url.Action("Index", "Events", new { sort = "&sort=begin_at", filter = ViewBag.filter, game = ViewData["game"]})">Oldest</a>
+					<a href="@Url.Action("Index", "Events", new { sort = "&sort=prizepool", filter = ViewBag.filter, game = ViewData["game"]})">Prizepool</a>
+					<a href="@Url.Action("Index", "Events", new { sort = "&sort=name", filter = ViewBag.filter, game = ViewData["game"]})">Name</a>
+					<a href="@Url.Action("Index", "Events", new { sort = "&sort=-tier", filter = ViewBag.filter, game = ViewData["game"]})">Tier</a>
 			  </div>
 			</div>
 
