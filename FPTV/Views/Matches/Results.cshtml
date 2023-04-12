@@ -166,26 +166,26 @@
 			
 				@if (ViewBag.days == 1) {
 				<button class="btnResult selectedbtn bordercolor whiteText" style="">
-					<a class="whiteText" style="text-decoration: none; " href="@Url.Action("Results", "Matches", new { days = 1, game = ViewBag.dropDownGame})">Results of  Yesterday</a>
+					<a class="whiteText" style="text-decoration: none; " href="@Url.Action("Results", "Matches", new { days = 1, game = ViewData["game"].ToString()})">Results of  Yesterday</a>
 				</button>
 				} else {
 				<button class="btnResult bordercolor whiteText" style="">
-					<a class="whiteText" style="text-decoration: none; " href="@Url.Action("Results", "Matches", new { days = 1, game = ViewBag.dropDownGame})">Results of  Yesterday</a>
+					<a class="whiteText" style="text-decoration: none; " href="@Url.Action("Results", "Matches", new { days = 1, game = ViewData["game"].ToString()})">Results of  Yesterday</a>
 				</button>
 				}
 			
 				@if (ViewBag.days == 0) {
 				<button class="btnResult selectedbtn bordercolor whiteText" style="">
-					<a class="whiteText" style="text-decoration: none; " href="@Url.Action("Results", "Matches", new { game = ViewBag.dropDownGame})">Results of Today</a>
+					<a class="whiteText" style="text-decoration: none; " href="@Url.Action("Results", "Matches", new { game = ViewData["game"].ToString()})">Results of Today</a>
 				</button>
 				} else {
 				<button class="btnResult bordercolor whiteText" style="">
-					<a class="whiteText" style="text-decoration: none;" href="@Url.Action("Results", "Matches", new { game = ViewBag.dropDownGame})">Results of Today</a>
+					<a class="whiteText" style="text-decoration: none;" href="@Url.Action("Results", "Matches", new { game = ViewData["game"].ToString()})">Results of Today</a>
 				</button>
 				}
 
 			<button class="btnResult bordercolor">
-				<form method="post" action="@Url.Action("Results", "Matches", new {game = ViewBag.dropDownGame})">
+				<form method="post" action="@Url.Action("Results", "Matches", new {game = ViewData["game"].ToString()})">
 					<input class="bordercolor dark" type="text" name="days" placeholder=" 2 to 365 days ago" required style="width:50%; padding:1px; text-align:center">
 				</form>
 			</button>
@@ -199,7 +199,7 @@
 				}
 				@foreach (var item in ViewBag.matches)
 				{
-					<tr style="border:1px solid black; cursor:pointer;width:100%;overflow-x:auto;" onclick="location.href = '@Url.Action("MatchDetails", "Matches", new {id = item.MatchesAPIID, type = item.TimeType.ToString().ToLower(), game = ViewBag.dropDownGame})'">
+					<tr style="border:1px solid black; cursor:pointer;width:100%;overflow-x:auto;" onclick="location.href = '@Url.Action("MatchDetails", "Matches", new {id = item.MatchesAPIID, type = item.TimeType.ToString().ToLower(), game = ViewData["game"].ToString()})'">
 						<td>@item.TeamsList[0].Name</td>
 						<td>
 							<img src=@item.TeamsList[0].Image style="width:40px; margin:auto; height:40px;" />

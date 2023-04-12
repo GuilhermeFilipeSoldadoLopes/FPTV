@@ -234,7 +234,7 @@
 
                 <div class="box2" style="margin:auto;margin-top: 10%; width:100%; text-align: center;">
                     <p>Age:  @ViewBag._player.Age </p>
-                    <a style="text-decoration: none" href="@Url.Action("getTeam", "Stats", new {id = @ViewBag._player.Teams[0].TeamAPIID, game = ViewBag.dropDownGame})" style="justify-content: space-around; margin-left: auto; margin-bottom:0px">
+                    <a style="text-decoration: none" href="@Url.Action("getTeam", "Stats", new {id = @ViewBag._player.Teams[0].TeamAPIID, game = ViewData["game"].ToString()})" style="justify-content: space-around; margin-left: auto; margin-bottom:0px">
                     <p>Team: @ViewBag._player.Teams[0].Name <img src=@ViewBag._player.Teams[0].Image style="width:10%;margin-left:1%;margin-bottom:1%"> </p>
                     </a>
                     <p>Nationality: <img src=@ViewBag.NacionalityImg style="width:11%;margin-left:1%;margin-bottom:1%"> </p>
@@ -351,11 +351,11 @@
                     <table class="tableDetails" style="width:100%">
                         <tr style="width:100%; cursor:pointer">
                             <td style="width:35%;border:none">
-                                <img onclick="location.href = '@Url.Action("getTeam", "Stats", new {id = @ViewBag.pastTeam1.TeamAPIID, game = ViewBag.dropDownGame})'" src=@ViewBag.pastTeam1.Image style="width:100%;">
+                                <img onclick="location.href = '@Url.Action("getTeam", "Stats", new {id = @ViewBag.pastTeam1.TeamAPIID, game = ViewData["game"].ToString()})'" src=@ViewBag.pastTeam1.Image style="width:100%;">
                             </td>
                             <td style="width:70%; border:none">
                                 <div>
-                                    <h4 onclick="location.href = '@Url.Action("getTeam", "Stats", new {id = @ViewBag.pastTeam1.TeamAPIID, game = ViewBag.dropDownGame})'">
+                                    <h4 onclick="location.href = '@Url.Action("getTeam", "Stats", new {id = @ViewBag.pastTeam1.TeamAPIID, game = ViewData["game"].ToString()})'">
                                         @ViewBag.pastTeam1.Name
                                     </h4>
                                     <p>
@@ -368,11 +368,11 @@
 
                         <tr style="width:100%; cursor:pointer">
                             <td style="width:35%;border:none">
-                                <img onclick="location.href = '@Url.Action("getTeam", "Stats", new {id = @ViewBag.pastTeam2.TeamAPIID, game = ViewBag.dropDownGame})'" src=@ViewBag.pastTeam2.Image style="width:100%;">
+                                <img onclick="location.href = '@Url.Action("getTeam", "Stats", new {id = @ViewBag.pastTeam2.TeamAPIID, game = ViewData["game"].ToString()})'" src=@ViewBag.pastTeam2.Image style="width:100%;">
                             </td>
                             <td style="width:70%; border:none">
                                 <div>
-                                    <h4 onclick="location.href = '@Url.Action("getTeam", "Stats", new {id = @ViewBag.pastTeam2.TeamAPIID, game = ViewBag.dropDownGame})'">
+                                    <h4 onclick="location.href = '@Url.Action("getTeam", "Stats", new {id = @ViewBag.pastTeam2.TeamAPIID, game = ViewData["game"].ToString()})'">
                                         @ViewBag.pastTeam2.Name
                                     </h4>
                                     <p>
@@ -386,11 +386,11 @@
 
                         <tr style="width:100%; cursor:pointer">
                             <td style="width:35%;border:none">
-                                <img onclick="location.href = '@Url.Action("getTeam", "Stats", new {id = @ViewBag.pastTeam3.TeamAPIID, game = ViewBag.dropDownGame})'" src=@ViewBag.pastTeam3.Image style="width:100%;">
+                                <img onclick="location.href = '@Url.Action("getTeam", "Stats", new {id = @ViewBag.pastTeam3.TeamAPIID, game = ViewData["game"].ToString()})'" src=@ViewBag.pastTeam3.Image style="width:100%;">
                             </td>
                             <td style="width:70%; border:none">
                                 <div>
-                                    <h4 onclick="location.href = '@Url.Action("getTeam", "Stats", new {id = @ViewBag.pastTeam3.TeamAPIID, game = ViewBag.dropDownGame})'">
+                                    <h4 onclick="location.href = '@Url.Action("getTeam", "Stats", new {id = @ViewBag.pastTeam3.TeamAPIID, game = ViewData["game"].ToString()})'">
                                         @ViewBag.pastTeam3.Name
                                     </h4>
                                     <p>
