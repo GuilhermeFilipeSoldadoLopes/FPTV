@@ -520,23 +520,18 @@ namespace FPTV.Controllers
             var response = client.Execute(request);
             var json = response.Content;
 
-            if (response.StatusCode != System.Net.HttpStatusCode.OK || json == null)
-            {
-                ViewBag.dropDownGame = game;
-                registerErrorLog(response.StatusCode);
-                return View("~/Views/Home/Error404.cshtml");
-            }
-
             dynamic matches = game == "csgo" ? new MatchesCS() : new MatchesVal();
             dynamic matchesPlayer = game == "csgo" ? new List<MatchPlayerStatsCS>() : new List<MatchPlayerStatsVal>();
 
             var matchesArray = JArray.Parse(json);
-            if (matchesArray.Count() == 0)
+
+            if (response.StatusCode != System.Net.HttpStatusCode.OK || json == null || matchesArray.Count() == 0)
             {
                 ViewBag.dropDownGame = game;
                 registerErrorLog(response.StatusCode);
                 return View("~/Views/Home/Error404.cshtml");
             }
+
             var matchesObject = (JObject)matchesArray[0];
 
             var status = matchesObject.GetValue("status");
