@@ -281,7 +281,7 @@ namespace FPTV.Controllers
                 var jarray = JArray.Parse(json);
 
                 var response = client.Execute(request);
-                if (response.StatusCode != System.Net.HttpStatusCode.OK || json == null || _jarray.Count() == 0)
+                if (response.StatusCode != System.Net.HttpStatusCode.OK || json == null || jarray.Count() == 0)
                 {
                     ViewBag.dropDownGame = game;
                     registerErrorLog(response.StatusCode);
@@ -457,7 +457,7 @@ namespace FPTV.Controllers
                 var jarray = JArray.Parse(json);
 
                 var response = client.Execute(request);
-                if (response.StatusCode != System.Net.HttpStatusCode.OK || json == null || _jarray.Count() == 0)
+                if (response.StatusCode != System.Net.HttpStatusCode.OK || json == null || jarray.Count() == 0)
                 {
                     ViewBag.dropDownGame = game;
                     registerErrorLog(response.StatusCode);
