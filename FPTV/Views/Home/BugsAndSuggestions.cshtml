@@ -84,7 +84,7 @@
 		}
 
 		.dropdown {
-			margin-left:10px;
+			margin-left:600px;
 			background-color: #e0eeff;
 			color: #fff;
 			border: none;
@@ -171,14 +171,12 @@
 
 			</button>
 		<div class="buttons bodycolor">
-			<form method="post" action="@Url.Action("Index", "Events", new { sort = ViewBag.sort, filter = ViewBag.filter})">
-					<label class="search-container">
-						<img src="~/images/image.png" />
-						<input name = "search" type = "text" placeholder = "New Comment">
-					</label>	
-			</form>
+			<div class="buttons bodycolor" style="width:55%;position:relative;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:black;border-width:1px;border-radius:10px;padding:10px;background-color:white">
+				<input name="search" style="border:none" type="text" placeholder="New Comment">
+				<img src="~/images/image.png" width=10% height=auto/>
+			</div>
 
-			<div class="dropdown">
+			<div class="dropdown" style="width:20%;height:auto">
 				<button class="button2">Sort by</button>
 				<div class="dropdown-content" style="margin-left:0px;">
 					<a href="@Url.Action("Index", "Events", new { sort = "&sort=-begin_at", filter = ViewBag.filter, game = ViewData["game"]})">Newest</a>
