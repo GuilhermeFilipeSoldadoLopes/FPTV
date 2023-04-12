@@ -311,7 +311,14 @@ namespace FPTV.Controllers
 			return RedirectToAction("Index", page, new { sort = "&sort=-begin_at", filter = "running", game = game });
         }
 
-		public IActionResult ForumIndex()
+        public IActionResult BugsAndSuggestions()
+        {
+            page = "Forum";
+            ViewBag.page = page;
+            return View();
+        }
+
+        public IActionResult ForumIndex()
 		{
 			page = "Forum";
 			//return RedirectToAction("Forum", "ForumIndex");
