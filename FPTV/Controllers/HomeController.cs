@@ -34,13 +34,12 @@ namespace FPTV.Controllers
 
 		public IActionResult Index(string game = "csgo")
 		{
-			dropDownGame = game;
+			ViewData["game"] = game;
 			page = "Index";
 			var account = _context.Users.Where(u => u.EmailConfirmed == true).ToList().Count();
 
 			var accountTxt = (account == 1) ? " user" : " users";
-
-			ViewBag.dropDownGame = game;
+			
 			ViewBag.page = page;
 			ViewData["accounts"] = account;
 	        ViewData["account_txt"] = accountTxt;
@@ -183,18 +182,16 @@ namespace FPTV.Controllers
             return View();
         }
         
-		public IActionResult Forum(string game = "csgo")
+		public IActionResult Forum()
 		{
 			page = "Forum";
             ViewBag.page = page;
-            ViewBag.dropDownGame = game;
             return View("Index"); //apagar index - quando a pagina tiver feita
 		}
-        public IActionResult About(string game = "csgo")
+        public IActionResult About()
 		{
 			page = "About";
             ViewBag.page = page;
-            ViewBag.dropDownGame = game;
 			return View(); //return View(); //apagar index - quando a pagina tiver feita
 		}
         
@@ -217,7 +214,6 @@ namespace FPTV.Controllers
         }
         public IActionResult Error404()
         {
-            ViewBag.dropDownGame = "csgo";
             page = "Index";
             return View();
         }
@@ -225,7 +221,6 @@ namespace FPTV.Controllers
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
-            ViewBag.dropDownGame = "csgo";
             page = "Index";
 			return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }

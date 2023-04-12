@@ -55,9 +55,9 @@ namespace FPTV.Controllers
         //De CSGO e de Valorant
         // GET: CSMatches
         public ActionResult Index(string sort = "", string filter = "", string page = "&page=1", string game = "csgo")
-        {
-            ViewBag.dropDownGame = game;
-            ViewBag.page = "Matches";
+		{
+			ViewData["game"] = game;
+			ViewBag.page = "Matches";
             //Request processing with RestSharp
             var jsonFilter = (filter == "" || filter == "livestream") ? "" : "filter[" + filter + "]=true&";
             var jsonSort = (sort == "" || sort == "tournament") ? "" : sort;
@@ -317,9 +317,9 @@ namespace FPTV.Controllers
         }
 
         public ActionResult Results(int days = 0, string game = "csgo")
-        {
-            ViewBag.dropDownGame = game;
-            ViewBag.page = "Results";
+		{
+			ViewData["game"] = game;
+			ViewBag.page = "Results";
             ViewBag.days = days;
 
             var day = DateTime.Now.AddDays(-days).ToString("yyyy-MM-dd");
@@ -337,9 +337,8 @@ namespace FPTV.Controllers
             var json = response.Content;
 
             if (response.StatusCode != System.Net.HttpStatusCode.OK || json == null)
-            {
-                ViewBag.dropDownGame = game;
-                registerErrorLog(response.StatusCode);
+			{
+				registerErrorLog(response.StatusCode);
                 return View("~/Views/Home/Error404.cshtml");
             }
 
@@ -502,10 +501,9 @@ namespace FPTV.Controllers
         }
 
         public ActionResult MatchDetails(int id = 0, string type = "past", string game = "csgo")
-
-        {
-            ViewBag.dropDownGame = game;
-            ViewBag.page = "Matches";
+		{
+			ViewData["game"] = game;
+			ViewBag.page = "Matches";
             Random rnd = new Random();
 
             var jsonFilter = "filter[id]=" + id;
@@ -521,9 +519,8 @@ namespace FPTV.Controllers
             var json = response.Content;
 
             if (response.StatusCode != System.Net.HttpStatusCode.OK || json == null)
-            {
-                ViewBag.dropDownGame = game;
-                registerErrorLog(response.StatusCode);
+			{
+				registerErrorLog(response.StatusCode);
                 return View("~/Views/Home/Error404.cshtml");
             }
 
@@ -532,9 +529,8 @@ namespace FPTV.Controllers
 
             var matchesArray = JArray.Parse(json);
             if (matchesArray.Count() == 0)
-            {
-                ViewBag.dropDownGame = game;
-                registerErrorLog(response.StatusCode);
+			{
+				registerErrorLog(response.StatusCode);
                 return View("~/Views/Home/Error404.cshtml");
             }
             var matchesObject = (JObject)matchesArray[0];
@@ -667,9 +663,8 @@ namespace FPTV.Controllers
                 var teamsJson = response.Content;
 
                 if (response.StatusCode != System.Net.HttpStatusCode.OK || teamsJson == null)
-                {
-                    ViewBag.dropDownGame = game;
-                    registerErrorLog(response.StatusCode);
+				{
+					registerErrorLog(response.StatusCode);
                     return View("~/Views/Home/Error404.cshtml");
                 }
 
@@ -758,9 +753,8 @@ namespace FPTV.Controllers
             var mapsJson = response.Content;
 
             if (response.StatusCode != System.Net.HttpStatusCode.OK || mapsJson == null)
-            {
-                ViewBag.dropDownGame = game;
-                registerErrorLog(response.StatusCode);
+			{
+				registerErrorLog(response.StatusCode);
                 return View("~/Views/Home/Error404.cshtml");
             }
 

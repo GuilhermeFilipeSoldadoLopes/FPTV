@@ -210,16 +210,16 @@
             <div class="dropdown">
                 <button class="button2">Sort by</button>
                 <div class="dropdown-content">
-                    <a href="@Url.Action("Index", "Matches", new { sort = "", filter = ViewBag.filter, game = ViewBag.dropDownGame})">Newest</a>
-                    <a href="@Url.Action("Index", "Matches", new { sort = "&sort=begin_at", filter = ViewBag.filter, game = ViewBag.dropDownGame})">Oldest</a>
-                    <a href="@Url.Action("Index", "Matches", new { sort = "tournament", filter = ViewBag.filter, game = ViewBag.dropDownGame})">Event Name</a>
+                    <a href="@Url.Action("Index", "Matches", new { sort = "", filter = ViewBag.filter, game = ViewData["game"].ToString()})">Newest</a>
+                    <a href="@Url.Action("Index", "Matches", new { sort = "&sort=begin_at", filter = ViewBag.filter, game = ViewData["game"].ToString()})">Oldest</a>
+                    <a href="@Url.Action("Index", "Matches", new { sort = "tournament", filter = ViewBag.filter, game = ViewData["game"].ToString()})">Event Name</a>
                 </div>
             </div>
             <div class="dropdown">
                 <button class="button2">Filter by</button>
                 <div class="dropdown-content">
-                    <a href="@Url.Action("Index", "Matches", new { sort = ViewBag.sort, filter = "detailed_stats", game = ViewBag.dropDownGame})">Have Stats</a>
-                    <a href="@Url.Action("Index", "Matches", new { sort = ViewBag.sort, filter = "livestream", game = ViewBag.dropDownGame})">Have livestream</a>
+                    <a href="@Url.Action("Index", "Matches", new { sort = ViewBag.sort, filter = "detailed_stats", game = ViewData["game"].ToString()})">Have Stats</a>
+                    <a href="@Url.Action("Index", "Matches", new { sort = ViewBag.sort, filter = "livestream", game = ViewData["game"].ToString()})">Have livestream</a>
                 </div>
             </div>
 
@@ -290,7 +290,7 @@
 
                             <div style="text-align:left; display: flex;">
                                 <p style="margin-bottom:0px">Best of @item.NumberOfGames</p>
-                                <a href="@Url.Action("MatchDetails", "Matches", new {id = item.MatchesAPIID, type = item.TimeType.ToString().ToLower() ,game = ViewBag.dropDownGame})" style="justify-content: space-around; margin-left: auto; margin-bottom:0px">More details</a>
+                                <a href="@Url.Action("MatchDetails", "Matches", new {id = item.MatchesAPIID, type = item.TimeType.ToString().ToLower() ,game = ViewData["game"].ToString()})" style="justify-content: space-around; margin-left: auto; margin-bottom:0px">More details</a>
                             </div>
                         </div>
                     </div>
@@ -369,7 +369,7 @@
                                                 </td>
                                                 <td class="tablecolors" style="margin-bottom:0px;width:50%" >
 
-                                                    <a href="@Url.Action("MatchDetails", "Matches", new {id = item.MatchesAPIID, type = item.TimeType.ToString().ToLower() ,game = ViewBag.dropDownGame})" style="margin-bottom:0px;">More details</a>
+                                                    <a href="@Url.Action("MatchDetails", "Matches", new {id = item.MatchesAPIID, type = item.TimeType.ToString().ToLower() ,game = ViewData["game"].ToString()})" style="margin-bottom:0px;">More details</a>
                                                     
                                                 </td>
                                             </tr>
@@ -408,7 +408,7 @@
                             </div>
                             <div style="text-align:left; display: flex;margin-bottom:0px">
                                 <p style="margin-bottom:0px"> Best of @item.NumberOfGames</p>
-                                <a href="@Url.Action("MatchDetails", "Matches", new {id = item.MatchesAPIID, type = item.TimeType.ToString().ToLower() ,game = ViewBag.dropDownGame})" style="justify-content: space-around; margin-left: auto; margin-bottom:0px">More details</a>
+                                <a href="@Url.Action("MatchDetails", "Matches", new {id = item.MatchesAPIID, type = item.TimeType.ToString().ToLower() ,game = ViewData["game"].ToString()})" style="justify-content: space-around; margin-left: auto; margin-bottom:0px">More details</a>
                             </div>
                         </div>
                     </div>

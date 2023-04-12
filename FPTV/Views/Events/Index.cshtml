@@ -157,19 +157,19 @@
 			<div class="dropdown">
 				<button class="button2">Sort by</button>
 				<div class="dropdown-content" style="margin-left:0px;">
-					<a href="@Url.Action("Index", "Events", new { sort = "&sort=-begin_at", filter = ViewBag.filter, game = ViewBag.dropDownGame})">Newest</a>
-					<a href="@Url.Action("Index", "Events", new { sort = "&sort=begin_at", filter = ViewBag.filter, game = ViewBag.dropDownGame})">Oldest</a>
-					<a href="@Url.Action("Index", "Events", new { sort = "&sort=prizepool", filter = ViewBag.filter, game = ViewBag.dropDownGame})">Prizepool</a>
-					<a href="@Url.Action("Index", "Events", new { sort = "&sort=name", filter = ViewBag.filter, game = ViewBag.dropDownGame})">Name</a>
-					<a href="@Url.Action("Index", "Events", new { sort = "&sort=-tier", filter = ViewBag.filter, game = ViewBag.dropDownGame})">Tier</a>
+					<a href="@Url.Action("Index", "Events", new { sort = "&sort=-begin_at", filter = ViewBag.filter, game = ViewData["game"].ToString()})">Newest</a>
+					<a href="@Url.Action("Index", "Events", new { sort = "&sort=begin_at", filter = ViewBag.filter, game = ViewData["game"].ToString()})">Oldest</a>
+					<a href="@Url.Action("Index", "Events", new { sort = "&sort=prizepool", filter = ViewBag.filter, game = ViewData["game"].ToString()})">Prizepool</a>
+					<a href="@Url.Action("Index", "Events", new { sort = "&sort=name", filter = ViewBag.filter, game = ViewData["game"].ToString()})">Name</a>
+					<a href="@Url.Action("Index", "Events", new { sort = "&sort=-tier", filter = ViewBag.filter, game = ViewData["game"].ToString()})">Tier</a>
 			  </div>
 			</div>
 			<div class="dropdown">
 			  <button class="button2">Filter by</button>
 				<div class="dropdown-content" style="margin-left:0px;">
-					<a href="@Url.Action("Index", "Events", new { sort = ViewBag.sort, filter = "running", game = ViewBag.dropDownGame})">On going</a>
-					<a href="@Url.Action("Index", "Events", new { sort = ViewBag.sort, filter = "past", game = ViewBag.dropDownGame})">Finished</a>
-					<a href="@Url.Action("Index", "Events", new { sort = ViewBag.sort, filter = "upcoming", game = ViewBag.dropDownGame})">Upcoming</a>
+					<a href="@Url.Action("Index", "Events", new { sort = ViewBag.sort, filter = "running", game = ViewData["game"].ToString()})">On going</a>
+					<a href="@Url.Action("Index", "Events", new { sort = ViewBag.sort, filter = "past", game = ViewData["game"].ToString()})">Finished</a>
+					<a href="@Url.Action("Index", "Events", new { sort = ViewBag.sort, filter = "upcoming", game = ViewData["game"].ToString()})">Upcoming</a>
 			  </div>
 			</div>
 						
@@ -178,7 +178,7 @@
 		<div class="center bodycolor" style="flex-direction: column; border-radius:15px ">
 			@foreach (var e in Model)
 			{
-				<button style="margin:1%" class="btn1" onclick="location.href='@Url.Action("Details", "Events", new { id = e.EventAPIID, sort = ViewBag.sort, filter = ViewBag.filter,  game = ViewBag.dropDownGame})'">
+				<button style="margin:1%" class="btn1" onclick="location.href='@Url.Action("Details", "Events", new { id = e.EventAPIID, sort = ViewBag.sort, filter = ViewBag.filter,  game = ViewData["game"].ToString()})'">
 					<div class="my-div" style="margin:auto">
 						<div style="width:100%">
 							<img src=@e.EventImage style="width:20%; margin:auto; height:45px;"/>
