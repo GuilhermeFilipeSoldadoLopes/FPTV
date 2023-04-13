@@ -213,11 +213,11 @@
             <br />
 
             <div style="width:80%;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:black;background-color:white;border-width:1px;border-radius:10px;padding:10px;">
-                <h4 class="text-dark">Favourite Players:</h4>
+                <h4 class="text-dark" style="text-transform: capitalize;" id="toTranslate">Favourite Players:</h4>
                 <div style="padding-left:20px">
                     @if (ViewData["FavPlayerListCSGO"] == null || ((List<FavPlayerList>)ViewData["FavPlayerListCSGO"]).Count() == 0)
                     {
-                        <span class="span2 text-dark">No Favourite Players</span>
+                        <span class="span2 text-dark" style="text-transform: capitalize;" id="toTranslate">No Favourite Players</span>
                         <br />
                     }
                     else
@@ -242,11 +242,11 @@
             <br />
 
             <div style="width:80%;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:black;background-color:white;border-width:1px;border-radius:10px;padding:10px;">
-                <h4 class="text-dark">Favourite Teams:</h4>
+                <h4 class="text-dark" style="text-transform: capitalize;" id="toTranslate">Favourite Teams:</h4>
                 <div style="padding-left:20px">
                     @if (ViewData["FavTeamsListCSGO"] == null || ((List<FavTeamsList>)ViewData["FavTeamsListCSGO"]).Count() == 0)
                     {
-                        <span class="span2 text-dark">No Favourite Teams</span>
+                        <span class="span2 text-dark" style="text-transform: capitalize;" id="toTranslate">No Favourite Teams</span>
                         <br />
                     }
                     else
@@ -270,13 +270,13 @@
             </div>
             <br />
         </div>
-
+        
         <div class="box bordercolor" style="margin-top:0px;position:relative;border-width:0px;width:70%">
             <partial name="_StatusMessage" for="StatusMessage" />
             <form id="profile-form" method="post" enctype="multipart/form-data">
                 <div class ="ola " style="margin-top:0px;padding-top:20px">
                     <div class ="box" style="width:50%;margin-top:0px">
-                        <h1 style="margin-left:30px;font-weight: bold;">Edit Profile</h1>
+                        <h1 style="margin-left:30px;font-weight: bold; text-transform: capitalize;" id="toTranslate">Edit Profile</h1>
                     </div>
                     <div class="box" style="width:50%;margin-top:0px">
                         <img id="profilePicture" style="width:195px;height:195px;display:block;margin-left:auto;margin-right:auto;object-fit:cover;border-radius:50%" src="data:image/*;base64,@(Convert.ToBase64String(Model.Input.ProfilePicture))">
@@ -294,7 +294,7 @@
                         <br />
                     </div>
                 </div>
-                <span asp-validation-for="Input.ProfilePicture" class="text-danger"></span>
+                <span asp-validation-for="Input.ProfilePicture" class="text-danger" id="toTranslate"></span>
                 <br />
                 <div style="width:100%;position:relative;display:block;margin-left:auto;margin-right:auto;">
                     <div style="width:90%;position:relative;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:black;border-width:1px;border-radius:10px;padding:10px;background-color:white">
@@ -312,7 +312,7 @@
                 <div style="width:90%;position:relative;display:block;margin-left:auto;margin-right:auto;">
                     <input value=@Model.Input.Username asp-for="Input.Username" class="form-control" />
                     <label asp-for="Input.Username" class="form-label text-white" style="color:black;font-weight: bold;"></label>
-                    <span asp-validation-for="Input.Username" class="text-danger"></span>
+                    <span asp-validation-for="Input.Username" class="text-danger" id="toTranslate"></span>
                 </div>
                 <br />
                 <div style="width:90%;position:relative;display:block;margin-left:auto;margin-right:auto;">
@@ -321,8 +321,8 @@
                 </div>
                 <br />
                 <div class="ola " style="margin-top:0px;display:flex;margin:auto">
-                    <button id="update-profile-button" type="submit" class="button" style="border-radius:15px;margin:auto">Save</button>
-                    <button id="cancel" class="button" style="border-radius:15px;margin:auto" ; return false;"><a id="cancel" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage" style="text-decoration: none; color: white">Cancel</a></button>
+					<button id="update-profile-button" type="submit" class="button" style="border-radius:15px;margin:auto; text-transform: capitalize;"><span id="toTranslate">Save</span></button>
+                    <button id="cancel" class="button" style="border-radius:15px;margin:auto" ; return false;"><a id="cancel" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage" style="text-decoration: none; color: white; text-transform: capitalize;"><span id="toTranslate">Cancel</span></a></button>
                 </div>
             </form>
         </div>
@@ -334,7 +334,7 @@
             <br />
 
             <div style="width:80%;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:black;background-color:white;border-width:1px;border-radius:10px;padding:10px;">
-                <h4 class="text-dark">Favourite Players:</h4>
+                <h4 class="text-dark" id="toTranslate">Favourite Players:</h4>
                 <div style="padding-left:20px">
                     <div class="ola">
                         <div class="box" style="margin-top:0px;width:80%">
@@ -365,7 +365,7 @@
             <br />
 
             <div style="width:80%;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:black;background-color:white;border-width:1px;border-radius:10px;padding:10px;">
-                <h4 class="text-dark">Favourite Teams:</h4>
+                    <h4 class="text-dark" id="toTranslate">Favourite Teams:</h4>
                 <div style="padding-left:20px">
                     <div class="ola">
                         <div class="box" style="margin-top:0px;width:80%">
@@ -399,7 +399,7 @@
         
         <div style="display:flex;justify-content:end;margin-top:60%">
             <span>
-                <a style="width:auto ;font-size:20px;color:red;order:1;" asp-area="Identity" asp-page="/Account/Manage/Disable">Disable Account</a>
+                    <a style="width:auto ;font-size:20px;color:red;order:1;" asp-area="Identity" asp-page="/Account/Manage/Disable"><span style="text-transform: capitalize;" id="toTranslate">Disable Account</span></a>
             </span>
         </div>
         </div>
