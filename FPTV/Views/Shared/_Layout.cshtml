@@ -179,9 +179,9 @@
 						</li>
 						<li class="nav-item text-dark" id="buttonMenu" style="width:20%; margin:auto">
 							@if (ViewBag.page == "Forum") {
-										<a style="font-weight: bold; text-decoration: none; font-size: 24px; color: black" href="@Url.Action("ForumIndex", "Home")">Forum</a>
+										<a style="font-weight: bold; text-decoration: none; font-size: 24px; color: black" href="@Url.Action("Index", "Forum", new { game = ViewData["game"]})">Forum</a>
 							} else {
-										<a style="font-weight: normal; text-decoration: none; font-size: 24px; color: black" href="@Url.Action("ForumIndex", "Home")">Forum</a>
+										<a style="font-weight: normal; text-decoration: none; font-size: 24px; color: black" href="@Url.Action("Index", "Forum", new { game = ViewData["game"]})">Forum</a>
 							}
 							@*<a class="nav-link text-dark forumButton" id="buttonMenu" style="font-size: 24px;" asp-area="" asp-controller="Home" asp-action="Index">Forum</a>*@
 						</li>

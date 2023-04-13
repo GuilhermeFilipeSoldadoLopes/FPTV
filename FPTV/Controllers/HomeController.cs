@@ -311,11 +311,11 @@ namespace FPTV.Controllers
 			return RedirectToAction("Index", page, new { sort = "&sort=-begin_at", filter = "running", game = game });
         }
 
-		public IActionResult ForumIndex()
+		public IActionResult Forum(string game = "csgo")
 		{
 			page = "Forum";
-			//return RedirectToAction("Forum", "ForumIndex");
-			return View();
+            ViewBag.page = page;
+            return RedirectToAction("Forum", "Index", new { game = game});
 		}
 		public IActionResult ForumRules()
 		{
@@ -394,12 +394,6 @@ namespace FPTV.Controllers
             return View();
         }
         
-		public IActionResult Forum()
-		{
-			page = "Forum";
-            ViewBag.page = page;
-            return View("Index"); //apagar index - quando a pagina tiver feita
-		}
         public IActionResult About()
 		{
 			page = "About";

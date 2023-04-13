@@ -6,8 +6,9 @@ namespace FPTV.Models.Forum
 {
     public class Topic
     {
+        [Key]
         [Display(Name = "Topic ID")]
-        public Guid TopicId { get; set; }
+        public int TopicId { get; set; }
 
         [Required]
         [Display(Name = "GameType")]
@@ -36,6 +37,6 @@ namespace FPTV.Models.Forum
 
 		[Required]
 		[Display(Name = "Comments")]
-		public ICollection<Comment>? Comments { get; set; }
+		public ICollection<Comment> Comments { get; set; }
 	}
 }

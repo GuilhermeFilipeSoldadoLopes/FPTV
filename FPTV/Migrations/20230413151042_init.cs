@@ -150,7 +150,8 @@ namespace FPTV.Migrations
                 name: "Topics",
                 columns: table => new
                 {
-                    TopicId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    TopicId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     GameType = table.Column<int>(type: "int", nullable: false),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -261,7 +262,7 @@ namespace FPTV.Migrations
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Text = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ProfileId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    TopicId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    TopicId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {

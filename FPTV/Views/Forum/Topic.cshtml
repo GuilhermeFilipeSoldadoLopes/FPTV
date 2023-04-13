@@ -1,8 +1,9 @@
 ﻿@using System.Collections;
+@using FPTV.Models.Forum;
 @{
 	ViewData["Title"] = "Forum";
 }
-@model dynamic
+@model Topic
 <!DOCTYPE html>
 
 <head>
@@ -152,29 +153,33 @@
 				<div style="width:100%">
 
 					<div style="width:100%;margin: auto;display:flex">
-						<h3 style="width:80%;text-align:left;margin-bottom:0px"> G2 S1mple</h3>
-					<p style="width:20%;font-size:17px;text-align:right;margin-bottom:0px">21-02-2023</p>
+						<h3 style="width:80%;text-align:left;margin-bottom:0px"> @Model.Title</h3>
+					<p style="width:20%;font-size:17px;text-align:right;margin-bottom:0px">@Model.Date</p>
 					</div>
 
 					<div style="width:100%;margin: auto;display:flex">
 						<div style="margin-bottom:0px;font-size:20px;display:flex;width:100%">
 
-							<p style ="font-size:17px;width:70%;text-align:left;padding:0px; margin:auto;margin-left:15px"> what do you think about the performanceof simple in the team </p>
+							<p style ="font-size:17px;width:70%;text-align:left;padding:0px; margin:auto;margin-left:15px"> @Model.Content </p>
 							
 							<div style="width:30%;display:flex">
 								<img src="~/images/default-profile-icon-24.jpg" style="width:70px" />
 
-								<p style="margin-top:25px;margin-left:5px;margin-right:5px;font-size:20px;font-weight:normal">Carlos </p>
+								<p style="margin-top:25px;margin-left:5px;margin-right:5px;font-size:20px;font-weight:normal">@Model.Profile.User.UserName </p>
 
 								<img src="~/images/Flags/4x3/pt.svg" style="width:10%" />
 							</div>
 
-						</div>
+						</div> 
 					</div>
-
+					@{int reactionCount = 0;}
+					@foreach (Comment c in Model.Comments)
+					{
+						reactionCount += c.Reactions.Count;
+					}
 					<div style="text-align:right;width:100%">
-						<p style="margin-bottom:0px;font-size:15px">1021 Comments</p>
-						<p style="margin-bottom:0px;font-size:15px">621 Reactions</p>
+						<p style="margin-bottom:0px;font-size:15px">@Model.Comments.Count Comments</p>
+						<p style="margin-bottom:0px;font-size:15px">@reactionCount Reactions</p>
 					</div>
 
 					
@@ -192,8 +197,12 @@
 		<div style="display:flex;width:95%;padding:3px;margin:auto;margin-top:2%">
 
 			<div style="border: 1px solid black; border-radius:15px;background-color:white;width:50%;display:flex;">
-				<input style="border: none; width:80%;padding:15px;border-radius:15px;" placeholder="New Comment"/>
-				<img src="~/images/send.png" style="width:5%;margin:auto" />
+				<form asp-controller="Forum" asp-action="Comment" method="post">
+					<input required style="flex:1;border: none; width:80%;padding:15px;border-radius:15px;" name="Text" placeholder="New Comment"/>
+					<input type="hidden" value="@ViewBag.Game" name="Game" />
+					<input type="hidden" value="@Model.TopicId" name="TopicId" />
+					<img src="~/images/send.png" style="width:5%;margin:auto" />
+				</form>
 			</div>
 
 			<div class="dropdown" style="margin:auto">
@@ -211,68 +220,73 @@
 		</div>
 		<hr class="hrstyle" />
 		<!--------------------------------------------------------------->
-		<div style="border-radius:5px;width:95%;padding:3px;margin:auto" class="btn1 bordercolor">
-			<div style="width:100%">
+		@foreach(Comment c in Model.Comments)
+		{
+			
+			<div style="border-radius:5px;width:95%;padding:3px;margin:auto;margin-top:1%" class="btn1 bordercolor">
+				<div style="width:100%">
 
-				<div style="width:100%;display:flex;">
+					<div style="width:100%;display:flex;">
 
-					<div style="width:70%;text-align:left;display:flex;padding:1%">
-						<img src="~/images/default-profile-icon-24.jpg" style="width:50px" />
-						<h5 style="margin-bottom:0px;margin-left:15px;margin-top:10px"> Gui </h5>
-						<img src="~/images/Flags/4x3/pt.svg" style="width:3%;margin-left:10px" />
+						<div style="width:70%;text-align:left;display:flex;padding:1%">
+							<img src="data:image/*;base64,@(Convert.ToBase64String(c.Profile.Picture))" style="width:50px" />
+							<h5 style="margin-bottom:0px;margin-left:15px;margin-top:10px"> @c.Profile.User.UserName </h5>
+							<img src="~/images/Flags/4x3/pt.svg" style="width:3%;margin-left:10px" />
+						</div>
+
+						<div style="width:30%;text-align:right">
+							<p style="font-size:17px;text-align:right;margin-bottom:0px">@c.Date </p>
+						</div>
 					</div>
 
-					<div style="width:30%;text-align:right">
-						<p style="font-size:17px;text-align:right;margin-bottom:0px">21-02-2023 | 17:04 </p>
-					</div>
-				</div>
-
-				<div style="width:100%;margin: auto;display:flex">
-					<div style="margin-bottom:0px;font-size:20px;display:flex;width:100%">
-						<p style="font-size:17px;width:70%;text-align:left;padding:0px; margin:auto;margin-left:15px">he is bad</p>
-					</div>
-				</div>
-
-				<!-------------------REAÇÕES---------------------->
-				<div style="width:100%;display:flex;justify-content:right">
-
-					<div style="justify-content:left;width:7%;margin:0px;text-align:left">
-						<button style="background-color:transparent;border:none;width:2%;padding:0px;margin:0px">
-							<img src="~/images/report.png" style="width:20px;margin-left:5px" />
-						</button>
+					<div style="width:100%;margin: auto;display:flex">
+						<div style="margin-bottom:0px;font-size:20px;display:flex;width:100%">
+							<p style="font-size:17px;width:70%;text-align:left;padding:0px; margin:auto;margin-left:15px">@c.Text</p>
+						</div>
 					</div>
 
+					<!-------------------REAÇÕES---------------------->
+					<div style="width:100%;display:flex;justify-content:right">
 
-					<div style="display:flex;justify-content:right;width:93%">
-						<p style="margin-bottom:0px;margin-left:3px;margin-right:3px">7</p>
-						<button style="background-color:transparent;border:none;width:2%;padding:0px;margin:0px">
-							<img src="~/images/reactions/love.png" style="width: 15px;height: 15px;" />
-						</button>
+						<div style="justify-content:left;width:7%;margin:0px;text-align:left">
+							<button style="background-color:transparent;border:none;width:2%;padding:0px;margin:0px">
+								<img src="~/images/report.png" style="width:20px;margin-left:5px" />
+							</button>
+						</div>
 
-						<p style="margin-bottom:0px;margin-left:3px;margin-right:3px">40</p>
-						<button style="background-color:transparent;border:none;width:2%;padding:0px;margin:0px">
-							<img src="~/images/reactions/like.png" style="width: 15px;height: 15px;" />
-						</button>
 
-						<p style="margin-bottom:0px;margin-left:3px;margin-right:3px">2</p>
-						<button style="background-color:transparent;border:none;width:2%;padding:0px;margin:0px">
-							<img src="~/images/reactions/dislike.png" style="width: 15px;height: 15px;" />
-						</button>
+						<div style="display:flex;justify-content:right;width:93%">
+							<p style="margin-bottom:0px;margin-left:3px;margin-right:3px">@c.Reactions.Where(r => r.ReactionEmoji == ReactionType.Love).ToList().Count</p>
+							<button style="background-color:transparent;border:none;width:2%;padding:0px;margin:0px">
+								<img src="~/images/reactions/love.png" style="width: 15px;height: 15px;" />
+							</button>
 
-						<p style="margin-bottom:0px;margin-left:3px;margin-right:3px">14</p>
-						<button style="background-color:transparent;border:none;width:2%;padding:0px;margin:0px">
-							<img src="~/images/reactions/happy.png" style="width: 15px;height: 15px;" />
-						</button>
-					
+							<p style="margin-bottom:0px;margin-left:3px;margin-right:3px">@c.Reactions.Where(r => r.ReactionEmoji == ReactionType.Like).ToList().Count</p>
+							<button style="background-color:transparent;border:none;width:2%;padding:0px;margin:0px">
+								<img src="~/images/reactions/like.png" style="width: 15px;height: 15px;" />
+							</button>
 
-						<p style="margin-bottom:0px;margin-left:3px;margin-right:3px">1</p>
-						<button style="background-color:transparent;border:none;width:2%;padding:0px;margin:0px">
-							<img src="~/images/reactions/sad.png" style="width: 15px;height: 15px;" />
-						</button>
+							<p style="margin-bottom:0px;margin-left:3px;margin-right:3px">@c.Reactions.Where(r => r.ReactionEmoji == ReactionType.Dislike).ToList().Count</p>
+							<button style="background-color:transparent;border:none;width:2%;padding:0px;margin:0px">
+								<img src="~/images/reactions/dislike.png" style="width: 15px;height: 15px;" />
+							</button>
+
+							<p style="margin-bottom:0px;margin-left:3px;margin-right:3px">@c.Reactions.Where(r => r.ReactionEmoji == ReactionType.Happy).ToList().Count</p>
+							<button style="background-color:transparent;border:none;width:2%;padding:0px;margin:0px">
+								<img src="~/images/reactions/happy.png" style="width: 15px;height: 15px;" />
+							</button>
+
+
+							<p style="margin-bottom:0px;margin-left:3px;margin-right:3px">@c.Reactions.Where(r => r.ReactionEmoji == ReactionType.Sad).ToList().Count</p>
+							<button style="background-color:transparent;border:none;width:2%;padding:0px;margin:0px">
+								<img src="~/images/reactions/sad.png" style="width: 15px;height: 15px;" />
+							</button>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
+		}
+		
 		<!-----------------Novo comentário--------------->
 		<div style="border-radius:5px;width:95%;padding:3px;margin:auto;margin-top:1%" class="btn1 bordercolor">
 			<div style="width:100%">
@@ -415,3 +429,6 @@
 </body>
 </html>
 
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+}

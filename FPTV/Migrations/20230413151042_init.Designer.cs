@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FPTV.Migrations
 {
     [DbContext(typeof(FPTVContext))]
-    [Migration("20230408104750_init")]
+    [Migration("20230413151042_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -167,8 +167,8 @@ namespace FPTV.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("TopicId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int?>("TopicId")
+                        .HasColumnType("int");
 
                     b.HasKey("CommentId");
 
@@ -205,9 +205,11 @@ namespace FPTV.Migrations
 
             modelBuilder.Entity("FPTV.Models.Forum.Topic", b =>
                 {
-                    b.Property<Guid>("TopicId")
+                    b.Property<int>("TopicId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TopicId"), 1L, 1);
 
                     b.Property<string>("Content")
                         .IsRequired()

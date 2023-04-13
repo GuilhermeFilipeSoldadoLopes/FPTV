@@ -1,6 +1,6 @@
 ﻿namespace FPTV.Models.Forum
 {
-	public enum ReationType
+	public enum ReactionType
 	{
 		Like,
 		Dislike,
