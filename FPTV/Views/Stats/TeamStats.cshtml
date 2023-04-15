@@ -56,8 +56,21 @@
             <div style="display: flex; width:100%;margin-bottom:0px; margin-top:3%;">
                 <div style=";width:50%">
                     <button class="btnTeam" style="width: 100%; border-radius:15px;padding:0px; text-align:left; margin-left:5px">
-                        <span style="" >
-                            <span id="toTranslate">Remove From Favorite </span><img src="~/images/mvp.png" style="width:6%;margin-left:1%;">
+                        <span style="">
+                            <a href="@Url.Action("addTeamToFav", "Stats", new {id = ViewBag.team.TeamAPIID, game = ViewData["game"]})" style="justify-content: space-around; margin-bottom:0px;text-decoration:none;text-">
+                                @if (ViewBag.isFav)
+                                {
+                                    <h5>
+                                        Remove From Favorite <img src="~/images/mvp.png" style="width:6%;margin-left:1%;">
+                                    </h5>
+                                }
+                                else
+                                {
+                                    <h5>
+                                        Add To Favorite <img src="~/images/mvp.png" style="width:6%;margin-left:1%;">
+                                    </h5>
+                                }
+                            </a>
                         </span>
                     </button>
                 </div>

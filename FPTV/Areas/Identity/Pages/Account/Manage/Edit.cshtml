@@ -215,26 +215,23 @@
             <div style="width:80%;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:black;background-color:white;border-width:1px;border-radius:10px;padding:10px;">
                 <h4 class="text-dark" style="text-transform: capitalize;" id="toTranslate">Favourite Players:</h4>
                 <div style="padding-left:20px">
-                    @if (ViewData["FavPlayerListCSGO"] == null || ((List<FavPlayerList>)ViewData["FavPlayerListCSGO"]).Count() == 0)
+                    @if (ViewData["FavCSPlayerList"] == null || ((List<Player>)ViewData["FavCSPlayerList"]).Count() == 0)
                     {
                         <span class="span2 text-dark" style="text-transform: capitalize;" id="toTranslate">No Favourite Players</span>
                         <br />
                     }
                     else
                     {
-                        foreach (var item in (List<FavPlayerList>)ViewData["FavPlayerListCSGO"])
+                        foreach (var item in (List<Player>)ViewData["FavCSPlayerList"])
                         {
-                            foreach (var player in item.Players)
-                            {
-                                <div class="ola">
-                                    <div class="box" style="margin-top:0px;width:80%">
-                                        <span class="span2 text-dark"> item.Name </span>
-                                    </div>
-                                    <div class="box" style="margin-top:0px;width:20%">
-                                        <img src="~/images/trash.png" style="width:20px;height:20px;" />
-                                    </div>
+                            <div class="ola">
+                                <div class="box" style="margin-top:0px;width:80%">
+                                    <span class="span2 text-dark"> @item.Name </span>
                                 </div>
-                            }
+                                <div class="box" style="margin-top:0px;width:20%">
+                                    <img src="~/images/trash.png" style="width:20px;height:20px;" />
+                                </div>
+                            </div>
                         }
                     }
                 </div>
@@ -244,26 +241,23 @@
             <div style="width:80%;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:black;background-color:white;border-width:1px;border-radius:10px;padding:10px;">
                 <h4 class="text-dark" style="text-transform: capitalize;" id="toTranslate">Favourite Teams:</h4>
                 <div style="padding-left:20px">
-                    @if (ViewData["FavTeamsListCSGO"] == null || ((List<FavTeamsList>)ViewData["FavTeamsListCSGO"]).Count() == 0)
+                    @if (ViewData["FavCSTeamsList"] == null || ((List<Team>)ViewData["FavCSTeamsList"]).Count() == 0)
                     {
                         <span class="span2 text-dark" style="text-transform: capitalize;" id="toTranslate">No Favourite Teams</span>
                         <br />
                     }
                     else
                     {
-                        foreach (var item in (List<FavTeamsList>)ViewData["FavTeamsListCSGO"])
+                        foreach (var item in (List<Team>)ViewData["FavCSTeamsList"])
                         {
-                            foreach (var player in item.Teams)
-                            {
-                                <div class="ola">
-                                    <div class="box" style="margin-top:0px;width:80%">
-                                        <span class="span2 text-dark"> item.Name </span>
-                                    </div>
-                                    <div class="box" style="margin-top:0px;width:20%">
-                                        <img src="~/images/trash.png" style="width:20px;height:20px;" />
-                                    </div>
+                            <div class="ola">
+                                <div class="box" style="margin-top:0px;width:80%">
+                                    <span class="span2 text-dark"> @item.Name </span>
                                 </div>
-                            }
+                                <div class="box" style="margin-top:0px;width:20%">
+                                    <img src="~/images/trash.png" style="width:20px;height:20px;" />
+                                </div>
+                            </div>
                         }
                     }
                 </div>
@@ -336,30 +330,25 @@
             <div style="width:80%;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:black;background-color:white;border-width:1px;border-radius:10px;padding:10px;">
                 <h4 class="text-dark" id="toTranslate">Favourite Players:</h4>
                 <div style="padding-left:20px">
-                    <div class="ola">
-                        <div class="box" style="margin-top:0px;width:80%">
-                            <span class="span2 text-dark"> Player 1 </span>
-                        </div>
-                        <div class="box" style="margin-top:0px;width:20%">
-                            <img src="~/images/trash.png" style="width:20px;height:20px;" />
-                        </div>
-                    </div>
-                    <div class="ola">
-                        <div class="box" style="margin-top:0px;width:80%">
-                            <span class="span2 text-dark"> Player 2 </span>
-                        </div>
-                        <div class="box" style="margin-top:0px;width:20%">
-                            <img src="~/images/trash.png" style="width:20px;height:20px;" />
-                        </div>
-                    </div>
-                    <div class="ola">
-                        <div class="box" style="margin-top:0px;width:80%">
-                            <span class="span2 text-dark"> Player 3 </span>
-                        </div>
-                        <div class="box" style="margin-top:0px;width:20%">
-                            <img src="~/images/trash.png" style="width:20px;height:20px;" />
-                        </div>
-                    </div>
+                    @if (ViewData["FavValPlayerList"] == null || ((List<Player>)ViewData["FavValPlayerList"]).Count() == 0)
+                    {
+                        <span class="span2 text-dark">No Favourite Players</span>
+                        <br />
+                    }
+                    else
+                    {
+                        foreach (var item in (List<Player>)ViewData["FavValPlayerList"])
+                        {
+                            <div class="ola">
+                                <div class="box" style="margin-top:0px;width:80%">
+                                    <span class="span2 text-dark"> @item.Name </span>
+                                </div>
+                                <div class="box" style="margin-top:0px;width:20%">
+                                    <img src="~/images/trash.png" style="width:20px;height:20px;" />
+                                </div>
+                            </div>
+                        }
+                    }
                 </div>
             </div>
             <br />
@@ -367,30 +356,25 @@
             <div style="width:80%;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:black;background-color:white;border-width:1px;border-radius:10px;padding:10px;">
                     <h4 class="text-dark" id="toTranslate">Favourite Teams:</h4>
                 <div style="padding-left:20px">
-                    <div class="ola">
-                        <div class="box" style="margin-top:0px;width:80%">
-                            <span class="span2 text-dark"> Team 1 </span>
-                        </div>
-                        <div class="box" style="margin-top:0px;width:20%">
-                            <img src="~/images/trash.png" style="width:20px;height:20px;" />
-                        </div>
-                    </div>
-                    <div class="ola">
-                        <div class="box" style="margin-top:0px;width:80%">
-                            <span class="span2 text-dark"> Team 2 </span>
-                        </div>
-                        <div class="box" style="margin-top:0px;width:20%">
-                            <img src="~/images/trash.png" style="width:20px;height:20px;" />
-                        </div>
-                    </div>
-                    <div class="ola">
-                        <div class="box" style="margin-top:0px;width:80%">
-                            <span class="span2 text-dark"> Team 3 </span>
-                        </div>
-                        <div class="box" style="margin-top:0px;width:20%">
-                            <img src="~/images/trash.png" style="width:20px;height:20px;" />
-                        </div>
-                    </div>
+                    @if (ViewData["FavValTeamsList"] == null || ((List<Team>)ViewData["FavValTeamsList"]).Count() == 0)
+                    {
+                        <span class="span2 text-dark">No Favourite Teams</span>
+                        <br />
+                    }
+                    else
+                    {
+                        foreach (var item in (List<Team>)ViewData["FavValTeamsList"])
+                        {
+                            <div class="ola">
+                                <div class="box" style="margin-top:0px;width:80%">
+                                    <span class="span2 text-dark"> @item.Name </span>
+                                </div>
+                                <div class="box" style="margin-top:0px;width:20%">
+                                    <img src="~/images/trash.png" style="width:20px;height:20px;" />
+                                </div>
+                            </div>
+                        }
+                    }
                 </div>
             </div>
             <br />
