@@ -98,10 +98,9 @@ namespace FPTV.Controllers
         }
 
         // GET: ForumController/Edit/5
-        public ActionResult Profile(Guid id)
+        public ActionResult Profile(Profile profile)
         {
-            var user = _context.UserBase.FirstOrDefault(u => u.Id == id.ToString());
-            return View();
+            return View(profile);
         }
 
         // POST: ForumController/Edit/5
@@ -147,13 +146,45 @@ namespace FPTV.Controllers
         }
 
         // POST: ForumController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+       
+        public async Task<ActionResult> React(ReactionType reaction, Guid commentId, int topicId, string game)
         {
-            try
+            ViewBag.Game = game;
+			var user = await _userManager.GetUserAsync(User);
+			var profile = _context.Profiles.Single(p => p.Id == user.ProfileId);
+            var topic = _context.Topics.FirstOrDefault(t => t.TopicId== topicId);
+            var comment = _context.Comments.FirstOrDefault(c => c.CommentId.Equals(commentId));
+            var react = _context.Reactions
+                .Include(r => r.Comment)
+                .Include(r => r.Profile)
+                .FirstOrDefault(r => r.Comment.CommentId == comment.CommentId && r.Profile.Id == profile.Id && r.ReactionEmoji == reaction);
+
+            if(react != null)
             {
-                return RedirectToAction(nameof(Index));
+                _context.Reactions.Remove(react);
+                await _context.SaveChangesAsync();
+				return RedirectToAction("Topic", new { id = topicId, game = ViewBag.Game });
+			}
+
+            if(comment == null || topic == null)
+            {
+                return View("Error404");
+            }
+
+
+			var r = new Reaction()
+			{
+				Comment = comment,
+				Profile = profile,
+				ReactionEmoji = reaction,
+			};
+
+            await _context.Reactions.AddAsync(r);
+            await _context.SaveChangesAsync();
+
+			try
+			{
+                return RedirectToAction("Topic", new { id = topicId, game = ViewBag.Game });
             }
             catch
             {
