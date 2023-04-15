@@ -273,6 +273,11 @@ bordercolor2 {
     -webkit-text-stroke-color: black;
 }
 
+.stroke3 {
+    -webkit-text-stroke-width: 1.5px;
+    -webkit-text-stroke-color: black;
+}
+
 .whitecolor{
     color:white;
 }

@@ -39,7 +39,7 @@ namespace FPTV.Controllers
 			return RedirectToAction(page, "Home", new { game = "csgo" });
 		}
 
-		public IActionResult Index(string game = "csgo")
+		public IActionResult Index(string game)
 		{
 			ViewData["game"] = game;
 			page = "Index";
