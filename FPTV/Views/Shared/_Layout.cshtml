@@ -5,31 +5,6 @@
 <html lang="en">
 <meta http-equiv="refresh" content="180">
 <head>
-	@*<script>
-		window.onload = function()
-		{
-			window.location.reload();
-			const page = '@(ViewBag.page)';
-
-			if (page === "Results") {
-				var menuTab1 = document.getElementById("menuBarButtonResults");
-				menuTab1.style.fontWeight = "bold";
-			} else if (page === "Matches") {
-				var menuTab2 = document.getElementById("menuBarButtonMatches");
-				menuTab2.style.fontWeight = "bold";
-			} else if (page === "Events") {
-				var menuTab3 = document.getElementById("menuBarButtonEvents");
-				menuTab3.style.fontWeight = "bold";
-			} else if (page === "Forum") {
-				var menuTab4 = document.getElementById("menuBarButtonForum");
-				menuTab4.style.fontWeight = "bold";
-			} else if (page === "About") {
-				var menuTab5 = document.getElementById("menuBarButtonAbout");
-				menuTab5.style.fontWeight = "bold";
-			}
-		};
-	</script>*@
-
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - FPTV</title>
@@ -42,8 +17,7 @@
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-	
-	
+
 	<script src="https://js.pusher.com/4.0/pusher.min.js"></script>
 	<script>
 		// Enable pusher logging - don't include this in production
@@ -127,7 +101,7 @@
 							<div class="dropdown123 bordercolor" id="buttonMenu" style=" width:100%;margin:auto">
 								@if (ViewData["game"] == null)
 								{
-									<a class="nav-link text-dark" style="font-weight:bold;font-size: 24px" asp-area="Home" asp-controller="Home" asp-action="Index">Game</a>
+									<a class="nav-link text-dark" style="font-weight:bold;font-size: 24px" asp-area="Home" asp-controller="Home" asp-action="Index" id="toTranslate">Game</a>
 								}
 								else
 								{
@@ -155,25 +129,25 @@
 						@*-------------------------------------------------------------*@
 						<li class="nav-item text-dark" id="buttonMenu" style="width:20%; margin:auto">
 							@if (ViewBag.page == "Matches") {
-										<a style="font-weight: bold;text-decoration: none; font-size: 24px; color: black" href="@Url.Action("Matches", "Home", new { game = ViewData["game"]})">Matches</a>
+										<a id="toTranslate" style="text-transform: capitalize; font-weight: bold;text-decoration: none; font-size: 24px; color: black" href="@Url.Action("Matches", "Home", new { game = ViewData["game"]})">Matches</a>
 							} else {
-										<a style="font-weight: normal;text-decoration: none; font-size: 24px; color: black" href="@Url.Action("Matches", "Home", new { game = ViewData["game"]})">Matches</a>
+										<a id="toTranslate" style="text-transform: capitalize; font-weight: normal;text-decoration: none; font-size: 24px; color: black" href="@Url.Action("Matches", "Home", new { game = ViewData["game"]})">Matches</a>
 							}
 							@*<a class="nav-link text-dark matchesButton" id="buttonMenu" style="font-size: 24px;" asp-area="" asp-controller="Home" asp-action="Matches">Matches</a>*@
 						</li>
 						<li class="nav-item text-dark" id="buttonMenu" style="width:20%; margin:auto">
 							@if (ViewBag.page == "Results") {
-										<a style="font-weight: bold; text-decoration: none; font-size: 24px; color: black" href="@Url.Action("Results", "Home", new { game = ViewData["game"]})">Results</a>
+										<a id="toTranslate" style="text-transform: capitalize; font-weight: bold; text-decoration: none; font-size: 24px; color: black" href="@Url.Action("Results", "Home", new { game = ViewData["game"]})">Results</a>
 							} else {
-										<a style="font-weight: normal;text-decoration: none; font-size: 24px; color: black" href="@Url.Action("Results", "Home", new { game = ViewData["game"]})">Results</a>
+										<a id="toTranslate" style="text-transform: capitalize; font-weight: normal;text-decoration: none; font-size: 24px; color: black" href="@Url.Action("Results", "Home", new { game = ViewData["game"]})">Results</a>
 							}
 							@*<<a class="nav-link text-dark resultsButton" id="buttonMenu" style="font-size: 24px;" asp-area="" asp-controller="Home" asp-action="Results">Results</a>*@
 						</li>
 						<li class="nav-item text-dark" id="buttonMenu" style="width:20%; margin:auto">
 							@if (ViewBag.page == "Events") {
-										<a style="font-weight: bold; text-decoration: none; font-size: 24px; color: black" href="@Url.Action("Events", "Home", new { game = ViewData["game"]})">Events</a>
+										<a id="toTranslate" style="text-transform: capitalize; font-weight: bold; text-decoration: none; font-size: 24px; color: black" href="@Url.Action("Events", "Home", new { game = ViewData["game"]})">Events</a>
 							} else {
-										<a style="font-weight: normal; text-decoration: none; font-size: 24px; color: black" href="@Url.Action("Events", "Home", new { game = ViewData["game"]})">Events</a>
+										<a id="toTranslate" style="text-transform: capitalize; font-weight: normal; text-decoration: none; font-size: 24px; color: black" href="@Url.Action("Events", "Home", new { game = ViewData["game"]})">Events</a>
 							}
 							@*<<a class="nav-link text-dark eventsButton" id="buttonMenu" onclick="" style="font-size: 24px;" asp-area="" asp-controller="Home" asp-action="Events">Events</a>*@
 						</li>
@@ -187,9 +161,9 @@
 						</li>
 						<li class="nav-item text-dark" id="buttonMenu" style="width:20%; margin:auto">
 							@if (ViewBag.page == "About") {
-								<a style="font-weight: bold; text-decoration: none; font-size: 24px; color: black" href="@Url.Action("About", "Home")">About</a>
+										<a id="toTranslate" style="text-transform: capitalize; font-weight: bold; text-decoration: none; font-size: 24px; color: black" href="@Url.Action("About", "Home")">About</a>
 							} else {
-										<a style="font-weight: normal; text-decoration: none; font-size: 24px; color: black" href="@Url.Action("About", "Home")">About</a>
+										<a id="toTranslate" style="text-transform: capitalize; font-weight: normal; text-decoration: none; font-size: 24px; color: black" href="@Url.Action("About", "Home")">About</a>
 							}
 							@*<a class="nav-link text-dark aboutButton" id="buttonMenu" style="font-size: 24px;" asp-area="" asp-controller="Home" asp-action="CSGOStats">About</a>*@
 						</li>
@@ -228,7 +202,7 @@
 	<footer class="bg-light text-muted" style="height:40px;display;flex;">
 		
 		<div class="" style="margin-left:10%;margin-top: 0.5%;">
-			&copy; 2023 - FPTV - <a asp-area="" style="color: black;" asp-controller="Home" asp-action="Privacy">Privacy</a>
+			&copy; 2023 - FPTV - <a asp-area="" style="color: black;" asp-controller="Home" asp-action="Privacy" id="toTranslate">Privacy</a>
 		</div>
 		
 	</footer>
@@ -240,5 +214,74 @@
 	</footer>*@
 
     @await RenderSectionAsync("Scripts", required: false)
+
+	<script>
+		function translateToPortuguese() {
+			var apiKey = 'AIzaSyAZeoNYpLSO9eVlcVELKjIomjNuUggj-Zk';
+			var target = 'pt';
+			var elementsToTranslate = $('[id="toTranslate"]');
+			var promises = [];
+
+			// Armazenar estado do checkbox no localStorage
+			localStorage.setItem('translateToPortuguese', true);
+
+			elementsToTranslate.each(function () {
+				var element = $(this);
+				var text = element.text();
+				var promise = $.ajax({
+					url: 'https://translation.googleapis.com/language/translate/v2',
+					type: 'POST',
+					data: {
+						q: text,
+						target: target,
+						key: apiKey
+					},
+					success: function (response) {
+						var translatedText = response.data.translations[0].translatedText;
+						element.text(translatedText);
+					},
+					error: function () {
+						console.log('Error translating text: ' + text);
+					}
+				});
+
+				promises.push(promise);
+			});
+
+			$.when.apply($, promises).done(function () {
+				console.log('All elements translated successfully!');
+			});
+		}
+
+		function resetTranslations() {
+			var elementsToReset = $('[id="toTranslate"]');
+
+			elementsToReset.each(function () {
+				var element = $(this);
+				var originalText = element.data('original-text');
+				element.text(originalText);
+			});
+		}
+
+		// Verificar se o checkbox foi marcado anteriormente e chamar a função translateToPortuguese
+		if (localStorage.getItem('translateToPortuguese') == 'true') {
+			$('#language').prop('checked', true);
+			translateToPortuguese();
+		}
+
+		$('#language').change(function () {
+			if ($(this).is(':checked')) {
+				translateToPortuguese();
+			} else {
+				resetTranslations();
+				// Remover estado do checkbox do localStorage
+				localStorage.removeItem('translateToPortuguese');
+			}
+
+			// Recarregar a página
+			location.reload();
+		});
+	</script>
+
 </body>
 </html>

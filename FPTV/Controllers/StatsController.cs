@@ -4,6 +4,7 @@ using FPTV.Models.EventsModels;
 using FPTV.Models.MatchesModels;
 using FPTV.Models.StatisticsModels;
 using FPTV.Models.UserModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -189,13 +190,14 @@ namespace FPTV.Controllers
         }*/
 
 
+        [Authorize]
         public async Task<IActionResult> PlayerandStatsCs(int id)
         {
             getCSGOMatchesAsync();
             return View("PlayerAndStats");
         }
 
-        public async Task<ActionResult> getTeamAsync(int id = 132991, string filter = "past", string game = "csgo", string page = "&page=1")
+        public async Task<ActionResult> getTeam(int id = 132991, string filter = "past", string game = "csgo", string page = "&page=1")
 		{
 			ViewData["game"] = game;
 
@@ -351,7 +353,7 @@ namespace FPTV.Controllers
 
         }
 
-        public async Task<ActionResult> getPlayerAsync(int id= 132995, string filter = "past", string game = "csgo", string page = "&page=1")
+        public async Task<ActionResult> getPlayer(int id= 132995, string filter = "past", string game = "csgo", string page = "&page=1")
 		{
 			ViewData["game"] = game;
 

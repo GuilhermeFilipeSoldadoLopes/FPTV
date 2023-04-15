@@ -53,28 +53,30 @@
 
                 <div class="box">
                     <div class="row">
-                        <h1>@ViewData["Title"]</h1>
-                    <h2 id="external-login-title">Associate your @Model.ProviderDisplayName account.</h2>
+                        <h1 id="toTranslate" style="text-transform: capitalize;">@ViewData["Title"]</h1>
+					<h2 id="external-login-title"><span id="toTranslate">Associate your @Model.ProviderDisplayName account.</span></h2>
                         <hr />
                         <p id="external-login-description" class="text-info">
-                            You've successfully authenticated with <strong>@Model.ProviderDisplayName</strong>.
-                            Please enter an email address for this site below and click the Register button to finish
-                            logging in.
+                            <span id="toTranslate"> 
+							    You've successfully authenticated with <strong>@Model.ProviderDisplayName</strong>.
+							    Please enter an email address for this site below and click the Register button to finish
+							    logging in.
+                            </span>
                         </p>
                         <div class="col-md-4" style="width:70%; ">
                         <form style="width: 100%" asp-page-handler="Confirmation" asp-route-returnUrl="@Model.ReturnUrl" method="post">
-                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <div asp-validation-summary="ModelOnly" class="text-danger" id="toTranslate"></div>
                                 <div class="form-floating">
                                 <input asp-for="Input.Username" class="form-control" autocomplete="username" aria-required="true" style="background-color: #e0eeff" placeholder="Username" />
-                                <span asp-validation-for="Input.Username" class="text-danger"></span>
+                                <span asp-validation-for="Input.Username" class="text-danger" id="toTranslate"></span>
                                 @Html.ValidationMessage("CustomErrorUsername")
                                 </div>
                                 <p> </p>
-                                <button type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
+                                <button type="submit" class="w-100 btn btn-lg btn-primary" id="toTranslate">Register</button>
                                 <div class="form-floating" style="visibility: hidden;">
                                     <input asp-for="Input.Email" class="form-control" autocomplete="email" />
                                     <label asp-for="Input.Email" class="form-label"></label>
-                                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                                    <span asp-validation-for="Input.Email" class="text-danger" id="toTranslate"></span>
                                 </div>
                             </form>
                         </div>

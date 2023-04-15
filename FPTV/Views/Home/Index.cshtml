@@ -38,7 +38,7 @@
 	<div class="box" style="border-radius:15px;margin-top:0px ;justify-content: center;display:flex ;">
 		<!-------------------esquerda------------------------->
 		<div class="bordercolor darkcolor" style=" width:40%;margin:auto;text-align:center;margin-top:0px">
-			<h3 style="margin-top:5px"> Live/Next Matches</h3>
+			<h3 style="margin-top:5px" id="toTranslate"> Live/Next Matches</h3>
 			<h3> Valorant</h3>
 			@foreach (var item in ViewBag.liveValorantMatches)
 			{
@@ -92,7 +92,7 @@
 							}
 						</div>
 						<div style="text-align:left;font-size: 20px;margin-left:15px">
-							<span> @item.TeamsList[1].Name </span> <img src=@item.TeamsList[1].Image style="width:35px" />
+							<span> @item.TeamsList[1].Name </span> <img src=@item.TeamsList[1].Image style="width:35px;height:35px;" />
 						</div>
 
 					</div>
@@ -104,13 +104,13 @@
 			}
 			@if (ViewBag.liveValorantMatches.Count == 0)
 			{
-				<span> No Live Matches </span>
+				<span id="toTranslate"> No Live Matches </span>
 			}
 			
 		</div>
 		<!-----------------direita-------------------->
 		<div class="bordercolor darkcolor" style=" width:40%;margin:auto;text-align:center;margin-top: 0px;">
-			<h3 style="margin-top:5px"> Live/Next Matches</h3>
+			<h3 style="margin-top:5px" id="toTranslate"> Live/Next Matches</h3>
 			<h3>CS:GO</h3>
 			@foreach (var item in ViewBag.liveCSMatches)
 			{
@@ -164,7 +164,7 @@
 							}
 						</div>
 						<div style="text-align:left;font-size: 20px;margin-left:15px">
-							<span> @item.TeamsList[1].Name </span> <img src=@item.TeamsList[1].Image style="width:35px" />
+							<span> @item.TeamsList[1].Name </span> <img src=@item.TeamsList[1].Image style="width:35px;height:35px;" />
 						</div>
 
 					</div>
@@ -176,7 +176,7 @@
 			}
 			@if (ViewBag.liveCSMatches.Count == 0)
 			{
-				<span> No Live Matches </span>
+				<span id="toTranslate"> No Live Matches </span>
 			}
 			
 		</div>
@@ -187,7 +187,7 @@
 	<div class="box" style="border-radius:15px;margin-top:0px ;justify-content: center;display:flex ;margin-bottom:3%;">
 
 		<div class="bordercolor darkcolor" style=" width:40%;margin:auto;text-align:center">
-			<h3 style="margin-top:5px"> Matches Results</h3>
+			<h3 style="margin-top:5px" id="toTranslate"> Matches Results</h3>
 			<h3> Valorant</h3>
 			@foreach (var item in ViewBag.ValorantResults)
 			{
@@ -241,7 +241,7 @@
 							}
 						</div>
 						<div style="text-align:left;font-size: 20px;margin-left:15px">
-							<span> @item.TeamsList[1].Name </span> <img src=@item.TeamsList[1].Image style="width:35px" />
+							<span> @item.TeamsList[1].Name </span> <img src=@item.TeamsList[1].Image style="width:35px;height:35px;" />
 						</div>
 
 					</div>
@@ -258,7 +258,7 @@
 		<!-----------------direita-------------------->
 		
 		<div class="bordercolor darkcolor" style=" width:40%;margin:auto;text-align:center">
-			<h3 style="margin-top:5px">Matches Results</h3>
+			<h3 style="margin-top:5px" id="toTranslate">Matches Results</h3>
 			<h3>CS:GO</h3>
 			@foreach (var item in ViewBag.CSResults)
 			{
@@ -313,7 +313,7 @@
 							}
 						</div>
 						<div style="text-align:left;font-size: 20px;margin-left:15px">
-						<span> @item.TeamsList[1].Name </span> <img src=@item.TeamsList[1].Image style="width:35px" />
+							<span> @item.TeamsList[1].Name </span> <img src=@item.TeamsList[1].Image style="width:35px;height:35px;" />
 						</div>
 					</div>
 
@@ -330,12 +330,12 @@
 	<!------------------stats--------------------------------------------->
 	<div class="box darkcolor bordercolor " style="width:60%;text-align: center; border-radius:15px;margin-top:0px;margin:auto">
 		<br>
-		<h2 style="font-weight: bold;">Website Stats</h2>
+		<h2 style="font-weight: bold;" id="toTranslate">Website Stats</h2>
 		<br>
 		<table style="width:80%; margin-left: auto; margin-right: auto;">
 			<tr>
-				<th style="width: 50%;">Number of registered accounts</th>
-				<th style="width: 50%;">Daily flow of users</th>
+				<th style="width: 50%;" id="toTranslate">Number of registered accounts</th>
+				<th style="width: 50%;" id="toTranslate">Daily flow of users</th>
 			</tr>
 			<tr>
 				<td> <b id="noOfAccounts">@ViewData["accounts"]</b> <span id="accountText"> @ViewData["account_txt"] </span> </td>
