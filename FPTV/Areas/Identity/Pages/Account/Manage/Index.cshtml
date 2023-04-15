@@ -214,11 +214,11 @@
             <br />
 
             <div style="width:80%;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:black;background-color:white;border-width:1px;border-radius:10px;padding:10px;">
-                <h4 class="text-dark">Favourite Players:</h4>
+                <h4 class="text-dark" style="text-transform: capitalize;" id="toTranslate">Favourite Players:</h4>
                 <div style="padding-left:20px">
                     @if (ViewData["FavPlayerListCSGO"] == null || ((List<FavPlayerList>)ViewData["FavPlayerListCSGO"]).Count() == 0)
                     {
-                        <span class="span2 text-dark">No Favourite Players</span>
+                        <span class="span2 text-dark" style="text-transform: capitalize;" id="toTranslate">No Favourite Players</span>
                         <br />
                     }
                     else
@@ -237,11 +237,11 @@
             <br />
 
             <div style="width:80%;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:black;background-color:white;border-width:1px;border-radius:10px;padding:10px;">
-                <h4 class="text-dark">Favourite Teams:</h4>
+                <h4 class="text-dark" style="text-transform: capitalize;" id="toTranslate">Favourite Teams:</h4>
                 <div style="padding-left:20px">
                     @if (ViewData["FavTeamsListCSGO"] == null || ((List<FavTeamsList>)ViewData["FavTeamsListCSGO"]).Count() == 0)
                     {
-                        <span class="span2 text-dark">No Favourite Teams</span>
+                        <span class="span2 text-dark"style="text-transform: capitalize;" id="toTranslate">No Favourite Teams</span>
                         <br />
                     }
                     else
@@ -266,13 +266,13 @@
             </a>
 
             <img id="profilePicture" style="width:284px;height:284px;display:block;margin-left:auto;margin-right:auto;object-fit:cover;border-radius:50%" src="data:image/*;base64,@(Convert.ToBase64String(Model.Input.ProfilePicture))">
-            <span style="font-size:15px;width:90%;position:relative;display:block;text-align:right">@Model.Input.Date</span>
+            <span style="font-size:15px;width:90%;position:relative;display:block;text-align:right" id="toTranslate">@Model.Input.Date</span>
             <br />
             <div class="text-dark" style="width:90%;position:relative;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:black;border-width:1px;border-radius:10px;padding:10px;background-color:white">
                 @Model.Input.Username
                 <img style="height:50%;width:auto;position:absolute;top:25%;right:10px;" src=@Model.Input.CountryImage>
             </div>
-            <label asp-for="Input.Username" class="form-label text-white" style="color:black;font-weight: bold;margin-left:5%"></label>
+            <label asp-for="Input.Username" class="form-label text-white" style="color:black;font-weight: bold;margin-left:5%" ></label>
             <br />
 
             <div class="text-dark" style="width:90%;position:relative;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:black;border-width:1px;border-radius:10px;padding:10px;background-color:white">
@@ -282,7 +282,7 @@
                 }
                 else
                 {
-                    <span class="span2 text-dark">No Bio</span>
+                    <span class="span2 text-dark" style="text-transform: capitalize;" id="toTranslate">No biography</span>
                     <br />
                 }
             </div>
@@ -290,11 +290,11 @@
             <br />
 
             <div style="width:90%;position:relative;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:black;border-width:1px;border-radius:10px;padding:10px;background-color:white">
-                <h4 class="text-dark">Topics:</h4>
+                <h4 class="text-dark" style="text-transform: capitalize;" id="toTranslate">Topics: </h4>
                 <div style="padding-left:20px">
                     @if (ViewData["Topics"] == null || ((List<Topic>)ViewData["Topics"]).Count() == 0)
                     {
-                        <span class="span2 text-dark">No Topics</span>
+                        <span class="span2 text-dark" style="text-transform: capitalize;" id="toTranslate">No Topics</span>
                         <br />
                     }
                     else
@@ -317,11 +317,11 @@
             <br />
 
             <div style="width:80%;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:black;background-color:white;border-width:1px;border-radius:10px;padding:10px;">
-                <h4 class="text-dark">Favourite Players:</h4>
+                <h4 class="text-dark" style="text-transform: capitalize;" id="toTranslate">Favourite Players:</h4>
                 <div style="padding-left:20px">
                     @if (ViewData["FavPlayerListValorant"] == null || ((List<FavPlayerList>)ViewData["FavPlayerListValorant"]).Count() == 0)
                     {
-                        <span class="span2 text-dark">No Favourite Players</span>
+                        <span class="span2 text-dark" style="text-transform: capitalize;" id="toTranslate">No Favourite Players</span>
                         <br />
                     }
                     else
@@ -340,11 +340,11 @@
             <br />
 
             <div style="width:80%;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:black;background-color:white;border-width:1px;border-radius:10px;padding:10px;">
-                <h4 class="text-dark">Favourite Teams:</h4>
+                <h4 class="text-dark" style="text-transform: capitalize;" id="toTranslate">Favourite Teams:</h4>
                 <div style="padding-left:20px">
                     @if (ViewData["FavTeamsListValorant"] == null || ((List<FavTeamsList>)ViewData["FavTeamsListValorant"]).Count() == 0)
                     {
-                        <span class="span2 text-dark">No Favourite Teams</span>
+                        <span class="span2 text-dark" style="text-transform: capitalize;" id="toTranslate">No Favourite Teams</span>
                         <br />
                     }
                     else

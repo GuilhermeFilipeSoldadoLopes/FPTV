@@ -166,21 +166,21 @@
 			
 				@if (ViewBag.days == 1) {
 				<button class="btnResult selectedbtn bordercolor whiteText" style="">
-					<a class="whiteText" style="text-decoration: none; " href="@Url.Action("Results", "Matches", new { days = 1, game = ViewData["game"].ToString()})">Results of  Yesterday</a>
+					<a class="whiteText" style="text-decoration: none; text-transform: capitalize;" href="@Url.Action("Results", "Matches", new { days = 1, game = ViewData["game"].ToString()})" id="toTranslate">Results of  Yesterday</a>
 				</button>
 				} else {
 				<button class="btnResult bordercolor whiteText" style="">
-					<a class="whiteText" style="text-decoration: none; " href="@Url.Action("Results", "Matches", new { days = 1, game = ViewData["game"].ToString()})">Results of  Yesterday</a>
+					<a class="whiteText" style="text-decoration: none; text-transform: capitalize;" href="@Url.Action("Results", "Matches", new { days = 1, game = ViewData["game"].ToString()})" id="toTranslate">Results of  Yesterday</a>
 				</button>
 				}
 			
 				@if (ViewBag.days == 0) {
 				<button class="btnResult selectedbtn bordercolor whiteText" style="">
-					<a class="whiteText" style="text-decoration: none; " href="@Url.Action("Results", "Matches", new { game = ViewData["game"].ToString()})">Results of Today</a>
+					<a class="whiteText" style="text-decoration: none; " href="@Url.Action("Results", "Matches", new { game = ViewData["game"].ToString()})" id="toTranslate">Results of Today</a>
 				</button>
 				} else {
 				<button class="btnResult bordercolor whiteText" style="">
-					<a class="whiteText" style="text-decoration: none;" href="@Url.Action("Results", "Matches", new { game = ViewData["game"].ToString()})">Results of Today</a>
+					<a class="whiteText" style="text-decoration: none;" href="@Url.Action("Results", "Matches", new { game = ViewData["game"].ToString()})" id="toTranslate">Results of Today</a>
 				</button>
 				}
 
