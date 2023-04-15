@@ -28,10 +28,10 @@ namespace FPTV.Models.UserModels
         public virtual byte[]? Picture { get; set; }
 
 		[Display(Name = "Favorite Players List")]
-		public FavPlayerList? PlayerList { get; set; }
+		public virtual FavPlayerList? PlayerList { get; set; }
 
 		[Display(Name = "Favorite Teams List")]
-		public FavTeamsList? TeamsList { get; set; }
+		public virtual FavTeamsList? TeamsList { get; set; }
 
         [Display(Name = "Country")]
         public string? Country { get; set; }

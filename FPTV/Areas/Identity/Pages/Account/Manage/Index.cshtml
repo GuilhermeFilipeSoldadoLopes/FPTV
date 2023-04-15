@@ -216,20 +216,17 @@
             <div style="width:80%;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:black;background-color:white;border-width:1px;border-radius:10px;padding:10px;">
                 <h4 class="text-dark">Favourite Players:</h4>
                 <div style="padding-left:20px">
-                    @if (ViewData["FavPlayerListCSGO"] == null || ((List<FavPlayerList>)ViewData["FavPlayerListCSGO"]).Count() == 0)
+                    @if (ViewData["FavCSPlayerList"] == null || ((List<Player>)ViewData["FavCSPlayerList"]).Count() == 0)
                     {
                         <span class="span2 text-dark">No Favourite Players</span>
                         <br />
                     }
                     else
                     {
-                        foreach (var item in (List<FavPlayerList>)ViewData["FavPlayerListCSGO"])
+                        foreach (var item in (List<Player>)ViewData["FavCSPlayerList"])
                         {
-                            foreach (var player in item.Players)
-                            {
-                                <span class="span2 text-dark">item.Name</span>
-                                <br />
-                            }
+                            <span class="span2 text-dark">@item.Name</span>
+                            <br />
                         }
                     }
                 </div>
@@ -239,20 +236,17 @@
             <div style="width:80%;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:black;background-color:white;border-width:1px;border-radius:10px;padding:10px;">
                 <h4 class="text-dark">Favourite Teams:</h4>
                 <div style="padding-left:20px">
-                    @if (ViewData["FavTeamsListCSGO"] == null || ((List<FavTeamsList>)ViewData["FavTeamsListCSGO"]).Count() == 0)
+                    @if (ViewData["FavCSTeamsList"] == null || ((List<Team>)ViewData["FavCSTeamsList"]).Count() == 0)
                     {
                         <span class="span2 text-dark">No Favourite Teams</span>
                         <br />
                     }
                     else
                     {
-                        foreach (var item in (List<FavTeamsList>)ViewData["FavTeamsListCSGO"])
+                        foreach (var item in (List<Team>)ViewData["FavCSTeamsList"])
                         {
-                            foreach (var player in item.Teams)
-                            {
-                                <span class="span2 text-dark">item.Name</span>
-                                <br />
-                            }
+                            <span class="span2 text-dark">@item.Name</span>
+                            <br />
                         }
                     }
                 </div>
@@ -319,20 +313,17 @@
             <div style="width:80%;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:black;background-color:white;border-width:1px;border-radius:10px;padding:10px;">
                 <h4 class="text-dark">Favourite Players:</h4>
                 <div style="padding-left:20px">
-                    @if (ViewData["FavPlayerListValorant"] == null || ((List<FavPlayerList>)ViewData["FavPlayerListValorant"]).Count() == 0)
+                    @if (ViewData["FavValPlayerList"] == null || ((List<Player>)ViewData["FavValPlayerList"]).Count() == 0)
                     {
                         <span class="span2 text-dark">No Favourite Players</span>
                         <br />
                     }
                     else
                     {
-                        foreach (var item in (List<FavPlayerList>)ViewData["FavPlayerListValorant"])
+                        foreach (var item in (List<Player>)ViewData["FavValPlayerList"])
                         {
-                            foreach (var player in item.Players)
-                            {
-                                <span class="span2 text-dark">item.Name</span>
-                                <br />
-                            }
+                            <span class="span2 text-dark">@item.Name</span>
+                            <br />
                         }
                     }
                 </div>
@@ -342,20 +333,17 @@
             <div style="width:80%;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:black;background-color:white;border-width:1px;border-radius:10px;padding:10px;">
                 <h4 class="text-dark">Favourite Teams:</h4>
                 <div style="padding-left:20px">
-                    @if (ViewData["FavTeamsListValorant"] == null || ((List<FavTeamsList>)ViewData["FavTeamsListValorant"]).Count() == 0)
+                    @if (ViewData["FavValTeamsList"] == null || ((List<Team>)ViewData["FavValTeamsList"]).Count() == 0)
                     {
                         <span class="span2 text-dark">No Favourite Teams</span>
                         <br />
                     }
                     else
                     {
-                        foreach (var item in (List<FavTeamsList>)ViewData["FavTeamsListValorant"])
+                        foreach (var item in (List<Team>)ViewData["FavValTeamsList"])
                         {
-                            foreach (var player in item.Teams)
-                            {
-                                <span class="span2 text-dark">item.Name</span>
-                                <br />
-                            }
+                            <span class="span2 text-dark">@item.Name</span>
+                            <br />
                         }
                     }
                 </div>
