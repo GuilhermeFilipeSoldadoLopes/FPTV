@@ -74,6 +74,9 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
             public string Country { get; set; }
             [Display(Name = "CountryImage")]
             public string CountryImage { get; set; }
+
+            [Display(Name = "RegistrationDate")]
+            public string Date { get; set; }
         }
 
         private async Task LoadAsync(UserBase user, Profile profile)
@@ -83,8 +86,9 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
             var profilePicture = profile.Picture;
             var country = profile.Country;
             var biography = profile.Biography;
+            var date = profile.RegistrationDate.Date;
 
-            Username = userName;
+			Username = userName;
 
             Input = new InputModel
             {
@@ -93,8 +97,9 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
                 ProfilePicture = profilePicture,
                 Country = country,
                 Bio = biography,
-                CountryImage = "/images/Flags/4x3/" + profile.Country + ".svg"
-        };
+                CountryImage = "/images/Flags/4x3/" + profile.Country + ".svg",
+                Date = ("Member since: " + date.Date.ToShortDateString())
+			};
         }
 
         public async Task<IActionResult> OnGetAsync()

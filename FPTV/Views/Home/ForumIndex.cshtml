@@ -148,7 +148,7 @@
 <body class="bodytemp ">
 
 	<div class="central bodycolor bordercolor"style="border-radius:15px; padding:1%">
-		<h1>Forum</h1>
+		<h1 id="toTranslate">Forum</h1>
 
 		<div class="buttons bodycolor">
 
@@ -162,11 +162,11 @@
 			<div class="dropdown">
 				<button class="button2">Sort by</button>
 				<div class="dropdown-content" style="margin-left:0px;">
-					<a href="@Url.Action("Index", "Events", new { sort = "&sort=-begin_at", filter = ViewBag.filter, game = ViewBag.dropDownGame})">Newest</a>
-					<a href="@Url.Action("Index", "Events", new { sort = "&sort=begin_at", filter = ViewBag.filter, game = ViewBag.dropDownGame})">Oldest</a>
-					<a href="@Url.Action("Index", "Events", new { sort = "&sort=prizepool", filter = ViewBag.filter, game = ViewBag.dropDownGame})">Prizepool</a>
-					<a href="@Url.Action("Index", "Events", new { sort = "&sort=name", filter = ViewBag.filter, game = ViewBag.dropDownGame})">Name</a>
-					<a href="@Url.Action("Index", "Events", new { sort = "&sort=-tier", filter = ViewBag.filter, game = ViewBag.dropDownGame})">Tier</a>
+					<a href="@Url.Action("Index", "Events", new { sort = "&sort=-begin_at", filter = ViewBag.filter, game = ViewData["game"]})">Newest</a>
+					<a href="@Url.Action("Index", "Events", new { sort = "&sort=begin_at", filter = ViewBag.filter, game = ViewData["game"]})">Oldest</a>
+					<a href="@Url.Action("Index", "Events", new { sort = "&sort=prizepool", filter = ViewBag.filter, game = ViewData["game"]})">Prizepool</a>
+					<a href="@Url.Action("Index", "Events", new { sort = "&sort=name", filter = ViewBag.filter, game = ViewData["game"]})">Name</a>
+					<a href="@Url.Action("Index", "Events", new { sort = "&sort=-tier", filter = ViewBag.filter, game = ViewData["game"]})">Tier</a>
 			  </div>
 			</div>
 
@@ -175,55 +175,56 @@
 			</div>
 
 			<div style="padding:3px">
-				<button class="button3 bordercolor"> <a href="@Url.Action("ForumRules", "Home")" style="text-decoration:none;">Forum Rules</a></button> @*trocar controlador home para forum*@
+				<button class="button3 bordercolor"> <a href="@Url.Action("ForumRules", "Home")" style="text-decoration:none;" id="toTranslate">Forum Rules</a></button> @*trocar controlador home para forum*@
 			</div>
 
 		</div>
 
 		<!-- -------------------------------MENU DOS BUGS -------------------------------------------------------- -->
 		<div class="center bodycolor" style="flex-direction: column; border-radius:15px ">
-			
-			<button style="margin:1%; width:100%;border-radius:5px" class="btn1 bordercolor">
+			<a href="@Url.Action("BugsAndSuggestions", "Home")">
+				<button style="margin:1%; width:100%;border-radius:5px" class="btn1 bordercolor">
 
-				<div style="width:20%">
-					<img src="~/images/settingForum.png" style="width:40%" />
-				</div>
+					<div style="width:20%">
+						<img src="~/images/settingForum.png" style="width:40%" />
+					</div>
 
 				<div style="width:60%; text-align:center">
-					<h3>Bugs, Suggestions & Support</h3>
-					<p style="margin-bottom:0px;font-size:20px">Report bugs and provide suggestions and clear doubts</p>
+					<h3 id="toTranslate">Bugs, Suggestions & Support</h3>
+					<p style="margin-bottom:0px;font-size:20px" id="toTranslate">Report bugs and provide suggestions and clear doubts</p>
 				</div>
 
 				<div style="width:20%;text-align:right" >
 					<img src="~/images/logo2.png" style="width:30%" />
-					<p style="margin-bottom:0px;font-size:20px">1021 Comments</p>
-					<p style="margin-bottom:0px;font-size:20px">621 Reactions</p>
+					<p style="margin-bottom:0px;font-size:20px" id="toTranslate">1021 Comments</p>
+					<p style="margin-bottom:0px;font-size:20px"id="toTranslate">621 Reactions</p>
 					
-				</div>
+					</div>
 
-			</button>
+				</button>
+			</a>
 			<hr class="hrstyle"/>
 			<!-- ---------------------------------------BOTÕES DOS TOPICOS DO FORUM------------------------------------------------ -->
 
 			<button style="margin:1%; width:100%;border-radius:5px" class="btn1 bordercolor">
 
-				<div style="width:60%;margin: auto;">
-					<p style="margin-bottom:0px;margin-left:3%;text-align: left;font-size:25px">What is your favorite sticker [CS:GO] ?</p>
+				<div style="width:60%;margin:auto;">
+					<p style="margin-bottom:0px;margin-left:3%;text-align: left;font-size:25px" id="toTranslate">What is your favorite sticker [CS:GO] ?</p>
 				</div>
 
 				<div style="width:20%; margin: auto;text-align:center;display:flex;justify-content:center">
 					
-					<span style="margin-bottom:0px;font-size:20px;display:flex;justify-content:center">
-						<img src="~/images/default-profile-icon-24.jpg" style="width:30%" />
-						<p style="margin-top:25px;margin-left:5px;margin-right:5px;font-size:20px;font-weight:normal">Carlos </p>
-						<img src="~/images/Flags/4x3/pt.svg" style="width:10%" />
-					</span>
+					<div style="margin-bottom:0px;font-size:20px;display:flex;justify-content:center">
+						<img src="~/images/default-profile-icon-24.jpg" style="width:50px;height: 50px;margin:auto" />
+						<p style="margin-top:25px;margin-left:5px;margin-right:5px;font-size:20px;font-weight:normal" id="toTranslate">Carlos </p>
+						<img src="~/images/Flags/4x3/pt.svg" style="width:25px" />
+					</div>
 				</div>
 
 				<div style="width:20%;text-align:right">
 					<p style="font-size:17px">21-02-2023</p>
-					<p style="margin-bottom:0px;font-size:15px">1021 Comments</p>
-					<p style="margin-bottom:0px;font-size:15px">621 Reactions</p>
+					<p style="margin-bottom:0px;font-size:15px" id="toTranslate">1021 Comments</p>
+					<p style="margin-bottom:0px;font-size:15px" id="toTranslate">621 Reactions</p>
 
 				</div>
 
@@ -232,27 +233,26 @@
 			<button style="margin:1%; width:100%;border-radius:5px" class="btn1 bordercolor">
 
 				<div style="width:60%;margin: auto;">
-					<p style="margin-bottom:0px;margin-left:3%;text-align: left;font-size:25px">CS2 anti-cheat?</p>
+					<p style="margin-bottom:0px;margin-left:3%;text-align: left;font-size:25px" id="toTranslate">CS2 anti-cheat?</p>
 				</div>
 
 				<div style="width:20%; margin: auto;text-align:center;display:flex;justify-content:center">
 
 					<span style="margin-bottom:0px;font-size:20px;display:flex;justify-content:center">
-						<img src="~/images/default-profile-icon-24.jpg" style="width:30%" />
+						<img src="~/images/default-profile-icon-24.jpg" style="width:50px;height: 50px;margin:auto" />
 						<p style="margin-top:25px;margin-left:5px;margin-right:5px;font-size:20px;font-weight:normal">Carlos </p>
-						<img src="~/images/Flags/4x3/pt.svg" style="width:10%" />
+						<img src="~/images/Flags/4x3/pt.svg" style="width:25px" />
 					</span>
 				</div>
 
 				<div style="width:20%;text-align:right">
 					<p style="font-size:17px">21-02-2023</p>
-					<p style="margin-bottom:0px;font-size:15px">1021 Comments</p>
-					<p style="margin-bottom:0px;font-size:15px">621 Reactions</p>
+					<p style="margin-bottom:0px;font-size:15px"id="toTranslate">1021 Comments</p>
+					<p style="margin-bottom:0px;font-size:15px" id="toTranslate">621 Reactions</p>
 
 				</div>
 
 			</button>
-
 
 		</div>
 

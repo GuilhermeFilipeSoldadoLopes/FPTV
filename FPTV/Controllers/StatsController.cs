@@ -4,6 +4,7 @@ using FPTV.Models.EventsModels;
 using FPTV.Models.MatchesModels;
 using FPTV.Models.StatisticsModels;
 using FPTV.Models.UserModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -187,18 +188,20 @@ namespace FPTV.Controllers
         }*/
 
 
+        [Authorize]
         public async Task<IActionResult> PlayerandStatsCs(int id)
         {
             getCSGOMatchesAsync();
             return View("PlayerAndStats");
         }
 
+        [Authorize]
         public ActionResult getTeam(int id = 132991, string filter = "past", string game = "csgo", string page = "&page=1")
-        {
-            ViewBag.dropDownGame = game;
+		{
+			ViewData["game"] = game;
 
-            //Base url for requests
-            var _requestLink = "https://api.pandascore.co/";
+			//Base url for requests
+			var _requestLink = "https://api.pandascore.co/";
 
             //Filter to select from which pool to fetch the data (upcoming, running or finished/ended)
             var _jsonFilter = filter + "?";
@@ -322,11 +325,12 @@ namespace FPTV.Controllers
 
         }
 
+        [Authorize]
         public ActionResult getPlayer(int id= 132995, string filter = "past", string game = "csgo", string page = "&page=1")
-        {
-            ViewBag.dropDownGame = game;
+		{
+			ViewData["game"] = game;
 
-            if (game == "valorant")
+			if (game == "valorant")
             {
 
                 var ranking = new[] { 0.68F, 0.94F, 1.42F, 1.08F, 1.09F, 1.23F, 0.78F, 0.89F, 0.97F, 0.72F,
@@ -640,9 +644,9 @@ namespace FPTV.Controllers
 
 
         private String request(string category, string sort = "sort=-status", string page = "&page=1", string filter = "past", string game = "csgo")
-        {
-            ViewBag.dropDownGame = game;
-            if (category == "matches")
+		{
+			ViewData["game"] = game;
+			if (category == "matches")
             {
                 var jsonFilter = filter + "?";
                 var jsonSort = sort;

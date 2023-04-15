@@ -34,7 +34,7 @@ namespace FPTV.Controllers
         // GET: EventsController
         public ActionResult Index(string sort = "&sort=-begin_at", string filter = "running", string search = "", string page = "&page=1", string game = "csgo")
 		{
-			ViewBag.dropDownGame = game;
+			ViewData["game"] = game;
 			ViewBag.page = "Events";
 			search ??= "";
             //Request processing with RestSharp
@@ -332,9 +332,9 @@ namespace FPTV.Controllers
         // GET: EventsController/Details/5
         public ActionResult Details(int id, string filter = "running", string game = "csgo")
 		{
-            ViewBag.dropDownGame = game;
-            
-            switch (game)
+			ViewData["game"] = game;
+
+			switch (game)
 			{
 				case "csgo":
 					SendEventInfoCS(GetEventCS(id, filter));

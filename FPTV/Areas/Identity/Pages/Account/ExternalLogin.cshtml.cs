@@ -89,12 +89,19 @@ namespace FPTV.Areas.Identity.Pages.Account
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
-            [Required]
-            [EmailAddress]
-            public string Email { get; set; }
-            [Required]
+            [Required(ErrorMessage = "Please enter Username")]
+            [StringLength(30, MinimumLength = 3, ErrorMessage = "The username must be at least 3 and at max 30 characters long")]
             [Display(Name = "Username")]
             public string Username { get; set; }
+
+            /// <summary>
+            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
+            ///     directly from your code. This API may change or be removed in future releases.
+            /// </summary>
+            [Required(ErrorMessage = "Please enter email address")]
+            [EmailAddress]
+            [Display(Name = "Email")]
+            public string Email { get; set; }
         }
         
         public IActionResult OnGet() => RedirectToPage("./Login");
@@ -162,54 +169,103 @@ namespace FPTV.Areas.Identity.Pages.Account
 
             if (ModelState.IsValid)
             {
-                var user = CreateUser();
-                Profile profile = new();
-                var defaultImage = Path.Combine(_env.WebRootPath, "images", "default-profile-icon-24.jpg");
-                profile.Picture = System.IO.File.ReadAllBytes(defaultImage);
-                profile.User = user;
-                profile.RegistrationDate = new DateTime();
-                profile.Country = "pt";
-				user.Profile = profile;
-                _context.Profiles.Add(profile);
-                await _userStore.SetUserNameAsync(user, Input.Username, CancellationToken.None);
-                await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
+                var userName = Input.Username;
+                var email = Input.Email;
 
-                var result = await _userManager.CreateAsync(user);
-                if (result.Succeeded)
+                if (email != null && email != "")
                 {
-                    result = await _userManager.AddLoginAsync(user, info);
-                    if (result.Succeeded)
+                    var emailExists = await _userManager.FindByEmailAsync(email);
+                    if (emailExists == null)
                     {
-                        _logger.LogInformation("User created an account using {Name} provider.", info.LoginProvider);
-
-                        var userId = await _userManager.GetUserIdAsync(user);
-                        var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                        code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-                        var callbackUrl = Url.Page(
-                            "/Account/ConfirmEmail",
-                            pageHandler: null,
-                            values: new { area = "Identity", userId = userId, code = code },
-                            protocol: Request.Scheme);
-
-                        await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-							$"{HtmlEncoder.Default.Encode(callbackUrl)}");
-
-						// If account confirmation is required, we need to show the link if we don't have a real email sender
-						if (_userManager.Options.SignIn.RequireConfirmedAccount)
+                        if (userName != null && userName != "")
                         {
-                            return RedirectToPage("./RegisterConfirmation", new { Email = Input.Email });
+                            var userExists = await _userManager.FindByNameAsync(userName);
+                            if (userExists == null)
+                            {
+                                var user = CreateUser();
+                                Profile profile = new();
+                                var defaultImage = Path.Combine(_env.WebRootPath, "images", "default-profile-icon-24.jpg");
+                                profile.Picture = System.IO.File.ReadAllBytes(defaultImage);
+                                profile.User = user;
+                                profile.UserId = new Guid(user.Id);
+                                profile.RegistrationDate = DateTime.Now;
+                                profile.Country = "pt";
+                                user.Profile = profile;
+                                _context.Profiles.Add(profile);
+                                await _userStore.SetUserNameAsync(user, Input.Username, CancellationToken.None);
+                                await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
+
+                                var result = await _userManager.CreateAsync(user);
+                                if (result.Succeeded)
+                                {
+                                    result = await _userManager.AddLoginAsync(user, info);
+                                    if (result.Succeeded)
+                                    {
+                                        _logger.LogInformation("User created an account using {Name} provider.", info.LoginProvider);
+
+                                        var userId = await _userManager.GetUserIdAsync(user);
+                                        var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                                        code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+                                        var callbackUrl = Url.Page(
+                                            "/Account/ConfirmEmail",
+                                            pageHandler: null,
+                                            values: new { area = "Identity", userId = userId, code = code },
+                                            protocol: Request.Scheme);
+
+                                        await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
+                                            $"{HtmlEncoder.Default.Encode(callbackUrl)}");
+
+                                        // If account confirmation is required, we need to show the link if we don't have a real email sender
+                                        if (_userManager.Options.SignIn.RequireConfirmedAccount)
+                                        {
+                                            return RedirectToPage("./RegisterConfirmation", new { Email = Input.Email });
+                                        }
+
+                                        await _signInManager.SignInAsync(user, isPersistent: false, info.LoginProvider);
+                                        return LocalRedirect(returnUrl);
+                                    }
+                                }
+                                foreach (var error in result.Errors)
+                                {
+                                    ModelState.AddModelError(string.Empty, error.Description);
+                                }
+                            } else {
+                                ModelState.AddModelError("CustomErrorUsername", "Already exists a user with that UserName. Try another one.");
+                            }
+                        }
+                    } else {
+                        var result = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false, bypassTwoFactor: true);
+                        if (result.Succeeded)
+                        {
+                            _logger.LogInformation("{Name} logged in with {LoginProvider} provider.", info.Principal.Identity.Name, info.LoginProvider);
+                            return LocalRedirect(returnUrl);
+                        } 
+
+                        if (result.IsLockedOut) {
+                            return RedirectToPage("./Lockout");
+                        } else {
+                            ProviderDisplayName = info.ProviderDisplayName;
+                            if (info.Principal.HasClaim(c => c.Type == ClaimTypes.Email))
+                            {
+                                Input = new InputModel
+                                {
+                                    Email = info.Principal.FindFirstValue(ClaimTypes.Email)
+                                };
+                            }
                         }
 
-                        await _signInManager.SignInAsync(user, isPersistent: false, info.LoginProvider);
-                        return LocalRedirect(returnUrl);
+                        result = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false, bypassTwoFactor: true);
+                        if (result.Succeeded)
+                        {
+                            _logger.LogInformation("{Name} logged in with {LoginProvider} provider.", info.Principal.Identity.Name, info.LoginProvider);
+                            return LocalRedirect(returnUrl);
+                        }
+
+                        ErrorMessage = "Error loading external login. Try manual login";
+                        return RedirectToPage("./Login");
                     }
                 }
-                foreach (var error in result.Errors)
-                {
-                    ModelState.AddModelError(string.Empty, error.Description);
-                }
             }
-
             ProviderDisplayName = info.ProviderDisplayName;
             ReturnUrl = returnUrl;
             return Page();

@@ -126,15 +126,10 @@
     <img src=@ViewBag.Event.EventImage style="max-width:120px;width:50%;display:block;margin-left: auto;margin-right: auto" />
     <div class="ola">
 
-        <div class="box1 darkcolor bordercolor" style=";padding:1%">
-            <h4 style="font-weight: bold;">Finished Matches</h4>
+        <div class="box1 darkcolor bordercolor" style="padding:1%">
+            <h4 style="font-weight: bold; text-transform: capitalize;" id="toTranslate">Finished Matches</h4>
             @foreach(var match in ViewBag.pastMatches)
             {
-
-
-
-
-
                 IList<Score> scores = match.Scores;
                 var team1Score = scores.First().TeamScore;
                 var team2Score = scores.Last().TeamScore;
@@ -145,11 +140,11 @@
                     <div>
                              @if(match.BeginAt == null)
                             {
-                                <span class="span2" style="margin-top:10px;">No date yet</span>
+                                <span class="span2" style="margin-top:10px;" id="toTranslate">No date yet</span>
                             }
                             else
                             {
-                                <span class="span2" style="margin-top:10px;">@match.BeginAt.ToString("dddd - dd-MM-yyyy hh:mm")</span>
+                                <span class="span2" style="margin-top:10px; text-transform: capitalize;">@match.BeginAt.ToString("dddd - dd-MM-yyyy - hh:mm")H</span>
                             }
                     </div>
 
@@ -196,8 +191,8 @@
                     </div>
 
                     <div style="text-align:left; display: flex;">
-                        <p>Best of @match.NumberOfGames</p>
-                            <a href="@Url.Action("MatchDetails", "Matches", new {id = match.MatchesAPIID, type = match.TimeType.ToString().ToLower(), game = ViewBag.dropDownGame})" style="justify-content: space-around; margin-left: auto;">More details</a>
+                        <p id="toTranslate">Best of @match.NumberOfGames</p>
+                            <a href="@Url.Action("MatchDetails", "Matches", new {id = match.MatchesAPIID, type = match.TimeType.ToString().ToLower(), game = ViewData["game"].ToString()})" style="justify-content: space-around; margin-left: auto;" id="toTranslate">More details</a>
                     </div>
 
                 </div>
@@ -214,20 +209,19 @@
                 <div class="alinhar" >
                     <div class="my-div">
                         <div>
-                            <span>Date</span>
-                            <p>
-                                @ViewBag.Event.BeginAt.ToString("dddd - dd-MM-yyyy hh:mm");
-                                
+                            <span id="toTranslate">Date</span>
+                            <p style="text-transform: capitalize;">
+                                @ViewBag.Event.BeginAt.ToString("dd-MM-yyyy - hh:mm")H
                             </p>
                         </div>
 
                         <div>
-                            <span>Prize pool</span>
+                            <span id="toTranslate" style="text-transform: capitalize;">Prizepool</span>
                             <p>@ViewBag.Event.PrizePool $</p>
                         </div>
 
                         <div>
-                            <span>Teams</span>
+                            <span id="toTranslate">Teams</span>
                             <p>@ViewBag.Event.TeamsList.Count</p>
                         </div>
 
@@ -245,7 +239,7 @@
                     @if(ViewBag.Event.EventLink == null)
                     {
                     
-                        <a>Not available</a>
+                        <a id="toTranslate">Not available</a>
                     }
                     else
                     {
@@ -261,18 +255,18 @@
                 <div class="alinhar darkcolor bordercolor" style="margin-top:3% ">
                     <div class="my-div2" style="width:90%;padding:3%">
                         <p style="font-weight:bold; margin-top:2%; margin-bottom:0px; ">
-                            <h4 style="font-weight: bold;">Live Match</h4>
+                            <h4 style="font-weight: bold;" id="toTranslate">Live Match</h4>
                         </p>
                         <div class="bordercolor">
                         <div style="padding:3%;">
                             
                             @if(match.BeginAt == null)
                             {
-                                <span class="span2" style="margin-top:10px;">No date yet</span>
+                                    <span class="span2" style="margin-top:10px;" id="toTranslate">No date yet</span>
                             }
                             else
                             {
-                                    <span class="span2" style="margin-top:10px;">@match.BeginAt.ToString("dddd - dd-MM-yyyy hh:mm")</span>
+                                    <span class="span2" style="margin-top:10px; text-transform: capitalize">@match.BeginAt.ToString("dddd - dd-MM-yyyy - hh:mm")H</span>
                             }
                             
                         </div>
@@ -292,23 +286,20 @@
                         </div>
                         
                             <div style="text-align:left; display: flex;padding-left:2%;padding-right:2%">
-                            <p>Best of @match.NumberOfGames</p>
-                            <a href="@Url.Action("MatchDetails", "Matches", new {id = match.MatchesAPIID, type = match.TimeType.ToString().ToLower(), game = ViewBag.dropDownGame})" style="justify-content: space-around; margin-left: auto;">More details</a>
+                            <p id="toTranslate">Best of @match.NumberOfGames</p>
+                                <a href="@Url.Action("MatchDetails", "Matches", new {id = match.MatchesAPIID, type = match.TimeType.ToString().ToLower(), game = ViewData["game"].ToString()})" style="justify-content: space-around; margin-left: auto;" id="toTranslate">More details</a>
                         </div>
                         </div>
 
                     </div>
                 </div>
             }
-            
-
-
-
+           
         </div>
 
 
         <div class="box1 darkcolor bordercolor" style="padding:1%">
-            <h4 style="font-weight: bold;">Upcoming Matches</h4>
+            <h4 style="font-weight: bold;" id="toTranslate">Upcoming Matches</h4>
             @foreach (var match in ViewBag.upcomingMatches)
             {
 
@@ -325,11 +316,11 @@
                                 <div>
                                     @if (match.BeginAt == null)
                                     {
-                                        <span class="span2" style="margin-top:10px;">No date yet</span>
+                                        <span class="span2" style="margin-top:10px;" id="toTranslate">No date yet</span>
                                     }
                                     else
                                     {
-                                        <span class="span2" style="margin-top:10px;">@match.BeginAt.ToString("dddd - dd-MM-yyyy hh:mm")</span>
+                                        <span class="span2" style="margin-top:10px; text-transform: capitalize;">@match.BeginAt.ToString("dddd - dd-MM-yyyy - hh:mm")H</span>
                                     }
                                 </div>
 
@@ -354,19 +345,14 @@
                                 </div>
 
                                 <div style="text-align:left; display: flex;">
-                                    <p>Best of @match.NumberOfGames</p>
-                                    <a href="@Url.Action("MatchDetails", "Matches", new {id = match.MatchesAPIID, type = match.TimeType.ToString().ToLower(), game = ViewBag.dropDownGame})" style="justify-content: space-around; margin-left: auto;">More details</a>
+                                    <p id="toTranslate">Best of @match.NumberOfGames</p>
+                                    <a href="@Url.Action("MatchDetails", "Matches", new {id = match.MatchesAPIID, type = match.TimeType.ToString().ToLower(), game = ViewData["game"].ToString()})" style="justify-content: space-around; margin-left: auto;"id="toTranslate">More details</a>
                                 </div>
-
                             </div>
                         </div>
                     }
                 }
-                
-                
             }
-            
-
         </div>
     </div>
 </body>

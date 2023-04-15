@@ -159,7 +159,7 @@
 					<div style="width:100%;margin: auto;display:flex">
 						<div style="margin-bottom:0px;font-size:20px;display:flex;width:100%">
 
-							<p style ="font-size:17px;width:70%;text-align:left;padding:0px; margin:auto;margin-left:15px"> what do you think about the performanceof simple in the team </p>
+							<p style ="font-size:17px;width:70%;text-align:left;padding:0px; margin:auto;margin-left:15px" id="toTranslate"> what do you think about the performanceof simple in the team </p>
 							
 							<div style="width:30%;display:flex">
 								<img src="~/images/default-profile-icon-24.jpg" style="width:70px" />
@@ -173,8 +173,8 @@
 					</div>
 
 					<div style="text-align:right;width:100%">
-						<p style="margin-bottom:0px;font-size:15px">1021 Comments</p>
-						<p style="margin-bottom:0px;font-size:15px">621 Reactions</p>
+						<p style="margin-bottom:0px;font-size:15px" id="toTranslate">1021 Comments</p>
+						<p style="margin-bottom:0px;font-size:15px" id="toTranslate">621 Reactions</p>
 					</div>
 
 					
@@ -197,13 +197,13 @@
 			</div>
 
 			<div class="dropdown" style="margin:auto">
-				<button class="button2">Sort by</button>
+				<button class="button2" id="toTranslate">Sort by</button>
 				<div class="dropdown-content" style="margin-left:0px;margin-top:0px">
-					<a href="@Url.Action("Index", "Events", new { sort = "&sort=-begin_at", filter = ViewBag.filter, game = ViewBag.dropDownGame})">Newest</a>
-					<a href="@Url.Action("Index", "Events", new { sort = "&sort=begin_at", filter = ViewBag.filter, game = ViewBag.dropDownGame})">Oldest</a>
-					<a href="@Url.Action("Index", "Events", new { sort = "&sort=prizepool", filter = ViewBag.filter, game = ViewBag.dropDownGame})">Prizepool</a>
-					<a href="@Url.Action("Index", "Events", new { sort = "&sort=name", filter = ViewBag.filter, game = ViewBag.dropDownGame})">Name</a>
-					<a href="@Url.Action("Index", "Events", new { sort = "&sort=-tier", filter = ViewBag.filter, game = ViewBag.dropDownGame})">Tier</a>
+					<a href="@Url.Action("Index", "Events", new { sort = "&sort=-begin_at", filter = ViewBag.filter, game = ViewData["game"].ToString()})">Newest</a>
+					<a href="@Url.Action("Index", "Events", new { sort = "&sort=begin_at", filter = ViewBag.filter, game = ViewData["game"].ToString()})">Oldest</a>
+					<a href="@Url.Action("Index", "Events", new { sort = "&sort=prizepool", filter = ViewBag.filter, game = ViewData["game"].ToString()})">Prizepool</a>
+					<a href="@Url.Action("Index", "Events", new { sort = "&sort=name", filter = ViewBag.filter, game = ViewData["game"].ToString()})">Name</a>
+					<a href="@Url.Action("Index", "Events", new { sort = "&sort=-tier", filter = ViewBag.filter, game = ViewData["game"].ToString()})">Tier</a>
 				</div>
 			</div>
 			
@@ -229,7 +229,7 @@
 
 				<div style="width:100%;margin: auto;display:flex">
 					<div style="margin-bottom:0px;font-size:20px;display:flex;width:100%">
-						<p style="font-size:17px;width:70%;text-align:left;padding:0px; margin:auto;margin-left:15px">he is bad</p>
+						<p style="font-size:17px;width:70%;text-align:left;padding:0px; margin:auto;margin-left:15px" id="toTranslate">he is bad</p>
 					</div>
 				</div>
 
@@ -292,7 +292,7 @@
 
 				<div style="width:100%;margin: auto;display:flex">
 					<div style="margin-bottom:0px;font-size:20px;display:flex;width:100%">
-						<p style="font-size:17px;width:70%;text-align:left;padding:0px; margin:auto;margin-left:15px">I think he is a goat!</p>
+						<p style="font-size:17px;width:70%;text-align:left;padding:0px; margin:auto;margin-left:15px"id="toTranslate">I think he is a goat!</p>
 					</div>
 				</div>
 
@@ -356,7 +356,7 @@
 
 				<div style="width:100%;margin: auto;display:flex">
 					<div style="margin-bottom:0px;font-size:20px;display:flex;width:100%">
-						<p style="font-size:17px;width:70%;text-align:left;padding:0px; margin:auto;margin-left:15px">
+						<p style="font-size:17px;width:70%;text-align:left;padding:0px; margin:auto;margin-left:15px"id="toTranslate">
 							My perception is Individual Performance
 							matters but if the team will not perform. You can not win by individual performance.
 						</p>

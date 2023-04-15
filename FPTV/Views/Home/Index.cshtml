@@ -35,195 +35,307 @@
 		<br><br>
 	</div>*@
 	<!----------------------------------LIVE MATCHES------------------------------------------------->
-	<div class="box" style="border-radius:15px;margin-top:0px ;justify-content: center;display:flex ;margin-bottom:3%">
+	<div class="box" style="border-radius:15px;margin-top:0px ;justify-content: center;display:flex ;">
 		<!-------------------esquerda------------------------->
-		<div class="bordercolor darkcolor"style=" width:40%;margin:auto;text-align:center">
-			<h3> Live/Next Matches</h3>
+		<div class="bordercolor darkcolor" style=" width:40%;margin:auto;text-align:center;margin-top:0px">
+			<h3 style="margin-top:5px" id="toTranslate"> Live/Next Matches</h3>
 			<h3> Valorant</h3>
-			<div class="borderRedTop" style="padding:1%;padding-bottom:2%;">
-				<div  style="display:flex; width:100%;justify-content:center;border-radius:0px">
-					<div style="text-align:right;font-size: 20px;margin-right:15px">
-						<img src="~/images/image_bruge.png" style="width:20%" /> <span> G2 </span>
-					</div>
-					<div style="justify-content:center;font-size: 20px;margin-top:2%">
-						10 - 4
-					</div>
-					<div style="text-align:left;font-size: 20px;margin-left:15px">
-						<span> Navi </span> <img src="~/images/image_bruge.png" style="width:20%" />
+			@foreach (var item in ViewBag.liveValorantMatches)
+			{
+				var team1Score = 0;
+				var team2Score = 0;
+
+				@foreach (var team in item.Scores)
+				{
+					@if (item.TeamsList[0].Name == team.TeamName)
+					{
+						team1Score = team.TeamScore;
+					}
+				}
+
+				@foreach (var team in item.Scores)
+				{
+					@if (item.TeamsList[1].Name == team.TeamName)
+					{
+						team2Score = team.TeamScore;
+					}
+				}
+				<div class="borderRedTop" style="cursor:pointer;padding:1%;padding-bottom:2%;" onclick="location.href = '@Url.Action("MatchDetails", "Matches", new {id = item.MatchesAPIID, type = item.TimeType.ToString().ToLower(), game = "valorant"})'">
+					<div style="display:flex; width:100%;justify-content:center;border-radius:0px">
+						<div style="text-align:right;font-size: 20px;margin-right:15px">
+							<img src=@item.TeamsList[0].Image style="width:35px" /> <span> @item.TeamsList[0].Name </span>
+						</div>
+						<div style="justify-content:center;font-size: 20px;">
+							@if (team1Score < team2Score)
+							{
+								<span>
+									<span style="color: #B71919; font-size: 120%">@team1Score</span>
+									<span class="span2"> - </span>
+									<span style="color: #11871D; font-size: 120%">@team2Score</span>
+								</span>
+							}
+							else if (team1Score > team2Score)
+							{
+								<span>
+									<span style="color: #11871D; font-size: 120%">@team1Score</span>
+									<span class="span2"> - </span>
+									<span style="color: #B71919; font-size: 120%">@team2Score</span>
+								</span>
+							}
+							else if (team1Score == team2Score)
+							{
+								<span>
+									<span style="color: #CD8417; font-size: 120%">@team1Score</span>
+									<span class="span2"> - </span>
+									<span style="color: #CD8417; font-size: 120%">@team2Score</span>
+								</span>
+							}
+						</div>
+						<div style="text-align:left;font-size: 20px;margin-left:15px">
+							<span> @item.TeamsList[1].Name </span> <img src=@item.TeamsList[1].Image style="width:35px;height:35px;" />
+						</div>
+
 					</div>
 
-				</div>
-
-				<div style="width:100%;margin-top:3px">
-					<img src="~/images/WRU_Logo_Fundo_.png" style="width:5%" /> <span> BLAST.tv Paris Major 2023 Europe </span>
-				</div>
-			</div>
-			
-			<div class="borderRedTop" style="padding:1%;padding-bottom:2%;">
-				<div style="display:flex; width:100%;justify-content:center;border-radius:0px">
-					<div style="text-align:right;font-size: 20px;margin-right:15px">
-						<img src="~/images/image_bruge.png" style="width:20%" /> <span> G2 </span>
+					<div style="width:100%;margin-top:3px">
+						<img src=@item.Event.EventImage style="width:5%" /> <span> @item.EventName </span>
 					</div>
-					<div style="justify-content:center;font-size: 20px;margin-top:2%">
-						10 - 4
-					</div>
-					<div style="text-align:left;font-size: 20px;margin-left:15px">
-						<span> Navi </span> <img src="~/images/image_bruge.png" style="width:20%" />
-					</div>
-
 				</div>
-
-				<div style="width:100%;margin-top:3px">
-					<img src="~/images/WRU_Logo_Fundo_.png" style="width:5%" /> <span> BLAST.tv Paris Major 2023 Europe </span>
-				</div>
-			</div>
+			}
+			@if (ViewBag.liveValorantMatches.Count == 0)
+			{
+				<span id="toTranslate"> No Live Matches </span>
+			}
 			
 		</div>
 		<!-----------------direita-------------------->
-		<div class="bordercolor darkcolor" style=" width:40%;margin:auto;text-align:center">
-			<h3> Live/Next Matches</h3>
+		<div class="bordercolor darkcolor" style=" width:40%;margin:auto;text-align:center;margin-top: 0px;">
+			<h3 style="margin-top:5px" id="toTranslate"> Live/Next Matches</h3>
 			<h3>CS:GO</h3>
-			<div class="borderRedTop" style="padding:1%;padding-bottom:2%;">
-				<div style="display:flex; width:100%;justify-content:center;border-radius:0px">
-					<div style="text-align:right;font-size: 20px;margin-right:15px">
-						<img src="~/images/image_bruge.png" style="width:20%" /> <span> G2 </span>
-					</div>
-					<div style="justify-content:center;font-size: 20px;margin-top:2%">
-						10 - 4
-					</div>
-					<div style="text-align:left;font-size: 20px;margin-left:15px">
-						<span> Navi </span> <img src="~/images/image_bruge.png" style="width:20%" />
+			@foreach (var item in ViewBag.liveCSMatches)
+			{
+				var team1Score = 0;
+                var team2Score = 0;
+
+                @foreach (var team in item.Scores)
+                {
+					@if (item.TeamsList[0].Name == team.TeamName)
+                    {
+                        team1Score = team.TeamScore;
+                    }
+                }
+
+				@foreach (var team in item.Scores)
+                {
+					@if (item.TeamsList[1].Name == team.TeamName)
+                    {
+                        team2Score = team.TeamScore;
+                    }
+                }
+				<div class="borderRedTop" style="cursor:pointer;padding:1%;padding-bottom:2%;" onclick="location.href = '@Url.Action("MatchDetails", "Matches", new {id = item.MatchesAPIID, type = item.TimeType.ToString().ToLower(), game = "csgo"})'">
+					<div style="display:flex; width:100%;justify-content:center;border-radius:0px">
+						<div style="text-align:right;font-size: 20px;margin-right:15px">
+							<img src=@item.TeamsList[0].Image style="width:35px" /> <span> @item.TeamsList[0].Name </span>
+						</div>
+						<div style="justify-content:center;font-size: 20px;">
+							@if (team1Score < team2Score)
+							{
+								<span>
+									<span style="color: #B71919; font-size: 120%">@team1Score</span>
+									<span class="span2"> - </span>
+									<span style="color: #11871D; font-size: 120%">@team2Score</span>
+								</span>
+							}
+							else if (team1Score > team2Score)
+							{
+								<span>
+									<span style="color: #11871D; font-size: 120%">@team1Score</span>
+									<span class="span2"> - </span>
+									<span style="color: #B71919; font-size: 120%">@team2Score</span>
+								</span>
+							}
+							else if (team1Score == team2Score)
+							{
+								<span>
+									<span style="color: #CD8417; font-size: 120%">@team1Score</span>
+									<span class="span2"> - </span>
+									<span style="color: #CD8417; font-size: 120%">@team2Score</span>
+								</span>
+							}
+						</div>
+						<div style="text-align:left;font-size: 20px;margin-left:15px">
+							<span> @item.TeamsList[1].Name </span> <img src=@item.TeamsList[1].Image style="width:35px;height:35px;" />
+						</div>
+
 					</div>
 
+					<div style="width:100%;margin-top:3px">
+						<img src=@item.Event.EventImage style="width:5%" /> <span> @item.EventName </span>
+					</div>
 				</div>
-
-				<div style="width:100%;margin-top:3px">
-					<img src="~/images/WRU_Logo_Fundo_.png" style="width:5%" /> <span> BLAST.tv Paris Major 2023 Europe </span>
-				</div>
-			</div>
-
-			<div class="borderRedTop" style="padding:1%;padding-bottom:2%;">
-				<div style="display:flex; width:100%;justify-content:center;border-radius:0px">
-					<div style="text-align:right;font-size: 20px;margin-right:15px">
-						<img src="~/images/image_bruge.png" style="width:20%" /> <span> G2 </span>
-					</div>
-					<div style="justify-content:center;font-size: 20px;margin-top:2%">
-						10 - 4
-					</div>
-					<div style="text-align:left;font-size: 20px;margin-left:15px">
-						<span> Navi </span> <img src="~/images/image_bruge.png" style="width:20%" />
-					</div>
-
-				</div>
-
-				<div style="width:100%;margin-top:3px">
-					<img src="~/images/WRU_Logo_Fundo_.png" style="width:5%" /> <span> BLAST.tv Paris Major 2023 Europe </span>
-				</div>
-			</div>
+			}
+			@if (ViewBag.liveCSMatches.Count == 0)
+			{
+				<span id="toTranslate"> No Live Matches </span>
+			}
 			
 		</div>
 	</div>
 
-
+	<hr class="hrstyle" />
 	<!----------------------------REsults---------------------------------------------->
-	<div class="box" style="border-radius:15px;margin-top:0px ;justify-content: center;display:flex ;margin-bottom:3%">
+	<div class="box" style="border-radius:15px;margin-top:0px ;justify-content: center;display:flex ;margin-bottom:3%;">
 
 		<div class="bordercolor darkcolor" style=" width:40%;margin:auto;text-align:center">
-			<h3> Matches Results</h3>
+			<h3 style="margin-top:5px" id="toTranslate"> Matches Results</h3>
 			<h3> Valorant</h3>
-			<div class="borderRedTop" style="padding:1%;padding-bottom:2%;">
-				<div style="display:flex; width:100%;justify-content:center;border-radius:0px">
-					<div style="text-align:right;font-size: 20px;margin-right:15px">
-						<img src="~/images/image_bruge.png" style="width:20%" /> <span> G2 </span>
-					</div>
-					<div style="justify-content:center;font-size: 20px;margin-top:2%">
-						10 - 4
-					</div>
-					<div style="text-align:left;font-size: 20px;margin-left:15px">
-						<span> Navi </span> <img src="~/images/image_bruge.png" style="width:20%" />
+			@foreach (var item in ViewBag.ValorantResults)
+			{
+				var team1Score = 0;
+				var team2Score = 0;
+
+				@foreach (var team in item.Scores)
+				{
+					@if (item.TeamsList[0].Name == team.TeamName)
+					{
+						team1Score = team.TeamScore;
+					}
+				}
+
+				@foreach (var team in item.Scores)
+				{
+					@if (item.TeamsList[1].Name == team.TeamName)
+					{
+						team2Score = team.TeamScore;
+					}
+				}
+				<div class="borderRedTop" style="cursor:pointer;padding:1%;padding-bottom:2%;" onclick="location.href = '@Url.Action("MatchDetails", "Matches", new {id = item.MatchesAPIID, type = item.TimeType.ToString().ToLower(), game = "valorant"})'">
+					<div style="display:flex; width:100%;justify-content:center;border-radius:0px">
+						<div style="text-align:right;font-size: 20px;margin-right:15px">
+							<img src=@item.TeamsList[0].Image style="width:35px" /> <span> @item.TeamsList[0].Name </span>
+						</div>
+						<div style="justify-content:center;font-size: 20px;">
+							@if (team1Score < team2Score)
+							{
+								<span>
+									<span style="color: #B71919; font-size: 120%">@team1Score</span>
+									<span class="span2"> - </span>
+									<span style="color: #11871D; font-size: 120%">@team2Score</span>
+								</span>
+							}
+							else if (team1Score > team2Score)
+							{
+								<span>
+									<span style="color: #11871D; font-size: 120%">@team1Score</span>
+									<span class="span2"> - </span>
+									<span style="color: #B71919; font-size: 120%">@team2Score</span>
+								</span>
+							}
+							else if (team1Score == team2Score)
+							{
+								<span>
+									<span style="color: #CD8417; font-size: 120%">@team1Score</span>
+									<span class="span2"> - </span>
+									<span style="color: #CD8417; font-size: 120%">@team2Score</span>
+								</span>
+							}
+						</div>
+						<div style="text-align:left;font-size: 20px;margin-left:15px">
+							<span> @item.TeamsList[1].Name </span> <img src=@item.TeamsList[1].Image style="width:35px;height:35px;" />
+						</div>
+
 					</div>
 
+					<div style="width:100%;margin-top:3px">
+						<img src=@item.Event.EventImage style="width:5%" /> <span> @item.EventName </span>
+					</div>
 				</div>
-
-				<div style="width:100%;margin-top:3px">
-					<img src="~/images/WRU_Logo_Fundo_.png" style="width:5%" /> <span> BLAST.tv Paris Major 2023 Europe </span>
-				</div>
+			}
+			
 			</div>
 
-			<div class="borderRedTop" style="padding:1%;padding-bottom:2%;">
-				<div style="display:flex; width:100%;justify-content:center;border-radius:0px">
-					<div style="text-align:right;font-size: 20px;margin-right:15px">
-						<img src="~/images/image_bruge.png" style="width:20%" /> <span> G2 </span>
-					</div>
-					<div style="justify-content:center;font-size: 20px;margin-top:2%">
-						10 - 4
-					</div>
-					<div style="text-align:left;font-size: 20px;margin-left:15px">
-						<span> Navi </span> <img src="~/images/image_bruge.png" style="width:20%" />
-					</div>
-
-				</div>
-
-				<div style="width:100%;margin-top:3px">
-					<img src="~/images/WRU_Logo_Fundo_.png" style="width:5%" /> <span> BLAST.tv Paris Major 2023 Europe </span>
-				</div>
-			</div>
-
-		</div>
+		
 		<!-----------------direita-------------------->
+		
 		<div class="bordercolor darkcolor" style=" width:40%;margin:auto;text-align:center">
-			<h3>Matches Results</h3>
+			<h3 style="margin-top:5px" id="toTranslate">Matches Results</h3>
 			<h3>CS:GO</h3>
-			<div class="borderRedTop" style="padding:1%;padding-bottom:2%;">
-				<div style="display:flex; width:100%;justify-content:center;border-radius:0px">
-					<div style="text-align:right;font-size: 20px;margin-right:15px">
-						<img src="~/images/image_bruge.png" style="width:20%" /> <span> G2 </span>
-					</div>
-					<div style="justify-content:center;font-size: 20px;margin-top:2%">
-						10 - 4
-					</div>
-					<div style="text-align:left;font-size: 20px;margin-left:15px">
-						<span> Navi </span> <img src="~/images/image_bruge.png" style="width:20%" />
+			@foreach (var item in ViewBag.CSResults)
+			{
+				var team1Score = 0;
+                var team2Score = 0;
+
+                @foreach (var team in item.Scores)
+                {
+					@if (item.TeamsList[0].Name == team.TeamName)
+                    {
+                        team1Score = team.TeamScore;
+                    }
+                }
+
+				@foreach (var team in item.Scores)
+                {
+					@if (item.TeamsList[1].Name == team.TeamName)
+                    {
+                        team2Score = team.TeamScore;
+                    }
+                }
+
+				<div class="borderRedTop" style="cursor:pointer;padding:1%;padding-bottom:2%;" onclick="location.href = '@Url.Action("MatchDetails", "Matches", new {id = item.MatchesAPIID, type = item.TimeType.ToString().ToLower(), game = "csgo"})'">
+					<div style="display:flex; width:100%;justify-content:center;border-radius:0px">
+						<div style="text-align:right;font-size: 20px;margin-right:15px">
+						<img src=@item.TeamsList[0].Image style="width:35px" /> <span> @item.TeamsList[0].Name </span>
+						</div>
+						<div style="justify-content:center;font-size: 20px;">
+							@if (team1Score < team2Score)
+							{
+								<span>
+									<span style="color: #B71919; font-size: 120%">@team1Score</span>
+									<span class="span2"> - </span>
+									<span style="color: #11871D; font-size: 120%">@team2Score</span>
+								</span>
+							}
+							else if (team1Score > team2Score)
+							{
+								<span>
+									<span style="color: #11871D; font-size: 120%">@team1Score</span>
+									<span class="span2"> - </span>
+									<span style="color: #B71919; font-size: 120%">@team2Score</span>
+								</span>
+							}
+							else if (team1Score == team2Score)
+							{
+								<span>
+									<span style="color: #CD8417; font-size: 120%">@team1Score</span>
+									<span class="span2"> - </span>
+									<span style="color: #CD8417; font-size: 120%">@team2Score</span>
+								</span>
+							}
+						</div>
+						<div style="text-align:left;font-size: 20px;margin-left:15px">
+							<span> @item.TeamsList[1].Name </span> <img src=@item.TeamsList[1].Image style="width:35px;height:35px;" />
+						</div>
 					</div>
 
+					<div style="width:100%;margin-top:3px">
+						<img src=@item.Event.EventImage style="width:5%" /> <span> @item.EventName </span>
+					</div>
 				</div>
-
-				<div style="width:100%;margin-top:3px">
-					<img src="~/images/WRU_Logo_Fundo_.png" style="width:5%" /> <span> BLAST.tv Paris Major 2023 Europe </span>
-				</div>
-			</div>
-
-			<div class="borderRedTop" style="padding:1%;padding-bottom:2%;">
-				<div style="display:flex; width:100%;justify-content:center;border-radius:0px">
-					<div style="text-align:right;font-size: 20px;margin-right:15px">
-						<img src="~/images/image_bruge.png" style="width:20%" /> <span> G2 </span>
-					</div>
-					<div style="justify-content:center;font-size: 20px;margin-top:2%">
-						10 - 4
-					</div>
-					<div style="text-align:left;font-size: 20px;margin-left:15px">
-						<span> Navi </span> <img src="~/images/image_bruge.png" style="width:20%" />
-					</div>
-
-				</div>
-
-				<div style="width:100%;margin-top:3px">
-					<img src="~/images/WRU_Logo_Fundo_.png" style="width:5%" /> <span> BLAST.tv Paris Major 2023 Europe </span>
-				</div>
-			</div>
-
+			}
+			
 		</div>
 	</div>
 
+	<hr class="hrstyle" />
 	<!------------------stats--------------------------------------------->
 	<div class="box darkcolor bordercolor " style="width:60%;text-align: center; border-radius:15px;margin-top:0px;margin:auto">
 		<br>
-		<h2 style="font-weight: bold;">Website Stats</h2>
+		<h2 style="font-weight: bold;" id="toTranslate">Website Stats</h2>
 		<br>
 		<table style="width:80%; margin-left: auto; margin-right: auto;">
 			<tr>
-				<th style="width: 50%;">Number of registered accounts</th>
-				<th style="width: 50%;">Daily flow of users</th>
+				<th style="width: 50%;" id="toTranslate">Number of registered accounts</th>
+				<th style="width: 50%;" id="toTranslate">Daily flow of users</th>
 			</tr>
 			<tr>
 				<td> <b id="noOfAccounts">@ViewData["accounts"]</b> <span id="accountText"> @ViewData["account_txt"] </span> </td>

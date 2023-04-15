@@ -343,7 +343,8 @@ namespace FPTVUnitTests
             var adminImage = Path.Combine(env.WebRootPath, "images", "Mods_Image.png");
             profile.Picture = System.IO.File.ReadAllBytes(adminImage);
             profile.User = admin;
-            profile.RegistrationDate = new DateTime();
+            profile.UserId = new Guid(admin.Id);
+            profile.RegistrationDate = DateTime.Now;
             profile.Country = "pt";
 			admin.Profile = profile;
 
