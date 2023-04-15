@@ -160,7 +160,7 @@
 					<div style="width:100%;margin: auto;display:flex">
 						<div style="margin-bottom:0px;font-size:20px;display:flex;width:100%">
 
-							<p style ="font-size:17px;width:70%;text-align:left;padding:0px; margin:auto;margin-left:15px"> @Model.Content </p>
+							<p style ="font-size:17px;width:70%;text-align:left;padding:0px; margin:auto;margin-left:15px" id="toTranslate"> @Model.Content </p>
 							
 							<div style="width:30%;display:flex">
 								<img src="~/images/default-profile-icon-24.jpg" style="width:70px" />
@@ -178,8 +178,8 @@
 						reactionCount += c.Reactions.Count;
 					}
 					<div style="text-align:right;width:100%">
-						<p style="margin-bottom:0px;font-size:15px">@Model.Comments.Count Comments</p>
-						<p style="margin-bottom:0px;font-size:15px">@reactionCount Reactions</p>
+						<p style="margin-bottom:0px;font-size:15px" id="toTranslate">@Model.Comments.Count Comments</p>
+						<p style="margin-bottom:0px;font-size:15px" id="toTranslate">@reactionCount Reactions</p>
 					</div>
 
 					
@@ -206,7 +206,7 @@
 			</div>
 
 			<div class="dropdown" style="margin:auto">
-				<button class="button2">Sort by</button>
+				<button class="button2" id="toTranslate">Sort by</button>
 				<div class="dropdown-content" style="margin-left:0px;margin-top:0px">
 					<a href="@Url.Action("Index", "Events", new { sort = "&sort=-begin_at", filter = ViewBag.filter, game = ViewData["game"].ToString()})">Newest</a>
 					<a href="@Url.Action("Index", "Events", new { sort = "&sort=begin_at", filter = ViewBag.filter, game = ViewData["game"].ToString()})">Oldest</a>
@@ -241,7 +241,7 @@
 
 					<div style="width:100%;margin: auto;display:flex">
 						<div style="margin-bottom:0px;font-size:20px;display:flex;width:100%">
-							<p style="font-size:17px;width:70%;text-align:left;padding:0px; margin:auto;margin-left:15px">@c.Text</p>
+							<p style="font-size:17px;width:70%;text-align:left;padding:0px; margin:auto;margin-left:15px" id="toTranslate">@c.Text</p>
 						</div>
 					</div>
 
@@ -306,7 +306,7 @@
 
 				<div style="width:100%;margin: auto;display:flex">
 					<div style="margin-bottom:0px;font-size:20px;display:flex;width:100%">
-						<p style="font-size:17px;width:70%;text-align:left;padding:0px; margin:auto;margin-left:15px">I think he is a goat!</p>
+						<p style="font-size:17px;width:70%;text-align:left;padding:0px; margin:auto;margin-left:15px"id="toTranslate">I think he is a goat!</p>
 					</div>
 				</div>
 
@@ -370,7 +370,7 @@
 
 				<div style="width:100%;margin: auto;display:flex">
 					<div style="margin-bottom:0px;font-size:20px;display:flex;width:100%">
-						<p style="font-size:17px;width:70%;text-align:left;padding:0px; margin:auto;margin-left:15px">
+						<p style="font-size:17px;width:70%;text-align:left;padding:0px; margin:auto;margin-left:15px"id="toTranslate">
 							My perception is Individual Performance
 							matters but if the team will not perform. You can not win by individual performance.
 						</p>

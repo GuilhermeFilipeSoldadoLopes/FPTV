@@ -6,6 +6,7 @@ using FPTV.Models;
 using FPTV.Models.EventsModels;
 using FPTV.Models.MatchesModels;
 using FPTV.Models.UserModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -304,6 +305,7 @@ namespace FPTV.Controllers
             _context.SaveChanges();
         }
 
+        [Authorize]
         public IActionResult Events(string game = "csgo")
 		{
 			page = "Events";
@@ -311,24 +313,30 @@ namespace FPTV.Controllers
 			return RedirectToAction("Index", page, new { sort = "&sort=-begin_at", filter = "running", game = game });
         }
 
+        [Authorize]
 		public IActionResult Forum(string game = "csgo")
 		{
 			page = "Forum";
             ViewBag.page = page;
             return RedirectToAction("Forum", "Index", new { game = game});
 		}
-		public IActionResult ForumRules()
+
+        [Authorize]
+        public IActionResult ForumRules()
 		{
 			page = "Forum";
 			//return RedirectToAction("Forum", "ForumRules");
 			return View();
 		}
-		public IActionResult NewTopic()
+
+        [Authorize]
+        public IActionResult NewTopic()
 		{
 			return View();
 		}
 
-		public IActionResult Topic()
+        [Authorize]
+        public IActionResult Topic()
 		{
 			return View();
 		}
@@ -347,19 +355,22 @@ namespace FPTV.Controllers
 			return RedirectToAction("Results", page, new {game = game });
 		}
 
-		public IActionResult CSGOStats()
+        [Authorize]
+        public IActionResult CSGOStats()
 		{
 			page = "Index";
 			return RedirectToAction("CSGOStats", "Stats");
 		}
 
-		public IActionResult PlayerAndStats()
+        [Authorize]
+        public IActionResult PlayerAndStats()
 		{
 			page = "Index";
 			return RedirectToAction("PlayerAndStats", "Matches");
 		}
 
-		public IActionResult TeamStats()
+        [Authorize]
+        public IActionResult TeamStats()
 		{
 			page = "Index";
 			return RedirectToAction("TeamStats", "Matches");

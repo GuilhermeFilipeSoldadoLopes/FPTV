@@ -35,7 +35,7 @@
 
 <body onload="chart()" class="bodytemp">
 	<div class="box darkcolor bordercolor" style="width:60%; border-radius:15px;margin:auto; margin-top:0px ;text-align: center;">
-		<h2 style="margin-top:3%;font-weight:bold"> @ViewData["Title"]</h2>
+		<h2 style="margin-top:3%;font-weight:bold" id="toTranslate"> @ViewData["Title"]</h2>
 
 		<div style="width:100%;margin:auto;">
 			<form asp-controller="Forum" asp-action="Create" method="post">
@@ -55,9 +55,9 @@
 
 			<div  style="width:100%; display:flex; justify-content:center; margin:auto">
 
-				<button class="btncancel bordercolor " type="button" onclick="window.location= '@Url.Action("Index", "Forum")'"style="width:30%; margin:3%;color:black">Cancel</button>
+				<button class="btncancel bordercolor " type="button" onclick="window.location= '@Url.Action("Index", "Forum")'"style="width:30%; margin:3%;color:black" id="toTranslate">Cancel</button>
 
-				<button class=" bordercolor " type="submit" style="width:30%;margin:3%;color:black">Confirm</button>
+				<button class=" bordercolor " type="submit" style="width:30%;margin:3%;color:black" id="toTranslate">Confirm</button>
 				 
 			</div>
 			</form>
