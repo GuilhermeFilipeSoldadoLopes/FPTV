@@ -31,17 +31,12 @@
 
 </style>
 <html>
-<body class="bodytemp bodyquery">
+<body class="bodytemp bodyquery" style="width:100%">
 
-	@*<div class="text-center">
-		<h1 class="display-4">Welcome</h1>
-		<p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-		<br><br>
-	</div>*@
 	<!----------------------------------LIVE MATCHES------------------------------------------------->
-	<div class="box bodyquery" style="border-radius:15px;margin-top:0px ;justify-content: center;display:flex ;">
+	<div class="box " style="border-radius:15px; margin-top:0px; justify-content:center; display:flex; width:100%">
 		<!-------------------esquerda------------------------->
-		<div class="bordercolor darkcolor bodyquery responsive" style=";margin:auto;text-align:center;margin-top: 0px;margin-bottom:3%">
+		<div class="bordercolor darkcolor responsive" style="margin:auto;text-align:center;margin-top: 0px;margin-bottom:3%">
 			<h3 style="cursor:pointer; margin-top:5px" id="toTranslate" onclick="location.href = '@Url.Action("Matches", "Home", new { game = "valorant"})'"> Live/Next Matches</h3>
 			<h3 style="cursor:pointer;" onclick="location.href = '@Url.Action("Matches", "Home", new { game = "valorant"})'"> Valorant</h3>
 			@foreach (var item in ViewBag.liveValorantMatches)
@@ -113,7 +108,7 @@
 			
 		</div>
 		<!-----------------direita-------------------->
-		<div class="bordercolor darkcolor bodyquery responsive" style=" width:40%;margin:auto;text-align:center;margin-top: 0px;margin-bottom:3%">
+		<div class="bordercolor darkcolor  responsive" style="margin:auto;text-align:center;margin-top: 0px;margin-bottom:3%">
 			<h3 style="margin-top:5px; cursor:pointer;" id="toTranslate" onclick="location.href = '@Url.Action("Matches", "Home", new { game = "csgo"})'"> Live/Next Matches</h3>
 			<h3 style="cursor:pointer;" onclick="location.href = '@Url.Action("Matches", "Home", new { game = "csgo"})'">CS:GO</h3>
 			@foreach (var item in ViewBag.liveCSMatches)
@@ -190,7 +185,7 @@
 	<!----------------------------Results---------------------------------------------->
 	<div class="box" style="border-radius:15px;margin-top:0px ;justify-content: center;display:flex ;margin-bottom:3%;">
 
-		<div class="bordercolor darkcolor responsive" style=" width:40%;margin:auto;text-align:center;margin-top: 0px;margin-bottom: 3%;">
+		<div class="bordercolor darkcolor responsive" style="margin:auto;text-align:center;margin-top: 0px;margin-bottom: 3%;">
 			<h3 style="cursor:pointer; margin-top:5px" id="toTranslate" onclick="location.href = '@Url.Action("Results", "Home", new { game = "valorant"})'"> Matches Results</h3>
 			<h3 style="cursor:pointer;" onclick="location.href = '@Url.Action("Results", "Home", new { game = "valorant"})'"> Valorant</h3>
 			@foreach (var item in ViewBag.ValorantResults)
@@ -261,7 +256,7 @@
 		
 		<!-----------------direita-------------------->
 		
-		<div class="bordercolor darkcolor responsive" style=" width:40%;margin:auto;text-align:center;margin-top: 0px;margin-bottom: 3%;">
+		<div class="bordercolor darkcolor responsive" style="margin:auto;text-align:center;margin-top: 0px;margin-bottom: 3%;">
 			<h3 style="cursor:pointer; margin-top:5px" id="toTranslate" onclick="location.href = '@Url.Action("Results", "Home", new { game = "csgo"})'">Matches Results</h3>
 			<h3 style="cursor:pointer;" onclick="location.href = '@Url.Action("Results", "Home", new { game = "csgo"})'">CS:GO</h3>
 			@foreach (var item in ViewBag.CSResults)

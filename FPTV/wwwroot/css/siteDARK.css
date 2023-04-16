@@ -15,7 +15,7 @@ html {
 @media (max-width: 767px) {
     .box {
         flex-direction: column;
-        margin:3%;
+       
     }
     .box1 {
         flex-direction: column;
@@ -23,6 +23,7 @@ html {
         justify-content: center;
        
     }
+    
     .boxwidth{
         width:100%;
         margin:0;
@@ -39,21 +40,22 @@ html {
         margin-top: 10px;
     }
     .responsive {
-       width:100%;
+       width:100% !important;
     }
 
+}
+
+.responsive {
+    width: 40%;
 }
 html {
     position: relative;
     min-height: 100%;
 }
-.responsive {
-    width: 40%;
-}
+
 body {
    /* margin-bottom: 60px;*/
     font-family: Noto Sans;
-    
 }
 
 .darktheme {
