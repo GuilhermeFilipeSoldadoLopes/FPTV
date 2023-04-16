@@ -14,12 +14,14 @@ html {
 @media (max-width: 767px) {
     .box {
         flex-direction: column;
+        font-size: 15px;
     }
 
     .box1 {
         flex-direction: column;
         flex-direction: column;
         justify-content: center;
+        font-size: 15px;
     }
 
     .boxwidth {
@@ -30,6 +32,7 @@ html {
     .ola {
         flex-direction: column;
         justify-content: center;
+        font-size: 15px;
     }
 
     .bordercolor {
@@ -42,6 +45,12 @@ html {
     .responsive {
         width: 100% !important;
     }
+    .marginbottomRes {
+        margin-bottom: 3%;
+    }
+}
+.responsive {
+    width: 40%;
 }
 
 html {

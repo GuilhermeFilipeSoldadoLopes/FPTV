@@ -40,9 +40,11 @@ html {
         margin-top: 10px;
     }
     .responsive {
-       width:100% !important;
+        width: 100% !important;
     }
-
+    .marginbottomRes {
+        margin-bottom: 3% !important;
+    }
 }
 
 .responsive {
