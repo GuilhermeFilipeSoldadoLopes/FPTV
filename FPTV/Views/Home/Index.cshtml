@@ -41,7 +41,7 @@
 	<!----------------------------------LIVE MATCHES------------------------------------------------->
 	<div class="box bodyquery" style="border-radius:15px;margin-top:0px ;justify-content: center;display:flex ;">
 		<!-------------------esquerda------------------------->
-		<div class="bordercolor darkcolor boxwidth" style="margin:auto;text-align:center;margin-top:0px">
+		<div class="bordercolor darkcolor bodyquery" style=" width:40%;margin:auto;text-align:center;margin-top: 0px;">
 			<h3 style="cursor:pointer; margin-top:5px" id="toTranslate" onclick="location.href = '@Url.Action("Matches", "Home", new { game = "valorant"})'"> Live/Next Matches</h3>
 			<h3 style="cursor:pointer;" onclick="location.href = '@Url.Action("Matches", "Home", new { game = "valorant"})'"> Valorant</h3>
 			@foreach (var item in ViewBag.liveValorantMatches)
