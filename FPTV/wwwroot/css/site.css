@@ -11,10 +11,37 @@ html {
         font-size: 16px;
     }
 }
-@media only screen and (max-width: 767px) {
-    bodyquery {
-        display: flex;
+@media (max-width: 767px) {
+    .box {
         flex-direction: column;
+        margin: 3%;
+    }
+
+    .box1 {
+        flex-direction: column;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .boxwidth {
+        width: 100%;
+        margin: 0;
+    }
+
+    .ola {
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .bordercolor {
+        width: 100%;
+        margin: auto;
+        text-align: center;
+        margin-top: 10px;
+    }
+
+    .responsive {
+        width: 100%;
     }
 }
 
