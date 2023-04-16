@@ -186,7 +186,7 @@
     <div class="responsive" style="padding:1%;width:100%;display:flex">
         <div class="ola" style="width:100%;display:flex;">
 
-            <div class="box1" style="border-radius:15px;">
+            <div class="box1 responsive" style="border-radius:15px;">
 
                 <div class="darkcolor borders bordercolor" style="border-radius:15px">
 
@@ -262,7 +262,7 @@
 
 
             @* -------------------------------------------------------------------------------*@
-            <div class="alinhar">
+            <div class="alinhar responsive">
                 <div class="my-div2" style="width:80%; ">
                     @for (int i = 0; i < ((List<string>)ViewBag.mapsNames).Count(); i++)
                     {
@@ -894,7 +894,7 @@
 
             @* ---------------------------------------------------------------------------*@
 
-            <div class="box1" style="border-radius:15px;">
+            <div class="box1 responsive" style="border-radius:15px;">
                 <div class="borders bordercolor darkcolor" style="border-radius:15px">
                     <a style="text-decoration: none" href="@Url.Action("getTeam", "Stats", new {id = @ViewBag.matches.TeamsList[1].TeamAPIID, type = @ViewBag.matches.TimeType.ToString().ToLower() ,game = ViewData["game"].ToString()})" style="justify-content: space-around; margin-left: auto; margin-bottom:0px">
                         <h4 style="font-weight: bold;text-align:center;">@ViewBag.matches.TeamsList[1].Name</h4>
@@ -922,7 +922,7 @@
                         <span id="toTranslate">No Players Found</span>
                     }
                 </div>
-                <div class="borders bordercolor darkcolor" style="border-radius:15px;margin-top:5%">
+                <div class="borders bordercolor darkcolor" style="border-radius:15px;margin-top:5%;margin-bottom:10%">
                     <h4 style="text-align:left">
                         Streams
                     </h4>

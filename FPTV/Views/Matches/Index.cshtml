@@ -225,7 +225,7 @@
 
         </div>
         <div class="ola " style="border-radius:15px;">
-            <div class="box darkcolor bordercolor" style="border-radius:15px;margin-top:0px;width:40%;padding:1%;margin-bottom:3%">
+            <div class="box darkcolor bordercolor responsive" style="border-radius:15px;margin-top:0px;width:40%;padding:1%;margin-bottom:3%">
                 <h4 style="font-weight: bold;text-align:left;text-transform: capitalize;" id="toTranslate">Finished Matches</h4>
                 @if (ViewBag.pastMatches.Count == 0)
                 {
@@ -300,12 +300,12 @@
                     </div>
                 }
             </div>
-            <div class="box bordercolor" style="margin-top:0px; border-radius:15px;margin-left: 2%;margin-right: 2%; width:60%">
+            <div class="box bordercolor responsive" style="margin-top:0px; border-radius:15px;margin-left: 2%;margin-right: 2%; width:60%">
                 @if (ViewBag.runningMatches.Count == 0)
                 {
                     <span style="text-align:center" id="toTranslate"> No Live Matches </span>
                 }
-                <table class="colorformatch tablecolors" style="width:100%; border-radius:15px;">
+                <table class="colorformatch tablecolors responsive" style="width:100%!important; border-radius:15px;">
                     @foreach (var item in ViewBag.runningMatches)
                     {
                         <tr  style="border-radius:15px; width:100%">
@@ -390,7 +390,7 @@
                 </table>
             </div>
 
-            <div class="box darkcolor bordercolor" style="margin-top:0px; border-radius:15px;width:40%; padding:1%">
+            <div class="box darkcolor bordercolor responsive" style="margin-top:0px; border-radius:15px;width:40%; padding:1%">
                 <h4 style="font-weight: bold;text-align:left;" id="toTranslate">Upcoming Matches</h4>
                 @if (ViewBag.upcomingMatches.Count == 0)
                 {
