@@ -1154,7 +1154,7 @@ namespace FPTV.Controllers
 
             _context.SaveChanges();
 
-            return RedirectToPage("getTeam", "Stats", new { id = team.TeamAPIID, game = game });
+            return RedirectToAction("getTeam", "Stats", new { id = team.TeamAPIID, game = game });
         }
     }
 }

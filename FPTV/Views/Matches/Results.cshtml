@@ -197,6 +197,14 @@
 					var team1Score = 0;
 					var team2Score = 0;
 				}
+				@if (ViewBag.matches.Count == 0)
+				{
+					<tr>
+                        <td>
+                            <span id="toTranslate"> No Results </span>
+						</td>
+					</tr>
+				}
 				@foreach (var item in ViewBag.matches)
 				{
 					<tr style="border:1px solid black; cursor:pointer;width:100%;overflow-x:auto;" onclick="location.href = '@Url.Action("MatchDetails", "Matches", new {id = item.MatchesAPIID, type = item.TimeType.ToString().ToLower(), game = ViewData["game"].ToString()})'">
