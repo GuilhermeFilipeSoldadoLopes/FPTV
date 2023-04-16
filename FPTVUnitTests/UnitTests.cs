@@ -31,7 +31,7 @@ namespace FPTVUnitTests
         public void Index_ReturnsViewResult()
         {
             var controller = new HomeController(null, _context);
-            var result = controller.Index();
+            var result = controller.Index("csgo");
             Assert.IsType<ViewResult>(result);
         }
 
