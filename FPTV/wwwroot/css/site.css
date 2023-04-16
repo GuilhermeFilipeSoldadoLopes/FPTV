@@ -11,6 +11,12 @@ html {
         font-size: 16px;
     }
 }
+@media only screen and (max-width: 767px) {
+    bodyquery {
+        display: flex;
+        flex-direction: column;
+    }
+}
 
 html {
     position: relative;

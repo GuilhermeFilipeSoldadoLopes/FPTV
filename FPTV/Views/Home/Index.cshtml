@@ -25,9 +25,13 @@
 	tr, td, th {
 		border-width: 1px;
 	}
+
+	 /* Styles for mobile screens */
+    
+
 </style>
 <html>
-<body class="bodytemp">
+<body class="bodytemp bodyquery">
 
 	@*<div class="text-center">
 		<h1 class="display-4">Welcome</h1>
@@ -35,9 +39,9 @@
 		<br><br>
 	</div>*@
 	<!----------------------------------LIVE MATCHES------------------------------------------------->
-	<div class="box" style="border-radius:15px;margin-top:0px ;justify-content: center;display:flex ;">
+	<div class="box bodyquery" style="border-radius:15px;margin-top:0px ;justify-content: center;display:flex ;">
 		<!-------------------esquerda------------------------->
-		<div class="bordercolor darkcolor" style=" width:40%;margin:auto;text-align:center;margin-top:0px">
+		<div class="bordercolor darkcolor boxwidth" style="margin:auto;text-align:center;margin-top:0px">
 			<h3 style="cursor:pointer; margin-top:5px" id="toTranslate" onclick="location.href = '@Url.Action("Matches", "Home", new { game = "valorant"})'"> Live/Next Matches</h3>
 			<h3 style="cursor:pointer;" onclick="location.href = '@Url.Action("Matches", "Home", new { game = "valorant"})'"> Valorant</h3>
 			@foreach (var item in ViewBag.liveValorantMatches)
@@ -104,12 +108,12 @@
 			}
 			@if (ViewBag.liveValorantMatches.Count == 0)
 			{
-				<span id="toTranslate"> No Live Matches </span>
+				<span class="borderRedTop" style=" margin-top:10px;" id="toTranslate"> No Live Matches </span>
 			}
 			
 		</div>
 		<!-----------------direita-------------------->
-		<div class="bordercolor darkcolor" style=" width:40%;margin:auto;text-align:center;margin-top: 0px;">
+		<div class="bordercolor darkcolor bodyquery" style=" width:40%;margin:auto;text-align:center;margin-top: 0px;">
 			<h3 style="margin-top:5px; cursor:pointer;" id="toTranslate" onclick="location.href = '@Url.Action("Matches", "Home", new { game = "csgo"})'"> Live/Next Matches</h3>
 			<h3 style="cursor:pointer;" onclick="location.href = '@Url.Action("Matches", "Home", new { game = "csgo"})'">CS:GO</h3>
 			@foreach (var item in ViewBag.liveCSMatches)
@@ -176,7 +180,7 @@
 			}
 			@if (ViewBag.liveCSMatches.Count == 0)
 			{
-				<span id="toTranslate"> No Live Matches </span>
+				<span class="borderRedTop" style=" margin-top:10px;" id="toTranslate"> No Live Matches </span>
 			}
 			
 		</div>
