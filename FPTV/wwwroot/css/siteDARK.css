@@ -13,9 +13,13 @@ html {
 }
 
 @media (max-width: 767px) {
+
+    .nomargin{
+        margin-left:0px !important;
+        margin-right:0px !important;
+    }
     .box {
         flex-direction: column;
-       
     }
     .box1 {
         flex-direction: column;

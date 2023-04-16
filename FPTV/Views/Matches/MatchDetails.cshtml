@@ -319,23 +319,23 @@
                                             @if (ViewBag.matches.Scores[0].TeamScore == 0 && ViewBag.matches.Scores[1].TeamScore == 0)
                                             {
                                                 Random rnd = new Random();
-                                                <span style="text-align: center;font-size:25px" class="span2"> @rnd.Next(14) </span>
+                                                <span style="text-align: center;font-size:25px" class="span2 stroke2"> @rnd.Next(14) </span>
                                                 <span style="text-align: center;font-size:25px">-</span>
-                                                <span style="text-align: center;font-size:25px" class="span2"> @rnd.Next(14) </span>
+                                                <span style="text-align: center;font-size:25px" class="span2 stroke2"> @rnd.Next(14) </span>
                                             }
                                             else if (ViewBag.matches.Scores[0].TeamScore != 0)
                                             {
                                                 Random rnd = new Random();
-                                                <span style="text-align: center;font-size:25px" class="span2"> 16 </span>
+                                                <span style="text-align: center;font-size:25px" class="span2 stroke2"> 16 </span>
                                                 <span style="text-align: center;font-size:25px">-</span>
-                                                <span style="text-align: center;font-size:25px" class="span2"> @rnd.Next(14) </span>
+                                                <span style="text-align: center;font-size:25px" class="span2 stroke2"> @rnd.Next(14) </span>
                                             }
                                             else
                                             {
                                                 Random rnd = new Random();
-                                                <span style="text-align: center;font-size:25px" class="span2"> @rnd.Next(14) </span>
+                                                <span style="text-align: center;font-size:25px" class="span2 stroke2"> @rnd.Next(14) </span>
                                                 <span style="text-align: center;font-size:25px">-</span>
-                                                <span style="text-align: center;font-size:25px" class="span2"> 16 </span>
+                                                <span style="text-align: center;font-size:25px" class="span2 stroke2"> 16 </span>
                                             }
                                         </span>
                                     }
@@ -343,16 +343,16 @@
                                 </div>
                                 <div>
                                     <div class="" style="display:flex; text-align:left;width:100%;margin-top:3%;margin-bottom:3%">
-                                        <span class="bestof" style="text-align:left" id="toTranslate">Best of @ViewBag.matches.NumberOfGames</span>
+                                        <span class="bestof stroke2" style="text-align:left" id="toTranslate">Best of @ViewBag.matches.NumberOfGames</span>
                                         @if (ViewBag.matches.TimeType.ToString().ToLower() != "upcoming")
                                         {
-                                            <span style="margin:auto">@ViewBag.pickedMaps[lista.Count() -1]</span>
+                                            <span class="stroke2" style="margin:auto">@ViewBag.pickedMaps[lista.Count() -1]</span>
                                         }
                                         else
                                         {
                                             <span style="margin:auto"> </span>
                                         }
-                                        <span style="text-align:right">Tier: @Char.ToUpper(ViewBag.matches.Tier)</span><br />
+                                        <span class="stroke2" style="text-align:right">Tier: @Char.ToUpper(ViewBag.matches.Tier)</span><br />
 
                                     </div>
 
@@ -360,10 +360,10 @@
                                         @if (ViewBag.matches.TimeType.ToString().ToLower() != "upcoming")
                                         {
                                             Random rnd = new Random();
-                                            <span class="bestof" style="text-align:left" id="toTranslate">Duration: @(rnd.Next(15) + 45) min</span>
+                                            <span class="bestof stroke" style="text-align:left;font-size:20px" id="toTranslate">Duration: @(rnd.Next(15) + 45) min</span>
                                         }
-                                        <span style="margin:auto"> </span>
-                                        <span style="text-align:right;"> @ViewBag.matches.BeginAt.ToString("dddd | dd-MM-yyyy | hh:mm")H </span><br />
+                                        <span class="stroke" style="margin:auto;"> </span>
+                                        <span class="stroke" style="text-align:right;font-size:20px"> @ViewBag.matches.BeginAt.ToString("dddd | dd-MM-yyyy | hh:mm")H </span><br />
                                     </div>
 
                                     @*<div style="display:flex; width:100%; padding:0px;">
@@ -483,7 +483,7 @@
                                 <div class="" style="font-weight:bold;font-size:20px; text-align:center">
                                     <span>Maps</span>
                                 </div>
-                                <div style=" display:flex;width:100%;padding:1%">
+                                <div class="stroke" style=" display:flex;width:100%;padding:1%">
 
                                     @for (int i = 0; i < ((List<string>)ViewBag.mapsNames).Count(); i++)
                                     {
@@ -537,7 +537,7 @@
                                             {
                                                 var nGames = ViewBag.matches.Scores[0].TeamScore + ViewBag.matches.Scores[1].TeamScore;
                                                 var image = ViewBag.mapsImages[i];
-                                                <div class=" bordercolor whitecolor backMap2 stroke2" style="width:40% ;border-radius:15px;font-weight:700;margin:auto;background-image:url(@image)" name="Maps">
+                                                <div class=" bordercolor whitecolor backMap2 stroke" style="width:40% ;border-radius:15px;font-weight:700;margin:auto;background-image:url(@image)" name="Maps">
                                                     <span style="text-align: center;margin-left:38%;font-weight:700"> @ViewBag.pickedMaps[2] </span><br />
                                                     @if (nGames > 2)
                                                     {
@@ -579,7 +579,7 @@
 
                                 @if (((IList)ViewBag.pickedMaps).Count > 3)
                                 {
-                                    <div style=" display:flex;width:100%;padding:1%">
+                                    <div class="stroke2" style=" display:flex;width:100%;padding:1%">
 
                                         @for (int i = 0; i < ((List<string>)ViewBag.mapsNames).Count(); i++)
                                         {
@@ -587,19 +587,19 @@
                                             {
                                                 var nGames = ViewBag.matches.Scores[0].TeamScore + ViewBag.matches.Scores[1].TeamScore;
                                                 var image = ViewBag.mapsImages[i];
-                                                <div class="bordercolor backMap1" style="width:40% ;border-radius:15px;margin:auto;background-image:url(@image)" name="Maps">
+                                                <div class="bordercolor backMap1 stroke" style="width:40% ;border-radius:15px;margin:auto;background-image:url(@image)" name="Maps">
                                                     <span style="text-align: left;margin-left:38%;font-weight:bold"> @ViewBag.pickedMaps[0] </span><br />
                                                     @if (nGames > 3)
                                                     {
                                                         @if (ViewBag.matches.Scores[1].TeamScore > 1)
                                                         {
                                                             Random rnd = new Random();
-                                                            <span style="text-align: left;margin-left:38%;font-weight:700" class="span2"> @rnd.Next(14) vs 16</span>
+                                                            <span  style="text-align: left;margin-left:38%;font-weight:700" class="span2 stroke"> @rnd.Next(14) vs 16</span>
                                                         }
                                                         else
                                                         {
                                                             Random rnd = new Random();
-                                                            <span style="text-align: left;margin-left:38%;font-weight:700" class="span2"> 16 vs @rnd.Next(14) </span>
+                                                            <span  style="text-align: left;margin-left:38%;font-weight:700" class="span2 stroke"> 16 vs @rnd.Next(14) </span>
                                                         }
                                                     }
                                                     else
@@ -630,19 +630,19 @@
                                             {
                                                 var nGames = ViewBag.matches.Scores[0].TeamScore + ViewBag.matches.Scores[1].TeamScore;
                                                 var image = ViewBag.mapsImages[i];
-                                                <div class=" bordercolor backMap2" style="width:40% ;border-radius:15px;margin:auto;background-image:url(@image)" name="Maps">
+                                                <div class=" bordercolor backMap2 stroke" style="width:40% ;border-radius:15px;margin:auto;background-image:url(@image)" name="Maps">
                                                     <span style="text-align: center;margin-left:38%;font-weight:bold"> @ViewBag.pickedMaps[1] </span><br />
                                                     @if (nGames > 4)
                                                     {
                                                         @if (ViewBag.matches.Scores[0].TeamScore > 2)
                                                         {
                                                             Random rnd = new Random();
-                                                            <span style="text-align: left;margin-left:38%;font-weight:700" class="span2"> 16 vs @rnd.Next(14) </span>
+                                                            <span  style="text-align: left;margin-left:38%;font-weight:700" class="span2 stroke"> 16 vs @rnd.Next(14) </span>
                                                         }
                                                         else
                                                         {
                                                             Random rnd = new Random();
-                                                            <span style="text-align: left;margin-left:38%;font-weight:700" class="span2"> @rnd.Next(14) vs 16</span>
+                                                            <span  style="text-align: left;margin-left:38%;font-weight:700" class="span2 stroke"> @rnd.Next(14) vs 16</span>
                                                         }
                                                         <br />
                                                     }
