@@ -14,7 +14,6 @@ html {
 @media (max-width: 767px) {
     .box {
         flex-direction: column;
-        margin: 3%;
     }
 
     .box1 {
@@ -22,7 +21,7 @@ html {
         flex-direction: column;
         justify-content: center;
     }
-    
+
     .boxwidth {
         width: 100%;
         margin: 0;
@@ -41,7 +40,7 @@ html {
     }
 
     .responsive {
-        width: 100%;
+        width: 100% !important;
     }
 }
 
