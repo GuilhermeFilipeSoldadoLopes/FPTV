@@ -41,7 +41,12 @@ namespace FPTV.Controllers
 
 		public IActionResult Index(string game)
 		{
-			ViewData["game"] = game;
+            if (game == "")
+            {
+                game = null;
+            }
+
+            ViewData["game"] = game;
 			page = "Index";
 			var account = _context.Users.Where(u => u.EmailConfirmed == true).ToList().Count();
 
