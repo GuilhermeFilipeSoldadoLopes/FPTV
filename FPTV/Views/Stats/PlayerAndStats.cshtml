@@ -233,11 +233,11 @@
                 </div>
 
                 <div class="box2" style="margin:auto;margin-top: 10%; width:100%; text-align: center;">
-                    <p><span id="toTranslate">Age:</span> @ViewBag._player.Age </p>
+                    <p><span style="text-transform: capitalize" id="toTranslate">Age:</span> @ViewBag._player.Age </p>
                     <a style="text-decoration: none" href="@Url.Action("getTeam", "Stats", new {id = @ViewBag._player.Teams[0].TeamAPIID, game = ViewData["game"].ToString()})" style="justify-content: space-around; margin-left: auto; margin-bottom:0px">
-                    <p><span id="toTranslate">Team:</span> @ViewBag._player.Teams[0].Name <img src=@ViewBag._player.Teams[0].Image style="width:10%;margin-left:1%;margin-bottom:1%"> </p>
+                    <p><span style="text-transform: capitalize" id="toTranslate">Team:</span> @ViewBag._player.Teams[0].Name <img src=@ViewBag._player.Teams[0].Image style="width:10%;margin-left:1%;margin-bottom:1%"> </p>
                     </a>
-                    <p><span id="toTranslate">Nationality:</span> <img src=@ViewBag.NacionalityImg style="width:11%;margin-left:1%;margin-bottom:1%"> </p>
+                    <p><span style="text-transform: capitalize" id="toTranslate">Nationality:</span> <img src=@ViewBag.NacionalityImg style="width:11%;margin-left:1%;margin-bottom:1%"> </p>
                 </div>
 
                 <div class="box2" style="margin:auto; width:100%;padding:0px;">
@@ -247,14 +247,14 @@
                                 @if (ViewBag.isFav)
                                 {
                                     <h5 style="margin-bottom:0px;font-size:16px;text-align: left">
-                                        Remove From Favorite
+                                        <span style ="text-transform: capitalize" id="toTranslate">Remove From Favorite</span>
                                         <img src="~/images/mvp.png" style="width:9%;margin-left:1%;margin-bottom:1%">
                                     </h5>
                                 }
                                 else
                                 {
-                                    <h5 style="margin-bottom:0px;font-size:16px;text-align: left">
-                                        Add to Favorite
+                                    <h5 style="margin-bottom:0px;font-size:16px;text-align: left;">
+                                        <span style="text-transform: capitalize" id="toTranslate">Add to Favorite</span>
                                         <img src="~/images/mvp.png" style="width:9%;margin-left:1%;margin-bottom:1%">
                                     </h5>
                                 }
@@ -296,11 +296,11 @@
                                     <span>@ViewBag._player.Rating</span>
                                         <span>
                                         @if (@ViewBag._player.Rating > 0 && @ViewBag._player.Rating <= 0.79) {
-                                            <img src="~/images/rating_down.png" style="width:15%;padding:2px;">
+                                            <img src="~/images/rating_down.png" style="width:15%;padding:2px;" title="Bad">
                                         } else if (@ViewBag._player.Rating > 0.79 && @ViewBag._player.Rating <= 1.14) {
-                                            <img src="~/images/rating_middle.png" style="width:15%;padding:2px;">
+                                            <img src="~/images/rating_middle.png" style="width:15%;padding:2px;" title="Average">
                                         } else if(@ViewBag._player.Rating > 1.2) {
-                                            <img src="~/images/rating_up.png" style="width:15%;padding:2px;">
+                                            <img src="~/images/rating_up.png" style="width:15%;padding:2px;" title="Good">
                                         }
                                         </span>
                                     </td>
@@ -320,11 +320,11 @@
                                     <span> @ViewBag.roundKdRatio</span>
                                         <span>
                                         @if (@ViewBag.roundKdRatio > 0 && @ViewBag.roundKdRatio <= 1) {
-                                            <img src="~/images/rating_down.png" style="width:15%;padding:2px;">
+                                            <img src="~/images/rating_down.png" style="width:15%;padding:2px;" title="Bad">
                                         } else if (@ViewBag.roundKdRatio > 1 && @ViewBag.roundKdRatio <= 1.5) {
-                                            <img src="~/images/rating_middle.png" style="width:15%;padding:2px;">
+                                            <img src="~/images/rating_middle.png" style="width:15%;padding:2px;" title="Average">
                                         } else if (@ViewBag.roundKdRatio > 1.5) {
-                                            <img src="~/images/rating_up.png" style="width:15%;padding:2px;">
+                                            <img src="~/images/rating_up.png" style="width:15%;padding:2px;" title="Good">
                                         }
                                         </span>
 
@@ -337,11 +337,11 @@
                                     <span> @ViewBag.player.HeadShots%</span>
                                         <span>
                                         @if (@ViewBag.player.HeadShots > 0 && @ViewBag.player.HeadShots <= 40) {
-                                            <img src="~/images/rating_down.png" style="width:15%;padding:2px;">
+                                            <img src="~/images/rating_down.png" style="width:15%;padding:2px;" title="Bad">
                                         } else if (@ViewBag.player.HeadShots > 40 && @ViewBag.player.HeadShots <= 65) {
-                                            <img src="~/images/rating_middle.png" style="width:15%;padding:2px;">
+                                            <img src="~/images/rating_middle.png" style="width:15%;padding:2px;" title="Average">
                                         } else if (@ViewBag.player.HeadShots > 65) {
-                                            <img src="~/images/rating_up.png" style="width:15%;padding:2px;">
+                                            <img src="~/images/rating_up.png" style="width:15%;padding:2px;" title="Good">
                                         }
                                         </span>
                                     </td>

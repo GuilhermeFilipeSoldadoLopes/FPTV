@@ -149,37 +149,32 @@
 
 		<!-- -------------------------------MENU DOS BUGS -------------------------------------------------------- -->
 		<div class="center bodycolor" style="flex-direction: column; border-radius:15px ">
-			
-			<button style="margin:1%; width:100%;border-radius:5px" class="btn1 bordercolor">
-
+			<div style="margin:1%; width:100%;border-radius:5px" class="btn1 bordercolor">
 				<div style="width:20%">
 					<img src="~/images/settingForum.png" style="width:40%" />
 				</div>
 
 				<div style="width:60%; text-align:center">
-					<h3>Bugs, Suggestions & Support</h3>
+				<h3 id="toTranslate">Bugs, Suggestions & Support</h3>
 				<p></p>
-				<p style="margin-bottom:0px;font-size:20px">Report bugs and provide suggestions<br /> and clear doubts through comments<br /> and then we will contact you about it</p>
+				<p style="margin-bottom:0px;font-size:20px" id="toTranslate">Report bugs and provide suggestions and clear doubts through comments and then we will contact you about it.</p>
 				</div>
 				
-
 				<div style="width:20%;text-align:right" >
 					<img src="~/images/logo2.png" style="width:30%" />
-					<p style="margin-bottom:0px;font-size:20px">0 Comments</p>
-					<p style="margin-bottom:0px;font-size:20px">0 Reactions</p>
+					<p style="margin-bottom:0px;font-size:20px" id="toTranslate">0 Comments</p>@*por corrigir*@
+					<p style="margin-bottom:0px;font-size:20px" id="toTranslate">0 Reactions</p> @*por corrigir*@
 					
 				</div>
-
-			</button>
-			<p></p>
+			</div>
 		<div class="buttons bodycolor">
 			<div class="buttons bodycolor" style="width:55%;position:relative;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:black;border-width:1px;border-radius:10px;padding:10px;background-color:white">
 				<input name="search" style="border:none" type="text" placeholder="New Comment">
 				<img src="~/images/image.png" width=10% height=auto/>
 			</div>
 
-			<div class="dropdown" style="width:20%;height:20%">
-				<button class="button2">Sort by</button>
+			<div class="dropdown" style="width:auto;height:20%">
+				<button class="button2" id="toTranslate"><span>Sort by</span></button>
 				<div class="dropdown-content" style="margin-left:0px;">
 					<a href="@Url.Action("Index", "Events", new { sort = "&sort=-begin_at", filter = ViewBag.filter, game = ViewData["game"]})">Newest</a>
 					<a href="@Url.Action("Index", "Events", new { sort = "&sort=begin_at", filter = ViewBag.filter, game = ViewData["game"]})">Oldest</a>

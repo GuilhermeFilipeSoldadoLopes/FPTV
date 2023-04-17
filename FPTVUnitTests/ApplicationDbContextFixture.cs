@@ -62,11 +62,10 @@ namespace FPTVUnitTests
 
             DbContext.Database.EnsureCreated();
 
-            //DbContext.Profiles.Add(CreateAdmin());
+            DbContext.Profiles.Add(CreateAdmin());
+			DbContext.SaveChanges();
 
-            //DbContext.SaveChanges();
-
-            DbContext.Team.AddRange(
+			DbContext.Team.AddRange(
 				new Team
 				{
 					TeamId = team1CSID,
@@ -338,16 +337,17 @@ namespace FPTVUnitTests
             var admin = CreateUser();
 
             Profile profile = new();
+
             profile.Id = adminID;
+			profile.User = admin;
+			profile.UserId = new Guid(admin.Id);
+			profile.RegistrationDate = DateTime.Now;
+			profile.Country = "pt";
 
-            var adminImage = Path.Combine(env.WebRootPath, "images", "Mods_Image.png");
-            profile.Picture = System.IO.File.ReadAllBytes(adminImage);
-            profile.User = admin;
-            profile.UserId = new Guid(admin.Id);
-            profile.RegistrationDate = DateTime.Now;
-            profile.Country = "pt";
+			//var adminImage = Path.Combine(env.WebRootPath, "images", "Mods_Image.png");
+			//         profile.Picture = System.IO.File.ReadAllBytes(adminImage);
+
 			admin.Profile = profile;
-
             admin.EmailConfirmed = true;
 
 			return profile;
