@@ -12,6 +12,77 @@ html {
     }
 }
 
+@media (max-width: 767px) {
+    .dropdownWidth{
+        width:40% !important;
+        
+    }
+    .marginDrop{
+        margin-left:50px;
+    }
+    .navitem2 {
+        margin-left: 3% !important;
+        margin-right: 3% !important;
+    }
+    .navbar-nav {
+        display: flex !important;
+    }
+    .nomargin {
+        margin-left: 0px !important;
+        margin-right: 0px !important;
+    }
+    .box {
+        flex-direction: column;
+    }
+    .box1 {
+        flex-direction: column;
+        flex-direction: column;
+        justify-content: center;
+       
+    }
+    
+    .boxwidth{
+        width:100%;
+        margin:0;
+    }
+    .nomargin{
+        margin:0px !important;
+    }
+    .marginrightDrop{
+        margin-right:30px !important;
+    }
+    .marginLeftDrop {
+        margin-left: 10px !important;
+    }
+    .marginLeftDrop2 {
+        margin-left: 15px !important;
+    }
+
+    .ola {
+        flex-direction: column;
+        justify-content: center;
+    }
+    
+    .bordercolor {
+        width: 100%;
+        margin: auto;
+        text-align: center;
+        margin-top: 10px;
+    }
+    .responsive {
+        width: 100% !important;
+    }
+    .marginbottomRes {
+        margin-bottom: 3% !important;
+    }
+}
+
+.dropdownWidth {
+   /* width: 17%;*/
+}
+.responsive {
+    width: 40%;
+}
 html {
     position: relative;
     min-height: 100%;
@@ -20,7 +91,6 @@ html {
 body {
    /* margin-bottom: 60px;*/
     font-family: Noto Sans;
-    
 }
 
 .darktheme {
@@ -274,6 +344,11 @@ bordercolor2 {
 }
 .stroke2 {
     -webkit-text-stroke-width: 0.5px;
+    -webkit-text-stroke-color: black;
+}
+
+.stroke3 {
+    -webkit-text-stroke-width: 1.5px;
     -webkit-text-stroke-color: black;
 }
 

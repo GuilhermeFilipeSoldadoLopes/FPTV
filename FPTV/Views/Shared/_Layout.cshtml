@@ -86,7 +86,7 @@
 		<div>
 			<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3" style="margin-top: -5px;width:100%;text-align:center">
 				<div class="container-fluid" style="width:100%">
-					<a href="@Url.Action("Index", "Home", new { game = ViewData["game"]})"><img class="logo" src="~/images/iconMenu.jpg" style="width: 85px; height: 100%;"></a>
+					<a href="@Url.Action("Index", "Home")"><img class="logo" src="~/images/iconMenu.jpg" style="width: 85px; height: 100%;"></a>
 					@*<a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img class="logo" src="~/images/iconMenu.jpg" style="width: 85px; height: 100%;"> </a>*@
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
 							aria-expanded="false" aria-label="Toggle navigation">
@@ -95,73 +95,75 @@
 					<div style="width:100%; display:flex;">
 				<div class="navbar-collapse collapse d-sm-inline-flex justify-content-between" style="margin:auto; text-align:center;">
 					<ul class="navbar-nav flex-grow-1" style="display:flex;">
-						<li class="nav-item" id="menu" style="width:20%; margin:auto">
+								<li class="nav-item nomargin" id="menu" style="width:20%; margin:auto">
 							@*-----------------------------dropdown para CSGO e VALORANT-------------------------*@
 
 							<div class="dropdown123 bordercolor" id="buttonMenu" style=" width:100%;margin:auto">
-								@if (ViewData["game"] == null)
+								@if (ViewData["game"] == null || ViewData["game"] == "" || ViewBag.page == "Index")
 								{
-									<a class="nav-link text-dark" style="font-weight:bold;font-size: 24px" asp-area="Home" asp-controller="Home" asp-action="Index" id="toTranslate">Game</a>
-								}
-								else
-								{
+									@if (ViewBag.page == "Index") {
+												<a class="nav-link text-dark" style="font-weight: bolder; font-size: 24px" asp-area="Home" asp-controller="Home" asp-action="Index">Home</a>
+									} else {
+										<a class="nav-link text-dark" style="font-weight: normal; font-size: 24px" asp-area="Home" asp-controller="Home" asp-action="Index">Home</a>
+									}
+								} else {
 									@if (ViewData["game"].ToString() == "csgo")
 									{
-										<a class="nav-link text-dark" style="font-weight:bold;font-size: 24px" asp-area="Home" asp-controller="Home" asp-action="Index">CS:GO</a>
+											<a class="nav-link text-dark" style="text-decoration: underline; font-weight:bolder;font-size: 24px" asp-area="Home" asp-controller="Home" asp-action="Index">CS:GO</a>
 									} else {
-										<a class="nav-link text-dark" style="font-weight:bold;font-size: 24px" asp-area="Home" asp-controller="Home" asp-action="Index">VALORANT</a>
+											<a class="nav-link text-dark" style="text-decoration: underline; font-weight:bolder;font-size: 24px" asp-area="Home" asp-controller="Home" asp-action="Index">VALORANT</a>
 									}
+									<div class="dropdownContent12 bordercolor" style="background-color:white;padding:1%;margin-left:5px">
+										<a class="dropdownItem1" style="display:flex;border-radius:15px;width:100%">
+											<div class=" bordercolor" id="dropdownItem1" style="text-decoration:none; width:100%; padding:2px">
+														<a style="color:black ; font-weight:bolder ; width:100%;margin:auto; text-decoration:none;font-size: 20px" href="@Url.Action("VALORANT", "Home", new { game = ViewData["game"], page = ViewBag.page})">VALORANT</a>
+											</div>
+										</a>
+										<a class="dropdownItem1" style="display:flex;border-radius:15px;width:100%;margin-top:3px;">
+											<div class=" bordercolor" id="dropdownItem1" style="text-decoration:none; width:100%;">
+														<a style="color:black ; font-weight:bolder ; width:100%;margin:auto;text-decoration:none;font-size: 20px;" href="@Url.Action("CSGO", "Home", new { game = ViewData["game"], page = ViewBag.page})">CS:GO</a>
+											</div>
+										</a>
+									</div>
 								}
-								<div class="dropdownContent12 bordercolor" style="background-color:white;padding:1%;margin-left:5px">
-									<a class="dropdownItem1" style="display:flex;border-radius:15px;width:100%">
-										<div class=" bordercolor" id="dropdownItem1" style="text-decoration:none; width:100%; padding:2px">
-													<a style="color:black ; font-weight:bold ; width:100%;margin:auto; text-decoration:none;font-size: 20px" href="@Url.Action("VALORANT", "Home", new { game = ViewData["game"], page = ViewBag.page})">VALORANT</a>
-										</div>
-									</a>
-									<a class="dropdownItem1" style="display:flex;border-radius:15px;width:100%;margin-top:3px;">
-										<div class=" bordercolor" id="dropdownItem1" style="text-decoration:none; width:100%;">
-													<a style="color:black ; font-weight:bold ; width:100%;margin:auto;text-decoration:none;font-size: 20px;" href="@Url.Action("CSGO", "Home", new { game = ViewData["game"], page = ViewBag.page})">CS:GO</a>
-										</div>
-									</a>
-								</div>
 							</div>
 						</li>
 						@*-------------------------------------------------------------*@
-						<li class="nav-item text-dark" id="buttonMenu" style="width:20%; margin:auto">
+						<li class="nav-item text-dark nomargin" id="buttonMenu" style="width:20%; margin:auto">
 							@if (ViewBag.page == "Matches") {
-										<a id="toTranslate" style="text-transform: capitalize; font-weight: bold;text-decoration: none; font-size: 24px; color: black" href="@Url.Action("Matches", "Home", new { game = ViewData["game"]})">Matches</a>
+										<a id="toTranslate" style="text-transform: capitalize; font-weight: bolder;text-decoration: none; font-size: 24px; color: black" href="@Url.Action("Matches", "Home", new { game = ViewData["game"]})">Matches</a>
 							} else {
 										<a id="toTranslate" style="text-transform: capitalize; font-weight: normal;text-decoration: none; font-size: 24px; color: black" href="@Url.Action("Matches", "Home", new { game = ViewData["game"]})">Matches</a>
 							}
 							@*<a class="nav-link text-dark matchesButton" id="buttonMenu" style="font-size: 24px;" asp-area="" asp-controller="Home" asp-action="Matches">Matches</a>*@
 						</li>
-						<li class="nav-item text-dark" id="buttonMenu" style="width:20%; margin:auto">
+								<li class="nav-item text-dark nomargin" id="buttonMenu" style="width:20%; margin:auto">
 							@if (ViewBag.page == "Results") {
-										<a id="toTranslate" style="text-transform: capitalize; font-weight: bold; text-decoration: none; font-size: 24px; color: black" href="@Url.Action("Results", "Home", new { game = ViewData["game"]})">Results</a>
+										<a id="toTranslate" style="text-transform: capitalize; font-weight: bolder; text-decoration: none; font-size: 24px; color: black" href="@Url.Action("Results", "Home", new { game = ViewData["game"]})">Results</a>
 							} else {
 										<a id="toTranslate" style="text-transform: capitalize; font-weight: normal;text-decoration: none; font-size: 24px; color: black" href="@Url.Action("Results", "Home", new { game = ViewData["game"]})">Results</a>
 							}
 							@*<<a class="nav-link text-dark resultsButton" id="buttonMenu" style="font-size: 24px;" asp-area="" asp-controller="Home" asp-action="Results">Results</a>*@
 						</li>
-						<li class="nav-item text-dark" id="buttonMenu" style="width:20%; margin:auto">
+								<li class="nav-item text-dark nomargin" id="buttonMenu" style="width:20%; margin:auto">
 							@if (ViewBag.page == "Events") {
-										<a id="toTranslate" style="text-transform: capitalize; font-weight: bold; text-decoration: none; font-size: 24px; color: black" href="@Url.Action("Events", "Home", new { game = ViewData["game"]})">Events</a>
+										<a id="toTranslate" style="text-transform: capitalize; font-weight: bolder; text-decoration: none; font-size: 24px; color: black" href="@Url.Action("Events", "Home", new { game = ViewData["game"]})">Events</a>
 							} else {
 										<a id="toTranslate" style="text-transform: capitalize; font-weight: normal; text-decoration: none; font-size: 24px; color: black" href="@Url.Action("Events", "Home", new { game = ViewData["game"]})">Events</a>
 							}
 							@*<<a class="nav-link text-dark eventsButton" id="buttonMenu" onclick="" style="font-size: 24px;" asp-area="" asp-controller="Home" asp-action="Events">Events</a>*@
 						</li>
-						<li class="nav-item text-dark" id="buttonMenu" style="width:20%; margin:auto">
+								<li class="nav-item text-dark nomargin" id="buttonMenu" style="width:20%; margin:auto">
 							@if (ViewBag.page == "Forum") {
-										<a style="font-weight: bold; text-decoration: none; font-size: 24px; color: black" href="@Url.Action("ForumIndex", "Home")">Forum</a>
+										<a style="font-weight: bolder; text-decoration: none; font-size: 24px; color: black" href="@Url.Action("Index", "Forum", new { game = ViewData["game"]})">Forum</a>
 							} else {
-										<a style="font-weight: normal; text-decoration: none; font-size: 24px; color: black" href="@Url.Action("ForumIndex", "Home")">Forum</a>
+										<a style="font-weight: normal; text-decoration: none; font-size: 24px; color: black" href="@Url.Action("Index", "Forum", new { game = ViewData["game"]})">Forum</a>
 							}
 							@*<a class="nav-link text-dark forumButton" id="buttonMenu" style="font-size: 24px;" asp-area="" asp-controller="Home" asp-action="Index">Forum</a>*@
 						</li>
-						<li class="nav-item text-dark" id="buttonMenu" style="width:20%; margin:auto">
+								<li class="nav-item text-dark nomargin" id="buttonMenu" style="width:20%; margin:auto">
 							@if (ViewBag.page == "About") {
-										<a id="toTranslate" style="text-transform: capitalize; font-weight: bold; text-decoration: none; font-size: 24px; color: black" href="@Url.Action("About", "Home")">About</a>
+										<a id="toTranslate" style="text-transform: capitalize; font-weight: bolder; text-decoration: none; font-size: 24px; color: black" href="@Url.Action("About", "Home")">About</a>
 							} else {
 										<a id="toTranslate" style="text-transform: capitalize; font-weight: normal; text-decoration: none; font-size: 24px; color: black" href="@Url.Action("About", "Home")">About</a>
 							}
