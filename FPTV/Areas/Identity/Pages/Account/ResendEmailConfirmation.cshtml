@@ -10,8 +10,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 
-<h1>@ViewData["Title"]</h1>
-<h2>Enter your email.</h2>
+<h1 style="text-transform: capitalize;" id="toTranslate">@ViewData["Title"]</h1>
+<h2 id="toTranslate">Enter your email.</h2>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -20,9 +20,9 @@
             <div class="form-floating">
                 <input asp-for="Input.Email" class="form-control" aria-required="true" />
                 <label asp-for="Input.Email" class="form-label"></label>
-                <span asp-validation-for="Input.Email" class="text-danger"></span>
+                <span asp-validation-for="Input.Email" class="text-danger" id="toTranslate"></span>
             </div>
-            <button type="submit" class="w-100 btn btn-lg btn-primary">Resend</button>
+            <button type="submit" class="w-100 btn btn-lg btn-primary" style="text-transform: capitalize;" id="toTranslate">Resend</button>
         </form>
     </div>
 </div>

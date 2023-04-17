@@ -4,19 +4,27 @@
 
 Bem-vindo ao projeto FPTV, a futura hub dos FPS E-Sports. O objetivo deste projeto é fornecer aos jogadores de FPS as informações mais relevantes sobre os jogos VALORANT e CS:GO, incluindo eventos em destaque, jogadores e equipas favoritas. Este manual de utilização irá ajudá-lo a compreender como usar o projeto FPTV e todas as suas funcionalidades.<p>
 
+**Home :** É a página inicial do website a qual consiste nas partidas que já decorreram, nas que estão a decorrer e nas que irão decorrer tanto de Valorant como de CS:GO. Também é composto pelas estatísticas de website (número de contas registadas e o número de visitas diárias).
+  
+<div align="center">
+
+![Home](https://cdn.discordapp.com/attachments/783386747638775848/1097642400823914608/image.png)<p>
+![Home](https://media.discordapp.net/attachments/783386747638775848/1097642149580898355/image.png?width=1440&height=662)
+</div>
+
 **Criação de uma Conta :** Para usar o projeto FPTV, você precisa criar uma conta. Há duas opções para criar uma conta:<p>
 
 1. Usando um endereço de e-mail e uma palavra-passe: clique no botão "Login/Register" na página inicial e siga as etapas para preencher as informações necessárias.<p>
 <div align="center">
 
-![Email](https://cdn.discordapp.com/attachments/783386747638775848/1087687754592301067/image.png)<p>
-![Email](https://cdn.discordapp.com/attachments/783386747638775848/1087688016803401789/image.png)
+![Email](https://cdn.discordapp.com/attachments/783386747638775848/1097639027131302039/image.png)<p>
+![Email](https://cdn.discordapp.com/attachments/783386747638775848/1097638931329192036/image.png)
 </div>
 2. Usando sua conta Steam ou Google: clique no botão de início de sessão correspondente e siga as etapas para fazer o login com sua conta existente.<p>
 <div align="center">
 
-![Login](https://cdn.discordapp.com/attachments/783386747638775848/1087689268220149800/image.png)
-![Login](https://cdn.discordapp.com/attachments/783386747638775848/1087689269872701550/image.png)<p>
+![Login](https://cdn.discordapp.com/attachments/783386747638775848/1097639428727517274/image.png)
+![Login](https://cdn.discordapp.com/attachments/783386747638775848/1097639502996062219/image.png)<p>
 </div>
 
 **Autenticação :** Uma vez criada a sua conta, você pode iniciar sessão na página web. Para fazer isso, clique no botão "Login/Register" na página inicial e insira seu endereço de e-mail e palavra-passe ou faça o login com sua conta Steam ou Google.<p>
@@ -24,8 +32,8 @@ Bem-vindo ao projeto FPTV, a futura hub dos FPS E-Sports. O objetivo deste proje
 **Confirmação de email :** Após ter efetuado o registo no website irá surgir uma mensagem a indicar que deve realizar a confirmação do registo.<p>
 <div align="center">
 
-![ConfirmRegistration](https://cdn.discordapp.com/attachments/783386747638775848/1087845544279429222/image.png)<p>
-![ConfirmRegistration](https://cdn.discordapp.com/attachments/783386747638775848/1087845577020149780/image.png)<p>
+![ConfirmRegistration](https://cdn.discordapp.com/attachments/783386747638775848/1097640258218242199/image.png)<p>
+![ConfirmRegistration](https://cdn.discordapp.com/attachments/783386747638775848/1097640166669176892/image.png)<p>
 </div>
 
 Após a confirmação do registo irá surgir uma mensagem a indicar que o email foi confirmado.<p>
@@ -139,11 +147,11 @@ Detalhes de um tópico:
 ![Forum](https://cdn.discordapp.com/attachments/783386747638775848/1092869480239087666/image.png)<p>
 </div>
 
-**Definições :** Para poder aceder ás definições passe o rato no ícone da roda dentada, que está situado na barra de navegação que se encontra na parte superior do website. Quando o rato estiver por cima da roda dentada irá surgir um dropdown que contem os "features" do website, onde permite colocar o website em dark mode.
+**Definições :** Para poder aceder ás definições passe o rato no ícone da roda dentada, que está situado na barra de navegação que se encontra na parte superior do website. Quando o rato estiver por cima da roda dentada irá surgir um dropdown que contem os "features" do website, onde permite colocar o website em dark mode e/ou traduzir o conteúdo do website para português.
 
 <div align="center">
   
-![Definitions](https://cdn.discordapp.com/attachments/783386747638775848/1092886051577679892/image.png)<p>
+![Definitions](https://cdn.discordapp.com/attachments/783386747638775848/1097617270563410081/image.png)<p>
 </div>
 
 

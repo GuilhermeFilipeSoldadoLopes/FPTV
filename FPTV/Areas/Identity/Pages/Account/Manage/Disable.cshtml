@@ -76,8 +76,8 @@
     }
 </style>
 <body class="bodytemp">
-    <div style="background-color:white">
-        <div class="container">
+    <div style="">
+        <div class="container bordercolor bodycolor">
 
             <div class="box">
                 <img src="~/images/delete.png" style="width:100%; margin-bottom: 15%; padding:20%">
@@ -87,17 +87,17 @@
 
                 <div class="row">
 
-                    <h1>@ViewData["Title"]</h1>
-                    <h3>Are you sure you want to delete your account?</h3>
-                    <h4 style="margin-bottom: 10%">(This action is not reversible)</h4>
+                    <h1 style="text-transform: capitalize;" id="toTranslate">@ViewData["Title"]</h1>
+                    <h3 id="toTranslate">Are you sure you want to delete your account?</h3>
+                    <h4 style="margin-bottom: 10%" id="toTranslate">(This action is not reversible)</h4>
 
                     <div class="col-md-4" style="width:70%; ">
 
                         <div class="buttons">
                             <partial name="_StatusMessage" for="StatusMessage" />
                             <form id="profile-form" method="post" enctype="multipart/form-data">
-                                <button id="update-profile-button" type="submit" class="button2" style="border-radius:15px;margin:auto;width:100px">Confirm</button>
-                                <button id="cancel" class="button" style="border-radius:15px;margin:auto;width:100px" onClick="history.go(-1); return false;">Cancel</button>
+								<button id="update-profile-button" type="submit" class="button2" style="border-radius:15px;margin:auto;width:100px"><span id="toTranslate" style="text-transform: capitalize;">Confirm</span></button>
+								<button id="cancel" class="button" style="border-radius:15px;margin:auto;width:100px" onClick="history.go(-1); return false;"><span id="toTranslate" style="text-transform: capitalize;">Cancel</span></button>
                             </form>
                         </div>
 

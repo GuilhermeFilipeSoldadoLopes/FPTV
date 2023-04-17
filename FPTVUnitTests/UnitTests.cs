@@ -7,8 +7,10 @@ using FPTV.Models.MatchesModels;
 using FPTV.Models.StatisticsModels;
 using FPTV.Models.UserModels;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using SendGrid.Helpers.Mail;
 using static System.Formats.Asn1.AsnWriter;
 
 namespace FPTVUnitTests
@@ -31,7 +33,7 @@ namespace FPTVUnitTests
         public void Index_ReturnsViewResult()
         {
             var controller = new HomeController(null, _context);
-            var result = controller.Index();
+            var result = controller.Index("");
             Assert.IsType<ViewResult>(result);
         }
 
@@ -196,41 +198,33 @@ namespace FPTVUnitTests
 		[Fact]
 		public void Forum_ReturnsViewResult()
 		{
-			/*var controller = new ForumController(_context);
-			var result = controller.Index();
-			Assert.IsType<ViewResult>(result);*/
-		}
+            var controller = new ForumController(_context, null);
+            var result = controller.Index();
+            Assert.IsType<ViewResult>(result);
+        }
 
-		//TU14
-		//ForumController
-		[Fact]
-		public void ForumDetails_ReturnsViewResult()
-		{
-			/*var controller = new ForumController(_context);
-			var result = controller.Details();
-			Assert.IsType<ViewResult>(result);*/
-		}
-
-		//TU15
-		//ForumController
-		[Fact]
+        //TU14
+        //ForumController
+        [Fact]
 		public void Profile_ReturnsViewResult()
 		{
-			/*var controller = new ForumController(_context);
-			var result = controller.Profile(contextFixture.GetAdminId());
-			Assert.IsType<ViewResult>(result);*/
-		}
+            var controller = new ForumController(_context, null);
+			Profile profile = contextFixture.DbContext.Profiles.FirstOrDefault(p => p.Id == contextFixture.GetAdminId());
+			var result = controller.Profile(profile);
+            Assert.IsType<ViewResult>(result);
+        }
 
-        //TU16
+        //TU15
         //ForumController
         [Fact]
         public void CreateTopic_ReturnsViewResult()
         {
-            /*var controller = new ForumController(_context);
-            var result = controller.CreateTopic();
-            Assert.IsType<ViewResult>(result);*/
+            var controller = new ForumController(_context, null);
 
-            /*contextFixture.CreateNewTopic();
+			var result = controller.NewTopic();
+            Assert.IsType<ViewResult>(result);
+
+            contextFixture.CreateNewTopic();
 
             Topic topic = contextFixture.DbContext.Topics.FirstOrDefault(t => t.TopicId == contextFixture.GetTopicId());
             var topicResult = Assert.IsType<Topic>(topic);
@@ -242,7 +236,20 @@ namespace FPTVUnitTests
             Assert.IsType<DateTime>(topic.Date);
             Assert.Equal(contextFixture.GetAdminId(), topic.ProfileId);
             Assert.Equal(contextFixture.DbContext.Profiles.FirstOrDefault(p => p.Id == contextFixture.GetAdminId()), topic.Profile);
-            Assert.Null(topic.Comments);*/
+            Assert.IsType<List<Comment>>(topic.Comments);
+
+            var finalResult = controller.Topic(topic.TopicId);
+            Assert.IsType<ViewResult>(finalResult);
         }
-    }
+
+		//TU16
+		//ForumController
+		[Fact]
+		public void Database_ModuleForumTest()
+		{
+			//var controller = new ForumController(_context, null);
+			//var result = controller.Details();
+			//Assert.IsType<ViewResult>(result);
+		}
+	}
 }

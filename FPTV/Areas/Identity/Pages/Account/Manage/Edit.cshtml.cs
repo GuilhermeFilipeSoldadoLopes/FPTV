@@ -10,6 +10,7 @@ using FPTV.Models.UserModels;
 using FPTV.Data;
 using RestSharp;
 using Newtonsoft.Json.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace FPTV.Areas.Identity.Pages.Account.Manage
 {
@@ -61,13 +62,15 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
             /// </summary>
             [Display(Name = "Bio")]
             public string Bio { get; set; }
+
+            [Required(ErrorMessage = "Please enter Username")]
+            [StringLength(30, MinimumLength = 3, ErrorMessage = "The username must be at least 3 and at max 30 characters long")]
             [Display(Name = "Username")]
             public string Username { get; set; }
-            [Phone]
-            [Display(Name = "Phone number")]
-            public string PhoneNumber { get; set; }
+
             [Display(Name = "Profile Picture")]
             public byte[] ProfilePicture { get; set; }
+
             [Display(Name = "Country")]
             public string Country { get; set; }
         }
@@ -75,7 +78,6 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
         private async Task LoadAsync(UserBase user, Profile profile)
         {
             var userName = await _userManager.GetUserNameAsync(user);
-            var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
             var profilePicture = profile.Picture;
             var country = profile.Country;
             var biography = profile.Biography;
@@ -102,7 +104,6 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
 
             Input = new InputModel
             {
-                PhoneNumber = phoneNumber,
                 Username = userName,
                 ProfilePicture = profilePicture,
                 Country = countries[0],
@@ -113,11 +114,14 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
         public async Task<IActionResult> OnGetAsync()
         {
             var user = await _userManager.GetUserAsync(User);
+
             if (user == null)
             {
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
-            var profile = _context.Profiles.Single(p => p.Id == user.ProfileId);
+
+            var profile = _context.Profiles.Include(p => p.PlayerList.Players).Include(p => p.TeamsList.Teams).Single(p => p.Id == user.ProfileId);
+
 
             var client = new RestClient("https://restcountries.com/v3.1/all");
             var request = new RestRequest("", Method.Get);
@@ -143,11 +147,64 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
                     countries.Add(countryName.Value<string>());
             }
 
+            var players = profile.PlayerList.Players.ToList();
+            var teams = profile.TeamsList.Teams.ToList();
+            var csPlayers = new List<Player>();
+            var csTeams = new List<Team>();
+            var valPlayers = new List<Player>();
+            var valTeams = new List<Team>();
+
+            if (profile.PlayerList == null)
+            {
+                profile.PlayerList = new FavPlayerList();
+                profile.PlayerList.Profile = profile;
+                profile.PlayerList.ProfileId = user.ProfileId;
+                profile.PlayerList.Players = new List<Player>();
+            }
+            else
+            {
+                foreach (var item in players)
+                {
+                    if (item.Game == GameType.CSGO)
+                    {
+                        csPlayers.Add(item);
+                    }
+                    else
+                    {
+                        valPlayers.Add(item);
+                    }
+                }
+            }
+
+            if (profile.TeamsList == null)
+            {
+                profile.TeamsList = new FavTeamsList();
+                profile.TeamsList.Profile = profile;
+                profile.TeamsList.ProfileId = user.ProfileId;
+                profile.TeamsList.Teams = new List<Team>();
+            }
+            else
+            {
+                foreach (var item in teams)
+                {
+                    if (item.Game == GameType.CSGO)
+                    {
+                        csTeams.Add(item);
+                    }
+                    else
+                    {
+                        valTeams.Add(item);
+                    }
+                }
+            }
+
+            _context.SaveChanges();
+
+            ViewData["FavCSPlayerList"] = csPlayers;
+            ViewData["FavCSTeamsList"] = csTeams;
+            ViewData["FavValPlayerList"] = valPlayers;
+            ViewData["FavValTeamsList"] = valTeams;
             ViewData["Countries"] = countries.OrderBy(c => c).ToList();
-            ViewData["FavPlayerListCSGO"] = _context.FavPlayerList.Where(fpl => fpl.ProfileId == profile.Id).ToList();
-            ViewData["FavTeamsListCSGO"] = _context.FavTeamsList.Where(ftl => ftl.ProfileId == profile.Id).ToList();
-            ViewData["FavPlayerListValorant"] = _context.FavPlayerList.Where(fpl => fpl.ProfileId == profile.Id).ToList();
-            ViewData["FavTeamsListValorant"] = _context.FavTeamsList.Where(ftl => ftl.ProfileId == profile.Id).ToList();
 
             await LoadAsync(user, profile);
             return Page();
@@ -155,7 +212,7 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
 
         public async Task<IActionResult> OnPostAsync()
         {
-            Console.WriteLine("\n\n\n\nEntrou\n\n\n\n");
+            //Console.WriteLine("\n\n\n\nEntrou\n\n\n\n");
             var user = await _userManager.GetUserAsync(User);
             var profile = _context.Profiles.Single(p => p.Id == user.ProfileId);
             if (user == null)
@@ -169,25 +226,6 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
                 return Page();
             }
 
-            var userName = user.UserName;
-            
-
-			if (Input.Username != userName) {
-                if (Input.Username != null && Input.Username != "") {
-                    var userExists = await _userManager.FindByNameAsync(Input.Username);
-                    if (userExists == null)
-                    {
-                        user.UserName = Input.Username;
-                        await _userManager.UpdateAsync(user);
-                    } else {
-                        ModelState.AddModelError("CustomError", "Already exists a user with that name. Try another one.");
-                    }
-                } else {
-                    ModelState.AddModelError("CustomError", "Your name is same as before");
-                }
-            }
-                
-
             var formCountry = Request.Form["Country"].ToString();
 
             var client = new RestClient("https://restcountries.com/v3.1/name/" + formCountry);
@@ -195,8 +233,7 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
             request.AddHeader("accept", "application/json");
             var json = client.Execute(request).Content;
 
-            if (json == null)
-            {
+            if (json == null) {
                 return null;
             }
 
@@ -213,14 +250,14 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
             }
 
             var country = countries[0];
-            if (Input.Country != country)
+            if (Input.Country != country && Input.Country != null)
             {
                 profile.Country = country;
                 await _context.SaveChangesAsync();
             }
 
             var biography = profile.Biography;
-            if (Input.Bio != biography)
+            if (Input.Bio != biography && Input.Bio != null)
             {
                 profile.Biography = Input.Bio;
                 await _context.SaveChangesAsync();
@@ -235,6 +272,33 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
                     profile.Picture = dataStream.ToArray();
                 }
                 await _context.SaveChangesAsync();
+            }
+
+            var userName = user.UserName;
+
+            if (Input.Username != userName)
+            {
+                if (Input.Username != null && Input.Username != "")
+                {
+                    var userExists = await _userManager.FindByNameAsync(Input.Username);
+                    if (userExists == null)
+                    {
+                        user.UserName = Input.Username;
+                        await _userManager.UpdateAsync(user);
+                    } else {
+                        await OnGetAsync();
+                        StatusMessage = "Your profile has not been updated. Already exists a user with that username. Try another one.";
+                        Username = userName;
+                        Input.Username = userName;
+                        return Page();
+                    }
+                } else {
+                    await OnGetAsync();
+                    StatusMessage = "Your profile has not been updated. Your username is same as before";
+                    Username = userName;
+                    Input.Username = userName;
+                    return Page();
+                }
             }
 
             await _signInManager.RefreshSignInAsync(user);

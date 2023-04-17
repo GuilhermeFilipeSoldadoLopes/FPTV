@@ -48,7 +48,7 @@ namespace FPTVUnitTests
 		protected static Guid Score2ID = Guid.NewGuid();
 		protected static List<Score> scoreList = new List<Score>();
         //
-        protected static Guid topicID = Guid.NewGuid();
+        protected static int topicID = 1;
 
         public ApplicationDbContextFixture()
         {
@@ -62,11 +62,10 @@ namespace FPTVUnitTests
 
             DbContext.Database.EnsureCreated();
 
-            //DbContext.Profiles.Add(CreateAdmin());
+            DbContext.Profiles.Add(CreateAdmin());
+			DbContext.SaveChanges();
 
-            //DbContext.SaveChanges();
-
-            DbContext.Team.AddRange(
+			DbContext.Team.AddRange(
 				new Team
 				{
 					TeamId = team1CSID,
@@ -338,15 +337,17 @@ namespace FPTVUnitTests
             var admin = CreateUser();
 
             Profile profile = new();
+
             profile.Id = adminID;
+			profile.User = admin;
+			profile.UserId = new Guid(admin.Id);
+			profile.RegistrationDate = DateTime.Now;
+			profile.Country = "pt";
 
-            var adminImage = Path.Combine(env.WebRootPath, "images", "Mods_Image.png");
-            profile.Picture = System.IO.File.ReadAllBytes(adminImage);
-            profile.User = admin;
-            profile.RegistrationDate = new DateTime();
-            profile.Country = "pt";
+			//var adminImage = Path.Combine(env.WebRootPath, "images", "Mods_Image.png");
+			//         profile.Picture = System.IO.File.ReadAllBytes(adminImage);
+
 			admin.Profile = profile;
-
             admin.EmailConfirmed = true;
 
 			return profile;
@@ -366,7 +367,7 @@ namespace FPTVUnitTests
             DbContext.Topics.Add(
             new Topic
             {
-                TopicId = topicID,
+                //TopicId = topicID,
 				GameType = GameType.CSGO,
 				Title = "Test",
                 Content = "Test123",
@@ -384,7 +385,7 @@ namespace FPTVUnitTests
             return adminID;
         }
 
-        public Guid GetTopicId()
+        public int GetTopicId()
         {
             return topicID;
         }
