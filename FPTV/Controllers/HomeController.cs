@@ -319,11 +319,11 @@ namespace FPTV.Controllers
         }
 
         [Authorize]
-        public IActionResult ForumIndex()
+		public IActionResult Forum(string game = "csgo")
 		{
 			page = "Forum";
-			//return RedirectToAction("Forum", "ForumIndex");
-			return View();
+            ViewBag.page = page;
+            return RedirectToAction("Forum", "Index", new { game = game});
 		}
 
         [Authorize]
@@ -409,14 +409,7 @@ namespace FPTV.Controllers
 			page = "Index";
             return View();
         }
-
-        [Authorize]
-        public IActionResult Forum()
-		{
-			page = "Forum";
-            ViewBag.page = page;
-            return View("Index"); //apagar index - quando a pagina tiver feita
-		}
+        
         public IActionResult About()
 		{
 			page = "About";
