@@ -910,6 +910,8 @@ namespace FPTV.Controllers
 
             _context.ErrorLog.Add(error);
             _context.SaveChanges();
+        }
+
         public async Task<ActionResult> addPlayerToFav(int id, string game)
         {
             ViewData["game"] = game;
