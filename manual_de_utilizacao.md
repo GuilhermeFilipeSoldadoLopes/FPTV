@@ -24,8 +24,8 @@ Bem-vindo ao projeto FPTV, a futura hub dos FPS E-Sports. O objetivo deste proje
 **Confirmação de email :** Após ter efetuado o registo no website irá surgir uma mensagem a indicar que deve realizar a confirmação do registo.<p>
 <div align="center">
 
-![ConfirmRegistration](https://cdn.discordapp.com/attachments/783386747638775848/1087845544279429222/image.png)<p>
-![ConfirmRegistration](https://cdn.discordapp.com/attachments/783386747638775848/1087845577020149780/image.png)<p>
+![ConfirmRegistration](https://cdn.discordapp.com/attachments/783386747638775848/1097640258218242199/image.png)<p>
+![ConfirmRegistration](https://cdn.discordapp.com/attachments/783386747638775848/1097640166669176892/image.png)<p>
 </div>
 
 Após a confirmação do registo irá surgir uma mensagem a indicar que o email foi confirmado.<p>
