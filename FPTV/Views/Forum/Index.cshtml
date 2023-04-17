@@ -1,8 +1,9 @@
 ﻿@using System.Collections;
+@using FPTV.Models.Forum;
 @{
 	ViewData["Title"] = "Forum";
 }
-@model dynamic
+@model List<Topic>;
 <!DOCTYPE html>
 
 <head>
@@ -171,11 +172,11 @@
 			</div>
 
 			<div style="padding:3px">
-					<button class="button3 bordercolor">New Topic +</button>
+				<button class="button3 bordercolor"> <a href="@Url.Action("NewTopic", "Forum", new { game = ViewBag.Game})" id="toTranslate">New Topic +</a></button>
 			</div>
 
 			<div style="padding:3px">
-				<button class="button3 bordercolor"> <a href="@Url.Action("ForumRules", "Home")" style="text-decoration:none;" id="toTranslate">Forum Rules</a></button> @*trocar controlador home para forum*@
+				<button class="button3 bordercolor"> <a href="@Url.Action("ForumRules", "Home", new { game = ViewBag.Game})" style="text-decoration:none;" id="toTranslate">Forum Rules</a></button> @*trocar controlador home para forum*@
 			</div>
 
 		</div>
@@ -204,54 +205,40 @@
 			</button>
 			<hr class="hrstyle"/>
 			<!-- ---------------------------------------BOTÕES DOS TOPICOS DO FORUM------------------------------------------------ -->
+			
+			@foreach (Topic t in Model)
+			{
+				int reactionCount = 0;
+				<button onclick="location.href='@Url.Action("Topic", "Forum", new {id = t.TopicId, game = ViewBag.Game})'" style="margin:1%; width:100%;border-radius:5px" class="btn1 bordercolor">
 
-			<button style="margin:1%; width:100%;border-radius:5px" class="btn1 bordercolor">
-
-				<div style="width:60%;margin:auto;">
-					<p style="margin-bottom:0px;margin-left:3%;text-align: left;font-size:25px" id="toTranslate">What is your favorite sticker [CS:GO] ?</p>
-				</div>
-
-				<div style="width:20%; margin: auto;text-align:center;display:flex;justify-content:center">
-					
-					<div style="margin-bottom:0px;font-size:20px;display:flex;justify-content:center">
-						<img src="~/images/default-profile-icon-24.jpg" style="width:50px;height: 50px;margin:auto" />
-						<p style="margin-top:25px;margin-left:5px;margin-right:5px;font-size:20px;font-weight:normal" id="toTranslate">Carlos </p>
-						<img src="~/images/Flags/4x3/pt.svg" style="width:25px" />
+					<div style="width:60%;margin:auto;">
+						<p style="margin-bottom:0px;margin-left:3%;text-align: left;font-size:25px" id="toTranslate">@t.Title</p>
 					</div>
-				</div>
 
-				<div style="width:20%;text-align:right">
-					<p style="font-size:17px">21-02-2023</p>
-					<p style="margin-bottom:0px;font-size:15px" id="toTranslate">1021 Comments</p>
-					<p style="margin-bottom:0px;font-size:15px" id="toTranslate">621 Reactions</p>
+					<div style="width:20%; margin: auto;text-align:center;display:flex;justify-content:center">
 
-				</div>
+						<div style="margin-bottom:0px;font-size:20px;display:flex;justify-content:center">
+							<img src="data:image/*;base64,@(Convert.ToBase64String(t.Profile.Picture))" style="width:50px;height: 50px;margin:auto" />
+							<p style="margin-top:25px;margin-left:5px;margin-right:5px;font-size:20px;font-weight:normal" id="toTranslate">@t.Profile.User.UserName </p>
+							<img src="~/images/Flags/4x3/pt.svg" style="width:25px" />
+						</div>
+					</div>
 
-			</button>
+					<div style="width:20%;text-align:right">
+						<p style="font-size:17px">@t.Date</p>
+						<p style="margin-bottom:0px;font-size:15px" id="toTranslate">@t.Comments.Count Comments</p>
+						@foreach (Comment c in t.Comments)
+						{
+							reactionCount += c.Reactions.Count;
+						}
+						<p style="margin-bottom:0px;font-size:15px" id="toTranslate">@reactionCount Reactions</p>
 
-			<button style="margin:1%; width:100%;border-radius:5px" class="btn1 bordercolor">
+					</div>
 
-				<div style="width:60%;margin: auto;">
-					<p style="margin-bottom:0px;margin-left:3%;text-align: left;font-size:25px" id="toTranslate">CS2 anti-cheat?</p>
-				</div>
+				</button>
+			}
+			
 
-				<div style="width:20%; margin: auto;text-align:center;display:flex;justify-content:center">
-
-					<span style="margin-bottom:0px;font-size:20px;display:flex;justify-content:center">
-						<img src="~/images/default-profile-icon-24.jpg" style="width:50px;height: 50px;margin:auto" />
-						<p style="margin-top:25px;margin-left:5px;margin-right:5px;font-size:20px;font-weight:normal">Carlos </p>
-						<img src="~/images/Flags/4x3/pt.svg" style="width:25px" />
-					</span>
-				</div>
-
-				<div style="width:20%;text-align:right">
-					<p style="font-size:17px">21-02-2023</p>
-					<p style="margin-bottom:0px;font-size:15px"id="toTranslate">1021 Comments</p>
-					<p style="margin-bottom:0px;font-size:15px" id="toTranslate">621 Reactions</p>
-
-				</div>
-
-			</button>
 
 		</div>
 
