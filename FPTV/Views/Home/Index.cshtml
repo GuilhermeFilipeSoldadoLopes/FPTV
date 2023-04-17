@@ -103,12 +103,14 @@
 			}
 			@if (ViewBag.liveValorantMatches.Count == 0)
 			{
-				<span class="borderRedTop" style=" margin-top:10px;" id="toTranslate"> No Live Matches </span>
+				<div class="borderRedTop" style=" width:100% ; padding:10px;font-size:20px">
+					<span id="toTranslate"> No Live Matches </span>
+				</div>
 			}
 			
 		</div>
 		<!-----------------direita-------------------->
-		<div class="bordercolor darkcolor  responsive" style="margin:auto;text-align:center;margin-top: 0px;margin-bottom:3%;">
+		<div class="bordercolor darkcolor  responsive" style="margin:auto;text-align:center;margin-top: 0px;">
 			<h3 style="margin-top:5px; cursor:pointer;" id="toTranslate" onclick="location.href = '@Url.Action("Matches", "Home", new { game = "csgo"})'"> Live/Next Matches</h3>
 			<h3 style="cursor:pointer;" onclick="location.href = '@Url.Action("Matches", "Home", new { game = "csgo"})'">CS:GO</h3>
 			@foreach (var item in ViewBag.liveCSMatches)
@@ -175,7 +177,9 @@
 			}
 			@if (ViewBag.liveCSMatches.Count == 0)
 			{
-				<span class="borderRedTop" style=" margin-top:10px;" id="toTranslate"> No Live Matches </span>
+				<div class="borderRedTop" style=" width:100% ; padding:10px;font-size:20px">
+					<span id="toTranslate"> No Live Matches </span>
+				</div>
 			}
 			
 		</div>
@@ -256,7 +260,7 @@
 		
 		<!-----------------direita-------------------->
 		
-		<div class="bordercolor darkcolor responsive" style="margin:auto;text-align:center;margin-top: 0px;margin-bottom: 3%;">
+		<div class="bordercolor darkcolor responsive " style="margin:auto;text-align:center;margin-top: 0px;margin-bottom:3%;">
 			<h3 style="cursor:pointer; margin-top:5px" id="toTranslate" onclick="location.href = '@Url.Action("Results", "Home", new { game = "csgo"})'">Matches Results</h3>
 			<h3 style="cursor:pointer;" onclick="location.href = '@Url.Action("Results", "Home", new { game = "csgo"})'">CS:GO</h3>
 			@foreach (var item in ViewBag.CSResults)
@@ -327,7 +331,7 @@
 
 	<hr class="hrstyle" />
 	<!------------------stats--------------------------------------------->
-	<div class="box darkcolor bordercolor " style="width:60%;text-align: center; border-radius:15px;margin-top:0px;margin:auto">
+	<div class="box darkcolor bordercolor marginbottomRes" style="width:60%;text-align: center; border-radius:15px;margin-top:0px;margin:auto">
 		<br>
 		<h2 style="font-weight: bold;" id="toTranslate">Website Stats</h2>
 		<br>
