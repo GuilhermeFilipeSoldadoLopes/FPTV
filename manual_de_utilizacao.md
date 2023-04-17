@@ -4,6 +4,14 @@
 
 Bem-vindo ao projeto FPTV, a futura hub dos FPS E-Sports. O objetivo deste projeto é fornecer aos jogadores de FPS as informações mais relevantes sobre os jogos VALORANT e CS:GO, incluindo eventos em destaque, jogadores e equipas favoritas. Este manual de utilização irá ajudá-lo a compreender como usar o projeto FPTV e todas as suas funcionalidades.<p>
 
+**Home :** É a página inicial do website a qual consiste nas partidas que já decorreram, nas que estão a decorrer e nas que irão decorrer tanto de Valorant como de CS:GO. Também é composto pelas estatísticas de website (número de contas registadas e o número de visitas diárias).
+  
+<div align="center">
+
+![Home](https://cdn.discordapp.com/attachments/783386747638775848/1097642400823914608/image.png)<p>
+![Home](https://media.discordapp.net/attachments/783386747638775848/1097642149580898355/image.png?width=1440&height=662)
+</div>
+
 **Criação de uma Conta :** Para usar o projeto FPTV, você precisa criar uma conta. Há duas opções para criar uma conta:<p>
 
 1. Usando um endereço de e-mail e uma palavra-passe: clique no botão "Login/Register" na página inicial e siga as etapas para preencher as informações necessárias.<p>
