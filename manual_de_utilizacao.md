@@ -143,7 +143,7 @@ Detalhes de um tópico:
 
 <div align="center">
   
-![Definitions](https://cdn.discordapp.com/attachments/783386747638775848/1092886051577679892/image.png)<p>
+![Definitions](https://cdn.discordapp.com/attachments/783386747638775848/1097617270563410081/image.png)<p>
 </div>
 
 
