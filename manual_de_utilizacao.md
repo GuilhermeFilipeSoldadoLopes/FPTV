@@ -139,7 +139,7 @@ Detalhes de um tópico:
 ![Forum](https://cdn.discordapp.com/attachments/783386747638775848/1092869480239087666/image.png)<p>
 </div>
 
-**Definições :** Para poder aceder ás definições passe o rato no ícone da roda dentada, que está situado na barra de navegação que se encontra na parte superior do website. Quando o rato estiver por cima da roda dentada irá surgir um dropdown que contem os "features" do website, onde permite colocar o website em dark mode.
+**Definições :** Para poder aceder ás definições passe o rato no ícone da roda dentada, que está situado na barra de navegação que se encontra na parte superior do website. Quando o rato estiver por cima da roda dentada irá surgir um dropdown que contem os "features" do website, onde permite colocar o website em dark mode e/ou traduzir o conteúdo do website para português.
 
 <div align="center">
   
