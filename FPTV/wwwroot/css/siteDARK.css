@@ -13,10 +13,23 @@ html {
 }
 
 @media (max-width: 767px) {
-
-    .nomargin{
-        margin-left:0px !important;
-        margin-right:0px !important;
+    .dropdownWidth{
+        width:40% !important;
+        
+    }
+    .marginDrop{
+        margin-left:50px;
+    }
+    .navitem2 {
+        margin-left: 3% !important;
+        margin-right: 3% !important;
+    }
+    .navbar-nav {
+        display: flex !important;
+    }
+    .nomargin {
+        margin-left: 0px !important;
+        margin-right: 0px !important;
     }
     .box {
         flex-direction: column;
@@ -32,9 +45,22 @@ html {
         width:100%;
         margin:0;
     }
+    .nomargin{
+        margin:0px !important;
+    }
+    .marginrightDrop{
+        margin-right:30px !important;
+    }
+    .marginLeftDrop {
+        margin-left: 10px !important;
+    }
+    .marginLeftDrop2 {
+        margin-left: 15px !important;
+    }
+
     .ola {
         flex-direction: column;
-        justify-content:center;
+        justify-content: center;
     }
     
     .bordercolor {
@@ -51,6 +77,9 @@ html {
     }
 }
 
+.dropdownWidth {
+   /* width: 17%;*/
+}
 .responsive {
     width: 40%;
 }

@@ -12,6 +12,10 @@ html {
     }
 }
 @media (max-width: 767px) {
+
+    .dropdownWidth {
+        width: 50%;
+    }
     .box {
         flex-direction: column;
         font-size: 15px;
