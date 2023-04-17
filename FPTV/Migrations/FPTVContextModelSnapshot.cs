@@ -161,12 +161,15 @@ namespace FPTV.Migrations
                     b.Property<Guid?>("ProfileId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<bool>("Reported")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Text")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("TopicId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int?>("TopicId")
+                        .HasColumnType("int");
 
                     b.HasKey("CommentId");
 
@@ -203,9 +206,11 @@ namespace FPTV.Migrations
 
             modelBuilder.Entity("FPTV.Models.Forum.Topic", b =>
                 {
-                    b.Property<Guid>("TopicId")
+                    b.Property<int>("TopicId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TopicId"), 1L, 1);
 
                     b.Property<string>("Content")
                         .IsRequired()
@@ -219,6 +224,9 @@ namespace FPTV.Migrations
 
                     b.Property<Guid>("ProfileId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("Reported")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Title")
                         .IsRequired()

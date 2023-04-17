@@ -10,6 +10,7 @@ using FPTV.Models.UserModels;
 using FPTV.Data;
 using RestSharp;
 using Newtonsoft.Json.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace FPTV.Areas.Identity.Pages.Account.Manage
 {
@@ -113,11 +114,14 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
         public async Task<IActionResult> OnGetAsync()
         {
             var user = await _userManager.GetUserAsync(User);
+
             if (user == null)
             {
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
-            var profile = _context.Profiles.Single(p => p.Id == user.ProfileId);
+
+            var profile = _context.Profiles.Include(p => p.PlayerList.Players).Include(p => p.TeamsList.Teams).Single(p => p.Id == user.ProfileId);
+
 
             var client = new RestClient("https://restcountries.com/v3.1/all");
             var request = new RestRequest("", Method.Get);
@@ -143,11 +147,64 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
                     countries.Add(countryName.Value<string>());
             }
 
+            var players = profile.PlayerList.Players.ToList();
+            var teams = profile.TeamsList.Teams.ToList();
+            var csPlayers = new List<Player>();
+            var csTeams = new List<Team>();
+            var valPlayers = new List<Player>();
+            var valTeams = new List<Team>();
+
+            if (profile.PlayerList == null)
+            {
+                profile.PlayerList = new FavPlayerList();
+                profile.PlayerList.Profile = profile;
+                profile.PlayerList.ProfileId = user.ProfileId;
+                profile.PlayerList.Players = new List<Player>();
+            }
+            else
+            {
+                foreach (var item in players)
+                {
+                    if (item.Game == GameType.CSGO)
+                    {
+                        csPlayers.Add(item);
+                    }
+                    else
+                    {
+                        valPlayers.Add(item);
+                    }
+                }
+            }
+
+            if (profile.TeamsList == null)
+            {
+                profile.TeamsList = new FavTeamsList();
+                profile.TeamsList.Profile = profile;
+                profile.TeamsList.ProfileId = user.ProfileId;
+                profile.TeamsList.Teams = new List<Team>();
+            }
+            else
+            {
+                foreach (var item in teams)
+                {
+                    if (item.Game == GameType.CSGO)
+                    {
+                        csTeams.Add(item);
+                    }
+                    else
+                    {
+                        valTeams.Add(item);
+                    }
+                }
+            }
+
+            _context.SaveChanges();
+
+            ViewData["FavCSPlayerList"] = csPlayers;
+            ViewData["FavCSTeamsList"] = csTeams;
+            ViewData["FavValPlayerList"] = valPlayers;
+            ViewData["FavValTeamsList"] = valTeams;
             ViewData["Countries"] = countries.OrderBy(c => c).ToList();
-            ViewData["FavPlayerListCSGO"] = _context.FavPlayerList.Where(fpl => fpl.ProfileId == profile.Id).ToList();
-            ViewData["FavTeamsListCSGO"] = _context.FavTeamsList.Where(ftl => ftl.ProfileId == profile.Id).ToList();
-            ViewData["FavPlayerListValorant"] = _context.FavPlayerList.Where(fpl => fpl.ProfileId == profile.Id).ToList();
-            ViewData["FavTeamsListValorant"] = _context.FavTeamsList.Where(ftl => ftl.ProfileId == profile.Id).ToList();
 
             await LoadAsync(user, profile);
             return Page();

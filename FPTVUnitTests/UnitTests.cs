@@ -31,7 +31,7 @@ namespace FPTVUnitTests
         public void Index_ReturnsViewResult()
         {
             var controller = new HomeController(null, _context);
-            var result = controller.Index();
+            var result = controller.Index("");
             Assert.IsType<ViewResult>(result);
         }
 
@@ -196,9 +196,9 @@ namespace FPTVUnitTests
 		[Fact]
 		public void Forum_ReturnsViewResult()
 		{
-			/*var controller = new ForumController(_context);
-			var result = controller.Index();
-			Assert.IsType<ViewResult>(result);*/
+			//var controller = new ForumController(_context, null);
+			//var result = controller.Index();
+			//Assert.IsType<ViewResult>(result);
 		}
 
 		//TU14
@@ -206,19 +206,19 @@ namespace FPTVUnitTests
 		[Fact]
 		public void ForumDetails_ReturnsViewResult()
 		{
-			/*var controller = new ForumController(_context);
-			var result = controller.Details();
-			Assert.IsType<ViewResult>(result);*/
-		}
+   //         var controller = new ForumController(_context, null);
+			//var result = controller.Details();
+			//Assert.IsType<ViewResult>(result);
+        }
 
-		//TU15
-		//ForumController
-		[Fact]
+        //TU15
+        //ForumController
+        [Fact]
 		public void Profile_ReturnsViewResult()
 		{
-			/*var controller = new ForumController(_context);
-			var result = controller.Profile(contextFixture.GetAdminId());
-			Assert.IsType<ViewResult>(result);*/
+			//var controller = new ForumController(_context, null);
+			//var result = controller.Profile(contextFixture.GetAdminId());
+			//Assert.IsType<ViewResult>(result);
 		}
 
         //TU16
@@ -226,23 +226,26 @@ namespace FPTVUnitTests
         [Fact]
         public void CreateTopic_ReturnsViewResult()
         {
-            /*var controller = new ForumController(_context);
-            var result = controller.CreateTopic();
-            Assert.IsType<ViewResult>(result);*/
+            //var controller = new ForumController(_context, null);
+            //var result = controller.CreateTopic();
+            //Assert.IsType<ViewResult>(result);
 
-            /*contextFixture.CreateNewTopic();
+            //contextFixture.CreateNewTopic();
 
-            Topic topic = contextFixture.DbContext.Topics.FirstOrDefault(t => t.TopicId == contextFixture.GetTopicId());
-            var topicResult = Assert.IsType<Topic>(topic);
+            //Topic topic = contextFixture.DbContext.Topics.FirstOrDefault(t => t.TopicId == contextFixture.GetTopicId());
+            //var topicResult = Assert.IsType<Topic>(topic);
 
-            Assert.Equal(contextFixture.GetTopicId(), topic.TopicId);
-            Assert.Equal(GameType.CSGO, topic.GameType);
-            Assert.Equal("Test", topic.Title);
-            Assert.Equal("Test123", topic.Content);
-            Assert.IsType<DateTime>(topic.Date);
-            Assert.Equal(contextFixture.GetAdminId(), topic.ProfileId);
-            Assert.Equal(contextFixture.DbContext.Profiles.FirstOrDefault(p => p.Id == contextFixture.GetAdminId()), topic.Profile);
-            Assert.Null(topic.Comments);*/
+            //Assert.Equal(contextFixture.GetTopicId(), topic.TopicId);
+            //Assert.Equal(GameType.CSGO, topic.GameType);
+            //Assert.Equal("Test", topic.Title);
+            //Assert.Equal("Test123", topic.Content);
+            //Assert.IsType<DateTime>(topic.Date);
+            //Assert.Equal(contextFixture.GetAdminId(), topic.ProfileId);
+            //Assert.Equal(contextFixture.DbContext.Profiles.FirstOrDefault(p => p.Id == contextFixture.GetAdminId()), topic.Profile);
+            //Assert.Null(topic.Comments);
+
+            //var result = controller.Topic(topic.TopicId);
+            //Assert.IsType<ViewResult>(result);
         }
     }
 }
