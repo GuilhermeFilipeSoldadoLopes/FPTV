@@ -1,5 +1,8 @@
 ﻿@using System.Collections;
 @using FPTV.Models.Forum;
+@using FPTV.Models.UserModels;
+@using Microsoft.AspNetCore.Identity;
+@inject UserManager<UserBase> userManager
 @{
 	ViewData["Title"] = "Forum - " + Model.Title;
 }
@@ -182,14 +185,28 @@
 						<p style="margin-bottom:0px;font-size:15px" id="toTranslate">@reactionCount Reactions</p>
 					</div>
 
-					
+				@{
+					var user = await userManager.GetUserAsync(User);
+					var profileId = user.ProfileId;
+				}
+				@if(Model.ProfileId == profileId)
+				{
+					<div style="justify-content:left;width:7%;margin:0px;text-align:left">
+						<button onclick ="location.href='@Url.Action("DeletePost", "Forum", new {id = Model.TopicId, game = ViewBag.Game})'" style="background-color:transparent;border:none;width:2%;padding:0px;margin:0px">
+							<img src="~/images/trash2.png" style="width:20px;margin-left:5px" />
+						</button>
+					</div>
+				} 
+				else
+				{
+					<div style="justify-content:left;width:7%;margin:0px;text-align:left">
+						<button onclick="location.href='@Url.Action("ReportPost", "Forum", new {id = Model.TopicId, game = ViewBag.Game})'" style="background-color:transparent;border:none;width:2%;padding:0px;margin:0px">
+							<img src="~/images/report.png" style="width:20px;margin-left:5px" />
+						</button>
+					</div>
 
-						<div style="justify-content:left;width:7%;margin:0px;text-align:left">
-							<button style="background-color:transparent;border:none;width:2%;padding:0px;margin:0px">
-								<img src="~/images/report.png" style="width:20px;margin-left:5px" />
-							</button>
-						</div>
-					
+				}
+				
 
 				</div>
 			</div>
@@ -248,11 +265,23 @@
 					<!-------------------REAÇÕES---------------------->
 					<div style="width:100%;display:flex;justify-content:right">
 
-						<div style="justify-content:left;width:7%;margin:0px;text-align:left">
-							<button style="background-color:transparent;border:none;width:2%;padding:0px;margin:0px">
-								<img src="~/images/report.png" style="width:20px;margin-left:5px" />
-							</button>
-						</div>
+						@if(c.Profile.Id == profileId)
+						{
+							<div style="justify-content:left;width:7%;margin:0px;text-align:left">
+								<button onclick ="location.href='@Url.Action("DeleteComment", "Forum", new {id = c.CommentId, topicId = Model.TopicId, game = ViewBag.Game})'" style="background-color:transparent;border:none;width:2%;padding:0px;margin:0px">
+									<img src="~/images/trash2.png" style="width:20px;margin-left:5px" />
+								</button>
+							</div>
+						} 
+						else
+						{
+							<div style="justify-content:left;width:7%;margin:0px;text-align:left">
+								<button onclick="location.href='@Url.Action("ReportComment", "Forum", new {id = c.CommentId, topicId = Model.TopicId, game = ViewBag.Game})'" style="background-color:transparent;border:none;width:2%;padding:0px;margin:0px">
+									<img src="~/images/report.png" style="width:20px;margin-left:5px" />
+								</button>
+							</div>
+
+						}
 
 
 						<div style="display:flex;justify-content:right;width:93%">

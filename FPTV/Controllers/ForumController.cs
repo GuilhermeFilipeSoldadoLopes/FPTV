@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection.Metadata;
 
 namespace FPTV.Controllers
 {
@@ -83,6 +84,7 @@ namespace FPTV.Controllers
                 Title = collection["Title"],
                 GameType = gameType,
                 ProfileId = user.ProfileId,
+                Reported = false,
             };
             await _context.Topics.AddAsync(topic);
             await _context.SaveChangesAsync();
@@ -102,6 +104,36 @@ namespace FPTV.Controllers
         {
             return View(profile);
         }
+
+        public ActionResult ReportComment(Guid id, int topicId, string game)
+        {
+			ViewBag.Game = game;
+			var comment = _context.Comments.Include(c => c.Profile).FirstOrDefault(c => c.CommentId == id);
+            if (comment == null)
+            {
+                return View("Error404");
+            }
+
+            comment.Reported= true;
+            _context.SaveChanges();
+			return RedirectToAction("Topic", new { id = topicId, game = ViewBag.Game });
+		}
+
+        public ActionResult ReportPost(int id, string game) 
+        {
+			ViewBag.Game = game;
+			var post = _context.Topics.FirstOrDefault(t => t.TopicId == id);
+
+            if (post == null) 
+            {
+				return View("Error404");
+			}
+
+            post.Reported= true;
+            _context.SaveChanges();
+
+			return RedirectToAction("Topic", new { id, game = ViewBag.Game });
+		}
 
         // POST: ForumController/Edit/5
         [HttpPost]
@@ -126,6 +158,7 @@ namespace FPTV.Controllers
 				Date = DateTime.Now,
                 Text = collection["Text"],
                 Topic = topic,
+                Reported = false,
 			};
 			await _context.Comments.AddAsync(comment);
 			await _context.SaveChangesAsync();
@@ -140,14 +173,42 @@ namespace FPTV.Controllers
         }
 
         // GET: ForumController/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> DeletePostAsync(int id, string game)
         {
-            return View();
+			ViewBag.Game = game;
+			var post = _context.Topics.FirstOrDefault(t => t.TopicId == id);
+            var user = await _userManager.GetUserAsync(User);
+            if (post == null || post.ProfileId != user.ProfileId)
+            {
+                return View("Error404");
+            }
+            post.Content = "This post has been deleted.";
+            post.Title = "[Deleted post]";
+
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("Topic", new { id, game = ViewBag.Game });
         }
 
-        // POST: ForumController/Delete/5
-       
-        public async Task<ActionResult> React(ReactionType reaction, Guid commentId, int topicId, string game)
+		public async Task<ActionResult> DeleteCommentAsync(Guid id, int topicId, string game)
+		{
+			ViewBag.Game = game;
+			var comment = _context.Comments.Include(c => c.Profile).FirstOrDefault(c => c.CommentId == id);
+			var user = await _userManager.GetUserAsync(User);
+			if (comment == null || !comment.Profile.Id.Equals(user.ProfileId))
+			{
+				return View("Error404");
+			}
+			comment.Text = "[Deleted comment]";
+
+			await _context.SaveChangesAsync();
+
+			return RedirectToAction("Topic", new { id = topicId, game = ViewBag.Game });
+		}
+
+		// POST: ForumController/Delete/5
+
+		public async Task<ActionResult> React(ReactionType reaction, Guid commentId, int topicId, string game)
         {
             ViewBag.Game = game;
 			var user = await _userManager.GetUserAsync(User);
