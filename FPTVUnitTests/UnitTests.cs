@@ -31,7 +31,7 @@ namespace FPTVUnitTests
         public void Index_ReturnsViewResult()
         {
             var controller = new HomeController(null, _context);
-            var result = controller.Index();
+            var result = controller.Index("");
             Assert.IsType<ViewResult>(result);
         }
 
@@ -243,6 +243,9 @@ namespace FPTVUnitTests
             Assert.Equal(contextFixture.GetAdminId(), topic.ProfileId);
             Assert.Equal(contextFixture.DbContext.Profiles.FirstOrDefault(p => p.Id == contextFixture.GetAdminId()), topic.Profile);
             Assert.Null(topic.Comments);*/
+
+            /*var result = controller.Topic(topic.TopicId);
+            Assert.IsType<ViewResult>(result);*/
         }
     }
 }
