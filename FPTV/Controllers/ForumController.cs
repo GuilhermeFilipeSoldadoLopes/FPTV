@@ -45,8 +45,8 @@ namespace FPTV.Controllers
                 .FirstOrDefault(t => t.TopicId == id);
             if(topic == default)
             {
-                return View();
-            }
+				return View("~/Views/Home/Error404.cshtml");
+			}
 
             return View(topic);
         }
@@ -71,10 +71,16 @@ namespace FPTV.Controllers
             if(user == null)
             {
 				
-				return View("Index");
+				return View("~/Views/Home/Error404.cshtml");
             }
-            var profile = _context.Profiles.Single(p => p.Id == user.ProfileId);
-            Enum.TryParse<GameType>(ViewBag.Game, true, out GameType gameType);
+            var profile = _context.Profiles.FirstOrDefault(p => p.Id == user.ProfileId);
+
+			if (profile == null)
+			{
+
+				return View("~/Views/Home/Error404.cshtml");
+			}
+			Enum.TryParse<GameType>(ViewBag.Game, true, out GameType gameType);
             var topic = new Topic
             {
                 Content = collection["Content"],
@@ -111,8 +117,8 @@ namespace FPTV.Controllers
 			var comment = _context.Comments.Include(c => c.Profile).FirstOrDefault(c => c.CommentId == id);
             if (comment == null)
             {
-                return View("Error404");
-            }
+				return View("~/Views/Home/Error404.cshtml");
+			}
 
             comment.Reported= true;
             _context.SaveChanges();
@@ -126,7 +132,7 @@ namespace FPTV.Controllers
 
             if (post == null) 
             {
-				return View("Error404");
+				return View("~/Views/Home/Error404.cshtml");
 			}
 
             post.Reported= true;
@@ -180,8 +186,8 @@ namespace FPTV.Controllers
             var user = await _userManager.GetUserAsync(User);
             if (post == null || post.ProfileId != user.ProfileId)
             {
-                return View("Error404");
-            }
+				return View("~/Views/Home/Error404.cshtml");
+			}
             post.Content = "This post has been deleted.";
             post.Title = "[Deleted post]";
 
@@ -197,7 +203,7 @@ namespace FPTV.Controllers
 			var user = await _userManager.GetUserAsync(User);
 			if (comment == null || !comment.Profile.Id.Equals(user.ProfileId))
 			{
-				return View("Error404");
+				return View("~/Views/Home/Error404.cshtml");
 			}
 			comment.Text = "[Deleted comment]";
 
@@ -229,8 +235,8 @@ namespace FPTV.Controllers
 
             if(comment == null || topic == null)
             {
-                return View("Error404");
-            }
+				return View("~/Views/Home/Error404.cshtml");
+			}
 
 
 			var r = new Reaction()
