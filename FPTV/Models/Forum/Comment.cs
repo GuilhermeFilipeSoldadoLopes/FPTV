@@ -35,6 +35,7 @@ namespace FPTV.Models.Forum
         public ICollection<Reaction>? Reactions { get; set; }
 
         [Required]
+        [Display(Name = "isReported")]
         public bool Reported { get; set; }
     }
 }

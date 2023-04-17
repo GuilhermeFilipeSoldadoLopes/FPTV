@@ -22,18 +22,19 @@ namespace FPTV.Controllers
 
 
         // GET: ForumController
-        public ActionResult Index(string game = "csgo")
+        public ActionResult Index()
         {
-            ViewBag.Game = game;
-			Enum.TryParse(game, true, out GameType gametype);
-			var topics = _context.Topics.Include(t => t.Profile).ThenInclude(p => p.User).Include(t => t.Comments).ThenInclude(c => c.Reactions).Where(t => t.GameType == gametype).ToList();
+            ViewBag.Game = "";
+            ViewBag.page = "Forum";
+			var topics = _context.Topics.Include(t => t.Profile).ThenInclude(p => p.User).Include(t => t.Comments).ThenInclude(c => c.Reactions).ToList();
             return View(topics);
         }
 
        
-        public ActionResult Topic(int id, string game = "csgo")
+        public ActionResult Topic(int id)
         {
-            ViewBag.Game = game;
+			ViewBag.Game = "";
+			ViewBag.page = "Forum";
             var topic = _context.Topics
                 .Include(t => t.Profile)
                 .ThenInclude(p => p.User)
@@ -52,10 +53,11 @@ namespace FPTV.Controllers
         }
 
         // GET: ForumController/Create
-        public ActionResult NewTopic(string game = "csgo")
+        public ActionResult NewTopic()
         {
-            ViewBag.Game = game;
-            return View();
+            ViewBag.page = "Forum";
+			ViewBag.Game = "";
+			return View();
         }
 
         // POST: ForumController/Create
@@ -63,24 +65,22 @@ namespace FPTV.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> CreateAsync(IFormCollection collection)
         {
-            ViewBag.Game = collection["Game"];
-            
-			
-			var user = await _userManager.GetUserAsync(User);
+			ViewBag.Game = "";
+            ViewBag.page = "Forum";
+
+
+            var user = await _userManager.GetUserAsync(User);
             
             if(user == null)
             {
-				
 				return View("~/Views/Home/Error404.cshtml");
             }
             var profile = _context.Profiles.FirstOrDefault(p => p.Id == user.ProfileId);
 
 			if (profile == null)
 			{
-
 				return View("~/Views/Home/Error404.cshtml");
 			}
-			Enum.TryParse<GameType>(ViewBag.Game, true, out GameType gameType);
             var topic = new Topic
             {
                 Content = collection["Content"],
@@ -88,7 +88,6 @@ namespace FPTV.Controllers
                 Comments = new List<Comment>(),
                 Date = DateTime.Now,
                 Title = collection["Title"],
-                GameType = gameType,
                 ProfileId = user.ProfileId,
                 Reported = false,
             };
@@ -96,7 +95,7 @@ namespace FPTV.Controllers
             await _context.SaveChangesAsync();
             try
             {
-                return RedirectToAction("Topic", new {id = topic.TopicId,game = ViewBag.Game});
+                return RedirectToAction("Topic", new {id = topic.TopicId});
             }
             catch
             {
@@ -111,10 +110,11 @@ namespace FPTV.Controllers
             return View(profile);
         }
 
-        public ActionResult ReportComment(Guid id, int topicId, string game)
+        public ActionResult ReportComment(Guid id, int topicId)
         {
-			ViewBag.Game = game;
-			var comment = _context.Comments.Include(c => c.Profile).FirstOrDefault(c => c.CommentId == id);
+			ViewBag.Game = "";
+			ViewBag.page = "Forum";
+            var comment = _context.Comments.Include(c => c.Profile).FirstOrDefault(c => c.CommentId == id);
             if (comment == null)
             {
 				return View("~/Views/Home/Error404.cshtml");
@@ -122,13 +122,14 @@ namespace FPTV.Controllers
 
             comment.Reported= true;
             _context.SaveChanges();
-			return RedirectToAction("Topic", new { id = topicId, game = ViewBag.Game });
+			return RedirectToAction("Topic", new { id = topicId});
 		}
 
-        public ActionResult ReportPost(int id, string game) 
+        public ActionResult ReportPost(int id) 
         {
-			ViewBag.Game = game;
-			var post = _context.Topics.FirstOrDefault(t => t.TopicId == id);
+			ViewBag.Game = "";
+			ViewBag.page = "Forum";
+            var post = _context.Topics.FirstOrDefault(t => t.TopicId == id);
 
             if (post == null) 
             {
@@ -138,7 +139,7 @@ namespace FPTV.Controllers
             post.Reported= true;
             _context.SaveChanges();
 
-			return RedirectToAction("Topic", new { id, game = ViewBag.Game });
+			return RedirectToAction("Topic", new { id});
 		}
 
         // POST: ForumController/Edit/5
@@ -146,7 +147,8 @@ namespace FPTV.Controllers
         [ValidateAntiForgeryToken]
 		public async Task<ActionResult> CommentAsync(IFormCollection collection)
         {
-			ViewBag.Game = collection["Game"];
+			ViewBag.Game = "";
+            ViewBag.page = "Forum";
             int.TryParse(collection["TopicId"], out int id);
             var topic = _context.Topics.FirstOrDefault(t => t.TopicId == id);
 			var user = await _userManager.GetUserAsync(User);
@@ -156,7 +158,6 @@ namespace FPTV.Controllers
 				return View("Index");
 			}
 			var profile = _context.Profiles.Single(p => p.Id == user.ProfileId);
-			Enum.TryParse<GameType>(ViewBag.Game, true, out GameType gameType);
             var comment = new Comment
             {
                 Reactions = new List<Reaction>(),
@@ -170,7 +171,7 @@ namespace FPTV.Controllers
 			await _context.SaveChangesAsync();
 			try
             {
-                return RedirectToAction("Topic", new { id, game = ViewBag.Game});
+                return RedirectToAction("Topic", new { id});
             }
             catch
             {
@@ -179,10 +180,11 @@ namespace FPTV.Controllers
         }
 
         // GET: ForumController/Delete/5
-        public async Task<ActionResult> DeletePostAsync(int id, string game)
+        public async Task<ActionResult> DeletePostAsync(int id)
         {
-			ViewBag.Game = game;
-			var post = _context.Topics.FirstOrDefault(t => t.TopicId == id);
+			ViewBag.Game = "";
+			ViewBag.page = "Forum";
+            var post = _context.Topics.FirstOrDefault(t => t.TopicId == id);
             var user = await _userManager.GetUserAsync(User);
             if (post == null || post.ProfileId != user.ProfileId)
             {
@@ -193,13 +195,14 @@ namespace FPTV.Controllers
 
             await _context.SaveChangesAsync();
 
-            return RedirectToAction("Topic", new { id, game = ViewBag.Game });
+            return RedirectToAction("Topic", new { id });
         }
 
-		public async Task<ActionResult> DeleteCommentAsync(Guid id, int topicId, string game)
+		public async Task<ActionResult> DeleteCommentAsync(Guid id, int topicId)
 		{
-			ViewBag.Game = game;
-			var comment = _context.Comments.Include(c => c.Profile).FirstOrDefault(c => c.CommentId == id);
+			ViewBag.Game = "";
+            ViewBag.page = "Forum";
+            var comment = _context.Comments.Include(c => c.Profile).FirstOrDefault(c => c.CommentId == id);
 			var user = await _userManager.GetUserAsync(User);
 			if (comment == null || !comment.Profile.Id.Equals(user.ProfileId))
 			{
@@ -209,15 +212,16 @@ namespace FPTV.Controllers
 
 			await _context.SaveChangesAsync();
 
-			return RedirectToAction("Topic", new { id = topicId, game = ViewBag.Game });
+			return RedirectToAction("Topic", new { id = topicId});
 		}
 
 		// POST: ForumController/Delete/5
 
-		public async Task<ActionResult> React(ReactionType reaction, Guid commentId, int topicId, string game)
+		public async Task<ActionResult> React(ReactionType reaction, Guid commentId, int topicId)
         {
-            ViewBag.Game = game;
-			var user = await _userManager.GetUserAsync(User);
+            ViewBag.Game = "";
+            ViewBag.page = "Forum";
+            var user = await _userManager.GetUserAsync(User);
 			var profile = _context.Profiles.Single(p => p.Id == user.ProfileId);
             var topic = _context.Topics.FirstOrDefault(t => t.TopicId== topicId);
             var comment = _context.Comments.FirstOrDefault(c => c.CommentId.Equals(commentId));
@@ -230,7 +234,7 @@ namespace FPTV.Controllers
             {
                 _context.Reactions.Remove(react);
                 await _context.SaveChangesAsync();
-				return RedirectToAction("Topic", new { id = topicId, game = ViewBag.Game });
+				return RedirectToAction("Topic", new { id = topicId});
 			}
 
             if(comment == null || topic == null)
@@ -251,7 +255,7 @@ namespace FPTV.Controllers
 
 			try
 			{
-                return RedirectToAction("Topic", new { id = topicId, game = ViewBag.Game });
+                return RedirectToAction("Topic", new { id = topicId});
             }
             catch
             {

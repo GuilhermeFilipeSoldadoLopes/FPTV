@@ -40,6 +40,7 @@ namespace FPTV.Models.Forum
 		public ICollection<Comment> Comments { get; set; }
 
         [Required]
+        [Display(Name = "isReported")]
         public bool Reported { get; set; }
 	}
 }

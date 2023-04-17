@@ -319,7 +319,7 @@ namespace FPTV.Controllers
         }
 
         [Authorize]
-		public IActionResult Forum(string game = "csgo")
+		public IActionResult Forum(string game)
 		{
 			page = "Forum";
             ViewBag.page = page;
