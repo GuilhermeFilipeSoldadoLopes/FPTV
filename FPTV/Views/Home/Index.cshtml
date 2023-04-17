@@ -8,44 +8,333 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
+<style>
+	.central {
+		width: 100%;
+		margin: 0 auto;
+		text-align: center;
+		height: 100%;
+	}
 
+	.center {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	tr, td, th {
+		border-width: 1px;
+	}
+
+	 /* Styles for mobile screens */
+    
+
+</style>
 <html>
-	<style>
-		.central {
-			width: 100%;
-			margin: 0 auto;
-			text-align: center;
-			height:100%;
-			background-color: white;
-		}
+<body class="bodytemp bodyquery" style="width:100%">
 
-		.center {
-			display: flex;
-			justify-content: center;
-			align-items: center;
-		}
+	<!----------------------------------LIVE MATCHES------------------------------------------------->
+	<div class="box " style="border-radius:15px; margin-top:0px; justify-content:center; display:flex; width:100%; margin-bottom:3%;">
+		<!-------------------esquerda------------------------->
+		<div class="bordercolor darkcolor responsive marginbottomRes" style="margin:auto;text-align:center;margin-top: 0px;">
+			<h3 style="cursor:pointer; margin-top:5px" id="toTranslate" onclick="location.href = '@Url.Action("Matches", "Home", new { game = "valorant"})'"> Live/Next Matches</h3>
+			<h3 style="cursor:pointer;" onclick="location.href = '@Url.Action("Matches", "Home", new { game = "valorant"})'"> Valorant</h3>
+			@foreach (var item in ViewBag.liveValorantMatches)
+			{
+				var team1Score = 0;
+				var team2Score = 0;
 
-		tr, td, th{
-			border-width: 1px;
-		}
-	</style>
+				@foreach (var team in item.Scores)
+				{
+					@if (item.TeamsList[0].Name == team.TeamName)
+					{
+						team1Score = team.TeamScore;
+					}
+				}
 
-<body onload="chart()" class="bodytemp">
+				@foreach (var team in item.Scores)
+				{
+					@if (item.TeamsList[1].Name == team.TeamName)
+					{
+						team2Score = team.TeamScore;
+					}
+				}
+				<div class="borderRedTop" style="cursor:pointer;padding:1%;padding-bottom:2%;" onclick="location.href = '@Url.Action("MatchDetails", "Matches", new {id = item.MatchesAPIID, type = item.TimeType.ToString().ToLower(), game = "valorant"})'">
+					<div style="display:flex; width:100%;justify-content:center;border-radius:0px">
+						<div style="text-align:right;font-size: 20px;margin-right:15px">
+							<img src=@item.TeamsList[0].Image style="width:35px" /> <span> @item.TeamsList[0].Name </span>
+						</div>
+						<div style="justify-content:center;font-size: 20px;">
+							@if (team1Score < team2Score)
+							{
+								<span>
+									<span style="color: #B71919; font-size: 120%">@team1Score</span>
+									<span class="span2"> - </span>
+									<span style="color: #11871D; font-size: 120%">@team2Score</span>
+								</span>
+							}
+							else if (team1Score > team2Score)
+							{
+								<span>
+									<span style="color: #11871D; font-size: 120%">@team1Score</span>
+									<span class="span2"> - </span>
+									<span style="color: #B71919; font-size: 120%">@team2Score</span>
+								</span>
+							}
+							else if (team1Score == team2Score)
+							{
+								<span>
+									<span style="color: #CD8417; font-size: 120%">@team1Score</span>
+									<span class="span2"> - </span>
+									<span style="color: #CD8417; font-size: 120%">@team2Score</span>
+								</span>
+							}
+						</div>
+						<div style="text-align:left;font-size: 20px;margin-left:15px">
+							<span> @item.TeamsList[1].Name </span> <img src=@item.TeamsList[1].Image style="width:35px;height:35px;" />
+						</div>
 
-	@*<div class="text-center">
-		<h1 class="display-4">Welcome</h1>
-		<p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-		<br><br>
-	</div>*@
+					</div>
 
-	<div class="box darkcolor bordercolor " style="text-align: center; border-radius:15px;margin-top:0px ;justify-content: center; align-items: center;">
+					<div style="width:100%;margin-top:3px">
+						<img src=@item.Event.EventImage style="width:5%" /> <span> @item.EventName </span>
+					</div>
+				</div>
+			}
+			@if (ViewBag.liveValorantMatches.Count == 0)
+			{
+				<span class="borderRedTop" style=" margin-top:10px;" id="toTranslate"> No Live Matches </span>
+			}
+			
+		</div>
+		<!-----------------direita-------------------->
+		<div class="bordercolor darkcolor  responsive" style="margin:auto;text-align:center;margin-top: 0px;margin-bottom:3%;">
+			<h3 style="margin-top:5px; cursor:pointer;" id="toTranslate" onclick="location.href = '@Url.Action("Matches", "Home", new { game = "csgo"})'"> Live/Next Matches</h3>
+			<h3 style="cursor:pointer;" onclick="location.href = '@Url.Action("Matches", "Home", new { game = "csgo"})'">CS:GO</h3>
+			@foreach (var item in ViewBag.liveCSMatches)
+			{
+				var team1Score = 0;
+                var team2Score = 0;
+
+                @foreach (var team in item.Scores)
+                {
+					@if (item.TeamsList[0].Name == team.TeamName)
+                    {
+                        team1Score = team.TeamScore;
+                    }
+                }
+
+				@foreach (var team in item.Scores)
+                {
+					@if (item.TeamsList[1].Name == team.TeamName)
+                    {
+                        team2Score = team.TeamScore;
+                    }
+                }
+				<div class="borderRedTop" style="cursor:pointer;padding:1%;padding-bottom:2%;" onclick="location.href = '@Url.Action("MatchDetails", "Matches", new {id = item.MatchesAPIID, type = item.TimeType.ToString().ToLower(), game = "csgo"})'">
+					<div style="display:flex; width:100%;justify-content:center;border-radius:0px">
+						<div style="text-align:right;font-size: 20px;margin-right:15px">
+							<img src=@item.TeamsList[0].Image style="width:35px" /> <span> @item.TeamsList[0].Name </span>
+						</div>
+						<div style="justify-content:center;font-size: 20px;">
+							@if (team1Score < team2Score)
+							{
+								<span>
+									<span style="color: #B71919; font-size: 120%">@team1Score</span>
+									<span class="span2"> - </span>
+									<span style="color: #11871D; font-size: 120%">@team2Score</span>
+								</span>
+							}
+							else if (team1Score > team2Score)
+							{
+								<span>
+									<span style="color: #11871D; font-size: 120%">@team1Score</span>
+									<span class="span2"> - </span>
+									<span style="color: #B71919; font-size: 120%">@team2Score</span>
+								</span>
+							}
+							else if (team1Score == team2Score)
+							{
+								<span>
+									<span style="color: #CD8417; font-size: 120%">@team1Score</span>
+									<span class="span2"> - </span>
+									<span style="color: #CD8417; font-size: 120%">@team2Score</span>
+								</span>
+							}
+						</div>
+						<div style="text-align:left;font-size: 20px;margin-left:15px">
+							<span> @item.TeamsList[1].Name </span> <img src=@item.TeamsList[1].Image style="width:35px;height:35px;" />
+						</div>
+
+					</div>
+
+					<div style="width:100%;margin-top:3px">
+						<img src=@item.Event.EventImage style="width:5%" /> <span> @item.EventName </span>
+					</div>
+				</div>
+			}
+			@if (ViewBag.liveCSMatches.Count == 0)
+			{
+				<span class="borderRedTop" style=" margin-top:10px;" id="toTranslate"> No Live Matches </span>
+			}
+			
+		</div>
+	</div>
+
+	<hr class="hrstyle" />
+	<!----------------------------Results---------------------------------------------->
+	<div class="box" style="border-radius:15px;margin-top:0px ;justify-content: center;display:flex ;margin-bottom:3%;">
+
+		<div class="bordercolor darkcolor responsive" style="margin:auto;text-align:center;margin-top: 0px;margin-bottom: 3%;">
+			<h3 style="cursor:pointer; margin-top:5px" id="toTranslate" onclick="location.href = '@Url.Action("Results", "Home", new { game = "valorant"})'"> Matches Results</h3>
+			<h3 style="cursor:pointer;" onclick="location.href = '@Url.Action("Results", "Home", new { game = "valorant"})'"> Valorant</h3>
+			@foreach (var item in ViewBag.ValorantResults)
+			{
+				var team1Score = 0;
+				var team2Score = 0;
+
+				@foreach (var team in item.Scores)
+				{
+					@if (item.TeamsList[0].Name == team.TeamName)
+					{
+						team1Score = team.TeamScore;
+					}
+				}
+
+				@foreach (var team in item.Scores)
+				{
+					@if (item.TeamsList[1].Name == team.TeamName)
+					{
+						team2Score = team.TeamScore;
+					}
+				}
+				<div class="borderRedTop" style="cursor:pointer;padding:1%;padding-bottom:2%;" onclick="location.href = '@Url.Action("MatchDetails", "Matches", new {id = item.MatchesAPIID, type = item.TimeType.ToString().ToLower(), game = "valorant"})'">
+					<div style="display:flex; width:100%;justify-content:center;border-radius:0px">
+						<div style="text-align:right;font-size: 20px;margin-right:15px">
+							<img src=@item.TeamsList[0].Image style="width:35px" /> <span> @item.TeamsList[0].Name </span>
+						</div>
+						<div style="justify-content:center;font-size: 20px;">
+							@if (team1Score < team2Score)
+							{
+								<span>
+									<span style="color: #B71919; font-size: 120%">@team1Score</span>
+									<span class="span2"> - </span>
+									<span style="color: #11871D; font-size: 120%">@team2Score</span>
+								</span>
+							}
+							else if (team1Score > team2Score)
+							{
+								<span>
+									<span style="color: #11871D; font-size: 120%">@team1Score</span>
+									<span class="span2"> - </span>
+									<span style="color: #B71919; font-size: 120%">@team2Score</span>
+								</span>
+							}
+							else if (team1Score == team2Score)
+							{
+								<span>
+									<span style="color: #CD8417; font-size: 120%">@team1Score</span>
+									<span class="span2"> - </span>
+									<span style="color: #CD8417; font-size: 120%">@team2Score</span>
+								</span>
+							}
+						</div>
+						<div style="text-align:left;font-size: 20px;margin-left:15px">
+							<span> @item.TeamsList[1].Name </span> <img src=@item.TeamsList[1].Image style="width:35px;height:35px;" />
+						</div>
+
+					</div>
+
+					<div style="width:100%;margin-top:3px">
+						<img src=@item.Event.EventImage style="width:5%" /> <span> @item.EventName </span>
+					</div>
+				</div>
+			}
+			
+			</div>
+
+		
+		<!-----------------direita-------------------->
+		
+		<div class="bordercolor darkcolor responsive" style="margin:auto;text-align:center;margin-top: 0px;margin-bottom: 3%;">
+			<h3 style="cursor:pointer; margin-top:5px" id="toTranslate" onclick="location.href = '@Url.Action("Results", "Home", new { game = "csgo"})'">Matches Results</h3>
+			<h3 style="cursor:pointer;" onclick="location.href = '@Url.Action("Results", "Home", new { game = "csgo"})'">CS:GO</h3>
+			@foreach (var item in ViewBag.CSResults)
+			{
+				var team1Score = 0;
+                var team2Score = 0;
+
+                @foreach (var team in item.Scores)
+                {
+					@if (item.TeamsList[0].Name == team.TeamName)
+                    {
+                        team1Score = team.TeamScore;
+                    }
+                }
+
+				@foreach (var team in item.Scores)
+                {
+					@if (item.TeamsList[1].Name == team.TeamName)
+                    {
+                        team2Score = team.TeamScore;
+                    }
+                }
+
+				<div class="borderRedTop" style="cursor:pointer;padding:1%;padding-bottom:2%;" onclick="location.href = '@Url.Action("MatchDetails", "Matches", new {id = item.MatchesAPIID, type = item.TimeType.ToString().ToLower(), game = "csgo"})'">
+					<div style="display:flex; width:100%;justify-content:center;border-radius:0px">
+						<div style="text-align:right;font-size: 20px;margin-right:15px">
+						<img src=@item.TeamsList[0].Image style="width:35px" /> <span> @item.TeamsList[0].Name </span>
+						</div>
+						<div style="justify-content:center;font-size: 20px;">
+							@if (team1Score < team2Score)
+							{
+								<span>
+									<span style="color: #B71919; font-size: 120%">@team1Score</span>
+									<span class="span2"> - </span>
+									<span style="color: #11871D; font-size: 120%">@team2Score</span>
+								</span>
+							}
+							else if (team1Score > team2Score)
+							{
+								<span>
+									<span style="color: #11871D; font-size: 120%">@team1Score</span>
+									<span class="span2"> - </span>
+									<span style="color: #B71919; font-size: 120%">@team2Score</span>
+								</span>
+							}
+							else if (team1Score == team2Score)
+							{
+								<span>
+									<span style="color: #CD8417; font-size: 120%">@team1Score</span>
+									<span class="span2"> - </span>
+									<span style="color: #CD8417; font-size: 120%">@team2Score</span>
+								</span>
+							}
+						</div>
+						<div style="text-align:left;font-size: 20px;margin-left:15px">
+							<span> @item.TeamsList[1].Name </span> <img src=@item.TeamsList[1].Image style="width:35px;height:35px;" />
+						</div>
+					</div>
+
+					<div style="width:100%;margin-top:3px">
+						<img src=@item.Event.EventImage style="width:5%" /> <span> @item.EventName </span>
+					</div>
+				</div>
+			}
+			
+		</div>
+	</div>
+
+	<hr class="hrstyle" />
+	<!------------------stats--------------------------------------------->
+	<div class="box darkcolor bordercolor " style="width:60%;text-align: center; border-radius:15px;margin-top:0px;margin:auto">
 		<br>
-		<h2 style="font-weight: bold;">Website Stats</h2>
+		<h2 style="font-weight: bold;" id="toTranslate">Website Stats</h2>
 		<br>
 		<table style="width:80%; margin-left: auto; margin-right: auto;">
 			<tr>
-				<th style="width: 50%;">Number of registered accounts</th>
-				<th style="width: 50%;">Daily flow of users</th>
+				<th style="width: 50%;" id="toTranslate">Number of registered accounts</th>
+				<th style="width: 50%;" id="toTranslate">Daily flow of users</th>
 			</tr>
 			<tr>
 				<td> <b id="noOfAccounts">@ViewData["accounts"]</b> <span id="accountText"> @ViewData["account_txt"] </span> </td>

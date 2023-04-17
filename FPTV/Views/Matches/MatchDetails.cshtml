@@ -183,14 +183,14 @@
     
 </style>
 <body class="bodytemp">
-    <div class="" style="padding:1%;">
-        <div class="ola">
+    <div class="responsive" style="padding:1%;width:100%;display:flex">
+        <div class="ola" style="width:100%;display:flex;">
 
-            <div class="box1" style="border-radius:15px;">
+            <div class="box1 responsive" style="border-radius:15px;">
 
                 <div class="darkcolor borders bordercolor" style="border-radius:15px">
 
-                    <a style="text-decoration: none" href="@Url.Action("getTeam", "Stats", new {id = @ViewBag.matches.TeamsList[0].TeamAPIID, type = @ViewBag.matches.TimeType.ToString().ToLower() ,game = ViewBag.dropDownGame})" style="justify-content: space-around; margin-left: auto; margin-bottom:0px">
+                    <a style="text-decoration: none" href="@Url.Action("getTeam", "Stats", new {id = @ViewBag.matches.TeamsList[0].TeamAPIID, type = @ViewBag.matches.TimeType.ToString().ToLower() ,game = ViewData["game"].ToString()})" style="justify-content: space-around; margin-left: auto; margin-bottom:0px">
                     <h4 style="font-weight: bold;text-align:center;">@ViewBag.matches.TeamsList[0].Name</h4>
                     </a>
 
@@ -201,12 +201,12 @@
                         {
                             <div style="display:flex;align-items: center;">
                                 <div class="" style="padding:10px;width:50%;text-align:right">
-                                    <a style="text-decoration: none" href="@Url.Action("getPlayer", "Stats", new {id = item.PlayerAPIId, type = @ViewBag.matches.TimeType.ToString().ToLower() ,game = ViewBag.dropDownGame})" style="justify-content: space-around; margin-left: auto; margin-bottom:0px">
+                                    <a style="text-decoration: none" href="@Url.Action("getPlayer", "Stats", new {id = item.PlayerAPIId, type = @ViewBag.matches.TimeType.ToString().ToLower() ,game = ViewData["game"].ToString()})" style="justify-content: space-around; margin-left: auto; margin-bottom:0px">
                                         <img src=@item.Image style="width:50%;height:auto" />
                                     </a>
                                 </div>
                                 <div style="width:50%; text-align:left">
-                                    <a style="text-decoration: none" href="@Url.Action("getPlayer", "Stats", new {id = item.PlayerAPIId, type = @ViewBag.matches.TimeType.ToString().ToLower() ,game = ViewBag.dropDownGame})" style="justify-content: space-around; margin-left: auto; margin-bottom:0px">
+                                    <a style="text-decoration: none" href="@Url.Action("getPlayer", "Stats", new {id = item.PlayerAPIId, type = @ViewBag.matches.TimeType.ToString().ToLower() ,game = ViewData["game"].ToString()})" style="justify-content: space-around; margin-left: auto; margin-bottom:0px">
                                         <p style="margin:auto"> @item.Name </p>
                                     </a>
                                 </div>
@@ -215,7 +215,7 @@
                     }
                     else
                     {
-                        <span>No Players Found</span>
+                        <span id="toTranslate">No Players Found</span>
                     }
                 </div>
 
@@ -224,37 +224,37 @@
                     var lista = (List<string>)ViewBag.pickedMaps;
                     <div class=" darkcolor borders bordercolor" style="margin-top: 5%;border-radius:15px;">
                         <p>
-                            1. @ViewBag.matches.TeamsList[0].Name removed @ViewBag.removedMaps[0]
+                            1. @ViewBag.matches.TeamsList[0].Name <span id="toTranslate">removed</span> @ViewBag.removedMaps[0]
                         </p>
                         <p>
-                            2. @ViewBag.matches.TeamsList[1].Name removed @ViewBag.removedMaps[1]
+                            2. @ViewBag.matches.TeamsList[1].Name <span id="toTranslate">removed</span> @ViewBag.removedMaps[1]
                         </p>
                         <p>
-                            3. @ViewBag.matches.TeamsList[0].Name picked @ViewBag.pickedMaps[0]
+                            3. @ViewBag.matches.TeamsList[0].Name <span id="toTranslate">picked</span> @ViewBag.pickedMaps[0]
                         </p>
                         <p>
-                            4. @ViewBag.matches.TeamsList[1].Name picked @ViewBag.pickedMaps[1]
+                            4. @ViewBag.matches.TeamsList[1].Name <span id="toTranslate">picked</span> @ViewBag.pickedMaps[1]
                         </p>
                         @if (lista.Count() > 3)
                         {
                             <p>
-                                5. @ViewBag.matches.TeamsList[0].Name picked @ViewBag.pickedMaps[2]
+                                5. @ViewBag.matches.TeamsList[0].Name <span id="toTranslate">picked</span> @ViewBag.pickedMaps[2]
                             </p>
                             <p>
-                                6. @ViewBag.matches.TeamsList[1].Name picked @ViewBag.pickedMaps[3]
+                                6. @ViewBag.matches.TeamsList[1].Name <span id="toTranslate">picked</span> @ViewBag.pickedMaps[3]
                             </p>
                         }
                         else
                         {
                             <p>
-                                5. @ViewBag.matches.TeamsList[0].Name removed @ViewBag.removedMaps[2]
+                                5. @ViewBag.matches.TeamsList[0].Name <span id="toTranslate">removed</span> @ViewBag.removedMaps[2]
                             </p>
                             <p>
-                                6. @ViewBag.matches.TeamsList[1].Name removed @ViewBag.removedMaps[3]
+                                6. @ViewBag.matches.TeamsList[1].Name <span id="toTranslate">removed</span> @ViewBag.removedMaps[3]
                             </p>
                         }
                         <p>
-                            7. @ViewBag.pickedMaps[lista.Count() - 1] was left over
+                            7. @ViewBag.pickedMaps[lista.Count() - 1] <span id="toTranslate">was left over</span>
                         </p>
                     </div>
                 }
@@ -262,7 +262,7 @@
 
 
             @* -------------------------------------------------------------------------------*@
-            <div class="alinhar">
+            <div class="alinhar responsive">
                 <div class="my-div2" style="width:80%; ">
                     @for (int i = 0; i < ((List<string>)ViewBag.mapsNames).Count(); i++)
                     {
@@ -272,7 +272,7 @@
                             var image = ViewBag.mapsImages[i];
                             <div class="bordercolor backMap whitecolor" style="border-radius:15px;padding:1%; width:100%;background-image:url(@image)">
 
-                                <a style="text-decoration:none; color:unset" href="@Url.Action("Details", "Events", new { id = ViewBag.matches.EventAPIID, sort = ViewBag.sort, game = ViewBag.dropDownGame})">
+                                <a style="text-decoration:none; color:unset" href="@Url.Action("Details", "Events", new { id = ViewBag.matches.EventAPIID, sort = ViewBag.sort, game = ViewData["game"].ToString()})">
                                     <h2>
                                         <span class="alinhar stroke">@ViewBag.matches.EventName</span>
                                     </h2>
@@ -288,7 +288,7 @@
                                 @if (ViewBag.matches.TimeType.ToString().ToLower() == "upcoming")
                                 {
                                     <div style="width:100%; justify-content: center;display: flex;">
-                                        <span>
+                                        <span id="toTranslate">
                                             Not Starded
                                         </span>
                                     </div>
@@ -298,19 +298,19 @@
 
                                     <div style="display:flex;width:100%;margin:auto; justify-content:center ">
                                         <span style=" display: flex;align-items: center;justify-content: center;margin:auto">
-                                            <img onclick="location.href = '@Url.Action("getTeam", "Stats", new {id = @ViewBag.matches.TeamsList[0].TeamAPIID, game = ViewBag.dropDownGame})'" src=@ViewBag.matches.TeamsList[0].Image style="width:100px; cursor: pointer;" />
+                                            <img onclick="location.href = '@Url.Action("getTeam", "Stats", new {id = @ViewBag.matches.TeamsList[0].TeamAPIID, game = ViewData["game"].ToString()})'" src=@ViewBag.matches.TeamsList[0].Image style="width:100px; cursor: pointer;" />
                                         </span>
                                         <span style="text-align: center;font-weight:bold;font-size:15px;margin:auto;font-size:25px"> vs </span>
 
                                         <span style=" display: flex;align-items: center;justify-content: center;margin:auto">
-                                            <img onclick="location.href = '@Url.Action("getTeam", "Stats", new {id = @ViewBag.matches.TeamsList[1].TeamAPIID, game = ViewBag.dropDownGame})'" src=@ViewBag.matches.TeamsList[1].Image style="width:100px; cursor: pointer;" />
+                                            <img onclick="location.href = '@Url.Action("getTeam", "Stats", new {id = @ViewBag.matches.TeamsList[1].TeamAPIID, game = ViewData["game"].ToString()})'" src=@ViewBag.matches.TeamsList[1].Image style="width:100px; cursor: pointer;" />
                                         </span>
                                     </div>
 
 
                                     <div class="stroke" style="display:flex; margin-top:3%;margin-bottom:3%;margin-left:0px; padding:0px">
-                                        <span onclick="location.href = '@Url.Action("getTeam", "Stats", new {id = @ViewBag.matches.TeamsList[0].TeamAPIID, game = ViewBag.dropDownGame})'" style="font-weight:bold; width:50%;text-align:center;font-size:25px; cursor: pointer;"> @ViewBag.matches.TeamsList[0].Name </span>
-                                        <span onclick="location.href = '@Url.Action("getTeam", "Stats", new {id = @ViewBag.matches.TeamsList[1].TeamAPIID, game = ViewBag.dropDownGame})'" style="font-weight:bold; width:50%;text-align:center;font-size:25px; cursor: pointer;"> @ViewBag.matches.TeamsList[1].Name </span><br />
+                                        <span onclick="location.href = '@Url.Action("getTeam", "Stats", new {id = @ViewBag.matches.TeamsList[0].TeamAPIID, game = ViewData["game"].ToString()})'" style="font-weight:bold; width:50%;text-align:center;font-size:25px; cursor: pointer;"> @ViewBag.matches.TeamsList[0].Name </span>
+                                        <span onclick="location.href = '@Url.Action("getTeam", "Stats", new {id = @ViewBag.matches.TeamsList[1].TeamAPIID, game = ViewData["game"].ToString()})'" style="font-weight:bold; width:50%;text-align:center;font-size:25px; cursor: pointer;"> @ViewBag.matches.TeamsList[1].Name </span><br />
                                     </div>
 
                                     @if (ViewBag.matches.TimeType.ToString().ToLower() != "upcoming")
@@ -319,23 +319,23 @@
                                             @if (ViewBag.matches.Scores[0].TeamScore == 0 && ViewBag.matches.Scores[1].TeamScore == 0)
                                             {
                                                 Random rnd = new Random();
-                                                <span style="text-align: center;font-size:25px" class="span2"> @rnd.Next(14) </span>
+                                                <span style="text-align: center;font-size:25px" class="span2 stroke2"> @rnd.Next(14) </span>
                                                 <span style="text-align: center;font-size:25px">-</span>
-                                                <span style="text-align: center;font-size:25px" class="span2"> @rnd.Next(14) </span>
+                                                <span style="text-align: center;font-size:25px" class="span2 stroke2"> @rnd.Next(14) </span>
                                             }
                                             else if (ViewBag.matches.Scores[0].TeamScore != 0)
                                             {
                                                 Random rnd = new Random();
-                                                <span style="text-align: center;font-size:25px" class="span2"> 16 </span>
+                                                <span style="text-align: center;font-size:25px" class="span2 stroke2"> 16 </span>
                                                 <span style="text-align: center;font-size:25px">-</span>
-                                                <span style="text-align: center;font-size:25px" class="span2"> @rnd.Next(14) </span>
+                                                <span style="text-align: center;font-size:25px" class="span2 stroke2"> @rnd.Next(14) </span>
                                             }
                                             else
                                             {
                                                 Random rnd = new Random();
-                                                <span style="text-align: center;font-size:25px" class="span2"> @rnd.Next(14) </span>
+                                                <span style="text-align: center;font-size:25px" class="span2 stroke2"> @rnd.Next(14) </span>
                                                 <span style="text-align: center;font-size:25px">-</span>
-                                                <span style="text-align: center;font-size:25px" class="span2"> 16 </span>
+                                                <span style="text-align: center;font-size:25px" class="span2 stroke2"> 16 </span>
                                             }
                                         </span>
                                     }
@@ -343,16 +343,16 @@
                                 </div>
                                 <div>
                                     <div class="" style="display:flex; text-align:left;width:100%;margin-top:3%;margin-bottom:3%">
-                                        <span class="bestof" style="text-align:left">Best of @ViewBag.matches.NumberOfGames</span>
+                                        <span class="bestof stroke2" style="text-align:left" id="toTranslate">Best of @ViewBag.matches.NumberOfGames</span>
                                         @if (ViewBag.matches.TimeType.ToString().ToLower() != "upcoming")
                                         {
-                                            <span style="margin:auto">@ViewBag.pickedMaps[lista.Count() -1]</span>
+                                            <span class="stroke2" style="margin:auto">@ViewBag.pickedMaps[lista.Count() -1]</span>
                                         }
                                         else
                                         {
                                             <span style="margin:auto"> </span>
                                         }
-                                        <span style="text-align:right">Tier: @Char.ToUpper(ViewBag.matches.Tier)</span><br />
+                                        <span class="stroke2" style="text-align:right">Tier: @Char.ToUpper(ViewBag.matches.Tier)</span><br />
 
                                     </div>
 
@@ -360,10 +360,10 @@
                                         @if (ViewBag.matches.TimeType.ToString().ToLower() != "upcoming")
                                         {
                                             Random rnd = new Random();
-                                            <span class="bestof" style="text-align:left">Duration: @(rnd.Next(15) + 45) min</span>
+                                            <span class="bestof stroke" style="text-align:left;font-size:20px" id="toTranslate">Duration: @(rnd.Next(15) + 45) min</span>
                                         }
-                                        <span style="margin:auto"> </span>
-                                        <span style="text-align:right;"> @ViewBag.matches.BeginAt.ToString("dddd - dd-MM-yyyy hh:mm") </span><br />
+                                        <span class="stroke" style="margin:auto;"> </span>
+                                        <span class="stroke" style="text-align:right;font-size:20px"> @ViewBag.matches.BeginAt.ToString("dddd | dd-MM-yyyy | hh:mm")H </span><br />
                                     </div>
 
                                     @*<div style="display:flex; width:100%; padding:0px;">
@@ -393,7 +393,7 @@
                             @if (ViewBag.matches.TimeType.ToString().ToLower() == "upcoming")
                             {
                                 <div style="width:100%; justify-content: center;display: flex;">
-                                    <span>
+                                    <span id="toTranslate">
                                         Not Starded
                                     </span>
                                 </div>
@@ -402,7 +402,7 @@
                             <div class=" " style="border-top-left-radius:15px;border-top-right-radius:15px; " name="FirstTeam">
 
                                 <div style="display:flex;width:100%;margin:auto; justify-content:center; ">
-                                    <a href="@Url.Action("getTeam", "Stats", new {id = @ViewBag.matches.TeamsList[0].TeamAPIID, type = @ViewBag.matches.TimeType.ToString().ToLower() ,game = ViewBag.dropDownGame})" style="justify-content: space-around; margin-left: auto; margin-bottom:0px">
+                                    <a href="@Url.Action("getTeam", "Stats", new {id = @ViewBag.matches.TeamsList[0].TeamAPIID, type = @ViewBag.matches.TimeType.ToString().ToLower() ,game = ViewData["game"].ToString()})" style="justify-content: space-around; margin-left: auto; margin-bottom:0px">
                                     <span style=" display: flex;align-items: center;justify-content: center;margin:auto;font-weight:500" class="stroke">                                       
                                         <img src=@ViewBag.matches.TeamsList[0].Image style="width:100px" />                               
                                     </span>
@@ -410,7 +410,7 @@
                                     <span class="stroke" style="text-align: center;font-weight:bold;font-size:15px;margin:auto;font-size:25px;font-weight:700"> vs </span>
 
                                     <span class="stroke" style=" display: flex;align-items: center;justify-content: center;margin:auto">
-                                        <a href="@Url.Action("getTeam", "Stats", new {id = @ViewBag.matches.TeamsList[1].TeamAPIID, type = @ViewBag.matches.TimeType.ToString().ToLower() ,game = ViewBag.dropDownGame})" style="justify-content: space-around; margin-left: auto; margin-bottom:0px">
+                                        <a href="@Url.Action("getTeam", "Stats", new {id = @ViewBag.matches.TeamsList[1].TeamAPIID, type = @ViewBag.matches.TimeType.ToString().ToLower() ,game = ViewData["game"].ToString()})" style="justify-content: space-around; margin-left: auto; margin-bottom:0px">
                                         <img src=@ViewBag.matches.TeamsList[1].Image style="width:100px" />
                                         </a>
                                     </span>
@@ -443,7 +443,7 @@
                             </div>
                             
                             <div class="" style="display:flex; text-align:left;width:100%;margin-top:3%;margin-bottom:3%">
-                                <span class="bestof " style="text-align:left;font-weight:700">Best of @ViewBag.matches.NumberOfGames</span>
+                                <span class="bestof " style="text-align:left;font-weight:700" id="toTranslate">Best of @ViewBag.matches.NumberOfGames</span>
                                 @if (ViewBag.matches.TimeType.ToString().ToLower() != "upcoming")
                                 {
                                     <span style="margin:auto;font-weight:700">@ViewBag.pickedMaps[0]</span>
@@ -460,10 +460,10 @@
                                 @if (ViewBag.matches.TimeType.ToString().ToLower() != "upcoming")
                                 {
                                     Random rnd = new Random();
-                                    <span class="bestof" style="text-align:left;margin-top:0pc;margin-bottom:0px;font-weight:700">Duration: @(rnd.Next(15) + 45) min</span>
+                                    <span class="bestof" style="text-align:left;margin-top:0pc;margin-bottom:0px;font-weight:700" id="toTranslate">Duration: @(rnd.Next(15) + 45) min</span>
                                 }
                                 <span style="margin:auto;margin-top:0pc;margin-bottom:0px;font-weight:700"> </span>
-                                <span style="text-align:right;margin-top:0pc;margin-bottom:0px;font-weight:700;"> @ViewBag.matches.BeginAt.ToString("dddd - dd-MM-yyyy hh:mm") </span><br />
+                                <span style="text-align:right;margin-top:0pc;margin-bottom:0px;font-weight:700;"> @ViewBag.matches.BeginAt.ToString("dddd | dd-MM-yyyy | hh:mm")H </span><br />
                             </div>
 
                                 @*<div style="display:flex; width:100%; padding:0px;">
@@ -483,7 +483,7 @@
                                 <div class="" style="font-weight:bold;font-size:20px; text-align:center">
                                     <span>Maps</span>
                                 </div>
-                                <div style=" display:flex;width:100%;padding:1%">
+                                <div class="stroke" style=" display:flex;width:100%;padding:1%">
 
                                     @for (int i = 0; i < ((List<string>)ViewBag.mapsNames).Count(); i++)
                                     {
@@ -511,19 +511,19 @@
                                                 {
                                                     if (ViewBag.matches.TimeType.ToString().ToLower() != "running")
                                                     {
-                                                        <span style="text-align: left;margin-left:38%;font-weight:700" class="span2"> Not Started </span>
+                                                        <span style="text-align: left;margin-left:38%;font-weight:700" class="span2" id="toTranslate"> Not Started </span>
                                                     }
                                                     else
                                                     {
-                                                        <span style="text-align: left;margin-left:38%;font-weight:700" class="span2"> Not Played </span>
+                                                        <span style="text-align: left;margin-left:38%;font-weight:700" class="span2" id="toTranslate"> Not Played </span>
                                                     }
                                                 }
-                                                <p style="text-align: center;margin-bottom:0px;font-weight:700"> Picked up by
+												<p style="text-align: center;margin-bottom:0px;font-weight:700"> <span id="toTranslate">Picked by</span>
                                                 <p style="text-align: center;margin-top:0px;margin-bottom:0px;font-weight:700"> @ViewBag.matches.TeamsList[0].Name</p>
                                                 @if (nGames > 1)
                                                 {
                                                     Random rnd = new Random();
-                                                    <p style="margin-top:1%;margin-bottom:2px;font-size:15px; margin-left:2%;font-weight:700"> Duration: @(rnd.Next(15) + 45) min </p>
+                                                    <p style="margin-top:1%;margin-bottom:2px;font-size:15px; margin-left:2%;font-weight:700" id="toTranslate"> Duration: @(rnd.Next(15) + 45) min </p>
                                                 }
 
                                             </div>
@@ -537,7 +537,7 @@
                                             {
                                                 var nGames = ViewBag.matches.Scores[0].TeamScore + ViewBag.matches.Scores[1].TeamScore;
                                                 var image = ViewBag.mapsImages[i];
-                                                <div class=" bordercolor whitecolor backMap2 stroke2" style="width:40% ;border-radius:15px;font-weight:700;margin:auto;background-image:url(@image)" name="Maps">
+                                                <div class=" bordercolor whitecolor backMap2 stroke" style="width:40% ;border-radius:15px;font-weight:700;margin:auto;background-image:url(@image)" name="Maps">
                                                     <span style="text-align: center;margin-left:38%;font-weight:700"> @ViewBag.pickedMaps[2] </span><br />
                                                     @if (nGames > 2)
                                                     {
@@ -556,20 +556,20 @@
                                                     {
                                                         if (ViewBag.matches.TimeType.ToString().ToLower() != "running")
                                                         {
-                                                            <span style="text-align: left;margin-left:38%;font-weight:700" class="span2"> Not Started </span>
+                                                            <span style="text-align: left;margin-left:38%;font-weight:700" class="span2" id="toTranslate"> Not Started </span>
                                                         }
                                                         else
                                                         {
-                                                            <span style="text-align: left;margin-left:38%;font-weight:700" class="span2"> Not Played </span>
+                                                            <span style="text-align: left;margin-left:38%;font-weight:700" class="span2" id="toTranslate"> Not Played </span>
                                                         }
                                                     }
 
-                                                    <p style="text-align: center;margin-bottom:0px;font-weight:700"> Picked up by</p>
+                                                    <p style="text-align: center;margin-bottom:0px;font-weight:700"> <span id="toTranslate">Picked by</span>
                                                     <p style="text-align: center;margin-top:0px;margin-bottom:0px;font-weight:700"> @ViewBag.matches.TeamsList[1].Name</p>
                                                     @if (nGames > 2)
                                                     {
                                                         Random rnd = new Random();
-                                                        <p style="margin-top:1%;margin-bottom:2px;font-size:15px;font-weight:700; margin-left:2%;"> Duration: @(rnd.Next(15) + 45) min    </p>
+                                                        <p style="margin-top:1%;margin-bottom:2px;font-size:15px;font-weight:700; margin-left:2%;" id="toTranslate"> Duration: @(rnd.Next(15) + 45) min    </p>
                                                     }
                                                 </div>
                                             }
@@ -579,7 +579,7 @@
 
                                 @if (((IList)ViewBag.pickedMaps).Count > 3)
                                 {
-                                    <div style=" display:flex;width:100%;padding:1%">
+                                    <div class="stroke2" style=" display:flex;width:100%;padding:1%">
 
                                         @for (int i = 0; i < ((List<string>)ViewBag.mapsNames).Count(); i++)
                                         {
@@ -587,38 +587,38 @@
                                             {
                                                 var nGames = ViewBag.matches.Scores[0].TeamScore + ViewBag.matches.Scores[1].TeamScore;
                                                 var image = ViewBag.mapsImages[i];
-                                                <div class="bordercolor backMap1" style="width:40% ;border-radius:15px;margin:auto;background-image:url(@image)" name="Maps">
+                                                <div class="bordercolor backMap1 stroke" style="width:40% ;border-radius:15px;margin:auto;background-image:url(@image)" name="Maps">
                                                     <span style="text-align: left;margin-left:38%;font-weight:bold"> @ViewBag.pickedMaps[0] </span><br />
                                                     @if (nGames > 3)
                                                     {
                                                         @if (ViewBag.matches.Scores[1].TeamScore > 1)
                                                         {
                                                             Random rnd = new Random();
-                                                            <span style="text-align: left;margin-left:38%;font-weight:700" class="span2"> @rnd.Next(14) vs 16</span>
+                                                            <span  style="text-align: left;margin-left:38%;font-weight:700" class="span2 stroke"> @rnd.Next(14) vs 16</span>
                                                         }
                                                         else
                                                         {
                                                             Random rnd = new Random();
-                                                            <span style="text-align: left;margin-left:38%;font-weight:700" class="span2"> 16 vs @rnd.Next(14) </span>
+                                                            <span  style="text-align: left;margin-left:38%;font-weight:700" class="span2 stroke"> 16 vs @rnd.Next(14) </span>
                                                         }
                                                     }
                                                     else
                                                     {
                                                         if (ViewBag.matches.TimeType.ToString().ToLower() != "running")
                                                         {
-                                                            <span style="text-align: left;margin-left:38%;font-weight:700" class="span2"> Not Started </span>
+                                                            <span style="text-align: left;margin-left:38%;font-weight:700" class="span2" id="toTranslate"> Not Started </span>
                                                         }
                                                         else
                                                         {
-                                                            <span style="text-align: left;margin-left:38%;font-weight:700" class="span2"> Not Played </span>
+                                                            <span style="text-align: left;margin-left:38%;font-weight:700" class="span2" id="toTranslate"> Not Played </span>
                                                         }
                                                     }
-                                                    <p style="text-align: center;font-weight:bold;margin-bottom:0px"> Picked up by
+                                                    <p style="text-align: center;font-weight:bold;margin-bottom:0px" id="toTranslate"> Picked by
                                                     <p style="text-align: center;margin-top:0px;margin-bottom:0px"> @ViewBag.matches.TeamsList[0].Name</p>
                                                     @if (nGames > 3)
                                                     {
                                                             Random rnd = new Random();
-                                                        <p style="margin-top:1%;margin-bottom:2px;font-size:15px; margin-left:2%;"> Duration: @(rnd.Next(15) + 45) min    </p>
+                                                        <p style="margin-top:1%;margin-bottom:2px;font-size:15px; margin-left:2%;" id="toTranslate"> Duration: @(rnd.Next(15) + 45) min    </p>
                                                     }
                                                 </div>
                                             }
@@ -630,19 +630,19 @@
                                             {
                                                 var nGames = ViewBag.matches.Scores[0].TeamScore + ViewBag.matches.Scores[1].TeamScore;
                                                 var image = ViewBag.mapsImages[i];
-                                                <div class=" bordercolor backMap2" style="width:40% ;border-radius:15px;margin:auto;background-image:url(@image)" name="Maps">
+                                                <div class=" bordercolor backMap2 stroke" style="width:40% ;border-radius:15px;margin:auto;background-image:url(@image)" name="Maps">
                                                     <span style="text-align: center;margin-left:38%;font-weight:bold"> @ViewBag.pickedMaps[1] </span><br />
                                                     @if (nGames > 4)
                                                     {
                                                         @if (ViewBag.matches.Scores[0].TeamScore > 2)
                                                         {
                                                             Random rnd = new Random();
-                                                            <span style="text-align: left;margin-left:38%;font-weight:700" class="span2"> 16 vs @rnd.Next(14) </span>
+                                                            <span  style="text-align: left;margin-left:38%;font-weight:700" class="span2 stroke"> 16 vs @rnd.Next(14) </span>
                                                         }
                                                         else
                                                         {
                                                             Random rnd = new Random();
-                                                            <span style="text-align: left;margin-left:38%;font-weight:700" class="span2"> @rnd.Next(14) vs 16</span>
+                                                            <span  style="text-align: left;margin-left:38%;font-weight:700" class="span2 stroke"> @rnd.Next(14) vs 16</span>
                                                         }
                                                         <br />
                                                     }
@@ -650,19 +650,19 @@
                                                     {
                                                         if (ViewBag.matches.TimeType.ToString().ToLower() != "running")
                                                         {
-                                                            <span style="text-align: left;margin-left:38%;font-weight:700" class="span2"> Not Played </span>
+                                                            <span style="text-align: left;margin-left:38%;font-weight:700" class="span2" id="toTranslate"> Not Played </span>
                                                         }
                                                         else
                                                         {
-                                                            <span style="text-align: left;margin-left:38%;font-weight:700" class="span2"> Not Started </span>
+                                                            <span style="text-align: left;margin-left:38%;font-weight:700" class="span2" id="toTranslate"> Not Started </span>
                                                         }
                                                     }
-                                                    <p style="text-align: center;font-weight:bold;margin-bottom:0px "> Picked up by
+                                                    <p style="text-align: center;font-weight:bold;margin-bottom:0px " id="toTranslate"> Picked by
                                                     <p style="text-align: center;margin-top:0px;margin-bottom:0px"> @ViewBag.matches.TeamsList[1].Name</p>
                                                     @if (nGames > 4)
                                                     {
                                                             Random rnd = new Random();
-                                                        <p style="margin-top:1%;margin-bottom:2px;font-size:15px; margin-left:2%;"> Duration: @(rnd.Next(15) + 45) min    </p>
+                                                        <p style="margin-top:1%;margin-bottom:2px;font-size:15px; margin-left:2%;" id="toTranslate"> Duration: @(rnd.Next(15) + 45) min    </p>
                                                     }
                                                 </div>
                                             }
@@ -682,7 +682,7 @@
 
                                     <table class="tableDetails" name="FirstTeam" style="width:100% !important;margin:auto;margin-bottom:5%; text-align:center">
                                         <tr>
-                                            <a href="@Url.Action("getTeam", "Stats", new {id = @ViewBag.matches.TeamsList[0].TeamAPIID, type = @ViewBag.matches.TimeType.ToString().ToLower() ,game = ViewBag.dropDownGame})" style="justify-content: space-around; margin-left: auto; margin-bottom:0px">
+                                            <a href="@Url.Action("getTeam", "Stats", new {id = @ViewBag.matches.TeamsList[0].TeamAPIID, type = @ViewBag.matches.TimeType.ToString().ToLower() ,game = ViewData["game"].ToString()})" style="justify-content: space-around; margin-left: auto; margin-bottom:0px">
                                             <th style="width:12%">@ViewBag.matches.TeamsList[0].Name</th>
                                             </a>
                                             <th class="headshot" style="width:12%" title="Kills">
@@ -894,9 +894,9 @@
 
             @* ---------------------------------------------------------------------------*@
 
-            <div class="box1" style="border-radius:15px;">
+            <div class="box1 responsive" style="border-radius:15px;">
                 <div class="borders bordercolor darkcolor" style="border-radius:15px">
-                    <a style="text-decoration: none" href="@Url.Action("getTeam", "Stats", new {id = @ViewBag.matches.TeamsList[1].TeamAPIID, type = @ViewBag.matches.TimeType.ToString().ToLower() ,game = ViewBag.dropDownGame})" style="justify-content: space-around; margin-left: auto; margin-bottom:0px">
+                    <a style="text-decoration: none" href="@Url.Action("getTeam", "Stats", new {id = @ViewBag.matches.TeamsList[1].TeamAPIID, type = @ViewBag.matches.TimeType.ToString().ToLower() ,game = ViewData["game"].ToString()})" style="justify-content: space-around; margin-left: auto; margin-bottom:0px">
                         <h4 style="font-weight: bold;text-align:center;">@ViewBag.matches.TeamsList[1].Name</h4>
                     </a>
                     @if (((List<Player>)@ViewBag.matches.TeamsList[1].Players).Count() != 0)
@@ -905,12 +905,12 @@
                         {
                             <div style="display:flex;align-items: center;">
                                 <div class="" style="padding:10px;width:50%;text-align:right">
-                                    <a style="text-decoration: none" href="@Url.Action("getPlayer", "Stats", new {id = item.PlayerAPIId, type = @ViewBag.matches.TimeType.ToString().ToLower() ,game = ViewBag.dropDownGame})" style="justify-content: space-around; margin-left: auto; margin-bottom:0px">
+                                    <a style="text-decoration: none" href="@Url.Action("getPlayer", "Stats", new {id = item.PlayerAPIId, type = @ViewBag.matches.TimeType.ToString().ToLower() ,game = ViewData["game"].ToString()})" style="justify-content: space-around; margin-left: auto; margin-bottom:0px">
                                         <img src=@item.Image style="width:50%;height:auto" />
                                     </a>
                                 </div>
                                 <div style="width:50%; text-align:left">
-                                    <a style="text-decoration: none" href="@Url.Action("getPlayer", "Stats", new {id = item.PlayerAPIId, type = @ViewBag.matches.TimeType.ToString().ToLower() ,game = ViewBag.dropDownGame})" style="justify-content: space-around; margin-left: auto; margin-bottom:0px">
+                                    <a style="text-decoration: none" href="@Url.Action("getPlayer", "Stats", new {id = item.PlayerAPIId, type = @ViewBag.matches.TimeType.ToString().ToLower() ,game = ViewData["game"].ToString()})" style="justify-content: space-around; margin-left: auto; margin-bottom:0px">
                                         <p style="margin:auto"> @item.Name </p>
                                     </a>
                                 </div>
@@ -919,10 +919,10 @@
                     }
                     else
                     {
-                        <span>No Players Found</span>
+                        <span id="toTranslate">No Players Found</span>
                     }
                 </div>
-                <div class="borders bordercolor darkcolor" style="border-radius:15px;margin-top:5%">
+                <div class="borders bordercolor darkcolor" style="border-radius:15px;margin-top:5%;margin-bottom:10%">
                     <h4 style="text-align:left">
                         Streams
                     </h4>
@@ -945,7 +945,7 @@
                     }
                     else
                     {
-                        <span>No Streams Found</span>
+                        <span id="toTranslate">No Streams Found</span>
                     }
                 </div>
             </div>

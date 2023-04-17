@@ -10,7 +10,7 @@ namespace FPTV.Models.Forum
 
         [Required]
         [Display(Name = "Reaction")]
-        public ReationType? ReactionEmoji { get; set; }
+        public ReactionType? ReactionEmoji { get; set; }
 
 		//[Display(Name = "User ID")]
 		//[ForeignKey("ProfileId")]

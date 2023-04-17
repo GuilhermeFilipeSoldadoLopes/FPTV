@@ -15,6 +15,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileSystemGlobbing;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using NuGet.Common;
 using RestSharp;
 using SendGrid.Helpers.Mail;
 using System;
@@ -22,7 +23,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Net;
 using System.Numerics;
 using System.Runtime.Intrinsics.Arm;
 using System.Runtime.Intrinsics.X86;
@@ -52,9 +55,9 @@ namespace FPTV.Controllers
         //De CSGO e de Valorant
         // GET: CSMatches
         public ActionResult Index(string sort = "", string filter = "", string page = "&page=1", string game = "csgo")
-        {
-            ViewBag.dropDownGame = game;
-            ViewBag.page = "Matches";
+		{
+			ViewData["game"] = game;
+			ViewBag.page = "Matches";
             //Request processing with RestSharp
             var jsonFilter = (filter == "" || filter == "livestream") ? "" : "filter[" + filter + "]=true&";
             var jsonSort = (sort == "" || sort == "tournament") ? "" : sort;
@@ -69,6 +72,11 @@ namespace FPTV.Controllers
             var runningMatches = getAPIMatches(fullApiPath, game);
             fullApiPath = requestLink + "upcoming?" + jsonFilter + jsonSort + jsonPage + jsonPerPage + token;
             var upcomingMatches = getAPIMatches(fullApiPath, game);
+
+            if (pastMatches == null || runningMatches == null || upcomingMatches == null)
+            {
+                return View("~/Views/Home/Error404.cshtml");
+            }
 
             List<int> dbMatchesIds = game == "csgo" ? _context.MatchesCS.Select(m => m.MatchesAPIID).ToList() : _context.MatchesVal.Select(m => m.MatchesAPIID).ToList();
 
@@ -145,10 +153,12 @@ namespace FPTV.Controllers
             var client = new RestClient(fullApiPath);
             var request = new RestRequest("", Method.Get);
             request.AddHeader("accept", "application/json");
-            var json = client.Execute(request).Content;
+            var response = client.Execute(request);
+            var json = response.Content;
 
-            if (json == null)
+            if(response.StatusCode != System.Net.HttpStatusCode.OK || json == null)
             {
+                registerErrorLog(response.StatusCode);
                 return null;
             }
 
@@ -307,9 +317,9 @@ namespace FPTV.Controllers
         }
 
         public ActionResult Results(int days = 0, string game = "csgo")
-        {
-            ViewBag.dropDownGame = game;
-            ViewBag.page = "Results";
+		{
+			ViewData["game"] = game;
+			ViewBag.page = "Results";
             ViewBag.days = days;
 
             var day = DateTime.Now.AddDays(-days).ToString("yyyy-MM-dd");
@@ -323,10 +333,12 @@ namespace FPTV.Controllers
             var client = new RestClient(fullApiPath);
             var request = new RestRequest("", Method.Get);
             request.AddHeader("accept", "application/json");
-            var json = client.Execute(request).Content;
+            var response = client.Execute(request);
+            var json = response.Content;
 
-            if (json == null)
-            {
+            if (response.StatusCode != System.Net.HttpStatusCode.OK || json == null)
+			{
+				registerErrorLog(response.StatusCode);
                 return View("~/Views/Home/Error404.cshtml");
             }
 
@@ -489,10 +501,9 @@ namespace FPTV.Controllers
         }
 
         public ActionResult MatchDetails(int id = 0, string type = "past", string game = "csgo")
-
-        {
-            ViewBag.dropDownGame = game;
-            ViewBag.page = "Matches";
+		{
+			ViewData["game"] = game;
+			ViewBag.page = "Matches";
             Random rnd = new Random();
 
             var jsonFilter = "filter[id]=" + id;
@@ -504,17 +515,21 @@ namespace FPTV.Controllers
             var client = new RestClient(fullApiPath);
             var request = new RestRequest("", Method.Get);
             request.AddHeader("accept", "application/json");
-            var json = client.Execute(request).Content;
-
-            if (json == null)
-            {
-                return View("~/Views/Home/Error404.cshtml");
-            }
+            var response = client.Execute(request);
+            var json = response.Content;
 
             dynamic matches = game == "csgo" ? new MatchesCS() : new MatchesVal();
             dynamic matchesPlayer = game == "csgo" ? new List<MatchPlayerStatsCS>() : new List<MatchPlayerStatsVal>();
 
             var matchesArray = JArray.Parse(json);
+
+            if (response.StatusCode != System.Net.HttpStatusCode.OK || json == null || matchesArray.Count() == 0)
+            {
+                ViewBag.dropDownGame = game;
+                registerErrorLog(response.StatusCode);
+                return View("~/Views/Home/Error404.cshtml");
+            }
+
             var matchesObject = (JObject)matchesArray[0];
 
             var status = matchesObject.GetValue("status");
@@ -641,10 +656,12 @@ namespace FPTV.Controllers
                 client = new RestClient(fullApiPath);
                 request = new RestRequest("", Method.Get);
                 request.AddHeader("accept", "application/json");
-                var teamsJson = client.Execute(request).Content;
+                response = client.Execute(request);
+                var teamsJson = response.Content;
 
-                if (teamsJson == null)
-                {
+                if (response.StatusCode != System.Net.HttpStatusCode.OK || teamsJson == null)
+				{
+					registerErrorLog(response.StatusCode);
                     return View("~/Views/Home/Error404.cshtml");
                 }
 
@@ -729,10 +746,12 @@ namespace FPTV.Controllers
             client = new RestClient(fullApiPath);
             request = new RestRequest("", Method.Get);
             request.AddHeader("accept", "application/json");
-            var mapsJson = client.Execute(request).Content;
+            response = client.Execute(request);
+            var mapsJson = response.Content;
 
-            if (mapsJson == null)
-            {
+            if (response.StatusCode != System.Net.HttpStatusCode.OK || mapsJson == null)
+			{
+				registerErrorLog(response.StatusCode);
                 return View("~/Views/Home/Error404.cshtml");
             }
 
@@ -798,6 +817,23 @@ namespace FPTV.Controllers
         public ActionResult TeamStats()
         {
             return View();
+        }
+
+        private void registerErrorLog(HttpStatusCode statusCode)
+        {
+            /*
+            public string? Error { get; set; }
+            public DateTime Date { get; set; }
+            public Guid UserId { get; set; }
+            public virtual Profile? Profile { get; set; }*/
+
+            ErrorLog error = new ErrorLog();
+
+            error.Error = "MatchesController.cs -> " + statusCode.ToString();
+            error.Date = DateTime.Now;
+
+            _context.ErrorLog.Add(error);
+            _context.SaveChanges();
         }
 
         /*// De CSGO e de Valorant

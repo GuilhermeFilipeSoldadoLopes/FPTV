@@ -1,0 +1,74 @@
+﻿@model FPTV.Models.Forum.Topic
+@{
+    ViewData["Title"] = "New Topic +";
+}
+<!DOCTYPE html>
+
+<head>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<html>
+	<style>
+		.central {
+			width: 100%;
+			margin: 0 auto;
+			text-align: center;
+			height:100%;
+			background-color: white;
+		}
+
+		.center {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+		tr, td, th{
+			border-width: 1px;
+		}
+
+		
+	</style>
+
+<body onload="chart()" class="bodytemp">
+	<div class="box darkcolor bordercolor" style="width:60%; border-radius:15px;margin:auto; margin-top:0px ;text-align: center;">
+		<h2 style="margin-top:3%;font-weight:bold" id="toTranslate"> @ViewData["Title"]</h2>
+
+		<div style="width:100%;margin:auto;">
+			<form asp-controller="Forum" asp-action="Create" method="post">
+
+			<div style="width:100%">
+					<span asp-validation-for="Title" class="text-danger"></span>
+					
+					<textarea asp-for="Title" rows="1" cols="50" style="width:85%;margin:3%;margin-bottom:0px" id="Title" name="Title" placeholder="Title"></textarea>
+			</div> <br />
+
+			<div style="width:100%">
+					<span asp-validation-for="Content" class="text-danger"></span>
+					
+					<textarea asp-for="Content" rows="5" cols="50" style="width:85%;margin:3%;margin-top:0px;" id="Content" name="Content" placeholder="Content"></textarea>
+			</div>
+				<input type="hidden" value="@ViewBag.Game" name="Game" />
+
+			<div  style="width:100%; display:flex; justify-content:center; margin:auto">
+
+				<button class="btncancel bordercolor " type="button" onclick="window.location= '@Url.Action("Index", "Forum")'"style="width:30%; margin:3%;color:black" id="toTranslate">Cancel</button>
+
+				<button class=" bordercolor " type="submit" style="width:30%;margin:3%;color:black" id="toTranslate">Confirm</button>
+				 
+			</div>
+			</form>
+		</div>
+	</div>
+	
+
+</body>
+
+</html>
+
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+}

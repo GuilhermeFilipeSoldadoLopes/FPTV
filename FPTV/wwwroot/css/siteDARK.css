@@ -1,6 +1,9 @@
+.toTranslate[data-original-text] {
+    display: none;
+}
+
 html {
     font-size: 14px;
-
 }
 
 @media (min-width: 768px) {
@@ -9,6 +12,48 @@ html {
     }
 }
 
+@media (max-width: 767px) {
+
+    .nomargin{
+        margin-left:0px !important;
+        margin-right:0px !important;
+    }
+    .box {
+        flex-direction: column;
+    }
+    .box1 {
+        flex-direction: column;
+        flex-direction: column;
+        justify-content: center;
+       
+    }
+    
+    .boxwidth{
+        width:100%;
+        margin:0;
+    }
+    .ola {
+        flex-direction: column;
+        justify-content:center;
+    }
+    
+    .bordercolor {
+        width: 100%;
+        margin: auto;
+        text-align: center;
+        margin-top: 10px;
+    }
+    .responsive {
+        width: 100% !important;
+    }
+    .marginbottomRes {
+        margin-bottom: 3% !important;
+    }
+}
+
+.responsive {
+    width: 40%;
+}
 html {
     position: relative;
     min-height: 100%;
@@ -17,7 +62,6 @@ html {
 body {
    /* margin-bottom: 60px;*/
     font-family: Noto Sans;
-    
 }
 
 .darktheme {
@@ -274,10 +318,38 @@ bordercolor2 {
     -webkit-text-stroke-color: black;
 }
 
+.stroke3 {
+    -webkit-text-stroke-width: 1.5px;
+    -webkit-text-stroke-color: black;
+}
+
 .whitecolor {
     color: white;
 }
 
 .prizepoolColor {
     background-color: #4b5b6e;
+}
+
+.button3 {
+    background-color: #373737;
+    color: white;
+    width: 100%;
+    padding: 10px 20px;
+    margin-left: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.hrstyle {
+    border: 1px solid white;
+    width:100%;
+}
+
+.btncancel {
+    background-color: lightgray;
+}
+
+.borderRedTop {
+    border-top: 1px solid #CC0033;
 }

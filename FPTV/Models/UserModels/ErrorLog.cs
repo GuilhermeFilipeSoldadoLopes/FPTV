@@ -9,6 +9,7 @@ namespace FPTV.Models.UserModels
         [Display(Name = "Error Log ID")]
         public Guid ErrorLogId { get; set; }
 
+        //Descrição do erro
         [Required]
         [Display(Name = "Error")]
         public string? Error { get; set; }
@@ -19,10 +20,9 @@ namespace FPTV.Models.UserModels
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime Date { get; set; }
 
-        [Required]
         [Display(Name = "User ID")]
         [ForeignKey("Profile")]
-        public Guid UserId { get; set; }
+        public Guid? UserId { get; set; }
 
         [Display(Name = "User")]
         public virtual Profile? Profile { get; set; }

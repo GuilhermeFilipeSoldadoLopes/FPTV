@@ -46,9 +46,9 @@
                 <div class="row">
                     <div class="col-md-4" style="width:70%; ">
                         <h3>
-                            <h1>@ViewData["Title"]</h1>
+                            <h1 id="toTranslate" style="text-transform: capitalize;">@ViewData["Title"]</h1>
                         </h3>
-                        <partial name="_StatusMessage" model="Model.StatusMessage" />
+                        <partial name="_StatusMessage" model="Model.StatusMessage" id="toTranslate" />
                     </div>
                 </div>
             </div>

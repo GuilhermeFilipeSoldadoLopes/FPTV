@@ -57,7 +57,20 @@
                 <div style=";width:50%">
                     <button class="btnTeam" style="width: 100%; border-radius:15px;padding:0px; text-align:left; margin-left:5px">
                         <span style="">
-                            Remove From Favorite <img src="~/images/mvp.png" style="width:6%;margin-left:1%;">
+                            <a href="@Url.Action("addTeamToFav", "Stats", new {id = ViewBag.team.TeamAPIID, game = ViewData["game"]})" style="justify-content: space-around; margin-bottom:0px;text-decoration:none;text-">
+                                @if (ViewBag.isFav)
+                                {
+                                    <h5>
+                                        Remove From Favorite <img src="~/images/mvp.png" style="width:6%;margin-left:1%;">
+                                    </h5>
+                                }
+                                else
+                                {
+                                    <h5>
+                                        Add To Favorite <img src="~/images/mvp.png" style="width:6%;margin-left:1%;">
+                                    </h5>
+                                }
+                            </a>
                         </span>
                     </button>
                 </div>
@@ -75,7 +88,7 @@
             @foreach (var item in @ViewBag.team.Players)
             {
                 <div style="display:flex; justify-content:center; align-items: center;padding:1%;width:100%">
-                    <a href="@Url.Action("getPLayer", "Stats", new {id = @item.PlayerAPIId, @*type = @ViewBag.matches.TimeType.ToString().ToLower()*@ game = ViewBag.dropDownGame})" style="justify-content: space-around; margin-bottom:0px">
+                    <a href="@Url.Action("getPLayer", "Stats", new {id = @item.PlayerAPIId, @*type = @ViewBag.matches.TimeType.ToString().ToLower()*@ game = ViewData["game"].ToString()})" style="justify-content: space-around; margin-bottom:0px">
                         <img src=@item.Image alt="logo" @*class="logo2"*@ height="125px" width="100px" style="max-width: 150px;padding:3%">
                         <h3 class="h3">@item.Name</h3>
                     </a>
@@ -93,7 +106,7 @@
                     var losses_ratio = Math.Round((double)@ViewBag.randomMapsPlayed / @ViewBag.team.Losses, 2);
                 }
                 <tr>
-                    <td style="width:40%">World Ranking</td>
+                    <td style="width:40%; text-transform: capitalize;" id="toTranslate">World Ranking</td>
                     <td>
                         <span> @ViewBag.team.WorldRank</span>
                         <span>
@@ -109,7 +122,7 @@
 
                 </tr>
                 <tr>
-                    <td style="width:40%">Total Wins</td>
+                    <td style="width:40%; text-transform: capitalize;" id="toTranslate">Total Wins</td>
                     <td>
                         <span> @ViewBag.team.Winnings</span>
                         <span>
@@ -124,7 +137,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td style="width:40%">Total Losses</td>
+                    <td style="width:40%; text-transform: capitalize;" id="toTranslate">Total Losses</td>
                     <td>
                         <span> @ViewBag.team.Losses</span>
                         <span>
@@ -140,7 +153,7 @@
 
                 </tr>
                 <tr>
-                    <td style="width:40%">Matches Played</td>
+                    <td style="width:40%; text-transform: capitalize;" id="toTranslate">Matches Played</td>
                     <td>@ViewBag.randomMapsPlayed</td>
                 </tr>
             </table>

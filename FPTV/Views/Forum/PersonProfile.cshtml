@@ -1,4 +1,5 @@
-﻿@page
+﻿@*
+@page
 @using FPTV.Models.Forum;
 @using FPTV.Models.UserModels;
 @model IndexModel
@@ -6,7 +7,8 @@
     ViewData["Title"] = "Profile";
     ViewData["ActivePage"] = ManageNavPages.Index;
 }
-
+*@
+@*
 <head>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -214,19 +216,22 @@
             <br />
 
             <div style="width:80%;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:black;background-color:white;border-width:1px;border-radius:10px;padding:10px;">
-                <h4 class="text-dark" style="text-transform: capitalize;" id="toTranslate">Favourite Players:</h4>
+                <h4 class="text-dark">Favourite Players:</h4>
                 <div style="padding-left:20px">
-                    @if (ViewData["FavCSPlayerList"] == null || ((List<Player>)ViewData["FavCSPlayerList"]).Count() == 0)
+                    @if (ViewData["FavPlayerListCSGO"] == null || ((List<FavPlayerList>)ViewData["FavPlayerListCSGO"]).Count() == 0)
                     {
-                        <span class="span2 text-dark" style="text-transform: capitalize;" id="toTranslate">No Favourite Players</span>
+                        <span class="span2 text-dark">No Favourite Players</span>
                         <br />
                     }
                     else
                     {
-                        foreach (var item in (List<Player>)ViewData["FavCSPlayerList"])
+                        foreach (var item in (List<FavPlayerList>)ViewData["FavPlayerListCSGO"])
                         {
-                            <span class="span2 text-dark">@item.Name</span>
-                            <br />
+                            foreach (var player in item.Players)
+                            {
+                                <span class="span2 text-dark">item.Name</span>
+                                <br />
+                            }
                         }
                     }
                 </div>
@@ -234,19 +239,22 @@
             <br />
 
             <div style="width:80%;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:black;background-color:white;border-width:1px;border-radius:10px;padding:10px;">
-                <h4 class="text-dark" style="text-transform: capitalize;" id="toTranslate">Favourite Teams:</h4>
+                <h4 class="text-dark">Favourite Teams:</h4>
                 <div style="padding-left:20px">
-                    @if (ViewData["FavCSTeamsList"] == null || ((List<Team>)ViewData["FavCSTeamsList"]).Count() == 0)
+                    @if (ViewData["FavTeamsListCSGO"] == null || ((List<FavTeamsList>)ViewData["FavTeamsListCSGO"]).Count() == 0)
                     {
-                        <span class="span2 text-dark"style="text-transform: capitalize;" id="toTranslate">No Favourite Teams</span>
+                        <span class="span2 text-dark">No Favourite Teams</span>
                         <br />
                     }
                     else
                     {
-                        foreach (var item in (List<Team>)ViewData["FavCSTeamsList"])
+                        foreach (var item in (List<FavTeamsList>)ViewData["FavTeamsListCSGO"])
                         {
-                            <span class="span2 text-dark">@item.Name</span>
-                            <br />
+                            foreach (var player in item.Teams)
+                            {
+                                <span class="span2 text-dark">item.Name</span>
+                                <br />
+                            }
                         }
                     }
                 </div>
@@ -255,18 +263,15 @@
         </div>
         
         <div class="box bordercolor" style="padding-top:20px;position:relative;border-width:0px;width:70%;margin-top: 0px">
-            <a style="position:absolute;top:2px;right:10%;align-items:center;" asp-area="Identity" asp-page="/Account/Manage/Edit" title="Edit">
-                <img class="headshot" style="width:30px;height:30px" src="~/images/Edit.png">
-            </a>
-
-            <img id="profilePicture" style="width:284px;height:284px;display:block;margin-left:auto;margin-right:auto;object-fit:cover;border-radius:50%" src="data:image/*;base64,@(Convert.ToBase64String(Model.Input.ProfilePicture))">
-            <span style="font-size:15px;width:90%;position:relative;display:block;text-align:right" id="toTranslate">@Model.Input.Date</span>
+            <img id="profilePicture" style="width:284px;height:284px;display:block;margin-left:auto;margin-right:auto;object-fit:cover;border-radius:50%" src="data:image/*;base64,@(Convert.ToBase64String(Model.ProfilePicture))">
+            <span style="font-size:15px;width:90%;position:relative;display:block;text-align:right">@Model.Input.Date</span>
             <br />
+
             <div class="text-dark" style="width:90%;position:relative;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:black;border-width:1px;border-radius:10px;padding:10px;background-color:white">
                 @Model.Input.Username
                 <img style="height:50%;width:auto;position:absolute;top:25%;right:10px;" src=@Model.Input.CountryImage>
             </div>
-            <label asp-for="Input.Username" class="form-label text-white" style="color:black;font-weight: bold;margin-left:5%" ></label>
+            <label asp-for="Input.Username" readonly class="form-label text-white" style="color:black;font-weight: bold;margin-left:5%"></label>
             <br />
 
             <div class="text-dark" style="width:90%;position:relative;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:black;border-width:1px;border-radius:10px;padding:10px;background-color:white">
@@ -276,19 +281,19 @@
                 }
                 else
                 {
-                    <span class="span2 text-dark" style="text-transform: capitalize;" id="toTranslate">No biography</span>
+                    <span class="span2 text-dark">No Bio</span>
                     <br />
                 }
             </div>
-            <label asp-for="Input.Bio" class="form-label text-white" style="color:black;font-weight: bold;margin-left:5%"></label>
+            <label asp-for="Input.Bio" readonly class="form-label text-white" style="color:black;font-weight: bold;margin-left:5%"></label>
             <br />
 
             <div style="width:90%;position:relative;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:black;border-width:1px;border-radius:10px;padding:10px;background-color:white">
-                <h4 class="text-dark" style="text-transform: capitalize;" id="toTranslate">Topics: </h4>
+                <h4 class="text-dark">Topics:</h4>
                 <div style="padding-left:20px">
                     @if (ViewData["Topics"] == null || ((List<Topic>)ViewData["Topics"]).Count() == 0)
                     {
-                        <span class="span2 text-dark" style="text-transform: capitalize;" id="toTranslate">No Topics</span>
+                        <span class="span2 text-dark">No Topics</span>
                         <br />
                     }
                     else
@@ -311,19 +316,22 @@
             <br />
 
             <div style="width:80%;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:black;background-color:white;border-width:1px;border-radius:10px;padding:10px;">
-                <h4 class="text-dark" style="text-transform: capitalize;" id="toTranslate">Favourite Players:</h4>
+                <h4 class="text-dark">Favourite Players:</h4>
                 <div style="padding-left:20px">
-                    @if (ViewData["FavValPlayerList"] == null || ((List<Player>)ViewData["FavValPlayerList"]).Count() == 0)
+                    @if (ViewData["FavPlayerListValorant"] == null || ((List<FavPlayerList>)ViewData["FavPlayerListValorant"]).Count() == 0)
                     {
-                        <span class="span2 text-dark" style="text-transform: capitalize;" id="toTranslate">No Favourite Players</span>
+                        <span class="span2 text-dark">No Favourite Players</span>
                         <br />
                     }
                     else
                     {
-                        foreach (var item in (List<Player>)ViewData["FavValPlayerList"])
+                        foreach (var item in (List<FavPlayerList>)ViewData["FavPlayerListValorant"])
                         {
-                            <span class="span2 text-dark">@item.Name</span>
-                            <br />
+                            foreach (var player in item.Players)
+                            {
+                                <span class="span2 text-dark">item.Name</span>
+                                <br />
+                            }
                         }
                     }
                 </div>
@@ -331,19 +339,22 @@
             <br />
 
             <div style="width:80%;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:black;background-color:white;border-width:1px;border-radius:10px;padding:10px;">
-                <h4 class="text-dark" style="text-transform: capitalize;" id="toTranslate">Favourite Teams:</h4>
+                <h4 class="text-dark">Favourite Teams:</h4>
                 <div style="padding-left:20px">
-                    @if (ViewData["FavValTeamsList"] == null || ((List<Team>)ViewData["FavValTeamsList"]).Count() == 0)
+                    @if (ViewData["FavTeamsListValorant"] == null || ((List<FavTeamsList>)ViewData["FavTeamsListValorant"]).Count() == 0)
                     {
-                        <span class="span2 text-dark" style="text-transform: capitalize;" id="toTranslate">No Favourite Teams</span>
+                        <span class="span2 text-dark">No Favourite Teams</span>
                         <br />
                     }
                     else
                     {
-                        foreach (var item in (List<Team>)ViewData["FavValTeamsList"])
+                        foreach (var item in (List<FavTeamsList>)ViewData["FavTeamsListValorant"])
                         {
-                            <span class="span2 text-dark">@item.Name</span>
-                            <br />
+                            foreach (var player in item.Teams)
+                            {
+                                <span class="span2 text-dark">item.Name</span>
+                                <br />
+                            }
                         }
                     }
                 </div>
@@ -356,3 +367,4 @@
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }
+*@

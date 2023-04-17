@@ -100,7 +100,7 @@ namespace FPTV.Migrations
                     ErrorLogId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Error = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -109,8 +109,7 @@ namespace FPTV.Migrations
                         name: "FK_ErrorLog_Profiles_UserId",
                         column: x => x.UserId,
                         principalTable: "Profiles",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -151,12 +150,14 @@ namespace FPTV.Migrations
                 name: "Topics",
                 columns: table => new
                 {
-                    TopicId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    TopicId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     GameType = table.Column<int>(type: "int", nullable: false),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ProfileId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    ProfileId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Reported = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -262,7 +263,8 @@ namespace FPTV.Migrations
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Text = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ProfileId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    TopicId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    TopicId = table.Column<int>(type: "int", nullable: true),
+                    Reported = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {

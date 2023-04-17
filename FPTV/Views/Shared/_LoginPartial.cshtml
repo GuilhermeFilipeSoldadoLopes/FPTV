@@ -11,93 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 
-<script>
-    //document.onreadystatechange = function(e)
-    //{
-    //    var checkBox = document.getElementById("myCheck");
-    //    if (document.readyState === 'complete')
-    //    {
-    //        changeCSS(0);
-    //        //dom is ready, window.onload fires later
-    //    }
-    //};
-    window.onload = function(e)
-    {
-        var checkBox = document.getElementById("myCheck");
-        //document.readyState will be complete, it's one of the requirements for the window.onload event to be fired
-        //do stuff for when everything is loaded
-        if (checkBox.checked == true) {
-            document.getElementById("myCheck").checked = true;
-        } else {
-            document.getElementById("myCheck").checked = false;
-        }
-        changeCSS(0);
-    };
 
-    function changeCSS(cssLinkIndex) {
-        var checkBox = document.getElementById("myCheck");
-        if (checkBox.checked == true) {
-            newstylesheet = "/css/siteDARK.css";
-        } else {
-            newstylesheet = "/css/site.css";
-        }
-
-        var oldlink = document.getElementsByTagName("link").item(cssLinkIndex);
-
-        var newlink = document.createElement("link");
-        newlink.setAttribute("rel", "stylesheet");
-        newlink.setAttribute("type", "text/css");
-        newlink.setAttribute("href", newstylesheet);
-
-        document.getElementsByTagName("head").item(cssLinkIndex).replaceChild(newlink, oldlink);
-    }
-
-    //var checkboxValue = JSON.parse(localStorage.getItem('checkboxValue')) || {}
-    //var $checkbox = $("#checkbox-container :checkbox");
-
-    //$checkbox.on("change", function () {
-    //    $checkbox.each(function () {
-    //        checkboxValue[this.id] = this.checked;
-    //    });
-    //    localStorage.setItem("checkboxValue", JSON.stringify(checkboxValue));
-    //});
-
-    ////on page load
-    //$.each(checkboxValue, function (key, value) {
-    //    $("#" + key).prop('checked', value);
-    //});
-
-    //$(function(){
-    //    var test = localStorage.input === 'true'? true: false;
-    //    $('input').prop('checked', test || false);
-    //});
-
-    //$('input').on('change', function() {
-    //    localStorage.input = $(this).is(':checked');
-    //    console.log($(this).is(':checked'));
-    //});
-</script>
-
-<script>
-    // document ready handler
-    // or $(document).ready(Function(){...
-    jQuery(function ($) {
-        var checkboxValue = JSON.parse(localStorage.getItem('checkboxValue')) || {}
-        var $checkbox = $("#checkbox-container :checkbox");
-
-        $checkbox.on("change", function () {
-            $checkbox.each(function () {
-                checkboxValue[this.id] = this.checked;
-            });
-            localStorage.setItem("checkboxValue", JSON.stringify(checkboxValue));
-        });
-
-        //on page load
-        $.each(checkboxValue, function (key, value) {
-            $("#" + key).prop('checked', value);
-        });
-    });
-</script>
 
 <style>
 	#rl:hover {
@@ -201,93 +115,147 @@
         transition: all 0.2s ease-in-out;
     }
 
-    
 </style>
 
-@{
-    string? returnUrl = null;
-    var query = ViewContext.HttpContext.Request.Query;
-    if (query.ContainsKey("returnUrl"))
-    {
-        returnUrl = query["returnUrl"];
+<body>
+    @{
+        string? returnUrl = null;
+        var query = ViewContext.HttpContext.Request.Query;
+        if (query.ContainsKey("returnUrl"))
+        {
+            returnUrl = query["returnUrl"];
+        }
     }
-}
 
-<ul class="navbar-nav" style="display:flex;align-content:end; width:30%; justify-content:end">
+    <ul class="navbar-nav" style="display:flex;align-content:end; width:30%; justify-content:end">
 
     
     
-    <div>
-        <div class="dropdown123" style="margin-top:15px; width:100%;">
-                <img src="~/images/settings.png" style="width:30px;margin-right:10px;">
-            <div class="dropdownContent12 bordercolor" style="background-color:white;padding:1%;">
+        <div>
+            <div class="dropdown123" style="margin-top:15px; width:100%;">
+                    <img src="~/images/settings.png" style="width:30px;margin-right:10px;">
+                <div class="dropdownContent12 bordercolor" style="background-color:white;padding:1%;">
 
-                <a class="dropdownItem1" style="display:flex;border-radius:15px;width:100%;padding:2%; text-decoration:none">
-                    <div style="margin-right:5px; margin-left:0px; text-decoration:none">
-                            <span class="" style="text-align:left;vertical-align:auto;color:black " >DarkMode</span>
-                       </div>
-                        <div id="checkbox-container" style="text-align:right;width:100%">
-                            <label class="switch1" >
-                            <input type="checkbox" id="myCheck" onclick="changeCSS(0);" value="DarkMode">
-                                <span class="slider round" style="text-align:right; "></span>
-                            </label>
+                    <a class="dropdownItem1" style="display:flex;border-radius:15px;width:100%;padding:2%; text-decoration:none">
+                    
+                            <div id="checkbox-container" style="text-align:right;width:100%">
+                                <label class="switch1" >
+                                <input type="checkbox" id="myCheck" onclick="changeCSS(0);" value="DarkMode">
+                                    <span class="slider round" style="text-align:right; "></span>
+                                </label>
+                            </div>
+                        <div style="margin-right:5px; margin-left:0px; text-decoration:none">
+                            <span class="" id="toTranslate" style="text-transform: capitalize; text-align:left;vertical-align:auto;color:black ;margin-left:5px;margin-top:10px;">DarkMode</span>
                         </div>
-                   </a>
-                <a class="dropdownItem1" style="display:flex;border-radius:15px;width:100%;padding:2%; text-decoration:none;margin:auto">
-                    <div style="margin-right:5px; margin-left:0px ;text-decoration:none">
-                        <span class="" style="text-align:left;text-decoration:none;color:black ">Português</span>
-                        </div>
-                        <div style="text-align:right; width:100%">
-                            <label class="switch1">
-                                <input type="checkbox">
-                                <span class="slider round" style="text-align:right; vertical-align:auto;"></span>
-                            </label>
-                        </div>
-                    </a>
+                       </a>
+                    <a class="dropdownItem1" style="display:flex;border-radius:15px;width:100%;padding:2%; text-decoration:none;margin:auto">
+                    
+                            <div style="text-align:right; width:100%">
+                                <label class="switch1">
+                                <input type="checkbox" id="language">
+                                    <span class="slider round" style="text-align:right; vertical-align:auto;"></span>
+                                </label>
+                            </div>
+                            <div style="margin-right:5px; margin-left:0px ;text-decoration:none">
+                            <span class="" id="toTranslate" style="text-transform: capitalize; text-align:left;text-decoration:none;color:black ;margin-left:5px;margin-top:10px;">Português</span>
+                            </div>
+                        </a>
+                </div>
             </div>
         </div>
-    </div>
 
-    @if (SignInManager.IsSignedIn(User))
-    {
-        <li class="nav-item" style="align-self: center; margin-top: 5px; margin-right: -5px">
-            @if (UserManager.GetUserAsync(User).Result != null && context.Profiles.Single(p => p.Id == UserManager.GetUserAsync(User).Result.ProfileId) != null)
+    
+
+        @if (SignInManager.IsSignedIn(User))
         {
-                <a class="nav-link text-dark" id="rl" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"><img style="width:40px;height:40px; object-fit:cover; border-radius:30px" src="data:image/*;base64,@(Convert.ToBase64String(context.Profiles.Single(p => p.Id == UserManager.GetUserAsync(User).Result.ProfileId).Picture))"></a>
-        }
-        </li>
-        <li class="nav-item" style="font-size: 22px; margin-top: 7px">
-            <a class="nav-link text-dark" id="rl" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">@User.Identity!.Name</a>
-	    </li>
-       @* <li class="nav-item" style="font-size: 30px; margin-top: 1px">
-		    /
-	    </li>*@
-        <li class="nav-item" style="margin-top: -8px;">
-            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="/">
-                <button type="submit" id="rl" style="font-size: 22px" class="nav-link btn btn-link text-dark settingsBTN">
-
-                    <img src="~/images/logout.png" style="width:30px;text-align:center;margin-top: 25px;margin-right:3px;">
-
-                </button>
-                
-            </form>
-        </li>
-    }
-    else
-    {
-	   
-	        <li class="nav-item">
-                <a class="nav-link text-dark" id="rl" style="font-size: 25px; border-left: 1.6px solid Black" asp-area="Identity" asp-page="/Account/Register" asp-route-returnUrl="@returnUrl">Register </a>
-	        </li>
-            <li class="nav-item" style="color: black; padding: 8px 0; font-size: 25px">
-		        /
-	        </li>
-            <li class="nav-item">
-                <a class="nav-link text-dark" id="rl" style="font-size: 25px;" asp-area="Identity" asp-page="/Account/Login" asp-route-returnUrl="@returnUrl">Login</a>
+            <li class="nav-item" style="align-self: center; margin-top: 5px; margin-right: -5px">
+                @if (UserManager.GetUserAsync(User).Result != null && context.Profiles.Single(p => p.Id == UserManager.GetUserAsync(User).Result.ProfileId) != null)
+            {
+                    <a class="nav-link text-dark" id="rl" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"><img style="width:40px;height:40px; object-fit:cover; border-radius:30px" src="data:image/*;base64,@(Convert.ToBase64String(context.Profiles.Single(p => p.Id == UserManager.GetUserAsync(User).Result.ProfileId).Picture))"></a>
+            }
             </li>
+            <li class="nav-item" style="font-size: 22px; margin-top: 7px">
+                <a class="nav-link text-dark" id="rl" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">@User.Identity!.Name</a>
+	        </li>
+           @* <li class="nav-item" style="font-size: 30px; margin-top: 1px">
+		        /
+	        </li>*@
+            <li class="nav-item" style="margin-top: -8px;">
+                <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="/">
+                    <button type="submit" id="rl" style="font-size: 22px" class="nav-link btn btn-link text-dark settingsBTN">
+
+                        <img src="~/images/logout.png" style="width:30px;text-align:center;margin-top: 25px;margin-right:3px;">
+
+                    </button>
+                
+                </form>
+            </li>
+        }
+        else
+        {
+	   
+	            <li class="nav-item">
+                <a class="nav-link text-dark" id="rl" style="font-size: 25px; border-left: 1.6px solid Black font-weight: normal;" asp-area="Identity" asp-page="/Account/Register" asp-route-returnUrl="@returnUrl"><span id="toTranslate" style="text-transform: capitalize; font-weight: normal;">Register </span></a>
+	            </li>
+                <li class="nav-item" style="color: black; padding: 8px 0; font-size: 25px">
+		            /
+	            </li>
+                <li class="nav-item">
+                <a class="nav-link text-dark" id="rl" style="font-size: 25px; font-weight: normal;" asp-area="Identity" asp-page="/Account/Login" asp-route-returnUrl="@returnUrl"><span style="font-weight: normal;">Login</span></a>
+                </li>
         
         
         
-    }
-    @*</div>*@
-</ul>
+        }
+        @*</div>*@
+    </ul>
+
+    <script>
+        window.onload = function (e) {
+            var checkBox = document.getElementById("myCheck");
+            if (checkBox.checked == true) {
+                changeCSS(0, "/css/siteDARK.css");
+            } else {
+                changeCSS(0, "/css/site.css");
+            }
+        };
+
+        function changeCSS(cssLinkIndex, stylesheet) {
+            var oldlink = document.getElementsByTagName("link").item(cssLinkIndex);
+
+            var newlink = document.createElement("link");
+            newlink.setAttribute("rel", "stylesheet");
+            newlink.setAttribute("type", "text/css");
+            newlink.setAttribute("href", stylesheet);
+
+            document.getElementsByTagName("head").item(cssLinkIndex).replaceChild(newlink, oldlink);
+        }
+
+        jQuery(function ($) {
+            var checkboxValue = JSON.parse(localStorage.getItem('checkboxValue')) || {}
+            var $checkbox = $("#myCheck");
+
+            $checkbox.on("change", function () {
+                checkboxValue[$checkbox.attr("id")] = $checkbox.prop('checked');
+                localStorage.setItem("checkboxValue", JSON.stringify(checkboxValue));
+
+                if ($checkbox.prop('checked')) {
+                    changeCSS(0, "/css/siteDARK.css");
+                } else {
+                    changeCSS(0, "/css/site.css");
+                }
+            });
+
+            // on page load
+            if (checkboxValue[$checkbox.attr("id")]) {
+                $checkbox.prop('checked', true);
+                changeCSS(0, "/css/siteDARK.css");
+            } else {
+                $checkbox.prop('checked', false);
+                changeCSS(0, "/css/site.css");
+            }
+        });
+    </script>
+
+
+</body>
