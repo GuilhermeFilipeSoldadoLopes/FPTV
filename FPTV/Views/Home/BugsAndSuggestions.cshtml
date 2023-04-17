@@ -174,7 +174,7 @@
 			</div>
 
 			<div class="dropdown" style="width:auto;height:20%">
-				<button class="button2" id="toTranslate"><span>Sort by</span></button>
+				<button class="button2" id="toTranslate">Sort by</button>
 				<div class="dropdown-content" style="margin-left:0px;">
 					<a href="@Url.Action("Index", "Events", new { sort = "&sort=-begin_at", filter = ViewBag.filter, game = ViewData["game"]})">Newest</a>
 					<a href="@Url.Action("Index", "Events", new { sort = "&sort=begin_at", filter = ViewBag.filter, game = ViewData["game"]})">Oldest</a>
