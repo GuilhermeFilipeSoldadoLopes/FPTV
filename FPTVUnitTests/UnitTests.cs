@@ -230,7 +230,6 @@ namespace FPTVUnitTests
             var topicResult = Assert.IsType<Topic>(topic);
 
             Assert.Equal(contextFixture.GetTopicId(), topic.TopicId);
-            Assert.Equal(GameType.CSGO, topic.GameType);
             Assert.Equal("Test", topic.Title);
             Assert.Equal("Test123", topic.Content);
             Assert.IsType<DateTime>(topic.Date);

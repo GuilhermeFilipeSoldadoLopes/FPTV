@@ -114,8 +114,6 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
 
             var profile = _context.Profiles.Include(p => p.PlayerList.Players).Include(p => p.TeamsList.Teams).Single(p => p.Id == user.ProfileId);
 
-            var players = profile.PlayerList.Players.ToList();
-            var teams = profile.TeamsList.Teams.ToList();
             var csPlayers = new List<Player>();
             var csTeams = new List<Team>();
             var valPlayers = new List<Player>();
@@ -130,6 +128,8 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
             }
             else
             {
+                var players = profile.PlayerList.Players.ToList();
+
                 foreach (var item in players)
                 {
                     if (item.Game == GameType.CSGO)
@@ -152,6 +152,8 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
             }
             else
             {
+                var teams = profile.TeamsList.Teams.ToList();
+
                 foreach (var item in teams)
                 {
                     if (item.Game == GameType.CSGO)

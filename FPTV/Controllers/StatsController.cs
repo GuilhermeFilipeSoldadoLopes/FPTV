@@ -910,7 +910,17 @@ namespace FPTV.Controllers
 
             _context.ErrorLog.Add(error);
             _context.SaveChanges();
-            public async Task<ActionResult> addPlayerToFav(int id, string game)
+        }
+
+        public async Task<ActionResult> addPlayerToFav(int id, string game)
+        {
+            ViewData["game"] = game;
+            var isFav = false;
+            var favPlayer = new Player();
+
+            var user = await _userManager.GetUserAsync(User);
+
+            if (user == null)
             {
                 ViewData["game"] = game;
                 var isFav = false;

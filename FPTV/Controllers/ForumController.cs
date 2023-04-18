@@ -30,8 +30,8 @@ namespace FPTV.Controllers
             return View(topics);
         }
 
-       
-        public ActionResult Topic(int id)
+
+		public ActionResult Topic(int id)
         {
 			ViewBag.Game = "";
 			ViewBag.page = "Forum";
@@ -262,5 +262,12 @@ namespace FPTV.Controllers
                 return View();
             }
         }
-    }
+
+		public ActionResult Rules()
+		{
+			ViewBag.Game = "";
+			ViewBag.page = "Forum";
+			return View();
+		}
+	}
 }

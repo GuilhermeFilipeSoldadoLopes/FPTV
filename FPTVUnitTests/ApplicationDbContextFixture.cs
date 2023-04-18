@@ -368,7 +368,6 @@ namespace FPTVUnitTests
             new Topic
             {
                 //TopicId = topicID,
-				GameType = GameType.CSGO,
 				Title = "Test",
                 Content = "Test123",
                 Date = DateTime.Now,

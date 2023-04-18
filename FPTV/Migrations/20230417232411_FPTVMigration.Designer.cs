@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FPTV.Migrations
 {
     [DbContext(typeof(FPTVContext))]
-    [Migration("20230417194743_init")]
-    partial class init
+    [Migration("20230417232411_FPTVMigration")]
+    partial class FPTVMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -220,9 +220,6 @@ namespace FPTV.Migrations
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
-
-                    b.Property<int>("GameType")
-                        .HasColumnType("int");
 
                     b.Property<Guid>("ProfileId")
                         .HasColumnType("uniqueidentifier");
