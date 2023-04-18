@@ -109,7 +109,7 @@ namespace FPTV.Controllers
             {
                 ViewBag.dropDownGame = game;
                 registerErrorLog(_response.StatusCode);
-                return View("~/Views/Home/Error404.cshtml");
+                return View("~/Views/Home/Error404_With_Login.cshtml");
             }
 
             var teamsList = new List<Team>();
@@ -138,7 +138,7 @@ namespace FPTV.Controllers
             {
                 ViewBag.dropDownGame = game;
                 registerErrorLog(response.StatusCode);
-                return View("~/Views/Home/Error404.cshtml");
+                return View("~/Views/Home/Error404_With_Login.cshtml");
             }
 
             var ranking = new[] { 0.68F, 0.94F, 1.42F, 1.08F, 1.09F, 1.23F, 0.78F, 0.89F, 0.97F, 0.72F,
@@ -298,7 +298,7 @@ namespace FPTV.Controllers
                 {
                     ViewBag.dropDownGame = game;
                     registerErrorLog(_response.StatusCode);
-                    return View("~/Views/Home/Error404.cshtml");
+                    return View("~/Views/Home/Error404_With_Login.cshtml");
                 }
 
                 var teamsList = new List<Team>();
@@ -346,7 +346,7 @@ namespace FPTV.Controllers
                 {
                     ViewBag.dropDownGame = game;
                     registerErrorLog(response.StatusCode);
-                    return View("~/Views/Home/Error404.cshtml");
+                    return View("~/Views/Home/Error404_With_Login.cshtml");
                 }
 
 
@@ -474,7 +474,7 @@ namespace FPTV.Controllers
                 {
                     ViewBag.dropDownGame = game;
                     registerErrorLog(_response.StatusCode);
-                    return View("~/Views/Home/Error404.cshtml");
+                    return View("~/Views/Home/Error404_With_Login.cshtml");
                 }
 
                 var teamsList = new List<Team>();
@@ -522,7 +522,7 @@ namespace FPTV.Controllers
                 {
                     ViewBag.dropDownGame = game;
                     registerErrorLog(response.StatusCode);
-                    return View("~/Views/Home/Error404.cshtml");
+                    return View("~/Views/Home/Error404_With_Login.cshtml");
                 }
 
 
