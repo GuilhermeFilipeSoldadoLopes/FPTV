@@ -269,5 +269,12 @@ namespace FPTV.Controllers
 			ViewBag.page = "Forum";
 			return View();
 		}
-	}
+
+        public ActionResult BugsAndSuggestions()
+        {
+            ViewBag.Game = "";
+            ViewBag.page = "Forum";
+            return View();
+        }
+    }
 }

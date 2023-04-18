@@ -323,7 +323,8 @@ namespace FPTV.Controllers
         {
             page = "Forum";
             ViewBag.page = page;
-            return View();
+            //return View();
+            return RedirectToAction("BugsAndSuggestions", page);
         }
 
         [Authorize]
