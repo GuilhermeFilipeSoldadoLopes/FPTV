@@ -51,6 +51,7 @@ namespace FPTV.Controllers
             return View("PlayerAndStats");
         }
 
+        [Authorize]
         public async Task<ActionResult> getTeam(int id = 132991, string filter = "past", string game = "csgo", string page = "&page=1")
 		{
 			ViewData["game"] = game;
@@ -224,6 +225,7 @@ namespace FPTV.Controllers
 
         }
 
+        [Authorize]
         public async Task<ActionResult> getPlayer(int id= 132995, string filter = "past", string game = "csgo", string page = "&page=1")
 		{
 			ViewData["game"] = game;

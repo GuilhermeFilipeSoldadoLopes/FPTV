@@ -318,6 +318,7 @@ namespace FPTV.Controllers
 			return RedirectToAction("Index", page, new { sort = "&sort=-begin_at", filter = "running", game = game });
         }
 
+        [Authorize]
         public IActionResult BugsAndSuggestions()
         {
             page = "Forum";
