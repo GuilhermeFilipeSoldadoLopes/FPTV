@@ -33,22 +33,22 @@
 <html>
 <body class="bodytemp bodyquery" style="width:100%">
 	<!------------------stats--------------------------------------------->
-	<div class="box darkcolor bordercolor marginbottomRes" style="width:80%;text-align: center; border-radius:15px;margin-top:0px;margin:auto">
+	<div class="box darkcolor bordercolor marginbottomRes" style="width:90%;text-align: center; border-radius:15px;margin-top:0px;margin:auto">
 		<br>
 		<h2 style="font-weight: bold;" id="toTranslate">Website Stats</h2>
 		<br>
-		<table style="width:80%; margin-left: auto; margin-right: auto;">
+		<table style="width:90%; margin-left: auto; margin-right: auto;">
 			<tr>
-				<th style="width: 20%;" id="toTranslate">Number of registered accounts</th>
-				<th style="width: 20%;" id="toTranslate">Daily flow of users</th>
-				<th style="width: 20%;" id="toTranslate">Nationality with the</th>
-				<th style="width: 20%;" id="toTranslate">Most consulted game</th>
+				<th style="width: 25%;" id="toTranslate">Number of registered accounts</th>
+				<th style="width: 25%;" id="toTranslate">Daily flow of users</th>
+				<th style="width: 25%;" id="toTranslate">Nationality with the most registered accounts</th>
+				<th style="width: 25%; text-transform: capitalize;" id="toTranslate">Most consulted game</th>
 			</tr>
 			<tr>
 				<td> <b id="noOfAccounts">@ViewData["accounts"]</b> <span id="accountText"> @ViewData["account_txt"] </span> </td>
 				<td> <b id="noOfVisitors">@ViewData["visitors"]</b> <span id="visitorsText"> @ViewData["visitors_txt"] </span> </td>
-				<td> <b id="country">ViewBag.Number</b> <span id="countryText"> @ViewBag.Country </span> </td>
-				<td> <b id="game">xxx</b> <span id="gameText"> CS:GO </span> </td>
+				<td> <b id="country"> @ViewBag.Country</b> <br><span id="countryText"> @ViewBag.Number <span id="toTranslate">Accounts</span> </span> </td>
+				<td> <b id="gameText"> CS:GO </b> </td>
 			</tr> 
 		</table>
 		<br>

@@ -517,7 +517,12 @@ namespace FPTV.Controllers
               .Select(c => c.Key)
               .First();
 
-            ViewBag.Country = country;
+            var number = _context.Profiles
+              .Where(p => p.Country == country)
+              .Count();
+
+			ViewBag.Country = country;
+			ViewBag.Number = number;
 
 			return View("~/Views/Home/Stats.cshtml");
 		}
