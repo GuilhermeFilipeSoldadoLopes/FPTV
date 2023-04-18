@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net;
 using FPTV.Data;
@@ -10,6 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json.Linq;
 using PusherServer;
 using RestSharp;
@@ -38,7 +40,7 @@ namespace FPTV.Controllers
 		{
 			return RedirectToAction(page, "Home", new { game = "csgo" });
 		}
-
+        
 		public IActionResult Index(string game)
 		{
             if (game == "")
@@ -48,6 +50,8 @@ namespace FPTV.Controllers
 
             ViewData["game"] = game;
 			page = "Index";
+
+
 			var account = _context.Users.Where(u => u.EmailConfirmed == true).ToList().Count();
 
 			var accountTxt = (account == 1) ? " user" : " users";
@@ -98,9 +102,6 @@ namespace FPTV.Controllers
 				"newVisit",
 				new { visits = visitors.ToString(), message = visitText });
 
-			ViewData["visitors"] = visitors;
-			ViewData["visitors_txt"] = visitText;
-
             //csgo/matches/past?
             var token = "&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA";
             var requestLink = "https://api.pandascore.co/";
@@ -129,7 +130,7 @@ namespace FPTV.Controllers
             return View();
         }
 
-        private IList getAPIMatches(string fullApiPath, string game)
+		private IList getAPIMatches(string fullApiPath, string game)
         {
             //Request processing with RestSharp
             var client = new RestClient(fullApiPath);
@@ -449,7 +450,79 @@ namespace FPTV.Controllers
             return View();
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+		[Authorize(Roles = "Admin, Moderator")]
+		public IActionResult Stats()
+		{
+			ViewData["game"] = null;
+			page = "Index";
+
+			var account = _context.Users.Where(u => u.EmailConfirmed == true).ToList().Count();
+
+			var accountTxt = (account == 1) ? " user" : " users";
+
+			ViewBag.page = page;
+			ViewData["accounts"] = account;
+			ViewData["account_txt"] = accountTxt;
+
+			var visitors = 0;
+			var visitText = "views";
+
+
+			if (System.IO.File.Exists("visitors.txt"))
+			{
+				DateTime lastModificationFileDateTime = System.IO.File.GetLastWriteTime("visitors.txt");
+				DateTime lasModificationDate =
+					new DateTime(lastModificationFileDateTime.Year, lastModificationFileDateTime.Month, lastModificationFileDateTime.Day);
+
+				Console.WriteLine(lasModificationDate);
+				Console.WriteLine(DateTime.Compare(lasModificationDate, DateTime.Now.Date));
+
+				if (DateTime.Compare(lasModificationDate, DateTime.Now.Date) < 0)
+				{
+					System.IO.File.WriteAllText("visitors.txt", 0.ToString());
+				}
+
+				string noOfVisitors = System.IO.File.ReadAllText("visitors.txt");
+				visitors = Int32.Parse(noOfVisitors);
+
+				visitText = (visitors == 1) ? " view" : " views";
+
+				System.IO.File.WriteAllText("visitors.txt", visitors.ToString());
+			}
+			else
+			{
+				System.IO.File.WriteAllText("visitors.txt", 1.ToString());
+			}
+
+			var options = new PusherOptions();
+			options.Cluster = "PUSHER_APP_CLUSTER";
+
+			var pusher = new Pusher(
+				"PUSHER_APP_ID",
+				"PUSHER_APP_KEY",
+				"PUSHER_APP_SECRET", options);
+
+			pusher.TriggerAsync(
+				"general",
+				"newVisit",
+				new { visits = visitors.ToString(), message = visitText });
+
+			ViewData["visitors"] = visitors;
+			ViewData["visitors_txt"] = visitText;
+
+            var country = _context.Profiles
+			  .GroupBy(p => p.Country)
+              .Where(c => c.Count() > 1)
+              .OrderByDescending(c => c.Count())
+              .Select(c => c.Key)
+              .First();
+
+            ViewBag.Country = country;
+
+			return View("~/Views/Home/Stats.cshtml");
+		}
+
+		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             page = "Index";

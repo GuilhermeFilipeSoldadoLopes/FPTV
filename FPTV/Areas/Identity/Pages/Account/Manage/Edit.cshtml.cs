@@ -122,7 +122,6 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
 
             var profile = _context.Profiles.Include(p => p.PlayerList.Players).Include(p => p.TeamsList.Teams).Single(p => p.Id == user.ProfileId);
 
-
             var client = new RestClient("https://restcountries.com/v3.1/all");
             var request = new RestRequest("", Method.Get);
             request.AddHeader("accept", "application/json");

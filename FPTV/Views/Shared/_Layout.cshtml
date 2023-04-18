@@ -102,16 +102,16 @@
 								@if (ViewData["game"] == null || ViewData["game"] == "" || ViewBag.page == "Index")
 								{
 									@if (ViewBag.page == "Index") {
-												<a class="nav-link text-dark" style="font-weight: bolder; font-size: 24px" asp-area="Home" asp-controller="Home" asp-action="Index">Home</a>
+										<a class="nav-link text-dark" style="font-weight: bolder; font-size: 24px" asp-area="Home" asp-controller="Home" asp-action="Index">Home</a>
 									} else {
 										<a class="nav-link text-dark" style="font-weight: normal; font-size: 24px" asp-area="Home" asp-controller="Home" asp-action="Index">Home</a>
 									}
 								} else {
 									@if (ViewData["game"].ToString() == "csgo")
 									{
-											<a class="nav-link text-dark" style="text-decoration: underline; font-weight:bolder;font-size: 24px" asp-area="Home" asp-controller="Home" asp-action="Index">CS:GO</a>
+										<a class="nav-link text-dark" id="btnCS" style="text-decoration: underline; font-weight:bolder;font-size: 24px" asp-area="Home" asp-controller="Home" asp-action="Index">CS:GO</a>
 									} else {
-											<a class="nav-link text-dark" style="text-decoration: underline; font-weight:bolder;font-size: 24px" asp-area="Home" asp-controller="Home" asp-action="Index">VALORANT</a>
+										<a class="nav-link text-dark" id="btnVal" style="text-decoration: underline; font-weight:bolder;font-size: 24px" asp-area="Home" asp-controller="Home" asp-action="Index">VALORANT</a>
 									}
 									<div class="dropdownContent12 bordercolor" style="background-color:white;padding:1%;margin-left:5px">
 										<a class="dropdownItem1" style="display:flex;border-radius:15px;width:100%">

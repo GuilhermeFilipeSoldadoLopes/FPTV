@@ -1,0 +1,59 @@
+﻿@{
+    ViewData["Title"] = "Stats";
+}
+<!DOCTYPE html>
+
+<head>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<style>
+	.central {
+		width: 100%;
+		margin: 0 auto;
+		text-align: center;
+		height: 100%;
+	}
+
+	.center {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	tr, td, th {
+		border-width: 1px;
+	}
+
+	 /* Styles for mobile screens */
+    
+
+</style>
+<html>
+<body class="bodytemp bodyquery" style="width:100%">
+	<!------------------stats--------------------------------------------->
+	<div class="box darkcolor bordercolor marginbottomRes" style="width:80%;text-align: center; border-radius:15px;margin-top:0px;margin:auto">
+		<br>
+		<h2 style="font-weight: bold;" id="toTranslate">Website Stats</h2>
+		<br>
+		<table style="width:80%; margin-left: auto; margin-right: auto;">
+			<tr>
+				<th style="width: 20%;" id="toTranslate">Number of registered accounts</th>
+				<th style="width: 20%;" id="toTranslate">Daily flow of users</th>
+				<th style="width: 20%;" id="toTranslate">Nationality with the</th>
+				<th style="width: 20%;" id="toTranslate">Most consulted game</th>
+			</tr>
+			<tr>
+				<td> <b id="noOfAccounts">@ViewData["accounts"]</b> <span id="accountText"> @ViewData["account_txt"] </span> </td>
+				<td> <b id="noOfVisitors">@ViewData["visitors"]</b> <span id="visitorsText"> @ViewData["visitors_txt"] </span> </td>
+				<td> <b id="country">ViewBag.Number</b> <span id="countryText"> @ViewBag.Country </span> </td>
+				<td> <b id="game">xxx</b> <span id="gameText"> CS:GO </span> </td>
+			</tr> 
+		</table>
+		<br>
+	</div>
+</body>
+
+</html>
+

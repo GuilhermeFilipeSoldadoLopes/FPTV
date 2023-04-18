@@ -22,9 +22,20 @@ namespace FPTV.Controllers
 
 
         // GET: ForumController
-        public ActionResult Index()
+        public async Task<ActionResult> IndexAsync()
         {
-            ViewBag.Game = "";
+			var user = await _userManager.GetUserAsync(User);
+			if (user == null)
+			{
+				return View("~/Views/Home/Error403.cshtml");
+			}
+			var profile = _context.Profiles.FirstOrDefault(p => p.Id == user.ProfileId);
+			if (profile == null)
+			{
+				return View("~/Views/Home/Error403.cshtml");
+			}
+
+			ViewBag.Game = "";
             ViewBag.page = "Forum";
 			var topics = _context.Topics.Include(t => t.Profile).ThenInclude(p => p.User).Include(t => t.Comments).ThenInclude(c => c.Reactions).ToList();
             return View(topics);

@@ -6,6 +6,7 @@ using FPTV.Models.MatchesModels;
 using FPTV.Models.StatisticsModels;
 using FPTV.Models.UserModels;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
