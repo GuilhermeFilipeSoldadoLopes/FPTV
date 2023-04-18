@@ -52,8 +52,8 @@ namespace FPTV.Controllers
         }
 
         public async Task<ActionResult> getTeam(int id = 132991, string filter = "past", string game = "csgo", string page = "&page=1")
-		{
-			ViewData["game"] = game;
+        {
+            ViewData["game"] = game;
 
             var user = await _userManager.GetUserAsync(User);
 
@@ -155,7 +155,7 @@ namespace FPTV.Controllers
                 team.Name = _team.GetValue("name").ToString() == "" ? "undefined" : _team.GetValue("name").Value<string>();
                 team.Image = _team.GetValue("image_url").ToString() == "" ? "/images/missing.png" : _team.GetValue("image_url").Value<string>();
                 team.CoachName = coachNames[_random.Next(coachNames.Length)];
-                
+
                 team.Winnings = _random.Next(1, 1000);
                 team.Losses = _random.Next(1, 601);
 
@@ -164,12 +164,12 @@ namespace FPTV.Controllers
                     team.WorldRank = _random.Next(1, 11);
                 } else if (winning_ratio > 1.4 && winning_ratio < 3) {
                     team.WorldRank = _random.Next(10, 26);
-                } else if (winning_ratio > 3)  {
+                } else if (winning_ratio > 3) {
                     team.WorldRank = _random.Next(25, 111);
-                } else if(winning_ratio < 0) {
+                } else if (winning_ratio < 0) {
                     team.WorldRank = 150;
                 }
-                
+
                 team.Game = game == "csgo" ? GameType.CSGO : GameType.Valorant;
                 //team.location =
                 team.Players = new List<Player>();
@@ -224,9 +224,9 @@ namespace FPTV.Controllers
 
         }
 
-        public async Task<ActionResult> getPlayer(int id= 132995, string filter = "past", string game = "csgo", string page = "&page=1")
-		{
-			ViewData["game"] = game;
+        public async Task<ActionResult> getPlayer(int id = 132995, string filter = "past", string game = "csgo", string page = "&page=1")
+        {
+            ViewData["game"] = game;
 
             var user = await _userManager.GetUserAsync(User);
 
@@ -407,7 +407,7 @@ namespace FPTV.Controllers
                     _context.MatchPlayerStatsVal.Add(player);
                 }
                 double KdRatio;
-                if(player.Kills != 0 || player.Deaths != 0)
+                if (player.Kills != 0 || player.Deaths != 0)
                 {
                     KdRatio = (double)player.Kills / (double)player.Deaths;
                 }
@@ -555,12 +555,12 @@ namespace FPTV.Controllers
                     ViewBag.NacionalityImg = "/images/Flags/4x3/" + _player.Nationality + ".svg";
                     //_player.Image = (string)item.GetValue("image_url");
                     _player.Image = item.GetValue("image_url").ToString() == "" ? "/images/default-profile-icon-24.jpg" : item.GetValue("image_url").Value<string>();
-                    _player.Rating= ranking[_random.Next(ranking.Length)];
+                    _player.Rating = ranking[_random.Next(ranking.Length)];
                     _player.PlayerAPIId = player.PlayerAPIId;
                     _player.Name = player.PlayerName;
 
                     var current_team = (JObject)item.GetValue("current_team");
-                    
+
                     var current_team_id = (int)current_team.GetValue("id");
                     teamm.TeamAPIID = (int)current_team.GetValue("id");
                     //if(teamm.TeamAPIID == _player.)
@@ -601,7 +601,7 @@ namespace FPTV.Controllers
                 ViewBag.maps = maps;
                 ViewBag.player = player;
                 ViewBag._player = _player;
-                
+
                 id = id;
                 ViewBag.id = id;
                 //_context.MatchPlayerStatsCS.Add(player);
@@ -614,8 +614,8 @@ namespace FPTV.Controllers
 
 
         private String request(string category, string sort = "sort=-status", string page = "&page=1", string filter = "past", string game = "csgo")
-		{
-			ViewData["game"] = game;
+        {
+            ViewData["game"] = game;
             if (category == "matches")
             {
                 var jsonFilter = filter + "?";
@@ -824,7 +824,7 @@ namespace FPTV.Controllers
                                         }
                                         //for (int i = 0; i < _context.Player.Count; i++) {
                                         _context.Player.Add(player);
-                                        
+
                                         //}
                                     }
 
@@ -833,7 +833,7 @@ namespace FPTV.Controllers
                         }
 
 
-                        
+
                         var matchTeam = new MatchTeamsCS();
                         matchTeam.MatchCSAPIID = (int)item.GetValue("id");
                         matchTeam.TeamCSAPIId = (int)team.TeamAPIID;
@@ -872,7 +872,7 @@ namespace FPTV.Controllers
                         _context.MatchTeamsCS.Add(matchTeam);
 
 
-                        
+
 
                     }
                     matches.MatchesList.Add(ma);
@@ -897,7 +897,7 @@ namespace FPTV.Controllers
             ViewBag.teamsList = teamsList;
             ViewBag.matchCsList = matchCsList;
             ViewBag.player = playerList;
-           
+
             return View("PlayerAndStats");
         }
 
@@ -910,176 +910,177 @@ namespace FPTV.Controllers
 
             _context.ErrorLog.Add(error);
             _context.SaveChanges();
-        public async Task<ActionResult> addPlayerToFav(int id, string game)
-        {
-            ViewData["game"] = game;
-            var isFav = false;
-            var favPlayer = new Player();
-
-            var user = await _userManager.GetUserAsync(User);
-
-            if (user == null)
+            public async Task<ActionResult> addPlayerToFav(int id, string game)
             {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
-            }
+                ViewData["game"] = game;
+                var isFav = false;
+                var favPlayer = new Player();
 
-            var requestLink = "https://api.pandascore.co/";
-            var filterID = "filter[id]=" + id.ToString();
-            var token = "&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA";
+                var user = await _userManager.GetUserAsync(User);
 
-            var fullRequest = requestLink + game + "/players?" + filterID + token;
-            var client = new RestClient(fullRequest);
-            var request = new RestRequest("", Method.Get);
-            request.AddHeader("accept", "application/json");
-            var response = client.Execute(request);
-            var json = response.Content;
-            var jarray = JArray.Parse(json);
-
-            if (response.StatusCode != System.Net.HttpStatusCode.OK || json == null || jarray.Count() == 0)
-            {
-                return View("~/Views/Home/Error404.cshtml");
-            }
-
-            var player = new Player();
-            var playerObject = (JObject)jarray[0];
-
-            var playerId = playerObject.GetValue("id");
-            var playerName = playerObject.GetValue("name");
-            var playerImage = playerObject.GetValue("image_url");
-            var playerAge = playerObject.GetValue("age");
-            var playerNationality = playerObject.GetValue("nationality");
-
-            player.PlayerAPIId = playerId.ToString() == "" ? 1 : playerId.Value<int>();
-            player.Name = playerName.ToString() == "" ? "undefined" : playerName.Value<string>();
-            player.Image = playerImage.ToString() == "" ? "/images/default-profile-icon-24.jpg" : playerImage.Value<string>();
-            player.Age = 20;
-            player.Nationality = playerNationality.ToString() == "" ? "undefined" : playerNationality.Value<string>();
-            if (game == "csgo")
-                player.Game = GameType.CSGO;
-            else
-                player.Game = GameType.Valorant;
-            player.Rating = 1;
-
-            var profile = _context.Profiles.Include(p => p.PlayerList.Players).Single(p => p.Id == user.ProfileId);
-
-            if (profile.PlayerList == null)
-            {
-                profile.PlayerList = new FavPlayerList();
-                profile.PlayerList.Profile = profile;
-                profile.PlayerList.ProfileId = user.ProfileId;
-                profile.PlayerList.Players = new List<Player>();
-            }
-
-            var favPlayerLists = profile.PlayerList;
-            var players = favPlayerLists.Players;
-
-            foreach (var item in players)
-            {
-                if(item.PlayerAPIId == player.PlayerAPIId)
+                if (user == null)
                 {
-                    isFav = true;
-                    favPlayer = item;
+                    return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
                 }
-            }
 
-            if (!isFav)
-            {
-                profile.PlayerList.Players.Add(player);
-            }
-            else
-            {
-                profile.PlayerList.Players.Remove(favPlayer);
-            }
+                var requestLink = "https://api.pandascore.co/";
+                var filterID = "filter[id]=" + id.ToString();
+                var token = "&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA";
 
-            _context.SaveChanges();
+                var fullRequest = requestLink + game + "/players?" + filterID + token;
+                var client = new RestClient(fullRequest);
+                var request = new RestRequest("", Method.Get);
+                request.AddHeader("accept", "application/json");
+                var response = client.Execute(request);
+                var json = response.Content;
+                var jarray = JArray.Parse(json);
 
-            return RedirectToAction("getPlayer", "Stats", new { id = player.PlayerAPIId, game = game });
-        }
-
-        public async Task<ActionResult> addTeamToFav(int id, string game)
-        {
-            ViewData["game"] = game;
-            var isFav = false;
-            var favTeam = new Team();
-
-            var user = await _userManager.GetUserAsync(User);
-
-            if (user == null)
-            {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
-            }
-
-            var requestLink = "https://api.pandascore.co/";
-            var filterID = "filter[id]=" + id.ToString();
-            var token = "&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA";
-
-            var fullRequest = requestLink + game + "/teams?" + filterID + token;
-            var client = new RestClient(fullRequest);
-            var request = new RestRequest("", Method.Get);
-            request.AddHeader("accept", "application/json");
-            var response = client.Execute(request);
-            var json = response.Content;
-            var jarray = JArray.Parse(json);
-
-            if (response.StatusCode != System.Net.HttpStatusCode.OK || json == null || jarray.Count() == 0)
-            {
-                return View("~/Views/Home/Error404.cshtml");
-            }
-
-            var team = new Team();
-            var teamObject = (JObject)jarray[0];
-
-            var teamId = teamObject.GetValue("id");
-            var teamImage = teamObject.GetValue("image_url");
-            var teamName = teamObject.GetValue("name");
-
-            team.TeamAPIID = teamId.ToString() == "" ? -1 : teamId.Value<int>();
-            team.Name = teamName.ToString() == "" ? "undefined" : teamName.Value<string>();
-            team.Image = teamImage.ToString() == "" ? "/images/missing.png" : teamImage.Value<string>();
-            team.CoachName = "";
-            team.Losses = 0;
-            team.Winnings = 0;
-            team.WorldRank = 0;
-
-            if (game == "csgo")
-                team.Game = GameType.CSGO;
-            else
-                team.Game = GameType.Valorant;
-
-            var profile = _context.Profiles.Include(p => p.TeamsList.Teams).Single(p => p.Id == user.ProfileId);
-
-            if (profile.TeamsList == null)
-            {
-                profile.TeamsList = new FavTeamsList();
-                profile.TeamsList.Profile = profile;
-                profile.TeamsList.ProfileId = user.ProfileId;
-                profile.TeamsList.Teams = new List<Team>();
-            }
-
-            var favTeamLists = profile.TeamsList;
-            var teams = favTeamLists.Teams;
-
-            foreach (var item in teams)
-            {
-                if (item.TeamAPIID == team.TeamAPIID)
+                if (response.StatusCode != System.Net.HttpStatusCode.OK || json == null || jarray.Count() == 0)
                 {
-                    isFav = true;
-                    favTeam = item;
+                    return View("~/Views/Home/Error404.cshtml");
                 }
+
+                var player = new Player();
+                var playerObject = (JObject)jarray[0];
+
+                var playerId = playerObject.GetValue("id");
+                var playerName = playerObject.GetValue("name");
+                var playerImage = playerObject.GetValue("image_url");
+                var playerAge = playerObject.GetValue("age");
+                var playerNationality = playerObject.GetValue("nationality");
+
+                player.PlayerAPIId = playerId.ToString() == "" ? 1 : playerId.Value<int>();
+                player.Name = playerName.ToString() == "" ? "undefined" : playerName.Value<string>();
+                player.Image = playerImage.ToString() == "" ? "/images/default-profile-icon-24.jpg" : playerImage.Value<string>();
+                player.Age = 20;
+                player.Nationality = playerNationality.ToString() == "" ? "undefined" : playerNationality.Value<string>();
+                if (game == "csgo")
+                    player.Game = GameType.CSGO;
+                else
+                    player.Game = GameType.Valorant;
+                player.Rating = 1;
+
+                var profile = _context.Profiles.Include(p => p.PlayerList.Players).Single(p => p.Id == user.ProfileId);
+
+                if (profile.PlayerList == null)
+                {
+                    profile.PlayerList = new FavPlayerList();
+                    profile.PlayerList.Profile = profile;
+                    profile.PlayerList.ProfileId = user.ProfileId;
+                    profile.PlayerList.Players = new List<Player>();
+                }
+
+                var favPlayerLists = profile.PlayerList;
+                var players = favPlayerLists.Players;
+
+                foreach (var item in players)
+                {
+                    if (item.PlayerAPIId == player.PlayerAPIId)
+                    {
+                        isFav = true;
+                        favPlayer = item;
+                    }
+                }
+
+                if (!isFav)
+                {
+                    profile.PlayerList.Players.Add(player);
+                }
+                else
+                {
+                    profile.PlayerList.Players.Remove(favPlayer);
+                }
+
+                _context.SaveChanges();
+
+                return RedirectToAction("getPlayer", "Stats", new { id = player.PlayerAPIId, game = game });
             }
 
-            if (!isFav)
+            public async Task<ActionResult> addTeamToFav(int id, string game)
             {
-                profile.TeamsList.Teams.Add(team);
-            }
-            else
-            {
-                profile.TeamsList.Teams.Remove(favTeam);
-            }
+                ViewData["game"] = game;
+                var isFav = false;
+                var favTeam = new Team();
 
-            _context.SaveChanges();
+                var user = await _userManager.GetUserAsync(User);
 
-            return RedirectToAction("getTeam", "Stats", new { id = team.TeamAPIID, game = game });
+                if (user == null)
+                {
+                    return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                }
+
+                var requestLink = "https://api.pandascore.co/";
+                var filterID = "filter[id]=" + id.ToString();
+                var token = "&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA";
+
+                var fullRequest = requestLink + game + "/teams?" + filterID + token;
+                var client = new RestClient(fullRequest);
+                var request = new RestRequest("", Method.Get);
+                request.AddHeader("accept", "application/json");
+                var response = client.Execute(request);
+                var json = response.Content;
+                var jarray = JArray.Parse(json);
+
+                if (response.StatusCode != System.Net.HttpStatusCode.OK || json == null || jarray.Count() == 0)
+                {
+                    return View("~/Views/Home/Error404.cshtml");
+                }
+
+                var team = new Team();
+                var teamObject = (JObject)jarray[0];
+
+                var teamId = teamObject.GetValue("id");
+                var teamImage = teamObject.GetValue("image_url");
+                var teamName = teamObject.GetValue("name");
+
+                team.TeamAPIID = teamId.ToString() == "" ? -1 : teamId.Value<int>();
+                team.Name = teamName.ToString() == "" ? "undefined" : teamName.Value<string>();
+                team.Image = teamImage.ToString() == "" ? "/images/missing.png" : teamImage.Value<string>();
+                team.CoachName = "";
+                team.Losses = 0;
+                team.Winnings = 0;
+                team.WorldRank = 0;
+
+                if (game == "csgo")
+                    team.Game = GameType.CSGO;
+                else
+                    team.Game = GameType.Valorant;
+
+                var profile = _context.Profiles.Include(p => p.TeamsList.Teams).Single(p => p.Id == user.ProfileId);
+
+                if (profile.TeamsList == null)
+                {
+                    profile.TeamsList = new FavTeamsList();
+                    profile.TeamsList.Profile = profile;
+                    profile.TeamsList.ProfileId = user.ProfileId;
+                    profile.TeamsList.Teams = new List<Team>();
+                }
+
+                var favTeamLists = profile.TeamsList;
+                var teams = favTeamLists.Teams;
+
+                foreach (var item in teams)
+                {
+                    if (item.TeamAPIID == team.TeamAPIID)
+                    {
+                        isFav = true;
+                        favTeam = item;
+                    }
+                }
+
+                if (!isFav)
+                {
+                    profile.TeamsList.Teams.Add(team);
+                }
+                else
+                {
+                    profile.TeamsList.Teams.Remove(favTeam);
+                }
+
+                _context.SaveChanges();
+
+                return RedirectToAction("getTeam", "Stats", new { id = team.TeamAPIID, game = game });
+            }
         }
     }
 }
