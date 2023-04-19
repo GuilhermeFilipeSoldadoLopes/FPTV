@@ -519,7 +519,7 @@ namespace FPTV.Controllers
             return View();
         }
 
-        public ActionResult MatchDetails(int id = 0, string type = "past", string game = "csgo")
+        public ActionResult MatchDetails(int id = 0, string type = "past", string game = "csgo", int map = 1)
 		{
 			ViewData["game"] = game;
 			ViewBag.page = "Matches";
@@ -818,6 +818,7 @@ namespace FPTV.Controllers
             }
             ViewBag.MVP_Player = MVP_PlayerName;
 
+            ViewBag.map = map;
             ViewBag.matches = matches;
             ViewBag.matchesPlayer = matchesPlayer;
             ViewBag.removedMaps = removedMaps;
