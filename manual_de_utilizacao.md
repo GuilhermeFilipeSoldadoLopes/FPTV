@@ -39,8 +39,8 @@ Bem-vindo ao projeto FPTV, a futura hub dos FPS E-Sports. O objetivo deste proje
 Após a confirmação do registo irá surgir uma mensagem a indicar que o email foi confirmado.<p>
 <div align="center">
 
-![ConfirmRegistration](https://cdn.discordapp.com/attachments/783386747638775848/1087846302601199678/image.png)<p>
-![ConfirmRegistration](https://cdn.discordapp.com/attachments/783386747638775848/1087846334385627316/image.png)<p>
+![ConfirmRegistration](https://cdn.discordapp.com/attachments/783386747638775848/1098195032332308540/image.png)<p>
+![ConfirmRegistration](https://cdn.discordapp.com/attachments/783386747638775848/1098194950660825128/image.png)<p>
 </div>
 
 **Perfil do Utilizador :** Após o início de sessão, clique no seu nome no canto superior direito e será direcionado para o seu perfil de usuário. Aqui, você pode visualizar o seu nome, imagem de perfil, descrição, data de registro, bandeira do país, autor de tópicos, jogadores favoritos e equipas favoritas. Além disso, você pode alterar essas informações clicando no botão de editar perfil que é um botão em forma de lápis.<p>
