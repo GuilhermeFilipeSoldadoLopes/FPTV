@@ -13,17 +13,33 @@ using Microsoft.Extensions.Logging;
 
 namespace FPTV.Areas.Identity.Pages.Account
 {
+    /// <summary>
+    /// Represents the LogoutModel class which is used to handle logout requests.
+    /// </summary>
     public class LogoutModel : PageModel
     {
         private readonly SignInManager<UserBase> _signInManager;
         private readonly ILogger<LogoutModel> _logger;
 
+        /// <summary>
+        /// Constructor for LogoutModel class.
+        /// </summary>
+        /// <param name="signInManager">SignInManager object.</param>
+        /// <param name="logger">ILogger object.</param>
+        /// <returns>
+        /// No return value.
+        /// </returns>
         public LogoutModel(SignInManager<UserBase> signInManager, ILogger<LogoutModel> logger)
         {
             _signInManager = signInManager;
             _logger = logger;
         }
 
+        /// <summary>
+        /// Logs out the current user and redirects to the specified page.
+        /// </summary>
+        /// <param name="returnUrl">The URL to redirect to after logging out.</param>
+        /// <returns>A redirect to the specified page.</returns>
         public async Task<IActionResult> OnPost(string returnUrl = null)
         {
             await _signInManager.SignOutAsync();

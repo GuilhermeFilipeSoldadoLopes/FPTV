@@ -23,6 +23,9 @@ using Microsoft.Extensions.Logging;
 
 namespace FPTV.Areas.Identity.Pages.Account
 {
+    /// <summary>
+    /// Represents the model for the Register page.
+    /// </summary>
     public class RegisterModel : PageModel
     {
         private readonly SignInManager<UserBase> _signInManager;
@@ -34,14 +37,27 @@ namespace FPTV.Areas.Identity.Pages.Account
         private readonly FPTVContext _context;
         private readonly IWebHostEnvironment _env;
 
+        /// <summary>
+        /// Constructor for RegisterModel class
+        /// </summary>
+        /// <param name="userManager">UserManager object</param>
+        /// <param name="userStore">IUserStore object</param>
+        /// <param name="signInManager">SignInManager object</param>
+        /// <param name="logger">ILogger object</param>
+        /// <param name="emailSender">IEmailSender object</param>
+        /// <param name="context">FPTVContext object</param>
+        /// <param name="env">IWebHostEnvironment object</param>
+        /// <returns>
+        /// RegisterModel object
+        /// </returns>
         public RegisterModel(
-            UserManager<UserBase> userManager,
-            IUserStore<UserBase> userStore,
-            SignInManager<UserBase> signInManager,
-            ILogger<RegisterModel> logger,
-            IEmailSender emailSender,
-            FPTVContext context,
-            IWebHostEnvironment env)
+                    UserManager<UserBase> userManager,
+                    IUserStore<UserBase> userStore,
+                    SignInManager<UserBase> signInManager,
+                    ILogger<RegisterModel> logger,
+                    IEmailSender emailSender,
+                    FPTVContext context,
+                    IWebHostEnvironment env)
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -114,12 +130,20 @@ namespace FPTV.Areas.Identity.Pages.Account
         }
 
 
+        /// <summary>
+        /// Gets the external authentication schemes and the return URL.
+        /// </summary>
+        /// <returns>The list of external authentication schemes and the return URL.</returns>
         public async Task OnGetAsync(string returnUrl = null)
         {
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }
 
+        /// <summary>
+        /// Creates a new user account and adds it to the database.
+        /// </summary>
+        /// <returns>The newly created user.</returns>
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             returnUrl ??= Url.Content("~/");
@@ -175,7 +199,9 @@ namespace FPTV.Areas.Identity.Pages.Account
                                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                                     {
                                         return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
-                                    } else {
+                                    }
+                                    else
+                                    {
                                         await _signInManager.SignInAsync(user, isPersistent: false);
                                         return LocalRedirect(returnUrl);
                                     }
@@ -185,11 +211,15 @@ namespace FPTV.Areas.Identity.Pages.Account
                                     ModelState.AddModelError(string.Empty, error.Description);
                                 }
                             }
-                        } else {
+                        }
+                        else
+                        {
                             ModelState.AddModelError("CustomErrorEmail", "That email is already registed. Try another one.");
                         }
                     }
-                } else {
+                }
+                else
+                {
                     ModelState.AddModelError("CustomErrorUsername", "Already exists a user with that username. Try another one.");
                 }
             }
@@ -198,6 +228,12 @@ namespace FPTV.Areas.Identity.Pages.Account
             return Page();
         }
 
+        /// <summary>
+        /// Creates an instance of the UserBase class.
+        /// </summary>
+        /// <returns>
+        /// An instance of the UserBase class.
+        /// </returns>
         private UserBase CreateUser()
         {
             try
@@ -212,6 +248,10 @@ namespace FPTV.Areas.Identity.Pages.Account
             }
         }
 
+        /// <summary>
+        /// Gets the email store for the user manager.
+        /// </summary>
+        /// <returns>The email store for the user manager.</returns>
         private IUserEmailStore<UserBase> GetEmailStore()
         {
             if (!_userManager.SupportsUserEmail)

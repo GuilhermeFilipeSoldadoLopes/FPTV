@@ -12,6 +12,9 @@ namespace FPTV.Areas.Identity.Pages.Account
     ///     directly from your code. This API may change or be removed in future releases.
     /// </summary>
     [AllowAnonymous]
+    /// <summary>
+    /// Represents the LockoutModel class which inherits from the PageModel class and is used to handle lockout scenarios.
+    /// </summary>
     public class LockoutModel : PageModel
     {
         /// <summary>

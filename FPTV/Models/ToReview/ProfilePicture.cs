@@ -2,6 +2,9 @@
 
 namespace FPTV.Models.ToReview
 {
+    /// <summary>
+    /// This class represents a profile picture for a user.
+    /// </summary>
     public class ProfilePicture
     {
         [Key]

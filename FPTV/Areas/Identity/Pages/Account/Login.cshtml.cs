@@ -18,6 +18,9 @@ using FPTV.Models.UserModels;
 
 namespace FPTV.Areas.Identity.Pages.Account
 {
+    /// <summary>
+    /// LoginModel is a PageModel class that provides functionality for logging in.
+    /// </summary>
     public class LoginModel : PageModel
     {
         private readonly SignInManager<UserBase> _signInManager;
@@ -90,6 +93,10 @@ namespace FPTV.Areas.Identity.Pages.Account
             public bool RememberMe { get; set; }
         }
 
+        /// <summary>
+        /// Gets the external authentication schemes and clears the existing external cookie to ensure a clean login process.
+        /// </summary>
+        /// <returns>The external authentication schemes.</returns>
         public async Task OnGetAsync(string returnUrl = null)
         {
             if (!string.IsNullOrEmpty(ErrorMessage))
@@ -107,6 +114,11 @@ namespace FPTV.Areas.Identity.Pages.Account
             ReturnUrl = returnUrl;
         }
 
+        /// <summary>
+        /// Attempts to log in a user with the given credentials.
+        /// </summary>
+        /// <param name="returnUrl">The URL to redirect to after a successful login.</param>
+        /// <returns>A page result indicating the outcome of the login attempt.</returns>
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             returnUrl ??= Url.Content("~/");

@@ -12,6 +12,15 @@ namespace FPTV
     //cria as roles e é criado o user com a role de Admin e os Moderadores
     public static class Configurations
     {
+        /// <summary>
+        /// Creates the roles for the application.
+        /// </summary>
+        /// <param name="serviceProvider">The service provider.</param>
+        /// <param name="_context">The context.</param>
+        /// <param name="_userStore">The user store.</param>
+        /// <param name="_emailStore">The email store.</param>
+        /// <param name="env">The environment.</param>
+        /// <returns>A Task representing the asynchronous operation.</returns>
         public static async Task CreateRoles(IServiceProvider serviceProvider, FPTVContext _context, IUserStore<UserBase> _userStore, IUserEmailStore<UserBase> _emailStore, IWebHostEnvironment env)
         {
             var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
@@ -28,6 +37,12 @@ namespace FPTV
             await CreateModerators(roleManager, userManager, _context, _userStore, _emailStore, env);
         }
 
+        /// <summary>
+        /// Creates an admin user with the specified credentials and adds it to the Admin role.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="Task"/> representing the asynchronous operation.
+        /// </returns>
         private static async Task CreateAdmin(RoleManager<IdentityRole> roleManager, UserManager<UserBase> userManager, FPTVContext _context, IUserStore<UserBase> _userStore, IUserEmailStore<UserBase> _emailStore, IWebHostEnvironment env)
         {
             var admin = CreateUser();
@@ -52,6 +67,18 @@ namespace FPTV
             if (createPowerUser.Succeeded)
                 await userManager.AddToRoleAsync(admin, "Admin");
         }
+        /// <summary>
+        /// Creates moderators for the application.
+        /// </summary>
+        /// <param name="roleManager">Role manager.</param>
+        /// <param name="userManager">User manager.</param>
+        /// <param name="_context">Database context.</param>
+        /// <param name="_userStore">User store.</param>
+        /// <param name="_emailStore">Email store.</param>
+        /// <param name="env">Web host environment.</param>
+        /// <returns>
+        /// Task representing the asynchronous operation.
+        /// </returns>
         private static async Task CreateModerators(RoleManager<IdentityRole> roleManager, UserManager<UserBase> userManager, FPTVContext _context, IUserStore<UserBase> _userStore, IUserEmailStore<UserBase> _emailStore, IWebHostEnvironment env)
         {
             //Imagem de perfil dos moderadores
@@ -76,6 +103,12 @@ namespace FPTV
             await CreateModeratorJA(moderatorImage, roleManager, userManager, _context, _userStore, _emailStore, env);
         }
 
+        /// <summary>
+        /// Creates a Moderator user with the name André Dias and adds it to the Moderator role.
+        /// </summary>
+        /// <returns>
+        /// A Task that represents the asynchronous operation.
+        /// </returns>
         private static async Task CreateModeratorAD(string moderatorImage, RoleManager<IdentityRole> roleManager, UserManager<UserBase> userManager, FPTVContext _context, IUserStore<UserBase> _userStore, IUserEmailStore<UserBase> _emailStore, IWebHostEnvironment env)
         {
             //André Dias
@@ -102,6 +135,12 @@ namespace FPTV
                 await userManager.AddToRoleAsync(moderator_AD, "Moderator");
         }
 
+        /// <summary>
+        /// Creates a Moderator user with the name "V1rtual" and the email "202002400@estudantes.ips.pt"
+        /// </summary>
+        /// <returns>
+        /// The Moderator user created.
+        /// </returns>
         private static async Task CreateModeratorGL(string moderatorImage, RoleManager<IdentityRole> roleManager, UserManager<UserBase> userManager, FPTVContext _context, IUserStore<UserBase> _userStore, IUserEmailStore<UserBase> _emailStore, IWebHostEnvironment env)
         {
             //Guilherme Lopes
@@ -128,6 +167,12 @@ namespace FPTV
                 await userManager.AddToRoleAsync(moderator_GL, "Moderator");
         }
 
+        /// <summary>
+        /// Creates a Moderator user with the name Miguel Rebelo and adds him to the Moderator role.
+        /// </summary>
+        /// <returns>
+        /// A Task that represents the asynchronous operation.
+        /// </returns>
         private static async Task CreateModeratorMR(string moderatorImage, RoleManager<IdentityRole> roleManager, UserManager<UserBase> userManager, FPTVContext _context, IUserStore<UserBase> _userStore, IUserEmailStore<UserBase> _emailStore, IWebHostEnvironment env)
         {
             //Miguel Rebelo
@@ -154,6 +199,12 @@ namespace FPTV
                 await userManager.AddToRoleAsync(moderator_MR, "Moderator");
         }
 
+        /// <summary>
+        /// Creates a Moderator user with the name Nuno Reis.
+        /// </summary>
+        /// <returns>
+        /// Returns a Moderator user with the name Nuno Reis.
+        /// </returns>
         private static async Task CreateModeratorNR(string moderatorImage, RoleManager<IdentityRole> roleManager, UserManager<UserBase> userManager, FPTVContext _context, IUserStore<UserBase> _userStore, IUserEmailStore<UserBase> _emailStore, IWebHostEnvironment env)
         {
             //Nuno Reis
@@ -180,6 +231,17 @@ namespace FPTV
                 await userManager.AddToRoleAsync(moderator_NR, "Moderator");
         }
 
+        /// <summary>
+        /// Creates a Moderator Role with the given parameters.
+        /// </summary>
+        /// <param name="moderatorImage">The image of the Moderator.</param>
+        /// <param name="roleManager">The RoleManager.</param>
+        /// <param name="userManager">The UserManager.</param>
+        /// <param name="_context">The FPTVContext.</param>
+        /// <param name="_userStore">The IUserStore.</param>
+        /// <param name="_emailStore">The IUserEmailStore.</param>
+        /// <param name="env">The IWebHostEnvironment.</param>
+        /// <returns>A Task representing the asynchronous operation.</returns>
         private static async Task CreateModeratorRP(string moderatorImage, RoleManager<IdentityRole> roleManager, UserManager<UserBase> userManager, FPTVContext _context, IUserStore<UserBase> _userStore, IUserEmailStore<UserBase> _emailStore, IWebHostEnvironment env)
         {
             //Rui Plínio
@@ -205,6 +267,12 @@ namespace FPTV
                 await userManager.AddToRoleAsync(moderator_RP, "Moderator");
         }
 
+        /// <summary>
+        /// Creates a Moderator user with the name João Afonso and adds him to the Moderator role.
+        /// </summary>
+        /// <returns>
+        /// A Task that represents the asynchronous operation.
+        /// </returns>
         private static async Task CreateModeratorJA(string moderatorImage, RoleManager<IdentityRole> roleManager, UserManager<UserBase> userManager, FPTVContext _context, IUserStore<UserBase> _userStore, IUserEmailStore<UserBase> _emailStore, IWebHostEnvironment env)
         {
             //João Afonso
@@ -230,6 +298,10 @@ namespace FPTV
                 await userManager.AddToRoleAsync(moderator_JA, "Moderator");
         }
 
+        /// <summary>
+        /// Creates an instance of the UserBase class.
+        /// </summary>
+        /// <returns>An instance of the UserBase class.</returns>
         private static UserBase CreateUser()
         {
             try

@@ -7,6 +7,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FPTV.Models.MatchesModels
 {
+    /// <summary>
+    /// This class provides a method to check if two strings match.
+    /// </summary>
     public class MatchesVal
     {
         [Required]

@@ -43,10 +43,20 @@ namespace FPTV.Controllers
 //  ordem cronológica
 //  por nome do evento
 {
+    /// <summary>
+    /// This class is responsible for handling requests related to matches.
+    /// </summary>
     public class MatchesController : Controller
     {
         private readonly FPTVContext _context;
 
+        /// <summary>
+        /// Constructor for MatchesController class.
+        /// </summary>
+        /// <param name="context">FPTVContext object.</param>
+        /// <returns>
+        /// No return value.
+        /// </returns>
         public MatchesController(FPTVContext context)
         {
             _context = context;
@@ -54,10 +64,16 @@ namespace FPTV.Controllers
 
         //De CSGO e de Valorant
         // GET: CSMatches
+        /// <summary>
+        /// Retrieves matches from the PandaScore API and adds them to the database if they don't already exist.
+        /// </summary>
+        /// <param name="fullApiPath">The full API path to retrieve the matches from.</param>
+        /// <param name="game">The game to retrieve the matches for.</param>
+        /// <returns>A list of matches.</returns>
         public ActionResult Index(string sort = "", string filter = "", string page = "&page=1", string game = "csgo")
-		{
-			ViewData["game"] = game;
-			ViewBag.page = "Matches";
+        {
+            ViewData["game"] = game;
+            ViewBag.page = "Matches";
             //Request processing with RestSharp
             var jsonFilter = (filter == "" || filter == "livestream") ? "" : "filter[" + filter + "]=true&";
             var jsonSort = (sort == "" || sort == "tournament") ? "" : sort;
@@ -156,7 +172,7 @@ namespace FPTV.Controllers
             var response = client.Execute(request);
             var json = response.Content;
 
-            if(response.StatusCode != System.Net.HttpStatusCode.OK || json == null)
+            if (response.StatusCode != System.Net.HttpStatusCode.OK || json == null)
             {
                 registerErrorLog(response.StatusCode);
                 return null;
@@ -317,29 +333,31 @@ namespace FPTV.Controllers
         }
 
         public ActionResult Results(int days = 0, string game = "csgo")
-		{
-			ViewData["game"] = game;
-			ViewBag.page = "Results";
+        {
+            ViewData["game"] = game;
+            ViewBag.page = "Results";
             ViewBag.days = days;
 
-			var day = "";
+            var day = "";
             DateTime date;
 
             if (days < 0)
             {
                 ViewBag.Message = "It is only possible to consult results of matches that have already taken place.";
-				day = DateTime.Now.AddDays(0).ToString("yyyy-MM-dd");
+                day = DateTime.Now.AddDays(0).ToString("yyyy-MM-dd");
                 date = DateTime.Now.AddDays(0);
-			} else if (days >= 365)
+            }
+            else if (days >= 365)
             {
                 ViewBag.Message = "You can only consult the results up to 365 days ago.";
-				day = DateTime.Now.AddDays(-365).ToString("yyyy-MM-dd");
-				date = DateTime.Now.AddDays(-365);
-			} else
+                day = DateTime.Now.AddDays(-365).ToString("yyyy-MM-dd");
+                date = DateTime.Now.AddDays(-365);
+            }
+            else
             {
-				day = DateTime.Now.AddDays(-days).ToString("yyyy-MM-dd");
-				date = DateTime.Now.AddDays(-days);
-			}
+                day = DateTime.Now.AddDays(-days).ToString("yyyy-MM-dd");
+                date = DateTime.Now.AddDays(-days);
+            }
 
             ViewBag.Date = date.ToString("dd-MM-yyyy");
 
@@ -356,8 +374,8 @@ namespace FPTV.Controllers
             var json = response.Content;
 
             if (response.StatusCode != System.Net.HttpStatusCode.OK || json == null)
-			{
-				registerErrorLog(response.StatusCode);
+            {
+                registerErrorLog(response.StatusCode);
                 return View("~/Views/Home/Error404.cshtml");
             }
 
@@ -679,8 +697,8 @@ namespace FPTV.Controllers
                 var teamsJson = response.Content;
 
                 if (response.StatusCode != System.Net.HttpStatusCode.OK || teamsJson == null)
-				{
-					registerErrorLog(response.StatusCode);
+                {
+                    registerErrorLog(response.StatusCode);
                     return View("~/Views/Home/Error404.cshtml");
                 }
 
@@ -708,11 +726,11 @@ namespace FPTV.Controllers
                     matchPlayerStats.Player = matchPlayer;
                     matchPlayerStats.MatchAPIID = 0;
                     matchPlayerStats.PlayerAPIId = playerId.ToString() == "" ? 1 : playerId.Value<int>();
-                    matchPlayerStats.PlayerName = playerName.ToString() == "" ? "undefined" : playerName.Value<string>();;
+                    matchPlayerStats.PlayerName = playerName.ToString() == "" ? "undefined" : playerName.Value<string>(); ;
                     matchPlayerStats.Kills = rnd.Next(1, 31);
                     matchPlayerStats.Deaths = rnd.Next(1, 21);
                     matchPlayerStats.Assists = rnd.Next(1, 11);
-                    if(game == "csgo")matchPlayerStats.FlashAssist = rnd.Next(1, 6);
+                    if (game == "csgo") matchPlayerStats.FlashAssist = rnd.Next(1, 6);
                     matchPlayerStats.ADR = rnd.Next(30, 155);
                     matchPlayerStats.HeadShots = Math.Round((rnd.NextDouble() * 100), 1);
                     double kd_diff = (double)matchPlayerStats.Kills / (double)matchPlayerStats.Deaths;
@@ -769,8 +787,8 @@ namespace FPTV.Controllers
             var mapsJson = response.Content;
 
             if (response.StatusCode != System.Net.HttpStatusCode.OK || mapsJson == null)
-			{
-				registerErrorLog(response.StatusCode);
+            {
+                registerErrorLog(response.StatusCode);
                 return View("~/Views/Home/Error404.cshtml");
             }
 
@@ -810,8 +828,10 @@ namespace FPTV.Controllers
 
             string MVP_PlayerName = "";
             double bestADR = 0.0;
-            foreach (var item in matchesPlayer) {
-                if (bestADR < ((double)item.Kills / 16) * 100) { 
+            foreach (var item in matchesPlayer)
+            {
+                if (bestADR < ((double)item.Kills / 16) * 100)
+                {
                     MVP_PlayerName = item.PlayerName;
                     bestADR = ((double)item.Kills / 16) * 100;
                 }
@@ -829,23 +849,29 @@ namespace FPTV.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Returns the View for the PlayerAndStats page.
+        /// </summary>
+        /// <returns>View for the PlayerAndStats page.</returns>
         public ActionResult PlayerAndStats()
         {
             return View();
         }
 
+        /// <summary>
+        /// Returns the view for the TeamStats page.
+        /// </summary>
+        /// <returns>View for the TeamStats page.</returns>
         public ActionResult TeamStats()
         {
             return View();
         }
 
+        /// <summary>
+        /// Registers an error log with the given HTTP status code.
+        /// </summary>
         private void registerErrorLog(HttpStatusCode statusCode)
         {
-            /*
-            public string? Error { get; set; }
-            public DateTime Date { get; set; }
-            public Guid UserId { get; set; }
-            public virtual Profile? Profile { get; set; }*/
 
             ErrorLog error = new ErrorLog();
 
@@ -855,87 +881,5 @@ namespace FPTV.Controllers
             _context.ErrorLog.Add(error);
             _context.SaveChanges();
         }
-
-        /*// De CSGO e de Valorant
-        // GET: Matches/CSMatcheDetails/5
-        public ActionResult CSMatcheDetails(int id)
-        {
-            return View();
-        }
-
-        // GET: Matches/ValMatcheDetails/5
-        public ActionResult ValMatcheDetails(Guid id)
-        {
-            return View();
-        }
-
-        //De CSGO e de Valorant
-        // GET: Matches/CSMatcheCreate
-        public ActionResult CSMatcheCreate()
-        {
-            return View();
-        }
-
-        //De CSGO e de Valorant
-        // POST: Matches/CSMatcheCreate
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult CSMatcheCreate(IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        //De CSGO e de Valorant
-        // GET: Matches/CSMatcheEdit/5
-        public ActionResult CSMatcheEdit(int id)
-        {
-            return View();
-        }
-
-        //De CSGO e de Valorant
-        // POST: Matches/CSMatcheEdit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult CSMatcheEdit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        //De CSGO e de Valorant
-        // GET: Matches/CSMatcheDelete/5
-        public ActionResult CSMatcheDelete(int id)
-        {
-            return View();
-        }
-
-        //De CSGO e de Valorant
-        // POST: Matches/CSMatcheDelete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult CSMatcheDelete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }*/
     }
 }

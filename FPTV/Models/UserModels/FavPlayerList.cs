@@ -4,8 +4,11 @@ using System.Xml.Linq;
 
 namespace FPTV.Models.UserModels
 {
-    public class FavPlayerList
-    {
+    /// <summary>
+	/// This class is used to store a list of favorite players.
+	/// </summary>
+	public class FavPlayerList
+		{
         [Key]
         [Display(Name = "Fav Player List ID")]
         public Guid FavPlayerListId { get; set; }

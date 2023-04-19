@@ -4,6 +4,9 @@ using Microsoft.SqlServer.Management.Smo;
 
 namespace FPTV.Services.BackupDBService
 {
+    /// <summary>
+    /// This class is used to create a backup of a database.
+    /// </summary>
     public class BackupBD
     {
         /// <summary>

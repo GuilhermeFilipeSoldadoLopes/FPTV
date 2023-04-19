@@ -3,8 +3,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FPTV.Models.UserModels
 {
-    public class ErrorLog
-    {
+    
+
+     /// <summary>
+     /// This class is used to log errors in the application.
+     /// </summary>
+     public class ErrorLog
+     {
         [Key]
         [Display(Name = "Error Log ID")]
         public Guid ErrorLogId { get; set; }
@@ -25,6 +30,9 @@ namespace FPTV.Models.UserModels
         public Guid? UserId { get; set; }
 
         [Display(Name = "User")]
+        /// <summary>
+        /// Gets or sets the Profile associated with this object.
+        /// </summary>
         public virtual Profile? Profile { get; set; }
     }
 }

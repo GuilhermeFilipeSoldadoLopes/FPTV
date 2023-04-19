@@ -15,10 +15,20 @@ using Microsoft.AspNetCore.WebUtilities;
 
 namespace FPTV.Areas.Identity.Pages.Account
 {
+    /// <summary>
+    /// This class is used to reset the user's password.
+    /// </summary>
     public class ResetPasswordModel : PageModel
     {
         private readonly UserManager<UserBase> _userManager;
 
+        /// <summary>
+        /// Constructor for ResetPasswordModel class. 
+        /// </summary>
+        /// <param name="userManager">UserManager object</param>
+        /// <returns>
+        /// ResetPasswordModel object
+        /// </returns>
         public ResetPasswordModel(UserManager<UserBase> userManager)
         {
             _userManager = userManager;
@@ -71,6 +81,11 @@ namespace FPTV.Areas.Identity.Pages.Account
             public string Code { get; set; }
         }
 
+        /// <summary>
+        /// This method checks if a code is supplied for password reset. If a code is supplied, it is decoded and stored in the InputModel.
+        /// </summary>
+        /// <param name="code">The code to be decoded.</param>
+        /// <returns>A BadRequest if no code is supplied, or the page if a code is supplied.</returns>
         public IActionResult OnGet(string code = null)
         {
             if (code == null)
@@ -87,6 +102,12 @@ namespace FPTV.Areas.Identity.Pages.Account
             }
         }
 
+        /// <summary>
+        /// Resets the password for the specified user.
+        /// </summary>
+        /// <returns>
+        /// Redirects to the ResetPasswordConfirmation page if the password reset is successful, otherwise returns the current page.
+        /// </returns>
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
