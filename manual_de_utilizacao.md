@@ -155,9 +155,18 @@ Detalhes de um tópico:
 <div align="center">
   
 ![Definitions](https://cdn.discordapp.com/attachments/783386747638775848/1097617270563410081/image.png)<p>
+![Definitions](https://media.discordapp.net/attachments/783386747638775848/1098214070601138206/image.png?width=1440&height=170)<p>
 </div>
 
 **Erro :** As páginas de erro a baixo são apresentadas quando o utilizador realiza uma ação que o programa não consegue suportar.
+<div align="center">
+  
+![Error](https://media.discordapp.net/attachments/783386747638775848/1098215431321419866/image.png?width=1428&height=662)<p>
+![Error](https://cdn.discordapp.com/attachments/783386747638775848/1098215775443095582/image.png)<p>
+  
+![Error](https://cdn.discordapp.com/attachments/783386747638775848/1098216137226989568/image.png)<p>
+![Error](https://cdn.discordapp.com/attachments/783386747638775848/1098216053491896362/image.png)<p>
+</div>
 
 **Conclusão :** Este manual de utilização foi criado para ajudar os utilizadores a compreender e usar as funcionalidades do site FPTV. Esperamos que este manual tenha respondido a todas as suas perguntas sobre como usar o site FPTV e que você tenha uma excelente experiência ao usá-lo. <p>
 
