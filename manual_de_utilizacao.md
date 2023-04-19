@@ -60,8 +60,8 @@ Após a confirmação do registo irá surgir uma mensagem a indicar que o email 
 ![ForgotPassword](https://cdn.discordapp.com/attachments/783386747638775848/1098197692661899354/image.png)<p>
 ![ForgotPasswordConfirmation](https://cdn.discordapp.com/attachments/783386747638775848/1098198096732766369/image.png)<p>
 ![ForgotPasswordConfirmation](https://cdn.discordapp.com/attachments/783386747638775848/1098198019230404689/image.png)<p>
-![ResetPassword](https://cdn.discordapp.com/attachments/783386747638775848/1087761432705253426/image.png)<p>
-![ResetPassword](https://cdn.discordapp.com/attachments/783386747638775848/1087761719826333916/image.png)<p>
+![ResetPassword](https://cdn.discordapp.com/attachments/783386747638775848/1098201306239336468/image.png)<p>
+![ResetPassword](https://cdn.discordapp.com/attachments/783386747638775848/1098201369120354354/image.png)<p>
 ![ResetPasswordConfirmation](https://cdn.discordapp.com/attachments/783386747638775848/1087763598190850118/image.png)<p>
 ![ResetPasswordConfirmation](https://cdn.discordapp.com/attachments/783386747638775848/1087763788033437706/image.png)<p>
 </div>
