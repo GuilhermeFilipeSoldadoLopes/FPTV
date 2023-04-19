@@ -15,8 +15,9 @@ html {
 @media (max-width: 767px) {
     .dropdownWidth{
         width:150px !important;
-        
-        
+    }
+    footer {
+        margin-top: 3% !important;
     }
     .marginDrop{
         margin-left:50px;
@@ -76,6 +77,7 @@ html {
     .marginbottomRes {
         margin-bottom: 3% !important;
     }
+    
 }
 
 .responsive {

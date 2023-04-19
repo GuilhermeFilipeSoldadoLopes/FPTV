@@ -294,7 +294,7 @@
                                     </div>
                                 }
 
-                                <div class="stroke " style="border-top-left-radius:15px;border-top-right-radius:15px; " name="FirstTeam">
+                                <div class="stroke " style="border-top-left-radius:15px;border-top-right-radius:15px; font-size:20px " name="FirstTeam">
 
                                     <div style="display:flex;width:100%;margin:auto; justify-content:center ">
                                         <span style=" display: flex;align-items: center;justify-content: center;margin:auto">
@@ -341,18 +341,18 @@
                                     }
 
                                 </div>
-                                <div>
+                                <div class="stroke2" style="font-size:20px">
                                     <div class="" style="display:flex; text-align:left;width:100%;margin-top:3%;margin-bottom:3%">
-                                        <span class="bestof stroke2" style="text-align:left" id="toTranslate">Best of @ViewBag.matches.NumberOfGames</span>
+                                        <span class="bestof " style="text-align:left" id="toTranslate">Best of @ViewBag.matches.NumberOfGames</span>
                                         @if (ViewBag.matches.TimeType.ToString().ToLower() != "upcoming")
                                         {
-                                            <span class="stroke2" style="margin:auto">@ViewBag.pickedMaps[lista.Count() -1]</span>
+                                            <span class="" style="margin:auto">@ViewBag.pickedMaps[lista.Count() -1]</span>
                                         }
                                         else
                                         {
                                             <span style="margin:auto"> </span>
                                         }
-                                        <span class="stroke2" style="text-align:right">Tier: @Char.ToUpper(ViewBag.matches.Tier)</span><br />
+                                        <span class="" style="text-align:right">Tier: @Char.ToUpper(ViewBag.matches.Tier)</span><br />
 
                                     </div>
 
@@ -360,10 +360,10 @@
                                         @if (ViewBag.matches.TimeType.ToString().ToLower() != "upcoming")
                                         {
                                             Random rnd = new Random();
-                                            <span class="bestof stroke" style="text-align:left;font-size:20px" id="toTranslate">Duration: @(rnd.Next(15) + 45) min</span>
+                                            <span class="bestof " style="text-align:left;font-size:20px" id="toTranslate">Duration: @(rnd.Next(15) + 45) min</span>
                                         }
-                                        <span class="stroke" style="margin:auto;"> </span>
-                                        <span class="stroke" style="text-align:right;font-size:20px"> @ViewBag.matches.BeginAt.ToString("dddd | dd-MM-yyyy | hh:mm")H </span><br />
+                                        <span class="" style="margin:auto;"> </span>
+                                        <span class="" style="text-align:right;font-size:20px"> @ViewBag.matches.BeginAt.ToString("dddd | dd-MM-yyyy | hh:mm")H </span><br />
                                     </div>
 
                                     @*<div style="display:flex; width:100%; padding:0px;">
@@ -379,7 +379,7 @@
 
                     @if (ViewBag.matches.TimeType.ToString().ToLower() == "upcoming")
                     {
-                        <div class="borders bordercolor darkcolor" style="border-radius:15px;padding:1%; width:100%">
+                        <div class="borders bordercolor darkcolor" style="border-radius:15px;padding:1%; width:100%;font-size:20px">
 
                             <h2><span class="alinhar">@ViewBag.matches.EventName</span></h2>
 
@@ -399,7 +399,7 @@
                                 </div>
                             }
 
-                            <div class=" " style="border-top-left-radius:15px;border-top-right-radius:15px; " name="FirstTeam">
+                            <div  style="border-top-left-radius:15px;border-top-right-radius:15px; " name="FirstTeam">
 
                                 <div style="display:flex;width:100%;margin:auto; justify-content:center; ">
                                     <a href="@Url.Action("getTeam", "Stats", new {id = @ViewBag.matches.TeamsList[0].TeamAPIID, type = @ViewBag.matches.TimeType.ToString().ToLower() ,game = ViewData["game"].ToString()})" style="justify-content: space-around; margin-left: auto; margin-bottom:0px">
@@ -441,8 +441,8 @@
                                 }
 
                             </div>
-                            
-                            <div class="" style="display:flex; text-align:left;width:100%;margin-top:3%;margin-bottom:3%">
+
+                            <div class="stroke" style="display:flex; text-align:left;width:100%;margin-top:3%;margin-bottom:3%;font-size:20px">
                                 <span class="bestof " style="text-align:left;font-weight:700" id="toTranslate">Best of @ViewBag.matches.NumberOfGames</span>
                                 @if (ViewBag.matches.TimeType.ToString().ToLower() != "upcoming")
                                 {
@@ -456,7 +456,7 @@
 
                             </div>
 
-                            <div class="" style="display:flex; text-align:left;width:100%;margin-top:3%;margin-bottom:0px">
+                            <div class="stroke" style="display:flex; text-align:left;width:100%;margin-top:3%;margin-bottom:0px;font-size:20px">
                                 @if (ViewBag.matches.TimeType.ToString().ToLower() != "upcoming")
                                 {
                                     Random rnd = new Random();
