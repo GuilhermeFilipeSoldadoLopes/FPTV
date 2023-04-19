@@ -76,6 +76,9 @@ html {
     .marginbottomRes {
         margin-bottom: 3% !important;
     }
+    footer{
+        margin-top:3% !important;
+    }
 }
 
 .responsive {
