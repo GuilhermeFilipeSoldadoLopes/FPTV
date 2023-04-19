@@ -56,10 +56,10 @@ Após a confirmação do registo irá surgir uma mensagem a indicar que o email 
 
 <div align="center">
 
-![ForgotPassword](https://cdn.discordapp.com/attachments/783386747638775848/1087760917799907380/image.png)<p>
-![ForgotPassword](https://cdn.discordapp.com/attachments/783386747638775848/1087761153817595914/image.png)<p>
-![ForgotPasswordConfirmation](https://cdn.discordapp.com/attachments/783386747638775848/1087762662324191333/image.png)<p>
-![ForgotPasswordConfirmation](https://cdn.discordapp.com/attachments/783386747638775848/1087762694792298547/image.png)<p>
+![ForgotPassword](https://cdn.discordapp.com/attachments/783386747638775848/1098197626249289768/image.png)<p>
+![ForgotPassword](https://cdn.discordapp.com/attachments/783386747638775848/1098197692661899354/image.png)<p>
+![ForgotPasswordConfirmation](https://cdn.discordapp.com/attachments/783386747638775848/1098198096732766369/image.png)<p>
+![ForgotPasswordConfirmation](https://cdn.discordapp.com/attachments/783386747638775848/1098198019230404689/image.png)<p>
 ![ResetPassword](https://cdn.discordapp.com/attachments/783386747638775848/1087761432705253426/image.png)<p>
 ![ResetPassword](https://cdn.discordapp.com/attachments/783386747638775848/1087761719826333916/image.png)<p>
 ![ResetPasswordConfirmation](https://cdn.discordapp.com/attachments/783386747638775848/1087763598190850118/image.png)<p>
