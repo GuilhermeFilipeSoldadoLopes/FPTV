@@ -46,10 +46,10 @@ Após a confirmação do registo irá surgir uma mensagem a indicar que o email 
 **Perfil do Utilizador :** Após o início de sessão, clique no seu nome no canto superior direito e será direcionado para o seu perfil de usuário. Aqui, você pode visualizar o seu nome, imagem de perfil, descrição, data de registro, bandeira do país, autor de tópicos, jogadores favoritos e equipas favoritas. Além disso, você pode alterar essas informações clicando no botão de editar perfil que é um botão em forma de lápis.<p>
 <div align="center">
 
-![Profile](https://cdn.discordapp.com/attachments/783386747638775848/1087690434547027978/image.png)<p>
-![Profile](https://cdn.discordapp.com/attachments/783386747638775848/1087691595211604039/image.png)<p>
-![Profile](https://cdn.discordapp.com/attachments/783386747638775848/1087692959685824582/image.png)<p>
-![Profile](https://cdn.discordapp.com/attachments/783386747638775848/1087693005265305671/image.png)<p>
+![Profile](https://cdn.discordapp.com/attachments/783386747638775848/1098196426862886932/image.png)<p>
+![Profile](https://cdn.discordapp.com/attachments/783386747638775848/1098196487562866689/image.png)<p>
+![Profile](https://cdn.discordapp.com/attachments/783386747638775848/1098196992485769316/image.png)<p>
+![Profile](https://cdn.discordapp.com/attachments/783386747638775848/1098196889314275418/image.png)<p>
 </div>
 
 **Recuperação de Senha :** Caso o utilizador esqueça a sua senha, pode recuperá-la clicando no botão "Forgot your password?" que está na página de início de sessão. Irá será direcionado para uma página na qual irá ser pedido para inserir o seu endereço de e-mail (apenas no caso de o login ter sido realizado com email/password). Consequentemente um link para redefinir a sua senha será enviado para o seu e-mail.<p>
