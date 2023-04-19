@@ -394,13 +394,17 @@ namespace FPTV.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Retrieves a list of topics from the database and passes them to the view.
+        /// </summary>
+        /// <returns>A view containing the list of topics.</returns>
         public ActionResult IndexAsyncTest()
-		{
-			ViewBag.Game = "";
-			ViewBag.page = "Forum";
-			var topics = _context.Topics.Include(t => t.Profile).ThenInclude(p => p.User).Include(t => t.Comments).ThenInclude(c => c.Reactions).ToList();
-			return View(topics);
-		}
+        {
+            ViewBag.Game = "";
+            ViewBag.page = "Forum";
+            var topics = _context.Topics.Include(t => t.Profile).ThenInclude(p => p.User).Include(t => t.Comments).ThenInclude(c => c.Reactions).ToList();
+            return View(topics);
+        }
 
         /// <summary>
         /// Checks if an error 303 has occurred.
