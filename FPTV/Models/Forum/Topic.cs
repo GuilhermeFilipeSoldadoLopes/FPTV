@@ -4,6 +4,9 @@ using FPTV.Models.UserModels;
 
 namespace FPTV.Models.Forum
 {
+    /// <summary>
+    /// This class represents a topic that can be discussed.
+    /// </summary>
     public class Topic
     {
         [Key]
@@ -31,12 +34,12 @@ namespace FPTV.Models.Forum
         [Display(Name = "User")]
         public Profile? Profile { get; set; }
 
-		[Required]
-		[Display(Name = "Comments")]
-		public ICollection<Comment> Comments { get; set; }
+        [Required]
+        [Display(Name = "Comments")]
+        public ICollection<Comment> Comments { get; set; }
 
         [Required]
         [Display(Name = "isReported")]
         public bool Reported { get; set; }
-	}
+    }
 }

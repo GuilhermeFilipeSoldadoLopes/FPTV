@@ -48,7 +48,8 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddTransient<IEmailSender, EmailSender>();
 builder.Services.Configure<AuthMessageSenderOptions>(builder.Configuration);
 
-builder.Services.ConfigureApplicationCookie(o => {
+builder.Services.ConfigureApplicationCookie(o =>
+{
     o.ExpireTimeSpan = TimeSpan.FromDays(5);
     o.SlidingExpiration = true;
 });
@@ -93,8 +94,18 @@ app.UseEndpoints(endpoints =>
 
 app.Run();
 
+/// <summary>
+/// Extension methods for WebApplication class.
+/// </summary>
+
 public static class WebApplicationExtensions
 {
+    /// <summary>
+    /// Creates roles for the application using the provided configuration.
+    /// </summary>
+    /// <param name="app">The web application.</param>
+    /// <param name="configuration">The configuration.</param>
+    /// <returns>The web application.</returns>
     public static async Task<WebApplication> CreateRolesAsync(this WebApplication app, IConfiguration configuration)
     {
         using var scope = app.Services.CreateScope();

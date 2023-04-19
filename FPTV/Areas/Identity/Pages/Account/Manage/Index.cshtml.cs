@@ -19,16 +19,28 @@ using RestSharp;
 
 namespace FPTV.Areas.Identity.Pages.Account.Manage
 {
+    /// <summary>
+    /// This class represents the IndexModel which is a PageModel.
+    /// </summary>
     public class IndexModel : PageModel
     {
         private readonly UserManager<UserBase> _userManager;
         private readonly SignInManager<UserBase> _signInManager;
         private readonly FPTVContext _context;
 
+        /// <summary>
+        /// Constructor for IndexModel class.
+        /// </summary>
+        /// <param name="userManager">UserManager object.</param>
+        /// <param name="signInManager">SignInManager object.</param>
+        /// <param name="context">FPTVContext object.</param>
+        /// <returns>
+        /// IndexModel object.
+        /// </returns>
         public IndexModel(
-            UserManager<UserBase> userManager,
-            SignInManager<UserBase> signInManager,
-            FPTVContext context)
+                    UserManager<UserBase> userManager,
+                    SignInManager<UserBase> signInManager,
+                    FPTVContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -83,6 +95,14 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
             public string Date { get; set; }
         }
 
+        /// <summary>
+        /// Loads the user's profile information.
+        /// </summary>
+        /// <param name="user">The user.</param>
+        /// <param name="profile">The profile.</param>
+        /// <returns>
+        /// The user's profile information.
+        /// </returns>
         private async Task LoadAsync(UserBase user, Profile profile)
         {
             var userName = await _userManager.GetUserNameAsync(user);
@@ -93,7 +113,7 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
             var biography = profile.Biography;
             var date = profile.RegistrationDate.Date;
 
-			Username = userName;
+            Username = userName;
 
             Input = new InputModel
             {
@@ -104,9 +124,15 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
                 Bio = biography,
                 CountryImage = "/images/Flags/4x3/" + flag + ".svg",
                 Date = ("Member since: " + date.Date.ToShortDateString())
-			};
+            };
         }
 
+        /// <summary>
+        /// Loads the user, profile, and view data for the Index page.
+        /// </summary>
+        /// <param name="user">The user.</param>
+        /// <param name="profile">The profile.</param>
+        /// <returns>The Index page.</returns>
         public async Task<IActionResult> OnGetAsync()
         {
             var user = await _userManager.GetUserAsync(User);

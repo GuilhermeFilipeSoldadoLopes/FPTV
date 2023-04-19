@@ -4,29 +4,32 @@ using FPTV.Models.UserModels;
 
 namespace FPTV.Models.StatisticsModels
 {
+    /// <summary>
+    /// This class stores the values of a match player's stats.
+    /// </summary>
     public class MatchPlayerStatsVal
     {
-		[Required]
-		[Key]
-		[Display(Name = "Id of a MatchPlayerStatsVal")]
-		public Guid MatchPlayerStatsValID { get; set; }
+        [Required]
+        [Key]
+        [Display(Name = "Id of a MatchPlayerStatsVal")]
+        public Guid MatchPlayerStatsValID { get; set; }
 
         [Display(Name = "MatchVal")]
         public MatchVal? Match { get; set; }
 
-		[Required]
-		[Display(Name = "MatchVal API ID")]
-		public int MatchAPIID { get; set; }
+        [Required]
+        [Display(Name = "MatchVal API ID")]
+        public int MatchAPIID { get; set; }
 
         [Required]
         [Display(Name = "PlayerVal")]
         public Player? Player { get; set; }
 
-		[Required]
-		[Display(Name = "API Id of a valorant player")]
-		public int PlayerAPIId { get; set; }
+        [Required]
+        [Display(Name = "API Id of a valorant player")]
+        public int PlayerAPIId { get; set; }
 
-		[Required]
+        [Required]
         [Display(Name = "Kills")]
         public int? Kills { get; set; }
 
@@ -43,19 +46,19 @@ namespace FPTV.Models.StatisticsModels
         public double? ADR { get; set; }
 
         [Required]
-        [Display(Name = "Kast")] 
+        [Display(Name = "Kast")]
         public float? Kast { get; set; }
 
         [Required]
-        [Display(Name = "HeadShots")] 
+        [Display(Name = "HeadShots")]
         public double? HeadShots { get; set; }
 
         [Required]
-        [Display(Name = "KD_Diff")] 
+        [Display(Name = "KD_Diff")]
         public double? KD_Diff { get; set; }
 
         [Required]
-        [Display(Name = "Name of a player")] 
+        [Display(Name = "Name of a player")]
         public string? PlayerName { get; set; }
     }
 }

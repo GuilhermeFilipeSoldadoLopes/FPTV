@@ -19,11 +19,22 @@ using Microsoft.AspNetCore.WebUtilities;
 
 namespace FPTV.Areas.Identity.Pages.Account
 {
+    /// <summary>
+    /// Represents the model for the Forgot Password page.
+    /// </summary>
     public class ForgotPasswordModel : PageModel
     {
         private readonly UserManager<UserBase> _userManager;
         private readonly IEmailSender _emailSender;
 
+        /// <summary>
+        /// Constructor for ForgotPasswordModel class.
+        /// </summary>
+        /// <param name="userManager">UserManager object.</param>
+        /// <param name="emailSender">IEmailSender object.</param>
+        /// <returns>
+        /// ForgotPasswordModel object.
+        /// </returns>
         public ForgotPasswordModel(UserManager<UserBase> userManager, IEmailSender emailSender)
         {
             _userManager = userManager;
@@ -52,6 +63,10 @@ namespace FPTV.Areas.Identity.Pages.Account
             public string Email { get; set; }
         }
 
+        /// <summary>
+        /// Generates a password reset token and sends an email to the user with a link to reset their password.
+        /// </summary>
+        /// <returns>Redirects to the ForgotPasswordConfirmation page.</returns>
         public async Task<IActionResult> OnPostAsync()
         {
             if (ModelState.IsValid)
@@ -75,23 +90,23 @@ namespace FPTV.Areas.Identity.Pages.Account
 
                 // For more information on how to enable account confirmation and password reset please
                 // visit https://go.microsoft.com/fwlink/?LinkID=532713
-                    var user = await _userManager.FindByEmailAsync(Input.Email);
+                var user = await _userManager.FindByEmailAsync(Input.Email);
 
-                    var code = await _userManager.GeneratePasswordResetTokenAsync(user);
-                    code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-                    var callbackUrl = Url.Page(
-                        "/Account/ResetPassword",
-                        pageHandler: null,
-                        values: new { area = "Identity", code = code },
-                        protocol: Request.Scheme);
+                var code = await _userManager.GeneratePasswordResetTokenAsync(user);
+                code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+                var callbackUrl = Url.Page(
+                    "/Account/ResetPassword",
+                    pageHandler: null,
+                    values: new { area = "Identity", code = code },
+                    protocol: Request.Scheme);
 
-                    await _emailSender.SendEmailAsync(
-                        Input.Email,
-                        "Reset your Password",
-                        $"{HtmlEncoder.Default.Encode(callbackUrl)}");
+                await _emailSender.SendEmailAsync(
+                    Input.Email,
+                    "Reset your Password",
+                    $"{HtmlEncoder.Default.Encode(callbackUrl)}");
 
-                    return RedirectToPage("./ForgotPasswordConfirmation");
-                }
+                return RedirectToPage("./ForgotPasswordConfirmation");
+            }
 
             return Page();
         }

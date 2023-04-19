@@ -4,29 +4,32 @@ using FPTV.Models.UserModels;
 
 namespace FPTV.Models.StatisticsModels
 {
+    /// <summary>
+    /// This class stores the stats of a match player.
+    /// </summary>
     public class MatchPlayerStatsCS
     {
-		[Required]
-		[Key]
-		[Display(Name = "Id of a MatchPlayerStatsCS")]
-		public Guid MatchPlayerStatsCSID { get; set; }
+        [Required]
+        [Key]
+        [Display(Name = "Id of a MatchPlayerStatsCS")]
+        public Guid MatchPlayerStatsCSID { get; set; }
 
         [Display(Name = "MatchCS")]
         public MatchCS Match { get; set; }
 
-		[Required]
-		[Display(Name = "MatchCS API ID")]
-		public int MatchAPIID { get; set; }
+        [Required]
+        [Display(Name = "MatchCS API ID")]
+        public int MatchAPIID { get; set; }
 
         [Required]
         [Display(Name = "PlayerCS")]
         public Player? Player { get; set; }
 
-		[Required]
-		[Display(Name = "API Id of a csgo player")]
-		public int PlayerAPIId { get; set; }
+        [Required]
+        [Display(Name = "API Id of a csgo player")]
+        public int PlayerAPIId { get; set; }
 
-		[Required]
+        [Required]
         [Display(Name = "Kills")]
         public int? Kills { get; set; }
 

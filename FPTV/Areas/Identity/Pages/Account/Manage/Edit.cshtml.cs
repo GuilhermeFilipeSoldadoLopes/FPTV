@@ -16,16 +16,28 @@ using System.Text.RegularExpressions;
 
 namespace FPTV.Areas.Identity.Pages.Account.Manage
 {
+    /// <summary>
+    /// This class is used to handle the edit page of the application.
+    /// </summary>
     public class EditModel : PageModel
     {
         private readonly UserManager<UserBase> _userManager;
         private readonly SignInManager<UserBase> _signInManager;
         private readonly FPTVContext _context;
 
+        /// <summary>
+        /// Constructor for EditModel class.
+        /// </summary>
+        /// <param name="userManager">UserManager object.</param>
+        /// <param name="signInManager">SignInManager object.</param>
+        /// <param name="context">FPTVContext object.</param>
+        /// <returns>
+        /// An instance of EditModel class.
+        /// </returns>
         public EditModel(
-            UserManager<UserBase> userManager,
-            SignInManager<UserBase> signInManager,
-            FPTVContext context)
+                    UserManager<UserBase> userManager,
+                    SignInManager<UserBase> signInManager,
+                    FPTVContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -77,6 +89,14 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
             public string Country { get; set; }
         }
 
+        /// <summary>
+        /// Loads the user's profile information into the InputModel.
+        /// </summary>
+        /// <param name="user">The user whose profile information is being loaded.</param>
+        /// <param name="profile">The profile information of the user.</param>
+        /// <returns>
+        /// The user's profile information loaded into the InputModel.
+        /// </returns>
         private async Task LoadAsync(UserBase user, Profile profile)
         {
             var userName = await _userManager.GetUserNameAsync(user);
@@ -95,6 +115,10 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
             };
         }
 
+        /// <summary>
+        /// Loads the user, profile, and list of countries to the page. Also loads the favorite players and teams for CSGO and Valorant.
+        /// </summary>
+        /// <returns>Page result</returns>
         public async Task<IActionResult> OnGetAsync()
         {
             var user = await _userManager.GetUserAsync(User);
@@ -196,6 +220,12 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
             return Page();
         }
 
+        /// <summary>
+        /// Updates the user profile with the given information.
+        /// </summary>
+        /// <returns>
+        /// Redirects to the Index page with a status message.
+        /// </returns>
         public async Task<IActionResult> OnPostAsync()
         {
             //Console.WriteLine("\n\n\n\nEntrou\n\n\n\n");
@@ -260,7 +290,8 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
                             file.ContentType.ToLower() != "image/gif" &&
                             file.ContentType.ToLower() != "image/x-png" &&
                             file.ContentType.ToLower() != "image/png")
-                { } else
+                { }
+                else
                 {
                     //-------------------------------------------
                     //  Check the image extension
@@ -269,7 +300,8 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
                         && Path.GetExtension(file.FileName).ToLower() != ".png"
                         && Path.GetExtension(file.FileName).ToLower() != ".gif"
                         && Path.GetExtension(file.FileName).ToLower() != ".jpeg")
-                    { } else
+                    { }
+                    else
                     {
                         //-------------------------------------------
                         //  Attempt to read the file and check the first bytes
@@ -277,20 +309,23 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
                         try
                         {
                             if (!file.OpenReadStream().CanRead)
-                            { } else
+                            { }
+                            else
                             {
                                 //------------------------------------------
                                 //check whether the image size exceeding the limit or not
                                 //------------------------------------------ 
                                 if (file.Length < ImageMinimumBytes)
-                                { } else
+                                { }
+                                else
                                 {
                                     byte[] buffer = new byte[ImageMinimumBytes];
                                     file.OpenReadStream().Read(buffer, 0, ImageMinimumBytes);
                                     string content = System.Text.Encoding.UTF8.GetString(buffer);
                                     if (Regex.IsMatch(content, @"<script|<html|<head|<title|<body|<pre|<table|<a\s+href|<img|<plaintext|<cross\-domain\-policy",
                                         RegexOptions.IgnoreCase | RegexOptions.CultureInvariant | RegexOptions.Multiline))
-                                    { } else
+                                    { }
+                                    else
                                     {
                                         //-------------------------------------------
                                         //  Try to instantiate new Bitmap, if .NET will throw exception
@@ -318,7 +353,7 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
                                         await _context.SaveChangesAsync();
                                     }
                                 }
-                            } 
+                            }
                         }
                         catch (Exception)
                         { }
@@ -337,14 +372,18 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
                     {
                         user.UserName = Input.Username;
                         await _userManager.UpdateAsync(user);
-                    } else {
+                    }
+                    else
+                    {
                         await OnGetAsync();
                         StatusMessage = "Your profile has not been updated. Already exists a user with that username. Try another one.";
                         Username = userName;
                         Input.Username = userName;
                         return Page();
                     }
-                } else {
+                }
+                else
+                {
                     await OnGetAsync();
                     StatusMessage = "Your profile has not been updated. Your username is same as before";
                     Username = userName;

@@ -13,14 +13,25 @@ using Microsoft.Extensions.Logging;
 
 namespace FPTV.Areas.Identity.Pages.Account.Manage
 {
+    /// <summary>
+    /// This class is used to generate recovery codes for a user's account.
+    /// </summary>
     public class GenerateRecoveryCodesModel : PageModel
     {
         private readonly UserManager<UserBase> _userManager;
         private readonly ILogger<GenerateRecoveryCodesModel> _logger;
 
+        /// <summary>
+        /// Constructor for GenerateRecoveryCodesModel class.
+        /// </summary>
+        /// <param name="userManager">UserManager object.</param>
+        /// <param name="logger">ILogger object.</param>
+        /// <returns>
+        /// GenerateRecoveryCodesModel object.
+        /// </returns>
         public GenerateRecoveryCodesModel(
-            UserManager<UserBase> userManager,
-            ILogger<GenerateRecoveryCodesModel> logger)
+                    UserManager<UserBase> userManager,
+                    ILogger<GenerateRecoveryCodesModel> logger)
         {
             _userManager = userManager;
             _logger = logger;
@@ -40,6 +51,10 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
         [TempData]
         public string StatusMessage { get; set; }
 
+        /// <summary>
+        /// Gets the page to generate recovery codes for the user.
+        /// </summary>
+        /// <returns>The page to generate recovery codes for the user.</returns>
         public async Task<IActionResult> OnGetAsync()
         {
             var user = await _userManager.GetUserAsync(User);
@@ -57,6 +72,10 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
             return Page();
         }
 
+        /// <summary>
+        /// Generates new two factor recovery codes for the user and redirects to the ShowRecoveryCodes page.
+        /// </summary>
+        /// <returns>Redirects to the ShowRecoveryCodes page.</returns>
         public async Task<IActionResult> OnPostAsync()
         {
             var user = await _userManager.GetUserAsync(User);

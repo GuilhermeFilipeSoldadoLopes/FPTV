@@ -28,6 +28,9 @@ using System.Xml.Linq;
 
 namespace FPTV.Controllers
 {
+    /// <summary>
+    /// The StatsController class is used to handle requests related to statistics.
+    /// </summary>
     public class StatsController : Controller
     {
         private readonly FPTVContext _context;
@@ -36,6 +39,14 @@ namespace FPTV.Controllers
         List<MatchesCS> matchesCS = new List<MatchesCS>();
         private readonly UserManager<UserBase> _userManager;
 
+        /// <summary>
+        /// Constructor for StatsController class.
+        /// </summary>
+        /// <param name="userManager">UserManager object.</param>
+        /// <param name="context">FPTVContext object.</param>
+        /// <returns>
+        /// StatsController object.
+        /// </returns>
         public StatsController(UserManager<UserBase> userManager, FPTVContext context)
         {
             _userManager = userManager;
@@ -45,6 +56,12 @@ namespace FPTV.Controllers
 
 
         [Authorize]
+        /// <summary>
+        /// Async method to get CSGO matches and return the PlayerAndStats view.
+        /// </summary>
+        /// <returns>
+        /// View of PlayerAndStats.
+        /// </returns>
         public async Task<IActionResult> PlayerandStatsCs(int id)
         {
             getCSGOMatchesAsync();
@@ -53,8 +70,8 @@ namespace FPTV.Controllers
 
         [Authorize]
         public async Task<ActionResult> getTeam(int id = 132991, string filter = "past", string game = "csgo", string page = "&page=1")
-		{
-			ViewData["game"] = game;
+        {
+            ViewData["game"] = game;
 
             var user = await _userManager.GetUserAsync(User);
 
@@ -156,21 +173,28 @@ namespace FPTV.Controllers
                 team.Name = _team.GetValue("name").ToString() == "" ? "undefined" : _team.GetValue("name").Value<string>();
                 team.Image = _team.GetValue("image_url").ToString() == "" ? "/images/missing.png" : _team.GetValue("image_url").Value<string>();
                 team.CoachName = coachNames[_random.Next(coachNames.Length)];
-                
+
                 team.Winnings = _random.Next(1, 1000);
                 team.Losses = _random.Next(1, 601);
 
                 var winning_ratio = Math.Round((double)(team.Winnings + team.Losses) / (double)team.Winnings, 2);
-                if (winning_ratio < 1.4) {
+                if (winning_ratio < 1.4)
+                {
                     team.WorldRank = _random.Next(1, 11);
-                } else if (winning_ratio > 1.4 && winning_ratio < 3) {
+                }
+                else if (winning_ratio > 1.4 && winning_ratio < 3)
+                {
                     team.WorldRank = _random.Next(10, 26);
-                } else if (winning_ratio > 3)  {
+                }
+                else if (winning_ratio > 3)
+                {
                     team.WorldRank = _random.Next(25, 111);
-                } else if(winning_ratio < 0) {
+                }
+                else if (winning_ratio < 0)
+                {
                     team.WorldRank = 150;
                 }
-                
+
                 team.Game = game == "csgo" ? GameType.CSGO : GameType.Valorant;
                 //team.location =
                 team.Players = new List<Player>();
@@ -226,9 +250,9 @@ namespace FPTV.Controllers
         }
 
         [Authorize]
-        public async Task<ActionResult> getPlayer(int id= 132995, string filter = "past", string game = "csgo", string page = "&page=1")
-		{
-			ViewData["game"] = game;
+        public async Task<ActionResult> getPlayer(int id = 132995, string filter = "past", string game = "csgo", string page = "&page=1")
+        {
+            ViewData["game"] = game;
 
             var user = await _userManager.GetUserAsync(User);
 
@@ -409,7 +433,7 @@ namespace FPTV.Controllers
                     _context.MatchPlayerStatsVal.Add(player);
                 }
                 double KdRatio;
-                if(player.Kills != 0 || player.Deaths != 0)
+                if (player.Kills != 0 || player.Deaths != 0)
                 {
                     KdRatio = (double)player.Kills / (double)player.Deaths;
                 }
@@ -557,12 +581,12 @@ namespace FPTV.Controllers
                     ViewBag.NacionalityImg = "/images/Flags/4x3/" + _player.Nationality + ".svg";
                     //_player.Image = (string)item.GetValue("image_url");
                     _player.Image = item.GetValue("image_url").ToString() == "" ? "/images/default-profile-icon-24.jpg" : item.GetValue("image_url").Value<string>();
-                    _player.Rating= ranking[_random.Next(ranking.Length)];
+                    _player.Rating = ranking[_random.Next(ranking.Length)];
                     _player.PlayerAPIId = player.PlayerAPIId;
                     _player.Name = player.PlayerName;
 
                     var current_team = (JObject)item.GetValue("current_team");
-                    
+
                     var current_team_id = (int)current_team.GetValue("id");
                     teamm.TeamAPIID = (int)current_team.GetValue("id");
                     //if(teamm.TeamAPIID == _player.)
@@ -603,7 +627,7 @@ namespace FPTV.Controllers
                 ViewBag.maps = maps;
                 ViewBag.player = player;
                 ViewBag._player = _player;
-                
+
                 id = id;
                 ViewBag.id = id;
                 //_context.MatchPlayerStatsCS.Add(player);
@@ -615,9 +639,20 @@ namespace FPTV.Controllers
         }
 
 
+        /// <summary>
+        /// Makes a request to the PandaScore API for the specified category, sort, page, filter, and game.
+        /// </summary>
+        /// <param name="category">The category of the request.</param>
+        /// <param name="sort">The sort of the request.</param>
+        /// <param name="page">The page of the request.</param>
+        /// <param name="filter">The filter of the request.</param>
+        /// <param name="game">The game of the request.</param>
+        /// <returns>
+        /// The content of the request.
+        /// </returns>
         private String request(string category, string sort = "sort=-status", string page = "&page=1", string filter = "past", string game = "csgo")
-		{
-			ViewData["game"] = game;
+        {
+            ViewData["game"] = game;
             if (category == "matches")
             {
                 var jsonFilter = filter + "?";
@@ -826,7 +861,7 @@ namespace FPTV.Controllers
                                         }
                                         //for (int i = 0; i < _context.Player.Count; i++) {
                                         _context.Player.Add(player);
-                                        
+
                                         //}
                                     }
 
@@ -835,7 +870,7 @@ namespace FPTV.Controllers
                         }
 
 
-                        
+
                         var matchTeam = new MatchTeamsCS();
                         matchTeam.MatchCSAPIID = (int)item.GetValue("id");
                         matchTeam.TeamCSAPIId = (int)team.TeamAPIID;
@@ -874,7 +909,7 @@ namespace FPTV.Controllers
                         _context.MatchTeamsCS.Add(matchTeam);
 
 
-                        
+
 
                     }
                     matches.MatchesList.Add(ma);
@@ -899,10 +934,13 @@ namespace FPTV.Controllers
             ViewBag.teamsList = teamsList;
             ViewBag.matchCsList = matchCsList;
             ViewBag.player = playerList;
-           
+
             return View("PlayerAndStats");
         }
 
+        /// <summary>
+        /// Registers an error log with the given status code.
+        /// </summary>
         private void registerErrorLog(HttpStatusCode statusCode)
         {
             ErrorLog error = new ErrorLog();
@@ -914,6 +952,12 @@ namespace FPTV.Controllers
             _context.SaveChanges();
         }
 
+        /// <summary>
+        /// Adds or removes a player from the user's favorite list.
+        /// </summary>
+        /// <returns>
+        /// Redirects to the player's stats page.
+        /// </returns>
         public async Task<ActionResult> addPlayerToFav(int id, string game)
         {
             ViewData["game"] = game;
@@ -979,7 +1023,7 @@ namespace FPTV.Controllers
 
             foreach (var item in players)
             {
-                if(item.PlayerAPIId == player.PlayerAPIId)
+                if (item.PlayerAPIId == player.PlayerAPIId)
                 {
                     isFav = true;
                     favPlayer = item;
@@ -1000,6 +1044,12 @@ namespace FPTV.Controllers
             return RedirectToAction("getPlayer", "Stats", new { id = player.PlayerAPIId, game = game });
         }
 
+        /// <summary>
+        /// Adds or removes a team from the user's favorite teams list.
+        /// </summary>
+        /// <returns>
+        /// Redirects to the team's stats page.
+        /// </returns>
         public async Task<ActionResult> addTeamToFav(int id, string game)
         {
             ViewData["game"] = game;
@@ -1086,6 +1136,12 @@ namespace FPTV.Controllers
             return RedirectToAction("getTeam", "Stats", new { id = team.TeamAPIID, game = game });
         }
 
+        /// <summary>
+        /// Removes a player from the user's favorite list.
+        /// </summary>
+        /// <returns>
+        /// Redirects to the user's account page.
+        /// </returns>
         public async Task<ActionResult> removePlayerToFav(int id)
         {
             var user = await _userManager.GetUserAsync(User);
@@ -1113,6 +1169,12 @@ namespace FPTV.Controllers
             return Redirect("https://localhost:7208/Identity/Account/Manage/Edit");
         }
 
+        /// <summary>
+        /// Removes a team from the user's list of favorite teams.
+        /// </summary>
+        /// <returns>
+        /// Redirects the user to the Manage/Edit page.
+        /// </returns>
         public async Task<ActionResult> removeTeamToFav(int id)
         {
             var user = await _userManager.GetUserAsync(User);

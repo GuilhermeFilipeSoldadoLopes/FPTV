@@ -16,16 +16,28 @@ using Microsoft.AspNetCore.WebUtilities;
 
 namespace FPTV.Areas.Identity.Pages.Account.Manage
 {
+    /// <summary>
+    /// This class is used to create a model for sending emails.
+    /// </summary>
     public class EmailModel : PageModel
     {
         private readonly UserManager<UserBase> _userManager;
         private readonly SignInManager<UserBase> _signInManager;
         private readonly IEmailSender _emailSender;
 
+        /// <summary>
+        /// Constructor for EmailModel class.
+        /// </summary>
+        /// <param name="userManager">UserManager object.</param>
+        /// <param name="signInManager">SignInManager object.</param>
+        /// <param name="emailSender">IEmailSender object.</param>
+        /// <returns>
+        /// EmailModel object.
+        /// </returns>
         public EmailModel(
-            UserManager<UserBase> userManager,
-            SignInManager<UserBase> signInManager,
-            IEmailSender emailSender)
+                    UserManager<UserBase> userManager,
+                    SignInManager<UserBase> signInManager,
+                    IEmailSender emailSender)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -74,6 +86,13 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
             public string NewEmail { get; set; }
         }
 
+        /// <summary>
+        /// Loads the user's email and creates an InputModel with the email. Also checks if the email is confirmed.
+        /// </summary>
+        /// <param name="user">The user to load the email from.</param>
+        /// <returns>
+        /// The user's email and an InputModel with the email. Also a boolean indicating if the email is confirmed.
+        /// </returns>
         private async Task LoadAsync(UserBase user)
         {
             var email = await _userManager.GetEmailAsync(user);
@@ -99,6 +118,12 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
             return Page();
         }
 
+        /// <summary>
+        /// Generates a change email token and sends a confirmation link to the user's new email address.
+        /// </summary>
+        /// <returns>
+        /// Redirects to the current page with a status message.
+        /// </returns>
         public async Task<IActionResult> OnPostChangeEmailAsync()
         {
             var user = await _userManager.GetUserAsync(User);
@@ -137,6 +162,12 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
             return RedirectToPage();
         }
 
+        /// <summary>
+        /// Sends a verification email to the user.
+        /// </summary>
+        /// <returns>
+        /// Redirects to the same page with a status message.
+        /// </returns>
         public async Task<IActionResult> OnPostSendVerificationEmailAsync()
         {
             var user = await _userManager.GetUserAsync(User);

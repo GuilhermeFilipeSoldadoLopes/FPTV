@@ -10,37 +10,56 @@ using System.Reflection.Metadata;
 
 namespace FPTV.Controllers
 {
-    
+
+    /// <summary>
+    /// The ForumController class is responsible for handling requests related to the forum.
+    /// </summary>
     public class ForumController : Controller
     {
         private readonly FPTVContext _context;
         private readonly UserManager<UserBase> _userManager;
 
+        /// <summary>
+        /// Constructor for ForumController class.
+        /// </summary>
+        /// <param name="context">The database context.</param>
+        /// <param name="userManager">The user manager.</param>
+        /// <returns>
+        /// A new instance of ForumController.
+        /// </returns>
         public ForumController(FPTVContext context, UserManager<UserBase> userManager)
         {
             _context = context;
             _userManager = userManager;
         }
 
-		// GET: ForumController
-		public async Task<ActionResult> IndexAsync()
+        /// <summary>
+        /// Asynchronously checks for an error and returns the Error403 view if an error is found. Otherwise, returns the Forum view with a list of topics.
+        /// </summary>
+        /// <returns>The Error403 view or the Forum view.</returns>
+        public async Task<ActionResult> IndexAsync()
         {
             if (await CheckError303())
             {
                 return View("~/Views/Home/Error403.cshtml");
-			}
+            }
 
-			ViewBag.Game = "";
+            ViewBag.Game = "";
             ViewBag.page = "Forum";
-			var topics = _context.Topics.Include(t => t.Profile).ThenInclude(p => p.User).Include(t => t.Comments).ThenInclude(c => c.Reactions).ToList();
+            var topics = _context.Topics.Include(t => t.Profile).ThenInclude(p => p.User).Include(t => t.Comments).ThenInclude(c => c.Reactions).ToList();
             return View(topics);
         }
 
-		[Authorize]
-		public ActionResult Topic(int id)
+        [Authorize]
+        /// <summary>
+        /// Retrieves a topic from the database and returns it to the view.
+        /// </summary>
+        /// <param name="id">The id of the topic to be retrieved.</param>
+        /// <returns>The view with the retrieved topic.</returns>
+        public ActionResult Topic(int id)
         {
-			ViewBag.Game = "";
-			ViewBag.page = "Forum";
+            ViewBag.Game = "";
+            ViewBag.page = "Forum";
             var topic = _context.Topics
                 .Include(t => t.Profile)
                 .ThenInclude(p => p.User)
@@ -50,49 +69,58 @@ namespace FPTV.Controllers
                 .ThenInclude(c => c.Profile)
                 .ThenInclude(p => p.User)
                 .FirstOrDefault(t => t.TopicId == id);
-            if(topic == default)
+            if (topic == default)
             {
-				return View("~/Views/Home/Error404.cshtml");
-			}
+                return View("~/Views/Home/Error404.cshtml");
+            }
 
             return View(topic);
         }
 
-		[Authorize]
-		// GET: ForumController/Create
-		public ActionResult NewTopic()
+        [Authorize]
+        // GET: ForumController/Create
+        /// <summary>
+        /// This method returns a View for creating a new topic in the forum.
+        /// </summary>
+        /// <returns>A View for creating a new topic in the forum.</returns>
+        public ActionResult NewTopic()
         {
-			ViewBag.page = "Forum";
-			ViewBag.Game = "";
-			return View();
+            ViewBag.page = "Forum";
+            ViewBag.Game = "";
+            return View();
         }
 
-		// POST: ForumController/Create
-		[HttpPost]
+        // POST: ForumController/Create
+        [HttpPost]
         [ValidateAntiForgeryToken]
+        /// <summary>
+        /// Creates a new topic in the forum.
+        /// </summary>
+        /// <param name="collection">The form collection.</param>
+        /// <returns>Redirects to the topic page or an error page.</returns>
         public async Task<ActionResult> CreateAsync(IFormCollection collection)
         {
-			if (await CheckError303())
-			{
-				return View("~/Views/Home/Error403.cshtml");
-			}
+            if (await CheckError303())
+            {
+                return View("~/Views/Home/Error403.cshtml");
+            }
 
-			ViewBag.Game = "";
+            ViewBag.Game = "";
             ViewBag.page = "Forum";
 
 
             var user = await _userManager.GetUserAsync(User);
-            
-            if(user == null)
+
+            if (user == null)
             {
-				return View("~/Views/Home/Error404.cshtml");
+                return View("~/Views/Home/Error404.cshtml");
             }
             var profile = _context.Profiles.FirstOrDefault(p => p.Id == user.ProfileId);
 
-			if (profile == null)
-			{
-				return View("~/Views/Home/Error404.cshtml");
-			}
+            if (profile == null)
+            {
+                return View("~/Views/Home/Error404.cshtml");
+            }
             var topic = new Topic
             {
                 Content = collection["Content"],
@@ -107,7 +135,7 @@ namespace FPTV.Controllers
             await _context.SaveChangesAsync();
             try
             {
-                return RedirectToAction("Topic", new {id = topic.TopicId});
+                return RedirectToAction("Topic", new { id = topic.TopicId });
             }
             catch
             {
@@ -116,82 +144,103 @@ namespace FPTV.Controllers
             // ToDo: Implement redirect, check forms in view
         }
 
-		[Authorize]
-		// GET: ForumController/Edit/5
-		public ActionResult Profile(Profile profile)
+        [Authorize]
+        // GET: ForumController/Edit/5
+        /// <summary>
+        /// Returns the view of the given profile.
+        /// </summary>
+        /// <param name="profile">The profile to be viewed.</param>
+        /// <returns>The view of the given profile.</returns>
+        public ActionResult Profile(Profile profile)
         {
-			return View(profile);
+            return View(profile);
         }
 
-		[Authorize]
-		public ActionResult ReportComment(Guid id, int topicId)
+        [Authorize]
+        /// <summary>
+        /// Reports a comment and sets the Reported flag to true.
+        /// </summary>
+        /// <param name="id">The ID of the comment to be reported.</param>
+        /// <param name="topicId">The ID of the topic the comment belongs to.</param>
+        /// <returns>Redirects to the topic page.</returns>
+        public ActionResult ReportComment(Guid id, int topicId)
         {
-			ViewBag.Game = "";
-			ViewBag.page = "Forum";
+            ViewBag.Game = "";
+            ViewBag.page = "Forum";
             var comment = _context.Comments.Include(c => c.Profile).FirstOrDefault(c => c.CommentId == id);
             if (comment == null)
             {
-				return View("~/Views/Home/Error404.cshtml");
-			}
+                return View("~/Views/Home/Error404.cshtml");
+            }
 
-            comment.Reported= true;
+            comment.Reported = true;
             _context.SaveChanges();
-			return RedirectToAction("Topic", new { id = topicId});
-		}
+            return RedirectToAction("Topic", new { id = topicId });
+        }
 
-		[Authorize]
-		public ActionResult ReportPost(int id) 
+        [Authorize]
+        /// <summary>
+        /// Reports a post with the given ID.
+        /// </summary>
+        /// <param name="id">The ID of the post to be reported.</param>
+        /// <returns>Redirects to the topic page.</returns>
+        public ActionResult ReportPost(int id)
         {
-			ViewBag.Game = "";
-			ViewBag.page = "Forum";
+            ViewBag.Game = "";
+            ViewBag.page = "Forum";
             var post = _context.Topics.FirstOrDefault(t => t.TopicId == id);
 
-            if (post == null) 
+            if (post == null)
             {
-				return View("~/Views/Home/Error404.cshtml");
-			}
+                return View("~/Views/Home/Error404.cshtml");
+            }
 
-            post.Reported= true;
+            post.Reported = true;
             _context.SaveChanges();
 
-			return RedirectToAction("Topic", new { id});
-		}
+            return RedirectToAction("Topic", new { id });
+        }
 
-		// POST: ForumController/Edit/5
-		[HttpPost]
+        // POST: ForumController/Edit/5
+        [HttpPost]
         [ValidateAntiForgeryToken]
-		public async Task<ActionResult> CommentAsync(IFormCollection collection)
+        /// <summary>
+        /// Creates a new comment for a given topic and adds it to the database.
+        /// </summary>
+        /// <param name="collection">The form collection containing the comment text.</param>
+        /// <returns>Redirects to the topic page.</returns>
+        public async Task<ActionResult> CommentAsync(IFormCollection collection)
         {
-			if (await CheckError303())
-			{
-				return View("~/Views/Home/Error403.cshtml");
-			}
+            if (await CheckError303())
+            {
+                return View("~/Views/Home/Error403.cshtml");
+            }
 
-			ViewBag.Game = "";
+            ViewBag.Game = "";
             ViewBag.page = "Forum";
             int.TryParse(collection["TopicId"], out int id);
             var topic = _context.Topics.FirstOrDefault(t => t.TopicId == id);
-			var user = await _userManager.GetUserAsync(User);
+            var user = await _userManager.GetUserAsync(User);
 
-			if (user == null)
-			{
-				return View("Index");
-			}
-			var profile = _context.Profiles.Single(p => p.Id == user.ProfileId);
+            if (user == null)
+            {
+                return View("Index");
+            }
+            var profile = _context.Profiles.Single(p => p.Id == user.ProfileId);
             var comment = new Comment
             {
                 Reactions = new List<Reaction>(),
-				Profile = profile,
-				Date = DateTime.Now,
+                Profile = profile,
+                Date = DateTime.Now,
                 Text = collection["Text"],
                 Topic = topic,
                 Reported = false,
-			};
-			await _context.Comments.AddAsync(comment);
-			await _context.SaveChangesAsync();
-			try
+            };
+            await _context.Comments.AddAsync(comment);
+            await _context.SaveChangesAsync();
+            try
             {
-                return RedirectToAction("Topic", new { id});
+                return RedirectToAction("Topic", new { id });
             }
             catch
             {
@@ -199,22 +248,27 @@ namespace FPTV.Controllers
             }
         }
 
-		// GET: ForumController/Delete/5
-		public async Task<ActionResult> DeletePostAsync(int id)
+        /// <summary>
+        /// Deletes a post from the forum.
+        /// </summary>
+        /// <returns>
+        /// Redirects to the topic page.
+        /// </returns>
+        public async Task<ActionResult> DeletePostAsync(int id)
         {
-			if (await CheckError303())
-			{
-				return View("~/Views/Home/Error403.cshtml");
-			}
+            if (await CheckError303())
+            {
+                return View("~/Views/Home/Error403.cshtml");
+            }
 
-			ViewBag.Game = "";
-			ViewBag.page = "Forum";
+            ViewBag.Game = "";
+            ViewBag.page = "Forum";
             var post = _context.Topics.FirstOrDefault(t => t.TopicId == id);
             var user = await _userManager.GetUserAsync(User);
             if (post == null || post.ProfileId != user.ProfileId)
             {
-				return View("~/Views/Home/Error404.cshtml");
-			}
+                return View("~/Views/Home/Error404.cshtml");
+            }
             post.Content = "This post has been deleted.";
             post.Title = "[Deleted post]";
 
@@ -223,73 +277,86 @@ namespace FPTV.Controllers
             return RedirectToAction("Topic", new { id });
         }
 
-		public async Task<ActionResult> DeleteCommentAsync(Guid id, int topicId)
-		{
-			if (await CheckError303())
-			{
-				return View("~/Views/Home/Error403.cshtml");
-			}
+        /// <summary>
+        /// Deletes a comment from the database.
+        /// </summary>
+        /// <param name="id">The ID of the comment to delete.</param>
+        /// <param name="topicId">The ID of the topic the comment belongs to.</param>
+        /// <returns>A redirect to the topic page.</returns>
+        public async Task<ActionResult> DeleteCommentAsync(Guid id, int topicId)
+        {
+            if (await CheckError303())
+            {
+                return View("~/Views/Home/Error403.cshtml");
+            }
 
-			ViewBag.Game = "";
+            ViewBag.Game = "";
             ViewBag.page = "Forum";
             var comment = _context.Comments.Include(c => c.Profile).FirstOrDefault(c => c.CommentId == id);
-			var user = await _userManager.GetUserAsync(User);
-			if (comment == null || !comment.Profile.Id.Equals(user.ProfileId))
-			{
-				return View("~/Views/Home/Error404.cshtml");
-			}
-			comment.Text = "[Deleted comment]";
+            var user = await _userManager.GetUserAsync(User);
+            if (comment == null || !comment.Profile.Id.Equals(user.ProfileId))
+            {
+                return View("~/Views/Home/Error404.cshtml");
+            }
+            comment.Text = "[Deleted comment]";
 
-			await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
 
-			return RedirectToAction("Topic", new { id = topicId});
-		}
+            return RedirectToAction("Topic", new { id = topicId });
+        }
 
-		// POST: ForumController/Delete/5
-		public async Task<ActionResult> React(ReactionType reaction, Guid commentId, int topicId)
+        // POST: ForumController/Delete/5
+        /// <summary>
+        /// React to a comment with a given reaction type.
+        /// </summary>
+        /// <param name="reaction">The type of reaction to give.</param>
+        /// <param name="commentId">The ID of the comment to react to.</param>
+        /// <param name="topicId">The ID of the topic the comment belongs to.</param>
+        /// <returns>A redirect to the topic page.</returns>
+        public async Task<ActionResult> React(ReactionType reaction, Guid commentId, int topicId)
         {
-			if (await CheckError303())
-			{
-				return View("~/Views/Home/Error403.cshtml");
-			}
+            if (await CheckError303())
+            {
+                return View("~/Views/Home/Error403.cshtml");
+            }
 
-			ViewBag.Game = "";
+            ViewBag.Game = "";
             ViewBag.page = "Forum";
             var user = await _userManager.GetUserAsync(User);
-			var profile = _context.Profiles.Single(p => p.Id == user.ProfileId);
-            var topic = _context.Topics.FirstOrDefault(t => t.TopicId== topicId);
+            var profile = _context.Profiles.Single(p => p.Id == user.ProfileId);
+            var topic = _context.Topics.FirstOrDefault(t => t.TopicId == topicId);
             var comment = _context.Comments.FirstOrDefault(c => c.CommentId.Equals(commentId));
             var react = _context.Reactions
                 .Include(r => r.Comment)
                 .Include(r => r.Profile)
                 .FirstOrDefault(r => r.Comment.CommentId == comment.CommentId && r.Profile.Id == profile.Id && r.ReactionEmoji == reaction);
 
-            if(react != null)
+            if (react != null)
             {
                 _context.Reactions.Remove(react);
                 await _context.SaveChangesAsync();
-				return RedirectToAction("Topic", new { id = topicId});
-			}
+                return RedirectToAction("Topic", new { id = topicId });
+            }
 
-            if(comment == null || topic == null)
+            if (comment == null || topic == null)
             {
-				return View("~/Views/Home/Error404.cshtml");
-			}
+                return View("~/Views/Home/Error404.cshtml");
+            }
 
 
-			var r = new Reaction()
-			{
-				Comment = comment,
-				Profile = profile,
-				ReactionEmoji = reaction,
-			};
+            var r = new Reaction()
+            {
+                Comment = comment,
+                Profile = profile,
+                ReactionEmoji = reaction,
+            };
 
             await _context.Reactions.AddAsync(r);
             await _context.SaveChangesAsync();
 
-			try
-			{
-                return RedirectToAction("Topic", new { id = topicId});
+            try
+            {
+                return RedirectToAction("Topic", new { id = topicId });
             }
             catch
             {
@@ -297,48 +364,68 @@ namespace FPTV.Controllers
             }
         }
 
-		[Authorize]
-		public ActionResult Rules()
-		{
-			ViewBag.Game = "";
-			ViewBag.page = "Forum";
-			return View();
-		}
-
-		public async Task<ActionResult> BugsAndSuggestionsAsync()
+        [Authorize]
+        /// <summary>
+        /// This ActionResult method is used to display the rules page.
+        /// </summary>
+        /// <returns>A View containing the rules page.</returns>
+        public ActionResult Rules()
         {
-			if (await CheckError303())
-			{
-				return View("~/Views/Home/Error403.cshtml");
-			}
-
-			ViewBag.Game = "";
+            ViewBag.Game = "";
             ViewBag.page = "Forum";
             return View();
         }
 
-		private async Task<bool> CheckError303()
-		{
-			var user = await _userManager.GetUserAsync(User);
-			if (user == null)
-			{
-                return true;
-			}
-			var profile = _context.Profiles.FirstOrDefault(p => p.Id == user.ProfileId);
-			if (profile == null)
-			{
-                return true;
-			}
+        /// <summary>
+        /// This method is used to render the Bugs and Suggestions page.
+        /// </summary>
+        /// <returns>
+        /// Returns the view for the Bugs and Suggestions page.
+        /// </returns>
+        public async Task<ActionResult> BugsAndSuggestionsAsync()
+        {
+            if (await CheckError303())
+            {
+                return View("~/Views/Home/Error403.cshtml");
+            }
 
-			return false;
-		}
+            ViewBag.Game = "";
+            ViewBag.page = "Forum";
+            return View();
+        }
 
-		public ActionResult IndexAsyncTest()
-		{
-			ViewBag.Game = "";
-			ViewBag.page = "Forum";
-			var topics = _context.Topics.Include(t => t.Profile).ThenInclude(p => p.User).Include(t => t.Comments).ThenInclude(c => c.Reactions).ToList();
-			return View(topics);
-		}
-	}
+        /// <summary>
+        /// Retrieves a list of topics from the database and passes them to the view.
+        /// </summary>
+        /// <returns>A view containing the list of topics.</returns>
+        public ActionResult IndexAsyncTest()
+        {
+            ViewBag.Game = "";
+            ViewBag.page = "Forum";
+            var topics = _context.Topics.Include(t => t.Profile).ThenInclude(p => p.User).Include(t => t.Comments).ThenInclude(c => c.Reactions).ToList();
+            return View(topics);
+        }
+
+        /// <summary>
+        /// Checks if an error 303 has occurred.
+        /// </summary>
+        /// <returns>
+        /// Returns true if an error 303 has occurred, false otherwise.
+        /// </returns>
+        private async Task<bool> CheckError303()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return true;
+            }
+            var profile = _context.Profiles.FirstOrDefault(p => p.Id == user.ProfileId);
+            if (profile == null)
+            {
+                return true;
+            }
+
+            return false;
+        }
+    }
 }

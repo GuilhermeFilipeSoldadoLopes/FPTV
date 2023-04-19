@@ -5,6 +5,9 @@ using FPTV.Models.UserModels;
 
 namespace FPTV.Models.StatisticsModels
 {
+    /// <summary>
+    /// This class provides a method to match a given value with a list of values.
+    /// </summary>
     public class MatchVal
     {
         [Required]
@@ -20,35 +23,35 @@ namespace FPTV.Models.StatisticsModels
         [Display(Name = "MatchesVal")]
         public MatchesVal MatchesVal { get; set; }
 
-		[Required]
-		[Display(Name = "API Id of a val matches")]
+        [Required]
+        [Display(Name = "API Id of a val matches")]
         public int MatchesValAPIId { get; set; }
 
-		[Required]
-		[Display(Name = "List of stats of players")] 
+        [Required]
+        [Display(Name = "List of stats of players")]
         public ICollection<MatchPlayerStatsVal>? PlayerStatsList { get; set; }
-        
-		[Required]
-		[Display(Name = "Score of round")]
+
+        [Required]
+        [Display(Name = "Score of round")]
         public string? RoundsScore { get; set; }
 
-		[Required]
-		[Display(Name = "Map")]
+        [Required]
+        [Display(Name = "Map")]
         public string? Map { get; set; }
 
-		[Required]
-		[Display(Name = "List of Teams")] 
+        [Required]
+        [Display(Name = "List of Teams")]
         public ICollection<MatchTeamsVal>? TeamsList { get; set; }
 
-        [Display(Name = "WinnerTeam")] 
+        [Display(Name = "WinnerTeam")]
         public Team? WinnerTeam { get; set; }
 
-		[Required]
-		[Display(Name = "API Id of the winner team")]
+        [Required]
+        [Display(Name = "API Id of the winner team")]
         public int? WinnerTeamAPIId { get; set; }
 
-		[Required]
-		[Display(Name = "Name of the winner team")]
+        [Required]
+        [Display(Name = "Name of the winner team")]
         public string? WinnerTeamName { get; set; }
     }
 }

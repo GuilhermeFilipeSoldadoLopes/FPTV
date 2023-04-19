@@ -23,6 +23,9 @@ using FPTV.Data;
 namespace FPTV.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
+    /// <summary>
+    /// Represents the model for external login page.
+    /// </summary>
     public class ExternalLoginModel : PageModel
     {
         private readonly SignInManager<UserBase> _signInManager;
@@ -34,14 +37,27 @@ namespace FPTV.Areas.Identity.Pages.Account
         private readonly FPTVContext _context;
         private readonly IWebHostEnvironment _env;
 
+        /// <summary>
+        /// Constructor for ExternalLoginModel class
+        /// </summary>
+        /// <param name="signInManager">SignInManager object</param>
+        /// <param name="userManager">UserManager object</param>
+        /// <param name="userStore">IUserStore object</param>
+        /// <param name="logger">ILogger object</param>
+        /// <param name="emailSender">IEmailSender object</param>
+        /// <param name="context">FPTVContext object</param>
+        /// <param name="env">IWebHostEnvironment object</param>
+        /// <returns>
+        /// An instance of ExternalLoginModel class
+        /// </returns>
         public ExternalLoginModel(
-            SignInManager<UserBase> signInManager,
-            UserManager<UserBase> userManager,
-            IUserStore<UserBase> userStore,
-            ILogger<ExternalLoginModel> logger,
-            IEmailSender emailSender,
-            FPTVContext context,
-            IWebHostEnvironment env)
+                    SignInManager<UserBase> signInManager,
+                    UserManager<UserBase> userManager,
+                    IUserStore<UserBase> userStore,
+                    ILogger<ExternalLoginModel> logger,
+                    IEmailSender emailSender,
+                    FPTVContext context,
+                    IWebHostEnvironment env)
         {
             _signInManager = signInManager;
             _userManager = userManager;
@@ -103,9 +119,14 @@ namespace FPTV.Areas.Identity.Pages.Account
             [Display(Name = "Email")]
             public string Email { get; set; }
         }
-        
+
         public IActionResult OnGet() => RedirectToPage("./Login");
 
+        /// <summary>
+        /// Handles the post request for external login providers. 
+        /// </summary>
+        /// <param name="provider">The external login provider.</param>
+        /// <param name="returnUrl">The URL to return to after authentication.</param>
         public IActionResult OnPost(string provider, string returnUrl = null)
         {
             // Request a redirect to the external login provider.
@@ -156,6 +177,11 @@ namespace FPTV.Areas.Identity.Pages.Account
             }
         }
 
+        /// <summary>
+        /// Handles the post confirmation of an external login.
+        /// </summary>
+        /// <param name="returnUrl">The return URL.</param>
+        /// <returns>The action result.</returns>
         public async Task<IActionResult> OnPostConfirmationAsync(string returnUrl = null)
         {
             returnUrl = returnUrl ?? Url.Content("~/");
@@ -230,21 +256,28 @@ namespace FPTV.Areas.Identity.Pages.Account
                                 {
                                     ModelState.AddModelError(string.Empty, error.Description);
                                 }
-                            } else {
+                            }
+                            else
+                            {
                                 ModelState.AddModelError("CustomErrorUsername", "Already exists a user with that UserName. Try another one.");
                             }
                         }
-                    } else {
+                    }
+                    else
+                    {
                         var result = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false, bypassTwoFactor: true);
                         if (result.Succeeded)
                         {
                             _logger.LogInformation("{Name} logged in with {LoginProvider} provider.", info.Principal.Identity.Name, info.LoginProvider);
                             return LocalRedirect(returnUrl);
-                        } 
+                        }
 
-                        if (result.IsLockedOut) {
+                        if (result.IsLockedOut)
+                        {
                             return RedirectToPage("./Lockout");
-                        } else {
+                        }
+                        else
+                        {
                             ProviderDisplayName = info.ProviderDisplayName;
                             if (info.Principal.HasClaim(c => c.Type == ClaimTypes.Email))
                             {
@@ -272,6 +305,12 @@ namespace FPTV.Areas.Identity.Pages.Account
             return Page();
         }
 
+        /// <summary>
+        /// Creates an instance of the UserBase class.
+        /// </summary>
+        /// <returns>
+        /// An instance of the UserBase class.
+        /// </returns>
         private UserBase CreateUser()
         {
             try
@@ -286,6 +325,10 @@ namespace FPTV.Areas.Identity.Pages.Account
             }
         }
 
+        /// <summary>
+        /// Gets the email store for the user manager.
+        /// </summary>
+        /// <returns>The email store for the user manager.</returns>
         private IUserEmailStore<UserBase> GetEmailStore()
         {
             if (!_userManager.SupportsUserEmail)

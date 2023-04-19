@@ -5,6 +5,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FPTV.Models.EventsModels
 {
+    /// <summary>
+    /// EventCS is a class that provides methods for creating and managing events.
+    /// </summary>
     public class EventCS
     {
         [Required]
@@ -27,7 +30,7 @@ namespace FPTV.Models.EventsModels
         [Display(Name = "EventImage")]
         public string? EventImage { get; set; }
 
-        
+
         [Display(Name = "Event Link")]
         public string? EventLink { get; set; }
 
@@ -69,11 +72,11 @@ namespace FPTV.Models.EventsModels
         [Display(Name = "Winner Team API ID")]
         public int? WinnerTeamAPIID { get; set; }
 
-        
+
         [Display(Name = "Winner Team Name")]
         public string? WinnerTeamName { get; set; }
 
-        
+
         [Display(Name = "Tier")]
         public char? Tier { get; set; }
     }

@@ -16,11 +16,22 @@ using Microsoft.AspNetCore.WebUtilities;
 namespace FPTV.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
+    /// <summary>
+    /// Represents the model for the Register Confirmation page.
+    /// </summary>
     public class RegisterConfirmationModel : PageModel
     {
         private readonly UserManager<UserBase> _userManager;
         private readonly IEmailSender _sender;
 
+        /// <summary>
+        /// Constructor for RegisterConfirmationModel class. 
+        /// </summary>
+        /// <param name="userManager">UserManager object</param>
+        /// <param name="sender">IEmailSender object</param>
+        /// <returns>
+        /// No return value.
+        /// </returns>
         public RegisterConfirmationModel(UserManager<UserBase> userManager, IEmailSender sender)
         {
             _userManager = userManager;
@@ -45,6 +56,12 @@ namespace FPTV.Areas.Identity.Pages.Account
         /// </summary>
         public string EmailConfirmationUrl { get; set; }
 
+        /// <summary>
+        /// Gets the user with the specified email address and generates an email confirmation token.
+        /// </summary>
+        /// <param name="email">The email address of the user.</param>
+        /// <param name="returnUrl">The URL to redirect to after the user is confirmed.</param>
+        /// <returns>The page to display.</returns>
         public async Task<IActionResult> OnGetAsync(string email, string returnUrl = null)
         {
             if (email == null)

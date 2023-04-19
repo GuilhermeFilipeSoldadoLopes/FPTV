@@ -13,16 +13,28 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 namespace FPTV.Areas.Identity.Pages.Account
 {
+    /// <summary>
+    /// This class is used to provide a model for logging in with a recovery code.
+    /// </summary>
     public class LoginWithRecoveryCodeModel : PageModel
     {
         private readonly SignInManager<UserBase> _signInManager;
         private readonly UserManager<UserBase> _userManager;
         private readonly ILogger<LoginWithRecoveryCodeModel> _logger;
 
+        /// <summary>
+        /// Constructor for LoginWithRecoveryCodeModel class.
+        /// </summary>
+        /// <param name="signInManager">SignInManager object.</param>
+        /// <param name="userManager">UserManager object.</param>
+        /// <param name="logger">ILogger object.</param>
+        /// <returns>
+        /// LoginWithRecoveryCodeModel object.
+        /// </returns>
         public LoginWithRecoveryCodeModel(
-            SignInManager<UserBase> signInManager,
-            UserManager<UserBase> userManager,
-            ILogger<LoginWithRecoveryCodeModel> logger)
+                    SignInManager<UserBase> signInManager,
+                    UserManager<UserBase> userManager,
+                    ILogger<LoginWithRecoveryCodeModel> logger)
         {
             _signInManager = signInManager;
             _userManager = userManager;
@@ -59,6 +71,11 @@ namespace FPTV.Areas.Identity.Pages.Account
             public string RecoveryCode { get; set; }
         }
 
+        /// <summary>
+        /// Gets the return URL and prepares the page for the user.
+        /// </summary>
+        /// <param name="returnUrl">The URL to return to after the page is prepared.</param>
+        /// <returns>The page for the user.</returns>
         public async Task<IActionResult> OnGetAsync(string returnUrl = null)
         {
             // Ensure the user has gone through the username & password screen first
@@ -73,6 +90,11 @@ namespace FPTV.Areas.Identity.Pages.Account
             return Page();
         }
 
+        /// <summary>
+        /// Handles the post request when the user submits the login form. 
+        /// </summary>
+        /// <param name="returnUrl">The URL to return to after the login is successful.</param>
+        /// <returns>An IActionResult representing the result of the post request.</returns>
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             if (!ModelState.IsValid)

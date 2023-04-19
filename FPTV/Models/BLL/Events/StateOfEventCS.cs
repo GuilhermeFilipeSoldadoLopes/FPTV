@@ -2,17 +2,27 @@
 
 namespace FPTV.Models.BLL.Events
 {
+    /// <summary>
+    /// This class provides a set of constants representing the state of an event.
+    /// </summary>
     public static class StateOfEventCS
     {
+        /// <summary>
+        /// Gets the events filter by.
+        /// </summary>
+        /// <param name="filter">The filter.</param>
+        /// <returns>
+        /// The events filter by.
+        /// </returns>
         public static string? GetEventsFilterBy(string filter)
         {
-			return filter.ToLower() switch
-			{
-				"timetype" => null,
-				_ => null,
-			};
+            return filter.ToLower() switch
+            {
+                "timetype" => null,
+                _ => null,
+            };
 
-			/*
+            /*
             switch (filter.ToLower())
             {
                 case "timetype":
@@ -22,26 +32,36 @@ namespace FPTV.Models.BLL.Events
                 default: return null;
             } 
              */
-		}
+        }
 
-		public static string? GetEventsSearchBy(string name)
+        /// <summary>
+        /// Gets the events search by the given name.
+        /// </summary>
+        /// <param name="name">The name to search for.</param>
+        /// <returns>The lowercase version of the given name.</returns>
+        public static string? GetEventsSearchBy(string name)
         {
             return name.ToLower();
         }
 
+        /// <summary>
+        /// Returns a string based on the sort parameter.
+        /// </summary>
+        /// <param name="sort">The sort parameter.</param>
+        /// <returns>A string based on the sort parameter.</returns>
         public static string? GetEventsSortBy(string sort)
         {
-			return sort.ToLower() switch
-			{
-				"event_name" => null,
-				"oldest" => null,
-				"newest" => null,
-				"prize_pool" => null,
-				"tier" => null,
-				_ => null,
-			};
+            return sort.ToLower() switch
+            {
+                "event_name" => null,
+                "oldest" => null,
+                "newest" => null,
+                "prize_pool" => null,
+                "tier" => null,
+                _ => null,
+            };
 
-			/**
+            /**
             switch (sort.ToLower())
             {
                 case "event_name":
@@ -67,6 +87,6 @@ namespace FPTV.Models.BLL.Events
                 default: return null;
             } 
              */
-		}
-	}
+        }
+    }
 }

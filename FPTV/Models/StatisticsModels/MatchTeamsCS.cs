@@ -4,6 +4,9 @@ using FPTV.Models.UserModels;
 
 namespace FPTV.Models.StatisticsModels
 {
+    /// <summary>
+    /// This class is used to match teams for a competition.
+    /// </summary>
     public class MatchTeamsCS
     {
         [Required]
@@ -11,18 +14,18 @@ namespace FPTV.Models.StatisticsModels
         [Display(Name = "Id of a csgo match")]
         public Guid MatchCSId { get; set; }
 
-		[Required]
-		[Display(Name = "MatchCS API ID")]
-		public int MatchCSAPIID { get; set; }
+        [Required]
+        [Display(Name = "MatchCS API ID")]
+        public int MatchCSAPIID { get; set; }
 
         [Display(Name = "TeamCS")]
         public Team? TeamCS { get; set; }
 
-		[Required]
-		[Display(Name = "API Id of a csgo team")]
-		public int TeamCSAPIId { get; set; }
+        [Required]
+        [Display(Name = "API Id of a csgo team")]
+        public int TeamCSAPIId { get; set; }
 
-		[Required]
+        [Required]
         [Display(Name = "Name")]
         public string? Name { get; set; }
 
