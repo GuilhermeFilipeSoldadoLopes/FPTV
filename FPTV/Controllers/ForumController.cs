@@ -1,6 +1,7 @@
 ﻿using FPTV.Data;
 using FPTV.Models.Forum;
 using FPTV.Models.UserModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -9,6 +10,7 @@ using System.Reflection.Metadata;
 
 namespace FPTV.Controllers
 {
+    
     public class ForumController : Controller
     {
         private readonly FPTVContext _context;
@@ -20,19 +22,12 @@ namespace FPTV.Controllers
             _userManager = userManager;
         }
 
-
-        // GET: ForumController
-        public async Task<ActionResult> IndexAsync()
+		// GET: ForumController
+		public async Task<ActionResult> IndexAsync()
         {
-			var user = await _userManager.GetUserAsync(User);
-			if (user == null)
-			{
-				return View("~/Views/Home/Error403.cshtml");
-			}
-			var profile = _context.Profiles.FirstOrDefault(p => p.Id == user.ProfileId);
-			if (profile == null)
-			{
-				return View("~/Views/Home/Error403.cshtml");
+            if (await CheckError303())
+            {
+                return View("~/Views/Home/Error403.cshtml");
 			}
 
 			ViewBag.Game = "";
@@ -41,7 +36,7 @@ namespace FPTV.Controllers
             return View(topics);
         }
 
-
+		[Authorize]
 		public ActionResult Topic(int id)
         {
 			ViewBag.Game = "";
@@ -63,19 +58,25 @@ namespace FPTV.Controllers
             return View(topic);
         }
 
-        // GET: ForumController/Create
-        public ActionResult NewTopic()
+		[Authorize]
+		// GET: ForumController/Create
+		public ActionResult NewTopic()
         {
-            ViewBag.page = "Forum";
+			ViewBag.page = "Forum";
 			ViewBag.Game = "";
 			return View();
         }
 
-        // POST: ForumController/Create
-        [HttpPost]
+		// POST: ForumController/Create
+		[HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> CreateAsync(IFormCollection collection)
         {
+			if (await CheckError303())
+			{
+				return View("~/Views/Home/Error403.cshtml");
+			}
+
 			ViewBag.Game = "";
             ViewBag.page = "Forum";
 
@@ -115,13 +116,15 @@ namespace FPTV.Controllers
             // ToDo: Implement redirect, check forms in view
         }
 
-        // GET: ForumController/Edit/5
-        public ActionResult Profile(Profile profile)
+		[Authorize]
+		// GET: ForumController/Edit/5
+		public ActionResult Profile(Profile profile)
         {
-            return View(profile);
+			return View(profile);
         }
 
-        public ActionResult ReportComment(Guid id, int topicId)
+		[Authorize]
+		public ActionResult ReportComment(Guid id, int topicId)
         {
 			ViewBag.Game = "";
 			ViewBag.page = "Forum";
@@ -136,7 +139,8 @@ namespace FPTV.Controllers
 			return RedirectToAction("Topic", new { id = topicId});
 		}
 
-        public ActionResult ReportPost(int id) 
+		[Authorize]
+		public ActionResult ReportPost(int id) 
         {
 			ViewBag.Game = "";
 			ViewBag.page = "Forum";
@@ -153,11 +157,16 @@ namespace FPTV.Controllers
 			return RedirectToAction("Topic", new { id});
 		}
 
-        // POST: ForumController/Edit/5
-        [HttpPost]
+		// POST: ForumController/Edit/5
+		[HttpPost]
         [ValidateAntiForgeryToken]
 		public async Task<ActionResult> CommentAsync(IFormCollection collection)
         {
+			if (await CheckError303())
+			{
+				return View("~/Views/Home/Error403.cshtml");
+			}
+
 			ViewBag.Game = "";
             ViewBag.page = "Forum";
             int.TryParse(collection["TopicId"], out int id);
@@ -190,9 +199,14 @@ namespace FPTV.Controllers
             }
         }
 
-        // GET: ForumController/Delete/5
-        public async Task<ActionResult> DeletePostAsync(int id)
+		// GET: ForumController/Delete/5
+		public async Task<ActionResult> DeletePostAsync(int id)
         {
+			if (await CheckError303())
+			{
+				return View("~/Views/Home/Error403.cshtml");
+			}
+
 			ViewBag.Game = "";
 			ViewBag.page = "Forum";
             var post = _context.Topics.FirstOrDefault(t => t.TopicId == id);
@@ -211,6 +225,11 @@ namespace FPTV.Controllers
 
 		public async Task<ActionResult> DeleteCommentAsync(Guid id, int topicId)
 		{
+			if (await CheckError303())
+			{
+				return View("~/Views/Home/Error403.cshtml");
+			}
+
 			ViewBag.Game = "";
             ViewBag.page = "Forum";
             var comment = _context.Comments.Include(c => c.Profile).FirstOrDefault(c => c.CommentId == id);
@@ -227,10 +246,14 @@ namespace FPTV.Controllers
 		}
 
 		// POST: ForumController/Delete/5
-
 		public async Task<ActionResult> React(ReactionType reaction, Guid commentId, int topicId)
         {
-            ViewBag.Game = "";
+			if (await CheckError303())
+			{
+				return View("~/Views/Home/Error403.cshtml");
+			}
+
+			ViewBag.Game = "";
             ViewBag.page = "Forum";
             var user = await _userManager.GetUserAsync(User);
 			var profile = _context.Profiles.Single(p => p.Id == user.ProfileId);
@@ -274,6 +297,7 @@ namespace FPTV.Controllers
             }
         }
 
+		[Authorize]
 		public ActionResult Rules()
 		{
 			ViewBag.Game = "";
@@ -281,11 +305,32 @@ namespace FPTV.Controllers
 			return View();
 		}
 
-        public ActionResult BugsAndSuggestions()
+		public async Task<ActionResult> BugsAndSuggestionsAsync()
         {
-            ViewBag.Game = "";
+			if (await CheckError303())
+			{
+				return View("~/Views/Home/Error403.cshtml");
+			}
+
+			ViewBag.Game = "";
             ViewBag.page = "Forum";
             return View();
         }
-    }
+
+		private async Task<bool> CheckError303()
+		{
+			var user = await _userManager.GetUserAsync(User);
+			if (user == null)
+			{
+                return true;
+			}
+			var profile = _context.Profiles.FirstOrDefault(p => p.Id == user.ProfileId);
+			if (profile == null)
+			{
+                return true;
+			}
+
+			return false;
+		}
+	}
 }

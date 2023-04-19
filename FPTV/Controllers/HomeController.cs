@@ -311,7 +311,7 @@ namespace FPTV.Controllers
             _context.SaveChanges();
         }
 
-        [Authorize]
+        //[Authorize]
         public IActionResult Events(string game = "csgo")
 		{
 			page = "Events";
@@ -425,7 +425,7 @@ namespace FPTV.Controllers
 			page = "About";
             ViewBag.page = page;
 
-            return View(); //return View(); //apagar index - quando a pagina tiver feita
+            return View();
 		}
         
         public IActionResult Register()
@@ -439,19 +439,20 @@ namespace FPTV.Controllers
 			page = "Index";
 			return View();
         }
-        
-        public IActionResult StatisticsOfSite()
-		{
-			page = "Index";
-			return View();
-        }
+
         public IActionResult Error404()
         {
             page = "Index";
             return View();
         }
 
-		[Authorize(Roles = "Admin, Moderator")]
+        public IActionResult Error403()
+        {
+            page = "Index";
+            return View();
+        }
+
+        [Authorize(Roles = "Admin, Moderator")]
 		public IActionResult Stats()
 		{
 			ViewData["game"] = null;
