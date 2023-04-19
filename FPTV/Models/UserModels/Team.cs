@@ -11,7 +11,7 @@ namespace FPTV.Models.UserModels
 
         [Required]
         [Display(Name = "Team API ID")]
-        public int? TeamAPIID { get; set; }
+        public int TeamAPIID { get; set; }
 
         [Display(Name = "Teams Name")]
 		public string? Name { get; set; }

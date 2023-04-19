@@ -1085,5 +1085,59 @@ namespace FPTV.Controllers
 
             return RedirectToAction("getTeam", "Stats", new { id = team.TeamAPIID, game = game });
         }
+
+        public async Task<ActionResult> removePlayerToFav(int id)
+        {
+            var user = await _userManager.GetUserAsync(User);
+
+            if (user == null)
+            {
+                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+            }
+
+            var profile = _context.Profiles.Include(p => p.PlayerList.Players).Single(p => p.Id == user.ProfileId);
+
+            var favPlayerLists = profile.PlayerList;
+            var players = favPlayerLists.Players;
+
+            foreach (var item in players)
+            {
+                if (item.PlayerAPIId == id)
+                {
+                    profile.PlayerList.Players.Remove(item);
+                }
+            }
+
+            _context.SaveChanges();
+
+            return Redirect("https://localhost:7208/Identity/Account/Manage/Edit");
+        }
+
+        public async Task<ActionResult> removeTeamToFav(int id)
+        {
+            var user = await _userManager.GetUserAsync(User);
+
+            if (user == null)
+            {
+                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+            }
+
+            var profile = _context.Profiles.Include(p => p.TeamsList.Teams).Single(p => p.Id == user.ProfileId);
+
+            var favTeamsLists = profile.TeamsList;
+            var teams = favTeamsLists.Teams;
+
+            foreach (var item in teams)
+            {
+                if (item.TeamAPIID == id)
+                {
+                    profile.TeamsList.Teams.Remove(item);
+                }
+            }
+
+            _context.SaveChanges();
+
+            return Redirect("https://localhost:7208/Identity/Account/Manage/Edit");
+        }
     }
 }

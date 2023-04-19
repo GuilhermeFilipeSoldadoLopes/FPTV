@@ -206,6 +206,10 @@
 
 <body class="bodyLogin">
     <div class="ola " style="border-radius:15px;padding-top:20px;margin-top:0px">
+        @{
+            List<int> toRemoveTeamsList = new List<int>();
+            List<int> toRemovePlayersList = new List<int>();
+        }
         <div class="box darkcolor bordercolor" style="border-radius:15px;margin-top:0px; width:40%">
             <div style="width:100%;text-align:center;">
                 <h1>CS:GO</h1>
@@ -224,12 +228,15 @@
                     {
                         foreach (var item in (List<Player>)ViewData["FavCSPlayerList"])
                         {
-                            <div class="ola">
+                            var id = "player" + item.PlayerAPIId;
+                            <div class="ola" id=@id>
                                 <div class="box" style="margin-top:0px;width:80%">
                                     <span class="span2 text-dark"> @item.Name </span>
                                 </div>
                                 <div class="box" style="margin-top:0px;width:20%">
-                                    <img src="~/images/trash.png" style="width:20px;height:20px;" />
+                                    <a href="@Url.Action("removePlayerToFav", "Stats", new { id = item.PlayerAPIId})">
+                                        <img src="~/images/trash.png" style="width:20px;height:20px;cursor:pointer" />
+                                    </a>
                                 </div>
                             </div>
                         }
@@ -250,12 +257,15 @@
                     {
                         foreach (var item in (List<Team>)ViewData["FavCSTeamsList"])
                         {
-                            <div class="ola">
+                            var id = "team" + item.TeamAPIID;
+                            <div class="ola" id=@id>
                                 <div class="box" style="margin-top:0px;width:80%">
                                     <span class="span2 text-dark"> @item.Name </span>
                                 </div>
                                 <div class="box" style="margin-top:0px;width:20%">
-                                    <img src="~/images/trash.png" style="width:20px;height:20px;" />
+                                    <a href="@Url.Action("removeTeamToFav", "Stats", new { id = item.TeamAPIID})">
+                                        <img src="~/images/trash.png" style="width:20px;height:20px;"/>
+                                    </a>
                                 </div>
                             </div>
                         }
@@ -344,7 +354,9 @@
                                     <span class="span2 text-dark"> @item.Name </span>
                                 </div>
                                 <div class="box" style="margin-top:0px;width:20%">
-                                    <img src="~/images/trash.png" style="width:20px;height:20px;" />
+                                    <a href="@Url.Action("removePlayerToFav", "Stats", new { id = item.PlayerAPIId})">
+                                        <img src="~/images/trash.png" style="width:20px;height:20px;" />
+                                    </a>
                                 </div>
                             </div>
                         }
@@ -370,7 +382,9 @@
                                     <span class="span2 text-dark"> @item.Name </span>
                                 </div>
                                 <div class="box" style="margin-top:0px;width:20%">
-                                    <img src="~/images/trash.png" style="width:20px;height:20px;" />
+                                    <a href="@Url.Action("removeTeamToFav", "Stats", new { id = item.TeamAPIID})">
+                                        <img src="~/images/trash.png" style="width:20px;height:20px;" />
+                                    </a>
                                 </div>
                             </div>
                         }
@@ -388,6 +402,39 @@
         </div>
         </div>
     </div>
+
+
+    @*<script>
+        function removePlayer(id) {
+            let ID = id
+            document.getElementById("player" + id).style.display = 'none';
+            @Model.removePlayer($"{ID}");
+        }
+
+        function removeTeam(id) {
+            let ID = id
+            document.getElementById("team" + id).style.display = 'none';
+            @Model.removeTeam(Convert.ToInt16(CSHTML5.Interop.ExecuteJavaScript("screen.width")));
+        }
+
+        
+    </script>
+    
+    @{
+        bool removePlayer(int id)
+        {
+            toRemovePlayersList.Add(id);
+
+            return true;
+        }
+
+        bool removeTeam(int id)
+        {
+            toRemoveTeamsList.Add(id);
+
+            return true;
+        }
+    }*@
 </body>
 
 @section Scripts {

@@ -24,7 +24,7 @@ namespace FPTV.Models.StatisticsModels
 
 		[Required]
 		[Display(Name = "API Id of a valorant player")]
-		public int? PlayerAPIId { get; set; }
+		public int PlayerAPIId { get; set; }
 
 		[Required]
         [Display(Name = "Kills")]
