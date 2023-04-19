@@ -674,6 +674,7 @@
                                 <div style="display:flex; margin:auto;width:100%">
                                     @if (((IList)ViewBag.pickedMaps).Count > 1)
                                     {
+                                        var nGames = ViewBag.matches.Scores[0].TeamScore + ViewBag.matches.Scores[1].TeamScore;
                                         var lista = (List<string>)ViewBag.pickedMaps;
 
                                         if (ViewBag.map == 1)
@@ -687,41 +688,96 @@
 
                                         if (ViewBag.map == 2)
                                         {
-                                            <button class="button3 btnhover1 btnselected1" style="width:25%;margin:auto;" onclick="location.href = '@Url.Action("MatchDetails", "Matches", new {id = ViewBag.matches.MatchesAPIID, type = ViewBag.matches.TimeType.ToString().ToLower(), game = ViewData["game"].ToString(), map = 2})'"> @ViewBag.pickedMaps[0] </button>
+                                            if ((nGames > 1 && ViewBag.matches.TimeType.ToString().ToLower() != "running") || (nGames > 0 && ViewBag.matches.TimeType.ToString().ToLower() != "past"))
+                                            {
+                                                <button class="button3 btnhover1 btnselected1" style="width:25%;margin:auto;" onclick="location.href = '@Url.Action("MatchDetails", "Matches", new {id = ViewBag.matches.MatchesAPIID, type = ViewBag.matches.TimeType.ToString().ToLower(), game = ViewData["game"].ToString(), map = 2})'"> @ViewBag.pickedMaps[0] </button>
+                                            }
+                                            else
+                                            {
+                                                <button class="button3 btnhover1 btnselected1" disabled style="width:25%;margin:auto;" onclick="location.href = '@Url.Action("MatchDetails", "Matches", new {id = ViewBag.matches.MatchesAPIID, type = ViewBag.matches.TimeType.ToString().ToLower(), game = ViewData["game"].ToString(), map = 2})'"> @ViewBag.pickedMaps[0] </button>
+                                            }
                                         }
                                         else
                                         {
-                                            <button class="button3 bordercolor btnhover1" style="width:25%;margin:auto;" onclick="location.href = '@Url.Action("MatchDetails", "Matches", new {id = ViewBag.matches.MatchesAPIID, type = ViewBag.matches.TimeType.ToString().ToLower(), game = ViewData["game"].ToString(), map = 2})'"> @ViewBag.pickedMaps[0] </button>
+                                            if ((nGames > 1 && ViewBag.matches.TimeType.ToString().ToLower() != "running") || (nGames > 0 && ViewBag.matches.TimeType.ToString().ToLower() != "past"))
+                                            {
+                                                <button class="button3 bordercolor btnhover1" style="width:25%;margin:auto;" onclick="location.href = '@Url.Action("MatchDetails", "Matches", new {id = ViewBag.matches.MatchesAPIID, type = ViewBag.matches.TimeType.ToString().ToLower(), game = ViewData["game"].ToString(), map = 2})'"> @ViewBag.pickedMaps[0] </button>
+                                            }
+                                            else
+                                            {
+                                                <button class="button3 bordercolor btnhover1" disabled style="width:25%;margin:auto;" onclick="location.href = '@Url.Action("MatchDetails", "Matches", new {id = ViewBag.matches.MatchesAPIID, type = ViewBag.matches.TimeType.ToString().ToLower(), game = ViewData["game"].ToString(), map = 2})'"> @ViewBag.pickedMaps[0] </button>
+                                            }
                                         }
                                         
                                         if (ViewBag.map == 3)
                                         {
-                                            <button class="button3 btnhover1 btnselected1" style="width:25%;margin:auto;" onclick="location.href = '@Url.Action("MatchDetails", "Matches", new {id = ViewBag.matches.MatchesAPIID, type = ViewBag.matches.TimeType.ToString().ToLower(), game = ViewData["game"].ToString(), map = 3})'"> @ViewBag.pickedMaps[1] </button>
+                                            if ((nGames > 2 && ViewBag.matches.TimeType.ToString().ToLower() != "running") || (nGames > 1 && ViewBag.matches.TimeType.ToString().ToLower() != "past"))
+                                            {
+                                                <button class="button3 btnhover1 btnselected1" style="width:25%;margin:auto;" onclick="location.href = '@Url.Action("MatchDetails", "Matches", new {id = ViewBag.matches.MatchesAPIID, type = ViewBag.matches.TimeType.ToString().ToLower(), game = ViewData["game"].ToString(), map = 3})'"> @ViewBag.pickedMaps[1] </button>
+                                            }
+                                            else
+                                            {
+                                                <button class="button3 bordercolor btnhover1" disabled style="width:25%;margin:auto;" onclick="location.href = '@Url.Action("MatchDetails", "Matches", new {id = ViewBag.matches.MatchesAPIID, type = ViewBag.matches.TimeType.ToString().ToLower(), game = ViewData["game"].ToString(), map = 3})'"> @ViewBag.pickedMaps[1] </button>
+                                            }
                                         }
                                         else
                                         {
-                                            <button class="button3 bordercolor btnhover1" style="width:25%;margin:auto;" onclick="location.href = '@Url.Action("MatchDetails", "Matches", new {id = ViewBag.matches.MatchesAPIID, type = ViewBag.matches.TimeType.ToString().ToLower(), game = ViewData["game"].ToString(), map = 3})'"> @ViewBag.pickedMaps[1] </button>
+                                            if ((nGames > 2 && ViewBag.matches.TimeType.ToString().ToLower() != "running") || (nGames > 1 && ViewBag.matches.TimeType.ToString().ToLower() != "past"))
+                                            {
+                                                <button class="button3 bordercolor btnhover1" style="width:25%;margin:auto;" onclick="location.href = '@Url.Action("MatchDetails", "Matches", new {id = ViewBag.matches.MatchesAPIID, type = ViewBag.matches.TimeType.ToString().ToLower(), game = ViewData["game"].ToString(), map = 3})'"> @ViewBag.pickedMaps[1] </button>
+                                            }
+                                            else
+                                            {
+                                                <button class="button3 bordercolor btnhover1" disabled style="width:25%;margin:auto;" onclick="location.href = '@Url.Action("MatchDetails", "Matches", new {id = ViewBag.matches.MatchesAPIID, type = ViewBag.matches.TimeType.ToString().ToLower(), game = ViewData["game"].ToString(), map = 3})'"> @ViewBag.pickedMaps[1] </button>
+                                            }
                                         }
 
-                                        @if (((IList)ViewBag.pickedMaps).Count > 3)
+                                        if (((IList)ViewBag.pickedMaps).Count > 3)
                                         {
                                             if (ViewBag.map == 4)
                                             {
-                                                <button class="button3 btnhover1 btnselected1" style="width:25%;margin:auto;" onclick="location.href = '@Url.Action("MatchDetails", "Matches", new {id = ViewBag.matches.MatchesAPIID, type = ViewBag.matches.TimeType.ToString().ToLower(), game = ViewData["game"].ToString(), map = 4})'"> @ViewBag.pickedMaps[2] </button>
+                                                if ((nGames > 3 && ViewBag.matches.TimeType.ToString().ToLower() != "running") || (nGames > 2 && ViewBag.matches.TimeType.ToString().ToLower() != "past"))
+                                                {
+                                                    <button class="button3 btnhover1 btnselected1" style="width:25%;margin:auto;" onclick="location.href = '@Url.Action("MatchDetails", "Matches", new {id = ViewBag.matches.MatchesAPIID, type = ViewBag.matches.TimeType.ToString().ToLower(), game = ViewData["game"].ToString(), map = 4})'"> @ViewBag.pickedMaps[2] </button>
+                                                }
+                                                else
+                                                {
+                                                    <button class="button3 bordercolor btnhover1" disabled style="width:25%;margin:auto;" onclick="location.href = '@Url.Action("MatchDetails", "Matches", new {id = ViewBag.matches.MatchesAPIID, type = ViewBag.matches.TimeType.ToString().ToLower(), game = ViewData["game"].ToString(), map = 4})'"> @ViewBag.pickedMaps[2] </button>
+                                                }
                                             }
                                             else
                                             {
-                                                <button class="button3 bordercolor btnhover1" style="width:25%;margin:auto;" onclick="location.href = '@Url.Action("MatchDetails", "Matches", new {id = ViewBag.matches.MatchesAPIID, type = ViewBag.matches.TimeType.ToString().ToLower(), game = ViewData["game"].ToString(), map = 4})'"> @ViewBag.pickedMaps[2] </button>
+                                                if ((nGames > 3 && ViewBag.matches.TimeType.ToString().ToLower() != "running") || (nGames > 2 && ViewBag.matches.TimeType.ToString().ToLower() != "past"))
+                                                {
+                                                    <button class="button3 btnhover1 btnselected1" style="width:25%;margin:auto;" onclick="location.href = '@Url.Action("MatchDetails", "Matches", new {id = ViewBag.matches.MatchesAPIID, type = ViewBag.matches.TimeType.ToString().ToLower(), game = ViewData["game"].ToString(), map = 4})'"> @ViewBag.pickedMaps[2] </button>
+                                                }
+                                                else
+                                                {
+                                                    <button class="button3 bordercolor btnhover1" disabled style="width:25%;margin:auto;" onclick="location.href = '@Url.Action("MatchDetails", "Matches", new {id = ViewBag.matches.MatchesAPIID, type = ViewBag.matches.TimeType.ToString().ToLower(), game = ViewData["game"].ToString(), map = 4})'"> @ViewBag.pickedMaps[2] </button>
+                                                }
                                             }
 
-
-                                            if (ViewBag.map == 5)
+                                            if (ViewBag.map == 3)
                                             {
-                                                <button class="button3 btnhover1 btnselected1" style="width:25%;margin:auto;" onclick="location.href = '@Url.Action("MatchDetails", "Matches", new {id = ViewBag.matches.MatchesAPIID, type = ViewBag.matches.TimeType.ToString().ToLower(), game = ViewData["game"].ToString(), map = 5})'"> @ViewBag.pickedMaps[3] </button>
+                                                if ((nGames > 4 && ViewBag.matches.TimeType.ToString().ToLower() != "running") || (nGames > 3 && ViewBag.matches.TimeType.ToString().ToLower() != "past"))
+                                                {
+                                                    <button class="button3 btnhover1 btnselected1" style="width:25%;margin:auto;" onclick="location.href = '@Url.Action("MatchDetails", "Matches", new {id = ViewBag.matches.MatchesAPIID, type = ViewBag.matches.TimeType.ToString().ToLower(), game = ViewData["game"].ToString(), map = 5})'"> @ViewBag.pickedMaps[3] </button>
+                                                }
+                                                else
+                                                {
+                                                    <button class="button3 bordercolor btnhover1" disabled style="width:25%;margin:auto;" onclick="location.href = '@Url.Action("MatchDetails", "Matches", new {id = ViewBag.matches.MatchesAPIID, type = ViewBag.matches.TimeType.ToString().ToLower(), game = ViewData["game"].ToString(), map = 5})'"> @ViewBag.pickedMaps[3] </button>
+                                                }
                                             }
                                             else
                                             {
-                                                <button class="button3 bordercolor btnhover1" style="width:25%;margin:auto;" onclick="location.href = '@Url.Action("MatchDetails", "Matches", new {id = ViewBag.matches.MatchesAPIID, type = ViewBag.matches.TimeType.ToString().ToLower(), game = ViewData["game"].ToString(), map = 5})'"> @ViewBag.pickedMaps[3] </button>
+                                                if ((nGames > 4 && ViewBag.matches.TimeType.ToString().ToLower() != "running") || (nGames > 3 && ViewBag.matches.TimeType.ToString().ToLower() != "past"))
+                                                {
+                                                    <button class="button3 bordercolor btnhover1" style="width:25%;margin:auto;" onclick="location.href = '@Url.Action("MatchDetails", "Matches", new {id = ViewBag.matches.MatchesAPIID, type = ViewBag.matches.TimeType.ToString().ToLower(), game = ViewData["game"].ToString(), map = 5})'"> @ViewBag.pickedMaps[3] </button>
+                                                }
+                                                 else
+                                                {
+                                                    <button class="button3 bordercolor btnhover1" disabled style="width:25%;margin:auto;" onclick="location.href = '@Url.Action("MatchDetails", "Matches", new {id = ViewBag.matches.MatchesAPIID, type = ViewBag.matches.TimeType.ToString().ToLower(), game = ViewData["game"].ToString(), map = 5})'"> @ViewBag.pickedMaps[3] </button>
+                                                }
                                             }
                                         }
                                     }
