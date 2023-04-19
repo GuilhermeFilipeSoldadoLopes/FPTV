@@ -15,6 +15,9 @@ html {
     .dropdownWidth {
         width: 150px !important;
     }
+    footer {
+        margin-top: 3% !important;
+    }
 
     .marginDrop {
         margin-left: 50px;
