@@ -11,6 +11,7 @@ using FPTV.Data;
 using RestSharp;
 using Newtonsoft.Json.Linq;
 using Microsoft.EntityFrameworkCore;
+using System.Text.RegularExpressions;
 
 namespace FPTV.Areas.Identity.Pages.Account.Manage
 {
@@ -247,12 +248,81 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
             if (Request.Form.Files.Count > 0)
             {
                 IFormFile file = Request.Form.Files.FirstOrDefault();
-                using (var dataStream = new MemoryStream())
+                const int ImageMinimumBytes = 512;
+
+                //-------------------------------------------
+                //  Check the image mime types
+                //-------------------------------------------
+                if (file.ContentType.ToLower() != "image/jpg" &&
+                            file.ContentType.ToLower() != "image/jpeg" &&
+                            file.ContentType.ToLower() != "image/pjpeg" &&
+                            file.ContentType.ToLower() != "image/gif" &&
+                            file.ContentType.ToLower() != "image/x-png" &&
+                            file.ContentType.ToLower() != "image/png")
+                { } else
                 {
-                    await file.CopyToAsync(dataStream);
-                    profile.Picture = dataStream.ToArray();
+                    //-------------------------------------------
+                    //  Check the image extension
+                    //-------------------------------------------
+                    if (Path.GetExtension(file.FileName).ToLower() != ".jpg"
+                        && Path.GetExtension(file.FileName).ToLower() != ".png"
+                        && Path.GetExtension(file.FileName).ToLower() != ".gif"
+                        && Path.GetExtension(file.FileName).ToLower() != ".jpeg")
+                    { } else
+                    {
+                        //-------------------------------------------
+                        //  Attempt to read the file and check the first bytes
+                        //-------------------------------------------
+                        try
+                        {
+                            if (!file.OpenReadStream().CanRead)
+                            { } else
+                            {
+                                //------------------------------------------
+                                //check whether the image size exceeding the limit or not
+                                //------------------------------------------ 
+                                if (file.Length < ImageMinimumBytes)
+                                { } else
+                                {
+                                    byte[] buffer = new byte[ImageMinimumBytes];
+                                    file.OpenReadStream().Read(buffer, 0, ImageMinimumBytes);
+                                    string content = System.Text.Encoding.UTF8.GetString(buffer);
+                                    if (Regex.IsMatch(content, @"<script|<html|<head|<title|<body|<pre|<table|<a\s+href|<img|<plaintext|<cross\-domain\-policy",
+                                        RegexOptions.IgnoreCase | RegexOptions.CultureInvariant | RegexOptions.Multiline))
+                                    { } else
+                                    {
+                                        //-------------------------------------------
+                                        //  Try to instantiate new Bitmap, if .NET will throw exception
+                                        //  we can assume that it's not a valid image
+                                        //-------------------------------------------
+
+                                        try
+                                        {
+                                            using (var bitmap = new System.Drawing.Bitmap(file.OpenReadStream()))
+                                            {
+                                            }
+                                        }
+                                        catch (Exception)
+                                        { }
+                                        finally
+                                        {
+                                            file.OpenReadStream().Position = 0;
+                                        }
+
+                                        using (var dataStream = new MemoryStream())
+                                        {
+                                            await file.CopyToAsync(dataStream);
+                                            profile.Picture = dataStream.ToArray();
+                                        }
+                                        await _context.SaveChangesAsync();
+                                    }
+                                }
+                            } 
+                        }
+                        catch (Exception)
+                        { }
+                    }
                 }
-                await _context.SaveChangesAsync();
             }
 
             var userName = user.UserName;
