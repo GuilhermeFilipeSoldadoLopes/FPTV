@@ -14,11 +14,22 @@ using Microsoft.AspNetCore.WebUtilities;
 
 namespace FPTV.Areas.Identity.Pages.Account
 {
+    /// <summary>
+    /// This class is used to confirm the email change for a user. 
+    /// </summary>
     public class ConfirmEmailChangeModel : PageModel
     {
         private readonly UserManager<UserBase> _userManager;
         private readonly SignInManager<UserBase> _signInManager;
 
+        /// <summary>
+        /// Constructor for ConfirmEmailChangeModel class.
+        /// </summary>
+        /// <param name="userManager">UserManager object.</param>
+        /// <param name="signInManager">SignInManager object.</param>
+        /// <returns>
+        /// No return value.
+        /// </returns>
         public ConfirmEmailChangeModel(UserManager<UserBase> userManager, SignInManager<UserBase> signInManager)
         {
             _userManager = userManager;
@@ -32,6 +43,13 @@ namespace FPTV.Areas.Identity.Pages.Account
         [TempData]
         public string StatusMessage { get; set; }
 
+        /// <summary>
+        /// Confirms the email change for the specified user.
+        /// </summary>
+        /// <param name="userId">The user ID.</param>
+        /// <param name="email">The new email.</param>
+        /// <param name="code">The confirmation code.</param>
+        /// <returns>The page result.</returns>
         public async Task<IActionResult> OnGetAsync(string userId, string email, string code)
         {
             if (userId == null || email == null || code == null)
