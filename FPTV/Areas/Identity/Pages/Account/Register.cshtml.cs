@@ -148,6 +148,7 @@ namespace FPTV.Areas.Identity.Pages.Account
                                 profile.UserId = new Guid(user.Id);
                                 profile.RegistrationDate = DateTime.Now;
                                 profile.Country = "Portugal";
+                                profile.Flag = "pt";
                                 user.Profile = profile;
                                 _context.Profiles.Add(profile);
 

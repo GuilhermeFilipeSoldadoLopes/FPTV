@@ -225,6 +225,7 @@
                     {
                         foreach (var item in (List<Player>)ViewData["FavCSPlayerList"])
                         {
+                            <img src=@item.Image style="width:20px;height:auto" />
                             <span class="span2 text-dark">@item.Name</span>
                             <br />
                         }
@@ -245,6 +246,7 @@
                     {
                         foreach (var item in (List<Team>)ViewData["FavCSTeamsList"])
                         {
+                            <img src=@item.Image style="width:20px;height:auto" />
                             <span class="span2 text-dark">@item.Name</span>
                             <br />
                         }
@@ -322,6 +324,7 @@
                     {
                         foreach (var item in (List<Player>)ViewData["FavValPlayerList"])
                         {
+                            <img src=@item.Image style="width:20px;height:auto" />
                             <span class="span2 text-dark">@item.Name</span>
                             <br />
                         }
@@ -342,6 +345,7 @@
                     {
                         foreach (var item in (List<Team>)ViewData["FavValTeamsList"])
                         {
+                            <img src=@item.Image style="width:20px;height:auto" />
                             <span class="span2 text-dark">@item.Name</span>
                             <br />
                         }

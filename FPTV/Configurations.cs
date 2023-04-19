@@ -39,7 +39,8 @@ namespace FPTV
             profile.UserId = new Guid(admin.Id);
             profile.RegistrationDate = DateTime.Now;
             profile.Country = "Portugal";
-			admin.Profile = profile;
+            profile.Flag = "pt";
+            admin.Profile = profile;
             _context.Profiles.Add(profile);
 
             admin.EmailConfirmed = true;
@@ -87,6 +88,7 @@ namespace FPTV
             profile1.UserId = new Guid(moderator_AD.Id);
             profile1.RegistrationDate = DateTime.Now;
             profile1.Country = "Portugal";
+            profile1.Flag = "pt";
             moderator_AD.Profile = profile1;
             _context.Profiles.Add(profile1);
 
@@ -112,6 +114,7 @@ namespace FPTV
             profile2.UserId = new Guid(moderator_GL.Id);
             profile2.RegistrationDate = DateTime.Now;
             profile2.Country = "Portugal";
+            profile2.Flag = "pt";
             moderator_GL.Profile = profile2;
             _context.Profiles.Add(profile2);
 
@@ -137,6 +140,7 @@ namespace FPTV
             profile3.UserId = new Guid(moderator_MR.Id);
             profile3.RegistrationDate = DateTime.Now;
             profile3.Country = "Portugal";
+            profile3.Flag = "pt";
             moderator_MR.Profile = profile3;
             _context.Profiles.Add(profile3);
 
@@ -162,6 +166,7 @@ namespace FPTV
             profile4.UserId = new Guid(moderator_NR.Id);
             profile4.RegistrationDate = DateTime.Now;
             profile4.Country = "Portugal";
+            profile4.Flag = "pt";
             moderator_NR.Profile = profile4;
             _context.Profiles.Add(profile4);
 
@@ -186,6 +191,7 @@ namespace FPTV
             profile5.UserId = new Guid(moderator_RP.Id);
             profile5.RegistrationDate = DateTime.Now;
             profile5.Country = "Portugal";
+            profile5.Flag = "pt";
             moderator_RP.Profile = profile5;
             _context.Profiles.Add(profile5);
 
@@ -210,6 +216,7 @@ namespace FPTV
             profile6.UserId = new Guid(moderator_JA.Id);
             profile6.RegistrationDate = DateTime.Now;
             profile6.Country = "Portugal";
+            profile6.Flag = "pt";
             moderator_JA.Profile = profile6;
             _context.Profiles.Add(profile6);
 

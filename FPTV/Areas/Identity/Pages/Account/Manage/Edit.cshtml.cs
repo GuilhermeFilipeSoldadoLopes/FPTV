@@ -84,29 +84,11 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
 
             Username = userName;
 
-            var client = new RestClient("https://restcountries.com/v3.1/alpha/" + country);
-            var request = new RestRequest("", Method.Get);
-            request.AddHeader("accept", "application/json");
-            var json = client.Execute(request).Content;
-
-            List<string> countries = new List<string>();
-
-            var countriesArray = JArray.Parse(json);
-
-            foreach (var item in countriesArray.Cast<JObject>())
-            {
-                var countryObject = (JObject)item.GetValue("name");
-                var countryName = countryObject.GetValue("common");
-
-                if (countryName != null)
-                    countries.Add(countryName.Value<string>());
-            }
-
             Input = new InputModel
             {
                 Username = userName,
                 ProfilePicture = profilePicture,
-                Country = countries[0],
+                Country = country,
                 Bio = biography
             };
         }
@@ -138,16 +120,15 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
 
             foreach (var item in countriesArray.Cast<JObject>())
             {
-                var countryCode = item.GetValue("cca2");
                 var country = (JObject)item.GetValue("name");
                 var countryName = country.GetValue("common");
 
-                if (countryName != null && countryCode.ToString().ToLower() != profile.Country)
+                var name = countryName.ToString() == null ? "undefined" : countryName.Value<string>();
+
+                if (countryName != null && name != profile.Country)
                     countries.Add(countryName.Value<string>());
             }
 
-            var players = profile.PlayerList.Players.ToList();
-            var teams = profile.TeamsList.Teams.ToList();
             var csPlayers = new List<Player>();
             var csTeams = new List<Team>();
             var valPlayers = new List<Player>();
@@ -162,6 +143,8 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
             }
             else
             {
+                var players = profile.PlayerList.Players.ToList();
+
                 foreach (var item in players)
                 {
                     if (item.Game == GameType.CSGO)
@@ -184,6 +167,8 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
             }
             else
             {
+                var teams = profile.TeamsList.Teams.ToList();
+
                 foreach (var item in teams)
                 {
                     if (item.Game == GameType.CSGO)
@@ -225,33 +210,30 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
                 return Page();
             }
 
-            var formCountry = Request.Form["Country"].ToString();
-
-            var client = new RestClient("https://restcountries.com/v3.1/name/" + formCountry);
-            var request = new RestRequest("", Method.Get);
-            request.AddHeader("accept", "application/json");
-            var json = client.Execute(request).Content;
-
-            if (json == null) {
-                return null;
-            }
-
-            List<string> countries = new List<string>();
-
-            var countriesArray = JArray.Parse(json);
-
-            foreach (var item in countriesArray.Cast<JObject>())
-            {
-                var countryCode = item.GetValue("cca2");
-
-                if (countryCode != null)
-                    countries.Add(countryCode.Value<string>());
-            }
-
-            var country = countries[0];
-            if (Input.Country != country && Input.Country != null)
+            var country = Request.Form["Country"].ToString();
+            if (profile.Country != country && profile.Country != null)
             {
                 profile.Country = country;
+
+                var client = new RestClient("https://restcountries.com/v3.1/name/" + country);
+                var request = new RestRequest("", Method.Get);
+                request.AddHeader("accept", "application/json");
+                var json = client.Execute(request).Content;
+
+                List<string> countries = new List<string>();
+
+                var countriesArray = JArray.Parse(json);
+
+                foreach (var item in countriesArray.Cast<JObject>())
+                {
+                    var countryCode = item.GetValue("cca2");
+
+                    if (countryCode != null)
+                        countries.Add(countryCode.Value<string>());
+                }
+
+                profile.Flag = countries[0];
+
                 await _context.SaveChangesAsync();
             }
 

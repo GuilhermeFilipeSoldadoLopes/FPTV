@@ -13,6 +13,9 @@ using FPTV.Models.UserModels;
 using FPTV.Data;
 using System.Diagnostics.Metrics;
 using Microsoft.EntityFrameworkCore;
+using FPTV.Models.Forum;
+using Newtonsoft.Json.Linq;
+using RestSharp;
 
 namespace FPTV.Areas.Identity.Pages.Account.Manage
 {
@@ -86,6 +89,7 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
             var profilePicture = profile.Picture;
             var country = profile.Country;
+            var flag = profile.Flag;
             var biography = profile.Biography;
             var date = profile.RegistrationDate.Date;
 
@@ -98,7 +102,7 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
                 ProfilePicture = profilePicture,
                 Country = country,
                 Bio = biography,
-                CountryImage = "/images/Flags/4x3/" + profile.Country + ".svg",
+                CountryImage = "/images/Flags/4x3/" + flag + ".svg",
                 Date = ("Member since: " + date.Date.ToShortDateString())
 			};
         }
@@ -173,7 +177,7 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
             ViewData["FavCSTeamsList"] = csTeams;
             ViewData["FavValPlayerList"] = valPlayers;
             ViewData["FavValTeamsList"] = valTeams;
-            ViewData["Topics"] = _context.Topics.Where(t => t.ProfileId == profile.Id).ToList();
+            ViewData["Topics"] = new List<Topic>(); //_context.Topics.Where(t => t.ProfileId == profile.Id).ToList();
 
             await LoadAsync(user, profile);
             return Page();
