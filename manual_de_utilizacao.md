@@ -101,8 +101,8 @@ Se quiser ver os detalhes de uma partida pode fazê-lo ao clicar na mesma.<p>
 **Apagar conta :** Para poder apagar a sua conta deverá aceder ao seu perfil e clicar no lápis de forma a poder editar o seu perfil e quando se encontrar na página de edição do perfil carregue em Disable account, depois irá surgir um pop-up para confirmar essa ação.<p>
 <div align="center">
 
-![DisableAccount](https://cdn.discordapp.com/attachments/783386747638775848/1087842962664325202/image.png)<p>
-![DisableAccount](https://cdn.discordapp.com/attachments/783386747638775848/1087842998265577522/image.png)<p>
+![DisableAccount](https://cdn.discordapp.com/attachments/783386747638775848/1098208390586568814/image.png)<p>
+![DisableAccount](https://cdn.discordapp.com/attachments/783386747638775848/1098208340158464000/image.png)<p>
 </div>
 
 **Estatísticas :** Para poder aceder às estatísticas disponibilizadas pela FPTV clique no nome “Matches” ou "Events", que está situado na barra de navegação que se encontra na parte superior do website. Caso carregue em "Events" terá de aceder aos detalhes do evento de forma a serem apresentadas as partidas do mesmo e aí irá aceder aos detalhes das mesmas clicando numa das partidas apresentadas. Quando se encontrar nos detalhes das partidas pode ver as estatísticas dos jogadores naquela partida.<p>
@@ -110,15 +110,15 @@ Se quiser ver os detalhes de uma partida pode fazê-lo ao clicar na mesma.<p>
 Se quiser ver as estatísticas desde o inicio da carreira de um jogador em específico clique no nome/imagem do mesmo.<p>
 <div align="center">
   
-![StatsAllTime](https://cdn.discordapp.com/attachments/783386747638775848/1087818560795062302/image.png)<p>
-![StatsAllTime](https://cdn.discordapp.com/attachments/783386747638775848/1087834290605260840/image.png)<p>
+![StatsAllTime](https://cdn.discordapp.com/attachments/783386747638775848/1098208817034039317/image.png)<p>
+![StatsAllTime](https://cdn.discordapp.com/attachments/783386747638775848/1098208877314580541/image.png)<p>
 </div>
 
 Se quiser ver as estatísticas desde de uma equipa em específico clique no nome/imagem do mesma.<p>
 <div align="center">
   
-![StatsAllTime](https://cdn.discordapp.com/attachments/783386747638775848/1087834606159536229/image.png)<p>
-![StatsAllTime](https://cdn.discordapp.com/attachments/783386747638775848/1087834637394509974/image.png)<p>
+![StatsAllTime](https://cdn.discordapp.com/attachments/783386747638775848/1098209460712906822/image.png)<p>
+![StatsAllTime](https://cdn.discordapp.com/attachments/783386747638775848/1098209185419771935/image.png)<p>
 </div>
   
 **Fórum :** Para poder aceder ao fórum clique no nome “Forum”, que está situado na barra de navegação que se encontra na parte superior do website. Após ter clicado serão apresentados os tópicos (e os seus respetivos atributos(nome do criador/tópico, data de criação do tópico, número de comentários e reações aos comentários)) criados por utilizadores ou administradores. Nesta interface pode criar um novo tópico, ver as regras dos fóruns, sortear os tópicos ou pesquisar por tópicos. Caso queira criar um novo tópico, clique em "New Topic" que irá apresentar uma interface onde irá definir o titulo e descrição do mesmo. Se quiser ver os detalhes de um tópico basta clicar no mesmo e aí pode ver os atributos do tópico e a sua descrição, os comentários (que pode reportar clicando no sinal de perigo), as reações aos mesmos e pode sorteá-los. Se quiser pode adicionar um comentário escrevendo em New comment.<p>
