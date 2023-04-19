@@ -154,6 +154,7 @@ Detalhes de um tópico:
 ![Definitions](https://cdn.discordapp.com/attachments/783386747638775848/1097617270563410081/image.png)<p>
 </div>
 
+**Erro :** As páginas de erro a baixo são apresentadas quando o utilizador realiza uma ação que o programa não consegue suportar.
 
 **Conclusão :** Este manual de utilização foi criado para ajudar os utilizadores a compreender e usar as funcionalidades do site FPTV. Esperamos que este manual tenha respondido a todas as suas perguntas sobre como usar o site FPTV e que você tenha uma excelente experiência ao usá-lo. <p>
 
