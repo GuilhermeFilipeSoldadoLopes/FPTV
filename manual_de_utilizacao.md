@@ -62,8 +62,8 @@ Após a confirmação do registo irá surgir uma mensagem a indicar que o email 
 ![ForgotPasswordConfirmation](https://cdn.discordapp.com/attachments/783386747638775848/1098198019230404689/image.png)<p>
 ![ResetPassword](https://cdn.discordapp.com/attachments/783386747638775848/1098201306239336468/image.png)<p>
 ![ResetPassword](https://cdn.discordapp.com/attachments/783386747638775848/1098201369120354354/image.png)<p>
-![ResetPasswordConfirmation](https://cdn.discordapp.com/attachments/783386747638775848/1087763598190850118/image.png)<p>
-![ResetPasswordConfirmation](https://cdn.discordapp.com/attachments/783386747638775848/1087763788033437706/image.png)<p>
+![ResetPasswordConfirmation](https://cdn.discordapp.com/attachments/783386747638775848/1098384862873915402/image.png)<p>
+![ResetPasswordConfirmation](https://cdn.discordapp.com/attachments/783386747638775848/1098384910160506991/image.png)<p>
 </div>
 
 **Logout :** Para terminar a sua sessão, clique no botão "Logout" na barra de navegação superior.<p>
