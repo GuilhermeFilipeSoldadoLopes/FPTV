@@ -126,19 +126,22 @@ Se quiser ver as estatísticas desde de uma equipa em específico clique no nome
 Tópicos do fórum da FPTV:
 <div align="center">
   
-![Forum](https://cdn.discordapp.com/attachments/783386747638775848/1092869324349382796/image.png)<p>
+![Forum](https://cdn.discordapp.com/attachments/783386747638775848/1098211601611493437/image.png)<p>
+![Forum](https://cdn.discordapp.com/attachments/783386747638775848/1098211675947159563/image.png)<p>
 </div>
 
 Tópico das regras dos fóruns da FPTV:
 <div align="center">
   
-![Forum](https://cdn.discordapp.com/attachments/783386747638775848/1092869372411904111/image.png)<p>
+![Forum](https://cdn.discordapp.com/attachments/783386747638775848/1098212307873574912/image.png)<p>
+![Forum](https://cdn.discordapp.com/attachments/783386747638775848/1098212413502922832/image.png)<p>
 </div>
 
 Criação de um novo tópico no fórum:
 <div align="center">
   
-![Forum](https://cdn.discordapp.com/attachments/783386747638775848/1092869416137527366/image.png)<p>
+![Forum](https://cdn.discordapp.com/attachments/783386747638775848/1098213187050033192/image.png)<p>
+![Forum](https://cdn.discordapp.com/attachments/783386747638775848/1098212849857335316/image.png)<p>
 </div>
 
 Detalhes de um tópico:
