@@ -146,6 +146,9 @@
 			font-size: 80%;
 		}
 
+		input::placeholder {
+			font-size: 15px;
+		}
 </style>
 
 <script>
@@ -176,17 +179,20 @@
 			
 				@if (ViewBag.days == 0) {
 				<button class="btnResult selectedbtn bordercolor whiteText" style="">
-					<a class="whiteText" style="text-decoration: none; " href="@Url.Action("Results", "Matches", new { game = ViewData["game"].ToString()})" id="toTranslate">Results of Today</a>
+					<a class="whiteText" style="text-decoration: none; text-transform: capitalize;" href="@Url.Action("Results", "Matches", new { game = ViewData["game"].ToString()})" id="toTranslate">Results of Today</a>
 				</button>
 				} else {
 				<button class="btnResult bordercolor whiteText" style="">
-					<a class="whiteText" style="text-decoration: none;" href="@Url.Action("Results", "Matches", new { game = ViewData["game"].ToString()})" id="toTranslate">Results of Today</a>
+					<a class="whiteText" style="text-decoration: none; text-transform: capitalize;" href="@Url.Action("Results", "Matches", new { game = ViewData["game"].ToString()})" id="toTranslate">Results of Today</a>
 				</button>
 				}
 
 			<button class="btnResult bordercolor">
 				<form method="post" action="@Url.Action("Results", "Matches", new {game = ViewData["game"].ToString()})">
-					<input class="bordercolor dark" type="text" name="days" placeholder=" 2 to 365 days ago" required style="width:50%; padding:1px; text-align:center">
+					<span>
+						<input class="bordercolor dark" type="text" name="days" placeholder=" 2 to 365 days ago" required style="width:50%; padding:1px; text-align:center">
+						<p style="font-size:15px; text-transform: capitalize;" id="toTranslate">Date: @ViewBag.Date</p>
+					</span>
 				</form>
 			</button>
 		</div>
@@ -262,7 +268,15 @@
 			</table>
 			</div>
 		</div>
-	
+
+	@if (ViewBag.Message != null)
+	{
+		<script type="text/javascript">
+			window.onload = function () {
+				alert("@ViewBag.Message");
+			};
+		</script>
+	}
 </body>
 </html>
 

@@ -322,7 +322,26 @@ namespace FPTV.Controllers
 			ViewBag.page = "Results";
             ViewBag.days = days;
 
-            var day = DateTime.Now.AddDays(-days).ToString("yyyy-MM-dd");
+			var day = "";
+            DateTime date;
+
+            if (days < 0)
+            {
+                ViewBag.Message = "It is only possible to consult results of matches that have already taken place.";
+				day = DateTime.Now.AddDays(0).ToString("yyyy-MM-dd");
+                date = DateTime.Now.AddDays(0);
+			} else if (days >= 365)
+            {
+                ViewBag.Message = "You can only consult the results up to 365 days ago.";
+				day = DateTime.Now.AddDays(-365).ToString("yyyy-MM-dd");
+				date = DateTime.Now.AddDays(-365);
+			} else
+            {
+				day = DateTime.Now.AddDays(-days).ToString("yyyy-MM-dd");
+				date = DateTime.Now.AddDays(-days);
+			}
+
+            ViewBag.Date = date.ToString("dd-MM-yyyy");
 
             var jsonFilter = "filter[begin_at]=" + day;
             var token = "&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA";
