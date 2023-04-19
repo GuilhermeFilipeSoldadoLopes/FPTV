@@ -1,14 +1,13 @@
-﻿@*
-@page
+﻿@page
 @using FPTV.Models.Forum;
 @using FPTV.Models.UserModels;
-@model IndexModel
+
 @{
     ViewData["Title"] = "Profile";
-    ViewData["ActivePage"] = ManageNavPages.Index;
 }
-*@
-@*
+
+@*Tudo o que está comentado é para nao dar erro*@
+
 <head>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -263,19 +262,19 @@
         </div>
         
         <div class="box bordercolor" style="padding-top:20px;position:relative;border-width:0px;width:70%;margin-top: 0px">
-            <img id="profilePicture" style="width:284px;height:284px;display:block;margin-left:auto;margin-right:auto;object-fit:cover;border-radius:50%" src="data:image/*;base64,@(Convert.ToBase64String(Model.ProfilePicture))">
-            <span style="font-size:15px;width:90%;position:relative;display:block;text-align:right">@Model.Input.Date</span>
+            @*<img id="profilePicture" style="width:284px;height:284px;display:block;margin-left:auto;margin-right:auto;object-fit:cover;border-radius:50%" src="data:image/*;base64,@(Convert.ToBase64String(Model.ProfilePicture))">*@
+            <span style="font-size:15px;width:90%;position:relative;display:block;text-align:right">@*@Model.Input.Date*@</span>
             <br />
 
             <div class="text-dark" style="width:90%;position:relative;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:black;border-width:1px;border-radius:10px;padding:10px;background-color:white">
-                @Model.Input.Username
-                <img style="height:50%;width:auto;position:absolute;top:25%;right:10px;" src=@Model.Input.CountryImage>
+                @*@Model.Input.Username*@
+                @*<img style="height:50%;width:auto;position:absolute;top:25%;right:10px;" src=@Model.Input.CountryImage>*@
             </div>
-            <label asp-for="Input.Username" readonly class="form-label text-white" style="color:black;font-weight: bold;margin-left:5%"></label>
+            @*<label asp-for="Input.Username" readonly class="form-label text-white" style="color:black;font-weight: bold;margin-left:5%"></label>*@
             <br />
 
             <div class="text-dark" style="width:90%;position:relative;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:black;border-width:1px;border-radius:10px;padding:10px;background-color:white">
-                @if (Model.Input.Bio != null)
+                @*@if (Model.Input.Bio != null)
                 {
                     @Model.Input.Bio
                 }
@@ -283,9 +282,9 @@
                 {
                     <span class="span2 text-dark; text-transform: capitalize" id="toTranslate">No Biography</span>
                     <br />
-                }
+                }*@
             </div>
-            <label asp-for="Input.Bio" readonly class="form-label text-white" style="color:black;font-weight: bold;margin-left:5%"></label>
+            @*<label asp-for="Input.Bio" readonly class="form-label text-white" style="color:black;font-weight: bold;margin-left:5%"></label>*@
             <br />
 
             <div style="width:90%;position:relative;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:black;border-width:1px;border-radius:10px;padding:10px;background-color:white">
@@ -367,4 +366,3 @@
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }
-*@
