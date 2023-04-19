@@ -199,7 +199,7 @@ namespace FPTVUnitTests
 		public void Forum_ReturnsViewResult()
 		{
             var controller = new ForumController(_context, null);
-            var result = controller.IndexAsync();
+            var result = controller.IndexAsyncTest();
             Assert.IsType<ViewResult>(result);
         }
 

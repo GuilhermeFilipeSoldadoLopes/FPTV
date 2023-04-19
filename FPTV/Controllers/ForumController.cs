@@ -332,5 +332,13 @@ namespace FPTV.Controllers
 
 			return false;
 		}
+
+		public ActionResult IndexAsyncTest()
+		{
+			ViewBag.Game = "";
+			ViewBag.page = "Forum";
+			var topics = _context.Topics.Include(t => t.Profile).ThenInclude(p => p.User).Include(t => t.Comments).ThenInclude(c => c.Reactions).ToList();
+			return View(topics);
+		}
 	}
 }
