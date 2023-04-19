@@ -81,21 +81,21 @@ Se quiser ver os detalhes de um evento pode fazê-lo ao clicar no mesmo.<p>
 **Partidas :** Para poder aceder às partidas disponibilizadas pela FPTV clique no nome “Matches”, que está situado na barra de navegação que se encontra na parte superior do website. Aqui, pode visualizar as partidas que já aconteceram, que estão a acontecer e que irão acontecer, pode sorteá-las por data e nome ou filtrá-los por estado(se está a decorrer, já decorreu ou irá decorrer).<p>
 <div align="center">
 
-![Matches](https://media.discordapp.net/attachments/783386747638775848/1087686170965721178/image.png?width=740&height=662)<p>
-![Matches](https://cdn.discordapp.com/attachments/783386747638775848/1087686749045665873/image.png)<p>
+![Matches](https://cdn.discordapp.com/attachments/783386747638775848/1098206295544303657/image.png)<p>
+![Matches](https://cdn.discordapp.com/attachments/783386747638775848/1098206366587433052/image.png)<p>
 </div>
 Se quiser ver os detalhes de uma partida pode fazê-lo ao clicar na mesma.<p>
 <div align="center">
 
-![Matches](https://cdn.discordapp.com/attachments/783386747638775848/1087818082292080640/image.png)<p>
-![Matches](https://cdn.discordapp.com/attachments/783386747638775848/1087818243026202775/image.png)<p>
+![Matches](https://cdn.discordapp.com/attachments/783386747638775848/1098207350013300766/image.png)<p>
+![Matches](https://cdn.discordapp.com/attachments/783386747638775848/1098207296221364284/image.png)<p>
 </div>
 
 **Resultados :** Para poder aceder aos resultados disponibilizados pela FPTV clique no nome Results, que está situado na barra de navegação que se encontra na parte superior do website. Aqui, pode visualizar os resultados das partidas que já aconteceram e que estão a acontecer.<p>
 <div align="center">
 
-![Results](https://cdn.discordapp.com/attachments/783386747638775848/1087836816721313822/image.png)<p>
-![Results](https://cdn.discordapp.com/attachments/783386747638775848/1087836847004201001/image.png)<p>
+![Results](https://cdn.discordapp.com/attachments/783386747638775848/1098207675608748053/image.png)<p>
+![Results](https://cdn.discordapp.com/attachments/783386747638775848/1098207747239071884/image.png)<p>
 </div>
 
 **Apagar conta :** Para poder apagar a sua conta deverá aceder ao seu perfil e clicar no lápis de forma a poder editar o seu perfil e quando se encontrar na página de edição do perfil carregue em Disable account, depois irá surgir um pop-up para confirmar essa ação.<p>
