@@ -365,8 +365,6 @@
                                         <span class="" style="margin:auto;"> </span>
                                         <span class="" style="text-align:right;font-size:20px"> @ViewBag.matches.BeginAt.ToString("dddd | dd-MM-yyyy | hh:mm")H </span><br />
                                     </div>
-
-                                   
                                 </div>
                             </div>
                         }
@@ -487,7 +485,7 @@
                                             var nGames = ViewBag.matches.Scores[0].TeamScore + ViewBag.matches.Scores[1].TeamScore;
                                             var image = ViewBag.mapsImages[i];
                                             <div class="bordercolor whitecolor backMap1 stroke2" style="width:40% ;border-radius:15px;margin:auto;font-weight:700;background-image:url(@image)" name="Maps">
-                                                <span style="text-align: left;margin-left:38%;font-weight:700"> @ViewBag.pickedMaps[1] </span><br />
+                                                <span style="text-align: left;margin-left:38%;font-weight:700"> @ViewBag.pickedMaps[0] </span><br />
                                                 @if (nGames > 1)
                                                 {
                                                     @if (ViewBag.matches.Scores[1].TeamScore != 0)
@@ -533,7 +531,7 @@
                                                 var nGames = ViewBag.matches.Scores[0].TeamScore + ViewBag.matches.Scores[1].TeamScore;
                                                 var image = ViewBag.mapsImages[i];
                                                 <div class=" bordercolor whitecolor backMap2 stroke" style="width:40% ;border-radius:15px;font-weight:700;margin:auto;background-image:url(@image)" name="Maps">
-                                                    <span style="text-align: center;margin-left:38%;font-weight:700"> @ViewBag.pickedMaps[2] </span><br />
+                                                    <span style="text-align: center;margin-left:38%;font-weight:700"> @ViewBag.pickedMaps[1] </span><br />
                                                     @if (nGames > 2)
                                                     {
                                                         @if (ViewBag.matches.Scores[0].TeamScore > 1)
@@ -583,7 +581,7 @@
                                                 var nGames = ViewBag.matches.Scores[0].TeamScore + ViewBag.matches.Scores[1].TeamScore;
                                                 var image = ViewBag.mapsImages[i];
                                                 <div class="bordercolor backMap1 stroke" style="width:40% ;border-radius:15px;margin:auto;background-image:url(@image)" name="Maps">
-                                                    <span style="text-align: left;margin-left:38%;font-weight:bold"> @ViewBag.pickedMaps[0] </span><br />
+                                                    <span style="text-align: left;margin-left:38%;font-weight:bold"> @ViewBag.pickedMaps[2] </span><br />
                                                     @if (nGames > 3)
                                                     {
                                                         @if (ViewBag.matches.Scores[1].TeamScore > 1)
@@ -626,7 +624,7 @@
                                                 var nGames = ViewBag.matches.Scores[0].TeamScore + ViewBag.matches.Scores[1].TeamScore;
                                                 var image = ViewBag.mapsImages[i];
                                                 <div class=" bordercolor backMap2 stroke" style="width:40% ;border-radius:15px;margin:auto;background-image:url(@image)" name="Maps">
-                                                    <span style="text-align: center;margin-left:38%;font-weight:bold"> @ViewBag.pickedMaps[1] </span><br />
+                                                    <span style="text-align: center;margin-left:38%;font-weight:bold"> @ViewBag.pickedMaps[3] </span><br />
                                                     @if (nGames > 4)
                                                     {
                                                         @if (ViewBag.matches.Scores[0].TeamScore > 2)
@@ -674,9 +672,59 @@
                                     <span style="margin-top:20px;">SCOREBOARD</span>
                                 </div>
                                 <div style="display:flex; margin:auto;width:100%">
-                                    <button class="button3 btnhover1 btnselected1" style="width:25%;margin:auto;"> R1 </button>
-                                    <button class="button3 bordercolor btnhover1" style="width:25%;margin:auto"> R2 </button>
-                                    <button class="button3 bordercolor btnhover1" style="width:25%;margin:auto"> R3 </button>
+                                    @if (((IList)ViewBag.pickedMaps).Count > 1)
+                                    {
+                                        var lista = (List<string>)ViewBag.pickedMaps;
+
+                                        if (ViewBag.map == 1)
+                                        {
+                                            <button class="button3 btnhover1 btnselected1" style="width:25%;margin:auto;" onclick="location.href = '@Url.Action("MatchDetails", "Matches", new {id = ViewBag.matches.MatchesAPIID, type = ViewBag.matches.TimeType.ToString().ToLower(), game = ViewData["game"].ToString(), map = 1})'"> @ViewBag.pickedMaps[lista.Count() -1] </button>
+                                        }
+                                        else
+                                        {
+                                            <button class="button3 bordercolor btnhover1" style="width:25%;margin:auto;" onclick="location.href = '@Url.Action("MatchDetails", "Matches", new {id = ViewBag.matches.MatchesAPIID, type = ViewBag.matches.TimeType.ToString().ToLower(), game = ViewData["game"].ToString(), map = 1})'"> @ViewBag.pickedMaps[lista.Count() -1] </button>
+                                        }
+
+                                        if (ViewBag.map == 2)
+                                        {
+                                            <button class="button3 btnhover1 btnselected1" style="width:25%;margin:auto;" onclick="location.href = '@Url.Action("MatchDetails", "Matches", new {id = ViewBag.matches.MatchesAPIID, type = ViewBag.matches.TimeType.ToString().ToLower(), game = ViewData["game"].ToString(), map = 2})'"> @ViewBag.pickedMaps[0] </button>
+                                        }
+                                        else
+                                        {
+                                            <button class="button3 bordercolor btnhover1" style="width:25%;margin:auto;" onclick="location.href = '@Url.Action("MatchDetails", "Matches", new {id = ViewBag.matches.MatchesAPIID, type = ViewBag.matches.TimeType.ToString().ToLower(), game = ViewData["game"].ToString(), map = 2})'"> @ViewBag.pickedMaps[0] </button>
+                                        }
+                                        
+                                        if (ViewBag.map == 3)
+                                        {
+                                            <button class="button3 btnhover1 btnselected1" style="width:25%;margin:auto;" onclick="location.href = '@Url.Action("MatchDetails", "Matches", new {id = ViewBag.matches.MatchesAPIID, type = ViewBag.matches.TimeType.ToString().ToLower(), game = ViewData["game"].ToString(), map = 3})'"> @ViewBag.pickedMaps[1] </button>
+                                        }
+                                        else
+                                        {
+                                            <button class="button3 bordercolor btnhover1" style="width:25%;margin:auto;" onclick="location.href = '@Url.Action("MatchDetails", "Matches", new {id = ViewBag.matches.MatchesAPIID, type = ViewBag.matches.TimeType.ToString().ToLower(), game = ViewData["game"].ToString(), map = 3})'"> @ViewBag.pickedMaps[1] </button>
+                                        }
+
+                                        @if (((IList)ViewBag.pickedMaps).Count > 3)
+                                        {
+                                            if (ViewBag.map == 4)
+                                            {
+                                                <button class="button3 btnhover1 btnselected1" style="width:25%;margin:auto;" onclick="location.href = '@Url.Action("MatchDetails", "Matches", new {id = ViewBag.matches.MatchesAPIID, type = ViewBag.matches.TimeType.ToString().ToLower(), game = ViewData["game"].ToString(), map = 4})'"> @ViewBag.pickedMaps[2] </button>
+                                            }
+                                            else
+                                            {
+                                                <button class="button3 bordercolor btnhover1" style="width:25%;margin:auto;" onclick="location.href = '@Url.Action("MatchDetails", "Matches", new {id = ViewBag.matches.MatchesAPIID, type = ViewBag.matches.TimeType.ToString().ToLower(), game = ViewData["game"].ToString(), map = 4})'"> @ViewBag.pickedMaps[2] </button>
+                                            }
+
+
+                                            if (ViewBag.map == 5)
+                                            {
+                                                <button class="button3 btnhover1 btnselected1" style="width:25%;margin:auto;" onclick="location.href = '@Url.Action("MatchDetails", "Matches", new {id = ViewBag.matches.MatchesAPIID, type = ViewBag.matches.TimeType.ToString().ToLower(), game = ViewData["game"].ToString(), map = 5})'"> @ViewBag.pickedMaps[3] </button>
+                                            }
+                                            else
+                                            {
+                                                <button class="button3 bordercolor btnhover1" style="width:25%;margin:auto;" onclick="location.href = '@Url.Action("MatchDetails", "Matches", new {id = ViewBag.matches.MatchesAPIID, type = ViewBag.matches.TimeType.ToString().ToLower(), game = ViewData["game"].ToString(), map = 5})'"> @ViewBag.pickedMaps[3] </button>
+                                            }
+                                        }
+                                    }
 
                                 </div>
                                 <div style="padding:3%;overflow-x:auto;">
