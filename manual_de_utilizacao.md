@@ -71,11 +71,11 @@ Após a confirmação do registo irá surgir uma mensagem a indicar que o email 
 **Eventos :** Para poder aceder aos eventos disponibilizados pela FPTV clique no nome “Events”, que está situado na barra de navegação que se encontra na parte superior do website. Aqui, pode visualizar os eventos que já aconteceram, que estão a acontecer e que irão acontecer, pode sorteá-los por data, nome, prizepool e tier ou filtrá-los por estado(se está a decorrer, já decorreu ou irá decorrer).<p>
 <div align="center">
 
-![Events](https://cdn.discordapp.com/attachments/783386747638775848/1087766633784815717/image.png)<p>
-![Events](https://cdn.discordapp.com/attachments/783386747638775848/1087766707034144818/image.png)<p>
+![Events](https://cdn.discordapp.com/attachments/783386747638775848/1098203432764063844/image.png)<p>
+![Events](https://cdn.discordapp.com/attachments/783386747638775848/1098203506353115156/image.png)<p>
 Se quiser ver os detalhes de um evento pode fazê-lo ao clicar no mesmo.<p>
-![EventsDetails](https://cdn.discordapp.com/attachments/783386747638775848/1087816135392641044/image.png)<p>
-![EventsDetails](https://cdn.discordapp.com/attachments/783386747638775848/1087816206507049022/image.png)<p>
+![EventsDetails](https://cdn.discordapp.com/attachments/783386747638775848/1098204866293276702/image.png)<p>
+![EventsDetails](https://cdn.discordapp.com/attachments/783386747638775848/1098204788254048346/image.png)<p>
 </div>
 
 **Partidas :** Para poder aceder às partidas disponibilizadas pela FPTV clique no nome “Matches”, que está situado na barra de navegação que se encontra na parte superior do website. Aqui, pode visualizar as partidas que já aconteceram, que estão a acontecer e que irão acontecer, pode sorteá-las por data e nome ou filtrá-los por estado(se está a decorrer, já decorreu ou irá decorrer).<p>
