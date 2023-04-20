@@ -42,5 +42,8 @@ namespace FPTV.Models.Forum
         [Required]
         [Display(Name = "isReported")]
         public bool Reported { get; set; }
+
+        [Required, Display(Name = "isDeleted")]
+        public bool Deleted { get; set; }
     }
 }
