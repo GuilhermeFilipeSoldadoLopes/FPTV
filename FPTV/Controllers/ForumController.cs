@@ -37,17 +37,43 @@ namespace FPTV.Controllers
         /// Asynchronously checks for an error and returns the Error403 view if an error is found. Otherwise, returns the Forum view with a list of topics.
         /// </summary>
         /// <returns>The Error403 view or the Forum view.</returns>
-        public async Task<ActionResult> IndexAsync()
+        public async Task<ActionResult> IndexAsync(string filter = "", string search = "")
         {
             if (await CheckError303())
             {
                 return View("~/Views/Home/Error403.cshtml");
             }
 
+            search ??= "";
+            ViewBag.Filter = filter;
+            ViewBag.Search = search;
             ViewBag.Game = "";
             ViewBag.page = "Forum";
-            var topics = _context.Topics.Include(t => t.Profile).ThenInclude(p => p.User).Include(t => t.Comments).ThenInclude(c => c.Reactions).ToList();
-            return View(topics);
+			var topics = _context.Topics.Include(t => t.Profile).ThenInclude(p => p.User).Include(t => t.Comments).ThenInclude(c => c.Reactions).ToList();
+
+			switch (filter)
+			{
+				case "newest":
+					topics = topics.OrderByDescending(t => t.Date).ToList();
+					break;
+				case "oldest":
+					topics = topics.OrderBy(t => t.Date).ToList();
+					break;
+				case "hot":
+					topics = topics.OrderByDescending(t => t.Comments.Select(c => c.Reactions).Count() + t.Comments.Count).ToList();
+					break;
+				default:
+					break;
+			}
+
+            if (search != null)
+            {
+                topics = topics.FindAll(t => t.Title.ToLower().Contains(search.ToLower()));
+            } 
+
+            topics = topics.OrderBy(t => t.Deleted).ToList();
+
+			return View(topics);
         }
 
         [Authorize]
@@ -56,8 +82,14 @@ namespace FPTV.Controllers
         /// </summary>
         /// <param name="id">The id of the topic to be retrieved.</param>
         /// <returns>The view with the retrieved topic.</returns>
-        public ActionResult Topic(int id)
+        public async Task<ActionResult> TopicAsync(int id, string filter = "")
         {
+            if (await CheckError303())
+            {
+                return View("~/Views/Home/Error403.cshtml");
+            }
+
+            ViewBag.Filter = filter;
             ViewBag.Game = "";
             ViewBag.page = "Forum";
             var topic = _context.Topics
@@ -74,6 +106,22 @@ namespace FPTV.Controllers
                 return View("~/Views/Home/Error404.cshtml");
             }
 
+			switch(filter)
+            {
+				case "newest":
+					topic.Comments = topic.Comments.OrderByDescending(c => c.Date).ToList();
+					break;
+				case "oldest":
+					topic.Comments = topic.Comments.OrderBy(c => c.Date).ToList();
+					break;
+				case "hot":
+					topic.Comments = topic.Comments.OrderByDescending(c => c.Reactions.Count).ToList();
+					break;
+				default:
+					break;
+            }
+
+            topic.Comments = topic.Comments.OrderBy(c => c.Deleted).ToList();
             return View(topic);
         }
 
@@ -130,6 +178,7 @@ namespace FPTV.Controllers
                 Title = collection["Title"],
                 ProfileId = user.ProfileId,
                 Reported = false,
+				Deleted = false,
             };
             await _context.Topics.AddAsync(topic);
             await _context.SaveChangesAsync();
@@ -151,9 +200,26 @@ namespace FPTV.Controllers
         /// </summary>
         /// <param name="profile">The profile to be viewed.</param>
         /// <returns>The view of the given profile.</returns>
-        public ActionResult Profile(Profile profile)
+        public ActionResult Profile(Guid profileId)
         {
-            return View(profile);
+			var profile = _context.Profiles.Include(p => p.PlayerList.Players).Include(p => p.TeamsList.Teams).FirstOrDefault(p => p.Id == profileId);
+            var user = _context.UserBase.FirstOrDefault(u => u.ProfileId == profileId);
+            var topics = _context.Topics.Where(t => t.ProfileId == profileId).ToList();
+            
+
+            if(user == null || profile == null)
+            {
+                return View("~/Views/Home/Error404.cshtml");
+            }
+
+            ViewData["Topics"] = topics;
+            ViewData["FavTeamsListValorant"] = profile.TeamsList.Teams.Where(t => t.Game == GameType.Valorant).ToList();
+            ViewData["FavPlayerListValorant"] = profile.PlayerList.Players.Where(t => t.Game == GameType.Valorant).ToList(); 
+            ViewData["FavTeamsListCSGO"] = profile.TeamsList.Teams.Where(t => t.Game == GameType.CSGO).ToList();
+            ViewData["FavPlayerListCSGO"] = profile.PlayerList.Players.Where(t => t.Game == GameType.CSGO).ToList();
+            ViewBag.Flag = "/images/Flags/4x3/" + profile.Flag + ".svg";
+            ViewData["Username"] = user.UserName;
+			return View(profile);
         }
 
         [Authorize]
@@ -222,23 +288,24 @@ namespace FPTV.Controllers
             var topic = _context.Topics.FirstOrDefault(t => t.TopicId == id);
             var user = await _userManager.GetUserAsync(User);
 
-            if (user == null)
-            {
-                return View("Index");
-            }
-            var profile = _context.Profiles.Single(p => p.Id == user.ProfileId);
-            var comment = new Comment
-            {
-                Reactions = new List<Reaction>(),
-                Profile = profile,
-                Date = DateTime.Now,
-                Text = collection["Text"],
-                Topic = topic,
-                Reported = false,
-            };
-            await _context.Comments.AddAsync(comment);
-            await _context.SaveChangesAsync();
-            try
+			if (user == null)
+			{
+				return View("Index");
+			}
+			var profile = _context.Profiles.Single(p => p.Id == user.ProfileId);
+			var comment = new Comment
+			{
+				Reactions = new List<Reaction>(),
+				Profile = profile,
+				Date = DateTime.Now,
+				Text = collection["Text"],
+				Topic = topic,
+				Reported = false,
+				Deleted = false,
+			};
+			await _context.Comments.AddAsync(comment);
+			await _context.SaveChangesAsync();
+			try
             {
                 return RedirectToAction("Topic", new { id });
             }
@@ -271,6 +338,7 @@ namespace FPTV.Controllers
             }
             post.Content = "This post has been deleted.";
             post.Title = "[Deleted post]";
+			post.Deleted = true;
 
             await _context.SaveChangesAsync();
 
@@ -293,12 +361,13 @@ namespace FPTV.Controllers
             ViewBag.Game = "";
             ViewBag.page = "Forum";
             var comment = _context.Comments.Include(c => c.Profile).FirstOrDefault(c => c.CommentId == id);
-            var user = await _userManager.GetUserAsync(User);
-            if (comment == null || !comment.Profile.Id.Equals(user.ProfileId))
-            {
-                return View("~/Views/Home/Error404.cshtml");
-            }
-            comment.Text = "[Deleted comment]";
+			var user = await _userManager.GetUserAsync(User);
+			if (comment == null || !comment.Profile.Id.Equals(user.ProfileId))
+			{
+				return View("~/Views/Home/Error404.cshtml");
+			}
+			comment.Text = "[Deleted comment]";
+			comment.Deleted = true;
 
             await _context.SaveChangesAsync();
 

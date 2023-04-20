@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FPTV.Migrations
 {
-    public partial class FPTVMigration : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -156,7 +156,8 @@ namespace FPTV.Migrations
                     Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ProfileId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Reported = table.Column<bool>(type: "bit", nullable: false)
+                    Reported = table.Column<bool>(type: "bit", nullable: false),
+                    Deleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -263,7 +264,8 @@ namespace FPTV.Migrations
                     Text = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ProfileId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     TopicId = table.Column<int>(type: "int", nullable: true),
-                    Reported = table.Column<bool>(type: "bit", nullable: false)
+                    Reported = table.Column<bool>(type: "bit", nullable: false),
+                    Deleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {

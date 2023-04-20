@@ -210,7 +210,7 @@ namespace FPTVUnitTests
 		{
             var controller = new ForumController(_context, null);
 			Profile profile = contextFixture.DbContext.Profiles.FirstOrDefault(p => p.Id == contextFixture.GetAdminId());
-			var result = controller.Profile(profile);
+			var result = controller.Profile(profile.Id);
             Assert.IsType<ViewResult>(result);
         }
 
@@ -237,7 +237,7 @@ namespace FPTVUnitTests
             Assert.Equal(contextFixture.DbContext.Profiles.FirstOrDefault(p => p.Id == contextFixture.GetAdminId()), topic.Profile);
             Assert.IsType<List<Comment>>(topic.Comments);
 
-            var finalResult = controller.Topic(topic.TopicId);
+            var finalResult = controller.TopicAsync(topic.TopicId);
             Assert.IsType<ViewResult>(finalResult);
         }
 
