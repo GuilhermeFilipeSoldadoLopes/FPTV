@@ -43,11 +43,11 @@ public class EmailSender : IEmailSender
     /// <returns>A Task that represents the asynchronous operation</returns>
     public async Task SendEmailAsync(string toEmail, string subject, string message)
     {
-        if (string.IsNullOrEmpty(Options.SendGridKey))
-        {
-            throw new Exception("Null SendGridKey");
-        }
-        await Execute(Options.SendGridKey, subject, message, toEmail);
+        //if (string.IsNullOrEmpty(Options.SendGridKey))
+        //{
+            //throw new Exception("Null SendGridKey");
+        //}
+        await Execute("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", subject, message, toEmail);
     }
 
     /// <summary>
