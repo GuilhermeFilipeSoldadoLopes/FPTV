@@ -12,14 +12,25 @@ using Microsoft.Extensions.Logging;
 
 namespace FPTV.Areas.Identity.Pages.Account.Manage
 {
+    /// <summary>
+    /// This class is used to disable two-factor authentication for a user.
+    /// </summary>
     public class Disable2faModel : PageModel
     {
         private readonly UserManager<UserBase> _userManager;
         private readonly ILogger<Disable2faModel> _logger;
 
+        /// <summary>
+        /// Constructor for Disable2faModel class.
+        /// </summary>
+        /// <param name="userManager">UserManager object.</param>
+        /// <param name="logger">ILogger object.</param>
+        /// <returns>
+        /// No return value.
+        /// </returns>
         public Disable2faModel(
-            UserManager<UserBase> userManager,
-            ILogger<Disable2faModel> logger)
+                    UserManager<UserBase> userManager,
+                    ILogger<Disable2faModel> logger)
         {
             _userManager = userManager;
             _logger = logger;
@@ -32,6 +43,9 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
         [TempData]
         public string StatusMessage { get; set; }
 
+        /// <summary>
+        /// This method is used to get the action result.
+        /// </summary>
         public async Task<IActionResult> OnGet()
         {
             var user = await _userManager.GetUserAsync(User);
@@ -48,6 +62,10 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
             return Page();
         }
 
+        /// <summary>
+        /// Handles the post request for the page.
+        /// </summary>
+        /// <returns>The action result.</returns>
         public async Task<IActionResult> OnPostAsync()
         {
             var user = await _userManager.GetUserAsync(User);

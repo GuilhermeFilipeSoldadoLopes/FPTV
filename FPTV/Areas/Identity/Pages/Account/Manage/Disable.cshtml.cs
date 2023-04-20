@@ -15,16 +15,28 @@ using System.Diagnostics.Metrics;
 
 namespace FPTV.Areas.Identity.Pages.Account.Manage
 {
+    /// <summary>
+    /// This class is used to disable a page model.
+    /// </summary>
     public class DisableModel : PageModel
     {
         private readonly UserManager<UserBase> _userManager;
         private readonly SignInManager<UserBase> _signInManager;
         private readonly FPTVContext _context;
 
+        /// <summary>
+        /// Constructor for DisableModel class.
+        /// </summary>
+        /// <param name="userManager">UserManager object.</param>
+        /// <param name="signInManager">SignInManager object.</param>
+        /// <param name="context">FPTVContext object.</param>
+        /// <returns>
+        /// An instance of DisableModel class.
+        /// </returns>
         public DisableModel(
-            UserManager<UserBase> userManager,
-            SignInManager<UserBase> signInManager,
-            FPTVContext context)
+                    UserManager<UserBase> userManager,
+                    SignInManager<UserBase> signInManager,
+                    FPTVContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -74,6 +86,14 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
             public string Country { get; set; }
         }
 
+        /// <summary>
+        /// Loads the user's profile information.
+        /// </summary>
+        /// <param name="user">The user.</param>
+        /// <param name="profile">The profile.</param>
+        /// <returns>
+        /// The user's profile information.
+        /// </returns>
         private async Task LoadAsync(UserBase user, Profile profile)
         {
             var userName = await _userManager.GetUserNameAsync(user);
@@ -94,6 +114,10 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
             };
         }
 
+        /// <summary>
+        /// Retrieves the user and profile information from the database and loads it into the page.
+        /// </summary>
+        /// <returns>The page with the user and profile information loaded.</returns>
         public async Task<IActionResult> OnGetAsync()
         {
             var user = await _userManager.GetUserAsync(User);
@@ -109,6 +133,10 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
             return Page();
         }
 
+        /// <summary>
+        /// Signs out the current user and sets their email confirmation status to false.
+        /// </summary>
+        /// <returns>Redirects to the Home page.</returns>
         public async Task<IActionResult> OnPostAsync()
         {
             var user = await _userManager.GetUserAsync(User);
