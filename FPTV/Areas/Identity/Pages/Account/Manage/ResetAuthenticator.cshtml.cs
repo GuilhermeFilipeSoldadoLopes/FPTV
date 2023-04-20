@@ -12,16 +12,28 @@ using Microsoft.Extensions.Logging;
 
 namespace FPTV.Areas.Identity.Pages.Account.Manage
 {
+    /// <summary>
+    /// This class is used to reset the authentication of the user.
+    /// </summary>
     public class ResetAuthenticatorModel : PageModel
     {
         private readonly UserManager<UserBase> _userManager;
         private readonly SignInManager<UserBase> _signInManager;
         private readonly ILogger<ResetAuthenticatorModel> _logger;
 
+        /// <summary>
+        /// Constructor for ResetAuthenticatorModel class.
+        /// </summary>
+        /// <param name="userManager">UserManager object.</param>
+        /// <param name="signInManager">SignInManager object.</param>
+        /// <param name="logger">ILogger object.</param>
+        /// <returns>
+        /// ResetAuthenticatorModel object.
+        /// </returns>
         public ResetAuthenticatorModel(
-            UserManager<UserBase> userManager,
-            SignInManager<UserBase> signInManager,
-            ILogger<ResetAuthenticatorModel> logger)
+                    UserManager<UserBase> userManager,
+                    SignInManager<UserBase> signInManager,
+                    ILogger<ResetAuthenticatorModel> logger)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -35,6 +47,10 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
         [TempData]
         public string StatusMessage { get; set; }
 
+        /// <summary>
+        /// Gets the current user from the UserManager and returns the page.
+        /// </summary>
+        /// <returns>The page for the current user.</returns>
         public async Task<IActionResult> OnGet()
         {
             var user = await _userManager.GetUserAsync(User);
@@ -46,6 +62,10 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
             return Page();
         }
 
+        /// <summary>
+        /// Resets the user's authentication app key and refreshes the sign in.
+        /// </summary>
+        /// <returns>Redirects to the EnableAuthenticator page.</returns>
         public async Task<IActionResult> OnPostAsync()
         {
             var user = await _userManager.GetUserAsync(User);

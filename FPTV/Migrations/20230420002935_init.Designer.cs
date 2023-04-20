@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FPTV.Migrations
 {
     [DbContext(typeof(FPTVContext))]
-    [Migration("20230417001129_init")]
+    [Migration("20230420002935_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -160,6 +160,9 @@ namespace FPTV.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
+
                     b.Property<Guid?>("ProfileId")
                         .HasColumnType("uniqueidentifier");
 
@@ -221,8 +224,8 @@ namespace FPTV.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("GameType")
-                        .HasColumnType("int");
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
 
                     b.Property<Guid>("ProfileId")
                         .HasColumnType("uniqueidentifier");
@@ -521,8 +524,7 @@ namespace FPTV.Migrations
                     b.Property<Guid>("MatchCSId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int?>("PlayerAPIId")
-                        .IsRequired()
+                    b.Property<int>("PlayerAPIId")
                         .HasColumnType("int");
 
                     b.Property<Guid>("PlayerId")
@@ -581,8 +583,7 @@ namespace FPTV.Migrations
                     b.Property<Guid?>("MatchValId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int?>("PlayerAPIId")
-                        .IsRequired()
+                    b.Property<int>("PlayerAPIId")
                         .HasColumnType("int");
 
                     b.Property<Guid>("PlayerId")
@@ -813,8 +814,7 @@ namespace FPTV.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("PlayerAPIId")
-                        .IsRequired()
+                    b.Property<int>("PlayerAPIId")
                         .HasColumnType("int");
 
                     b.Property<float?>("Rating")
@@ -898,8 +898,7 @@ namespace FPTV.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("TeamAPIID")
-                        .IsRequired()
+                    b.Property<int>("TeamAPIID")
                         .HasColumnType("int");
 
                     b.Property<int?>("Winnings")

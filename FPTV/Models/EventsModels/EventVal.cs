@@ -5,6 +5,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FPTV.Models.EventsModels
 {
+    /// <summary>
+    /// EventVal class is used to store and retrieve event values.
+    /// </summary>
     public class EventVal
     {
         [Required]
@@ -27,7 +30,7 @@ namespace FPTV.Models.EventsModels
         [Display(Name = "EventImage")]
         public string? EventImage { get; set; }
 
-        
+
         [Display(Name = "Event Link")]
         public string? EventLink { get; set; }
 
@@ -39,13 +42,13 @@ namespace FPTV.Models.EventsModels
         [Display(Name = "Finished")]
         public bool Finished { get; set; }
 
-        
+
         [Display(Name = "Begin At")]
         [DataType(DataType.Date)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime? BeginAt { get; set; }
 
-        
+
         [Display(Name = "End At")]
         [DataType(DataType.Date)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]

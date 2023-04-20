@@ -4,6 +4,11 @@ using FPTV.Models.UserModels;
 
 namespace FPTV.Models.Forum
 {
+
+
+    /// <summary>
+    /// Represents a Comment class.
+    /// </summary>
     public class Comment
     {
         [Key]
@@ -30,11 +35,15 @@ namespace FPTV.Models.Forum
         [Display(Name = "Topic")]
         public Topic? Topic { get; set; }
 
-		[Required]
-		[Display(Name = "Reactions")]
+        [Required]
+        [Display(Name = "Reactions")]
         public ICollection<Reaction>? Reactions { get; set; }
 
         [Required]
+        [Display(Name = "isReported")]
         public bool Reported { get; set; }
+
+        [Required, Display(Name = "isDeleted")]
+        public bool Deleted { get; set; }
     }
 }

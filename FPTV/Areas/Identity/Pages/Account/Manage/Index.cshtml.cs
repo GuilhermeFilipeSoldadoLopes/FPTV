@@ -13,19 +13,34 @@ using FPTV.Models.UserModels;
 using FPTV.Data;
 using System.Diagnostics.Metrics;
 using Microsoft.EntityFrameworkCore;
+using FPTV.Models.Forum;
+using Newtonsoft.Json.Linq;
+using RestSharp;
 
 namespace FPTV.Areas.Identity.Pages.Account.Manage
 {
+    /// <summary>
+    /// This class represents the IndexModel which is a PageModel.
+    /// </summary>
     public class IndexModel : PageModel
     {
         private readonly UserManager<UserBase> _userManager;
         private readonly SignInManager<UserBase> _signInManager;
         private readonly FPTVContext _context;
 
+        /// <summary>
+        /// Constructor for IndexModel class.
+        /// </summary>
+        /// <param name="userManager">UserManager object.</param>
+        /// <param name="signInManager">SignInManager object.</param>
+        /// <param name="context">FPTVContext object.</param>
+        /// <returns>
+        /// IndexModel object.
+        /// </returns>
         public IndexModel(
-            UserManager<UserBase> userManager,
-            SignInManager<UserBase> signInManager,
-            FPTVContext context)
+                    UserManager<UserBase> userManager,
+                    SignInManager<UserBase> signInManager,
+                    FPTVContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -80,16 +95,25 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
             public string Date { get; set; }
         }
 
+        /// <summary>
+        /// Loads the user's profile information.
+        /// </summary>
+        /// <param name="user">The user.</param>
+        /// <param name="profile">The profile.</param>
+        /// <returns>
+        /// The user's profile information.
+        /// </returns>
         private async Task LoadAsync(UserBase user, Profile profile)
         {
             var userName = await _userManager.GetUserNameAsync(user);
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
             var profilePicture = profile.Picture;
             var country = profile.Country;
+            var flag = profile.Flag;
             var biography = profile.Biography;
             var date = profile.RegistrationDate.Date;
 
-			Username = userName;
+            Username = userName;
 
             Input = new InputModel
             {
@@ -98,11 +122,17 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
                 ProfilePicture = profilePicture,
                 Country = country,
                 Bio = biography,
-                CountryImage = "/images/Flags/4x3/" + profile.Country + ".svg",
+                CountryImage = "/images/Flags/4x3/" + flag + ".svg",
                 Date = ("Member since: " + date.Date.ToShortDateString())
-			};
+            };
         }
 
+        /// <summary>
+        /// Loads the user, profile, and view data for the Index page.
+        /// </summary>
+        /// <param name="user">The user.</param>
+        /// <param name="profile">The profile.</param>
+        /// <returns>The Index page.</returns>
         public async Task<IActionResult> OnGetAsync()
         {
             var user = await _userManager.GetUserAsync(User);
@@ -114,8 +144,6 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
 
             var profile = _context.Profiles.Include(p => p.PlayerList.Players).Include(p => p.TeamsList.Teams).Single(p => p.Id == user.ProfileId);
 
-            var players = profile.PlayerList.Players.ToList();
-            var teams = profile.TeamsList.Teams.ToList();
             var csPlayers = new List<Player>();
             var csTeams = new List<Team>();
             var valPlayers = new List<Player>();
@@ -130,6 +158,8 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
             }
             else
             {
+                var players = profile.PlayerList.Players.ToList();
+
                 foreach (var item in players)
                 {
                     if (item.Game == GameType.CSGO)
@@ -152,6 +182,8 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
             }
             else
             {
+                var teams = profile.TeamsList.Teams.ToList();
+
                 foreach (var item in teams)
                 {
                     if (item.Game == GameType.CSGO)
@@ -171,7 +203,7 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
             ViewData["FavCSTeamsList"] = csTeams;
             ViewData["FavValPlayerList"] = valPlayers;
             ViewData["FavValTeamsList"] = valTeams;
-            ViewData["Topics"] = _context.Topics.Where(t => t.ProfileId == profile.Id).ToList();
+            ViewData["Topics"] = new List<Topic>(); //_context.Topics.Where(t => t.ProfileId == profile.Id).ToList();
 
             await LoadAsync(user, profile);
             return Page();

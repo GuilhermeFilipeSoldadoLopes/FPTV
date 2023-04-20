@@ -1,8 +1,11 @@
 ﻿namespace FPTV.Models.UserModels
 {
-	public enum GameType
-	{
-		CSGO,
-		Valorant
-	}
+    /// <summary>
+    /// Enum to represent the type of game.
+    /// </summary>
+    public enum GameType
+    {
+        CSGO,
+        Valorant
+    }
 }

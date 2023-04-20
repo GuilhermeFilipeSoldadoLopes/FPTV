@@ -152,12 +152,12 @@ namespace FPTV.Migrations
                 {
                     TopicId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    GameType = table.Column<int>(type: "int", nullable: false),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ProfileId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Reported = table.Column<bool>(type: "bit", nullable: false)
+                    Reported = table.Column<bool>(type: "bit", nullable: false),
+                    Deleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -264,7 +264,8 @@ namespace FPTV.Migrations
                     Text = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ProfileId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     TopicId = table.Column<int>(type: "int", nullable: true),
-                    Reported = table.Column<bool>(type: "bit", nullable: false)
+                    Reported = table.Column<bool>(type: "bit", nullable: false),
+                    Deleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {

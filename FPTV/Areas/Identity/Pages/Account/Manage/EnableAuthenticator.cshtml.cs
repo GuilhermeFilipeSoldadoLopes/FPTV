@@ -17,6 +17,9 @@ using Microsoft.Extensions.Logging;
 
 namespace FPTV.Areas.Identity.Pages.Account.Manage
 {
+    /// <summary>
+    /// This class is used to enable the user's authenticator.
+    /// </summary>
     public class EnableAuthenticatorModel : PageModel
     {
         private readonly UserManager<UserBase> _userManager;
@@ -25,10 +28,19 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
 
         private const string AuthenticatorUriFormat = "otpauth://totp/{0}:{1}?secret={2}&issuer={0}&digits=6";
 
+        /// <summary>
+        /// Constructor for the EnableAuthenticatorModel class.
+        /// </summary>
+        /// <param name="userManager">The UserManager object.</param>
+        /// <param name="logger">The ILogger object.</param>
+        /// <param name="urlEncoder">The UrlEncoder object.</param>
+        /// <returns>
+        /// An instance of the EnableAuthenticatorModel class.
+        /// </returns>
         public EnableAuthenticatorModel(
-            UserManager<UserBase> userManager,
-            ILogger<EnableAuthenticatorModel> logger,
-            UrlEncoder urlEncoder)
+                    UserManager<UserBase> userManager,
+                    ILogger<EnableAuthenticatorModel> logger,
+                    UrlEncoder urlEncoder)
         {
             _userManager = userManager;
             _logger = logger;
@@ -85,6 +97,10 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
             public string Code { get; set; }
         }
 
+        /// <summary>
+        /// Gets the user information and loads the shared key and QR code URI.
+        /// </summary>
+        /// <returns>The page result.</returns>
         public async Task<IActionResult> OnGetAsync()
         {
             var user = await _userManager.GetUserAsync(User);
@@ -98,6 +114,12 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
             return Page();
         }
 
+        /// <summary>
+        /// Verifies the user's authenticator app and enables two-factor authentication.
+        /// </summary>
+        /// <returns>
+        /// Redirects to the ShowRecoveryCodes page if the user has no recovery codes, or to the TwoFactorAuthentication page otherwise.
+        /// </returns>
         public async Task<IActionResult> OnPostAsync()
         {
             var user = await _userManager.GetUserAsync(User);
@@ -143,6 +165,10 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
             }
         }
 
+        /// <summary>
+        /// Loads the shared key and QR code URI for the specified user.
+        /// </summary>
+        /// <param name="user">The user for which to load the shared key and QR code URI.</param>
         private async Task LoadSharedKeyAndQrCodeUriAsync(UserBase user)
         {
             // Load the authenticator key & QR code URI to display on the form
@@ -159,6 +185,11 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
             AuthenticatorUri = GenerateQrCodeUri(email, unformattedKey);
         }
 
+        /// <summary>
+        /// Formats the given unformatted key into a valid C# key.
+        /// </summary>
+        /// <param name="unformattedKey">The unformatted key.</param>
+        /// <returns>The formatted key.</returns>
         private string FormatKey(string unformattedKey)
         {
             var result = new StringBuilder();
@@ -176,6 +207,9 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
             return result.ToString().ToLowerInvariant();
         }
 
+        /// <summary>
+        /// Generates a QR code URI from the given email and unformatted key.
+        /// </summary>
         private string GenerateQrCodeUri(string email, string unformattedKey)
         {
             return string.Format(

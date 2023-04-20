@@ -5,6 +5,9 @@ using System.Xml.Linq;
 
 namespace FPTV.Models.UserModels
 {
+    /// <summary>
+    /// Represents the base class for user identity objects.
+    /// </summary>
     public class UserBase : IdentityUser
     {
         public Profile Profile { get; set; }

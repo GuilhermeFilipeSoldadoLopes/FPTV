@@ -12,14 +12,26 @@ using Microsoft.Extensions.Logging;
 
 namespace FPTV.Areas.Identity.Pages.Account.Manage
 {
+    /// <summary>
+    /// This class provides a model for two-factor authentication. 
+    /// </summary>
     public class TwoFactorAuthenticationModel : PageModel
     {
         private readonly UserManager<UserBase> _userManager;
         private readonly SignInManager<UserBase> _signInManager;
         private readonly ILogger<TwoFactorAuthenticationModel> _logger;
 
+        /// <summary>
+        /// Constructor for TwoFactorAuthenticationModel class.
+        /// </summary>
+        /// <param name="userManager">UserManager object.</param>
+        /// <param name="signInManager">SignInManager object.</param>
+        /// <param name="logger">ILogger object.</param>
+        /// <returns>
+        /// An instance of TwoFactorAuthenticationModel.
+        /// </returns>
         public TwoFactorAuthenticationModel(
-            UserManager<UserBase> userManager, SignInManager<UserBase> signInManager, ILogger<TwoFactorAuthenticationModel> logger)
+                    UserManager<UserBase> userManager, SignInManager<UserBase> signInManager, ILogger<TwoFactorAuthenticationModel> logger)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -58,6 +70,10 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
         [TempData]
         public string StatusMessage { get; set; }
 
+        /// <summary>
+        /// Gets the current user's two factor authentication information.
+        /// </summary>
+        /// <returns>The page containing the two factor authentication information.</returns>
         public async Task<IActionResult> OnGetAsync()
         {
             var user = await _userManager.GetUserAsync(User);
@@ -74,6 +90,12 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
             return Page();
         }
 
+        /// <summary>
+        /// OnPostAsync handles the logic for when the user forgets the two factor authentication code for the current browser.
+        /// </summary>
+        /// <returns>
+        /// Redirects to the current page with a status message indicating that the current browser has been forgotten.
+        /// </returns>
         public async Task<IActionResult> OnPostAsync()
         {
             var user = await _userManager.GetUserAsync(User);

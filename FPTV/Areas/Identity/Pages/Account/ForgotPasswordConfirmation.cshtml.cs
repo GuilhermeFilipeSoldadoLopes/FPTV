@@ -12,6 +12,9 @@ namespace FPTV.Areas.Identity.Pages.Account
     ///     directly from your code. This API may change or be removed in future releases.
     /// </summary>
     [AllowAnonymous]
+    /// <summary>
+    /// This class is used to confirm the user's password when they have forgotten it. 
+    /// </summary>
     public class ForgotPasswordConfirmation : PageModel
     {
         /// <summary>

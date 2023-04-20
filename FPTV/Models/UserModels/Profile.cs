@@ -4,6 +4,9 @@ using System.Xml.Linq;
 
 namespace FPTV.Models.UserModels
 {
+    /// <summary>
+    /// This class represents a user profile.
+    /// </summary>
     public class Profile
     {
         [Required]
@@ -27,11 +30,11 @@ namespace FPTV.Models.UserModels
         [Display(Name = "Profile Picture")]
         public virtual byte[]? Picture { get; set; }
 
-		[Display(Name = "Favorite Players List")]
-		public virtual FavPlayerList? PlayerList { get; set; }
+        [Display(Name = "Favorite Players List")]
+        public virtual FavPlayerList? PlayerList { get; set; }
 
-		[Display(Name = "Favorite Teams List")]
-		public virtual FavTeamsList? TeamsList { get; set; }
+        [Display(Name = "Favorite Teams List")]
+        public virtual FavTeamsList? TeamsList { get; set; }
 
         [Display(Name = "Country")]
         public string? Country { get; set; }

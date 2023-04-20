@@ -9,7 +9,15 @@
     }
 }*/
 
+
+
+/// <summary>
+/// Represents the options for configuring the AuthMessageSender service.
+/// </summary>
 public class AuthMessageSenderOptions
 {
+    /// <summary>
+    /// Property to store the SendGrid API key.
+    /// </summary>
     public string? SendGridKey { get; set; }
 }

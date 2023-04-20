@@ -5,6 +5,9 @@ using FPTV.Models.UserModels;
 
 namespace FPTV.Models.StatisticsModels
 {
+    /// <summary>
+    /// This class provides methods to match strings in C#.
+    /// </summary>
     public class MatchCS
     {
         [Required]
@@ -20,35 +23,35 @@ namespace FPTV.Models.StatisticsModels
         [Display(Name = "MatchesCS")]
         public MatchesCS MatchesCS { get; set; }
 
-		[Required]
-		[Display(Name = "API Id of a csgo matches")]
+        [Required]
+        [Display(Name = "API Id of a csgo matches")]
         public int MatchesCSAPIId { get; set; }
 
-		[Required]
-		[Display(Name = "List of stats of players")]
+        [Required]
+        [Display(Name = "List of stats of players")]
         public ICollection<MatchPlayerStatsCS>? PlayerStatsList { get; set; }
 
-		[Required]
-		[Display(Name = "Score of round")]
+        [Required]
+        [Display(Name = "Score of round")]
         public string? RoundsScore { get; set; }
 
-		[Required]
-		[Display(Name = "Map")]
+        [Required]
+        [Display(Name = "Map")]
         public string? Map { get; set; }
 
-		[Required]
-		[Display(Name = "List of Teams")] 
+        [Required]
+        [Display(Name = "List of Teams")]
         public ICollection<MatchTeamsCS>? TeamsList { get; set; }
 
         [Display(Name = "Winner Team")]
         public Team? WinnerTeam { get; set; }
 
-		[Required]
-		[Display(Name = "API Id of the winner team")]
+        [Required]
+        [Display(Name = "API Id of the winner team")]
         public int? WinnerTeamAPIId { get; set; }
 
-		[Required]
-		[Display(Name = "Name of the winner team")]
+        [Required]
+        [Display(Name = "Name of the winner team")]
         public string? WinnerTeamName { get; set; }
     }
 }

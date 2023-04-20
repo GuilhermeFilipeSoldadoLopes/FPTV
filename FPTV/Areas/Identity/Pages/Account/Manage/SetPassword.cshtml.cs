@@ -12,14 +12,25 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace FPTV.Areas.Identity.Pages.Account.Manage
 {
+    /// <summary>
+    /// This class is used to set the password for the user. 
+    /// </summary>
     public class SetPasswordModel : PageModel
     {
         private readonly UserManager<UserBase> _userManager;
         private readonly SignInManager<UserBase> _signInManager;
 
+        /// <summary>
+        /// Constructor for SetPasswordModel class.
+        /// </summary>
+        /// <param name="userManager">UserManager object.</param>
+        /// <param name="signInManager">SignInManager object.</param>
+        /// <returns>
+        /// No return value.
+        /// </returns>
         public SetPasswordModel(
-            UserManager<UserBase> userManager,
-            SignInManager<UserBase> signInManager)
+                    UserManager<UserBase> userManager,
+                    SignInManager<UserBase> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -65,6 +76,10 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
             public string ConfirmPassword { get; set; }
         }
 
+        /// <summary>
+        /// Gets the current user and checks if they have a password. If they do, redirects to the ChangePassword page, otherwise returns the page.
+        /// </summary>
+        /// <returns>The page or a redirect to the ChangePassword page.</returns>
         public async Task<IActionResult> OnGetAsync()
         {
             var user = await _userManager.GetUserAsync(User);
@@ -83,6 +98,12 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
             return Page();
         }
 
+        /// <summary>
+        /// Adds a new password to the user's account.
+        /// </summary>
+        /// <returns>
+        /// Redirects to the page if successful, otherwise returns the page with errors.
+        /// </returns>
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)

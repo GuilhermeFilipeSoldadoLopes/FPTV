@@ -3,6 +3,9 @@ using FPTV.Models.UserModels;
 
 namespace FPTV.Models.MatchesModels
 {
+    /// <summary>
+    /// This class represents a Score object which contains the score of a player.
+    /// </summary>
     public class Score
     {
         [Required]

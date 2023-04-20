@@ -127,55 +127,66 @@
         }
     }
 
-    <ul class="navbar-nav" style="display:flex;align-content:end; width:30%; justify-content:end">
+    <div class="marginDrop" style="display:flex;align-content:end; width:30%; justify-content:end">
 
-    
-    
-        <div>
-            <div class="dropdown123" style="margin-top:15px; width:100%;">
-                    <img src="~/images/settings.png" style="width:30px;margin-right:10px;">
-                <div class="dropdownContent12 bordercolor" style="background-color:white;padding:1%;">
+        @*<div style="display:flex;justify-content:center">*@
+        <div class="dropdown123 " style="margin-top:15px;">
+            <img class="marginLeftDrop2" src="~/images/settings.png" style="width:30px;  ">
+                <div class="dropdownContent12 bordercolor dropdownWidth" style="background-color:white;padding:1%;">
 
                     <a class="dropdownItem1" style="display:flex;border-radius:15px;width:100%;padding:2%; text-decoration:none">
                     
-                            <div id="checkbox-container" style="text-align:right;width:100%">
-                                <label class="switch1" >
-                                <input type="checkbox" id="myCheck" onclick="changeCSS(0);" value="DarkMode">
-                                    <span class="slider round" style="text-align:right; "></span>
-                                </label>
-                            </div>
+                        <div id="checkbox-container" style="text-align:right;width:100%">
+                            <label class="switch1" >
+                            <input type="checkbox" id="myCheck" onclick="changeCSS(0);" value="DarkMode">
+                                <span class="slider round" style="text-align:right; "></span>
+                            </label>
+                        </div>
                         <div style="margin-right:5px; margin-left:0px; text-decoration:none">
                             <span class="" id="toTranslate" style="text-transform: capitalize; text-align:left;vertical-align:auto;color:black ;margin-left:5px;margin-top:10px;">DarkMode</span>
                         </div>
-                       </a>
+                    </a>
                     <a class="dropdownItem1" style="display:flex;border-radius:15px;width:100%;padding:2%; text-decoration:none;margin:auto">
                     
-                            <div style="text-align:right; width:100%">
-                                <label class="switch1">
-                                <input type="checkbox" id="language">
-                                    <span class="slider round" style="text-align:right; vertical-align:auto;"></span>
-                                </label>
-                            </div>
-                            <div style="margin-right:5px; margin-left:0px ;text-decoration:none">
+                        <div style="text-align:right; width:100%">
+                            <label class="switch1">
+                            <input type="checkbox" id="language">
+                                <span class="slider round" style="text-align:right; vertical-align:auto;"></span>
+                            </label>
+                        </div>
+                        <div style="margin-right:5px; margin-left:0px ;text-decoration:none">
                             <span class="" id="toTranslate" style="text-transform: capitalize; text-align:left;text-decoration:none;color:black ;margin-left:5px;margin-top:10px;">Português</span>
-                            </div>
-                        </a>
-                </div>
+                        </div>
+                     </a>
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        @if (UserManager.GetUserAsync(User).Result != null && context.Profiles.Single(p => p.Id == UserManager.GetUserAsync(User).Result.ProfileId) != null)
+                        {
+                            @if (UserManager.GetRolesAsync(UserManager.GetUserAsync(User).Result).Result.Contains<String>("Admin") == true || UserManager.GetRolesAsync(UserManager.GetUserAsync(User).Result).Result.Contains<String>("Moderator") == true)
+                            {
+                                <a class="dropdownItem1" style="display:flex;width:100%; text-decoration:none;justify-content:center;font-weight:bold">
+                                    
+                                    <div style="text-decoration:none;text-align:center;display:flex;justify-content:center;margin:0px" onclick="location.href = '@Url.Action("Stats", "Home")'">
+                                    <p class="" id="toTranslate" style="text-transform: capitalize;text-decoration:none;color:black;;margin-bottom:0px;margin-top:5px">Statistics</p>
+                                    </div>
+                                </a>
+                            }
+                        }
+                    }
             </div>
         </div>
-
-    
+        @*</div>*@
 
         @if (SignInManager.IsSignedIn(User))
         {
-            <li class="nav-item" style="align-self: center; margin-top: 5px; margin-right: -5px">
+            <li class="nav-item navitem2 " style="align-self: center; margin-top: 5px; margin-right: -5px">
                 @if (UserManager.GetUserAsync(User).Result != null && context.Profiles.Single(p => p.Id == UserManager.GetUserAsync(User).Result.ProfileId) != null)
-            {
-                    <a class="nav-link text-dark" id="rl" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"><img style="width:40px;height:40px; object-fit:cover; border-radius:30px" src="data:image/*;base64,@(Convert.ToBase64String(context.Profiles.Single(p => p.Id == UserManager.GetUserAsync(User).Result.ProfileId).Picture))"></a>
-            }
+                {
+                    <a class="nav-link text-dark marginLeftDrop" id="rl" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"><img style="margin:auto;width:40px;height:40px; object-fit:cover; border-radius:30px" src="data:image/*;base64,@(Convert.ToBase64String(context.Profiles.Single(p => p.Id == UserManager.GetUserAsync(User).Result.ProfileId).Picture))"></a>
+                }
             </li>
-            <li class="nav-item" style="font-size: 22px; margin-top: 7px">
-                <a class="nav-link text-dark" id="rl" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">@User.Identity!.Name</a>
+            <li class="nav-item" style="font-size: 22px; margin-top: 7px;margin-left:3%;margin-right:3%">
+                <a class="nav-link text-dark" id="rl" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage" style="">@User.Identity!.Name</a>
 	        </li>
            @* <li class="nav-item" style="font-size: 30px; margin-top: 1px">
 		        /
@@ -190,9 +201,7 @@
                 
                 </form>
             </li>
-        }
-        else
-        {
+        } else {
 	   
 	            <li class="nav-item">
                 <a class="nav-link text-dark" id="rl" style="font-size: 25px; border-left: 1.6px solid Black font-weight: normal;" asp-area="Identity" asp-page="/Account/Register" asp-route-returnUrl="@returnUrl"><span id="toTranslate" style="text-transform: capitalize; font-weight: normal;">Register </span></a>
@@ -207,8 +216,9 @@
         
         
         }
-        @*</div>*@
-    </ul>
+       
+    </div>
+   
 
     <script>
         window.onload = function (e) {

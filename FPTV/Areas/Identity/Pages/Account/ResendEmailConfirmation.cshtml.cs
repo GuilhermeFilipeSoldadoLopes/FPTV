@@ -18,11 +18,22 @@ using Microsoft.AspNetCore.WebUtilities;
 namespace FPTV.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
+    /// <summary>
+    /// This class is used to resend the email confirmation for the user.
+    /// </summary>
     public class ResendEmailConfirmationModel : PageModel
     {
         private readonly UserManager<UserBase> _userManager;
         private readonly IEmailSender _emailSender;
 
+        /// <summary>
+        /// Constructor for ResendEmailConfirmationModel class.
+        /// </summary>
+        /// <param name="userManager">UserManager object.</param>
+        /// <param name="emailSender">IEmailSender object.</param>
+        /// <returns>
+        /// No return value.
+        /// </returns>
         public ResendEmailConfirmationModel(UserManager<UserBase> userManager, IEmailSender emailSender)
         {
             _userManager = userManager;
@@ -55,6 +66,12 @@ namespace FPTV.Areas.Identity.Pages.Account
         {
         }
 
+        /// <summary>
+        /// Sends a confirmation email to the user with a link to confirm their email address.
+        /// </summary>
+        /// <returns>
+        /// Returns a page with a message indicating that the confirmation email has been sent.
+        /// </returns>
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)

@@ -15,10 +15,20 @@ using Microsoft.AspNetCore.WebUtilities;
 
 namespace FPTV.Areas.Identity.Pages.Account
 {
+    /// <summary>
+    /// This class is used to confirm the email address of the user.
+    /// </summary>
     public class ConfirmEmailModel : PageModel
     {
         private readonly UserManager<UserBase> _userManager;
 
+        /// <summary>
+        /// Constructor for ConfirmEmailModel class. 
+        /// </summary>
+        /// <param name="userManager">UserManager object</param>
+        /// <returns>
+        /// No return value. 
+        /// </returns>
         public ConfirmEmailModel(UserManager<UserBase> userManager)
         {
             _userManager = userManager;
@@ -30,6 +40,13 @@ namespace FPTV.Areas.Identity.Pages.Account
         /// </summary>
         [TempData]
         public string StatusMessage { get; set; }
+
+        /// <summary>
+        /// Confirms the email of a user with the given userId and code.
+        /// </summary>
+        /// <param name="userId">The userId of the user to confirm.</param>
+        /// <param name="code">The code used to confirm the user.</param>
+        /// <returns>The page with a status message indicating the result of the confirmation.</returns>
         public async Task<IActionResult> OnGetAsync(string userId, string code)
         {
             if (userId == null || code == null)

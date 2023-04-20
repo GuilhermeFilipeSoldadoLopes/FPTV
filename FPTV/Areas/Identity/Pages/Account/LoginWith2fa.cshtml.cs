@@ -15,16 +15,28 @@ using FPTV.Models.UserModels;
 
 namespace FPTV.Areas.Identity.Pages.Account
 {
+    /// <summary>
+    /// LoginWith2faModel is a PageModel class that provides functionality for logging in with two-factor authentication. 
+    /// </summary>
     public class LoginWith2faModel : PageModel
     {
         private readonly SignInManager<UserBase> _signInManager;
         private readonly UserManager<UserBase> _userManager;
         private readonly ILogger<LoginWith2faModel> _logger;
 
+        /// <summary>
+        /// Constructor for LoginWith2faModel class.
+        /// </summary>
+        /// <param name="signInManager">SignInManager object.</param>
+        /// <param name="userManager">UserManager object.</param>
+        /// <param name="logger">ILogger object.</param>
+        /// <returns>
+        /// LoginWith2faModel object.
+        /// </returns>
         public LoginWith2faModel(
-            SignInManager<UserBase> signInManager,
-            UserManager<UserBase> userManager,
-            ILogger<LoginWith2faModel> logger)
+                    SignInManager<UserBase> signInManager,
+                    UserManager<UserBase> userManager,
+                    ILogger<LoginWith2faModel> logger)
         {
             _signInManager = signInManager;
             _userManager = userManager;
@@ -74,6 +86,9 @@ namespace FPTV.Areas.Identity.Pages.Account
             public bool RememberMachine { get; set; }
         }
 
+        /// <summary>
+        /// This method is used to get the return URL and rememberMe boolean value.
+        /// </summary>
         public async Task<IActionResult> OnGetAsync(bool rememberMe, string returnUrl = null)
         {
             // Ensure the user has gone through the username & password screen first
@@ -90,6 +105,12 @@ namespace FPTV.Areas.Identity.Pages.Account
             return Page();
         }
 
+        /// <summary>
+        /// Signs in the user with two factor authentication.
+        /// </summary>
+        /// <param name="rememberMe">Whether to remember the user.</param>
+        /// <param name="returnUrl">The URL to return to after sign in.</param>
+        /// <returns>The action result.</returns>
         public async Task<IActionResult> OnPostAsync(bool rememberMe, string returnUrl = null)
         {
             if (!ModelState.IsValid)

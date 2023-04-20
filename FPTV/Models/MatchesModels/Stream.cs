@@ -2,6 +2,9 @@
 
 namespace FPTV.Models.MatchesModels
 {
+    /// <summary>
+    /// Stream class provides a generic view of a sequence of bytes.
+    /// </summary>
     public class Stream
     {
         [Key]

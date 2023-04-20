@@ -5,6 +5,8 @@ using FPTV.Models.UserModels;
 namespace FPTV.Models.BLL.User
 {
 
+
+
     public class User
     {
         //Retorna todos os Profiles

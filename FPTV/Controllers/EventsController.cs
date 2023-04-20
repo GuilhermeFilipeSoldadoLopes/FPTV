@@ -6,6 +6,7 @@ using FPTV.Models.MatchesModels;
 using FPTV.Models.StatisticsModels;
 using FPTV.Models.UserModels;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -22,21 +23,39 @@ using System.Runtime.InteropServices;
 
 namespace FPTV.Controllers
 {
+    /// <summary>
+    /// The EventsController class is responsible for handling requests related to events. 
+    /// </summary>
     public class EventsController : Controller
-	{
+    {
         private readonly FPTVContext _context;
 
+        /// <summary>
+        /// Constructor for EventsController class.
+        /// </summary>
+        /// <param name="context">FPTVContext object.</param>
+        /// <returns>
+        /// An instance of EventsController class.
+        /// </returns>
         public EventsController(FPTVContext context)
         {
             _context = context;
         }
 
         // GET: EventsController
+        /// <summary>
+        /// This method is used to get the events for CSGO and Valorant games.
+        /// </summary>
+        /// <param name="jarray">JArray object containing the events data.</param>
+        /// <param name="filter">Filter parameter for the events.</param>
+        /// <param name="sort">Sort parameter for the events.</param>
+        /// <param name="search">Search parameter for the events.</param>
+        /// <returns>IList object containing the events.</returns>
         public ActionResult Index(string sort = "&sort=-begin_at", string filter = "running", string search = "", string page = "&page=1", string game = "csgo")
-		{
-			ViewData["game"] = game;
-			ViewBag.page = "Events";
-			search ??= "";
+        {
+            ViewData["game"] = game;
+            ViewBag.page = "Events";
+            search ??= "";
             //Request processing with RestSharp
             var jsonFilter = filter + "?";
             var jsonSort = sort == "&sort=name" ? "&sort=-begin_at" : sort;
@@ -46,9 +65,9 @@ namespace FPTV.Controllers
             var requestLink = "https://api.pandascore.co/" + game + "/tournaments/";
             Console.WriteLine(search);
 
-			var fullApiPath = requestLink + jsonFilter + jsonSort + jsonPage + jsonPerPage + token;
-			Console.WriteLine(fullApiPath);
-			var client = new RestClient(fullApiPath);
+            var fullApiPath = requestLink + jsonFilter + jsonSort + jsonPage + jsonPerPage + token;
+            Console.WriteLine(fullApiPath);
+            var client = new RestClient(fullApiPath);
             var request = new RestRequest("", Method.Get);
             request.AddHeader("accept", "application/json");
             var json = client.Execute(request).Content;
@@ -56,26 +75,34 @@ namespace FPTV.Controllers
             if (json == null)
             {
                 return View(); //We need an error handler for this!
-			}
+            }
 
             var jarray = JArray.Parse(json);
-            IList events = game == "csgo" 
-                ? GetEventsCS(jarray, filter, sort, search) 
+            IList events = game == "csgo"
+                ? GetEventsCS(jarray, filter, sort, search)
                 : GetEventsVal(jarray, filter, sort, search);
 
-			
-			return View(events);
+
+            return View(events);
         }
 
+        /// <summary>
+        /// Gets a list of EventCS objects from a JArray, filtered, sorted and searched according to the parameters.
+        /// </summary>
+        /// <param name="jarray">The JArray to get the EventCS objects from.</param>
+        /// <param name="filter">The filter to apply to the list.</param>
+        /// <param name="sort">The sort to apply to the list.</param>
+        /// <param name="search">The search to apply to the list.</param>
+        /// <returns>A list of EventCS objects.</returns>
         private List<EventCS> GetEventsCS(JArray jarray, string filter, string sort, string search)
-        { 
+        {
             List<EventCS> events = new();
- 
+
             foreach (JObject e in jarray.Cast<JObject>())
             {
                 //Set up values from api
                 List<Team> teamList = new();
-                
+
                 EventCS ev = new();
                 var eventAPIID = e.GetValue("id");
                 var nameStage = e.GetValue("name");
@@ -96,8 +123,8 @@ namespace FPTV.Controllers
                 ev.WinnerTeamAPIID = winnerTeamId.ToString() == "" ? -1 : winnerTeamId.Value<int>();
                 ev.EventImage = league.Value<string>("image_url") ?? "/images/missing.png";
                 ev.MatchesCSAPIID = matches.ToString() == "" ? -1 : matches[0].Value<int>("id");
-				ev.EventLink = league.ToString() == "" ? null : league.Value<string>("url");
-				ev.Tier = tier.ToString() == "" ? '-' : tier.Value<char>();
+                ev.EventLink = league.ToString() == "" ? null : league.Value<string>("url");
+                ev.Tier = tier.ToString() == "" ? '-' : tier.Value<char>();
 
                 switch (filter)
                 {
@@ -144,7 +171,7 @@ namespace FPTV.Controllers
             if (filter == "past")
             {
                 var dbEvents = _context.EventCS.ToList();
-                
+
                 foreach (var e in events)
                 {
 
@@ -153,7 +180,7 @@ namespace FPTV.Controllers
                     {
                         _context.EventCS.Add(e);
                     }
-                    
+
 
                 }
                 _context.SaveChanges();
@@ -200,6 +227,14 @@ namespace FPTV.Controllers
             return events;
         }
 
+        /// <summary>
+        /// Gets a list of EventVal objects from a JArray, filtered, sorted and searched according to the parameters.
+        /// </summary>
+        /// <param name="jarray">The JArray to get the EventVal objects from.</param>
+        /// <param name="filter">The filter to apply to the list.</param>
+        /// <param name="sort">The sort to apply to the list.</param>
+        /// <param name="search">The search to apply to the list.</param>
+        /// <returns>A list of EventVal objects.</returns>
         private List<EventVal> GetEventsVal(JArray jarray, string filter, string sort, string search)
         {
             List<EventVal> events = new();
@@ -229,8 +264,8 @@ namespace FPTV.Controllers
                 ev.WinnerTeamAPIID = winnerTeamId.ToString() == "" ? -1 : winnerTeamId.Value<int>();
                 ev.EventImage = league.Value<string>("image_url") ?? "/images/missing.png";
                 ev.MatchesValAPIID = matches.ToString() == "" ? -1 : matches[0].Value<int>("id");
-				ev.EventLink = league.ToString() == "" ? null : league.Value<string>("url");
-				ev.Tier = tier.ToString() == "" ? '-' : tier.Value<char>();
+                ev.EventLink = league.ToString() == "" ? null : league.Value<string>("url");
+                ev.Tier = tier.ToString() == "" ? '-' : tier.Value<char>();
 
 
                 switch (filter)
@@ -275,15 +310,15 @@ namespace FPTV.Controllers
             {
                 var dbEvents = _context.EventVal.ToList();
                 foreach (var e in events)
-				{
+                {
 
-					var dbev = dbEvents.FirstOrDefault(ev => ev.EventAPIID == e.EventAPIID);
-					if (dbev == null)
-					{
+                    var dbev = dbEvents.FirstOrDefault(ev => ev.EventAPIID == e.EventAPIID);
+                    if (dbev == null)
+                    {
                         _context.EventVal.Add(e);
                     }
-                    
-                    
+
+
                 }
                 _context.SaveChanges();
 
@@ -323,485 +358,509 @@ namespace FPTV.Controllers
                 events = events.Where(e => e.EventName.Contains(search)).ToList();
             }
 
-           
-			ViewBag.filter = filter;
+
+            ViewBag.filter = filter;
             ViewBag.sort = sort;
             return events;
         }
 
         // GET: EventsController/Details/5
+        /// <summary>
+        /// Retrieves event information based on the game and filter parameters.
+        /// </summary>
+        /// <param name="id">The ID of the event.</param>
+        /// <param name="filter">The filter to apply to the event.</param>
+        /// <param name="game">The game to retrieve the event from.</param>
+        /// <returns>The View for the event.</returns>
         public ActionResult Details(int id, string filter = "running", string game = "csgo")
-		{
-			ViewData["game"] = game;
+        {
+            ViewData["game"] = game;
 
-			switch (game)
-			{
-				case "csgo":
-					SendEventInfoCS(GetEventCS(id, filter));
-					break;
-				case "valorant":
-					SendEventInfoVal(GetEventVal(id, filter));
-					break;
-			}
+            switch (game)
+            {
+                case "csgo":
+                    SendEventInfoCS(GetEventCS(id, filter));
+                    break;
+                case "valorant":
+                    SendEventInfoVal(GetEventVal(id, filter));
+                    break;
+            }
 
             return View();
         }
 
-       
 
-		private EventVal GetEventVal(int id, string filter)
-		{
-			if (filter == "past")
-			{
-				var dbev = _context.EventVal.Include(ev => ev.TeamsList).FirstOrDefault(ev => ev.EventAPIID == id);
-				if (dbev != default)
-				{
-					return dbev;
-				}
-			}
+        /// <summary>
+        /// Gets an EventVal object from the database or from the API based on the given ID and filter.
+        /// </summary>
+        /// <param name="id">The ID of the event.</param>
+        /// <param name="filter">The filter to use for the API request.</param>
+        /// <returns>An EventVal object.</returns>
+        private EventVal GetEventVal(int id, string filter)
+        {
+            if (filter == "past")
+            {
+                var dbev = _context.EventVal.Include(ev => ev.TeamsList).FirstOrDefault(ev => ev.EventAPIID == id);
+                if (dbev != default)
+                {
+                    return dbev;
+                }
+            }
 
-			EventVal ev = new();
-			//Base url for requests
-			var requestLink = "https://api.pandascore.co/";
+            EventVal ev = new();
+            //Base url for requests
+            var requestLink = "https://api.pandascore.co/";
 
-			//Filter to select from which pool to fetch the data (upcoming, running or finished/ended)
-			var jsonFilter = filter + "?";
-			var filterID = "filter[id]=" + id.ToString();
+            //Filter to select from which pool to fetch the data (upcoming, running or finished/ended)
+            var jsonFilter = filter + "?";
+            var filterID = "filter[id]=" + id.ToString();
 
-			//THIS SHOULD BE A CLIENT SECRET
-			var token = "&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA";
+            //THIS SHOULD BE A CLIENT SECRET
+            var token = "&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA";
 
-			//Request processing with RestSharp
-			var fullRequest = requestLink + "valorant" + "/tournaments/" + jsonFilter + filterID + token;
-			var client = new RestClient(fullRequest);
-			var request = new RestRequest("", Method.Get);
-			request.AddHeader("accept", "application/json");
-			var json = client.Execute(request).Content;
+            //Request processing with RestSharp
+            var fullRequest = requestLink + "valorant" + "/tournaments/" + jsonFilter + filterID + token;
+            var client = new RestClient(fullRequest);
+            var request = new RestRequest("", Method.Get);
+            request.AddHeader("accept", "application/json");
+            var json = client.Execute(request).Content;
 
-			var jarray = JArray.Parse(json);
+            var jarray = JArray.Parse(json);
 
-			foreach (JObject e in jarray.Cast<JObject>())
-			{
-				//Set up values from api
-				List<Team> teamList = new();
+            foreach (JObject e in jarray.Cast<JObject>())
+            {
+                //Set up values from api
+                List<Team> teamList = new();
 
-				var eventAPIID = e.GetValue("id");
-				var name = e.GetValue("name");
-				var nameStage = e.GetValue("name");
-				var beginAt = e.GetValue("begin_at");
-				var endAt = e.GetValue("end_at");
-				var timeType = TimeType.Running;
-				var tier = e.GetValue("tier");
-				var league = e.GetValue("league");
-				var teams = e.GetValue("teams");
-				var prizePool = e.GetValue("prizepool");
-				var winnerTeamId = e.GetValue("winner_id");
-				var matchesJ = e.GetValue("matches");
+                var eventAPIID = e.GetValue("id");
+                var name = e.GetValue("name");
+                var nameStage = e.GetValue("name");
+                var beginAt = e.GetValue("begin_at");
+                var endAt = e.GetValue("end_at");
+                var timeType = TimeType.Running;
+                var tier = e.GetValue("tier");
+                var league = e.GetValue("league");
+                var teams = e.GetValue("teams");
+                var prizePool = e.GetValue("prizepool");
+                var winnerTeamId = e.GetValue("winner_id");
+                var matchesJ = e.GetValue("matches");
 
-				//Handling for null values
-				ev.EventAPIID = eventAPIID.ToString() == null ? -1 : eventAPIID.Value<int>();
-				ev.BeginAt = beginAt.ToString() == "" ? null : beginAt.Value<DateTime>();
-				ev.EndAt = endAt.ToString() == "" ? null : endAt.Value<DateTime>();
-				ev.TimeType = timeType;
-				ev.Tier = tier.ToString() == "" ? null : tier.Value<char>();
-				ev.EventLink = league.ToString() == "" ? null : league.Value<string>("url");
-				ev.Finished = false;
-				ev.EventName = league.ToString() == "" ? null : league.Value<string>("name");
-				ev.LeagueName = nameStage.ToString() == "" ? null : nameStage.Value<string>();
-				ev.PrizePool = prizePool.ToString() == "" ? "0" : new string(prizePool.Value<string>().Where(char.IsDigit).ToArray());
-				ev.WinnerTeamAPIID = winnerTeamId.ToString() == "" ? -1 : winnerTeamId.Value<int>();
-				ev.EventImage = league.Value<string>("image_url") ?? "/images/missing.png";
+                //Handling for null values
+                ev.EventAPIID = eventAPIID.ToString() == null ? -1 : eventAPIID.Value<int>();
+                ev.BeginAt = beginAt.ToString() == "" ? null : beginAt.Value<DateTime>();
+                ev.EndAt = endAt.ToString() == "" ? null : endAt.Value<DateTime>();
+                ev.TimeType = timeType;
+                ev.Tier = tier.ToString() == "" ? null : tier.Value<char>();
+                ev.EventLink = league.ToString() == "" ? null : league.Value<string>("url");
+                ev.Finished = false;
+                ev.EventName = league.ToString() == "" ? null : league.Value<string>("name");
+                ev.LeagueName = nameStage.ToString() == "" ? null : nameStage.Value<string>();
+                ev.PrizePool = prizePool.ToString() == "" ? "0" : new string(prizePool.Value<string>().Where(char.IsDigit).ToArray());
+                ev.WinnerTeamAPIID = winnerTeamId.ToString() == "" ? -1 : winnerTeamId.Value<int>();
+                ev.EventImage = league.Value<string>("image_url") ?? "/images/missing.png";
 
 
-				if (teams != null)
-				{
-					foreach (JObject o in teams.Cast<JObject>())
-					{
-						var teamNameValue = o.GetValue("name");
-						var teamIdValue = o.GetValue("id");
-						var teamId = teamIdValue.ToString() == "" ? -1 : teamIdValue.Value<int>();
-						var teamName = teamNameValue.ToString() == "" ? null : teamNameValue.Value<string>();
-						var teamImage = o.GetValue("image_url").Value<string>();
-						var team = new Team();
-						team.Name = teamName;
-						team.TeamAPIID = teamId;
-						team.Game = GameType.Valorant;
+                if (teams != null)
+                {
+                    foreach (JObject o in teams.Cast<JObject>())
+                    {
+                        var teamNameValue = o.GetValue("name");
+                        var teamIdValue = o.GetValue("id");
+                        var teamId = teamIdValue.ToString() == "" ? -1 : teamIdValue.Value<int>();
+                        var teamName = teamNameValue.ToString() == "" ? null : teamNameValue.Value<string>();
+                        var teamImage = o.GetValue("image_url").Value<string>();
+                        var team = new Team();
+                        team.Name = teamName;
+                        team.TeamAPIID = teamId;
+                        team.Game = GameType.Valorant;
                         team.Image = teamImage ?? "/images/missing.png";
                         teamList.Add(team);
 
-					}
-					ev.TeamsList = teamList;
-				}
-			}
-			return ev;
-		}
+                    }
+                    ev.TeamsList = teamList;
+                }
+            }
+            return ev;
+        }
 
-		private EventCS GetEventCS(int id, string filter)
-		{
-			if (filter == "past")
-			{
-				var dbev = _context.EventCS.Include(ev => ev.TeamsList).FirstOrDefault(ev => ev.EventAPIID == id);
-				if (dbev != default)
-				{
-					return dbev;
-				}
-			}
+        /// <summary>
+        /// Gets an EventCS object from the database or from the API based on the given id and filter.
+        /// </summary>
+        /// <param name="id">The id of the event.</param>
+        /// <param name="filter">The filter to select from which pool to fetch the data (upcoming, running or finished/ended).</param>
+        /// <returns>An EventCS object.</returns>
+        private EventCS GetEventCS(int id, string filter)
+        {
+            if (filter == "past")
+            {
+                var dbev = _context.EventCS.Include(ev => ev.TeamsList).FirstOrDefault(ev => ev.EventAPIID == id);
+                if (dbev != default)
+                {
+                    return dbev;
+                }
+            }
 
-			EventCS ev = new();
-			//Base url for requests
-			var requestLink = "https://api.pandascore.co/";
+            EventCS ev = new();
+            //Base url for requests
+            var requestLink = "https://api.pandascore.co/";
 
-			//Filter to select from which pool to fetch the data (upcoming, running or finished/ended)
-			var jsonFilter = filter + "?";
-			var filterID = "filter[id]=" + id.ToString();
+            //Filter to select from which pool to fetch the data (upcoming, running or finished/ended)
+            var jsonFilter = filter + "?";
+            var filterID = "filter[id]=" + id.ToString();
 
-			//THIS SHOULD BE A CLIENT SECRET
-			var token = "&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA";
+            //THIS SHOULD BE A CLIENT SECRET
+            var token = "&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA";
 
-			//Request processing with RestSharp
-			var fullRequest = requestLink + "csgo" + "/tournaments/" + jsonFilter + filterID + token;
-			var client = new RestClient(fullRequest);
-			var request = new RestRequest("", Method.Get);
-			request.AddHeader("accept", "application/json");
-			var json = client.Execute(request).Content;
+            //Request processing with RestSharp
+            var fullRequest = requestLink + "csgo" + "/tournaments/" + jsonFilter + filterID + token;
+            var client = new RestClient(fullRequest);
+            var request = new RestRequest("", Method.Get);
+            request.AddHeader("accept", "application/json");
+            var json = client.Execute(request).Content;
 
-			var jarray = JArray.Parse(json);
+            var jarray = JArray.Parse(json);
 
-			foreach (JObject e in jarray.Cast<JObject>())
-			{
-				//Set up values from api
-				List<Team> teamList = new();
+            foreach (JObject e in jarray.Cast<JObject>())
+            {
+                //Set up values from api
+                List<Team> teamList = new();
 
-				var eventAPIID = e.GetValue("id");
-				var name = e.GetValue("name");
-				var nameStage = e.GetValue("name");
-				var beginAt = e.GetValue("begin_at");
-				var endAt = e.GetValue("end_at");
-				var timeType = TimeType.Running;
-				var tier = e.GetValue("tier");
-				var league = e.GetValue("league");
-				var teams = e.GetValue("teams");
-				var prizePool = e.GetValue("prizepool");
-				var winnerTeamId = e.GetValue("winner_id");
-				var matchesJ = e.GetValue("matches");
+                var eventAPIID = e.GetValue("id");
+                var name = e.GetValue("name");
+                var nameStage = e.GetValue("name");
+                var beginAt = e.GetValue("begin_at");
+                var endAt = e.GetValue("end_at");
+                var timeType = TimeType.Running;
+                var tier = e.GetValue("tier");
+                var league = e.GetValue("league");
+                var teams = e.GetValue("teams");
+                var prizePool = e.GetValue("prizepool");
+                var winnerTeamId = e.GetValue("winner_id");
+                var matchesJ = e.GetValue("matches");
 
-				//Handling for null values
-				ev.EventAPIID = eventAPIID.ToString() == null ? -1 : eventAPIID.Value<int>();
-				ev.BeginAt = beginAt.ToString() == "" ? null : beginAt.Value<DateTime>();
-				ev.EndAt = endAt.ToString() == "" ? null : endAt.Value<DateTime>();
-				ev.TimeType = timeType;
-				ev.Tier = tier.ToString() == "" ? null : tier.Value<char>();
-				ev.EventLink = league.ToString() == "" ? null : league.Value<string>("url");
-				ev.Finished = false;
-				ev.EventName = league.ToString() == "" ? null : league.Value<string>("name");
-				ev.LeagueName = nameStage.ToString() == "" ? null : nameStage.Value<string>();
-				ev.PrizePool = prizePool.ToString() == "" ? "0" : new string(prizePool.Value<string>().Where(char.IsDigit).ToArray());
-				ev.WinnerTeamAPIID = winnerTeamId.ToString() == "" ? -1 : winnerTeamId.Value<int>();
-				ev.EventImage = league.Value<string>("image_url") ?? "/images/missing.png";
+                //Handling for null values
+                ev.EventAPIID = eventAPIID.ToString() == null ? -1 : eventAPIID.Value<int>();
+                ev.BeginAt = beginAt.ToString() == "" ? null : beginAt.Value<DateTime>();
+                ev.EndAt = endAt.ToString() == "" ? null : endAt.Value<DateTime>();
+                ev.TimeType = timeType;
+                ev.Tier = tier.ToString() == "" ? null : tier.Value<char>();
+                ev.EventLink = league.ToString() == "" ? null : league.Value<string>("url");
+                ev.Finished = false;
+                ev.EventName = league.ToString() == "" ? null : league.Value<string>("name");
+                ev.LeagueName = nameStage.ToString() == "" ? null : nameStage.Value<string>();
+                ev.PrizePool = prizePool.ToString() == "" ? "0" : new string(prizePool.Value<string>().Where(char.IsDigit).ToArray());
+                ev.WinnerTeamAPIID = winnerTeamId.ToString() == "" ? -1 : winnerTeamId.Value<int>();
+                ev.EventImage = league.Value<string>("image_url") ?? "/images/missing.png";
 
 
-				if (teams != null)
-				{
-					foreach (JObject o in teams.Cast<JObject>())
-					{
-						var teamNameValue = o.GetValue("name");
-						var teamIdValue = o.GetValue("id");
-						var teamId = teamIdValue.ToString() == "" ? -1 : teamIdValue.Value<int>();
-						var teamName = teamNameValue.ToString() == "" ? null : teamNameValue.Value<string>();
-						var teamImage = o.GetValue("image_url").Value<string>();
-						var team = new Team();
-						team.Name = teamName;
-						team.TeamAPIID = teamId;
-						team.Game = GameType.Valorant;
-						
+                if (teams != null)
+                {
+                    foreach (JObject o in teams.Cast<JObject>())
+                    {
+                        var teamNameValue = o.GetValue("name");
+                        var teamIdValue = o.GetValue("id");
+                        var teamId = teamIdValue.ToString() == "" ? -1 : teamIdValue.Value<int>();
+                        var teamName = teamNameValue.ToString() == "" ? null : teamNameValue.Value<string>();
+                        var teamImage = o.GetValue("image_url").Value<string>();
+                        var team = new Team();
+                        team.Name = teamName;
+                        team.TeamAPIID = teamId;
+                        team.Game = GameType.Valorant;
+
                         team.Image = teamImage ?? "/images/missing.png";
-                        
+
                         teamList.Add(team);
 
-					}
-					ev.TeamsList = teamList;
-				}
-			}
-			return ev;
-		}
-
-		private void SendEventInfoVal(EventVal ev)
-		{
-			List<MatchesVal> pMatches = new();
-			List<MatchesVal> uMatches = new();
-			List<MatchesVal> rMatches = new();
-
-			//Base url for requests
-			var requestLink = "https://api.pandascore.co/";
-			var token = "&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA";
-
-			var eventID = "filter[tournament_id]=" + ev.EventAPIID.ToString();
-			var pageSort = "&sort=&page=1&per_page=100";
-			var fullPRequest = requestLink + "valorant" + "/matches/" + "past?" + eventID + pageSort + token;
-			var fullRRequest = requestLink + "valorant" + "/matches/" + "running?" + eventID + pageSort + token;
-			var fullURequest = requestLink + "valorant" + "/matches/" + "upcoming?" + eventID + pageSort + token;
-
-			Console.WriteLine(fullPRequest);
-
-			var pClient = new RestClient(fullPRequest);
-			var rClient = new RestClient(fullRRequest);
-			var uClient = new RestClient(fullURequest);
-
-			var pReq = new RestRequest("", Method.Get);
-			var rReq = new RestRequest("", Method.Get);
-			var uReq = new RestRequest("", Method.Get);
-
-			pReq.AddHeader("accept", "application/json");
-			rReq.AddHeader("accept", "application/json");
-			uReq.AddHeader("accept", "application/json");
-
-			var pastMatches = pClient.Execute(pReq).Content;
-			var runningMatches = rClient.Execute(rReq).Content;
-			var upcomingMatches = uClient.Execute(uReq).Content;
-
-			if (pastMatches != null)
-			{
-
-				foreach (JObject o in JArray.Parse(pastMatches).Cast<JObject>())
-				{
-					List<Score> scores = new();
-					var m = new MatchesVal();
-
-					m.MatchesAPIID = o.GetValue("id").Value<int>();
-					m.BeginAt = o.GetValue("begin_at").ToString() == "" ? null : o.GetValue("begin_at").Value<DateTime>();
-					m.TimeType = TimeType.Past;
-					m.NumberOfGames = o.GetValue("number_of_games").Value<int>();
-
-					var results = o.GetValue("results");
-
-					foreach (JObject r in results.Cast<JObject>())
-					{
-						var s = new Score();
-						s.Team = ev.TeamsList.FirstOrDefault(t => t.TeamAPIID == r.Value<int>("team_id"));
-
-						s.TeamName = s.Team.Name;
-						s.TeamScore = r.Value<int>("score");
-						scores.Add(s);
-					}
-
-					m.Scores = scores;
-					pMatches.Add(m);
-				}
-			}
-
-			if (runningMatches != null)
-			{
-
-				foreach (JObject o in JArray.Parse(runningMatches).Cast<JObject>())
-				{
-					List<Score> scores = new();
-					var m = new MatchesVal();
-
-					m.MatchesAPIID = o.GetValue("id").Value<int>();
-					m.BeginAt = o.GetValue("begin_at").ToString() == "" ? null : o.GetValue("begin_at").Value<DateTime>();
-					m.TimeType = TimeType.Running;
-					m.NumberOfGames = o.GetValue("number_of_games").Value<int>();
-
-					var results = o.GetValue("results");
-
-					foreach (JObject r in results.Cast<JObject>())
-					{
-						var s = new Score();
-						s.Team = ev.TeamsList.FirstOrDefault(t => t.TeamAPIID == r.Value<int>("team_id"));
-						s.TeamName = s.Team.Name;
-						s.TeamScore = r.Value<int>("score");
-						scores.Add(s);
-					}
-
-					m.Scores = scores;
-					rMatches.Add(m);
-				}
-			}
-
-			if (upcomingMatches != null)
-			{
-
-				foreach (JObject o in JArray.Parse(upcomingMatches).Cast<JObject>())
-				{
-					var m = new MatchesVal();
-					List<Score> scores = new();
-
-					m.MatchesAPIID = o.GetValue("id").Value<int>();
-					m.BeginAt = o.GetValue("begin_at").ToString() == "" ? null : o.GetValue("begin_at").Value<DateTime>();
-					m.TimeType = TimeType.Upcoming;
-					m.NumberOfGames = o.GetValue("number_of_games").Value<int>();
-
-					var results = o.GetValue("results");
-
-
-					foreach (JObject r in results.Cast<JObject>())
-					{
-						var s = new Score();
-						s.Team = ev.TeamsList.FirstOrDefault(t => t.TeamAPIID == r.Value<int>("team_id"));
-						if (s.Team != default)
-						{
-
-							s.TeamName = s.Team.Name;
-							s.TeamScore = r.Value<int>("score");
-
-						}
-						scores.Add(s);
-					}
-
-					m.Scores = scores;
-					uMatches.Add(m);
-
-
-				}
-			}
-
-			ViewBag.Event = ev;
-			ViewBag.TeamList = ev.TeamsList.ToList();
-			ViewBag.pastMatches = pMatches;
-			ViewBag.upcomingMatches = uMatches;
-			ViewBag.runningMatches = rMatches;
-
-		}
-
-		private void SendEventInfoCS(EventCS ev)
-		{
-			List<MatchesCS> pMatches = new();
-			List<MatchesCS> uMatches = new();
-			List<MatchesCS> rMatches = new();
-
-			//Base url for requests
-			var requestLink = "https://api.pandascore.co/";
-			var token = "&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA";
-
-			var eventID = "filter[tournament_id]=" + ev.EventAPIID.ToString();
-			var pageSort = "&sort=&page=1&per_page=100";
-			var fullPRequest = requestLink + "csgo" + "/matches/" + "past?" + eventID + pageSort + token;
-			var fullRRequest = requestLink + "csgo" + "/matches/" + "running?" + eventID + pageSort + token;
-			var fullURequest = requestLink + "csgo" + "/matches/" + "upcoming?" + eventID + pageSort + token;
-
-			Console.WriteLine(fullPRequest);
-
-			var pClient = new RestClient(fullPRequest);
-			var rClient = new RestClient(fullRRequest);
-			var uClient = new RestClient(fullURequest);
-
-			var pReq = new RestRequest("", Method.Get);
-			var rReq = new RestRequest("", Method.Get);
-			var uReq = new RestRequest("", Method.Get);
-
-			pReq.AddHeader("accept", "application/json");
-			rReq.AddHeader("accept", "application/json");
-			uReq.AddHeader("accept", "application/json");
-
-			var pastMatches = pClient.Execute(pReq).Content;
-			var runningMatches = rClient.Execute(rReq).Content;
-			var upcomingMatches = uClient.Execute(uReq).Content;
-
-			if (pastMatches != null)
-			{
-
-				foreach (JObject o in JArray.Parse(pastMatches).Cast<JObject>())
-				{
-					List<Score> scores = new();
-					var m = new MatchesCS();
-
-					m.MatchesAPIID = o.GetValue("id").Value<int>();
-					m.BeginAt = o.GetValue("begin_at").ToString() == "" ? null : o.GetValue("begin_at").Value<DateTime>();
-					m.TimeType = TimeType.Past;
-					m.NumberOfGames = o.GetValue("number_of_games").Value<int>();
-
-					var results = o.GetValue("results");
-
-					foreach (JObject r in results.Cast<JObject>())
-					{
-						var s = new Score();
-						s.Team = ev.TeamsList.FirstOrDefault(t => t.TeamAPIID == r.Value<int>("team_id"));
-						if (s.Team == null)
-						{
-							continue;
-						}
-						s.TeamName = s.Team.Name;
-						s.TeamScore = r.Value<int>("score");
-						scores.Add(s);
-					}
-
-					m.Scores = scores;
-					pMatches.Add(m);
-				}
-				pMatches.RemoveAll(m => m.BeginAt== null);
-			}
-
-			if (runningMatches != null)
-			{
-
-				foreach (JObject o in JArray.Parse(runningMatches).Cast<JObject>())
-				{
-					List<Score> scores = new();
-					var m = new MatchesCS();
-
-					m.MatchesAPIID = o.GetValue("id").Value<int>();
-					m.BeginAt = o.GetValue("begin_at").ToString() == "" ? null : o.GetValue("begin_at").Value<DateTime>();
-					m.TimeType = TimeType.Running;
-					m.NumberOfGames = o.GetValue("number_of_games").Value<int>();
-
-					var results = o.GetValue("results");
-
-					foreach (JObject r in results.Cast<JObject>())
-					{
-						var s = new Score();
-						s.Team = ev.TeamsList.FirstOrDefault(t => t.TeamAPIID == r.Value<int>("team_id"));
-						s.TeamName = s.Team.Name;
-						s.TeamScore = r.Value<int>("score");
-						scores.Add(s);
-					}
-
-					m.Scores = scores;
-					rMatches.Add(m);
-				}
-			}
-
-			if (upcomingMatches != null)
-			{
-
-				foreach (JObject o in JArray.Parse(upcomingMatches).Cast<JObject>())
-				{
-					var m = new MatchesCS();
-					List<Score> scores = new();
-
-					m.MatchesAPIID = o.GetValue("id").Value<int>();
-					m.BeginAt = o.GetValue("begin_at").ToString() == "" ? null : o.GetValue("begin_at").Value<DateTime>();
-					m.TimeType = TimeType.Upcoming;
-					m.NumberOfGames = o.GetValue("number_of_games").Value<int>();
-
-					var results = o.GetValue("results");
-
-
-					foreach (JObject r in results.Cast<JObject>())
-					{
-						var s = new Score();
-						s.Team = ev.TeamsList.FirstOrDefault(t => t.TeamAPIID == r.Value<int>("team_id"));
-						if (s.Team != default)
-						{
-
-							s.TeamName = s.Team.Name;
-							s.TeamScore = r.Value<int>("score");
-
-						}
-						scores.Add(s);
-					}
-
-					m.Scores = scores;
-					uMatches.Add(m);
-
-
-				}
-			}
-
-			ViewBag.Event = ev;
-			ViewBag.TeamList = ev.TeamsList.ToList();
-			ViewBag.pastMatches = pMatches;
-			ViewBag.upcomingMatches = uMatches;
-			ViewBag.runningMatches = rMatches;
-		}
-	}
+                    }
+                    ev.TeamsList = teamList;
+                }
+            }
+            return ev;
+        }
+
+        /// <summary>
+        /// Sends event information to the viewbag for display in the view.
+        /// </summary>
+        private void SendEventInfoVal(EventVal ev)
+        {
+            List<MatchesVal> pMatches = new();
+            List<MatchesVal> uMatches = new();
+            List<MatchesVal> rMatches = new();
+
+            //Base url for requests
+            var requestLink = "https://api.pandascore.co/";
+            var token = "&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA";
+
+            var eventID = "filter[tournament_id]=" + ev.EventAPIID.ToString();
+            var pageSort = "&sort=&page=1&per_page=100";
+            var fullPRequest = requestLink + "valorant" + "/matches/" + "past?" + eventID + pageSort + token;
+            var fullRRequest = requestLink + "valorant" + "/matches/" + "running?" + eventID + pageSort + token;
+            var fullURequest = requestLink + "valorant" + "/matches/" + "upcoming?" + eventID + pageSort + token;
+
+            Console.WriteLine(fullPRequest);
+
+            var pClient = new RestClient(fullPRequest);
+            var rClient = new RestClient(fullRRequest);
+            var uClient = new RestClient(fullURequest);
+
+            var pReq = new RestRequest("", Method.Get);
+            var rReq = new RestRequest("", Method.Get);
+            var uReq = new RestRequest("", Method.Get);
+
+            pReq.AddHeader("accept", "application/json");
+            rReq.AddHeader("accept", "application/json");
+            uReq.AddHeader("accept", "application/json");
+
+            var pastMatches = pClient.Execute(pReq).Content;
+            var runningMatches = rClient.Execute(rReq).Content;
+            var upcomingMatches = uClient.Execute(uReq).Content;
+
+            if (pastMatches != null)
+            {
+
+                foreach (JObject o in JArray.Parse(pastMatches).Cast<JObject>())
+                {
+                    List<Score> scores = new();
+                    var m = new MatchesVal();
+
+                    m.MatchesAPIID = o.GetValue("id").Value<int>();
+                    m.BeginAt = o.GetValue("begin_at").ToString() == "" ? null : o.GetValue("begin_at").Value<DateTime>();
+                    m.TimeType = TimeType.Past;
+                    m.NumberOfGames = o.GetValue("number_of_games").Value<int>();
+
+                    var results = o.GetValue("results");
+
+                    foreach (JObject r in results.Cast<JObject>())
+                    {
+                        var s = new Score();
+                        s.Team = ev.TeamsList.FirstOrDefault(t => t.TeamAPIID == r.Value<int>("team_id"));
+
+                        s.TeamName = s.Team.Name;
+                        s.TeamScore = r.Value<int>("score");
+                        scores.Add(s);
+                    }
+
+                    m.Scores = scores;
+                    pMatches.Add(m);
+                }
+            }
+
+            if (runningMatches != null)
+            {
+
+                foreach (JObject o in JArray.Parse(runningMatches).Cast<JObject>())
+                {
+                    List<Score> scores = new();
+                    var m = new MatchesVal();
+
+                    m.MatchesAPIID = o.GetValue("id").Value<int>();
+                    m.BeginAt = o.GetValue("begin_at").ToString() == "" ? null : o.GetValue("begin_at").Value<DateTime>();
+                    m.TimeType = TimeType.Running;
+                    m.NumberOfGames = o.GetValue("number_of_games").Value<int>();
+
+                    var results = o.GetValue("results");
+
+                    foreach (JObject r in results.Cast<JObject>())
+                    {
+                        var s = new Score();
+                        s.Team = ev.TeamsList.FirstOrDefault(t => t.TeamAPIID == r.Value<int>("team_id"));
+                        s.TeamName = s.Team.Name;
+                        s.TeamScore = r.Value<int>("score");
+                        scores.Add(s);
+                    }
+
+                    m.Scores = scores;
+                    rMatches.Add(m);
+                }
+            }
+
+            if (upcomingMatches != null)
+            {
+
+                foreach (JObject o in JArray.Parse(upcomingMatches).Cast<JObject>())
+                {
+                    var m = new MatchesVal();
+                    List<Score> scores = new();
+
+                    m.MatchesAPIID = o.GetValue("id").Value<int>();
+                    m.BeginAt = o.GetValue("begin_at").ToString() == "" ? null : o.GetValue("begin_at").Value<DateTime>();
+                    m.TimeType = TimeType.Upcoming;
+                    m.NumberOfGames = o.GetValue("number_of_games").Value<int>();
+
+                    var results = o.GetValue("results");
+
+
+                    foreach (JObject r in results.Cast<JObject>())
+                    {
+                        var s = new Score();
+                        s.Team = ev.TeamsList.FirstOrDefault(t => t.TeamAPIID == r.Value<int>("team_id"));
+                        if (s.Team != default)
+                        {
+
+                            s.TeamName = s.Team.Name;
+                            s.TeamScore = r.Value<int>("score");
+
+                        }
+                        scores.Add(s);
+                    }
+
+                    m.Scores = scores;
+                    uMatches.Add(m);
+
+
+                }
+            }
+
+            ViewBag.Event = ev;
+            ViewBag.TeamList = ev.TeamsList.ToList();
+            ViewBag.pastMatches = pMatches;
+            ViewBag.upcomingMatches = uMatches;
+            ViewBag.runningMatches = rMatches;
+
+        }
+
+        /// <summary>
+        /// Sends event info for CSGO matches from the PandaScore API.
+        /// </summary>
+        private void SendEventInfoCS(EventCS ev)
+        {
+            List<MatchesCS> pMatches = new();
+            List<MatchesCS> uMatches = new();
+            List<MatchesCS> rMatches = new();
+
+            //Base url for requests
+            var requestLink = "https://api.pandascore.co/";
+            var token = "&token=QjxkIEQTAFmy992BA0P-k4urTl4PiGYDL4F-aqeNmki0cgP0xCA";
+
+            var eventID = "filter[tournament_id]=" + ev.EventAPIID.ToString();
+            var pageSort = "&sort=&page=1&per_page=100";
+            var fullPRequest = requestLink + "csgo" + "/matches/" + "past?" + eventID + pageSort + token;
+            var fullRRequest = requestLink + "csgo" + "/matches/" + "running?" + eventID + pageSort + token;
+            var fullURequest = requestLink + "csgo" + "/matches/" + "upcoming?" + eventID + pageSort + token;
+
+            Console.WriteLine(fullPRequest);
+
+            var pClient = new RestClient(fullPRequest);
+            var rClient = new RestClient(fullRRequest);
+            var uClient = new RestClient(fullURequest);
+
+            var pReq = new RestRequest("", Method.Get);
+            var rReq = new RestRequest("", Method.Get);
+            var uReq = new RestRequest("", Method.Get);
+
+            pReq.AddHeader("accept", "application/json");
+            rReq.AddHeader("accept", "application/json");
+            uReq.AddHeader("accept", "application/json");
+
+            var pastMatches = pClient.Execute(pReq).Content;
+            var runningMatches = rClient.Execute(rReq).Content;
+            var upcomingMatches = uClient.Execute(uReq).Content;
+
+            if (pastMatches != null)
+            {
+
+                foreach (JObject o in JArray.Parse(pastMatches).Cast<JObject>())
+                {
+                    List<Score> scores = new();
+                    var m = new MatchesCS();
+
+                    m.MatchesAPIID = o.GetValue("id").Value<int>();
+                    m.BeginAt = o.GetValue("begin_at").ToString() == "" ? null : o.GetValue("begin_at").Value<DateTime>();
+                    m.TimeType = TimeType.Past;
+                    m.NumberOfGames = o.GetValue("number_of_games").Value<int>();
+
+                    var results = o.GetValue("results");
+
+                    foreach (JObject r in results.Cast<JObject>())
+                    {
+                        var s = new Score();
+                        s.Team = ev.TeamsList.FirstOrDefault(t => t.TeamAPIID == r.Value<int>("team_id"));
+                        if (s.Team == null)
+                        {
+                            continue;
+                        }
+                        s.TeamName = s.Team.Name;
+                        s.TeamScore = r.Value<int>("score");
+                        scores.Add(s);
+                    }
+
+                    m.Scores = scores;
+                    pMatches.Add(m);
+                }
+                pMatches.RemoveAll(m => m.BeginAt == null);
+            }
+
+            if (runningMatches != null)
+            {
+
+                foreach (JObject o in JArray.Parse(runningMatches).Cast<JObject>())
+                {
+                    List<Score> scores = new();
+                    var m = new MatchesCS();
+
+                    m.MatchesAPIID = o.GetValue("id").Value<int>();
+                    m.BeginAt = o.GetValue("begin_at").ToString() == "" ? null : o.GetValue("begin_at").Value<DateTime>();
+                    m.TimeType = TimeType.Running;
+                    m.NumberOfGames = o.GetValue("number_of_games").Value<int>();
+
+                    var results = o.GetValue("results");
+
+                    foreach (JObject r in results.Cast<JObject>())
+                    {
+                        var s = new Score();
+                        s.Team = ev.TeamsList.FirstOrDefault(t => t.TeamAPIID == r.Value<int>("team_id"));
+                        s.TeamName = s.Team.Name;
+                        s.TeamScore = r.Value<int>("score");
+                        scores.Add(s);
+                    }
+
+                    m.Scores = scores;
+                    rMatches.Add(m);
+                }
+            }
+
+            if (upcomingMatches != null)
+            {
+
+                foreach (JObject o in JArray.Parse(upcomingMatches).Cast<JObject>())
+                {
+                    var m = new MatchesCS();
+                    List<Score> scores = new();
+
+                    m.MatchesAPIID = o.GetValue("id").Value<int>();
+                    m.BeginAt = o.GetValue("begin_at").ToString() == "" ? null : o.GetValue("begin_at").Value<DateTime>();
+                    m.TimeType = TimeType.Upcoming;
+                    m.NumberOfGames = o.GetValue("number_of_games").Value<int>();
+
+                    var results = o.GetValue("results");
+
+
+                    foreach (JObject r in results.Cast<JObject>())
+                    {
+                        var s = new Score();
+                        s.Team = ev.TeamsList.FirstOrDefault(t => t.TeamAPIID == r.Value<int>("team_id"));
+                        if (s.Team != default)
+                        {
+
+                            s.TeamName = s.Team.Name;
+                            s.TeamScore = r.Value<int>("score");
+
+                        }
+                        scores.Add(s);
+                    }
+
+                    m.Scores = scores;
+                    uMatches.Add(m);
+
+
+                }
+            }
+
+            ViewBag.Event = ev;
+            ViewBag.TeamList = ev.TeamsList.ToList();
+            ViewBag.pastMatches = pMatches;
+            ViewBag.upcomingMatches = uMatches;
+            ViewBag.runningMatches = rMatches;
+        }
+    }
 }

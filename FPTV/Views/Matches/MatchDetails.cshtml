@@ -294,7 +294,7 @@
                                     </div>
                                 }
 
-                                <div class="stroke " style="border-top-left-radius:15px;border-top-right-radius:15px; " name="FirstTeam">
+                                <div class="stroke " style="border-top-left-radius:15px;border-top-right-radius:15px; font-size:20px " name="FirstTeam">
 
                                     <div style="display:flex;width:100%;margin:auto; justify-content:center ">
                                         <span style=" display: flex;align-items: center;justify-content: center;margin:auto">
@@ -341,18 +341,18 @@
                                     }
 
                                 </div>
-                                <div>
+                                <div class="stroke2" style="font-size:20px">
                                     <div class="" style="display:flex; text-align:left;width:100%;margin-top:3%;margin-bottom:3%">
-                                        <span class="bestof stroke2" style="text-align:left" id="toTranslate">Best of @ViewBag.matches.NumberOfGames</span>
+                                        <span class="bestof " style="text-align:left" id="toTranslate">Best of @ViewBag.matches.NumberOfGames</span>
                                         @if (ViewBag.matches.TimeType.ToString().ToLower() != "upcoming")
                                         {
-                                            <span class="stroke2" style="margin:auto">@ViewBag.pickedMaps[lista.Count() -1]</span>
+                                            <span class="" style="margin:auto">@ViewBag.pickedMaps[lista.Count() -1]</span>
                                         }
                                         else
                                         {
                                             <span style="margin:auto"> </span>
                                         }
-                                        <span class="stroke2" style="text-align:right">Tier: @Char.ToUpper(ViewBag.matches.Tier)</span><br />
+                                        <span class="" style="text-align:right">Tier: @Char.ToUpper(ViewBag.matches.Tier)</span><br />
 
                                     </div>
 
@@ -360,18 +360,11 @@
                                         @if (ViewBag.matches.TimeType.ToString().ToLower() != "upcoming")
                                         {
                                             Random rnd = new Random();
-                                            <span class="bestof stroke" style="text-align:left;font-size:20px" id="toTranslate">Duration: @(rnd.Next(15) + 45) min</span>
+                                            <span class="bestof " style="text-align:left;font-size:20px" id="toTranslate">Duration: @(rnd.Next(15) + 45) min</span>
                                         }
-                                        <span class="stroke" style="margin:auto;"> </span>
-                                        <span class="stroke" style="text-align:right;font-size:20px"> @ViewBag.matches.BeginAt.ToString("dddd | dd-MM-yyyy | hh:mm")H </span><br />
+                                        <span class="" style="margin:auto;"> </span>
+                                        <span class="" style="text-align:right;font-size:20px"> @ViewBag.matches.BeginAt.ToString("dddd | dd-MM-yyyy | hh:mm")H </span><br />
                                     </div>
-
-                                    @*<div style="display:flex; width:100%; padding:0px;">
-                                <span style="width:100%">
-                                <span style="text-align:left;margin-top:1%;margin-bottom:0px;font-size:15px; width:50%"> Duration: 53min    </span>
-                                <span style="text-align:right;margin-top:1%;margin-bottom:0px;font-size:15px;width:50% "> Saturday - @ViewBag.matches.BeginAt.ToString("dd-MM-yyyy hh:mm")    </span>
-                                </span>
-                            </div>*@
                                 </div>
                             </div>
                         }
@@ -379,7 +372,7 @@
 
                     @if (ViewBag.matches.TimeType.ToString().ToLower() == "upcoming")
                     {
-                        <div class="borders bordercolor darkcolor" style="border-radius:15px;padding:1%; width:100%">
+                        <div class="borders bordercolor darkcolor" style="border-radius:15px;padding:1%; width:100%;font-size:20px">
 
                             <h2><span class="alinhar">@ViewBag.matches.EventName</span></h2>
 
@@ -399,7 +392,7 @@
                                 </div>
                             }
 
-                            <div class=" " style="border-top-left-radius:15px;border-top-right-radius:15px; " name="FirstTeam">
+                            <div  style="border-top-left-radius:15px;border-top-right-radius:15px; " name="FirstTeam">
 
                                 <div style="display:flex;width:100%;margin:auto; justify-content:center; ">
                                     <a href="@Url.Action("getTeam", "Stats", new {id = @ViewBag.matches.TeamsList[0].TeamAPIID, type = @ViewBag.matches.TimeType.ToString().ToLower() ,game = ViewData["game"].ToString()})" style="justify-content: space-around; margin-left: auto; margin-bottom:0px">
@@ -441,8 +434,8 @@
                                 }
 
                             </div>
-                            
-                            <div class="" style="display:flex; text-align:left;width:100%;margin-top:3%;margin-bottom:3%">
+
+                            <div class="stroke" style="display:flex; text-align:left;width:100%;margin-top:3%;margin-bottom:3%;font-size:20px">
                                 <span class="bestof " style="text-align:left;font-weight:700" id="toTranslate">Best of @ViewBag.matches.NumberOfGames</span>
                                 @if (ViewBag.matches.TimeType.ToString().ToLower() != "upcoming")
                                 {
@@ -456,7 +449,7 @@
 
                             </div>
 
-                            <div class="" style="display:flex; text-align:left;width:100%;margin-top:3%;margin-bottom:0px">
+                            <div class="stroke" style="display:flex; text-align:left;width:100%;margin-top:3%;margin-bottom:0px;font-size:20px">
                                 @if (ViewBag.matches.TimeType.ToString().ToLower() != "upcoming")
                                 {
                                     Random rnd = new Random();
@@ -492,7 +485,7 @@
                                             var nGames = ViewBag.matches.Scores[0].TeamScore + ViewBag.matches.Scores[1].TeamScore;
                                             var image = ViewBag.mapsImages[i];
                                             <div class="bordercolor whitecolor backMap1 stroke2" style="width:40% ;border-radius:15px;margin:auto;font-weight:700;background-image:url(@image)" name="Maps">
-                                                <span style="text-align: left;margin-left:38%;font-weight:700"> @ViewBag.pickedMaps[1] </span><br />
+                                                <span style="text-align: left;margin-left:38%;font-weight:700"> @ViewBag.pickedMaps[0] </span><br />
                                                 @if (nGames > 1)
                                                 {
                                                     @if (ViewBag.matches.Scores[1].TeamScore != 0)
@@ -538,7 +531,7 @@
                                                 var nGames = ViewBag.matches.Scores[0].TeamScore + ViewBag.matches.Scores[1].TeamScore;
                                                 var image = ViewBag.mapsImages[i];
                                                 <div class=" bordercolor whitecolor backMap2 stroke" style="width:40% ;border-radius:15px;font-weight:700;margin:auto;background-image:url(@image)" name="Maps">
-                                                    <span style="text-align: center;margin-left:38%;font-weight:700"> @ViewBag.pickedMaps[2] </span><br />
+                                                    <span style="text-align: center;margin-left:38%;font-weight:700"> @ViewBag.pickedMaps[1] </span><br />
                                                     @if (nGames > 2)
                                                     {
                                                         @if (ViewBag.matches.Scores[0].TeamScore > 1)
@@ -588,7 +581,7 @@
                                                 var nGames = ViewBag.matches.Scores[0].TeamScore + ViewBag.matches.Scores[1].TeamScore;
                                                 var image = ViewBag.mapsImages[i];
                                                 <div class="bordercolor backMap1 stroke" style="width:40% ;border-radius:15px;margin:auto;background-image:url(@image)" name="Maps">
-                                                    <span style="text-align: left;margin-left:38%;font-weight:bold"> @ViewBag.pickedMaps[0] </span><br />
+                                                    <span style="text-align: left;margin-left:38%;font-weight:bold"> @ViewBag.pickedMaps[2] </span><br />
                                                     @if (nGames > 3)
                                                     {
                                                         @if (ViewBag.matches.Scores[1].TeamScore > 1)
@@ -631,7 +624,7 @@
                                                 var nGames = ViewBag.matches.Scores[0].TeamScore + ViewBag.matches.Scores[1].TeamScore;
                                                 var image = ViewBag.mapsImages[i];
                                                 <div class=" bordercolor backMap2 stroke" style="width:40% ;border-radius:15px;margin:auto;background-image:url(@image)" name="Maps">
-                                                    <span style="text-align: center;margin-left:38%;font-weight:bold"> @ViewBag.pickedMaps[1] </span><br />
+                                                    <span style="text-align: center;margin-left:38%;font-weight:bold"> @ViewBag.pickedMaps[3] </span><br />
                                                     @if (nGames > 4)
                                                     {
                                                         @if (ViewBag.matches.Scores[0].TeamScore > 2)
@@ -678,6 +671,118 @@
                                 <div class="whiteText" style="font-weight:bold;font-size:20px;space-around; text-align:center;width:100%">
                                     <span style="margin-top:20px;">SCOREBOARD</span>
                                 </div>
+                                <div style="display:flex; margin:auto;width:100%">
+                                    @if (((IList)ViewBag.pickedMaps).Count > 1)
+                                    {
+                                        var nGames = ViewBag.matches.Scores[0].TeamScore + ViewBag.matches.Scores[1].TeamScore;
+                                        var lista = (List<string>)ViewBag.pickedMaps;
+
+                                        if (ViewBag.map == 1)
+                                        {
+                                            <button class="button3 btnhover1 btnselected1" style="width:25%;margin:auto;" onclick="location.href = '@Url.Action("MatchDetails", "Matches", new {id = ViewBag.matches.MatchesAPIID, type = ViewBag.matches.TimeType.ToString().ToLower(), game = ViewData["game"].ToString(), map = 1})'"> @ViewBag.pickedMaps[lista.Count() -1] </button>
+                                        }
+                                        else
+                                        {
+                                            <button class="button3 bordercolor btnhover1" style="width:25%;margin:auto;" onclick="location.href = '@Url.Action("MatchDetails", "Matches", new {id = ViewBag.matches.MatchesAPIID, type = ViewBag.matches.TimeType.ToString().ToLower(), game = ViewData["game"].ToString(), map = 1})'"> @ViewBag.pickedMaps[lista.Count() -1] </button>
+                                        }
+
+                                        if (ViewBag.map == 2)
+                                        {
+                                            if ((nGames > 1 && ViewBag.matches.TimeType.ToString().ToLower() != "running") || (nGames > 0 && ViewBag.matches.TimeType.ToString().ToLower() != "past"))
+                                            {
+                                                <button class="button3 btnhover1 btnselected1" style="width:25%;margin:auto;" onclick="location.href = '@Url.Action("MatchDetails", "Matches", new {id = ViewBag.matches.MatchesAPIID, type = ViewBag.matches.TimeType.ToString().ToLower(), game = ViewData["game"].ToString(), map = 2})'"> @ViewBag.pickedMaps[0] </button>
+                                            }
+                                            else
+                                            {
+                                                <button class="button3 btnhover1 btnselected1" disabled style="width:25%;margin:auto;" onclick="location.href = '@Url.Action("MatchDetails", "Matches", new {id = ViewBag.matches.MatchesAPIID, type = ViewBag.matches.TimeType.ToString().ToLower(), game = ViewData["game"].ToString(), map = 2})'"> @ViewBag.pickedMaps[0] </button>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            if ((nGames > 1 && ViewBag.matches.TimeType.ToString().ToLower() != "running") || (nGames > 0 && ViewBag.matches.TimeType.ToString().ToLower() != "past"))
+                                            {
+                                                <button class="button3 bordercolor btnhover1" style="width:25%;margin:auto;" onclick="location.href = '@Url.Action("MatchDetails", "Matches", new {id = ViewBag.matches.MatchesAPIID, type = ViewBag.matches.TimeType.ToString().ToLower(), game = ViewData["game"].ToString(), map = 2})'"> @ViewBag.pickedMaps[0] </button>
+                                            }
+                                            else
+                                            {
+                                                <button class="button3 bordercolor btnhover1" disabled style="width:25%;margin:auto;" onclick="location.href = '@Url.Action("MatchDetails", "Matches", new {id = ViewBag.matches.MatchesAPIID, type = ViewBag.matches.TimeType.ToString().ToLower(), game = ViewData["game"].ToString(), map = 2})'"> @ViewBag.pickedMaps[0] </button>
+                                            }
+                                        }
+                                        
+                                        if (ViewBag.map == 3)
+                                        {
+                                            if ((nGames > 2 && ViewBag.matches.TimeType.ToString().ToLower() != "running") || (nGames > 1 && ViewBag.matches.TimeType.ToString().ToLower() != "past"))
+                                            {
+                                                <button class="button3 btnhover1 btnselected1" style="width:25%;margin:auto;" onclick="location.href = '@Url.Action("MatchDetails", "Matches", new {id = ViewBag.matches.MatchesAPIID, type = ViewBag.matches.TimeType.ToString().ToLower(), game = ViewData["game"].ToString(), map = 3})'"> @ViewBag.pickedMaps[1] </button>
+                                            }
+                                            else
+                                            {
+                                                <button class="button3 bordercolor btnhover1" disabled style="width:25%;margin:auto;" onclick="location.href = '@Url.Action("MatchDetails", "Matches", new {id = ViewBag.matches.MatchesAPIID, type = ViewBag.matches.TimeType.ToString().ToLower(), game = ViewData["game"].ToString(), map = 3})'"> @ViewBag.pickedMaps[1] </button>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            if ((nGames > 2 && ViewBag.matches.TimeType.ToString().ToLower() != "running") || (nGames > 1 && ViewBag.matches.TimeType.ToString().ToLower() != "past"))
+                                            {
+                                                <button class="button3 bordercolor btnhover1" style="width:25%;margin:auto;" onclick="location.href = '@Url.Action("MatchDetails", "Matches", new {id = ViewBag.matches.MatchesAPIID, type = ViewBag.matches.TimeType.ToString().ToLower(), game = ViewData["game"].ToString(), map = 3})'"> @ViewBag.pickedMaps[1] </button>
+                                            }
+                                            else
+                                            {
+                                                <button class="button3 bordercolor btnhover1" disabled style="width:25%;margin:auto;" onclick="location.href = '@Url.Action("MatchDetails", "Matches", new {id = ViewBag.matches.MatchesAPIID, type = ViewBag.matches.TimeType.ToString().ToLower(), game = ViewData["game"].ToString(), map = 3})'"> @ViewBag.pickedMaps[1] </button>
+                                            }
+                                        }
+
+                                        if (((IList)ViewBag.pickedMaps).Count > 3)
+                                        {
+                                            if (ViewBag.map == 4)
+                                            {
+                                                if ((nGames > 3 && ViewBag.matches.TimeType.ToString().ToLower() != "running") || (nGames > 2 && ViewBag.matches.TimeType.ToString().ToLower() != "past"))
+                                                {
+                                                    <button class="button3 btnhover1 btnselected1" style="width:25%;margin:auto;" onclick="location.href = '@Url.Action("MatchDetails", "Matches", new {id = ViewBag.matches.MatchesAPIID, type = ViewBag.matches.TimeType.ToString().ToLower(), game = ViewData["game"].ToString(), map = 4})'"> @ViewBag.pickedMaps[2] </button>
+                                                }
+                                                else
+                                                {
+                                                    <button class="button3 bordercolor btnhover1" disabled style="width:25%;margin:auto;" onclick="location.href = '@Url.Action("MatchDetails", "Matches", new {id = ViewBag.matches.MatchesAPIID, type = ViewBag.matches.TimeType.ToString().ToLower(), game = ViewData["game"].ToString(), map = 4})'"> @ViewBag.pickedMaps[2] </button>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                if ((nGames > 3 && ViewBag.matches.TimeType.ToString().ToLower() != "running") || (nGames > 2 && ViewBag.matches.TimeType.ToString().ToLower() != "past"))
+                                                {
+                                                    <button class="button3 btnhover1 btnselected1" style="width:25%;margin:auto;" onclick="location.href = '@Url.Action("MatchDetails", "Matches", new {id = ViewBag.matches.MatchesAPIID, type = ViewBag.matches.TimeType.ToString().ToLower(), game = ViewData["game"].ToString(), map = 4})'"> @ViewBag.pickedMaps[2] </button>
+                                                }
+                                                else
+                                                {
+                                                    <button class="button3 bordercolor btnhover1" disabled style="width:25%;margin:auto;" onclick="location.href = '@Url.Action("MatchDetails", "Matches", new {id = ViewBag.matches.MatchesAPIID, type = ViewBag.matches.TimeType.ToString().ToLower(), game = ViewData["game"].ToString(), map = 4})'"> @ViewBag.pickedMaps[2] </button>
+                                                }
+                                            }
+
+                                            if (ViewBag.map == 3)
+                                            {
+                                                if ((nGames > 4 && ViewBag.matches.TimeType.ToString().ToLower() != "running") || (nGames > 3 && ViewBag.matches.TimeType.ToString().ToLower() != "past"))
+                                                {
+                                                    <button class="button3 btnhover1 btnselected1" style="width:25%;margin:auto;" onclick="location.href = '@Url.Action("MatchDetails", "Matches", new {id = ViewBag.matches.MatchesAPIID, type = ViewBag.matches.TimeType.ToString().ToLower(), game = ViewData["game"].ToString(), map = 5})'"> @ViewBag.pickedMaps[3] </button>
+                                                }
+                                                else
+                                                {
+                                                    <button class="button3 bordercolor btnhover1" disabled style="width:25%;margin:auto;" onclick="location.href = '@Url.Action("MatchDetails", "Matches", new {id = ViewBag.matches.MatchesAPIID, type = ViewBag.matches.TimeType.ToString().ToLower(), game = ViewData["game"].ToString(), map = 5})'"> @ViewBag.pickedMaps[3] </button>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                if ((nGames > 4 && ViewBag.matches.TimeType.ToString().ToLower() != "running") || (nGames > 3 && ViewBag.matches.TimeType.ToString().ToLower() != "past"))
+                                                {
+                                                    <button class="button3 bordercolor btnhover1" style="width:25%;margin:auto;" onclick="location.href = '@Url.Action("MatchDetails", "Matches", new {id = ViewBag.matches.MatchesAPIID, type = ViewBag.matches.TimeType.ToString().ToLower(), game = ViewData["game"].ToString(), map = 5})'"> @ViewBag.pickedMaps[3] </button>
+                                                }
+                                                 else
+                                                {
+                                                    <button class="button3 bordercolor btnhover1" disabled style="width:25%;margin:auto;" onclick="location.href = '@Url.Action("MatchDetails", "Matches", new {id = ViewBag.matches.MatchesAPIID, type = ViewBag.matches.TimeType.ToString().ToLower(), game = ViewData["game"].ToString(), map = 5})'"> @ViewBag.pickedMaps[3] </button>
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                </div>
                                 <div style="padding:3%;overflow-x:auto;">
 
                                     <table class="tableDetails" name="FirstTeam" style="width:100% !important;margin:auto;margin-bottom:5%; text-align:center">
@@ -711,69 +816,67 @@
                                                         <td style="/*display:flex;*/ text-align:center">
                                                             @if (valor.PlayerName == ViewBag.MVP_Player)
                                                             {
-                                                                <img src="~/images/mvp.png" style="width:50%" />
+                                                                <img src="~/images/mvp.png" style="width:50%" title="MVP"/>
                                                             }
                                                             <p style="margin-bottom:0px">  @item.Name</p>
                                                         </td>
                                                         @*Kills*@
                                                         @if (valor.Kills > 0 && valor.Kills <= 10) {
-                                                            <td style="color: #B71919">@valor.Kills</td>
+                                                            <td style="color: #B71919" title="Bad">@valor.Kills</td>
                                                         } else if (valor.Kills > 10 && valor.Kills <= 19){
-                                                            <td style="color: #CD8417">@valor.Kills</td>
+                                                            <td style="color: #CD8417" title="Average">@valor.Kills</td>
                                                         } else if(valor.Kills > 19){
-                                                            <td style="color: #11871D">@valor.Kills</td>
+                                                            <td style="color: #11871D" title="Good">@valor.Kills</td>
                                                         }
                                                         @*Assists*@
                                                         @if (valor.Assists > 0 && valor.Assists <= 3) {
-                                                            <td style="color: #B71919">@valor.Assists</td>
+                                                            <td style="color: #B71919" title="Bad">@valor.Assists</td>
                                                         } else if (valor.Assists > 3 && valor.Assists <= 7){
-                                                            <td style="color: #CD8417">@valor.Assists</td>
+                                                            <td style="color: #CD8417" title="Average">@valor.Assists</td>
                                                         } else if(valor.Assists > 7){
-                                                            <td style="color: #11871D">@valor.Assists</td>
+                                                            <td style="color: #11871D" title="Good">@valor.Assists</td>
                                                         }
                                                         @*Deaths*@
                                                         @if (valor.Deaths > 0 && valor.Deaths <= 8) {
-                                                            <td style="color: #11871D">@valor.Deaths</td>
+                                                            <td style="color: #11871D" title="Good">@valor.Deaths</td>
                                                         } else if (valor.Deaths > 8 && valor.Deaths <= 16)  {
-                                                            <td style="color: #CD8417">@valor.Deaths</td>
+                                                            <td style="color: #CD8417" title="Average">@valor.Deaths</td>
                                                         } else if (valor.Deaths > 16) {
-                                                            <td style="color: #B71919">@valor.Deaths</td>
+                                                            <td style="color: #B71919" title="Bad">@valor.Deaths</td>
                                                         }
                                                         @*K/D ratio*@
                                                         @if (valor.KD_Diff> 0 && valor.KD_Diff <= 1) {
-                                                            <td style="color: #B71919">@valor.KD_Diff</td>
+                                                            <td style="color: #B71919" title="Bad">@valor.KD_Diff</td>
                                                         } else if (valor.KD_Diff > 1 && valor.KD_Diff <= 2)  {
-                                                            <td style="color: #CD8417">@valor.KD_Diff</td>
+                                                            <td style="color: #CD8417" title="Average">@valor.KD_Diff</td>
                                                         } else if (valor.KD_Diff > 2) {
-                                                            <td style="color: #11871D">@valor.KD_Diff</td>
+                                                            <td style="color: #11871D" title="Good">@valor.KD_Diff</td>
                                                         }
                                                         @*Headshots*@
                                                         @if (valor.HeadShots > 0 && valor.HeadShots <= 40) {
-                                                            <td style="color: #B71919">@(String.Format("{0}{1}", valor.HeadShots, "%"))</td>
+                                                            <td style="color: #B71919" title="Bad">@(String.Format("{0}{1}", valor.HeadShots, "%"))</td>
                                                         } else if (valor.HeadShots > 40 && valor.HeadShots <= 65)  {
-                                                            <td style="color: #CD8417">@(String.Format("{0}{1}", valor.HeadShots, "%"))</td>
+                                                            <td style="color: #CD8417" title="Average">@(String.Format("{0}{1}", valor.HeadShots, "%"))</td>
                                                         } else if (valor.HeadShots > 65) {
-                                                            <td style="color: #11871D">@(String.Format("{0}{1}", valor.HeadShots, "%"))</td>
+                                                            <td style="color: #11871D" title="Good">@(String.Format("{0}{1}", valor.HeadShots, "%"))</td>
                                                         }
                                                         @*Kills per round*@
                                                         @{var kpr = Math.Round(((double)valor.Kills / (double)16), 2);}
                                                         @if (kpr > 0 && kpr <= 0.75) {
-                                                            <td style="color: #B71919">@kpr</td>
+                                                            <td style="color: #B71919" title="Bad">@kpr</td>
                                                         } else if (kpr > 0.75 && kpr <= 1.25)  {
-                                                            <td style="color: #CD8417">@kpr</td>
-                                                        }
-                                                        else if (kpr > 1.25)
-                                                        {
-                                                            <td style="color: #11871D">@kpr</td>
+                                                            <td style="color: #CD8417" title="Average">@kpr</td>
+                                                        } else if (kpr > 1.25) {
+                                                            <td style="color: #11871D" title="Good">@kpr</td>
                                                         }
                                                         @*Average damage per round*@
                                                         @{var adr = Math.Round(((double)((double)valor.Kills / (double)16) * (double)100), 2);}
                                                         @if (adr > 0 && adr <= 40) {
-                                                            <td style="color: #B71919">@adr</td>
+                                                            <td style="color: #B71919" title="Bad">@adr</td>
                                                         } else if (adr > 40 && adr <= 65) {
-                                                            <td style="color: #CD8417">@adr</td>
+                                                            <td style="color: #CD8417" title="Average">@adr</td>
                                                         } else if (adr > 65) {
-                                                            <td style="color: #11871D">@adr</td>
+                                                            <td style="color: #11871D" title="Good">@adr</td>
                                                         }
                                                     </tr>
                                                 }
@@ -811,69 +914,67 @@
                                                         <td style="/*display:flex;*/ text-align:center">
                                                             @if (valor.PlayerName == ViewBag.MVP_Player)
                                                             {
-                                                                <img src="~/images/mvp.png" style="width:50%" />
+                                                                <img src="~/images/mvp.png" style="width:50%" title="MVP"/>
                                                             }
                                                             <p style="margin-bottom:0px">  @item.Name</p>
                                                         </td>
                                                         @*Kills*@
                                                         @if (valor.Kills > 0 && valor.Kills <= 10) {
-                                                            <td style="color: #B71919">@valor.Kills</td>
+                                                            <td style="color: #B71919" title="Bad">@valor.Kills</td>
                                                         } else if (valor.Kills > 10 && valor.Kills <= 19){
-                                                            <td style="color: #CD8417">@valor.Kills</td>
+                                                            <td style="color: #CD8417" title="Average">@valor.Kills</td>
                                                         } else if(valor.Kills > 19){
-                                                            <td style="color: #11871D">@valor.Kills</td>
+                                                            <td style="color: #11871D" title="Good">@valor.Kills</td>
                                                         }
                                                         @*Assists*@
                                                         @if (valor.Assists > 0 && valor.Assists <= 3) {
-                                                            <td style="color: #B71919">@valor.Assists</td>
+                                                            <td style="color: #B71919" title="Bad">@valor.Assists</td>
                                                         } else if (valor.Assists > 3 && valor.Assists <= 7){
-                                                            <td style="color: #CD8417">@valor.Assists</td>
+                                                            <td style="color: #CD8417" title="Average">@valor.Assists</td>
                                                         } else if(valor.Assists > 7){
-                                                            <td style="color: #11871D">@valor.Assists</td>
+                                                            <td style="color: #11871D" title="Good">@valor.Assists</td>
                                                         }
                                                         @*Deaths*@
                                                         @if (valor.Deaths > 0 && valor.Deaths <= 8) {
-                                                            <td style="color: #11871D">@valor.Deaths</td>
+                                                            <td style="color: #11871D" title="Good">@valor.Deaths</td>
                                                         } else if (valor.Deaths > 8 && valor.Deaths <= 16)  {
-                                                            <td style="color: #CD8417">@valor.Deaths</td>
+                                                            <td style="color: #CD8417" title="Average">@valor.Deaths</td>
                                                         } else if (valor.Deaths > 16) {
-                                                            <td style="color: #B71919">@valor.Deaths</td>
+                                                            <td style="color: #B71919" title="Bad">@valor.Deaths</td>
                                                         }
                                                         @*K/D ratio*@
                                                         @if (valor.KD_Diff> 0 && valor.KD_Diff <= 1) {
-                                                            <td style="color: #B71919">@valor.KD_Diff</td>
+                                                            <td style="color: #B71919" title="Bad">@valor.KD_Diff</td>
                                                         } else if (valor.KD_Diff > 1 && valor.KD_Diff <= 2)  {
-                                                            <td style="color: #CD8417">@valor.KD_Diff</td>
+                                                            <td style="color: #CD8417" title="Average">@valor.KD_Diff</td>
                                                         } else if (valor.KD_Diff > 2) {
-                                                            <td style="color: #11871D">@valor.KD_Diff</td>
+                                                            <td style="color: #11871D" title="Good">@valor.KD_Diff</td>
                                                         }
                                                         @*Headshots*@
                                                         @if (valor.HeadShots > 0 && valor.HeadShots <= 40) {
-                                                            <td style="color: #B71919">@(String.Format("{0}{1}", valor.HeadShots, "%"))</td>
+                                                            <td style="color: #B71919" title="Bad">@(String.Format("{0}{1}", valor.HeadShots, "%"))</td>
                                                         } else if (valor.HeadShots > 40 && valor.HeadShots <= 65)  {
-                                                            <td style="color: #CD8417">@(String.Format("{0}{1}", valor.HeadShots, "%"))</td>
+                                                            <td style="color: #CD8417" title="Average">@(String.Format("{0}{1}", valor.HeadShots, "%"))</td>
                                                         } else if (valor.HeadShots > 65) {
-                                                            <td style="color: #11871D">@(String.Format("{0}{1}", valor.HeadShots, "%"))</td>
+                                                            <td style="color: #11871D" title="Good">@(String.Format("{0}{1}", valor.HeadShots, "%"))</td>
                                                         }
                                                         @*Kills per round*@
                                                         @{var kpr = Math.Round(((double)valor.Kills / (double)16), 2);}
                                                         @if (kpr > 0 && kpr <= 0.75) {
-                                                            <td style="color: #B71919">@kpr</td>
+                                                            <td style="color: #B71919" title="Bad">@kpr</td>
                                                         } else if (kpr > 0.75 && kpr <= 1.25)  {
-                                                            <td style="color: #CD8417">@kpr</td>
-                                                        }
-                                                        else if (kpr > 1.25)
-                                                        {
-                                                            <td style="color: #11871D">@kpr</td>
+                                                            <td style="color: #CD8417" title="Average">@kpr</td>
+                                                        } else if (kpr > 1.25) {
+                                                            <td style="color: #11871D" title="Good">@kpr</td>
                                                         }
                                                         @*Average damage per round*@
                                                         @{var adr = Math.Round(((double)((double)valor.Kills / (double)16) * (double)100), 2);}
                                                         @if (adr > 0 && adr <= 40) {
-                                                            <td style="color: #B71919">@adr</td>
+                                                            <td style="color: #B71919" title="Bad">@adr</td>
                                                         } else if (adr > 40 && adr <= 65) {
-                                                            <td style="color: #CD8417">@adr</td>
+                                                            <td style="color: #CD8417" title="Average">@adr</td>
                                                         } else if (adr > 65) {
-                                                            <td style="color: #11871D">@adr</td>
+                                                            <td style="color: #11871D" title="Good">@adr</td>
                                                         }
                                                     </tr>
                                                 }

@@ -15,16 +15,28 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace FPTV.Areas.Identity.Pages.Account.Manage
 {
+    /// <summary>
+    /// This class represents the model for external logins.
+    /// </summary>
     public class ExternalLoginsModel : PageModel
     {
         private readonly UserManager<UserBase> _userManager;
         private readonly SignInManager<UserBase> _signInManager;
         private readonly IUserStore<UserBase> _userStore;
 
+        /// <summary>
+        /// Constructor for ExternalLoginsModel class.
+        /// </summary>
+        /// <param name="userManager">UserManager object.</param>
+        /// <param name="signInManager">SignInManager object.</param>
+        /// <param name="userStore">IUserStore object.</param>
+        /// <returns>
+        /// An instance of ExternalLoginsModel class.
+        /// </returns>
         public ExternalLoginsModel(
-            UserManager<UserBase> userManager,
-            SignInManager<UserBase> signInManager,
-            IUserStore<UserBase> userStore)
+                    UserManager<UserBase> userManager,
+                    SignInManager<UserBase> signInManager,
+                    IUserStore<UserBase> userStore)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -56,6 +68,12 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
         [TempData]
         public string StatusMessage { get; set; }
 
+        /// <summary>
+        /// Gets the current logins, other logins, and the show remove button flag for the user.
+        /// </summary>
+        /// <returns>
+        /// The page result.
+        /// </returns>
         public async Task<IActionResult> OnGetAsync()
         {
             var user = await _userManager.GetUserAsync(User);
@@ -79,6 +97,12 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
             return Page();
         }
 
+        /// <summary>
+        /// Removes an external login from the user's account.
+        /// </summary>
+        /// <returns>
+        /// Redirects to the current page with a status message indicating whether the external login was removed.
+        /// </returns>
         public async Task<IActionResult> OnPostRemoveLoginAsync(string loginProvider, string providerKey)
         {
             var user = await _userManager.GetUserAsync(User);
@@ -99,6 +123,11 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
             return RedirectToPage();
         }
 
+        /// <summary>
+        /// Request a redirect to the external login provider to link a login for the current user
+        /// </summary>
+        /// <param name="provider">The external login provider</param>
+        /// <returns>A ChallengeResult object</returns>
         public async Task<IActionResult> OnPostLinkLoginAsync(string provider)
         {
             // Clear the existing external cookie to ensure a clean login process
@@ -110,6 +139,12 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
             return new ChallengeResult(provider, properties);
         }
 
+        /// <summary>
+        /// Handles the callback for an external login provider.
+        /// </summary>
+        /// <returns>
+        /// Redirects to the current page with a status message.
+        /// </returns>
         public async Task<IActionResult> OnGetLinkLoginCallbackAsync()
         {
             var user = await _userManager.GetUserAsync(User);

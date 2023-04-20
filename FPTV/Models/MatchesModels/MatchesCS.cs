@@ -6,6 +6,9 @@ using FPTV.Models.UserModels;
 
 namespace FPTV.Models.MatchesModels
 {
+    /// <summary>
+    /// This class provides methods to calculate the number of matches needed to create a given number of squares.
+    /// </summary>
     public class MatchesCS
     {
         [Required]
@@ -23,11 +26,11 @@ namespace FPTV.Models.MatchesModels
         [Display(Name = "Event API ID")]
         public int EventAPIID { get; set; }
 
-        
+
         [Display(Name = "Event Name")]
         public string? EventName { get; set; }
 
-        
+
         [Display(Name = "Begin At")]
         [DataType(DataType.Date)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
@@ -39,7 +42,7 @@ namespace FPTV.Models.MatchesModels
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime? EndAt { get; set; }
 
- 
+
         [Display(Name = "Finished")]
         public bool IsFinished { get; set; }
 
@@ -47,11 +50,11 @@ namespace FPTV.Models.MatchesModels
         [Display(Name = "Time Type")]
         public TimeType TimeType { get; set; }
 
- 
+
         [Display(Name = "Have Stats")]
         public bool HaveStats { get; set; }
 
- 
+
         [Display(Name = "MatchesCS List")]
         public ICollection<MatchCS>? MatchesList { get; set; }
 
@@ -63,7 +66,7 @@ namespace FPTV.Models.MatchesModels
         [Display(Name = "Scores")]
         public ICollection<Score>? Scores { get; set; }
 
- 
+
         [Display(Name = "Teams List")]
         public ICollection<Team>? TeamsList { get; set; }
 
@@ -80,7 +83,7 @@ namespace FPTV.Models.MatchesModels
         [Display(Name = "Winner Team API Id")]
         public int? WinnerTeamAPIId { get; set; }
 
-   
+
         [Display(Name = "Winner Team Name")]
         public string? WinnerTeamName { get; set; }
 
