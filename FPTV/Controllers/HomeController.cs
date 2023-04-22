@@ -398,11 +398,11 @@ namespace FPTV.Controllers
         }
 
         [Authorize]
-        public IActionResult ReportedTopicsAndComments()
-        {
-            //page = "Forum";
-            return View();
-        }
+        //public IActionResult ReportedTopicsAndComments()
+        //{
+        //    //page = "Forum";
+        //    return View();
+        //}
 
         [Authorize]
         /// <summary>

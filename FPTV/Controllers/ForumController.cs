@@ -76,7 +76,13 @@ namespace FPTV.Controllers
 			return View(topics);
         }
 
-        [Authorize]
+		public IActionResult ReportedTopicsAndComments()
+		{
+			//page = "Forum";
+			return View();
+		}
+
+		[Authorize]
         /// <summary>
         /// Retrieves a topic from the database and returns it to the view.
         /// </summary>

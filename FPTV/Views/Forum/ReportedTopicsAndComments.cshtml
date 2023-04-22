@@ -4,8 +4,8 @@
 @using Microsoft.AspNetCore.Identity;
 @inject UserManager<UserBase> userManager
 @{
-	ViewData["Title"] = "Forum - " + Model.Title;
-	//ViewData["Title"] = "Reported Topics And Comments";
+	//ViewData["Title"] = "Forum - " + Model.Title;
+	ViewData["Title"] = "Reported Topics And Comments";
 }
 @model Topic
 <!DOCTYPE html>
@@ -175,6 +175,7 @@
 		</div>
 		<hr class="hrstyle" />
 		<!--------------------------------------------------------------->
+		@*
 		@foreach(Comment c in Model.Comments)
 		{
 			string cflag = "/images/Flags/4x3/" + c.Profile.Flag + ".svg";
@@ -254,7 +255,6 @@
 			</div>
 		}
 			
-
 
 		</div>
 
