@@ -398,6 +398,13 @@ namespace FPTV.Controllers
         }
 
         [Authorize]
+        public IActionResult ReportedTopicsAndComments()
+        {
+            //page = "Forum";
+            return View();
+        }
+
+        [Authorize]
         /// <summary>
         /// Returns a view for creating a new topic.
         /// </summary>
