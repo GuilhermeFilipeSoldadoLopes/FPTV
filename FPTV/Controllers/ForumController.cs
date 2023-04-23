@@ -42,7 +42,7 @@ namespace FPTV.Controllers
         {
             if (await CheckError303())
             {
-                return View("~/Views/Home/Error403.1cshtml");
+                return View("~/Views/Home/Error403.cshtml");
             }
 
             search ??= "";
