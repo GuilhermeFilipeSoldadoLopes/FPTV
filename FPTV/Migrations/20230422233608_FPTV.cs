@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FPTV.Migrations
 {
-    public partial class init : Migration
+    public partial class FPTV : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

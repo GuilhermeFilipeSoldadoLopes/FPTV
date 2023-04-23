@@ -178,25 +178,31 @@
 				}
 			
 				@if (ViewBag.days == 0) {
-				<button class="btnResult selectedbtn bordercolor whiteText" style="">
+				<button class="btnResult selectedbtn bordercolor whiteText" style="cursor: default">
 					<a class="whiteText" style="text-decoration: none; text-transform: capitalize;" href="@Url.Action("Results", "Matches", new { game = ViewData["game"].ToString()})" id="toTranslate">Results of Today</a>
 				</button>
 				} else {
-				<button class="btnResult bordercolor whiteText" style="">
+				<button class="btnResult bordercolor whiteText" style="cursor: default">
 					<a class="whiteText" style="text-decoration: none; text-transform: capitalize;" href="@Url.Action("Results", "Matches", new { game = ViewData["game"].ToString()})" id="toTranslate">Results of Today</a>
 				</button>
 				}
 
-			<button class="btnResult bordercolor">
+			<button class="btnResult bordercolor" style="cursor: default">
 				<form method="post" action="@Url.Action("Results", "Matches", new {game = ViewData["game"].ToString()})">
 					<span>
 						<input class="bordercolor dark" type="text" name="days"  placeholder=" 2 to 365 days ago" required style="width:60%; padding:1px; text-align:center">
 					</span>
+					@if (ViewBag.StatusMessage == "") {
+						
+					} else {
+						<p style="color:red; font-size:14px; text-transform: capitalize; margin-top: 10px; margin-bottom: auto; padding: 0px" id="toTranslate">@ViewBag.StatusMessage</p>
+					}
+					<span id="toTranslate"></span>
 				</form>
 			</button>
 		</div>
 		<div class="whiteText"style="display:flex;justify-content:right;width:100%;margin-bottom:2%;">
-			<p id="toTranslate" style="font-size:15px; text-transform: capitalize; margin-bottom:0px;margin-right:2%" id="toTranslate">Search Date: @ViewBag.Date</p>
+			<p style="font-size:15px; text-transform: capitalize; margin-bottom:0px;margin-right:2%; font-weight:bold;" id="toTranslate">Search Date: @ViewBag.Date</p>
 		</div>
 
 		<div class="center bordercolor colorformatch " style="width:100%; padding:1%">
@@ -209,9 +215,10 @@
 				{
 					<tr>
                         <td>
-                            <span id="toTranslate"> No Results </span>
+							<span id="toTranslate"> The date being consulted has no match results &nbsp</span><img src="~/images/noResultsFound.png" style="width: 25px;height: 25px;"></img>
 						</td>
 					</tr>
+					
 				}
 				@foreach (var item in ViewBag.matches)
 				{
@@ -270,15 +277,6 @@
 			</table>
 			</div>
 		</div>
-
-	@if (ViewBag.Message != null)
-	{
-		<script type="text/javascript">
-			window.onload = function () {
-				alert("@ViewBag.Message");
-			};
-		</script>
-	}
 </body>
 </html>
 

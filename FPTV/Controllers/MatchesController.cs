@@ -48,16 +48,19 @@ namespace FPTV.Controllers
     /// </summary>
     public class MatchesController : Controller
     {
-        private readonly FPTVContext _context;
+		private readonly FPTVContext _context;
 
-        /// <summary>
-        /// Constructor for MatchesController class.
-        /// </summary>
-        /// <param name="context">FPTVContext object.</param>
-        /// <returns>
-        /// No return value.
-        /// </returns>
-        public MatchesController(FPTVContext context)
+		[TempData]
+		public string StatusMessage { get; set; }
+
+		/// <summary>
+		/// Constructor for MatchesController class.
+		/// </summary>
+		/// <param name="context">FPTVContext object.</param>
+		/// <returns>
+		/// No return value.
+		/// </returns>
+		public MatchesController(FPTVContext context)
         {
             _context = context;
         }
@@ -337,19 +340,20 @@ namespace FPTV.Controllers
             ViewData["game"] = game;
             ViewBag.page = "Results";
             ViewBag.days = days;
+            ViewBag.StatusMessage = "";
 
-            var day = "";
+			var day = "";
             DateTime date;
 
             if (days < 0)
             {
-                ViewBag.Message = "It is only possible to consult results of matches that have already taken place.";
+				ViewBag.StatusMessage = "It is only possible to consult results of matches that have already taken place.";
                 day = DateTime.Now.AddDays(0).ToString("yyyy-MM-dd");
                 date = DateTime.Now.AddDays(0);
             }
             else if (days >= 365)
             {
-                ViewBag.Message = "You can only consult the results up to 365 days ago.";
+				ViewBag.StatusMessage = "You can only consult the results up to 365 days ago.";
                 day = DateTime.Now.AddDays(-365).ToString("yyyy-MM-dd");
                 date = DateTime.Now.AddDays(-365);
             }

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 using System.Reflection.Metadata;
 
 namespace FPTV.Controllers
@@ -88,16 +89,23 @@ namespace FPTV.Controllers
         /// </summary>
         /// <param name="id">The id of the topic to be retrieved.</param>
         /// <returns>The view with the retrieved topic.</returns>
-        public async Task<ActionResult> TopicAsync(int id, string filter = "")
+        public async Task<ActionResult> TopicAsync(int id, string filter = "", string alert = "")
         {
             if (await CheckError303())
             {
                 return View("~/Views/Home/Error403.cshtml");
             }
 
-            ViewBag.Filter = filter;
+            if (alert != "" && alert != null) {
+				ViewBag.Message = alert;
+			} else {
+				ViewBag.Message = "";
+			}
+
+			ViewBag.Filter = filter;
             ViewBag.Game = "";
             ViewBag.page = "Forum";
+
             var topic = _context.Topics
                 .Include(t => t.Profile)
                 .ThenInclude(p => p.User)
@@ -182,7 +190,7 @@ namespace FPTV.Controllers
                 Comments = new List<Comment>(),
                 Date = DateTime.Now,
                 Title = collection["Title"],
-                ProfileId = user.ProfileId,
+				ProfileId = user.ProfileId,
                 Reported = false,
 				Deleted = false,
             };
@@ -239,15 +247,22 @@ namespace FPTV.Controllers
         {
             ViewBag.Game = "";
             ViewBag.page = "Forum";
-            var comment = _context.Comments.Include(c => c.Profile).FirstOrDefault(c => c.CommentId == id);
+
+			var comment = _context.Comments.Include(c => c.Profile).FirstOrDefault(c => c.CommentId == id);
             if (comment == null)
             {
                 return View("~/Views/Home/Error404.cshtml");
             }
 
-            comment.Reported = true;
+            DateTime time = DateTime.Now;
+			var profile = _context.Profiles.FirstOrDefault(p => p == comment.Profile);
+			var user = _context.Users.FirstOrDefault(u => u.ProfileId == profile.Id);
+			string message = ("The comment of " + comment.Profile.User.UserName + " was successfully reported at " + time.ToString("HH:mm") + " WEST");
+
+			comment.Reported = true;
             _context.SaveChanges();
-            return RedirectToAction("Topic", new { id = topicId });
+
+            return RedirectToAction("Topic", new { id = topicId, alert = message });
         }
 
         [Authorize]
@@ -260,17 +275,23 @@ namespace FPTV.Controllers
         {
             ViewBag.Game = "";
             ViewBag.page = "Forum";
-            var post = _context.Topics.FirstOrDefault(t => t.TopicId == id);
+
+			var post = _context.Topics.FirstOrDefault(t => t.TopicId == id);
 
             if (post == null)
             {
                 return View("~/Views/Home/Error404.cshtml");
             }
 
-            post.Reported = true;
+			var profile = _context.Profiles.FirstOrDefault(p => p.Id == post.ProfileId);
+			var user = _context.Users.FirstOrDefault(u => u.ProfileId == profile.Id);
+			DateTime time = DateTime.Now;
+			string message = ("The topic of " + user.UserName + " was successfully reported at " + time.ToString("HH:mm") + " WEST");
+
+			post.Reported = true;
             _context.SaveChanges();
 
-            return RedirectToAction("Topic", new { id });
+            return RedirectToAction("Topic", new { id, alert = message });
         }
 
         // POST: ForumController/Edit/5

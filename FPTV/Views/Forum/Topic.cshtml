@@ -166,7 +166,7 @@
 							<p style ="font-size:17px;width:70%;text-align:left;padding:0px; margin:auto;margin-left:15px" id="toTranslate"> @Model.Content </p>
 							
 							<div style="width:30%;display:flex">
-								<img onclick="location.href='@Url.Action("Profile", "Forum", new {profileId = Model.ProfileId})'" src="~/images/default-profile-icon-24.jpg" style="width:70px" />
+							<img onclick="location.href='@Url.Action("Profile", "Forum", new {profileId = Model.ProfileId})'" src="data:image/*;base64,@(Convert.ToBase64String(Model.Profile.Picture))" style="width:70px" />
 
 								<p onclick="location.href='@Url.Action("Profile", "Forum", new {profileId = Model.ProfileId})'" style="margin-top:25px;margin-left:5px;margin-right:5px;font-size:20px;font-weight:normal">@Model.Profile.User.UserName </p>
 
@@ -201,7 +201,7 @@
 				{
 					<div style="justify-content:left;width:7%;margin:0px;text-align:left">
 						<button onclick="location.href='@Url.Action("ReportPost", "Forum", new {id = Model.TopicId})'" style="background-color:transparent;border:none;width:2%;padding:0px;margin:0px">
-							<img src="~/images/report.png" style="width:20px;margin-left:5px" />
+							<img src="~/images/report.png" style="width:20px;margin-left:5px" /> 
 						</button>
 					</div>
 
@@ -316,9 +316,16 @@
 			
 
 
-		</div>
+	</div>
 
-	
+	@if (ViewBag.Message != null && ViewBag.Message != "")
+	{
+		<script type="text/javascript">
+			window.onload = function () {
+				alert("@ViewBag.Message");
+			};
+		</script>
+	}
 </body>
 </html>
 
