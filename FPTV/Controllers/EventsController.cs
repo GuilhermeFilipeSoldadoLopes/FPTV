@@ -116,7 +116,7 @@ namespace FPTV.Controllers
 
                 //Handling for null values
                 ev.EventAPIID = eventAPIID.ToString() == null ? -1 : eventAPIID.Value<int>();
-                ev.BeginAt = beginAt.ToString() == "" ? null : beginAt.Value<DateTime>().AddHours(13);
+                ev.BeginAt = beginAt.ToString() == "" ? null : beginAt.Value<DateTime>().AddHours(1);
                 ev.EventName = league.ToString() == "" ? null : league.Value<string>("name");
                 ev.LeagueName = nameStage.ToString() == "" ? null : nameStage.Value<string>();
                 ev.PrizePool = prizePool.ToString() == "" ? "0" : new string(prizePool.Value<string>().Where(char.IsDigit).ToArray());
@@ -257,7 +257,7 @@ namespace FPTV.Controllers
 
                 //Handling for null values
                 ev.EventAPIID = eventAPIID.ToString() == null ? -1 : eventAPIID.Value<int>();
-                ev.BeginAt = beginAt.ToString() == "" ? null : beginAt.Value<DateTime>().AddHours(13);
+                ev.BeginAt = beginAt.ToString() == "" ? null : beginAt.Value<DateTime>().AddHours(1);
                 ev.EventName = league.ToString() == "" ? null : league.Value<string>("name");
                 ev.LeagueName = nameStage.ToString() == "" ? null : nameStage.Value<string>();
                 ev.PrizePool = prizePool.ToString() == "" ? "0" : new string(prizePool.Value<string>().Where(char.IsDigit).ToArray());
@@ -447,8 +447,8 @@ namespace FPTV.Controllers
 
                 //Handling for null values
                 ev.EventAPIID = eventAPIID.ToString() == null ? -1 : eventAPIID.Value<int>();
-                ev.BeginAt = beginAt.ToString() == "" ? null : beginAt.Value<DateTime>().AddHours(13);
-                ev.EndAt = endAt.ToString() == "" ? null : endAt.Value<DateTime>().AddHours(13);
+                ev.BeginAt = beginAt.ToString() == "" ? null : beginAt.Value<DateTime>().AddHours(1);
+                ev.EndAt = endAt.ToString() == "" ? null : endAt.Value<DateTime>().AddHours(1);
                 ev.TimeType = timeType;
                 ev.Tier = tier.ToString() == "" ? null : tier.Value<char>();
                 ev.EventLink = league.ToString() == "" ? null : league.Value<string>("url");
@@ -540,8 +540,8 @@ namespace FPTV.Controllers
 
                 //Handling for null values
                 ev.EventAPIID = eventAPIID.ToString() == null ? -1 : eventAPIID.Value<int>();
-                ev.BeginAt = beginAt.ToString() == "" ? null : beginAt.Value<DateTime>().AddHours(13);
-                ev.EndAt = endAt.ToString() == "" ? null : endAt.Value<DateTime>().AddHours(13);
+                ev.BeginAt = beginAt.ToString() == "" ? null : beginAt.Value<DateTime>().AddHours(1);
+                ev.EndAt = endAt.ToString() == "" ? null : endAt.Value<DateTime>().AddHours(1);
                 ev.TimeType = timeType;
                 ev.Tier = tier.ToString() == "" ? null : tier.Value<char>();
                 ev.EventLink = league.ToString() == "" ? null : league.Value<string>("url");
@@ -624,7 +624,7 @@ namespace FPTV.Controllers
                     var m = new MatchesVal();
 
                     m.MatchesAPIID = o.GetValue("id").Value<int>();
-                    m.BeginAt = o.GetValue("begin_at").ToString() == "" ? null : o.GetValue("begin_at").Value<DateTime>().AddHours(13);
+                    m.BeginAt = o.GetValue("begin_at").ToString() == "" ? null : o.GetValue("begin_at").Value<DateTime>().AddHours(1);
                     m.TimeType = TimeType.Past;
                     m.NumberOfGames = o.GetValue("number_of_games").Value<int>();
 
@@ -654,7 +654,7 @@ namespace FPTV.Controllers
                     var m = new MatchesVal();
 
                     m.MatchesAPIID = o.GetValue("id").Value<int>();
-                    m.BeginAt = o.GetValue("begin_at").ToString() == "" ? null : o.GetValue("begin_at").Value<DateTime>().AddHours(13);
+                    m.BeginAt = o.GetValue("begin_at").ToString() == "" ? null : o.GetValue("begin_at").Value<DateTime>().AddHours(1);
                     m.TimeType = TimeType.Running;
                     m.NumberOfGames = o.GetValue("number_of_games").Value<int>();
 
@@ -683,7 +683,7 @@ namespace FPTV.Controllers
                     List<Score> scores = new();
 
                     m.MatchesAPIID = o.GetValue("id").Value<int>();
-                    m.BeginAt = o.GetValue("begin_at").ToString() == "" ? null : o.GetValue("begin_at").Value<DateTime>().AddHours(13);
+                    m.BeginAt = o.GetValue("begin_at").ToString() == "" ? null : o.GetValue("begin_at").Value<DateTime>().AddHours(1);
                     m.TimeType = TimeType.Upcoming;
                     m.NumberOfGames = o.GetValue("number_of_games").Value<int>();
 
@@ -765,7 +765,7 @@ namespace FPTV.Controllers
                     var m = new MatchesCS();
 
                     m.MatchesAPIID = o.GetValue("id").Value<int>();
-                    m.BeginAt = o.GetValue("begin_at").ToString() == "" ? null : o.GetValue("begin_at").Value<DateTime>().AddHours(13);
+                    m.BeginAt = o.GetValue("begin_at").ToString() == "" ? null : o.GetValue("begin_at").Value<DateTime>().AddHours(1);
                     m.TimeType = TimeType.Past;
                     m.NumberOfGames = o.GetValue("number_of_games").Value<int>();
 
@@ -799,7 +799,7 @@ namespace FPTV.Controllers
                     var m = new MatchesCS();
 
                     m.MatchesAPIID = o.GetValue("id").Value<int>();
-                    m.BeginAt = o.GetValue("begin_at").ToString() == "" ? null : o.GetValue("begin_at").Value<DateTime>().AddHours(13);
+                    m.BeginAt = o.GetValue("begin_at").ToString() == "" ? null : o.GetValue("begin_at").Value<DateTime>().AddHours(1);
                     m.TimeType = TimeType.Running;
                     m.NumberOfGames = o.GetValue("number_of_games").Value<int>();
 
@@ -828,7 +828,7 @@ namespace FPTV.Controllers
                     List<Score> scores = new();
 
                     m.MatchesAPIID = o.GetValue("id").Value<int>();
-                    m.BeginAt = o.GetValue("begin_at").ToString() == "" ? null : o.GetValue("begin_at").Value<DateTime>().AddHours(13);
+                    m.BeginAt = o.GetValue("begin_at").ToString() == "" ? null : o.GetValue("begin_at").Value<DateTime>().AddHours(1);
                     m.TimeType = TimeType.Upcoming;
                     m.NumberOfGames = o.GetValue("number_of_games").Value<int>();
 

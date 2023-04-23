@@ -219,8 +219,8 @@ namespace FPTV.Controllers
                     matches.MatchesAPIID = matchesAPIId.ToString() == null ? -1 : matchesAPIId.Value<int>();
                     matches.EventAPIID = eventAPIID.ToString() == null ? -1 : eventAPIID.Value<int>();
                     matches.EventName = eventName.ToString() == null ? "" : matches.LeagueName + " " + eventName.Value<string>();
-                    matches.BeginAt = beginAt.ToString() == "" ? new DateTime() : beginAt.Value<DateTime>().AddHours(13);
-                    matches.EndAt = endAt.ToString() == "" ? new DateTime() : endAt.Value<DateTime>().AddHours(13);
+                    matches.BeginAt = beginAt.ToString() == "" ? new DateTime() : beginAt.Value<DateTime>().AddHours(1);
+                    matches.EndAt = endAt.ToString() == "" ? new DateTime() : endAt.Value<DateTime>().AddHours(1);
                     matches.IsFinished = status.ToString() == "finished" ? true : false;
                     matches.HaveStats = haveStats.ToString() == "true" ? true : false;
                     matches.NumberOfGames = numberOfGames.ToString() == null ? 1 : numberOfGames.Value<int>();
