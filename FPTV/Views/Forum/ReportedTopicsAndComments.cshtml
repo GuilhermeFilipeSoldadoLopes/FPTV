@@ -175,6 +175,38 @@
 		</div>
 		<hr class="hrstyle" />
 		<!--------------------------------------------------------------->
+		@foreach (Topic t in @ViewData.TopicsReported)
+			{
+				string flag = "/images/Flags/4x3/" + t.Profile.Flag + ".svg";
+				int reactionCount = 0;
+				<button onclick="location.href='@Url.Action("Topic", "Forum", new {id = t.TopicId})'" style="margin:1%; width:100%;border-radius:5px" class="btn1 bordercolor">
+
+					<div style="width:60%;margin:auto;">
+						<p style="margin-bottom:0px;margin-left:3%;text-align: left;font-size:25px" id="toTranslate">@t.Title</p>
+					</div>
+
+					<div style="width:20%; margin: auto;text-align:center;display:flex;justify-content:center">
+
+						<div style="margin-bottom:0px;font-size:20px;display:flex;justify-content:center">
+							<img onclick="location.href='@Url.Action("Profile", "Forum", new {profileId = t.ProfileId})'" src="data:image/*;base64,@(Convert.ToBase64String(t.Profile.Picture))" style="width:50px;height: 50px;margin:auto" />
+							<p onclick="location.href='@Url.Action("Profile", "Forum", new {profileId = t.ProfileId})'" style="margin-top:25px;margin-left:5px;margin-right:5px;font-size:20px;font-weight:normal">@t.Profile.User.UserName </p>
+							<img src="@flag" style="width:25px" />
+						</div>
+					</div>
+
+					<div style="width:20%;text-align:right">
+						<p style="font-size:17px">@t.Date</p>
+						<p style="margin-bottom:0px;font-size:15px" id="toTranslate">@t.Comments.Count Comments</p>
+						@foreach (Comment c in t.Comments)
+						{
+							reactionCount += c.Reactions.Count;
+						}
+						<p style="margin-bottom:0px;font-size:15px" id="toTranslate">@reactionCount Reactions</p>
+
+					</div>
+
+				</button>
+			}
 		@*
 		@foreach(Comment c in Model.Comments)
 		{

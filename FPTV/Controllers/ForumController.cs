@@ -32,7 +32,7 @@ namespace FPTV.Controllers
         {
             _context = context;
             _userManager = userManager;
-        }
+        }        
 
         /// <summary>
         /// Asynchronously checks for an error and returns the Error403 view if an error is found. Otherwise, returns the Forum view with a list of topics.
@@ -42,7 +42,7 @@ namespace FPTV.Controllers
         {
             if (await CheckError303())
             {
-                return View("~/Views/Home/Error403.cshtml");
+                return View("~/Views/Home/Error403.1cshtml");
             }
 
             search ??= "";
@@ -79,8 +79,14 @@ namespace FPTV.Controllers
 
 		public IActionResult ReportedTopicsAndComments()
 		{
-			//page = "Forum";
-			return View();
+            var topics = _context.Topics.Where(t => t.Reported == true).ToList();
+
+            var comments = _context.Comments.Where(c => c.Reported == true).ToList();
+            ViewBag.TopicsReported = topics;
+            ViewBag.CommentsReported = comments;
+
+            //page = "Forum";
+            return View();
 		}
 
 		[Authorize]
