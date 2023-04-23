@@ -175,7 +175,7 @@
 		</div>
 		<hr class="hrstyle" />
 		<!--------------------------------------------------------------->
-		@foreach (Topic t in @ViewData.TopicsReported)
+		@foreach (Topic t in ViewBag.TopicsReported)
 			{
 				string flag = "/images/Flags/4x3/" + t.Profile.Flag + ".svg";
 				int reactionCount = 0;
