@@ -139,7 +139,7 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
 
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return ViewComponent("~/Views/Home/Error403.cshtml");
             }
 
             var profile = _context.Profiles.Include(p => p.PlayerList.Players).Include(p => p.TeamsList.Teams).Single(p => p.Id == user.ProfileId);
@@ -203,7 +203,7 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
             ViewData["FavCSTeamsList"] = csTeams;
             ViewData["FavValPlayerList"] = valPlayers;
             ViewData["FavValTeamsList"] = valTeams;
-            ViewData["Topics"] = new List<Topic>(); //_context.Topics.Where(t => t.ProfileId == profile.Id).ToList();
+            ViewData["Topics"] = _context.Topics.Where(t => t.ProfileId == profile.Id).ToList();
 
             await LoadAsync(user, profile);
             return Page();

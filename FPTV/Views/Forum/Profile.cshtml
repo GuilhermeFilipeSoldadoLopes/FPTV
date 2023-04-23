@@ -228,7 +228,10 @@
                         
                             foreach (var player in (List<Player>)ViewData["FavPlayerListCSGO"])
                             {
-                                <span class="span2 text-dark">@player.Name</span>
+                            <a style="text-decoration: none" href="@Url.Action("getPlayer", "Stats", new {id = player.PlayerAPIId, game = "csgo"})" style="justify-content: space-around; margin-left: auto; margin-bottom:0px">
+                                    <img src=@player.Image style="width:20px;height:auto" />
+                                    <span class="span2 text-dark">@player.Name</span>
+                                </a>
                                 <br />
                             }
                         
@@ -250,7 +253,10 @@
                         
                             foreach (var team in (List<Team>)ViewData["FavTeamsListCSGO"])
                             {
-                                <span class="span2 text-dark">@team.Name</span>
+                                <a style="text-decoration: none" href="@Url.Action("getTeam", "Stats", new {id = team.TeamAPIID, game = "csgo"})" style="justify-content: space-around; margin-left: auto; margin-bottom:0px">
+                                    <img src=@team.Image style="width:20px;height:auto" />
+                                    <span class="span2 text-dark">@team.Name</span>
+                                </a>
                                 <br />
                             }
                         
@@ -298,7 +304,9 @@
                     {
                         foreach (var item in (List<Topic>)ViewData["Topics"])
                         {
-                            <span class="span2 text-dark; text-transform: capitalize" id="toTranslate">@item.Title</span>
+                            <a style="text-decoration: none" href='@Url.Action("Topic", "Forum", new {id = item.TopicId})' style="justify-content: space-around; margin-left: auto; margin-bottom:0px">
+                                <span class="span2 text-dark; text-transform: capitalize" id="toTranslate">@item.Title</span>
+                            </a>
                             <br />
                         }
                     }
@@ -326,7 +334,10 @@
                         
                             foreach (var player in (List<Player>)ViewData["FavPlayerListValorant"])
                             {
-                                <span class="span2 text-dark">@player.Name</span>
+                                <a style="text-decoration: none" href="@Url.Action("getPlayer", "Stats", new {id = player.PlayerAPIId, game = "valorant"})" style="justify-content: space-around; margin-left: auto; margin-bottom:0px">
+                                    <img src=@player.Image style="width:20px;height:auto" />
+                                    <span class="span2 text-dark">@player.Name</span>
+                                </a>
                                 <br />
                             }
                         
@@ -348,7 +359,10 @@
                         
                             foreach (var team in (List<Team>)ViewData["FavTeamsListValorant"])
                             {
-                                <span class="span2 text-dark">@team.Name</span>
+                                <a style="text-decoration: none" href="@Url.Action("getTeam", "Stats", new {id = team.TeamAPIID, game = "valorant"})" style="justify-content: space-around; margin-left: auto; margin-bottom:0px">
+                                    <img src=@team.Image style="width:20px;height:auto" />
+                                    <span class="span2 text-dark">@team.Name</span>
+                                </a>
                                 <br />
                             }
                         
