@@ -83,11 +83,13 @@ namespace FPTV.Controllers
                 .ThenInclude(p => p.User)
                 .Include(c => c.Reactions)
                 .Where(c => c.Reported == true).ToList();
-            ViewBag.TopicsReported = topics;
-            ViewBag.CommentsReported = comments;
+
+            List<object> modelList = new();
+            modelList.AddRange(comments);
+            modelList.AddRange(topics);
 
             //page = "Forum";
-            return View();
+            return View(modelList);
 		}
 
 		public async Task<ActionResult> DeleteReportedPostAsync(int id)
