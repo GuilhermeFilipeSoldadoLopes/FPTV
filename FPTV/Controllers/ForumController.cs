@@ -76,9 +76,13 @@ namespace FPTV.Controllers
 
 		public IActionResult ReportedTopicsAndComments()
 		{
-            var topics = _context.Topics.Include(t => t.Profile).Where(t => t.Reported == true).ToList();
+            var topics = _context.Topics.Include(t => t.Profile).ThenInclude(p => p.User).Where(t => t.Reported == true).ToList();
 
-            var comments = _context.Comments.Include(c => c.Profile).Where(c => c.Reported == true).ToList();
+            var comments = _context.Comments
+                .Include(c => c.Profile)
+                .ThenInclude(p => p.User)
+                .Include(c => c.Reactions)
+                .Where(c => c.Reported == true).ToList();
             ViewBag.TopicsReported = topics;
             ViewBag.CommentsReported = comments;
 
