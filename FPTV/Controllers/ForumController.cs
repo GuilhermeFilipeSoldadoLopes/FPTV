@@ -2,12 +2,9 @@
 using FPTV.Models.Forum;
 using FPTV.Models.UserModels;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Hosting;
-using System.Reflection.Metadata;
 
 namespace FPTV.Controllers
 {
@@ -79,14 +76,96 @@ namespace FPTV.Controllers
 
 		public IActionResult ReportedTopicsAndComments()
 		{
-            var topics = _context.Topics.Where(t => t.Reported == true).ToList();
+            var topics = _context.Topics.Include(t => t.Profile).Where(t => t.Reported == true).ToList();
 
-            var comments = _context.Comments.Where(c => c.Reported == true).ToList();
+            var comments = _context.Comments.Include(c => c.Profile).Where(c => c.Reported == true).ToList();
             ViewBag.TopicsReported = topics;
             ViewBag.CommentsReported = comments;
 
             //page = "Forum";
             return View();
+		}
+
+		public async Task<ActionResult> DeleteReportedPostAsync(int id)
+		{
+
+			if (await CheckError303())
+			{
+				return View("~/Views/Home/Error403.cshtml");
+			}
+
+			ViewBag.Game = "";
+			ViewBag.page = "Forum";
+			var post = _context.Topics.Include(t => t.Comments).FirstOrDefault(t => t.TopicId == id);
+			var user = await _userManager.GetUserAsync(User);
+			var userRoles = await _userManager.GetRolesAsync(user);
+
+			if (post == null)
+			{
+				return View("~/Views/Home/Error404.cshtml");
+			}
+
+			var comments = post.Comments;
+
+			if (userRoles.Contains("admin", StringComparer.OrdinalIgnoreCase) || userRoles.Contains("moderator", StringComparer.OrdinalIgnoreCase) && post.Reported)
+			{
+
+				foreach (var comment in comments)
+				{
+                    if(comment.Reactions != null) 
+                    {
+						_context.RemoveRange(comment.Reactions);
+					}
+				}
+
+				_context.RemoveRange(comments);
+				_context.Remove(post);
+
+				await _context.SaveChangesAsync();
+
+				return RedirectToAction("ReportedTopicsAndComments");
+			}
+
+			return View("~/Views/Home/Error403.cshtml");
+		}
+
+		public async Task<ActionResult> DeleteReportedCommentAsync(Guid id)
+		{
+
+			if (await CheckError303())
+			{
+				return View("~/Views/Home/Error403.cshtml");
+			}
+
+			ViewBag.Game = "";
+			ViewBag.page = "Forum";
+			var comment = _context.Comments.Include(c => c.Reactions).FirstOrDefault(c => c.CommentId.Equals(id));
+			var user = await _userManager.GetUserAsync(User);
+			var userRoles = await _userManager.GetRolesAsync(user);
+
+			if (comment == null)
+			{
+				return View("~/Views/Home/Error404.cshtml");
+			}
+
+			var reactions = comment.Reactions;
+
+			if (userRoles.Contains("admin", StringComparer.OrdinalIgnoreCase) || userRoles.Contains("moderator", StringComparer.OrdinalIgnoreCase) && comment.Reported)
+			{
+
+				if(reactions != null)
+                {
+					_context.RemoveRange(reactions);
+				}
+			  
+				_context.Remove(comment);
+
+				await _context.SaveChangesAsync();
+
+				return RedirectToAction("ReportedTopicsAndComments");
+			}
+
+			return View("~/Views/Home/Error403.cshtml");
 		}
 
 		[Authorize]
@@ -363,29 +442,66 @@ namespace FPTV.Controllers
 
             ViewBag.Game = "";
             ViewBag.page = "Forum";
-            var post = _context.Topics.FirstOrDefault(t => t.TopicId == id);
+            var post = _context.Topics.Include(t => t.Comments).ThenInclude(c => c.Reactions).FirstOrDefault(t => t.TopicId == id);
             var user = await _userManager.GetUserAsync(User);
-            if (post == null || post.ProfileId != user.ProfileId)
+            var userRoles = await _userManager.GetRolesAsync(user);
+
+            if(post == null) 
             {
-                return View("~/Views/Home/Error404.cshtml");
-            }
-            post.Content = "This post has been deleted.";
-            post.Title = "[Deleted post]";
-			post.Deleted = true;
+				return View("~/Views/Home/Error404.cshtml");
+			}
 
-            await _context.SaveChangesAsync();
+			var comments = post.Comments;
 
-            return RedirectToAction("Topic", new { id });
+			if (userRoles.Contains("admin", StringComparer.OrdinalIgnoreCase) || userRoles.Contains("moderator", StringComparer.OrdinalIgnoreCase))
+            {
+
+                foreach(var comment in comments)
+                {
+					if (comment.Reactions != null)
+					{
+						_context.RemoveRange(comment.Reactions);
+					}
+				}
+
+                _context.RemoveRange(comments);
+                _context.Remove(post);
+
+				await _context.SaveChangesAsync();
+
+				return RedirectToAction("Index");
+			}
+
+            if (post.ProfileId != user.ProfileId)
+            {
+				return View("~/Views/Home/Error403.cshtml");
+			}
+
+			foreach (var comment in comments)
+			{
+                
+			
+			}
+
+			_context.RemoveRange(comments);
+			_context.Remove(post);
+
+			await _context.SaveChangesAsync();
+
+			return RedirectToAction("Index");
         }
 
-        /// <summary>
-        /// Deletes a comment from the database.
-        /// </summary>
-        /// <param name="id">The ID of the comment to delete.</param>
-        /// <param name="topicId">The ID of the topic the comment belongs to.</param>
-        /// <returns>A redirect to the topic page.</returns>
-        public async Task<ActionResult> DeleteCommentAsync(Guid id, int topicId)
+		
+
+		/// <summary>
+		/// Deletes a comment from the database.
+		/// </summary>
+		/// <param name="id">The ID of the comment to delete.</param>
+		/// <param name="topicId">The ID of the topic the comment belongs to.</param>
+		/// <returns>A redirect to the topic page.</returns>
+		public async Task<ActionResult> DeleteCommentAsync(Guid id, int topicId)
         {
+
             if (await CheckError303())
             {
                 return View("~/Views/Home/Error403.cshtml");
@@ -393,16 +509,40 @@ namespace FPTV.Controllers
 
             ViewBag.Game = "";
             ViewBag.page = "Forum";
-            var comment = _context.Comments.Include(c => c.Profile).FirstOrDefault(c => c.CommentId == id);
+            var comment = _context.Comments.Include(c => c.Profile).Include(c => c.Reactions).FirstOrDefault(c => c.CommentId == id);
 			var user = await _userManager.GetUserAsync(User);
-			if (comment == null || !comment.Profile.Id.Equals(user.ProfileId))
-			{
+			var userRoles = await _userManager.GetRolesAsync(user);
+
+            if(comment == null)
+            {
 				return View("~/Views/Home/Error404.cshtml");
 			}
-			comment.Text = "[Deleted comment]";
-			comment.Deleted = true;
 
-            await _context.SaveChangesAsync();
+            if (userRoles.Contains("admin", StringComparer.OrdinalIgnoreCase) || userRoles.Contains("moderator", StringComparer.OrdinalIgnoreCase))
+            {
+                if(comment.Reactions != null) 
+                {
+					_context.RemoveRange(comment.Reactions);
+				}
+
+                _context.Remove(comment);
+                await _context.SaveChangesAsync();
+
+				return RedirectToAction("Topic", new { id = topicId });
+			}
+			
+            if (!comment.Profile.Id.Equals(user.ProfileId))
+			{
+				return View("~/Views/Home/Error403.cshtml");
+			}
+
+			if (comment.Reactions != null)
+			{
+				_context.RemoveRange(comment.Reactions);
+			}
+
+			_context.Remove(comment);
+			await _context.SaveChangesAsync();
 
             return RedirectToAction("Topic", new { id = topicId });
         }
@@ -431,13 +571,18 @@ namespace FPTV.Controllers
             var react = _context.Reactions
                 .Include(r => r.Comment)
                 .Include(r => r.Profile)
-                .FirstOrDefault(r => r.Comment.CommentId == comment.CommentId && r.Profile.Id == profile.Id && r.ReactionEmoji == reaction);
+                .FirstOrDefault(r => r.Comment.CommentId == comment.CommentId && r.Profile.Id == profile.Id);
 
             if (react != null)
             {
                 _context.Reactions.Remove(react);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Topic", new { id = topicId });
+
+                if(react.ReactionEmoji.Equals(reaction))
+                {
+					return RedirectToAction("Topic", new { id = topicId });
+				}
+
             }
 
             if (comment == null || topic == null)
