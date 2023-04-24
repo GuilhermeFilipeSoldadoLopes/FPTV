@@ -96,7 +96,7 @@ namespace FPTV.Controllers
 
 			ViewBag.Game = "";
 			ViewBag.page = "Forum";
-			var post = _context.Topics.Include(t => t.Comments).FirstOrDefault(t => t.TopicId == id);
+			var post = _context.Topics.Include(t => t.Comments).ThenInclude(c => c.Reactions).FirstOrDefault(t => t.TopicId == id);
 			var user = await _userManager.GetUserAsync(User);
 			var userRoles = await _userManager.GetRolesAsync(user);
 
