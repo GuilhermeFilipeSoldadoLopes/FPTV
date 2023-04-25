@@ -166,9 +166,9 @@
 							<p style ="font-size:17px;width:70%;text-align:left;padding:0px; margin:auto;margin-left:15px" id="toTranslate"> @Model.Content </p>
 							
 							<div style="width:30%;display:flex">
-							<img onclick="location.href='@Url.Action("Profile", "Forum", new {profileId = Model.ProfileId})'" src="data:image/*;base64,@(Convert.ToBase64String(Model.Profile.Picture))" style="width:70px" />
+							<img onclick="location.href='@Url.Action("Profile", "Forum", new {profileId = Model.ProfileId})'" src="data:image/*;base64,@(Convert.ToBase64String(Model.Profile.Picture))" style="width:70px; cursor:pointer;" />
 
-								<p onclick="location.href='@Url.Action("Profile", "Forum", new {profileId = Model.ProfileId})'" style="margin-top:25px;margin-left:5px;margin-right:5px;font-size:20px;font-weight:normal">@Model.Profile.User.UserName </p>
+							<p onclick="location.href='@Url.Action("Profile", "Forum", new {profileId = Model.ProfileId})'" style="cursor:pointer;margin-top:25px;margin-left:5px;margin-right:5px;font-size:20px;font-weight:normal">@Model.Profile.User.UserName </p>
 
 								<img src="@flag" style="width:10%" />
 							</div>

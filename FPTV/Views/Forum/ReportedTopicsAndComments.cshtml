@@ -196,7 +196,7 @@
 
 
 						<div style="margin-bottom:0px;margin-left: 10px;font-size:20px;justify-content:center;padding: 5px">
-								<img src="~/images/trash.png" style="width:3%;margin:auto;margin-bottom:10px;cursor: pointer" />
+								<img src="~/images/trash.png" style="width:25px;margin:auto;margin-bottom:10px;cursor: pointer" />
 								<span class="categoria" style="margin-bottom:10px;font-size:20px;padding:10px;margin-left:10px;margin-right:10px;" id="toTranslate">Topic</span>
 								<img src="~/images/openTrash.png" style="width:7%;margin:auto;margin-bottom:10px;cursor: pointer" />
 						</div>
@@ -211,17 +211,6 @@
 							</div>
 						</div>
 
-						<div style="width:20%;text-align:right">
-							<p style="font-size:17px">@t.Date</p>
-							<p style="margin-bottom:0px;font-size:15px" id="toTranslate">@t.Comments.Count Comments</p>
-							@foreach (Comment c in t.Comments)
-							{
-								reactionCount += c.Reactions.Count;
-							}
-							<p style="margin-bottom:0px;font-size:15px" id="toTranslate">@reactionCount Reactions</p>
-
-						</div>
-
 				</div>
 			}
 
@@ -229,77 +218,36 @@
 			{
 				var c = obj as Comment;
 				string cflag = "/images/Flags/4x3/" + c.Profile.Flag + ".svg";
-				<div style="border-radius:5px;width:95%;padding:3px;margin:auto;margin-top:1%" class="btn1 bordercolor">
-					<div style="width:100%">
-
-						<div style="width:100%;display:flex;">
-
-							<div style="width:70%;text-align:left;display:flex;padding:1%">
-								<img onclick="location.href='@Url.Action("Profile", "Forum", new {profileId = c.Profile.Id})'" src="data:image/*;base64,@(Convert.ToBase64String(c.Profile.Picture))" style="width:50px" />
-								<h5 onclick="location.href='@Url.Action("Profile", "Forum", new {profileId = c.Profile.Id})'" style="margin-bottom:0px;margin-left:15px;margin-top:10px"> @c.Profile.User.UserName </h5>
-								<img src="@cflag" style="width:3%;margin-left:10px" />
-							</div>
-
-							<div style="width:30%;text-align:right">
-								<p style="font-size:17px;text-align:right;margin-bottom:0px">@c.Date </p>
-							</div>
-						</div>
-
-						<div style="margin-bottom:0px;margin-left: 10px;font-size:20px;justify-content:center;padding: 5px;">
-							<img src="~/images/trash.png" style="width:3%;margin:auto;margin-bottom:10px;cursor: pointer" />
-							<span class="categoria" style="margin-bottom:10px;font-size:20px;padding:10px;margin-left:10px;margin-right:10px;" id="toTranslate">Comment</span>
-							<img src="~/images/openTrash.png" style="width:7%;margin:auto;margin-bottom:10px;cursor: pointer" />
-						</div>
-
-						<div style="width:100%;margin: auto;display:flex">
-							<div style="margin-bottom:0px;font-size:20px;display:flex;width:100%">
-								<p style="font-size:17px;width:70%;text-align:left;padding:0px; margin:auto;margin-left:15px" id="toTranslate">@c.Text</p>
-							</div>
-						</div>
-
-						<!-------------------REAÇÕES---------------------->
-						<div style="width:100%;display:flex;justify-content:right">
-				@{
-					var user = await userManager.GetUserAsync(User);
-					var profileId = user.ProfileId;
-				}
-
 				
+			<!--          -->
+				<div style="border-radius:5px;width:95%;padding:3px;margin:auto;margin-top:1%;" class="btn1 bordercolor">
 
 
-				<div style="display:flex;justify-content:right;width:93%">
-				<p style="margin-bottom:0px;margin-left:3px;margin-right:3px">@c.Reactions.Where(r => r.ReactionEmoji == ReactionType.Love).ToList().Count</p>
-				<button style="background-color:transparent;border:none;width:2%;padding:0px;margin:0px">
-				<img src="~/images/reactions/love.png" style="width: 15px;height: 15px;" />
-				</button>
-
-				<p style="margin-bottom:0px;margin-left:3px;margin-right:3px">@c.Reactions.Where(r => r.ReactionEmoji == ReactionType.Like).ToList().Count</p>
-				<button style="background-color:transparent;border:none;width:2%;padding:0px;margin:0px">
-				<img src="~/images/reactions/like.png" style="width: 15px;height: 15px;" />
-				</button>
-
-				<p style="margin-bottom:0px;margin-left:3px;margin-right:3px">@c.Reactions.Where(r => r.ReactionEmoji == ReactionType.Dislike).ToList().Count</p>
-				<button style="background-color:transparent;border:none;width:2%;padding:0px;margin:0px">
-				<img src="~/images/reactions/dislike.png" style="width: 15px;height: 15px;" />
-				</button>
-
-				<p style="margin-bottom:0px;margin-left:3px;margin-right:3px">@c.Reactions.Where(r => r.ReactionEmoji == ReactionType.Happy).ToList().Count</p>
-				<button style="background-color:transparent;border:none;width:2%;padding:0px;margin:0px">
-				<img src="~/images/reactions/happy.png" style="width: 15px;height: 15px;" />
-				</button>
+					<div style="width:35%;margin:auto;">
+						<div style="margin-bottom:0px;font-size:20px;display:flex;width:100%">
+							<p style="font-size:17px;width:70%;text-align:left;padding:0px; margin:auto;margin-left:15px" id="toTranslate">@c.Text</p>
+						</div>
+					</div>
 
 
-				<p style="margin-bottom:0px;margin-left:3px;margin-right:3px">@c.Reactions.Where(r => r.ReactionEmoji == ReactionType.Sad).ToList().Count</p>
-				<button style="background-color:transparent;border:none;width:2%;padding:0px;margin:0px">
-				<img src="~/images/reactions/sad.png" style="width: 15px;height: 15px;" />
-				</button>
+					<div style="margin-bottom:0px;font-size:20px;justify-content:center;padding: 5px">
+						<img src="~/images/trash.png" style="width:3%;margin:auto;margin-bottom:10px;cursor: pointer" />
+						<span class="categoria" style="margin-bottom:10px;font-size:20px;padding:10px;margin-left:10px;margin-right:10px;" id="toTranslate">Comment</span>
+						<img src="~/images/openTrash.png" style="width:7%;margin:auto;margin-bottom:10px;cursor: pointer" />
+					</div>
+
+
+					<div style="width:20%; margin: auto;text-align:center;display:flex;justify-content:center;">
+
+						<div style="margin-bottom:0px;;font-size:20px;display:flex;justify-content:center">
+							<img onclick="location.href='@Url.Action("Profile", "Forum", new {profileId = c.Profile.Id})'" src="data:image/*;base64,@(Convert.ToBase64String(c.Profile.Picture))" style="width:50px" />
+							<h5 onclick="location.href='@Url.Action("Profile", "Forum", new {profileId = c.Profile.Id})'" style="margin-bottom:0px;margin-left:15px;margin-top:10px"> @c.Profile.User.UserName </h5>
+							<img src="@cflag" style="width:25px;margin-left:10px" />
+							
+						</div>
+					</div>
+
 				</div>
-				</div>
-				
-		
-		
-				</div>
-			</div>
 			}
 		}
 			
