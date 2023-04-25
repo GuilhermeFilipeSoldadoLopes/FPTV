@@ -293,8 +293,8 @@
             <br />
 
             <div style="width:90%;position:relative;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:black;border-width:1px;border-radius:10px;padding:10px;background-color:white">
-                <h4 class="text-dark; text-transform: capitalize" id="toTranslate">Topics:</h4>
-                <div style="padding-left:20px">
+                <h4 class="text-dark; text-transform: capitalize" id="toTranslate" style="color:black">Topics:</h4>
+                <div style="padding-left:20px;">
                     @if (ViewData["Topics"] == null || ((List<Topic>)ViewData["Topics"]).Count() == 0)
                     {
                         <span class="span2 text-dark; text-transform: capitalize" id="toTranslate">No Topics</span>
@@ -304,8 +304,8 @@
                     {
                         foreach (var item in (List<Topic>)ViewData["Topics"])
                         {
-                            <a style="text-decoration: none" href='@Url.Action("Topic", "Forum", new {id = item.TopicId})' style="justify-content: space-around; margin-left: auto; margin-bottom:0px">
-                                <span class="span2 text-dark; text-transform: capitalize" id="toTranslate">@item.Title</span>
+                            <a href='@Url.Action("Topic", "Forum", new {id = item.TopicId})' style="justify-content: space-around; margin-left: auto; margin-bottom:0px;text-decoration: none;color:black">
+                                <span class="span2 text-dark; text-transform: capitalize ;" style="text-decoration: none" id="toTranslate">@item.Title</span>
                             </a>
                             <br />
                         }

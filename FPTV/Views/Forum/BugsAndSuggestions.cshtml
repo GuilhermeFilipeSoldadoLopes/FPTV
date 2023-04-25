@@ -159,34 +159,36 @@
 				<p style="margin-bottom:0px;font-size:20px" id="toTranslate">Report bugs and provide suggestions and clear doubts through comments and then we will contact you about it.</p>
 				</div>
 
+			
 			<div style="width:20%;text-align:right;margin:20px">
 					<img src="~/images/logo2.png" style="width:30%" />
 					<p style="margin-bottom:0px;font-size:20px" id="toTranslate">0 Comments</p>@*por corrigir*@
 					<p style="margin-bottom:0px;font-size:20px" id="toTranslate">0 Reactions</p> @*por corrigir*@
 					
 				</div>
+			
 			</div>
-		<div class="buttons bodycolor">
-			<div class="buttons bodycolor" style="width:auto%;position:relative;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:black;border-width:1px;border-radius:10px;padding:10px;background-color:white">
-				<input name="search" style="border:none" type="text" placeholder="New Comment">
-				<span style="margin-left:5%">
-					<img src="~/images/image.png"  width=10% height=auto/>
-				</span>
-				
-			</div>
+		
+		<div style="display:flex;width:95%;padding:3px;margin:auto;">
+			<div class="buttons bodycolor">
 
-			<div class="dropdown" style="width:13%;height:20%">
-				<button class="button2" id="toTranslate">Sort by</button>
-				<div class="dropdown-content" style="margin-left:0px;">
-					<a href="@Url.Action("Index", "Events", new { sort = "&sort=-begin_at", filter = ViewBag.filter, game = ViewData["game"]})">Newest</a>
-					<a href="@Url.Action("Index", "Events", new { sort = "&sort=begin_at", filter = ViewBag.filter, game = ViewData["game"]})">Oldest</a>
-					<a href="@Url.Action("Index", "Events")">Hot</a>
+				<div style="border: 1px solid black; border-radius:15px;background-color:white;width:50%;display:flex;"> <input required style="flex:1;border:0;outline:0; width:65%;padding:30px;border-radius:15px; margin: 0.5% 0;" name="Text" placeholder="New Comment" />
+					<button type="submit" style="background-color: transparent"><img src="~/images/send.png" style="width:15%;margin:auto" /></button>
+				
+				</div>
+
+				<div  class="dropdown" style="margin:auto">
+					<button class="button2" id="toTranslate">Sort by</button>
+					<div class="dropdown-content" style="margin-left:0px;">
+						<a href="@Url.Action("Index", "Events", new { sort = "&sort=-begin_at", filter = ViewBag.filter, game = ViewData["game"]})">Newest</a>
+						<a href="@Url.Action("Index", "Events", new { sort = "&sort=begin_at", filter = ViewBag.filter, game = ViewData["game"]})">Oldest</a>
+						<a href="@Url.Action("Index", "Events")">Hot</a>
+					</div>
+			
 				</div>
 			</div>
 		</div>
-			<hr class="hrstyle"/>
-
-		</div>
+		<hr class="hrstyle" />
 	</div>
 </body>
 </html>

@@ -13,8 +13,14 @@ html {
 }
 
 @media (max-width: 767px) {
-    .dropdownWidth{
-        width:150px !important;
+    .flexstartcss {
+        justify-content: flex-start !important;
+    }
+    .flexendcss {
+        justify-content: flex-end !important;
+    }
+    .dropdownWidth {
+        width: 150px !important;
     }
     footer {
         margin-top: 3% !important;
