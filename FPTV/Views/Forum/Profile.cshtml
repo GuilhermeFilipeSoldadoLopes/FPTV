@@ -216,11 +216,11 @@
             <br />
 
             <div style="width:80%;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:black;background-color:white;border-width:1px;border-radius:10px;padding:10px;">
-                <h4 class="text-dark; text-transform: capitalize" id="toTranslate">Favourite Players:</h4>
+                <h4 class="text-dark; text-transform: capitalize" id="toTranslate" style="color:black" >Favourite Players:</h4>
                 <div style="padding-left:20px">
                     @if (ViewData["FavPlayerListCSGO"] == null || ((List<Player>)ViewData["FavPlayerListCSGO"]).Count() == 0)
                     {
-                        <span class="span2 text-dark; text-transform: capitalize" id="toTranslate">No Favourite Players</span>
+                        <span class="span2 text-dark; text-transform: capitalize" id="toTranslate" style="color:black">No Favourite Players</span>
                         <br />
                     }
                     else
@@ -228,7 +228,7 @@
                         
                             foreach (var player in (List<Player>)ViewData["FavPlayerListCSGO"])
                             {
-                            <a style="text-decoration: none" href="@Url.Action("getPlayer", "Stats", new {id = player.PlayerAPIId, game = "csgo"})" style="justify-content: space-around; margin-left: auto; margin-bottom:0px">
+                            <a style="text-decoration: none" href="@Url.Action("getPlayer", "Stats", new {id = player.PlayerAPIId, game = "csgo"})" style="justify-content: space-around; margin-left: auto; margin-bottom:0px;color:black">
                                     <img src=@player.Image style="width:20px;height:auto" />
                                     <span class="span2 text-dark">@player.Name</span>
                                 </a>
@@ -241,11 +241,11 @@
             <br />
 
             <div style="width:80%;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:black;background-color:white;border-width:1px;border-radius:10px;padding:10px;">
-                <h4 class="text-dark; text-transform: capitalize" id="toTranslate">Favourite Teams:</h4>
+                <h4 class="text-dark; text-transform: capitalize" id="toTranslate" style="color:black">Favourite Teams:</h4>
                 <div style="padding-left:20px">
                     @if (ViewData["FavTeamsListCSGO"] == null || ((List<Team>)ViewData["FavTeamsListCSGO"]).Count() == 0)
                     {
-                        <span class="span2 text-dark; text-transform: capitalize" id="toTranslate">No Favourite Teams</span>
+                        <span class="span2 text-dark; text-transform: capitalize" id="toTranslate" style="color:black">No Favourite Teams</span>
                         <br />
                     }
                     else
@@ -253,7 +253,7 @@
                         
                             foreach (var team in (List<Team>)ViewData["FavTeamsListCSGO"])
                             {
-                                <a style="text-decoration: none" href="@Url.Action("getTeam", "Stats", new {id = team.TeamAPIID, game = "csgo"})" style="justify-content: space-around; margin-left: auto; margin-bottom:0px">
+                                <a style="text-decoration: none" href="@Url.Action("getTeam", "Stats", new {id = team.TeamAPIID, game = "csgo"})" style="justify-content: space-around; margin-left: auto; margin-bottom:0px;color:black">
                                     <img src=@team.Image style="width:20px;height:auto" />
                                     <span class="span2 text-dark">@team.Name</span>
                                 </a>
@@ -322,11 +322,11 @@
             <br />
 
             <div style="width:80%;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:black;background-color:white;border-width:1px;border-radius:10px;padding:10px;">
-                <h4 class="text-dark; text-transform: capitalize" id="toTranslate">Favourite Players:</h4>
+                <h4 class="text-dark; text-transform: capitalize" id="toTranslate" style="color:black">Favourite Players:</h4>
                 <div style="padding-left:20px">
                     @if (ViewData["FavPlayerListValorant"] == null || ((List<Player>)ViewData["FavPlayerListValorant"]).Count() == 0)
                     {
-                        <span class="span2 text-dark; text-transform: capitalize" id="toTranslate">No Favourite Players</span>
+                        <span class="span2 text-dark; text-transform: capitalize" id="toTranslate" style="color:black">No Favourite Players</span>
                         <br />
                     }
                     else
@@ -334,7 +334,7 @@
                         
                             foreach (var player in (List<Player>)ViewData["FavPlayerListValorant"])
                             {
-                                <a style="text-decoration: none" href="@Url.Action("getPlayer", "Stats", new {id = player.PlayerAPIId, game = "valorant"})" style="justify-content: space-around; margin-left: auto; margin-bottom:0px">
+                                <a style="text-decoration: none" href="@Url.Action("getPlayer", "Stats", new {id = player.PlayerAPIId, game = "valorant"})" style="justify-content: space-around; margin-left: auto; margin-bottom:0px;color:black">
                                     <img src=@player.Image style="width:20px;height:auto" />
                                     <span class="span2 text-dark">@player.Name</span>
                                 </a>
@@ -347,11 +347,11 @@
             <br />
 
             <div style="width:80%;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:black;background-color:white;border-width:1px;border-radius:10px;padding:10px;">
-                <h4 class="text-dark; text-transform: capitalize" id="toTranslate">Favourite Teams:</h4>
+                <h4 class="text-dark; text-transform: capitalize" id="toTranslate" style="color:black">Favourite Teams:</h4>
                 <div style="padding-left:20px">
                     @if (ViewData["FavTeamsListValorant"] == null || ((List<Team>)ViewData["FavTeamsListValorant"]).Count() == 0)
                     {
-                        <span class="span2 text-dark; text-transform: capitalize" id="toTranslate">No Favourite Teams</span>
+                        <span class="span2 text-dark; text-transform: capitalize" id="toTranslate" style="color:black">No Favourite Teams</span>
                         <br />
                     }
                     else
@@ -359,7 +359,7 @@
                         
                             foreach (var team in (List<Team>)ViewData["FavTeamsListValorant"])
                             {
-                                <a style="text-decoration: none" href="@Url.Action("getTeam", "Stats", new {id = team.TeamAPIID, game = "valorant"})" style="justify-content: space-around; margin-left: auto; margin-bottom:0px">
+                                <a style="text-decoration: none" href="@Url.Action("getTeam", "Stats", new {id = team.TeamAPIID, game = "valorant"})" style="justify-content: space-around; margin-left: auto; margin-bottom:0px;color:black">
                                     <img src=@team.Image style="width:20px;height:auto" />
                                     <span class="span2 text-dark">@team.Name</span>
                                 </a>
