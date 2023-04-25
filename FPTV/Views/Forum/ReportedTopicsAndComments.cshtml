@@ -190,9 +190,13 @@
 				<div style="border-radius:5px;width:95%;padding:3px;margin:auto;margin-top:1%" class="btn1 bordercolor">
 
 					<div style="width:25%;margin-bottom:0px;margin-left: 10px;font-size:20px;justify-content:left;padding: 5px;;display:flex">
-						<img src="~/images/trash.png" style="width:25px;o;cursor: pointer;margin: auto 0;height:30px" />
+						<button onclick="location.href='@Url.Action("DeleteReportedPostAsync", "Forum", new {id = t.TopicId})'" style="background-color:transparent;border:none;width:2%;padding:0px;margin:0px">
+							<img src="~/images/trash.png" style="width:25px;margin:auto;margin-bottom:10px;cursor: pointer" />
+						</button>
 						<span class="categoria" style="margin-bottom:10px;font-size:20px;padding:10px;margin-left:10px;margin-right:10px;" id="toTranslate">Topic</span>
-						<img src="~/images/openTrash.png" class="headshot" style="width:40px;height:55px !important;margin: auto 0;height:30px;margin-bottom:10px;cursor: pointer" />
+						<button onclick="location.href='@Url.Action("TopicReportRemove", "Forum", new {id = t.TopicId})'" style="background-color:transparent;border:none;width:2%;padding:0px;margin:0px">
+							<img src="~/images/openTrash.png" style="width:7%;margin:auto;margin-bottom:10px;cursor: pointer" />
+						</button>
 					</div>
 
 					<div style="width:35%;margin:auto;text-align:center">
@@ -220,9 +224,13 @@
 				<div style="border-radius:5px;width:95%;padding:3px;margin:auto;margin-top:1%;" class="btn1 bordercolor">
 
 					<div style="width:25%;margin-bottom:0px;margin-left: 10px;font-size:20px;justify-content:left;padding: 5px;display:flex">
-						<img src="~/images/trash.png" style="width:25px;margin-bottom:10px;cursor: pointer;height:30px;margin: auto 0;"  />
+						<button onclick="location.href='@Url.Action("DeleteReportedCommentAsync", "Forum", new {id = c.CommentId})'" style="background-color:transparent;border:none;width:2%;padding:0px;margin:0px">
+							<img src="~/images/trash.png" style="width:3%;margin:auto;margin-bottom:10px;cursor: pointer" />
+						</button>
 						<span class="categoria" style="margin-bottom:10px;font-size:20px;padding:10px;margin-left:10px;margin-right:10px;" id="toTranslate">Comment</span>
-						<img src="~/images/openTrash.png" class="headshot" style="width:40px;height:55px !important;cursor: pointer;height:30px;margin: auto 0;" />
+						<button onclick="location.href='@Url.Action("CommentReportRemove", "Forum", new {id = c.CommentId})'" style="background-color:transparent;border:none;width:2%;padding:0px;margin:0px">
+							<img src="~/images/openTrash.png" style="width:7%;margin:auto;margin-bottom:10px;cursor: pointer" />
+						</button>
 					</div>
 
 					<div style="width:35%;margin:auto;text-align:center">
