@@ -137,6 +137,7 @@ namespace FPTV.Controllers
 			return View("~/Views/Home/Error403.cshtml");
 		}
 
+        [Authorize]
 		public async Task<ActionResult> DeleteReportedCommentAsync(Guid id)
 		{
 
@@ -385,6 +386,55 @@ namespace FPTV.Controllers
             _context.SaveChanges();
 
             return RedirectToAction("Topic", new { id, alert = message });
+        }
+
+      
+        [Authorize]
+        /// <summary>
+        /// Remove reports from a topic.
+        /// </summary>
+        /// <param name="id">The ID of the post to be remove the report.</param>
+        /// <returns>Redirects to the ReportedTopicsAndComments page.</returns>
+        public ActionResult TopicReportRemove(int id)
+        {
+            ViewBag.Game = "";
+            ViewBag.page = "Forum";
+
+            var post = _context.Topics.FirstOrDefault(t => t.TopicId == id);
+
+            if (post == null)
+            {
+                return View("~/Views/Home/Error404.cshtml");
+            }
+
+            post.Reported = false;
+            _context.SaveChanges();
+
+            return RedirectToAction("ReportedTopicsAndComments");
+        }
+
+
+        [Authorize]
+        /// <summary>
+        /// Remove reports from a comment.
+        /// </summary>
+        /// <param name="id">The ID of the post to be remove the report.</param>
+        /// <returns>Redirects to the ReportedTopicsAndComments page.</returns>
+        public ActionResult CommentReportRemove(Guid id)
+        {
+            ViewBag.Game = "";
+            ViewBag.page = "Forum";
+
+            var comment = _context.Comments.Include(c => c.Profile).FirstOrDefault(c => c.CommentId == id);
+            if (comment == null)
+            {
+                return View("~/Views/Home/Error404.cshtml");
+            }
+
+            comment.Reported = false;
+            _context.SaveChanges();
+
+            return RedirectToAction("ReportedTopicsAndComments");
         }
 
         // POST: ForumController/Edit/5
