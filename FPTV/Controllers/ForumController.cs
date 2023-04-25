@@ -320,6 +320,22 @@ namespace FPTV.Controllers
                 return View("~/Views/Home/Error404.cshtml");
             }
 
+            if (profile.PlayerList == null)
+            {
+                profile.PlayerList = new FavPlayerList();
+                profile.PlayerList.Profile = profile;
+                profile.PlayerList.ProfileId = user.ProfileId;
+                profile.PlayerList.Players = new List<Player>();
+            }
+
+            if (profile.TeamsList == null)
+            {
+                profile.TeamsList = new FavTeamsList();
+                profile.TeamsList.Profile = profile;
+                profile.TeamsList.ProfileId = user.ProfileId;
+                profile.TeamsList.Teams = new List<Team>();
+            }
+
             ViewData["Topics"] = topics;
             ViewData["FavTeamsListValorant"] = profile.TeamsList.Teams.Where(t => t.Game == GameType.Valorant).ToList();
             ViewData["FavPlayerListValorant"] = profile.PlayerList.Players.Where(t => t.Game == GameType.Valorant).ToList(); 
