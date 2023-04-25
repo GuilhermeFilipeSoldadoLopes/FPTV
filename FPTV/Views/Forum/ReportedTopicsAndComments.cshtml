@@ -188,33 +188,26 @@
 				string flag = "/images/Flags/4x3/" + t.Profile.Flag + ".svg";
 				int reactionCount = 0;
 				<div style="border-radius:5px;width:95%;padding:3px;margin:auto;margin-top:1%" class="btn1 bordercolor">
-					
-					
-						<div style="width:35%;margin:auto;">
-							<h5 style="margin-bottom:0px;margin-left:3%;text-align: left;font-size:25px," id="toTranslate">@t.Title</h5>
+
+					<div style="width:25%;margin-bottom:0px;margin-left: 10px;font-size:20px;justify-content:left;padding: 5px;;display:flex">
+						<img src="~/images/trash.png" style="width:25px;o;cursor: pointer;margin: auto 0;height:30px" />
+						<span class="categoria" style="margin-bottom:10px;font-size:20px;padding:10px;margin-left:10px;margin-right:10px;" id="toTranslate">Topic</span>
+						<img src="~/images/openTrash.png" class="headshot" style="width:40px;height:55px !important;margin: auto 0;height:30px;margin-bottom:10px;cursor: pointer" />
+					</div>
+
+					<div style="width:35%;margin:auto;text-align:center">
+						<h5 style="margin-bottom:0px;margin-left:3%;text-align: left;font-size:25px;text-align:center" id="toTranslate">@t.Title</h5>
+					</div>
+
+					<div style="width:10%; margin: auto;text-align:center;display:flex;justify-content:center">
+
+						<div style="margin-bottom:0px;margin-left: 10px;font-size:20px;display:flex;justify-content:center">
+							<img onclick="location.href='@Url.Action("Profile", "Forum", new {profileId = t.ProfileId})'" src="data:image/*;base64,@(Convert.ToBase64String(t.Profile.Picture))" style="width:50px;height: 50px;margin:auto" />
+							<p onclick="location.href='@Url.Action("Profile", "Forum", new {profileId = t.ProfileId})'" style="margin-top:25px;margin-left:5px;margin-right:5px;font-size:20px;font-weight:normal">@t.Profile.User.UserName </p>
+							<img src="@flag" style="width:25px" />
 						</div>
 
-
-						<div style="margin-bottom:0px;margin-left: 10px;font-size:20px;justify-content:center;padding: 5px">
-							<button onclick="location.href='@Url.Action("DeleteReportedPostAsync", "Forum", new {id = t.TopicId})'" style="background-color:transparent;border:none;width:2%;padding:0px;margin:0px">
-								<img src="~/images/trash.png" style="width:25px;margin:auto;margin-bottom:10px;cursor: pointer" />
-							</button>
-								<span class="categoria" style="margin-bottom:10px;font-size:20px;padding:10px;margin-left:10px;margin-right:10px;" id="toTranslate">Topic</span>
-							<button onclick="location.href='@Url.Action("TopicReportRemove", "Forum", new {id = t.TopicId})'" style="background-color:transparent;border:none;width:2%;padding:0px;margin:0px">
-								<img src="~/images/openTrash.png" style="width:7%;margin:auto;margin-bottom:10px;cursor: pointer" />
-							</button>
-								
-						</div>
-
-				
-						<div style="width:20%; margin: auto;text-align:center;display:flex;justify-content:center">
-
-							<div style="margin-bottom:0px;margin-left: 10px;font-size:20px;display:flex;justify-content:center">
-								<img onclick="location.href='@Url.Action("Profile", "Forum", new {profileId = t.ProfileId})'" src="data:image/*;base64,@(Convert.ToBase64String(t.Profile.Picture))" style="width:50px;height: 50px;margin:auto" />
-								<p onclick="location.href='@Url.Action("Profile", "Forum", new {profileId = t.ProfileId})'" style="margin-top:25px;margin-left:5px;margin-right:5px;font-size:20px;font-weight:normal">@t.Profile.User.UserName </p>
-								<img src="@flag" style="width:25px" />
-							</div>
-						</div>
+					</div>
 
 				</div>
 			}
@@ -223,37 +216,28 @@
 			{
 				var c = obj as Comment;
 				string cflag = "/images/Flags/4x3/" + c.Profile.Flag + ".svg";
-				
-			<!--          -->
+		
 				<div style="border-radius:5px;width:95%;padding:3px;margin:auto;margin-top:1%;" class="btn1 bordercolor">
 
-
-					<div style="width:35%;margin:auto;">
-						<div style="margin-bottom:0px;font-size:20px;display:flex;width:100%">
-							<p style="font-size:17px;width:70%;text-align:left;padding:0px; margin:auto;margin-left:15px" id="toTranslate">@c.Text</p>
-						</div>
-					</div>
-
-
-					<div style="margin-bottom:0px;font-size:20px;justify-content:center;padding: 5px">
-						<button onclick="location.href='@Url.Action("DeleteReportedCommentAsync", "Forum", new {id = c.CommentId})'" style="background-color:transparent;border:none;width:2%;padding:0px;margin:0px">
-							<img src="~/images/trash.png" style="width:3%;margin:auto;margin-bottom:10px;cursor: pointer" />
-						</button>
+					<div style="width:25%;margin-bottom:0px;margin-left: 10px;font-size:20px;justify-content:left;padding: 5px;display:flex">
+						<img src="~/images/trash.png" style="width:25px;margin-bottom:10px;cursor: pointer;height:30px;margin: auto 0;"  />
 						<span class="categoria" style="margin-bottom:10px;font-size:20px;padding:10px;margin-left:10px;margin-right:10px;" id="toTranslate">Comment</span>
-						<button onclick="location.href='@Url.Action("CommentReportRemove", "Forum", new {id = c.CommentId})'" style="background-color:transparent;border:none;width:2%;padding:0px;margin:0px">
-							<img src="~/images/openTrash.png" style="width:7%;margin:auto;margin-bottom:10px;cursor: pointer" />
-						</button>
+						<img src="~/images/openTrash.png" class="headshot" style="width:40px;height:55px !important;cursor: pointer;height:30px;margin: auto 0;" />
 					</div>
 
+					<div style="width:35%;margin:auto;text-align:center">
+						<h5 style="margin-bottom:0px;margin-left:3%;text-align: left;font-size:25px;text-align:center" id="toTranslate">@c.Text</h5>
+					</div>
 
-					<div style="width:20%; margin: auto;text-align:center;display:flex;justify-content:center;">
+					<div style="width:10%; margin: auto;text-align:center;display:flex;justify-content:center;">
 
-						<div style="margin-bottom:0px;;font-size:20px;display:flex;justify-content:center">
+
+						<div style="margin-bottom:0px;margin-left: 10px;font-size:20px;display:flex;justify-content:center">
 							<img onclick="location.href='@Url.Action("Profile", "Forum", new {profileId = c.Profile.Id})'" src="data:image/*;base64,@(Convert.ToBase64String(c.Profile.Picture))" style="width:50px" />
 							<h5 onclick="location.href='@Url.Action("Profile", "Forum", new {profileId = c.Profile.Id})'" style="margin-bottom:0px;margin-left:15px;margin-top:10px"> @c.Profile.User.UserName </h5>
-							<img src="@cflag" style="width:25px;margin-left:10px" />
-							
+							<img  src="@cflag" style="width:25px;margin-left:10px" />
 						</div>
+						
 					</div>
 
 				</div>

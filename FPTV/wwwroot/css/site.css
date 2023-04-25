@@ -15,6 +15,10 @@ html {
     .flexstartcss {
         justify-content: flex-start !important;
     }
+
+    .flexendcss {
+        justify-content: flex-end !important;
+    }}
     .dropdownWidth {
         width: 150px !important;
     }
