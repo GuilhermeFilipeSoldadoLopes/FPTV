@@ -215,10 +215,10 @@
 
 			<div style="border: 1px solid black; border-radius:15px;background-color:white;width:50%;display:flex;">
 				<form asp-controller="Forum" asp-action="Comment" method="post">
-					<input required style="flex:1;border: none; width:80%;padding:15px;border-radius:15px;" name="Text" placeholder="New Comment"/>
+					<input required style="flex:1;border:0;outline:0; width:80%;padding:15px;border-radius:15px; margin: 0.5% 0;" name="Text" placeholder="New Comment" />
+					<button type="submit" style="background-color: transparent"><img src="~/images/send.png" style="width:15%;margin:auto" /></button>
 					<input type="hidden" value="@ViewBag.Game" name="Game" />
 					<input type="hidden" value="@Model.TopicId" name="TopicId" />
-					<img src="~/images/send.png" style="width:5%;margin:auto" />
 				</form>
 			</div>
 
