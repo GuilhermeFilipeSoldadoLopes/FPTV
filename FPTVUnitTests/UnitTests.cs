@@ -240,15 +240,5 @@ namespace FPTVUnitTests
             var finalResult = controller.TopicAsync(topic.TopicId);
             Assert.IsType<ViewResult>(finalResult);
         }
-
-		//TU16
-		//ForumController
-		[Fact]
-		public void Database_ModuleForumTest()
-		{
-			//var controller = new ForumController(_context, null);
-			//var result = controller.Details();
-			//Assert.IsType<ViewResult>(result);
-		}
 	}
 }
