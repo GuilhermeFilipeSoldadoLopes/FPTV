@@ -376,7 +376,7 @@ namespace FPTV.Controllers
         /// <param name="id">The ID of the comment to be reported.</param>
         /// <param name="topicId">The ID of the topic the comment belongs to.</param>
         /// <returns>Redirects to the topic page.</returns>
-        public ActionResult ReportComment(Guid id, int topicId)
+        public ActionResult ReportComment(Guid id, int topicId, bool isBugsPage = false)
         {
             ViewBag.Game = "";
             ViewBag.page = "Forum";
@@ -397,10 +397,16 @@ namespace FPTV.Controllers
 
             var topic = _context.Topics.Include(t => t.Profile).ThenInclude(p => p.User).FirstOrDefault(t => t.TopicId == topicId);
 
-			if (topic.Profile.User.UserName == "Admin")
+			if (isBugsPage)
 			{
-				return RedirectToAction("BugsAndSuggestions");
+				return RedirectToAction("BugsAndSuggestions", new { alert = message });
 			}
+
+			if (topic.Profile.User.UserName == "Admin")
+            {
+                return RedirectToAction("BugsAndSuggestions");
+            }
+
 			return RedirectToAction("Topic", new { id = topicId, alert = message });
         }
 
@@ -434,6 +440,7 @@ namespace FPTV.Controllers
 			{
 				return RedirectToAction("BugsAndSuggestions");
 			}
+
 			return RedirectToAction("Topic", new { id, alert = message });
         }
 
@@ -747,12 +754,18 @@ namespace FPTV.Controllers
         /// <returns>
         /// Returns the view for the Bugs and Suggestions page.
         /// </returns>
-        public async Task<ActionResult> BugsAndSuggestionsAsync(string filter = "")
+        public async Task<ActionResult> BugsAndSuggestionsAsync(string filter = "", string alert = "")
         {
             if (await CheckError303())
             {
                 return View("~/Views/Home/Error403.cshtml");
             }
+
+			if (alert != "" && alert != null) {
+				ViewBag.Message = alert;
+			} else {
+				ViewBag.Message = "";
+			}
 
 			ViewBag.Game = "";
             ViewBag.Filter = filter;
@@ -763,7 +776,8 @@ namespace FPTV.Controllers
                 .ThenInclude(c => c.Reactions)
                 .Include(t => t.Comments)
                 .ThenInclude(c => c.Profile)
-                .FirstOrDefault(t => t.Profile.User.UserName == "Admin");
+				.ThenInclude(p => p.User)
+				.FirstOrDefault(t => t.Profile.User.UserName == "Admin");
 
             if(sticky == default)
             {

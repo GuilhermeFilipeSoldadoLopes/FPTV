@@ -246,7 +246,7 @@
 						else
 						{
 							<div style="justify-content:left;width:7%;margin:0px;text-align:left">
-								<button onclick="location.href='@Url.Action("ReportComment", "Forum", new {id = c.CommentId, topicId = Model.TopicId})'" style="background-color:transparent;border:none;width:2%;padding:0px;margin:0px">
+								<button onclick="location.href='@Url.Action("ReportComment", "Forum", new {id = c.CommentId, topicId = Model.TopicId, isBugsPage = true})'" style="background-color:transparent;border:none;width:2%;padding:0px;margin:0px">
 									<img src="~/images/report.png" style="width:20px;margin-left:5px" />
 								</button>
 							</div>
@@ -286,6 +286,15 @@
 			</div>
 		}
 	</div>
+
+	@if (ViewBag.Message != null && ViewBag.Message != "")
+	{
+		<script type="text/javascript">
+			window.onload = function () {
+				alert("@ViewBag.Message");
+			};
+		</script>
+	}
 </body>
 </html>
 
