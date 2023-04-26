@@ -190,7 +190,7 @@
 				<div style="border-radius:5px;width:95%;padding:3px;margin:auto;margin-top:1%" class="btn1 bordercolor">
 
 					<div style="width:25%;margin-bottom:0px;margin-left: 10px;font-size:20px;justify-content:left;padding: 5px;;display:flex">
-						<button onclick="location.href='@Url.Action("DeleteReportedPostAsync", "Forum", new {id = t.TopicId})'" style="background-color:transparent;border:none;width:2%;padding:0px;margin:0px">
+						<button onclick="location.href='@Url.Action("DeleteReportedPost", "Forum", new {id = t.TopicId})'" style="background-color:transparent;border:none;width:2%;padding:0px;margin:0px">
 							<img src="~/images/trash.png" style="width:25px;margin:auto;margin-bottom:10px;cursor: pointer" />
 						</button>
 						<span class="categoria" style="margin-bottom:10px;font-size:20px;padding:10px;margin-left:10px;margin-right:10px;" id="toTranslate">Topic</span>
@@ -224,7 +224,7 @@
 				<div style="border-radius:5px;width:95%;padding:3px;margin:auto;margin-top:1%;" class="btn1 bordercolor">
 
 					<div style="width:25%;margin-bottom:0px;margin-left: 10px;font-size:20px;justify-content:left;padding: 5px;display:flex">
-						<button onclick="location.href='@Url.Action("DeleteReportedCommentAsync", "Forum", new {id = c.CommentId})'" style="background-color:transparent;border:none;width:2%;padding:0px;margin:0px">
+						<button onclick="location.href='@Url.Action("DeleteReportedComment", "Forum", new {id = c.CommentId})'" style="background-color:transparent;border:none;width:2%;padding:0px;margin:0px">
 							<img src="~/images/trash.png" style="width:3%;margin:auto;margin-bottom:10px;cursor: pointer" />
 						</button>
 						<span class="categoria" style="margin-bottom:10px;font-size:20px;padding:10px;margin-left:10px;margin-right:10px;" id="toTranslate">Comment</span>
