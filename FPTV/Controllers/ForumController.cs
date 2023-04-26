@@ -47,6 +47,26 @@ namespace FPTV.Controllers
             ViewBag.Search = search;
             ViewBag.Game = "";
             ViewBag.page = "Forum";
+
+            var stickyTopic = _context.Topics.Include(t => t.Comments).ThenInclude(c => c.Reactions).Include(t => t.Profile).ThenInclude(p => p.User).FirstOrDefault(t => t.Profile.User.UserName == "Admin");
+
+            if(stickyTopic == null) 
+            {
+                Console.WriteLine("Creating sticky");
+                stickyTopic = new Topic 
+                { 
+                    Comments = new List<Comment>(), 
+                    Content = "", 
+                    Date = DateTime.Now, 
+                    Deleted = false,  
+                    Profile = _context.UserBase.Include(u => u.Profile).FirstOrDefault(u => u.UserName == "Admin").Profile, 
+                    Reported = false, 
+                    Title = ""
+                };
+
+                _context.Topics.Add(stickyTopic);
+                _context.SaveChanges();
+            }
 			var topics = _context.Topics.Include(t => t.Profile).ThenInclude(p => p.User).Include(t => t.Comments).ThenInclude(c => c.Reactions).ToList();
 
 			switch (filter)
@@ -71,6 +91,8 @@ namespace FPTV.Controllers
 
             topics = topics.OrderBy(t => t.Deleted).ToList();
 
+            ViewBag.StickyComments = stickyTopic.Comments.Count;
+            ViewBag.StickyReactions = stickyTopic.Comments.Select(c => c.Reactions.Count).Sum();
 			return View(topics);
         }
 
@@ -96,7 +118,7 @@ namespace FPTV.Controllers
 
 		public async Task<ActionResult> DeleteReportedPostAsync(int id)
 		{
-
+			Console.WriteLine("\n\n\n\n\null");
 			if (await CheckError303())
 			{
 				return View("~/Views/Home/Error403.cshtml");
@@ -110,6 +132,7 @@ namespace FPTV.Controllers
 
 			if (post == null)
 			{
+                Console.WriteLine("\n\n\n\n\null");
 				return View("~/Views/Home/Error404.cshtml");
 			}
 
@@ -117,7 +140,7 @@ namespace FPTV.Controllers
 
 			if (userRoles.Contains("admin", StringComparer.OrdinalIgnoreCase) || userRoles.Contains("moderator", StringComparer.OrdinalIgnoreCase) && post.Reported)
 			{
-
+				Console.WriteLine("\n\n\n\n\n not null");
 				foreach (var comment in comments)
 				{
                     if(comment.Reactions != null) 
@@ -358,7 +381,7 @@ namespace FPTV.Controllers
             ViewBag.Game = "";
             ViewBag.page = "Forum";
 
-			var comment = _context.Comments.Include(c => c.Profile).FirstOrDefault(c => c.CommentId == id);
+			var comment = _context.Comments.Include(c => c.Profile).ThenInclude(p => p.User).FirstOrDefault(c => c.CommentId == id);
             if (comment == null)
             {
                 return View("~/Views/Home/Error404.cshtml");
@@ -372,7 +395,13 @@ namespace FPTV.Controllers
 			comment.Reported = true;
             _context.SaveChanges();
 
-            return RedirectToAction("Topic", new { id = topicId, alert = message });
+            var topic = _context.Topics.Include(t => t.Profile).ThenInclude(p => p.User).FirstOrDefault(t => t.TopicId == topicId);
+
+			if (topic.Profile.User.UserName == "Admin")
+			{
+				return RedirectToAction("BugsAndSuggestions");
+			}
+			return RedirectToAction("Topic", new { id = topicId, alert = message });
         }
 
         [Authorize]
@@ -386,7 +415,7 @@ namespace FPTV.Controllers
             ViewBag.Game = "";
             ViewBag.page = "Forum";
 
-			var post = _context.Topics.FirstOrDefault(t => t.TopicId == id);
+			var post = _context.Topics.Include(t => t.Profile).ThenInclude(p => p.User).FirstOrDefault(t => t.TopicId == id);
 
             if (post == null)
             {
@@ -401,7 +430,11 @@ namespace FPTV.Controllers
 			post.Reported = true;
             _context.SaveChanges();
 
-            return RedirectToAction("Topic", new { id, alert = message });
+			if (post.Profile.User.UserName == "Admin")
+			{
+				return RedirectToAction("BugsAndSuggestions");
+			}
+			return RedirectToAction("Topic", new { id, alert = message });
         }
 
       
@@ -471,7 +504,7 @@ namespace FPTV.Controllers
             ViewBag.Game = "";
             ViewBag.page = "Forum";
             int.TryParse(collection["TopicId"], out int id);
-            var topic = _context.Topics.FirstOrDefault(t => t.TopicId == id);
+            var topic = _context.Topics.Include(t => t.Profile).ThenInclude(p => p.User).FirstOrDefault(t => t.TopicId == id);
             var user = await _userManager.GetUserAsync(User);
 
 			if (user == null)
@@ -491,14 +524,13 @@ namespace FPTV.Controllers
 			};
 			await _context.Comments.AddAsync(comment);
 			await _context.SaveChangesAsync();
-			try
-            {
-                return RedirectToAction("Topic", new { id });
-            }
-            catch
-            {
-                return View();
-            }
+			
+				if (topic.Profile.User.UserName == "Admin")
+				{
+					return RedirectToAction("BugsAndSuggestions");
+				}
+				return RedirectToAction("Topic", new { id });
+            
         }
 
         /// <summary>
@@ -551,12 +583,6 @@ namespace FPTV.Controllers
 				return View("~/Views/Home/Error403.cshtml");
 			}
 
-			foreach (var comment in comments)
-			{
-                
-			
-			}
-
 			_context.RemoveRange(comments);
 			_context.Remove(post);
 
@@ -586,6 +612,7 @@ namespace FPTV.Controllers
             var comment = _context.Comments.Include(c => c.Profile).Include(c => c.Reactions).FirstOrDefault(c => c.CommentId == id);
 			var user = await _userManager.GetUserAsync(User);
 			var userRoles = await _userManager.GetRolesAsync(user);
+            var topic = _context.Topics.Include(t => t.Profile).ThenInclude(p => p.User).FirstOrDefault(t => t.TopicId == topicId);
 
             if(comment == null)
             {
@@ -602,6 +629,10 @@ namespace FPTV.Controllers
                 _context.Remove(comment);
                 await _context.SaveChangesAsync();
 
+				if (topic.Profile.User.UserName == "Admin")
+				{
+					return RedirectToAction("BugsAndSuggestions");
+				}
 				return RedirectToAction("Topic", new { id = topicId });
 			}
 			
@@ -618,7 +649,11 @@ namespace FPTV.Controllers
 			_context.Remove(comment);
 			await _context.SaveChangesAsync();
 
-            return RedirectToAction("Topic", new { id = topicId });
+			if (topic.Profile.User.UserName == "Admin")
+			{
+				return RedirectToAction("BugsAndSuggestions");
+			}
+			return RedirectToAction("Topic", new { id = topicId });
         }
 
         // POST: ForumController/Delete/5
@@ -640,7 +675,7 @@ namespace FPTV.Controllers
             ViewBag.page = "Forum";
             var user = await _userManager.GetUserAsync(User);
             var profile = _context.Profiles.Single(p => p.Id == user.ProfileId);
-            var topic = _context.Topics.FirstOrDefault(t => t.TopicId == topicId);
+            var topic = _context.Topics.Include(t => t.Profile).ThenInclude(p => p.User).FirstOrDefault(t => t.TopicId == topicId);
             var comment = _context.Comments.FirstOrDefault(c => c.CommentId.Equals(commentId));
             var react = _context.Reactions
                 .Include(r => r.Comment)
@@ -654,6 +689,10 @@ namespace FPTV.Controllers
 
                 if(react.ReactionEmoji.Equals(reaction))
                 {
+					if (topic.Profile.User.UserName == "Admin")
+					{
+						return RedirectToAction("BugsAndSuggestions");
+					}
 					return RedirectToAction("Topic", new { id = topicId });
 				}
 
@@ -677,7 +716,11 @@ namespace FPTV.Controllers
 
             try
             {
-                return RedirectToAction("Topic", new { id = topicId });
+				if (topic.Profile.User.UserName == "Admin")
+				{
+					return RedirectToAction("BugsAndSuggestions");
+				}
+				return RedirectToAction("Topic", new { id = topicId });
             }
             catch
             {
@@ -712,7 +755,13 @@ namespace FPTV.Controllers
 
             ViewBag.Game = "";
             ViewBag.page = "Forum";
-            return View();
+            var sticky = _context.Topics
+                .Include(t => t.Comments)
+                .ThenInclude(c => c.Reactions)
+                .Include(t => t.Comments)
+                .ThenInclude(c => c.Profile)
+                .FirstOrDefault(t => t.Profile.User.UserName == "Admin");
+            return View(sticky);
         }
 
         /// <summary>
