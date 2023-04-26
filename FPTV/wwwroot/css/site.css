@@ -5,6 +5,12 @@
 html {
     font-size: 14px;
 }
+.categoria {
+    background-color: black;
+    border: 1px solid white;
+    border-radius: 10px;
+    font-size: 20px;
+}
 
 @media (min-width: 768px) {
     html {
@@ -12,6 +18,16 @@ html {
     }
 }
 @media (max-width: 767px) {
+    .flexstartcss {
+        justify-content: flex-start !important;
+    }
+    .categoria {
+        font-size: 15px !important;
+    }
+
+    .flexendcss {
+        justify-content: flex-end !important;
+    }}
     .dropdownWidth {
         width: 150px !important;
     }

@@ -1,8 +1,12 @@
 ﻿@using System.Collections;
+@using FPTV.Models.Forum;
+@using FPTV.Models.UserModels;
+@using Microsoft.AspNetCore.Identity;
+@inject UserManager<UserBase> userManager
 @{
 	ViewData["Title"] = "Forum";
 }
-@model dynamic
+@model Topic
 <!DOCTYPE html>
 
 <head>
@@ -159,34 +163,128 @@
 				<p style="margin-bottom:0px;font-size:20px" id="toTranslate">Report bugs and provide suggestions and clear doubts through comments and then we will contact you about it.</p>
 				</div>
 
+			@{
+				int reactionCount = 0;
+			}
+			@foreach (Comment c in Model.Comments)
+			{
+				reactionCount += c.Reactions.Count;
+			}
+
 			<div style="width:20%;text-align:right;margin:20px">
 					<img src="~/images/logo2.png" style="width:30%" />
-					<p style="margin-bottom:0px;font-size:20px" id="toTranslate">0 Comments</p>@*por corrigir*@
-					<p style="margin-bottom:0px;font-size:20px" id="toTranslate">0 Reactions</p> @*por corrigir*@
+					<p style="margin-bottom:0px;font-size:20px" id="toTranslate">@Model.Comments.Count Comments</p>
+					<p style="margin-bottom:0px;font-size:20px" id="toTranslate">@reactionCount Reactions</p>
 					
 				</div>
+			
 			</div>
-		<div class="buttons bodycolor">
-			<div class="buttons bodycolor" style="width:auto%;position:relative;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:black;border-width:1px;border-radius:10px;padding:10px;background-color:white">
-				<input name="search" style="border:none" type="text" placeholder="New Comment">
-				<span style="margin-left:5%">
-					<img src="~/images/image.png"  width=10% height=auto/>
-				</span>
+		
+		<div style="display:flex;width:95%;padding:3px;margin:auto;">
+			<div class="buttons bodycolor">
 				
-			</div>
+				<div style="border: 1px solid black; border-radius:15px;background-color:white;width:50%;display:flex;"> 
+				<form asp-controller="Forum" asp-action="Comment" method="post">
+					<input required style="flex:1;border:0;outline:0; width:65%;padding:30px;border-radius:15px; margin: 0.5% 0;" name="Text" placeholder="New Comment" />
+					<button type="submit" style="background-color: transparent"><img src="~/images/send.png" style="width:15%;margin:auto" /></button>
+					<input type="hidden" value="@Model.TopicId" name="TopicId" />
+				</form>
+				</div>
 
-			<div class="dropdown" style="width:13%;height:20%">
-				<button class="button2" id="toTranslate">Sort by</button>
-				<div class="dropdown-content" style="margin-left:0px;">
-					<a href="@Url.Action("Index", "Events", new { sort = "&sort=-begin_at", filter = ViewBag.filter, game = ViewData["game"]})">Newest</a>
-					<a href="@Url.Action("Index", "Events", new { sort = "&sort=begin_at", filter = ViewBag.filter, game = ViewData["game"]})">Oldest</a>
-					<a href="@Url.Action("Index", "Events")">Hot</a>
+				<div  class="dropdown" style="margin:auto">
+					<button class="button2" id="toTranslate">Sort by</button>
+					<div class="dropdown-content" style="margin-left:0px;">
+						<a href="@Url.Action("BugsAndSuggestions", "Forum", new {filter = "newest"})">Newest</a>
+						<a href="@Url.Action("BugsAndSuggestions", "Forum", new {filter = "oldest"})">Oldest</a>
+						<a href="@Url.Action("BugsAndSuggestions", "Forum", new {filter = "hot"})">Hot</a>
+					</div>
+			
 				</div>
 			</div>
 		</div>
-			<hr class="hrstyle"/>
+		<hr class="hrstyle" />
+		@{
+					var user = await userManager.GetUserAsync(User);
+					var profileId = user.ProfileId;
+				}
+		@foreach (Comment c in Model.Comments)
+		{
+			string cflag = "/images/Flags/4x3/" + c.Profile.Flag + ".svg";
+			<div style="border-radius:5px;width:95%;padding:3px;margin:auto;margin-top:1%" class="btn1 bordercolor">
+				<div style="width:100%">
 
-		</div>
+					<div style="width:100%;display:flex;">
+
+						<div style="width:70%;text-align:left;display:flex;padding:1%;cursor: pointer">
+							<img onclick="location.href='@Url.Action("Profile", "Forum", new {profileId = c.Profile.Id})'" src="data:image/*;base64,@(Convert.ToBase64String(c.Profile.Picture))" style="width:50px" />
+							<h5 onclick="location.href='@Url.Action("Profile", "Forum", new {profileId = c.Profile.Id})'" style="margin-bottom:0px;margin-left:15px;margin-top:10px"> @c.Profile.User.UserName </h5>
+							<img src="@cflag" style="width:3%;margin-left:10px" />
+						</div>
+
+						<div style="width:30%;text-align:right">
+							<p style="font-size:17px;text-align:right;margin-bottom:0px">@c.Date </p>
+						</div>
+					</div>
+
+					<div style="width:100%;margin: auto;display:flex">
+						<div style="margin-bottom:0px;font-size:20px;display:flex;width:100%">
+							<p style="font-size:17px;width:70%;text-align:left;padding:0px; margin:auto;margin-left:15px" id="toTranslate">@c.Text</p>
+						</div>
+					</div>
+
+					<!-------------------REAÇÕES---------------------->
+					<div style="width:100%;display:flex;justify-content:right">
+
+						@if (c.Profile.Id == profileId)
+						{
+							<div style="justify-content:left;width:7%;margin:0px;text-align:left">
+								<button onclick="location.href='@Url.Action("DeleteComment", "Forum", new {id = c.CommentId, topicId = Model.TopicId})'" style="background-color:transparent;border:none;width:2%;padding:0px;margin:0px">
+									<img src="~/images/trash2.png" style="width:20px;margin-left:5px" />
+								</button>
+							</div>
+						}
+						else
+						{
+							<div style="justify-content:left;width:7%;margin:0px;text-align:left">
+								<button onclick="location.href='@Url.Action("ReportComment", "Forum", new {id = c.CommentId, topicId = Model.TopicId})'" style="background-color:transparent;border:none;width:2%;padding:0px;margin:0px">
+									<img src="~/images/report.png" style="width:20px;margin-left:5px" />
+								</button>
+							</div>
+
+						}
+
+
+						<div style="display:flex;justify-content:right;width:93%">
+							<p style="margin-bottom:0px;margin-left:3px;margin-right:3px">@c.Reactions.Where(r => r.ReactionEmoji == ReactionType.Love).ToList().Count</p>
+							<button onclick="location.href='@Url.Action("React", "Forum", new {reaction = ReactionType.Love, commentId = c.CommentId, topicId = Model.TopicId, filter = ViewBag.Filter})'" style="background-color:transparent;border:none;width:2%;padding:0px;margin:0px">
+								<img src="~/images/reactions/love.png" style="width: 15px;height: 15px;" />
+							</button>
+
+							<p style="margin-bottom:0px;margin-left:3px;margin-right:3px">@c.Reactions.Where(r => r.ReactionEmoji == ReactionType.Like).ToList().Count</p>
+							<button onclick="location.href='@Url.Action("React", "Forum", new {reaction = ReactionType.Like, commentId = c.CommentId, topicId = Model.TopicId, filter = ViewBag.Filter})'" style="background-color:transparent;border:none;width:2%;padding:0px;margin:0px">
+								<img src="~/images/reactions/like.png" style="width: 15px;height: 15px;" />
+							</button>
+
+							<p style="margin-bottom:0px;margin-left:3px;margin-right:3px">@c.Reactions.Where(r => r.ReactionEmoji == ReactionType.Dislike).ToList().Count</p>
+							<button onclick="location.href='@Url.Action("React", "Forum", new {reaction = ReactionType.Dislike, commentId = c.CommentId, topicId = Model.TopicId, filter = ViewBag.Filter})'" style="background-color:transparent;border:none;width:2%;padding:0px;margin:0px">
+								<img src="~/images/reactions/dislike.png" style="width: 15px;height: 15px;" />
+							</button>
+
+							<p style="margin-bottom:0px;margin-left:3px;margin-right:3px">@c.Reactions.Where(r => r.ReactionEmoji == ReactionType.Happy).ToList().Count</p>
+							<button onclick="location.href='@Url.Action("React", "Forum", new {reaction = ReactionType.Happy, commentId = c.CommentId, topicId = Model.TopicId, filter = ViewBag.Filter})'" style="background-color:transparent;border:none;width:2%;padding:0px;margin:0px">
+								<img src="~/images/reactions/happy.png" style="width: 15px;height: 15px;" />
+							</button>
+
+
+							<p style="margin-bottom:0px;margin-left:3px;margin-right:3px">@c.Reactions.Where(r => r.ReactionEmoji == ReactionType.Sad).ToList().Count</p>
+							<button onclick="location.href='@Url.Action("React", "Forum", new {reaction = ReactionType.Sad, commentId = c.CommentId, topicId = Model.TopicId, filter = ViewBag.Filter})'" style="background-color:transparent;border:none;width:2%;padding:0px;margin:0px">
+								<img src="~/images/reactions/sad.png" style="width: 15px;height: 15px;" />
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		}
 	</div>
 </body>
 </html>
