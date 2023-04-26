@@ -194,9 +194,9 @@
 				<div  class="dropdown" style="margin:auto">
 					<button class="button2" id="toTranslate">Sort by</button>
 					<div class="dropdown-content" style="margin-left:0px;">
-						<a href="@Url.Action("Index", "Events", new { sort = "&sort=-begin_at", filter = ViewBag.filter, game = ViewData["game"]})">Newest</a>
-						<a href="@Url.Action("Index", "Events", new { sort = "&sort=begin_at", filter = ViewBag.filter, game = ViewData["game"]})">Oldest</a>
-						<a href="@Url.Action("Index", "Events")">Hot</a>
+						<a href="@Url.Action("BugsAndSuggestions", "Forum", new {filter = "newest"})">Newest</a>
+						<a href="@Url.Action("BugsAndSuggestions", "Forum", new {filter = "oldest"})">Oldest</a>
+						<a href="@Url.Action("BugsAndSuggestions", "Forum", new {filter = "hot"})">Hot</a>
 					</div>
 			
 				</div>
@@ -256,28 +256,28 @@
 
 						<div style="display:flex;justify-content:right;width:93%">
 							<p style="margin-bottom:0px;margin-left:3px;margin-right:3px">@c.Reactions.Where(r => r.ReactionEmoji == ReactionType.Love).ToList().Count</p>
-							<button onclick="location.href='@Url.Action("React", "Forum", new {reaction = ReactionType.Love, commentId = c.CommentId, topicId = Model.TopicId})'" style="background-color:transparent;border:none;width:2%;padding:0px;margin:0px">
+							<button onclick="location.href='@Url.Action("React", "Forum", new {reaction = ReactionType.Love, commentId = c.CommentId, topicId = Model.TopicId, filter = ViewBag.Filter})'" style="background-color:transparent;border:none;width:2%;padding:0px;margin:0px">
 								<img src="~/images/reactions/love.png" style="width: 15px;height: 15px;" />
 							</button>
 
 							<p style="margin-bottom:0px;margin-left:3px;margin-right:3px">@c.Reactions.Where(r => r.ReactionEmoji == ReactionType.Like).ToList().Count</p>
-							<button onclick="location.href='@Url.Action("React", "Forum", new {reaction = ReactionType.Like, commentId = c.CommentId, topicId = Model.TopicId})'" style="background-color:transparent;border:none;width:2%;padding:0px;margin:0px">
+							<button onclick="location.href='@Url.Action("React", "Forum", new {reaction = ReactionType.Like, commentId = c.CommentId, topicId = Model.TopicId, filter = ViewBag.Filter})'" style="background-color:transparent;border:none;width:2%;padding:0px;margin:0px">
 								<img src="~/images/reactions/like.png" style="width: 15px;height: 15px;" />
 							</button>
 
 							<p style="margin-bottom:0px;margin-left:3px;margin-right:3px">@c.Reactions.Where(r => r.ReactionEmoji == ReactionType.Dislike).ToList().Count</p>
-							<button onclick="location.href='@Url.Action("React", "Forum", new {reaction = ReactionType.Dislike, commentId = c.CommentId, topicId = Model.TopicId})'" style="background-color:transparent;border:none;width:2%;padding:0px;margin:0px">
+							<button onclick="location.href='@Url.Action("React", "Forum", new {reaction = ReactionType.Dislike, commentId = c.CommentId, topicId = Model.TopicId, filter = ViewBag.Filter})'" style="background-color:transparent;border:none;width:2%;padding:0px;margin:0px">
 								<img src="~/images/reactions/dislike.png" style="width: 15px;height: 15px;" />
 							</button>
 
 							<p style="margin-bottom:0px;margin-left:3px;margin-right:3px">@c.Reactions.Where(r => r.ReactionEmoji == ReactionType.Happy).ToList().Count</p>
-							<button onclick="location.href='@Url.Action("React", "Forum", new {reaction = ReactionType.Happy, commentId = c.CommentId, topicId = Model.TopicId})'" style="background-color:transparent;border:none;width:2%;padding:0px;margin:0px">
+							<button onclick="location.href='@Url.Action("React", "Forum", new {reaction = ReactionType.Happy, commentId = c.CommentId, topicId = Model.TopicId, filter = ViewBag.Filter})'" style="background-color:transparent;border:none;width:2%;padding:0px;margin:0px">
 								<img src="~/images/reactions/happy.png" style="width: 15px;height: 15px;" />
 							</button>
 
 
 							<p style="margin-bottom:0px;margin-left:3px;margin-right:3px">@c.Reactions.Where(r => r.ReactionEmoji == ReactionType.Sad).ToList().Count</p>
-							<button onclick="location.href='@Url.Action("React", "Forum", new {reaction = ReactionType.Sad, commentId = c.CommentId, topicId = Model.TopicId})'" style="background-color:transparent;border:none;width:2%;padding:0px;margin:0px">
+							<button onclick="location.href='@Url.Action("React", "Forum", new {reaction = ReactionType.Sad, commentId = c.CommentId, topicId = Model.TopicId, filter = ViewBag.Filter})'" style="background-color:transparent;border:none;width:2%;padding:0px;margin:0px">
 								<img src="~/images/reactions/sad.png" style="width: 15px;height: 15px;" />
 							</button>
 						</div>

@@ -19,6 +19,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.Tracing;
+using System.Net;
 using System.Runtime.InteropServices;
 
 namespace FPTV.Controllers
@@ -70,11 +71,13 @@ namespace FPTV.Controllers
             var client = new RestClient(fullApiPath);
             var request = new RestRequest("", Method.Get);
             request.AddHeader("accept", "application/json");
-            var json = client.Execute(request).Content;
+            var response = client.Execute(request);
+            var json = response.Content;
 
-            if (json == null)
+            if (response.StatusCode != HttpStatusCode.OK || json == null)
             {
-                return View(); //We need an error handler for this!
+                registerErrorLog(response.StatusCode);
+                return View("~/Views/Home/Error404.cshtml");
             }
 
             var jarray = JArray.Parse(json);
@@ -82,6 +85,7 @@ namespace FPTV.Controllers
                 ? GetEventsCS(jarray, filter, sort, search)
                 : GetEventsVal(jarray, filter, sort, search);
 
+           
 
             return View(events);
         }
@@ -379,10 +383,20 @@ namespace FPTV.Controllers
             switch (game)
             {
                 case "csgo":
-                    SendEventInfoCS(GetEventCS(id, filter));
+                    var ev = GetEventCS(id, filter);
+                    if(ev == null)
+                    {
+                        return View("~/Views/Home/Error404.cshtml");
+                    }
+                    SendEventInfoCS(ev);
                     break;
                 case "valorant":
-                    SendEventInfoVal(GetEventVal(id, filter));
+                    var evV = GetEventVal(id, filter);
+                    if (evV == null)
+                    {
+                        return View("~/Views/Home/Error404.cshtml");
+                    }
+                    SendEventInfoVal(evV);
                     break;
             }
 
@@ -423,7 +437,14 @@ namespace FPTV.Controllers
             var client = new RestClient(fullRequest);
             var request = new RestRequest("", Method.Get);
             request.AddHeader("accept", "application/json");
-            var json = client.Execute(request).Content;
+            var response = client.Execute(request);
+            var json = response.Content;
+
+            if (response.StatusCode != HttpStatusCode.OK || json == null)
+            {
+                registerErrorLog(response.StatusCode);
+                return null;
+            }
 
             var jarray = JArray.Parse(json);
 
@@ -516,7 +537,14 @@ namespace FPTV.Controllers
             var client = new RestClient(fullRequest);
             var request = new RestRequest("", Method.Get);
             request.AddHeader("accept", "application/json");
-            var json = client.Execute(request).Content;
+            var response = client.Execute(request);
+            var json = response.Content;
+
+            if (response.StatusCode != HttpStatusCode.OK || json == null)
+            {
+                registerErrorLog(response.StatusCode);
+                return null;
+            }
 
             var jarray = JArray.Parse(json);
 
@@ -861,6 +889,17 @@ namespace FPTV.Controllers
             ViewBag.pastMatches = pMatches;
             ViewBag.upcomingMatches = uMatches;
             ViewBag.runningMatches = rMatches;
+        }
+        private void registerErrorLog(HttpStatusCode statusCode)
+        {
+
+            ErrorLog error = new ErrorLog();
+
+            error.Error = "MatchesController.cs -> " + statusCode.ToString();
+            error.Date = DateTime.Now;
+
+            _context.ErrorLog.Add(error);
+            _context.SaveChanges();
         }
     }
 }
