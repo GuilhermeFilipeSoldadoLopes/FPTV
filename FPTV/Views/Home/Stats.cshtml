@@ -45,9 +45,9 @@
 				<th style="width: 25%; text-transform: capitalize;" id="toTranslate">Most consulted game</th>
 			</tr>
 			<tr>
-				<td> <b id="noOfAccounts">@ViewData["accounts"]</b> <span id="accountText" > @ViewData["account_txt"] </span> </td>
-				<td> <b id="noOfVisitors">@ViewData["visitors"]</b> <span id="visitorsText"> @ViewData["visitors_txt"] </span> </td>
-				<td> <b id="country"> @ViewBag.Country</b> <br><span id="countryText"> @ViewBag.Number <span style="text-transform: capitalize" id="toTranslate">Accounts</span> </span> </td>
+				<td> <b id="noOfAccounts">@ViewData["accounts"]</b>  <span style="text-transform: capitalize" id="toTranslate">users</span> </td>
+				<td> <b id="noOfVisitors">@ViewData["visitors"]</b>  <span style="text-transform: capitalize" id="toTranslate">views</span> </td>
+				<td> <b id="country"> @ViewBag.Country</b> <br><span id="countryText"> @ViewBag.Number <span style="text-transform: capitalize" id="toTranslate">accounts</span> </span> </td>
 				@{
 					Random _random = new Random();
 					var percentage = new[] { 51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,68,69,70,71,72,73,74,75 };
