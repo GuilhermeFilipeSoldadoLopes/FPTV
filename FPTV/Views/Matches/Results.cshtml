@@ -190,7 +190,7 @@
 			<button class="btnResult bordercolor" style="cursor: default">
 				<form method="post" action="@Url.Action("Results", "Matches", new {game = ViewData["game"].ToString()})">
 					<span>
-						<input class="bordercolor dark" type="text" name="days"  placeholder=" 2 to 365 days ago" required style="width:60%; padding:1px; text-align:center">
+						<input id="toTranslate" class="bordercolor dark" type="text" name="days" placeholder=" 2 to 365 days ago" required style="width:60%; padding:1px; text-align:center">
 					</span>
 					@if (ViewBag.StatusMessage == "") {
 						

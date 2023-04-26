@@ -156,16 +156,16 @@
 			<form method="post" action="@Url.Action("Index", "Forum", new {filter = ViewBag.Filter})">
 				<label class="search-container">
 					<img src="~/images/procurar.png" />
-					<input name = "search" type = "text" placeholder = "Search...">
+					<input id="toTranslate" name="search" type="text" placeholder="Search...">
 				</label>	
 			</form>
 
 			<div class="dropdown">
 				<button class="button2" id="toTranslate">Sort by</button>
 				<div class="dropdown-content" style="margin-left:0px;">
-					<a href="@Url.Action("Index", "Forum", new {filter = "newest", search = ViewBag.Search})">Newest</a>
-					<a href="@Url.Action("Index", "Forum", new {filter = "oldest", search = ViewBag.Search})">Oldest</a>
-					<a href="@Url.Action("Index", "Forum", new {filter = "hot", search = ViewBag.Search})">Hot</a>
+					<a id="toTranslate" href="@Url.Action("Index", "Forum", new {filter = "newest", search = ViewBag.Search})">Newest</a>
+					<a id="toTranslate" href="@Url.Action("Index", "Forum", new {filter = "oldest", search = ViewBag.Search})">Oldest</a>
+					<a id="toTranslate" href="@Url.Action("Index", "Forum", new {filter = "hot", search = ViewBag.Search})">Hot</a>
 			  </div>
 			</div>
 
