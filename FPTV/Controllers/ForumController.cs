@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection.Metadata;
 
 namespace FPTV.Controllers
 {
@@ -67,7 +68,7 @@ namespace FPTV.Controllers
                 _context.Topics.Add(stickyTopic);
                 _context.SaveChanges();
             }
-			var topics = _context.Topics.Include(t => t.Profile).ThenInclude(p => p.User).Include(t => t.Comments).ThenInclude(c => c.Reactions).ToList();
+			var topics = _context.Topics.Include(t => t.Profile).ThenInclude(p => p.User).Include(t => t.Comments).ThenInclude(c => c.Reactions).Where(t => t.Profile.User.UserName != "Admin").ToList();
 
 			switch (filter)
 			{
@@ -252,7 +253,6 @@ namespace FPTV.Controllers
 					break;
             }
 
-            topic.Comments = topic.Comments.OrderBy(c => c.Deleted).ToList();
             return View(topic);
         }
 
@@ -664,7 +664,7 @@ namespace FPTV.Controllers
         /// <param name="commentId">The ID of the comment to react to.</param>
         /// <param name="topicId">The ID of the topic the comment belongs to.</param>
         /// <returns>A redirect to the topic page.</returns>
-        public async Task<ActionResult> React(ReactionType reaction, Guid commentId, int topicId)
+        public async Task<ActionResult> React(ReactionType reaction, Guid commentId, int topicId, string filter = "")
         {
             if (await CheckError303())
             {
@@ -672,6 +672,7 @@ namespace FPTV.Controllers
             }
 
             ViewBag.Game = "";
+            ViewBag.Filter = filter;
             ViewBag.page = "Forum";
             var user = await _userManager.GetUserAsync(User);
             var profile = _context.Profiles.Single(p => p.Id == user.ProfileId);
@@ -691,9 +692,9 @@ namespace FPTV.Controllers
                 {
 					if (topic.Profile.User.UserName == "Admin")
 					{
-						return RedirectToAction("BugsAndSuggestions");
+						return RedirectToAction("BugsAndSuggestions", new { filter = ViewBag.Filter });
 					}
-					return RedirectToAction("Topic", new { id = topicId });
+					return RedirectToAction("Topic", new { id = topicId, filter = ViewBag.Filter});
 				}
 
             }
@@ -720,7 +721,7 @@ namespace FPTV.Controllers
 				{
 					return RedirectToAction("BugsAndSuggestions");
 				}
-				return RedirectToAction("Topic", new { id = topicId });
+				return RedirectToAction("Topic", new { id = topicId,  filter = ViewBag.Filter});
             }
             catch
             {
@@ -746,22 +747,45 @@ namespace FPTV.Controllers
         /// <returns>
         /// Returns the view for the Bugs and Suggestions page.
         /// </returns>
-        public async Task<ActionResult> BugsAndSuggestionsAsync()
+        public async Task<ActionResult> BugsAndSuggestionsAsync(string filter = "")
         {
             if (await CheckError303())
             {
                 return View("~/Views/Home/Error403.cshtml");
             }
 
-            ViewBag.Game = "";
+			ViewBag.Game = "";
+            ViewBag.Filter = filter;
             ViewBag.page = "Forum";
+
             var sticky = _context.Topics
                 .Include(t => t.Comments)
                 .ThenInclude(c => c.Reactions)
                 .Include(t => t.Comments)
                 .ThenInclude(c => c.Profile)
                 .FirstOrDefault(t => t.Profile.User.UserName == "Admin");
-            return View(sticky);
+
+            if(sticky == default)
+            {
+				return View("~/Views/Home/Error404.cshtml");
+			}
+
+			switch (filter)
+			{
+				case "newest":
+					sticky.Comments = sticky.Comments.OrderByDescending(c => c.Date).ToList();
+					break;
+				case "oldest":
+					sticky.Comments = sticky.Comments.OrderBy(c => c.Date).ToList();
+					break;
+				case "hot":
+					sticky.Comments = sticky.Comments.OrderByDescending(c => c.Reactions.Count).ToList();
+					break;
+				default:
+					break;
+			}
+
+			return View(sticky);
         }
 
         /// <summary>
