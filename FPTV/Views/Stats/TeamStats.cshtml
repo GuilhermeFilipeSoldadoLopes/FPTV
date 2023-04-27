@@ -113,11 +113,11 @@
                         <span> @ViewBag.team.WorldRank</span>
                         <span>
                             @if (@ViewBag.team.WorldRank > 0 && @ViewBag.team.WorldRank <= 25) {
-                                <img src="~/images/rating_up.png" style="width:5%;padding:2px;" title="Good">
+                                <img src="~/images/rating_up.png" style="width:25px;padding:2px;" title="Good">
                             } else if (@ViewBag.team.WorldRank > 25 && @ViewBag.team.WorldRank <= 70) {
-                                <img src="~/images/rating_middle.png" style="width:5%;padding:2px;" title="Average">
+                                <img src="~/images/rating_middle.png" style="width:25px;padding:2px;" title="Average">
                             } else if (@ViewBag.team.WorldRank > 70) {
-                                <img src="~/images/rating_down.png" style="width:5%;padding:2px;" title="Bad">
+                                <img src="~/images/rating_down.png" style="25px;padding:2px;" title="Bad">
                             }
                         </span>
                     </td>
@@ -129,11 +129,11 @@
                         <span> @ViewBag.team.Winnings</span>
                         <span>
                             @if (@winning_ratio > 0 && @winning_ratio <= 1.4) {
-                                <img src="~/images/rating_up.png" style="width:5%;padding:2px;" title="Good">
+                                <img src="~/images/rating_up.png" style="width:25px;padding:2px;" title="Good">
                             } else if (@winning_ratio > 1.4 && @winning_ratio <= 3) {
-                                <img src="~/images/rating_middle.png" style="width:5%;padding:2px;" title="Average">
+                                <img src="~/images/rating_middle.png" style="width:25px;padding:2px;" title="Average">
                             } else if (@winning_ratio > 3) {
-                                <img src="~/images/rating_down.png" style="width:5%;padding:2px;" title="Bad">
+                                <img src="~/images/rating_down.png" style="width:25px;padding:2px;" title="Bad">
                             }
                         </span>
                     </td>
@@ -144,11 +144,11 @@
                         <span> @ViewBag.team.Losses</span>
                         <span>
                             @if (@losses_ratio > 0 && @losses_ratio <= 1.4) {
-                                <img src="~/images/rating_down.png" style="width:5%;padding:2px;" title="Bad">
+                                <img src="~/images/rating_down.png" style="width:25px;padding:2px;" title="Bad">
                             } else if (@losses_ratio > 1.4 && @losses_ratio <= 3) {
-                                <img src="~/images/rating_middle.png" style="width:5%;padding:2px;" title="Average">
+                                <img src="~/images/rating_middle.png" style="width:25px;padding:2px;" title="Average">
                             } else if (@losses_ratio > 3) {
-                                <img src="~/images/rating_up.png" style="width:5%;padding:2px;" title="Good">
+                                <img src="~/images/rating_up.png" style="width:25px;padding:2px;" title="Good">
                             }
                         </span>
                     </td>
