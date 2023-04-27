@@ -1,0 +1,1 @@
+search_result['579']=["frlrfFPTVControllersHomeControllerClassVALORANTTopic.html","HomeController.VALORANT Method","Redirects to the specified page in the Home controller with the game parameter set to \"valorant\"."];

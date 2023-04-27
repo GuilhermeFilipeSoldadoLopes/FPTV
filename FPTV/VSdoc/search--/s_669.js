@@ -1,0 +1,1 @@
+search_result['669']=["frlrfFPTVModelsBLLEventsStateOfEventValClassGetEventsSortByTopic.html","StateOfEventVal.GetEventsSortBy Method","Gets the events sorted by the specified sort parameter."];

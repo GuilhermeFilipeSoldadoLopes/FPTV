@@ -1,0 +1,1 @@
+search_result['376']=["frlrfFPTVAreasIdentityPagesAccountManageResetAuthenticatorModelClassOnGetTopic.html","ResetAuthenticatorModel.OnGet Method","Gets the current user from the UserManager and returns the page."];

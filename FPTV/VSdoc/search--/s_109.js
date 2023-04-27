@@ -1,0 +1,1 @@
+search_result['109']=["frlrfFPTVAreasIdentityPagesAccountLoginWith2faModelClassTopic.html","LoginWith2faModel Class","LoginWith2faModel is a PageModel class that provides functionality for logging in with two-factor authentication."];

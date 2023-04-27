@@ -1,0 +1,1 @@
+search_result['920']=["frlrfFPTVModelsStatisticsModelsMatchPlayerStatsValClassAssistsTopic.html","MatchPlayerStatsVal.Assists Property",""];

@@ -1,0 +1,1 @@
+search_result['152']=["frlrfFPTVAreasIdentityPagesAccountManageChangePasswordModelClassOnGetAsyncTopic.html","ChangePasswordModel.OnGetAsync Method","Gets the current user and checks if they have a password set. If not, redirects to the SetPassword page."];

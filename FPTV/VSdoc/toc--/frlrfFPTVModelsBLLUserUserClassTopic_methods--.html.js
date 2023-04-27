@@ -1,0 +1,1 @@
+var breadcrumbs=[['-1',"",""],['2',"FPTV Reference","frlrffptv_referenceCustomTopic.html"],['483',"FPTV.Models.BLL.User Namespace","frlrfFPTVModelsBLLUser.html"],['484',"User Class","frlrfFPTVModelsBLLUserUserClassTopic.html"],['485',"Methods","frlrfFPTVModelsBLLUserUserClassTopic_methods--.html"]];

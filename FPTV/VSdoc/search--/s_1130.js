@@ -1,0 +1,1 @@
+search_result['1130']=["frlrfFPTVServicesEmailSenderServiceEmailSenderClassOptionsTopic.html","EmailSender.Options Property","Property to get the AuthMessageSenderOptions set with Secret Manager."];

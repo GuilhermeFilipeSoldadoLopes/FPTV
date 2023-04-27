@@ -1,0 +1,1 @@
+search_result['277']=["frlrfFPTVAreasIdentityPagesAccountManageEnableAuthenticatorModelClassOnPostAsyncTopic.html","EnableAuthenticatorModel.OnPostAsync Method","Verifies the user\u0027s authenticator app and enables two-factor authentication."];

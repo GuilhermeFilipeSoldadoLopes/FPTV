@@ -1,0 +1,1 @@
+search_result['173']=["frlrfFPTVAreasIdentityPagesAccountManageDeletePersonalDataModelClassOnPostAsyncTopic.html","DeletePersonalDataModel.OnPostAsync Method","Handles the post request for the page and performs the necessary actions."];

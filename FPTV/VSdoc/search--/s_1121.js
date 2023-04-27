@@ -1,0 +1,1 @@
+search_result['1121']=["frlrfFPTVServicesEmailSenderServiceEmailConfirmationTokenProviderOptionsClassctorTopic.html","EmailConfirmationTokenProviderOptions Constructor","Constructor for EmailConfirmationTokenProviderOptions class. Sets the Name to \"EmailDataProtectorTokenProvider\" and TokenLifespan to 4 hours."];

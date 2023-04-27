@@ -1,0 +1,1 @@
+search_result['298']=["frlrfFPTVAreasIdentityPagesAccountManageExternalLoginsModelClassOnPostLinkLoginAsyncTopic.html","ExternalLoginsModel.OnPostLinkLoginAsync Method","Request a redirect to the external login provider to link a login for the current user"];

@@ -1,0 +1,1 @@
+search_result['33']=["frlrfFPTVAreasIdentityPagesAccountExternalLoginModelClassOnPostConfirmationAsyncTopic.html","ExternalLoginModel.OnPostConfirmationAsync Method","Handles the post confirmation of an external login."];

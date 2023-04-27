@@ -1,0 +1,1 @@
+search_result['297']=["frlrfFPTVAreasIdentityPagesAccountManageExternalLoginsModelClassOnGetLinkLoginCallbackAsyncTopic.html","ExternalLoginsModel.OnGetLinkLoginCallbackAsync Method","Handles the callback for an external login provider."];

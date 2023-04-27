@@ -1,0 +1,1 @@
+search_result['486']=["frlrfFPTVAreasIdentityPagesAccountResetPasswordModelClassOnGetTopic.html","ResetPasswordModel.OnGet Method","This method checks if a code is supplied for password reset. If a code is supplied, it is decoded and stored in the InputModel."];

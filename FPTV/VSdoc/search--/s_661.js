@@ -1,0 +1,1 @@
+search_result['661']=["frlrfFPTVModelsBLLEventsStateOfEventCSClassTopic.html","StateOfEventCS Class","This class provides a set of constants representing the state of an event."];
