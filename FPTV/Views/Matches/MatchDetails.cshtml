@@ -190,7 +190,7 @@
 
                 <div class="darkcolor borders bordercolor" style="border-radius:15px">
 
-                    <a style="text-decoration: none" href="@Url.Action("getTeam", "Stats", new {id = @ViewBag.matches.TeamsList[0].TeamAPIID, type = @ViewBag.matches.TimeType.ToString().ToLower() ,game = ViewData["game"].ToString()})" style="justify-content: space-around; margin-left: auto; margin-bottom:0px">
+                    <a style="text-decoration: none" href="@Url.Action("getTeam", "Stats", new {id = @ViewBag.matches.TeamsList[0].TeamAPIID, game = ViewData["game"].ToString()})" style="justify-content: space-around; margin-left: auto; margin-bottom:0px">
                     <h4 style="font-weight: bold;text-align:center;">@ViewBag.matches.TeamsList[0].Name</h4>
                     </a>
 
@@ -201,12 +201,12 @@
                         {
                             <div style="display:flex;align-items: center;">
                                 <div class="" style="padding:10px;width:50%;text-align:right">
-                                    <a style="text-decoration: none" href="@Url.Action("getPlayer", "Stats", new {id = item.PlayerAPIId, type = @ViewBag.matches.TimeType.ToString().ToLower() ,game = ViewData["game"].ToString()})" style="justify-content: space-around; margin-left: auto; margin-bottom:0px">
+                                    <a style="text-decoration: none" href="@Url.Action("getPlayer", "Stats", new {id = item.PlayerAPIId, game = ViewData["game"].ToString()})" style="justify-content: space-around; margin-left: auto; margin-bottom:0px">
                                         <img src=@item.Image style="width:50%;height:auto" />
                                     </a>
                                 </div>
                                 <div style="width:50%; text-align:left">
-                                    <a style="text-decoration: none" href="@Url.Action("getPlayer", "Stats", new {id = item.PlayerAPIId, type = @ViewBag.matches.TimeType.ToString().ToLower() ,game = ViewData["game"].ToString()})" style="justify-content: space-around; margin-left: auto; margin-bottom:0px">
+                                    <a style="text-decoration: none" href="@Url.Action("getPlayer", "Stats", new {id = item.PlayerAPIId, game = ViewData["game"].ToString()})" style="justify-content: space-around; margin-left: auto; margin-bottom:0px">
                                         <p style="margin:auto"> @item.Name </p>
                                     </a>
                                 </div>
@@ -363,7 +363,7 @@
                                             <span class="bestof " style="text-align:left;font-size:20px" id="toTranslate">Duration: @(rnd.Next(15) + 45) min</span>
                                         }
                                         <span class="" style="margin:auto;"> </span>
-                                        <span class="" style="text-align:right;font-size:20px"> @ViewBag.matches.BeginAt.ToString("dddd | dd-MM-yyyy | hh:mm")H </span><br />
+                                        <span class="" style="text-align:right;font-size:20px"> @ViewBag.matches.BeginAt.ToString("dddd | dd-MM-yyyy | hh:mm") </span><br />
                                     </div>
                                 </div>
                             </div>
@@ -456,7 +456,7 @@
                                     <span class="bestof" style="text-align:left;margin-top:0pc;margin-bottom:0px;font-weight:700" id="toTranslate">Duration: @(rnd.Next(15) + 45) min</span>
                                 }
                                 <span style="margin:auto;margin-top:0pc;margin-bottom:0px;font-weight:700"> </span>
-                                <span style="text-align:right;margin-top:0pc;margin-bottom:0px;font-weight:700;"> @ViewBag.matches.BeginAt.ToString("dddd | dd-MM-yyyy | hh:mm")H </span><br />
+                                <span style="text-align:right;margin-top:0pc;margin-bottom:0px;font-weight:700;"> @ViewBag.matches.BeginAt.ToString("dddd | dd-MM-yyyy | hh:mm") </span><br />
                             </div>
 
                                 @*<div style="display:flex; width:100%; padding:0px;">
@@ -474,7 +474,7 @@
                         {
                             <div class="darkcolor bordercolor" style="border-radius:15px; margin-top:5%">
                                 <div class="" style="font-weight:bold;font-size:20px; text-align:center">
-                                    <span>Maps</span>
+                                    <span id="toTranslate" >Maps</span>
                                 </div>
                                 <div class="stroke" style=" display:flex;width:100%;padding:1%">
 
@@ -669,7 +669,7 @@
                             <div style="width:100%;">
                                 <br />
                                 <div class="whiteText" style="font-weight:bold;font-size:20px;space-around; text-align:center;width:100%">
-                                    <span style="margin-top:20px;">SCOREBOARD</span>
+                                    <span id="toTranslate" style="margin-top:20px;">SCOREBOARD</span>
                                 </div>
                                 <div style="display:flex; margin:auto;width:100%">
                                     @if (((IList)ViewBag.pickedMaps).Count > 1)
@@ -1024,7 +1024,7 @@
                     }
                 </div>
                 <div class="borders bordercolor darkcolor" style="border-radius:15px;margin-top:5%;margin-bottom:10%">
-                    <h4 style="text-align:left">
+                    <h4 id="toTranslate" style="text-align:left">
                         Streams
                     </h4>
                     @if (((List<FPTV.Models.MatchesModels.Stream>)@ViewBag.matches.StreamList).Count() != 0)

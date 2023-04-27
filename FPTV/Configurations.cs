@@ -290,7 +290,7 @@ namespace FPTV
 
             moderator_JA.EmailConfirmed = true;
 
-            await _userStore.SetUserNameAsync(moderator_JA, "joaoafonso61", CancellationToken.None);
+            await _userStore.SetUserNameAsync(moderator_JA, "IzZy", CancellationToken.None);
             await _emailStore.SetEmailAsync(moderator_JA, "202000813@estudantes.ips.pt", CancellationToken.None);
 
             var createPowerUser5 = await userManager.CreateAsync(moderator_JA, "Joao123.");

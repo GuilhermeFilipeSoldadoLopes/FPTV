@@ -48,16 +48,19 @@ namespace FPTV.Controllers
     /// </summary>
     public class MatchesController : Controller
     {
-        private readonly FPTVContext _context;
+		private readonly FPTVContext _context;
 
-        /// <summary>
-        /// Constructor for MatchesController class.
-        /// </summary>
-        /// <param name="context">FPTVContext object.</param>
-        /// <returns>
-        /// No return value.
-        /// </returns>
-        public MatchesController(FPTVContext context)
+		[TempData]
+		public string StatusMessage { get; set; }
+
+		/// <summary>
+		/// Constructor for MatchesController class.
+		/// </summary>
+		/// <param name="context">FPTVContext object.</param>
+		/// <returns>
+		/// No return value.
+		/// </returns>
+		public MatchesController(FPTVContext context)
         {
             _context = context;
         }
@@ -223,8 +226,8 @@ namespace FPTV.Controllers
                     matches.MatchesAPIID = matchesAPIId.ToString() == null ? -1 : matchesAPIId.Value<int>();
                     matches.EventAPIID = eventAPIID.ToString() == null ? -1 : eventAPIID.Value<int>();
                     matches.EventName = eventName.ToString() == null ? "" : matches.LeagueName + " " + eventName.Value<string>();
-                    matches.BeginAt = beginAt.ToString() == "" ? new DateTime() : beginAt.Value<DateTime>();
-                    matches.EndAt = endAt.ToString() == "" ? new DateTime() : endAt.Value<DateTime>();
+                    matches.BeginAt = beginAt.ToString() == "" ? new DateTime() : beginAt.Value<DateTime>().AddHours(1);
+                    matches.EndAt = endAt.ToString() == "" ? new DateTime() : endAt.Value<DateTime>().AddHours(1);
                     matches.IsFinished = status.ToString() == "finished" ? true : false;
                     matches.HaveStats = haveStats.ToString() == "true" ? true : false;
                     matches.NumberOfGames = numberOfGames.ToString() == null ? 1 : numberOfGames.Value<int>();
@@ -337,19 +340,20 @@ namespace FPTV.Controllers
             ViewData["game"] = game;
             ViewBag.page = "Results";
             ViewBag.days = days;
+            ViewBag.StatusMessage = "";
 
-            var day = "";
+			var day = "";
             DateTime date;
 
             if (days < 0)
             {
-                ViewBag.Message = "It is only possible to consult results of matches that have already taken place.";
+				ViewBag.StatusMessage = "It is only possible to consult results of matches that have already taken place.";
                 day = DateTime.Now.AddDays(0).ToString("yyyy-MM-dd");
                 date = DateTime.Now.AddDays(0);
             }
             else if (days >= 365)
             {
-                ViewBag.Message = "You can only consult the results up to 365 days ago.";
+				ViewBag.StatusMessage = "You can only consult the results up to 365 days ago.";
                 day = DateTime.Now.AddDays(-365).ToString("yyyy-MM-dd");
                 date = DateTime.Now.AddDays(-365);
             }
@@ -425,8 +429,8 @@ namespace FPTV.Controllers
                     matches.MatchesAPIID = matchesAPIId.ToString() == null ? -1 : matchesAPIId.Value<int>();
                     matches.EventAPIID = eventAPIID.ToString() == null ? -1 : eventAPIID.Value<int>();
                     matches.EventName = eventName.ToString() == null ? "" : matches.LeagueName + " " + eventName.Value<string>();
-                    matches.BeginAt = beginAt.ToString() == "" ? new DateTime() : beginAt.Value<DateTime>();
-                    matches.EndAt = endAt.ToString() == "" ? new DateTime() : endAt.Value<DateTime>();
+                    matches.BeginAt = beginAt.ToString() == "" ? new DateTime() : beginAt.Value<DateTime>().AddHours(1);
+                    matches.EndAt = endAt.ToString() == "" ? new DateTime() : endAt.Value<DateTime>().AddHours(1);
                     matches.IsFinished = status.ToString() == "finished" ? true : false;
                     matches.HaveStats = haveStats.ToString() == "true" ? true : false;
                     matches.NumberOfGames = numberOfGames.ToString() == null ? 1 : numberOfGames.Value<int>();
@@ -605,8 +609,8 @@ namespace FPTV.Controllers
             matches.MatchesAPIID = matchesAPIId.ToString() == null ? -1 : matchesAPIId.Value<int>();
             matches.EventAPIID = eventAPIID.ToString() == null ? -1 : eventAPIID.Value<int>();
             matches.EventName = eventName.ToString() == null ? "" : matches.LeagueName + " " + eventName.Value<string>();
-            matches.BeginAt = beginAt.ToString() == "" ? new DateTime() : beginAt.Value<DateTime>();
-            matches.EndAt = endAt.ToString() == "" ? new DateTime() : endAt.Value<DateTime>();
+            matches.BeginAt = beginAt.ToString() == "" ? new DateTime() : beginAt.Value<DateTime>().AddHours(1);
+            matches.EndAt = endAt.ToString() == "" ? new DateTime() : endAt.Value<DateTime>().AddHours(1);
             matches.IsFinished = status.ToString() == "finished" ? true : false;
             matches.HaveStats = haveStats.ToString() == "true" ? true : false;
             matches.NumberOfGames = numberOfGames.ToString() == null ? 1 : numberOfGames.Value<int>();

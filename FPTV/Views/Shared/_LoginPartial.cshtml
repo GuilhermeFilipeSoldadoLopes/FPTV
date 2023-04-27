@@ -115,6 +115,16 @@
         transition: all 0.2s ease-in-out;
     }
 
+    .dropdownItem12:hover {
+        background-color: transparent;
+        border: 2px solid #DE3C3C;
+        border-radius: 20px;
+        -webkit-transition: all .15s ease-in-out;
+        transition: all .15s ease-in-out;
+        color: #DE3C3C;
+        box-shadow: 0 0 5px 0 #DE3C3C inset, 0 0 10px 1px #DE3C3C;
+    }
+
 </style>
 
 <body>
@@ -164,7 +174,7 @@
                         {
                             @if (UserManager.GetRolesAsync(UserManager.GetUserAsync(User).Result).Result.Contains<String>("Admin") == true || UserManager.GetRolesAsync(UserManager.GetUserAsync(User).Result).Result.Contains<String>("Moderator") == true)
                             {
-                                <a class="dropdownItem1" style="display:flex;width:100%; text-decoration:none;justify-content:center;font-weight:bold">
+                                <a class="dropdownItem12" style="display:flex;width:100%; text-decoration:none;justify-content:center;font-weight:bold">
                                     
                                     <div style="text-decoration:none;text-align:center;display:flex;justify-content:center;margin:0px" onclick="location.href = '@Url.Action("Stats", "Home")'">
                                     <p class="" id="toTranslate" style="text-transform: capitalize;text-decoration:none;color:black;;margin-bottom:0px;margin-top:5px">Statistics</p>
@@ -173,6 +183,22 @@
                             }
                         }
                     }
+
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    @if (UserManager.GetUserAsync(User).Result != null && context.Profiles.Single(p => p.Id == UserManager.GetUserAsync(User).Result.ProfileId) != null)
+                    {
+                        @if (UserManager.GetRolesAsync(UserManager.GetUserAsync(User).Result).Result.Contains<String>("Admin") == true || UserManager.GetRolesAsync(UserManager.GetUserAsync(User).Result).Result.Contains<String>("Moderator") == true)
+                        {
+                            <a class="dropdownItem12" style="display:flex;width:100%; text-decoration:none;justify-content:center;font-weight:bold">
+
+                                <div style="text-decoration:none;text-align:center;display:flex;justify-content:center;margin:0px" onclick="location.href = '@Url.Action("ReportedTopicsAndComments", "Forum")'">
+                                    <p class="" id="toTranslate" style="text-transform: capitalize;text-decoration:none;color:black;;margin-bottom:0px;margin-top:5px">Forum reports</p>
+                                </div>
+                            </a>
+                        }
+                    }
+                }
             </div>
         </div>
         @*</div>*@

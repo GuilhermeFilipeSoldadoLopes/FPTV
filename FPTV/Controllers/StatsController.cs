@@ -968,7 +968,7 @@ namespace FPTV.Controllers
 
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return View("~/Views/Home/Error403.cshtml");
             }
 
             var requestLink = "https://api.pandascore.co/";
@@ -1060,7 +1060,7 @@ namespace FPTV.Controllers
 
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return View("~/Views/Home/Error403.cshtml");
             }
 
             var requestLink = "https://api.pandascore.co/";
@@ -1148,7 +1148,7 @@ namespace FPTV.Controllers
 
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return View("~/Views/Home/Error403.cshtml");
             }
 
             var profile = _context.Profiles.Include(p => p.PlayerList.Players).Single(p => p.Id == user.ProfileId);
@@ -1181,7 +1181,7 @@ namespace FPTV.Controllers
 
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return View("~/Views/Home/Error403.cshtml");
             }
 
             var profile = _context.Profiles.Include(p => p.TeamsList.Teams).Single(p => p.Id == user.ProfileId);

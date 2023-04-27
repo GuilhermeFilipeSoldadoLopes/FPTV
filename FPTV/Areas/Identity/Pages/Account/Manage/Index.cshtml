@@ -206,8 +206,8 @@
 </style>
 
 <body class="bodyLogin">
-    <div class="ola " style="border-radius:15px;margin-top:0px;padding-top:20px">
-        <div class="box darkcolor bordercolor" style="border-radius:15px;margin-top:0px">
+    <div class="ola " style=" display:flex; border-radius:15px;margin-top:0px;padding-top:20px">
+        <div class="box darkcolor bordercolor flexendcss" style="border-radius:15px;margin-top:0px">
             <div style="width:100%;text-align:center;">
                 <h1>CS:GO</h1>
             </div>
@@ -225,8 +225,10 @@
                     {
                         foreach (var item in (List<Player>)ViewData["FavCSPlayerList"])
                         {
-                            <img src=@item.Image style="width:20px;height:auto" />
-                            <span class="span2 text-dark">@item.Name</span>
+                            <a style="text-decoration: none" href="@Url.Action("getPlayer", "Stats", new {id = item.PlayerAPIId, game = "csgo"})" style="justify-content: space-around; margin-left: auto; margin-bottom:0px">
+                                <img src=@item.Image style="width:20px;height:auto" />
+                                <span class="span2 text-dark">@item.Name</span>
+                            </a>
                             <br />
                         }
                     }
@@ -246,8 +248,10 @@
                     {
                         foreach (var item in (List<Team>)ViewData["FavCSTeamsList"])
                         {
-                            <img src=@item.Image style="width:20px;height:auto" />
-                            <span class="span2 text-dark">@item.Name</span>
+                            <a style="text-decoration: none" href="@Url.Action("getTeam", "Stats", new {id = item.TeamAPIID, game = "csgo"})" style="justify-content: space-around; margin-left: auto; margin-bottom:0px">
+                                <img src=@item.Image style="width:20px;height:auto" />
+                                <span class="span2 text-dark">@item.Name</span>
+                            </a>
                             <br />
                         }
                     }
@@ -256,7 +260,7 @@
             <br />
         </div>
         
-        <div class="box bordercolor" style="padding-top:20px;position:relative;border-width:0px;width:70%;margin-top: 0px">
+        <div class="box bordercolor flexstartcss" style="padding-top:20px;position:relative;border-width:0px;width:70%;margin-top: 0px">
             <a style="position:absolute;top:2px;right:10%;align-items:center;" asp-area="Identity" asp-page="/Account/Manage/Edit" title="Edit">
                 <img class="headshot" style="width:30px;height:30px" src="~/images/Edit.png">
             </a>
@@ -297,8 +301,11 @@
                     {
                         foreach (var item in (List<Topic>)ViewData["Topics"])
                         {
-                            <span class="span2 text-dark">item.Title</span>
-                            <br />
+
+                            <a style="text-decoration: none" href='@Url.Action("Topic", "Forum", new {id = item.TopicId})' style="justify-content: space-around; margin-left: auto; margin-bottom:0px">
+                                <span class="span2 text-dark">@item.Title</span>
+                                <br />
+                            </a>
                         }
                     }
                 </div>
@@ -306,7 +313,7 @@
             <br />
         </div>
             
-        <div class="box darkcolor bordercolor" style="border-radius:15px;margin-top:0px">
+        <div class="box darkcolor bordercolor flexendcss" style="border-radius:15px;margin-top:0px">
             <div style="width=100%;text-align:center;">
                 <h1>Valorant</h1>
             </div>
@@ -324,8 +331,10 @@
                     {
                         foreach (var item in (List<Player>)ViewData["FavValPlayerList"])
                         {
-                            <img src=@item.Image style="width:20px;height:auto" />
-                            <span class="span2 text-dark">@item.Name</span>
+                            <a style="text-decoration: none" href="@Url.Action("getPlayer", "Stats", new {id = item.PlayerAPIId, game = "valorant"})" style="justify-content: space-around; margin-left: auto; margin-bottom:0px">
+                                <img src=@item.Image style="width:20px;height:auto" />
+                                <span class="span2 text-dark">@item.Name</span>
+                            </a>
                             <br />
                         }
                     }
@@ -345,8 +354,10 @@
                     {
                         foreach (var item in (List<Team>)ViewData["FavValTeamsList"])
                         {
-                            <img src=@item.Image style="width:20px;height:auto" />
-                            <span class="span2 text-dark">@item.Name</span>
+                            <a style="text-decoration: none" href="@Url.Action("getTeam", "Stats", new {id = item.TeamAPIID, game = "valorant"})" style="justify-content: space-around; margin-left: auto; margin-bottom:0px">
+                                <img src=@item.Image style="width:20px;height:auto" />
+                                <span class="span2 text-dark">@item.Name</span>
+                            </a>
                             <br />
                         }
                     }

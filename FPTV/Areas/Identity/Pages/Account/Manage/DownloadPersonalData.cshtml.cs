@@ -16,24 +16,45 @@ using Microsoft.Extensions.Logging;
 
 namespace FPTV.Areas.Identity.Pages.Account.Manage
 {
+    /// <summary>
+    /// This class is used to download personal data from the application.
+    /// </summary>
     public class DownloadPersonalDataModel : PageModel
     {
         private readonly UserManager<UserBase> _userManager;
         private readonly ILogger<DownloadPersonalDataModel> _logger;
 
+        /// <summary>
+        /// Constructor for DownloadPersonalDataModel class.
+        /// </summary>
+        /// <param name="userManager">UserManager object.</param>
+        /// <param name="logger">ILogger object.</param>
+        /// <returns>
+        /// DownloadPersonalDataModel object.
+        /// </returns>
         public DownloadPersonalDataModel(
-            UserManager<UserBase> userManager,
-            ILogger<DownloadPersonalDataModel> logger)
+                    UserManager<UserBase> userManager,
+                    ILogger<DownloadPersonalDataModel> logger)
         {
             _userManager = userManager;
             _logger = logger;
         }
 
+        /// <summary>
+        /// Returns a NotFound result.
+        /// </summary>
+        /// <returns>NotFound result.</returns>
         public IActionResult OnGet()
         {
             return NotFound();
         }
 
+        /// <summary>
+        /// Retrieves the personal data of the current user and returns it as a file.
+        /// </summary>
+        /// <returns>
+        /// A file containing the personal data of the current user.
+        /// </returns>
         public async Task<IActionResult> OnPostAsync()
         {
             var user = await _userManager.GetUserAsync(User);

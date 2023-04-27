@@ -13,16 +13,28 @@ using Microsoft.Extensions.Logging;
 
 namespace FPTV.Areas.Identity.Pages.Account.Manage
 {
+    /// <summary>
+    /// Represents the model for deleting personal data.
+    /// </summary>
     public class DeletePersonalDataModel : PageModel
     {
         private readonly UserManager<UserBase> _userManager;
         private readonly SignInManager<UserBase> _signInManager;
         private readonly ILogger<DeletePersonalDataModel> _logger;
 
+        /// <summary>
+        /// Constructor for DeletePersonalDataModel class.
+        /// </summary>
+        /// <param name="userManager">UserManager object.</param>
+        /// <param name="signInManager">SignInManager object.</param>
+        /// <param name="logger">ILogger object.</param>
+        /// <returns>
+        /// DeletePersonalDataModel object.
+        /// </returns>
         public DeletePersonalDataModel(
-            UserManager<UserBase> userManager,
-            SignInManager<UserBase> signInManager,
-            ILogger<DeletePersonalDataModel> logger)
+                    UserManager<UserBase> userManager,
+                    SignInManager<UserBase> signInManager,
+                    ILogger<DeletePersonalDataModel> logger)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -57,6 +69,12 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
         /// </summary>
         public bool RequirePassword { get; set; }
 
+        /// <summary>
+        /// Gets the current user and checks if they have a password set.
+        /// </summary>
+        /// <returns>
+        /// Returns the page with the user and password status.
+        /// </returns>
         public async Task<IActionResult> OnGet()
         {
             var user = await _userManager.GetUserAsync(User);
@@ -69,6 +87,9 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
             return Page();
         }
 
+        /// <summary>
+        /// Handles the post request for the page and performs the necessary actions.
+        /// </summary>
         public async Task<IActionResult> OnPostAsync()
         {
             var user = await _userManager.GetUserAsync(User);
