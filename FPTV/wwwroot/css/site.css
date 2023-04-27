@@ -20,6 +20,9 @@ html {
 }
 
 @media (max-width: 767px) {
+    .imgAbout {
+        width: 75px !important;
+    }
     .dropdownContent123 {
         width: 30% !important;
     }

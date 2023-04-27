@@ -19,8 +19,11 @@ html {
 }
 
 @media (max-width: 767px) {
-    .dropdownContent123{
-        width:30% !important;
+    .imgAbout{
+        width:75px!important;
+    }
+    .dropdownContent123 {
+        width: 30% !important;
     }
     .nomarginTop {
         margin-top: 0px !important;
