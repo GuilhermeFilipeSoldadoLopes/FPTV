@@ -20,6 +20,22 @@ html {
 }
 
 @media (max-width: 767px) {
+    .dropdownContent123 {
+        width: 30% !important;
+    }
+
+    .nomarginTop {
+        margin-top: 0px !important;
+    }
+
+    #buttonMenu:hover {
+        width: 100% !important;
+    }
+
+    .marginForRes {
+        margin-left: 65% !important;
+    }
+
     .flexstartcss {
         justify-content: flex-start !important;
     }
@@ -108,7 +124,7 @@ html {
     .marginbottomRes {
         margin-bottom: 3% !important;
     }
-}
+}}
 
 .btnhover1:hover {
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
@@ -120,7 +136,7 @@ html {
 }
 
 .responsive {
-    width: 40%;
+    width: 40% ;
 }
 
 html {

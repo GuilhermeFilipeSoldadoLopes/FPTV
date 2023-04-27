@@ -19,6 +19,18 @@ html {
 }
 
 @media (max-width: 767px) {
+    .dropdownContent123{
+        width:30% !important;
+    }
+    .nomarginTop {
+        margin-top: 0px !important;
+    }
+    #buttonMenu:hover {
+        width:100% !important;
+    }
+    .marginForRes {
+        margin-left:65% !important;
+    }
     .flexstartcss {
         justify-content: flex-start !important;
     }
@@ -104,7 +116,7 @@ html {
     border-radius:15px !important;
 }
 .responsive {
-    width: 40%;
+    width: 40% ;
 }
 html {
     position: relative;
