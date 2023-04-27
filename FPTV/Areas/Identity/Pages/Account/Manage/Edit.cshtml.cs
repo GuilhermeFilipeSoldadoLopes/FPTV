@@ -116,7 +116,7 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
         }
 
         /// <summary>
-        /// Loads the user, profile, and list of countries to the page. Also loads the favorite players and teams for CSGO and Valorant.
+        /// Gets the user profile and loads the favorite players and teams for CSGO and Valorant, as well as a list of countries.
         /// </summary>
         /// <returns>Page result</returns>
         public async Task<IActionResult> OnGetAsync()

@@ -128,11 +128,9 @@ namespace FPTV.Areas.Identity.Pages.Account.Manage
         }
 
         /// <summary>
-        /// Loads the user, profile, and view data for the Index page.
+        /// Gets the user profile and loads the favorite players and teams for CSGO and Valorant.
         /// </summary>
-        /// <param name="user">The user.</param>
-        /// <param name="profile">The profile.</param>
-        /// <returns>The Index page.</returns>
+        /// <returns>Page result</returns>
         public async Task<IActionResult> OnGetAsync()
         {
             var user = await _userManager.GetUserAsync(User);

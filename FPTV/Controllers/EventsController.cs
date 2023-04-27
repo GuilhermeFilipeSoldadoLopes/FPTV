@@ -43,15 +43,17 @@ namespace FPTV.Controllers
             _context = context;
         }
 
-        // GET: EventsController
         /// <summary>
-        /// This method is used to get the events for CSGO and Valorant games.
+        /// This method is used to get the events for the specified game.
         /// </summary>
-        /// <param name="jarray">JArray object containing the events data.</param>
-        /// <param name="filter">Filter parameter for the events.</param>
-        /// <param name="sort">Sort parameter for the events.</param>
-        /// <param name="search">Search parameter for the events.</param>
-        /// <returns>IList object containing the events.</returns>
+        /// <param name="sort">The sorting parameter for the events.</param>
+        /// <param name="filter">The filter parameter for the events.</param>
+        /// <param name="search">The search parameter for the events.</param>
+        /// <param name="page">The page parameter for the events.</param>
+        /// <param name="game">The game parameter for the events.</param>
+        /// <returns>
+        /// Returns the view of the events.
+        /// </returns>
         public ActionResult Index(string sort = "&sort=-begin_at", string filter = "running", string search = "", string page = "&page=1", string game = "csgo")
         {
             ViewData["game"] = game;
@@ -85,7 +87,7 @@ namespace FPTV.Controllers
                 ? GetEventsCS(jarray, filter, sort, search)
                 : GetEventsVal(jarray, filter, sort, search);
 
-           
+
 
             return View(events);
         }
@@ -368,14 +370,13 @@ namespace FPTV.Controllers
             return events;
         }
 
-        // GET: EventsController/Details/5
         /// <summary>
         /// Retrieves event information based on the game and filter parameters.
         /// </summary>
         /// <param name="id">The ID of the event.</param>
         /// <param name="filter">The filter to apply to the event.</param>
         /// <param name="game">The game to retrieve the event from.</param>
-        /// <returns>The View for the event.</returns>
+        /// <returns>The view for the event details.</returns>
         public ActionResult Details(int id, string filter = "running", string game = "csgo")
         {
             ViewData["game"] = game;
@@ -384,7 +385,7 @@ namespace FPTV.Controllers
             {
                 case "csgo":
                     var ev = GetEventCS(id, filter);
-                    if(ev == null)
+                    if (ev == null)
                     {
                         return View("~/Views/Home/Error404.cshtml");
                     }
@@ -408,7 +409,7 @@ namespace FPTV.Controllers
         /// Gets an EventVal object from the database or from the API based on the given ID and filter.
         /// </summary>
         /// <param name="id">The ID of the event.</param>
-        /// <param name="filter">The filter to use for the API request.</param>
+        /// <param name="filter">The filter to select from which pool to fetch the data (upcoming, running or finished/ended).</param>
         /// <returns>An EventVal object.</returns>
         private EventVal GetEventVal(int id, string filter)
         {
@@ -505,10 +506,10 @@ namespace FPTV.Controllers
         }
 
         /// <summary>
-        /// Gets an EventCS object from the database or from the API based on the given id and filter.
+        /// Gets an EventCS object from the database or from the API, depending on the filter.
         /// </summary>
-        /// <param name="id">The id of the event.</param>
-        /// <param name="filter">The filter to select from which pool to fetch the data (upcoming, running or finished/ended).</param>
+        /// <param name="id">The ID of the event.</param>
+        /// <param name="filter">The filter to use for the request.</param>
         /// <returns>An EventCS object.</returns>
         private EventCS GetEventCS(int id, string filter)
         {
