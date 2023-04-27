@@ -8,4 +8,4 @@ O objetivo do presente documento visa introduzir o projeto FPTV, a futura hub do
 - https://guilhermefilipesoldadolopes.github.io/FPTV
 
 ## Manual de Utilização
-- https://guilherme-fs-lopes.atlassian.net/wiki/spaces/PDE/pages/51740686/Manual+De+Utiliza+o+-+Sprint+4
+- https://guilherme-fs-lopes.atlassian.net/wiki/spaces/PDE/pages/54329407/Manual+De+Utiliza+o+-+Sprint+4
