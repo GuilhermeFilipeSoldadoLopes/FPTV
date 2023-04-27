@@ -1,26 +1,13 @@
-﻿using AngleSharp.Text;
-using FPTV.Data;
-using FPTV.Models.BLL.Events;
+﻿using FPTV.Data;
 using FPTV.Models.EventsModels;
 using FPTV.Models.MatchesModels;
-using FPTV.Models.StatisticsModels;
 using FPTV.Models.UserModels;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using NuGet.Common;
 using RestSharp;
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics.Tracing;
 using System.Net;
-using System.Runtime.InteropServices;
 
 namespace FPTV.Controllers
 {
