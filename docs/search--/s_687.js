@@ -1,0 +1,1 @@
+search_result['687']=["frlrfFPTVModelsBLLMatches_StatsStateOfMatchesValClassTopic.html","StateOfMatchesVal Class","This class is used to store the state of matches in a game."];

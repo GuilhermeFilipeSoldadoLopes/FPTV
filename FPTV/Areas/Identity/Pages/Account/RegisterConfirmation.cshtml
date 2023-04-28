@@ -1,0 +1,74 @@
+﻿@page
+@model RegisterConfirmationModel
+@{
+    ViewData["Title"] = "Register confirmation";
+}
+
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<style>
+
+    .bodytemp {
+        text-align: left;
+    }
+
+    .container1 {
+        display: flex;
+        align-items: center;
+        width: 100%;
+    }
+
+    .box {
+        width: 100%
+    }
+
+    .row {
+        width: 100%;
+        justify-content: center;
+    }
+</style>
+<body class="bodytemp">
+    <div class=" darktheme bordercolor whitetext">
+
+        <div class="container1" style="text-align:center">
+
+            <div class="box" >
+                <img src="~/images/newEmail.png" style="width:90%; padding:10%">
+            </div>
+
+
+            <div class="box" style="text-align:center">
+                <div class="row">
+                    <div class="col-md-4" style="width:70%; ">
+                        <h3 style="text-transform: capitalize;" id="toTranslate">@ViewData["Title"]</h3>
+                        @{
+                            if (@Model.DisplayConfirmAccountLink)
+                            {
+                        <p id="toTranslate">
+                            This app does not currently have a real email sender registered, see <a href="https://aka.ms/aspaccountconf">these docs</a> for how to configure a real email sender.
+                            Normally this would be emailed: <a id="confirm-link" href="@Model.EmailConfirmationUrl">Click here to confirm your account</a>
+                        </p>
+                            }
+                            else
+                            {
+                        <p>
+                            <b id="toTranslate">Please check your email to confirm your account.</b>
+                            <br><br>
+									<span id="toTranslate">After confirming your account,</span><a asp-page="./Login"><span id="toTranslate"> click here to login</span></a>.
+                        </p>
+                            }
+                         }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+
+

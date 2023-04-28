@@ -1,0 +1,1 @@
+search_result['417']=["frlrfFPTVAreasIdentityPagesAccountManageTwoFactorAuthenticationModelClassOnGetAsyncTopic.html","TwoFactorAuthenticationModel.OnGetAsync Method","Gets the current user\u0027s two factor authentication information."];

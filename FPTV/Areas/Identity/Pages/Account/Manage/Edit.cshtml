@@ -1,0 +1,442 @@
+﻿@page
+@using FPTV.Models.UserModels;
+@model EditModel
+@{
+    ViewData["Title"] = "Edit Profile";
+    ViewData["ActivePage"] = ManageNavPages.Index;
+}
+
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<style>
+    .box1 {
+        width: 40%;
+        height: 100%;
+        display: flex;
+        flex-flow: column wrap;
+    }
+
+    .box {
+        width: 50%;
+        height: 100%;
+        display: flex;
+        flex-flow: column wrap;
+        margin-top: 60%;
+    }
+
+    .logo {
+        max-width: 100%;
+        height: auto;
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 95%;
+    }
+
+    th {
+        border: 1px solid black;
+        padding: 10px;
+    }
+
+    td {
+        border: 1px solid black;
+        padding: 10px;
+    }
+
+    h3 {
+        text-align: center;
+    }
+
+    .box2 {
+        width: calc(95% / 2);
+        height: 20%;
+        display: inline-block;
+    }
+
+    caption {
+        color: black;
+        text-decoration: underline;
+    }
+
+    .alinhar {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .alinhar2 {
+        display: inline-block;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .center {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .my-div {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        height: 50px;
+        margin: 10px;
+    }
+
+
+    .my-div > div {
+        flex-basis: 25%;
+        flex-grow: 1;
+    }
+
+    .my-div2 > div {
+        width: 100%
+    }
+
+    span {
+        font-weight: bold;
+    }
+
+
+    .span2 {
+        font-weight: normal;
+    }
+
+    .span3 {
+        font-weight: normal;
+    }
+
+    .central {
+        text-align: center;
+        background-color: white;
+    }
+
+    .ola {
+        display: flex;
+        align-self: flex-start;
+    }
+
+    .buttons {
+        display: flex;
+        margin-bottom: 30px;
+        margin-right: 25%;
+        justify-content: right;
+    }
+
+    .search-container {
+        display: flex;
+        align-items: center;
+    }
+
+    .dropdown-content a {
+        background-color: white;
+        display: block;
+        color: #000;
+        padding: 10px;
+        text-decoration: none;
+        border: 1px solid black;
+    }
+
+    .dropdown {
+        margin-left: 10px;
+        background-color: #e0eeff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+        border: 1px solid black;
+    }
+
+    .dropdown-content a:hover {
+        background-color: #bf7b8e;
+    }
+
+    .button2 {
+        background-color: #e0eeff;
+        color: black;
+        width: 100%;
+        padding: 10px 20px;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        z-index: 1;
+        margin-left: 5%;
+    }
+
+    .button:hover {
+        background-color: #2980b9;
+    }
+
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+
+    .central {
+        width: 100%;
+        margin: 0 auto;
+        text-align: center;
+        height: 100%;
+        background-color: white;
+    }
+
+    .search-container input[type="text"] {
+        background-color: #e0eeff;
+        color: black;
+        width: 100%;
+        padding: 10px 20px;
+        border: 1px solid black;
+    }
+
+    .search-container img {
+        margin-right: 10px;
+        height: 30px;
+        width: 30px;
+    }
+</style>
+
+<body class="bodyLogin">
+    <div class="ola " style="border-radius:15px;padding-top:20px;margin-top:0px">
+        @{
+            List<int> toRemoveTeamsList = new List<int>();
+            List<int> toRemovePlayersList = new List<int>();
+        }
+        <div class="box darkcolor bordercolor responsive" style="border-radius:15px;margin-top:0px; width:40%">
+            <div style="width:100%;text-align:center;">
+                <h1>CS:GO</h1>
+            </div>
+            <br />
+
+            <div style="width:80%;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:black;background-color:white;border-width:1px;border-radius:10px;padding:10px;">
+                <h4 class="text-dark" style="text-transform: capitalize;" id="toTranslate">Favourite Players:</h4>
+                <div style="padding-left:20px">
+                    @if (ViewData["FavCSPlayerList"] == null || ((List<Player>)ViewData["FavCSPlayerList"]).Count() == 0)
+                    {
+                        <span class="span2 text-dark" style="text-transform: capitalize;" id="toTranslate">No Favourite Players</span>
+                        <br />
+                    }
+                    else
+                    {
+                        foreach (var item in (List<Player>)ViewData["FavCSPlayerList"])
+                        {
+                            var id = "player" + item.PlayerAPIId;
+                            <div class="ola" id=@id>
+                                <div class="box" style="margin-top:0px;width:80%">
+                                    <span class="span2 text-dark"> @item.Name </span>
+                                </div>
+                                <div class="box" style="margin-top:0px;width:20%">
+                                    <a href="@Url.Action("removePlayerToFav", "Stats", new { id = item.PlayerAPIId})">
+                                        <img src="~/images/trash.png" style="width:20px;height:20px;cursor:pointer" />
+                                    </a>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+            <br />
+
+            <div style="width:80%;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:black;background-color:white;border-width:1px;border-radius:10px;padding:10px;">
+                <h4 class="text-dark" style="text-transform: capitalize;" id="toTranslate">Favourite Teams:</h4>
+                <div style="padding-left:20px">
+                    @if (ViewData["FavCSTeamsList"] == null || ((List<Team>)ViewData["FavCSTeamsList"]).Count() == 0)
+                    {
+                        <span class="span2 text-dark" style="text-transform: capitalize;" id="toTranslate">No Favourite Teams</span>
+                        <br />
+                    }
+                    else
+                    {
+                        foreach (var item in (List<Team>)ViewData["FavCSTeamsList"])
+                        {
+                            var id = "team" + item.TeamAPIID;
+                            <div class="ola" id=@id>
+                                <div class="box" style="margin-top:0px;width:80%">
+                                    <span class="span2 text-dark"> @item.Name </span>
+                                </div>
+                                <div class="box" style="margin-top:0px;width:20%">
+                                    <a href="@Url.Action("removeTeamToFav", "Stats", new { id = item.TeamAPIID})">
+                                        <img src="~/images/trash.png" style="width:20px;height:20px;"/>
+                                    </a>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+            <br />
+        </div>
+        
+        <div class="box bordercolor responsive" style="margin-top:0px;position:relative;border-width:0px;width:70%">
+            <partial name="_StatusMessage" for="StatusMessage" />
+            <form id="profile-form" method="post" enctype="multipart/form-data">
+                <div class="ola responsive" style="margin-top:0px;padding-top:20px;width:100%">
+                    <div class="box" style="width:50%;margin-top:0px">
+                        <h1 style="margin-left:30px;font-weight: bold; text-transform: capitalize;" id="toTranslate">Edit Profile</h1>
+                    </div>
+                    <div class="box responsive" style="width:50%;margin-top:0px">
+                        <img id="profilePicture" style="width:195px;height:195px;display:block;margin-left:auto;margin-right:auto;object-fit:cover;border-radius:50%" src="data:image/*;base64,@(Convert.ToBase64String(Model.Input.ProfilePicture))">
+                        <div style="position:relative; margin-left:15%">
+                            <img class="headshot" src="/images/camera.png" style="width:75px;height:auto;position:absolute" />
+                            <input type="file"
+                                   accept=".png,.jpg,.jpeg,.gif,.tif"
+                                   asp-for="Input.ProfilePicture"
+                                   class="form-control"
+                                   style="opacity:0;border:0px!important;padding: 0px;padding-top: 10px;padding-bottom: 30px;width:70px;height:50px;position:absolute;"
+                                   onchange="document.getElementById('profilePicture').src = window.URL.createObjectURL(this.files[0])" />
+                            
+                        </div>
+                        <br />
+                        <br />
+                    </div>
+                </div>
+                <span asp-validation-for="Input.ProfilePicture" class="text-danger" id="toTranslate"></span>
+                <br />
+                <div style="width:100%;position:relative;display:block;margin-left:auto;margin-right:auto;">
+                    <div style="width:90%;position:relative;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:black;border-width:1px;border-radius:10px;padding:10px;background-color:white">
+                        <select id="Country" name="Country" style="width:100%;border-width:0px">
+                            <option value=@Model.Input.Country>@Model.Input.Country</option>
+                            @foreach (var item in (List<string>)ViewData["Countries"])
+                            {
+                                <option value=@item>@item</option>
+                            }
+                        </select>
+                    </div>
+                    <label asp-for="Input.Country" id="toTranslate" class="form-label text-white" style="color:black;font-weight: bold;margin-left:5%"></label>
+                </div>
+                <br />
+                <div style="width:90%;position:relative;display:block;margin-left:auto;margin-right:auto;">
+                    <input value=@Model.Input.Username asp-for="Input.Username" class="form-control" />
+                    <label asp-for="Input.Username" class="form-label text-white" style="color:black;font-weight: bold;"></label>
+                    <span asp-validation-for="Input.Username" class="text-danger" id="toTranslate"></span>
+                </div>
+                <br />
+                <div style="width:90%;position:relative;display:block;margin-left:auto;margin-right:auto;">
+                    <input asp-for="Input.Bio" class="form-control" />
+                    <label asp-for="Input.Bio" class="form-label text-white" style="color:black;font-weight: bold;"></label>
+                </div>
+                <br />
+                <div class="ola " style="margin-top:0px;display:flex;margin:auto">
+					<button id="update-profile-button" type="submit" class="button" style="border-radius:15px;margin:auto; text-transform: capitalize;"><span id="toTranslate">Save</span></button>
+                    <button id="cancel" class="button" style="border-radius:15px;margin:auto" ; return false;"><a id="cancel" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage" style="text-decoration: none; color: white; text-transform: capitalize;"><span id="toTranslate">Cancel</span></a></button>
+                </div>
+            </form>
+        </div>
+        <div class="responsive"  style="width:40%">
+            <div class="box darkcolor bordercolor " style="border-radius:15px;margin-top:0px;width:100%;height: fit-content;">
+            <div style="width:100%;text-align:center;">
+                <h1>Valorant</h1>
+            </div>
+            <br />
+
+            <div style="width:80%;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:black;background-color:white;border-width:1px;border-radius:10px;padding:10px;">
+                <h4 class="text-dark" id="toTranslate">Favourite Players:</h4>
+                <div style="padding-left:20px">
+                    @if (ViewData["FavValPlayerList"] == null || ((List<Player>)ViewData["FavValPlayerList"]).Count() == 0)
+                    {
+                        <span class="span2 text-dark">No Favourite Players</span>
+                        <br />
+                    }
+                    else
+                    {
+                        foreach (var item in (List<Player>)ViewData["FavValPlayerList"])
+                        {
+                            <div class="ola">
+                                <div class="box" style="margin-top:0px;width:80%">
+                                    <span class="span2 text-dark"> @item.Name </span>
+                                </div>
+                                <div class="box" style="margin-top:0px;width:20%">
+                                    <a href="@Url.Action("removePlayerToFav", "Stats", new { id = item.PlayerAPIId})">
+                                        <img src="~/images/trash.png" style="width:20px;height:20px;" />
+                                    </a>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+            <br />
+
+            <div style="width:80%;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:black;background-color:white;border-width:1px;border-radius:10px;padding:10px;">
+                    <h4 class="text-dark" id="toTranslate">Favourite Teams:</h4>
+                <div style="padding-left:20px">
+                    @if (ViewData["FavValTeamsList"] == null || ((List<Team>)ViewData["FavValTeamsList"]).Count() == 0)
+                    {
+                        <span class="span2 text-dark">No Favourite Teams</span>
+                        <br />
+                    }
+                    else
+                    {
+                        foreach (var item in (List<Team>)ViewData["FavValTeamsList"])
+                        {
+                            <div class="ola">
+                                <div class="box" style="margin-top:0px;width:80%">
+                                    <span class="span2 text-dark"> @item.Name </span>
+                                </div>
+                                <div class="box" style="margin-top:0px;width:20%">
+                                    <a href="@Url.Action("removeTeamToFav", "Stats", new { id = item.TeamAPIID})">
+                                        <img src="~/images/trash.png" style="width:20px;height:20px;" />
+                                    </a>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+            <br />
+            
+        </div>
+
+            <div class="responsive" style="width:100%;margin-top:60%">
+            <span>
+                    <a style="width:auto ;font-size:20px;color:red;order:1;" asp-area="Identity" asp-page="/Account/Manage/Disable"><span style="text-transform: capitalize;" id="toTranslate">Disable Account</span></a>
+            </span>
+        </div>
+        </div>
+    </div>
+
+
+    @*<script>
+        function removePlayer(id) {
+            let ID = id
+            document.getElementById("player" + id).style.display = 'none';
+            @Model.removePlayer($"{ID}");
+        }
+
+        function removeTeam(id) {
+            let ID = id
+            document.getElementById("team" + id).style.display = 'none';
+            @Model.removeTeam(Convert.ToInt16(CSHTML5.Interop.ExecuteJavaScript("screen.width")));
+        }
+
+        
+    </script>
+    
+    @{
+        bool removePlayer(int id)
+        {
+            toRemovePlayersList.Add(id);
+
+            return true;
+        }
+
+        bool removeTeam(int id)
+        {
+            toRemoveTeamsList.Add(id);
+
+            return true;
+        }
+    }*@
+</body>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

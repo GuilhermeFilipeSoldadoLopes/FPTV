@@ -1,0 +1,1 @@
+search_result['526']=["frlrfFPTVControllersForumControllerClassDeleteCommentAsyncTopic.html","ForumController.DeleteCommentAsync Method","Deletes a comment from the database."];

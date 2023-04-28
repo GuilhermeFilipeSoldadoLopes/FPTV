@@ -1,0 +1,1 @@
+search_result['260']=["frlrfFPTVAreasIdentityPagesAccountManageEmailModelClassTopic.html","EmailModel Class","This class is used to create a model for sending emails."];

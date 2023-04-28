@@ -1,0 +1,1 @@
+search_result['513']=["frlrfFPTVControllersEventsControllerClassDetailsTopic.html","EventsController.Details Method","Retrieves event information based on the game and filter parameters."];

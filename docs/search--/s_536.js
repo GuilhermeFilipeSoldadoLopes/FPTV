@@ -1,0 +1,1 @@
+search_result['536']=["frlrfFPTVControllersForumControllerClassReportedTopicsAndCommentsTopic.html","ForumController.ReportedTopicsAndComments Method","Retrieves a list of reported topics and comments from the database."];

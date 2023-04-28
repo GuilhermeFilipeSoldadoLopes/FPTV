@@ -1,0 +1,1 @@
+search_result['991']=["frlrfFPTVModelsUserModelsAdminClassTopic.html","Admin Class","Represents an administrator user of the system. Inherits from UserBase."];

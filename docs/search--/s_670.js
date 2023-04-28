@@ -1,0 +1,1 @@
+search_result['670']=["frlrfFPTVModelsBLLEventsStateOfEventValClassTopic.html","StateOfEventVal Class","This class is used to store the state of an event."];

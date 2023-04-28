@@ -1,0 +1,1 @@
+search_result['1114']=["frlrfFPTVServicesEmailSenderServiceCustomEmailConfirmationTokenProvider`1ClassctorTopic.html","CustomEmailConfirmationTokenProvider\u0026lt;TUser\u0026gt; Constructor","Constructor for CustomEmailConfirmationTokenProvider class."];

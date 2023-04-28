@@ -1,92 +1,297 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+﻿@using FPTV.Data;
+@using Microsoft.AspNetCore.Identity;
+@using FPTV.Models.UserModels;
+@inject SignInManager<UserBase> SignInManager
+@inject UserManager<UserBase> UserManager
+@inject FPTVContext context
+
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - FPTV</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/FPTV.styles.css" asp-append-version="true" />
-    <link rel="icon" type="image/png" href="~/favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
+
+
+
+<style>
+	#rl:hover {
+        text-decoration: underline;
+       
+	}
+    .settingsBTN{
+        background-color: white;
+        border-color:white;
+        padding: 0px;
+        width: 30%;
+        color: white;
+        border: none;
+        cursor: pointer;
+        border-radius: 15px;
+        margin: 0px;
+    }
+
+    .switch1 {
+        position: relative;
+        display: inline-block;
+        width: 60px;
+        height: 34px;
+    }
+
+    .switch1 input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+
+    .slider:before {
+        position: absolute;
+        content: "";
+        height: 26px;
+        width: 26px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+
+    input:checked + .slider {
+        background-color: #2196F3;
+    }
+
+    input:focus + .slider {
+        box-shadow: 0 0 1px #2196F3;
+    }
+
+    input:checked + .slider:before {
+        -webkit-transform: translateX(26px);
+        -ms-transform: translateX(26px);
+        transform: translateX(26px);
+    }
+
+    /* Rounded sliders */
+    .slider.round {
+        border-radius: 34px;
+    }
+
+    .slider.round:before {
+        border-radius: 50%;
+    }
+
+    .dropdownItem1 {
+        z-index:1
+    }
+
+    .dropdownContent12 {
+        display: none;
+        position: absolute;
+        z-index: 1;
+        /*margin-left:%;*/
+    }
+
+    .dropdown123:hover .dropdownContent12 {
+        display: block;
+    }
+
+    .dropdown123 {
+        margin-left: 10px;
+        background-color: white;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+    }
+
+    .dropdownItem12:hover {
+        background-color: transparent;
+        border: 2px solid #DE3C3C;
+        border-radius: 20px;
+        -webkit-transition: all .15s ease-in-out;
+        transition: all .15s ease-in-out;
+        color: #DE3C3C;
+        box-shadow: 0 0 5px 0 #DE3C3C inset, 0 0 10px 1px #DE3C3C;
+    }
+
+</style>
+
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">FPTV</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+    @{
+        string? returnUrl = null;
+        var query = ViewContext.HttpContext.Request.Query;
+        if (query.ContainsKey("returnUrl"))
+        {
+            returnUrl = query["returnUrl"];
+        }
+    }
 
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Game">Game</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Matches">Matches</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Results">Results</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Events">Events</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Fórum">Fórum</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">About</a>
-                        </li>
+    <div class="marginDrop" style="display:flex;align-content:end; width:30%; justify-content:end">
 
-                    </ul>
-                </div>
-                <div style="text-align:right">
-                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="LoginRegister">Login/Register</a>
-                </div>
+        @*<div style="display:flex;justify-content:center">*@
+        <div class="dropdown123 " style="margin-top:15px;">
+            <img class="marginLeftDrop2" src="~/images/settings.png" style="width:30px;  ">
+                <div class="dropdownContent12 bordercolor dropdownWidth" style="background-color:white;padding:1%;">
+
+                    <a class="dropdownItem1" style="display:flex;border-radius:15px;width:100%;padding:2%; text-decoration:none">
+                    
+                        <div id="checkbox-container" style="text-align:right;width:100%">
+                            <label class="switch1" >
+                            <input type="checkbox" id="myCheck" onclick="changeCSS(0);" value="DarkMode">
+                                <span class="slider round" style="text-align:right; "></span>
+                            </label>
+                        </div>
+                        <div style="margin-right:5px; margin-left:0px; text-decoration:none">
+                            <span class="" id="toTranslate" style="text-transform: capitalize; text-align:left;vertical-align:auto;color:black ;margin-left:5px;margin-top:10px;">DarkMode</span>
+                        </div>
+                    </a>
+                    <a class="dropdownItem1" style="display:flex;border-radius:15px;width:100%;padding:2%; text-decoration:none;margin:auto">
+                    
+                        <div style="text-align:right; width:100%">
+                            <label class="switch1">
+                            <input type="checkbox" id="language">
+                                <span class="slider round" style="text-align:right; vertical-align:auto;"></span>
+                            </label>
+                        </div>
+                        <div style="margin-right:5px; margin-left:0px ;text-decoration:none">
+                            <span class="" id="toTranslate" style="text-transform: capitalize; text-align:left;text-decoration:none;color:black ;margin-left:5px;margin-top:10px;">Português</span>
+                        </div>
+                     </a>
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        @if (UserManager.GetUserAsync(User).Result != null && context.Profiles.Single(p => p.Id == UserManager.GetUserAsync(User).Result.ProfileId) != null)
+                        {
+                            @if (UserManager.GetRolesAsync(UserManager.GetUserAsync(User).Result).Result.Contains<String>("Admin") == true || UserManager.GetRolesAsync(UserManager.GetUserAsync(User).Result).Result.Contains<String>("Moderator") == true)
+                            {
+                                <a class="dropdownItem12" style="display:flex;width:100%; text-decoration:none;justify-content:center;font-weight:bold">
+                                    
+                                    <div style="text-decoration:none;text-align:center;display:flex;justify-content:center;margin:0px" onclick="location.href = '@Url.Action("Stats", "Home")'">
+                                    <p class="" id="toTranslate" style="text-transform: capitalize;text-decoration:none;color:black;;margin-bottom:0px;margin-top:5px">Statistics</p>
+                                    </div>
+                                </a>
+                            }
+                        }
+                    }
+
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    @if (UserManager.GetUserAsync(User).Result != null && context.Profiles.Single(p => p.Id == UserManager.GetUserAsync(User).Result.ProfileId) != null)
+                    {
+                        @if (UserManager.GetRolesAsync(UserManager.GetUserAsync(User).Result).Result.Contains<String>("Admin") == true || UserManager.GetRolesAsync(UserManager.GetUserAsync(User).Result).Result.Contains<String>("Moderator") == true)
+                        {
+                            <a class="dropdownItem12" style="display:flex;width:100%; text-decoration:none;justify-content:center;font-weight:bold">
+
+                                <div style="text-decoration:none;text-align:center;display:flex;justify-content:center;margin:0px" onclick="location.href = '@Url.Action("ReportedTopicsAndComments", "Forum")'">
+                                    <p class="" id="toTranslate" style="text-transform: capitalize;text-decoration:none;color:black;;margin-bottom:0px;margin-top:5px">Forum reports</p>
+                                </div>
+                            </a>
+                        }
+                    }
+                }
             </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2022 - FPTV - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
-</body>
-</html>@using Microsoft.AspNetCore.Identity
-@inject SignInManager<IdentityUser> SignInManager
-@inject UserManager<IdentityUser> UserManager
+        @*</div>*@
 
-<ul class="navbar-nav">
-@if (SignInManager.IsSignedIn(User))
-{
-    <li class="nav-item">
-        <a  class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity?.Name!</a>
-    </li>
-    <li class="nav-item">
-        <form  class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-            <button  type="submit" class="nav-link btn btn-link text-dark">Logout</button>
-        </form>
-    </li>
-}
-else
-{
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
-    </li>
-}
-</ul>
+        @if (SignInManager.IsSignedIn(User))
+        {
+            <li class="nav-item navitem2 " style="align-self: center; margin-top: 5px; margin-right: -5px">
+                @if (UserManager.GetUserAsync(User).Result != null && context.Profiles.Single(p => p.Id == UserManager.GetUserAsync(User).Result.ProfileId) != null)
+                {
+                    <a class="nav-link text-dark marginLeftDrop" id="rl" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"><img style="margin:auto;width:40px;height:40px; object-fit:cover; border-radius:30px" src="data:image/*;base64,@(Convert.ToBase64String(context.Profiles.Single(p => p.Id == UserManager.GetUserAsync(User).Result.ProfileId).Picture))"></a>
+                }
+            </li>
+            <li class="nav-item" style="font-size: 22px; margin-top: 7px;margin-left:3%;margin-right:3%">
+                <a class="nav-link text-dark" id="rl" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage" style="">@User.Identity!.Name</a>
+	        </li>
+           @* <li class="nav-item" style="font-size: 30px; margin-top: 1px">
+		        /
+	        </li>*@
+            <li class="nav-item" style="margin-top: -8px;">
+                <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="/">
+                    <button type="submit" id="rl" style="font-size: 22px" class="nav-link btn btn-link text-dark settingsBTN">
+
+                        <img src="~/images/logout.png" style="width:30px;text-align:center;margin-top: 25px;margin-right:3px;">
+
+                    </button>
+                
+                </form>
+            </li>
+        } else {
+	   
+	            <li class="nav-item">
+                <a class="nav-link text-dark" id="rl" style="font-size: 25px; border-left: 1.6px solid Black font-weight: normal;" asp-area="Identity" asp-page="/Account/Register" asp-route-returnUrl="@returnUrl"><span id="toTranslate" style="text-transform: capitalize; font-weight: normal;">Register </span></a>
+	            </li>
+                <li class="nav-item" style="color: black; padding: 8px 0; font-size: 25px">
+		            /
+	            </li>
+                <li class="nav-item">
+                <a class="nav-link text-dark" id="rl" style="font-size: 25px; font-weight: normal;" asp-area="Identity" asp-page="/Account/Login" asp-route-returnUrl="@returnUrl"><span style="font-weight: normal;">Login</span></a>
+                </li>
+        
+        
+        
+        }
+       
+    </div>
+   
+
+    <script>
+        window.onload = function (e) {
+            var checkBox = document.getElementById("myCheck");
+            if (checkBox.checked == true) {
+                changeCSS(0, "/css/siteDARK.css");
+            } else {
+                changeCSS(0, "/css/site.css");
+            }
+        };
+
+        function changeCSS(cssLinkIndex, stylesheet) {
+            var oldlink = document.getElementsByTagName("link").item(cssLinkIndex);
+
+            var newlink = document.createElement("link");
+            newlink.setAttribute("rel", "stylesheet");
+            newlink.setAttribute("type", "text/css");
+            newlink.setAttribute("href", stylesheet);
+
+            document.getElementsByTagName("head").item(cssLinkIndex).replaceChild(newlink, oldlink);
+        }
+
+        jQuery(function ($) {
+            var checkboxValue = JSON.parse(localStorage.getItem('checkboxValue')) || {}
+            var $checkbox = $("#myCheck");
+
+            $checkbox.on("change", function () {
+                checkboxValue[$checkbox.attr("id")] = $checkbox.prop('checked');
+                localStorage.setItem("checkboxValue", JSON.stringify(checkboxValue));
+
+                if ($checkbox.prop('checked')) {
+                    changeCSS(0, "/css/siteDARK.css");
+                } else {
+                    changeCSS(0, "/css/site.css");
+                }
+            });
+
+            // on page load
+            if (checkboxValue[$checkbox.attr("id")]) {
+                $checkbox.prop('checked', true);
+                changeCSS(0, "/css/siteDARK.css");
+            } else {
+                $checkbox.prop('checked', false);
+                changeCSS(0, "/css/site.css");
+            }
+        });
+    </script>
+
+
+</body>

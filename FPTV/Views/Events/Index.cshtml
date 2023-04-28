@@ -1,0 +1,223 @@
+﻿@using System.Collections;
+@{
+    ViewData["Title"] = "Events";
+	
+}
+@model dynamic
+<!DOCTYPE html>
+
+<head>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<html>
+	<style>
+		.central {
+			width: 100%;
+			margin: 0 auto;
+			text-align: center;
+			height:100%;
+			/*background-color: white;*/
+		}
+
+		.center {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+		h1 {
+			font-size: 36px;
+			margin-bottom: 30px;
+		}
+		.buttons {
+			display: flex;
+			justify-content: center;
+			margin-bottom: 30px;
+		}
+		.button {
+			
+			margin-left:10px;
+			background-color: #e0eeff;
+			color: black;
+			border-radius: 5px;
+			cursor: pointer;
+			transition: all 0.2s ease-in-out;
+			border: 1px solid black;
+		}
+
+		.btn1 {
+			border: 1px solid black;
+		}
+
+		.button2 {
+			background-color: #e0eeff;
+			color: black;
+			width:100%;
+			padding: 10px 20px;
+			
+		
+		}
+		.button:hover {
+			background-color: #2980b9;
+		}
+		.my-div {
+			width:100%;
+			display: flex;
+			flex-direction: row;
+			height: 50px;
+			margin: 10px;
+		}
+		.my-div > div {
+			flex-basis: 25%;
+			flex-grow: 1;
+			
+		}
+		
+		span{
+			font-weight:bold;
+		}
+
+		.dropdown {
+			margin-left:10px;
+			background-color: #e0eeff;
+			color: #fff;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			transition: all 0.2s ease-in-out;
+			border: 1px solid black;
+		}
+
+		.dropdown-content {
+			display: none;
+			position: absolute;
+			z-index: 1;
+			margin-left:5%;
+			margin-top: 2px;
+			
+		}
+
+		.dropdown:hover .dropdown-content {
+			display: block;
+		}
+
+		.dropdown-content a {
+			background-color:white;
+			display: block;
+			color: #000;
+			padding: 10px;
+			text-decoration: none;
+			border: 1px solid black;
+		}
+
+		.dropdown-content a:hover {
+			background-color: #bf7b8e;
+		}
+
+		.search-container {
+			display: flex;
+			align-items: center;
+		}
+
+		.search-container input[type="text"] {
+			background-color: #e0eeff;
+			color: black;
+			width:100%;
+			padding: 10px 20px;
+			border:1px solid black;
+			
+		}
+
+		.search-container img {
+			margin-right: 10px;
+			height: 30px;
+			width: 30px;
+		}
+
+</style>
+
+<body class="bodytemp ">
+	
+	<div class="central bodycolor bordercolor"style="border-radius:15px; padding:1%">
+		<h1 id="toTranslate">Events</h1>
+
+		<div class="buttons bodycolor">
+
+			<form method="post" action="@Url.Action("Index", "Events", new { sort = ViewBag.sort, filter = ViewBag.filter})">
+			<label class="search-container">
+				<img src="~/images/procurar.png" />
+					<input id="toTranslate" name="search" type="text" placeholder="Search...">
+			</label>
+
+			
+			</form>
+			<div class="dropdown">
+				<button class="button2" id="toTranslate">Sort by</button>
+				<div class="dropdown-content" style="margin-left:0px;">
+					<a href="@Url.Action("Index", "Events", new { sort = "&sort=-begin_at", filter = ViewBag.filter, game = ViewData["game"].ToString()})" id="toTranslate">Newest</a>
+					<a href="@Url.Action("Index", "Events", new { sort = "&sort=begin_at", filter = ViewBag.filter, game = ViewData["game"].ToString()})" id="toTranslate" style="text-transform: capitalize;">Oldest</a>
+					<a href="@Url.Action("Index", "Events", new { sort = "&sort=prizepool", filter = ViewBag.filter, game = ViewData["game"].ToString()})" id="toTranslate" style="text-transform: capitalize;">Prizepool</a>
+					<a href="@Url.Action("Index", "Events", new { sort = "&sort=name", filter = ViewBag.filter, game = ViewData["game"].ToString()})" id="toTranslate">Name</a>
+					<a href="@Url.Action("Index", "Events", new { sort = "&sort=-tier", filter = ViewBag.filter, game = ViewData["game"].ToString()})" id="toTranslate">Tier</a>
+			  </div>
+			</div>
+			<div class="dropdown">
+				<button class="button2" id="toTranslate">Filter by</button>
+				<div class="dropdown-content" style="margin-left:0px;">
+					<a href="@Url.Action("Index", "Events", new { sort = ViewBag.sort, filter = "running", game = ViewData["game"].ToString()})" id="toTranslate">On going</a>
+					<a href="@Url.Action("Index", "Events", new { sort = ViewBag.sort, filter = "past", game = ViewData["game"].ToString()})" id="toTranslate">Finished</a>
+					<a href="@Url.Action("Index", "Events", new { sort = ViewBag.sort, filter = "upcoming", game = ViewData["game"].ToString()})" id="toTranslate">Upcoming</a>
+			  </div>
+			</div>
+						
+		</div>
+
+		<div class="center bodycolor" style="flex-direction: column; border-radius:15px ">
+			@foreach (var e in Model)
+			{
+				<button style="margin:1%" class="btn1" onclick="location.href='@Url.Action("Details", "Events", new { id = e.EventAPIID, sort = ViewBag.sort, filter = ViewBag.filter,  game = ViewData["game"].ToString()})'">
+					<div class="my-div" style="margin:auto">
+						<div style="width:100%">
+							<img src=@e.EventImage style="width:20%; margin:auto; height:45px;"/>
+						</div>
+						<div>
+							<span>@e.EventName</span>
+							<p>@e.LeagueName</p>
+						</div>
+
+						<div>
+							<span id="toTranslate" style="text-transform: capitalize;">Prizepool</span>
+							<p>$@e.PrizePool</p>
+						</div>
+
+						<div>
+							<span id="toTranslate">Winner</span>
+							<p>@e.WinnerTeamName</p>
+						</div>
+
+						<div>
+							@if (e.BeginAt == null)
+							{
+								<span>-</span>
+							}
+							else
+							{
+								<span>@e.BeginAt.ToString("dd/MM/yyyy")</span>
+							}
+
+							<p id="toTranslate">State: @e.TimeType</p>
+						</div>
+
+					</div>
+				</button>
+			}
+
+		</div>
+
+	</div>
+</body>
+</html>
+

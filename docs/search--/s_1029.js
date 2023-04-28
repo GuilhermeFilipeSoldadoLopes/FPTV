@@ -1,0 +1,1 @@
+search_result['1029']=["frlrfFPTVModelsUserModelsModeratorClassTopic.html","Moderator Class","Moderator class is a derived class of UserBase class and provides additional functionality for moderators."];

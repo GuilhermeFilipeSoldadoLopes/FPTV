@@ -1,0 +1,1 @@
+search_result['696']=["frlrfFPTVModelsBLLUserUserClassgetFavTeamsByUserIDTopic.html","User.getFavTeamsByUserID Method",""];

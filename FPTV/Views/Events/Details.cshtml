@@ -1,0 +1,358 @@
+﻿@using FPTV.Models.MatchesModels;
+@using FPTV.Models.StatisticsModels;
+@using Newtonsoft.Json.Linq
+@using System.Linq
+@using System.Globalization;
+@using System.Collections.Generic;
+@{
+    ViewData["Title"] = "EventDetails";
+    var dict = ViewBag.TeamList as Dictionary<int, string>;
+}
+
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<style>
+    .box1 {
+        width: 25%;
+        height: 100%;
+        display: flex;
+        flex-flow: column wrap;
+    }
+
+    .box {
+        width: 50%;
+        height: 100%;
+        display: flex;
+        flex-flow: column wrap;
+        margin-top: 60%;
+    }
+
+    .logo {
+        max-width: 100%;
+        height: auto;
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 95%;
+    }
+
+    th {
+        border: 1px solid black;
+        padding: 10px;
+    }
+
+    td {
+        border: 1px solid black;
+        padding: 10px;
+    }
+
+    h3 {
+        text-align: center;
+    }
+
+    .box2 {
+        width: calc(95% / 2);
+        height: 20%;
+        display: inline-block;
+    }
+
+    caption {
+        color: black;
+        text-decoration: underline;
+    }
+
+    .alinhar {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .alinhar2 {
+        display: inline-block;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .center {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .my-div {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        height: 50px;
+        margin: 10px;
+    }
+
+        .my-div > div {
+            flex-basis: 25%;
+            flex-grow: 1;
+        }
+
+    .my-div2 > div {
+        width: 100%
+    }
+
+    span {
+        font-weight: bold;
+    }
+
+    .span2 {
+        font-weight: normal;
+    }
+
+    .central {
+        text-align: center;
+        background-color: white;
+    }
+
+    .ola {
+        display: flex;
+        align-self: flex-start;
+    }
+</style>
+<body class="bodytemp whiteText">
+
+    <h1 style="text-align: center;">@ViewBag.Event.EventName - @ViewBag.Event.LeagueName</h1>
+    <img src=@ViewBag.Event.EventImage style="max-width:120px;width:50%;display:block;margin-left: auto;margin-right: auto" />
+    <div class="ola">
+
+        <div class="box1 darkcolor bordercolor responsive" style="padding:1%">
+            <h4 style="font-weight: bold; text-transform: capitalize;" id="toTranslate">Finished Matches</h4>
+            @foreach(var match in ViewBag.pastMatches)
+            {
+                IList<Score> scores = match.Scores;
+                var team1Score = scores.First().TeamScore;
+                var team2Score = scores.Last().TeamScore;
+
+                
+                <div class="alinhar bordercolor" style="border-bottom: 1px solid black;margin-top:3%">
+                <div class="my-div2" style="width:90%;">
+                    <div>
+                             @if(match.BeginAt == null)
+                            {
+                                <span class="span2" style="margin-top:10px;" id="toTranslate">No date yet</span>
+                            }
+                            else
+                            {
+                                <span class="span2" style="margin-top:10px; text-transform: capitalize;">@match.BeginAt.ToString("dddd - dd-MM-yyyy - HH:mm WEST")</span>
+                            }
+                    </div>
+
+                    <div>
+                        <span style="text-align: center;">
+                                <p style="font-size:25px">
+
+                                    <img src="@scores.First().Team.Image" style="max-width:30px;width:50%" />
+                                    <span style="font-size:25px"> @scores.First().TeamName </span>
+                                </p>
+                                <p style="font-size:25px">
+                                    @if (team1Score < team2Score)
+                                    {
+                                        <span>
+                                            <span style="color: #B71919; font-size: 120%">@team1Score</span>
+                                            <span class="span2"> - </span>
+                                            <span style="color: #11871D; font-size: 120%">@team2Score</span>
+                                        </span>
+                                    }
+                                    else if (team1Score > team2Score)
+                                    {
+                                        <span>
+                                            <span style="color: #11871D; font-size: 120%">@team1Score</span>
+                                            <span class="span2"> - </span>
+                                            <span style="color: #B71919; font-size: 120%">@team2Score</span>
+                                        </span>
+                                    }
+                                    else if (team1Score == team2Score)
+                                    {
+                                        <span>
+                                            <span style="color: #CD8417; font-size: 120%">@team1Score</span>
+                                            <span class="span2"> - </span>
+                                            <span style="color: #CD8417; font-size: 120%">@team2Score</span>
+                                        </span>
+                                    }
+                                </p>
+                                <p style="font-size:25px">
+                                
+                                    <span> @scores.Last().TeamName </span>
+                                    <img src="@scores.Last().Team.Image" style="max-width:30px;width:50%" />
+                                </p>
+                            
+                        </span>
+                    </div>
+
+                    <div style="text-align:left; display: flex;">
+                        <p id="toTranslate">Best of @match.NumberOfGames</p>
+                            <a href="@Url.Action("MatchDetails", "Matches", new {id = match.MatchesAPIID, type = match.TimeType.ToString().ToLower(), game = ViewData["game"].ToString()})" style="justify-content: space-around; margin-left: auto;" id="toTranslate">More details</a>
+                    </div>
+
+                </div>
+            </div>
+            }
+            
+
+        </div>
+
+        <div class="box responsive" style=" margin: 2%;">
+
+            <div class="prizepoolColor" style="text-align:center; border:1px solid black;">
+
+                <div class="alinhar" >
+                    <div class="my-div">
+                        <div>
+                            <span id="toTranslate">Date</span>
+                            <p style="text-transform: capitalize;">
+                                @ViewBag.Event.BeginAt.ToString("dd-MM-yyyy - hh:mm")H
+                            </p>
+                        </div>
+
+                        <div>
+                            <span id="toTranslate" style="text-transform: capitalize;">Prizepool</span>
+                            <p>@ViewBag.Event.PrizePool $</p>
+                        </div>
+
+                        <div>
+                            <span id="toTranslate">Teams</span>
+                            <p>@ViewBag.Event.TeamsList.Count</p>
+                        </div>
+
+                        <div>
+                            <span>Tier</span>
+                            <p>@char.ToUpper(ViewBag.Event.Tier)</p>
+                        </div>
+
+                    </div>
+
+                </div>
+                <p style="margin-right:20%; text-align:right;margin-bottom:0px">
+                    <span>
+                        Link:
+                    @if(ViewBag.Event.EventLink == null)
+                    {
+                    
+                        <a id="toTranslate">Not available</a>
+                    }
+                    else
+                    {
+                        <a href="@ViewBag.Event.EventLink" target="_blank">@ViewBag.Event.EventName</a>
+                    }
+                    </span>
+                </p>
+            </div>
+
+            @foreach (var match in ViewBag.runningMatches)
+            {
+                IList<Score> scores = match.Scores;
+                <div class="alinhar darkcolor bordercolor" style="margin-top:3% ">
+                    <div class="my-div2" style="width:90%;padding:3%">
+                        <p style="font-weight:bold; margin-top:2%; margin-bottom:0px; ">
+                            <h4 style="font-weight: bold;" id="toTranslate">Live Match</h4>
+                        </p>
+                        <div class="bordercolor">
+                        <div style="padding:3%;">
+                            
+                            @if(match.BeginAt == null)
+                            {
+                                    <span class="span2" style="margin-top:10px;" id="toTranslate">No date yet</span>
+                            }
+                            else
+                            {
+                                    <span class="span2" style="margin-top:10px; text-transform: capitalize">@match.BeginAt.ToString("dddd - dd-MM-yyyy - HH:mm WEST")</span>
+                            }
+                            
+                        </div>
+
+                        <div class="">
+                            <span style="text-align: center;">
+                                <p style="font-size:25px">
+                                    <img src="@scores.First().Team.Image" style="max-width:30px;width:50%" />
+                                    <span style="font-size:20px"> @scores.First().TeamName </span>
+                                    <span style="font-size:20px" class="span2"> @scores.First().TeamScore </span>
+                                    <span style="font-size:20px" class="span2"> vs </span>
+                                    <span style="font-size:20px" class="span2"> @scores.Last().TeamScore </span>
+                                    <span style="font-size:20px"> @scores.Last().TeamName </span>
+                                    <img src="@scores.Last().Team.Image" style="max-width:30px;width:50%" />
+                                </p>
+                            </span>
+                        </div>
+                        
+                            <div style="text-align:left; display: flex;padding-left:2%;padding-right:2%">
+                            <p id="toTranslate">Best of @match.NumberOfGames</p>
+                                <a href="@Url.Action("MatchDetails", "Matches", new {id = match.MatchesAPIID, type = match.TimeType.ToString().ToLower(), game = ViewData["game"].ToString()})" style="justify-content: space-around; margin-left: auto;" id="toTranslate">More details</a>
+                        </div>
+                        </div>
+
+                    </div>
+                </div>
+            }
+           
+        </div>
+
+
+        <div class="box1 darkcolor bordercolor responsive" style="padding:1%;margin-bottom:10%">
+            <h4 style="font-weight: bold;" id="toTranslate">Upcoming Matches</h4>
+            @foreach (var match in ViewBag.upcomingMatches)
+            {
+
+                IList<Score> scores = match.Scores;
+                Score scoreT1 = scores.FirstOrDefault();
+                Score scoreT2 = scores.LastOrDefault();
+                
+                if(scoreT1 != default && scoreT2 != default)
+                {
+                    if (scoreT1.TeamName != default && scoreT2.Team != default)
+                    {
+                        <div class="alinhar bordercolor" style="border-bottom: 1px solid black;margin-top:3%">
+                            <div class="my-div2" style="width:90%;">
+                                <div>
+                                    @if (match.BeginAt == null)
+                                    {
+                                        <span class="span2" style="margin-top:10px;" id="toTranslate">No date yet</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="span2" style="margin-top:10px; text-transform: capitalize;">@match.BeginAt.ToString("dddd - dd-MM-yyyy - HH:mm WEST")</span>
+                                    }
+                                </div>
+
+                                <div>
+                                    <span style="text-align: center;">
+                                        <p style="font-size:25px">
+
+                                            <img src="@scores.First().Team.Image" style="max-width:30px;width:50%" />
+                                            <span style="font-size:20px"> @scores.First().TeamName </span>
+                                        </p>
+                                        <p>
+                                            <span class="span2">  </span>
+                                            <span class="span2"> vs </span>
+                                            <span class="span2">  </span> <br>
+                                        </p>
+                                        <p>
+
+                                            <span style="font-size:20px"> @scores.Last().TeamName </span>
+                                            <img src="@scores.Last().Team.Image" style="max-width:30px;width:50%" />
+                                        </p>
+                                    </span>
+                                </div>
+
+                                <div style="text-align:left; display: flex;">
+                                    <p id="toTranslate">Best of @match.NumberOfGames</p>
+                                    <a href="@Url.Action("MatchDetails", "Matches", new {id = match.MatchesAPIID, type = match.TimeType.ToString().ToLower(), game = ViewData["game"].ToString()})" style="justify-content: space-around; margin-left: auto;"id="toTranslate">More details</a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            }
+        </div>
+    </div>
+</body>

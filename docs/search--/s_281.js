@@ -1,0 +1,1 @@
+search_result['281']=["frlrfFPTVAreasIdentityPagesAccountManageEnableAuthenticatorModelClassTopic.html","EnableAuthenticatorModel Class","This class is used to enable the user\u0027s authenticator."];

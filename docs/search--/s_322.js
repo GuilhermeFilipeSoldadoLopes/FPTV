@@ -1,0 +1,1 @@
+search_result['322']=["frlrfFPTVAreasIdentityPagesAccountManageIndexModelClassOnGetAsyncTopic.html","IndexModel.OnGetAsync Method","Gets the user profile and loads the favorite players and teams for CSGO and Valorant."];

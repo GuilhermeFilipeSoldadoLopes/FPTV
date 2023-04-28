@@ -1,0 +1,1 @@
+search_result['276']=["frlrfFPTVAreasIdentityPagesAccountManageEnableAuthenticatorModelClassOnGetAsyncTopic.html","EnableAuthenticatorModel.OnGetAsync Method","Gets the user information and loads the shared key and QR code URI."];

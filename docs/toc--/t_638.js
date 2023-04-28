@@ -1,0 +1,1 @@
+c['638']=[['639',"Properties","frlrfFPTVModelsStatisticsModelsMatchPlayerStatsCSClassTopic_props--.html",1]];

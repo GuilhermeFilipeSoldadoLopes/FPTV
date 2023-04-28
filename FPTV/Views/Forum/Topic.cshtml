@@ -1,0 +1,334 @@
+﻿@using System.Collections;
+@using FPTV.Models.Forum;
+@using FPTV.Models.UserModels;
+@using Microsoft.AspNetCore.Identity;
+@inject UserManager<UserBase> userManager
+@{
+	ViewData["Title"] = "Forum - " + Model.Title;
+}
+@model Topic
+<!DOCTYPE html>
+
+<head>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<html>
+	<style>
+		.central {
+			width: 100%;
+			margin: 0 auto;
+			text-align: center;
+			height:100%;
+			/*background-color: white;*/
+		}
+
+		.center {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+		h1 {
+			font-size: 36px;
+			margin-bottom: 30px;
+		}
+		.buttons {
+			display: flex;
+			justify-content: center;
+			margin-bottom: 30px;
+		}
+		.button {
+
+			margin-left:10px;
+			background-color: #e0eeff;
+			color: black;
+			border-radius: 5px;
+			cursor: pointer;
+			transition: all 0.2s ease-in-out;
+			border: 1px solid black;
+		}
+
+		.btn1 {
+			border: 1px solid black;
+		}
+
+		.button2 {
+			background-color: #e0eeff;
+			color: black;
+			width:100%;
+			padding: 10px 20px;
+			border-radius:5px;
+		}
+
+		.button:hover {
+			background-color: #2980b9;
+		}
+		.my-div {
+			width:100%;
+			display: flex;
+			flex-direction: row;
+			height: 50px;
+			margin: 10px;
+		}
+		.my-div > div {
+			flex-basis: 25%;
+			flex-grow: 1;
+
+		}
+
+		span{
+			font-weight:bold;
+		}
+
+		.dropdown {
+			margin-left:10px;
+			background-color: #e0eeff;
+			color: #fff;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			transition: all 0.2s ease-in-out;
+			border: 1px solid black;
+		}
+
+		.dropdown-content {
+			display: none;
+			position: absolute;
+			z-index: 1;
+			margin-left:5%;
+			margin-top: 2px;
+
+		}
+
+		.dropdown:hover .dropdown-content {
+			display: block;
+		}
+
+		.dropdown-content a {
+			background-color:white;
+			display: block;
+			color: #000;
+			padding: 10px;
+			text-decoration: none;
+			border: 1px solid black;
+		}
+
+		.dropdown-content a:hover {
+			background-color: #bf7b8e;
+		}
+
+		.search-container {
+			display: flex;
+			align-items: center;
+		}
+
+		.search-container input[type="text"] {
+			background-color: #e0eeff;
+			color: black;
+			width:100%;
+			padding: 10px 20px;
+			border:1px solid black;
+
+		}
+
+		.search-container img {
+			margin-right: 10px;
+			height: 30px;
+			width: 30px;
+		}
+
+	a {
+		color: inherit;
+	}
+
+	
+</style>
+
+<body class="bodytemp ">
+
+	<div class="central bodycolor bordercolor" style="border-radius:15px; padding:1%;text-align:center;">
+			<!-- ---------------------------------------BOTÃO TOPICO------------------------------------------------ -->
+			@{string flag = "/images/Flags/4x3/" + Model.Profile.Flag + ".svg";}
+			<div style="border-radius:5px;width:95%;padding:1%;margin:auto" class="btn1 bordercolor">
+				<div style="width:100%">
+
+					<div style="width:100%;margin: auto;display:flex">
+						<h3 style="width:80%;text-align:left;margin-bottom:0px" id="toTranslate"> @Model.Title</h3>
+						<p style="width:20%;font-size:17px;text-align:right;margin-bottom:0px">@Model.Date</p>
+					</div>
+
+					<div style="width:100%;margin: auto;display:flex">
+						<div style="margin-bottom:0px;font-size:20px;display:flex;width:100%">
+
+							<p style ="font-size:17px;width:70%;text-align:left;padding:0px; margin:auto;margin-left:15px" id="toTranslate"> @Model.Content </p>
+							
+							<div style="width:30%;display:flex;cursor: pointer">
+								<img onclick="location.href='@Url.Action("Profile", "Forum", new {profileId = Model.ProfileId})'" src="data:image/*;base64,@(Convert.ToBase64String(Model.Profile.Picture))" style="width:70px" />
+
+							<p onclick="location.href='@Url.Action("Profile", "Forum", new {profileId = Model.ProfileId})'" style="cursor:pointer;margin-top:25px;margin-left:5px;margin-right:5px;font-size:20px;font-weight:normal">@Model.Profile.User.UserName </p>
+
+								<img src="@flag" style="width:10%" />
+							</div>
+
+						</div>
+					</div>
+					@{int reactionCount = 0;}
+					@foreach (Comment c in Model.Comments)
+					{
+						reactionCount += c.Reactions.Count;
+					}
+					<div style="text-align:right;width:100%">
+						<p style="margin-bottom:0px;font-size:15px" id="toTranslate">@Model.Comments.Count Comments</p>
+						<p style="margin-bottom:0px;font-size:15px" id="toTranslate">@reactionCount Reactions</p>
+					</div>
+
+				@{
+					var user = await userManager.GetUserAsync(User);
+					var profileId = user.ProfileId;
+				}
+				@if(Model.ProfileId == profileId)
+				{
+					<div style="justify-content:left;width:7%;margin:0px;text-align:left">
+						<button onclick ="location.href='@Url.Action("DeletePost", "Forum", new {id = Model.TopicId})'" style="background-color:transparent;border:none;width:2%;padding:0px;margin:0px">
+							<img src="~/images/trash2.png" style="width:20px;margin-left:5px" />
+						</button>
+					</div>
+				} 
+				else
+				{
+					<div style="justify-content:left;width:7%;margin:0px;text-align:left">
+						<button onclick="location.href='@Url.Action("ReportPost", "Forum", new {id = Model.TopicId})'" style="background-color:transparent;border:none;width:2%;padding:0px;margin:0px">
+							<img src="~/images/report.png" style="width:20px;margin-left:5px" /> 
+						</button>
+					</div>
+
+				}
+				
+
+				</div>
+			</div>
+			<!------------------Comment Box E DROPDOWN---------------------------->
+		<div style="display:flex;width:95%;padding:3px;margin:auto;margin-top:2%">
+
+			<div style="border: 1px solid black; border-radius:15px;background-color:white;width:50%;display:flex;">
+				<form asp-controller="Forum" asp-action="Comment" method="post">
+					<input required style="flex:1;border:0;outline:0; width:65%;padding:30px;border-radius:15px; margin: 0.5% 0;" name="Text" placeholder="New Comment" />
+					<button type="submit" style="background-color: transparent"><img src="~/images/send.png" style="width:15%;margin:auto" /></button>
+					<input type="hidden" value="@ViewBag.Game" name="Game" />
+					<input type="hidden" value="@Model.TopicId" name="TopicId" />
+				</form>
+			</div>
+
+			<div class="dropdown" style="margin:auto">
+				<button class="button2" id="toTranslate">Sort by</button>
+				<div class="dropdown-content" style="margin-left:0px;">
+					<a href="@Url.Action("Topic", "Forum", new {filter = "newest"})">Newest</a>
+					<a href="@Url.Action("Topic", "Forum", new {filter = "oldest"})">Oldest</a>
+					<a href="@Url.Action("Topic", "Forum", new {filter = "hot"})">Hot</a>
+				</div>
+			</div>
+			
+			
+		</div>
+		<hr class="hrstyle" />
+		<!--------------------------------------------------------------->
+		@foreach(Comment c in Model.Comments)
+		{
+			string cflag = "/images/Flags/4x3/" + c.Profile.Flag + ".svg";
+			<div style="border-radius:5px;width:95%;padding:3px;margin:auto;margin-top:1%" class="btn1 bordercolor">
+				<div style="width:100%">
+
+					<div style="width:100%;display:flex;">
+
+						<div style="width:70%;text-align:left;display:flex;padding:1%;cursor: pointer">
+							<img onclick="location.href='@Url.Action("Profile", "Forum", new {profileId = c.Profile.Id})'" src="data:image/*;base64,@(Convert.ToBase64String(c.Profile.Picture))" style="width:50px" />
+							<h5 onclick="location.href='@Url.Action("Profile", "Forum", new {profileId = c.Profile.Id})'" style="margin-bottom:0px;margin-left:15px;margin-top:10px"> @c.Profile.User.UserName </h5>
+							<img src="@cflag" style="width:3%;margin-left:10px" />
+						</div>
+
+						<div style="width:30%;text-align:right">
+							<p style="font-size:17px;text-align:right;margin-bottom:0px">@c.Date </p>
+						</div>
+					</div>
+
+					<div style="width:100%;margin: auto;display:flex">
+						<div style="margin-bottom:0px;font-size:20px;display:flex;width:100%">
+							<p style="font-size:17px;width:70%;text-align:left;padding:0px; margin:auto;margin-left:15px" id="toTranslate">@c.Text</p>
+						</div>
+					</div>
+
+					<!-------------------REAÇÕES---------------------->
+					<div style="width:100%;display:flex;justify-content:right">
+
+						@if(c.Profile.Id == profileId)
+						{
+							<div style="justify-content:left;width:7%;margin:0px;text-align:left">
+								<button onclick="location.href='@Url.Action("DeleteComment", "Forum", new {id = c.CommentId, topicId = Model.TopicId})'" style="background-color:transparent;border:none;width:2%;padding:0px;margin:0px">
+									<img src="~/images/trash2.png" style="width:20px;margin-left:5px" />
+								</button>
+							</div>
+						} 
+						else
+						{
+							<div style="justify-content:left;width:7%;margin:0px;text-align:left">
+								<button onclick="location.href='@Url.Action("ReportComment", "Forum", new {id = c.CommentId, topicId = Model.TopicId})'" style="background-color:transparent;border:none;width:2%;padding:0px;margin:0px">
+									<img src="~/images/report.png" style="width:20px;margin-left:5px" />
+								</button>
+							</div>
+
+						}
+
+
+						<div style="display:flex;justify-content:right;width:93%">
+							<p style="margin-bottom:0px;margin-left:3px;margin-right:3px">@c.Reactions.Where(r => r.ReactionEmoji == ReactionType.Love).ToList().Count</p>
+							<button onclick="location.href='@Url.Action("React", "Forum", new {reaction = ReactionType.Love, commentId = c.CommentId, topicId = Model.TopicId, filter = ViewBag.Filter})'" style="background-color:transparent;border:none;width:2%;padding:0px;margin:0px">
+								<img src="~/images/reactions/love.png" style="width: 15px;height: 15px;" />
+							</button>
+
+							<p style="margin-bottom:0px;margin-left:3px;margin-right:3px">@c.Reactions.Where(r => r.ReactionEmoji == ReactionType.Like).ToList().Count</p>
+							<button onclick="location.href='@Url.Action("React", "Forum", new {reaction = ReactionType.Like, commentId = c.CommentId, topicId = Model.TopicId, filter = ViewBag.Filter})'" style="background-color:transparent;border:none;width:2%;padding:0px;margin:0px">
+								<img src="~/images/reactions/like.png" style="width: 15px;height: 15px;" />
+							</button>
+
+							<p style="margin-bottom:0px;margin-left:3px;margin-right:3px">@c.Reactions.Where(r => r.ReactionEmoji == ReactionType.Dislike).ToList().Count</p>
+							<button onclick="location.href='@Url.Action("React", "Forum", new {reaction = ReactionType.Dislike, commentId = c.CommentId, topicId = Model.TopicId, filter = ViewBag.Filter})'" style="background-color:transparent;border:none;width:2%;padding:0px;margin:0px">
+								<img src="~/images/reactions/dislike.png" style="width: 15px;height: 15px;" />
+							</button>
+
+							<p style="margin-bottom:0px;margin-left:3px;margin-right:3px">@c.Reactions.Where(r => r.ReactionEmoji == ReactionType.Happy).ToList().Count</p>
+							<button onclick="location.href='@Url.Action("React", "Forum", new {reaction = ReactionType.Happy, commentId = c.CommentId, topicId = Model.TopicId, filter = ViewBag.Filter})'" style="background-color:transparent;border:none;width:2%;padding:0px;margin:0px">
+								<img src="~/images/reactions/happy.png" style="width: 15px;height: 15px;" />
+							</button>
+
+
+							<p style="margin-bottom:0px;margin-left:3px;margin-right:3px">@c.Reactions.Where(r => r.ReactionEmoji == ReactionType.Sad).ToList().Count</p>
+							<button onclick="location.href='@Url.Action("React", "Forum", new {reaction = ReactionType.Sad, commentId = c.CommentId, topicId = Model.TopicId, filter = ViewBag.Filter})'" style="background-color:transparent;border:none;width:2%;padding:0px;margin:0px">
+								<img src="~/images/reactions/sad.png" style="width: 15px;height: 15px;" />
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		}
+			
+
+
+	</div>
+
+	@if (ViewBag.Message != null && ViewBag.Message != "")
+	{
+		<script type="text/javascript">
+			window.onload = function () {
+				alert("@ViewBag.Message");
+			};
+		</script>
+	}
+</body>
+</html>
+
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+}

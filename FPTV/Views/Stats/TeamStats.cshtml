@@ -1,0 +1,165 @@
+﻿@{
+    ViewData["Title"] = "TeamStats";
+}
+
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<style>
+    .center {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th, td {
+        border: 2px solid black;
+        padding: 8px;
+        text-align: left;
+    }
+
+    .logo {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .logo2 {
+        max-width: 100%;
+        height: auto;
+        margin: auto;
+        padding: 20px;
+    }
+
+    .h3 {
+        padding-left: 20px;
+        text-align: center;
+    }
+</style>
+<body class="bodytemp" style="align-content:center; justify-content:center">
+
+    <div class=""style="display: flex; flex-direction: column; text-align:center">
+
+        <div class="responsive darkcolor bordercolor"  style="padding-top:3%; width:40%;margin:auto" class=" darkcolor bordercolor">
+            <div class="responsive" style="display: flex ; justify-content:center;width:100%;margin:auto">
+                <img src=@ViewBag.team.Image alt ="logo" class="logo" style="width:20%;margin:auto">
+                <h1 style="margin-top: 20px; text-align:center; margin:auto">@ViewBag.team.Name</h1>
+            </div>
+
+            <div class="responsive" style="display: flex; width:100%;margin-bottom:0px; margin-top:3%;">
+                <div style="width:50%">
+                    <button class="btnTeam" style="width: 100%; border-radius:15px;padding:0px; text-align:left; margin-left:5px">
+                        <span style="">
+                            <a href="@Url.Action("addTeamToFav", "Stats", new {id = ViewBag.team.TeamAPIID, game = ViewData["game"]})" style="justify-content: space-around; margin-bottom:0px;text-decoration:none;text-">
+                                @if (ViewBag.isFav)
+                                {
+                                    <h5 style="margin-bottom:0px;font-size:16px;text-align: left">
+                                        <span style ="text-transform: capitalize" id="toTranslate">Remove From Favorite</span>
+                                        <img src="~/images/mvp.png" style="width:9%;margin-left:1%;margin-bottom:1%">
+                                    </h5>
+                                }
+                                else
+                                {
+                                    <h5 style="margin-bottom:0px;font-size:16px;text-align: left;">
+                                        <span style="text-transform: capitalize" id="toTranslate">Add to Favorite</span>
+                                        <img src="~/images/mvp.png" style="width:9%;margin-left:1%;margin-bottom:1%">
+                                    </h5>
+                                }
+                            </a>
+                        </span>
+                    </button>
+                </div>
+
+                <div style="width:50%; text-align:right; margin-right:5px">
+                    <span>
+                        Jun, 2008 <img src=@ViewBag.NacionalityImg style="width:11%;margin-left:1%;margin-bottom:1%">
+                    </span>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="center darkcolor bordercolor responsive" style="margin:auto;margin-top:3%; font-size:25px;width:70%; margin-top:3%">
+            @foreach (var item in @ViewBag.team.Players)
+            {
+                <div class="  " style="display:flex; justify-content:center; align-items: center;padding:1%;width:100%">
+                    <a href="@Url.Action("getPLayer", "Stats", new {id = @item.PlayerAPIId, @*type = @ViewBag.matches.TimeType.ToString().ToLower()*@ game = ViewData["game"].ToString()})" style="justify-content: space-around; margin-bottom:0px">
+                        <img src=@item.Image alt="logo" @*class="logo2"*@ height="125px" width="100px" style="max-width: 150px;padding:3%">
+                        <h3 class="h3">@item.Name</h3>
+                    </a>
+                </div>
+               
+            }
+        </div>
+
+
+        <div class="darkcolor bordercolor responsive" style="padding: 3%; margin:auto; margin-top:3%; font-size:25px; width:70%; ">
+
+            <table class="tablecolors" style="width:100%">
+                @{
+                    var winning_ratio = Math.Round((double)@ViewBag.randomMapsPlayed / @ViewBag.team.Winnings, 2);
+                    var losses_ratio = Math.Round((double)@ViewBag.randomMapsPlayed / @ViewBag.team.Losses, 2);
+                }
+                <tr>
+                    <td style="width:40%; text-transform: capitalize;" id="toTranslate">World Ranking</td>
+                    <td>
+                        <span> @ViewBag.team.WorldRank</span>
+                        <span>
+                            @if (@ViewBag.team.WorldRank > 0 && @ViewBag.team.WorldRank <= 25) {
+                                <img src="~/images/rating_up.png" style="width:25px;padding:2px;" title="Good">
+                            } else if (@ViewBag.team.WorldRank > 25 && @ViewBag.team.WorldRank <= 70) {
+                                <img src="~/images/rating_middle.png" style="width:25px;padding:2px;" title="Average">
+                            } else if (@ViewBag.team.WorldRank > 70) {
+                                <img src="~/images/rating_down.png" style="25px;padding:2px;" title="Bad">
+                            }
+                        </span>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td style="width:40%; text-transform: capitalize;" id="toTranslate">Total Wins</td>
+                    <td>
+                        <span> @ViewBag.team.Winnings</span>
+                        <span>
+                            @if (@winning_ratio > 0 && @winning_ratio <= 1.4) {
+                                <img src="~/images/rating_up.png" style="width:25px;padding:2px;" title="Good">
+                            } else if (@winning_ratio > 1.4 && @winning_ratio <= 3) {
+                                <img src="~/images/rating_middle.png" style="width:25px;padding:2px;" title="Average">
+                            } else if (@winning_ratio > 3) {
+                                <img src="~/images/rating_down.png" style="width:25px;padding:2px;" title="Bad">
+                            }
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width:40%; text-transform: capitalize;" id="toTranslate">Total Losses</td>
+                    <td>
+                        <span> @ViewBag.team.Losses</span>
+                        <span>
+                            @if (@losses_ratio > 0 && @losses_ratio <= 1.4) {
+                                <img src="~/images/rating_down.png" style="width:25px;padding:2px;" title="Bad">
+                            } else if (@losses_ratio > 1.4 && @losses_ratio <= 3) {
+                                <img src="~/images/rating_middle.png" style="width:25px;padding:2px;" title="Average">
+                            } else if (@losses_ratio > 3) {
+                                <img src="~/images/rating_up.png" style="width:25px;padding:2px;" title="Good">
+                            }
+                        </span>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td style="width:40%; text-transform: capitalize;" id="toTranslate">Matches Played</td>
+                    <td>@ViewBag.randomMapsPlayed</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</body>
+

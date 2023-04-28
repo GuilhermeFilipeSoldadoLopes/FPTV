@@ -1,67 +1,291 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Mvc.ViewEngines
+@inject ICompositeViewEngine Engine
+
+<!DOCTYPE html>
 <html lang="en">
+<meta http-equiv="refresh" content="180">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - FPTV</title>
+	<link rel="stylesheet" type="text/css" href="~/css/siteDARK.css" asp-append-version="true" />
+	
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" /> 
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/FPTV.styles.css" asp-append-version="true" />
     <link rel="icon" type="image/png" href="~/favicon.ico" />
+	
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+	<script src="https://js.pusher.com/4.0/pusher.min.js"></script>
+	<script>
+		// Enable pusher logging - don't include this in production
+		Pusher.logToConsole = true;
+
+		var pusher = new Pusher('PUSHER_APP_KEY', {
+			cluster:'PUSHER_APP_CLUSTER'
+		});
+
+		var channel = pusher.subscribe('general');
+
+		channel.bind('newVisit', function(data) {
+
+			var visits = data.visits;
+			var message = data.message;
+			$('#noOfVisitors').text( visits );
+			$('#visitorsText').text( message );
+		});
+	</script>
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="~/js/site.js" asp-append-version="true"></script>
+
+    <style>
+		#buttonMenu:hover {
+			background-color: transparent;
+			border: 2px solid #DE3C3C;
+			border-radius: 20px;
+			-webkit-transition: all .15s ease-in-out;
+			transition: all .15s ease-in-out;
+			color: #DE3C3C;
+			box-shadow: 0 0 5px 0 #DE3C3C inset, 0 0 10px 1px #DE3C3C;
+		}
+
+		.leftitem{
+			justify-content:flex-end;
+		}
+
+		.btndrop{
+			background-color: transparent;
+			border-radius: 20px;			
+		}
+		footer {
+		   position:absolute;
+		   bottom:0;
+		   width:100%;
+		   height:60px;   /* Height of the footer */
+		 }
+
+		#dropdownItem1:hover{
+			background-color: transparent;
+			border: 2px solid #DE3C3C;
+			border-radius: 20px;
+			-webkit-transition: all .15s ease-in-out;
+			transition: all .15s ease-in-out;
+			color: #DE3C3C;
+			box-shadow: 0 0 5px 0 #DE3C3C inset, 0 0 10px 1px #DE3C3C;
+		}
+
+		
+
+    </style>
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">FPTV</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+	
 
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Game">Game</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Matches">Matches</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Results">Results</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Events">Events</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Forum">Fórum</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">About</a>
-                        </li>
+<header>
+		<div>
+			<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3" style="margin-top: -5px;width:100%;text-align:center">
+				<div class="container-fluid" style="width:100%">
+					<a href="@Url.Action("Index", "Home")"><img class="logo" src="~/images/iconMenu.jpg" style="width: 85px; height: 100%;"></a>
+					@*<a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img class="logo" src="~/images/iconMenu.jpg" style="width: 85px; height: 100%;"> </a>*@
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+							aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+					<div style="width:100%; display:flex;">
+						<div class="navbar-collapse collapse d-sm-inline-flex justify-content-between " style="margin:auto; text-align:center;">
+							<ul class="navbar-nav flex-grow-1 dropdownWidth" style="display:flex; margin:0px;">
+								<li class="nav-item nomargin" id="menu" style="width:20%; margin:auto">
+							@*-----------------------------dropdown para CSGO e VALORANT-------------------------*@
 
-                    </ul>
-                </div>
-                <div style="text-align:right">
-                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="LoginRegister">Login/Register</a>
-                </div>
-            </div>
-        </nav>
-    </header>
+									<div class="dropdown123 bordercolor" id="buttonMenu" style=" width:100%; margin-left:0px">
+								@if (ViewData["game"] == null || ViewData["game"] == "" || ViewBag.page == "Index")
+								{
+									@if (ViewBag.page == "Index") {
+												<a class="nav-link text-dark "  style="font-weight: bolder; font-size: 24px" asp-area="Home" asp-controller="Home" asp-action="Index">Home</a>
+									} else {
+												<a class="nav-link text-dark " id="buttonMenu" style="font-weight: normal; font-size: 24px" asp-area="Home" asp-controller="Home" asp-action="Index">Home</a>
+									}
+								} else {
+									@if (ViewData["game"].ToString() == "csgo")
+									{
+										<a class="nav-link text-dark aclass" id="btnCS" style="text-decoration: underline; font-weight:bolder;font-size: 24px" asp-area="Home" asp-controller="Home" asp-action="Index">CS:GO</a>
+									} else {
+										<a class="nav-link text-dark" id="btnVal" style="text-decoration: underline; font-weight:bolder;font-size: 24px" asp-area="Home" asp-controller="Home" asp-action="Index">VALORANT</a>
+									}
+									<div class="dropdownContent12 bordercolor nomarginTop dropdownContent123" style="background-color:white;padding:1%;margin-left:5px;">
+										<a class="dropdownItem1" style="display:flex;border-radius:15px;width:100%">
+											<div class=" bordercolor" id="dropdownItem1" style="text-decoration:none; width:100%; padding:2px">
+														<a style="color:black ; font-weight:bolder ; width:100%;margin:auto; text-decoration:none;font-size: 20px" href="@Url.Action("VALORANT", "Home", new { game = ViewData["game"], page = ViewBag.page})">VALORANT</a>
+											</div>
+										</a>
+										<a class="dropdownItem1" style="display:flex;border-radius:15px;width:100%;margin-top:3px;">
+											<div class=" bordercolor" id="dropdownItem1" style="text-decoration:none; width:100%;">
+														<a style="color:black ; font-weight:bolder ; width:100%;margin:auto;text-decoration:none;font-size: 20px;" href="@Url.Action("CSGO", "Home", new { game = ViewData["game"], page = ViewBag.page})">CS:GO</a>
+											</div>
+										</a>
+									</div>
+								}
+							</div>
+						</li>
+						@*-------------------------------------------------------------*@
+								<li class="nav-item text-dark nomargin" id="buttonMenu" style="width:20%; margin:auto">
+							@if (ViewBag.page == "Matches") {
+										<a id="toTranslate " style="text-transform: capitalize; font-weight: bolder;text-decoration: none; font-size: 24px; color: black" href="@Url.Action("Matches", "Home", new { game = ViewData["game"]})">Matches</a>
+							} else {
+										<a id="toTranslate " style="text-transform: capitalize; font-weight: normal;text-decoration: none; font-size: 24px; color: black" href="@Url.Action("Matches", "Home", new { game = ViewData["game"]})">Matches</a>
+							}
+							@*<a class="nav-link text-dark matchesButton" id="buttonMenu" style="font-size: 24px;" asp-area="" asp-controller="Home" asp-action="Matches">Matches</a>*@
+						</li>
+								<li class="nav-item text-dark nomargin" id="buttonMenu" style="width:20%; margin:auto">
+							@if (ViewBag.page == "Results") {
+										<a  id="toTranslate" style="text-transform: capitalize; font-weight: bolder; text-decoration: none; font-size: 24px; color: black" href="@Url.Action("Results", "Home", new { game = ViewData["game"]})">Results</a>
+							} else {
+										<a id="toTranslate" style="text-transform: capitalize; font-weight: normal;text-decoration: none; font-size: 24px; color: black" href="@Url.Action("Results", "Home", new { game = ViewData["game"]})">Results</a>
+							}
+							@*<<a class="nav-link text-dark resultsButton" id="buttonMenu" style="font-size: 24px;" asp-area="" asp-controller="Home" asp-action="Results">Results</a>*@
+						</li>
+								<li class="nav-item text-dark nomargin" id="buttonMenu" style="width:20%; margin:auto">
+							@if (ViewBag.page == "Events") {
+										<a id="toTranslate" style="text-transform: capitalize; font-weight: bolder; text-decoration: none; font-size: 24px; color: black" href="@Url.Action("Events", "Home", new { game = ViewData["game"]})">Events</a>
+							} else {
+										<a id="toTranslate" style="text-transform: capitalize; font-weight: normal; text-decoration: none; font-size: 24px; color: black" href="@Url.Action("Events", "Home", new { game = ViewData["game"]})">Events</a>
+							}
+							@*<<a class="nav-link text-dark eventsButton" id="buttonMenu" onclick="" style="font-size: 24px;" asp-area="" asp-controller="Home" asp-action="Events">Events</a>*@
+						</li>
+								<li class="nav-item text-dark nomargin" id="buttonMenu" style="width:20%; margin:auto">
+							@if (ViewBag.page == "Forum") {
+										<a style="font-weight: bolder; text-decoration: none; font-size: 24px; color: black" href="@Url.Action("Index", "Forum", new { game = ViewData["game"]})">Forum</a>
+							} else {
+										<a style="font-weight: normal; text-decoration: none; font-size: 24px; color: black" href="@Url.Action("Index", "Forum", new { game = ViewData["game"]})">Forum</a>
+							}
+							@*<a class="nav-link text-dark forumButton" id="buttonMenu" style="font-size: 24px;" asp-area="" asp-controller="Home" asp-action="Index">Forum</a>*@
+						</li>
+								<li class="nav-item text-dark nomargin" id="buttonMenu" style="width:20%; margin:auto">
+							@if (ViewBag.page == "About") {
+										<a id="toTranslate" style="text-transform: capitalize; font-weight: bolder; text-decoration: none; font-size: 24px; color: black" href="@Url.Action("About", "Home")">About</a>
+							} else {
+										<a id="toTranslate" style="text-transform: capitalize; font-weight: normal; text-decoration: none; font-size: 24px; color: black" href="@Url.Action("About", "Home")">About</a>
+							}
+							@*<a class="nav-link text-dark aboutButton" id="buttonMenu" style="font-size: 24px;" asp-area="" asp-controller="Home" asp-action="CSGOStats">About</a>*@
+						</li>
+					</ul>
+				</div>
+
+						<div class="navbar-nav flex-grow-1 " style="justify-content: end; width:30%;text-align:left">
+						
+					@{
+						var result = Engine.FindView(ViewContext, "_LoginPartial", isMainPage: false);
+					}
+					@if (result.Success)
+					{
+						await Html.RenderPartialAsync("_LoginPartial");
+					}
+					else
+					{
+						throw new InvalidOperationException("The default Identity UI layout requires a partial view '_LoginPartial' " +
+						"usually located at '/Pages/_LoginPartial' or at '/Views/Shared/_LoginPartial' to work. Based on your configuration " +
+						$"we have looked at it in the following locations: {System.Environment.NewLine}{string.Join(System.Environment.NewLine, result.SearchedLocations)}.");
+					}
+				</div>
+					</div>
+			</div>
+		</nav>
+	</div>
+</header>
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
+	
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2022 - FPTV - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+	<footer class="bg-light text-muted" style="height:40px;display;flex;">
+		
+		<div class="" style="margin-left:10%;margin-top: 0.5%;">
+			&copy; 2023 - FPTV - <a asp-area="" style="color: black;" asp-controller="Home" asp-action="Privacy" id="toTranslate">Privacy</a> &nbsp;&nbsp;—&nbsp;&nbsp; <a asp-area="" style="color: black;" asp-controller="Forum" asp-action="BugsAndSuggestions" id="toTranslate">Report any bug and make suggestions</a>
+		</div>
+		
+	</footer>
+
+	@*<footer class="footerPage text-muted" style="background-color: white;">
+		<div class="container" style="color: black; margin-left: 5%">
+			&copy; 2023 - FPTV - <a asp-area="" style="color: black;" asp-controller="Home" asp-action="Privacy">Privacy</a>
+		</div>
+	</footer>*@
+
     @await RenderSectionAsync("Scripts", required: false)
+
+	<script>
+		function translateToPortuguese() {
+			var apiKey = 'AIzaSyAZeoNYpLSO9eVlcVELKjIomjNuUggj-Zk';
+			var target = 'pt';
+			var elementsToTranslate = $('[id="toTranslate"]');
+			var promises = [];
+
+			// Armazenar estado do checkbox no localStorage
+			localStorage.setItem('translateToPortuguese', true);
+
+			elementsToTranslate.each(function () {
+				var element = $(this);
+				var text = element.text();
+				var promise = $.ajax({
+					url: 'https://translation.googleapis.com/language/translate/v2',
+					type: 'POST',
+					data: {
+						q: text,
+						target: target,
+						key: apiKey
+					},
+					success: function (response) {
+						var translatedText = response.data.translations[0].translatedText;
+						element.text(translatedText);
+					},
+					error: function () {
+						console.log('Error translating text: ' + text);
+					}
+				});
+
+				promises.push(promise);
+			});
+
+			$.when.apply($, promises).done(function () {
+				console.log('All elements translated successfully!');
+			});
+		}
+
+		function resetTranslations() {
+			var elementsToReset = $('[id="toTranslate"]');
+
+			elementsToReset.each(function () {
+				var element = $(this);
+				var originalText = element.data('original-text');
+				element.text(originalText);
+			});
+		}
+
+		// Verificar se o checkbox foi marcado anteriormente e chamar a função translateToPortuguese
+		if (localStorage.getItem('translateToPortuguese') == 'true') {
+			$('#language').prop('checked', true);
+			translateToPortuguese();
+		}
+
+		$('#language').change(function () {
+			if ($(this).is(':checked')) {
+				translateToPortuguese();
+			} else {
+				resetTranslations();
+				// Remover estado do checkbox do localStorage
+				localStorage.removeItem('translateToPortuguese');
+			}
+
+			// Recarregar a página
+			location.reload();
+		});
+	</script>
+
 </body>
 </html>

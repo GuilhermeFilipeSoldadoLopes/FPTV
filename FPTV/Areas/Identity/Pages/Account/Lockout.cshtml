@@ -1,0 +1,16 @@
+﻿@page
+@model LockoutModel
+@{
+    ViewData["Title"] = "Locked out";
+}
+
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<header>
+    <h1 class="text-danger" id="toTranslate" style="text-transform: capitalize;">@ViewData["Title"]</h1>
+    <p class="text-danger"id="toTranslate">This account has been locked out, please try again later.</p>
+</header>

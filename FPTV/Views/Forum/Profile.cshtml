@@ -1,0 +1,379 @@
+﻿
+@using FPTV.Models.Forum;
+@using FPTV.Models.UserModels;
+
+
+@{
+    ViewData["Title"] = "Profile";
+}
+@model Profile
+@*Tudo o que está comentado é para nao dar erro*@
+
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<style>
+    .box1 {
+        width: 40%;
+        height: 100%;
+        display: flex;
+        flex-flow: column wrap;
+    }
+
+    .box {
+        width: 50%;
+        height: 100%;
+        display: flex;
+        flex-flow: column wrap;
+        margin-top: 60%;
+    }
+
+    .logo {
+        max-width: 100%;
+        height: auto;
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 95%;
+    }
+
+    th {
+        border: 1px solid black;
+        padding: 10px;
+    }
+
+    td {
+        border: 1px solid black;
+        padding: 10px;
+    }
+
+    h3 {
+        text-align: center;
+    }
+
+    .box2 {
+        width: calc(95% / 2);
+        height: 20%;
+        display: inline-block;
+    }
+
+    caption {
+        color: black;
+        text-decoration: underline;
+    }
+
+    .alinhar {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .alinhar2 {
+        display: inline-block;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .center {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .my-div {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        height: 50px;
+        margin: 10px;
+    }
+    
+    
+    .my-div > div {
+        flex-basis: 25%;
+        flex-grow: 1;
+    }
+
+    .my-div2 > div {
+        width: 100%
+    }
+
+    span {
+        font-weight: bold;
+    }
+
+
+    .span2 {
+        font-weight: normal;
+    }
+
+    .span3 {
+        font-weight: normal;
+    }
+
+    .central {
+        text-align: center;
+        background-color: white;
+    }
+
+    .ola {
+        display: flex;
+        align-self: flex-start;
+    }
+
+    .buttons {
+        display: flex;
+        margin-bottom: 30px;
+        margin-right: 25%;
+        justify-content: right;
+    }
+
+    .search-container {
+        display: flex;
+        align-items: center;
+    }
+
+    .dropdown-content a {
+        background-color: white;
+        display: block;
+        color: #000;
+        padding: 10px;
+        text-decoration: none;
+        border: 1px solid black;
+    }
+
+    .dropdown {
+        margin-left: 10px;
+        background-color: #e0eeff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+        border: 1px solid black;
+    }
+
+    .dropdown-content a:hover {
+        background-color: #bf7b8e;
+    }
+
+    .button2 {
+        background-color: #e0eeff;
+        color: black;
+        width: 100%;
+        padding: 10px 20px;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        z-index: 1;
+        margin-left: 5%;
+    }
+
+    .button:hover {
+        background-color: #2980b9;
+    }
+
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+
+    .central {
+        width: 100%;
+        margin: 0 auto;
+        text-align: center;
+        height: 100%;
+        background-color: white;
+    }
+
+    .search-container input[type="text"] {
+        background-color: #e0eeff;
+        color: black;
+        width: 100%;
+        padding: 10px 20px;
+        border: 1px solid black;
+    }
+
+    .search-container img {
+        margin-right: 10px;
+        height: 30px;
+        width: 30px;
+    }
+</style>
+
+<body class="bodyLogin">
+    <div class="ola " style="border-radius:15px;margin-top:0px;padding-top:20px">
+        <div class="box darkcolor bordercolor" style="border-radius:15px;margin-top:0px">
+            <div style="width:100%;text-align:center;">
+                <h1>CS:GO</h1>
+            </div>
+            <br />
+
+            <div style="width:80%;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:black;background-color:white;border-width:1px;border-radius:10px;padding:10px;">
+                <h4 class="text-dark; text-transform: capitalize" id="toTranslate" style="color:black" >Favourite Players:</h4>
+                <div style="padding-left:20px">
+                    @if (ViewData["FavPlayerListCSGO"] == null || ((List<Player>)ViewData["FavPlayerListCSGO"]).Count() == 0)
+                    {
+                        <span class="span2 text-dark; text-transform: capitalize" id="toTranslate" style="color:black">No Favourite Players</span>
+                        <br />
+                    }
+                    else
+                    {
+                        
+                            foreach (var player in (List<Player>)ViewData["FavPlayerListCSGO"])
+                            {
+                            <a style="text-decoration: none" href="@Url.Action("getPlayer", "Stats", new {id = player.PlayerAPIId, game = "csgo"})" style="justify-content: space-around; margin-left: auto; margin-bottom:0px;color:black">
+                                    <img src=@player.Image style="width:20px;height:auto" />
+                                    <span class="span2 text-dark">@player.Name</span>
+                                </a>
+                                <br />
+                            }
+                        
+                    }
+                </div>
+            </div>
+            <br />
+
+            <div style="width:80%;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:black;background-color:white;border-width:1px;border-radius:10px;padding:10px;">
+                <h4 class="text-dark; text-transform: capitalize" id="toTranslate" style="color:black">Favourite Teams:</h4>
+                <div style="padding-left:20px">
+                    @if (ViewData["FavTeamsListCSGO"] == null || ((List<Team>)ViewData["FavTeamsListCSGO"]).Count() == 0)
+                    {
+                        <span class="span2 text-dark; text-transform: capitalize" id="toTranslate" style="color:black">No Favourite Teams</span>
+                        <br />
+                    }
+                    else
+                    {
+                        
+                            foreach (var team in (List<Team>)ViewData["FavTeamsListCSGO"])
+                            {
+                                <a style="text-decoration: none" href="@Url.Action("getTeam", "Stats", new {id = team.TeamAPIID, game = "csgo"})" style="justify-content: space-around; margin-left: auto; margin-bottom:0px;color:black">
+                                    <img src=@team.Image style="width:20px;height:auto" />
+                                    <span class="span2 text-dark">@team.Name</span>
+                                </a>
+                                <br />
+                            }
+                        
+                    }
+                </div>
+            </div>
+            <br />
+        </div>
+        
+        <div class="box bordercolor" style="padding-top:20px;position:relative;border-width:0px;width:70%;margin-top: 0px">
+            <img id="profilePicture" style="width:284px;height:284px;display:block;margin-left:auto;margin-right:auto;object-fit:cover;border-radius:50%" src="data:image/*;base64,@(Convert.ToBase64String(Model.Picture))">
+            <span style="font-size:15px;width:90%;position:relative;display:block;text-align:right">@Model.RegistrationDate</span>
+            <br />
+
+            <div class="text-dark" style="width:90%;position:relative;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:black;border-width:1px;border-radius:10px;padding:10px;background-color:white">
+                @ViewData["Username"]
+                <img style="height:50%;width:auto;position:absolute;top:25%;right:10px;" src=@ViewBag.Flag>
+            </div>
+            <label readonly class="form-label text-white" style="color:black;font-weight: bold;margin-left:5%">Username</label>
+            <br />
+
+            <div class="text-dark" style="width:90%;position:relative;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:black;border-width:1px;border-radius:10px;padding:10px;background-color:white">
+                @if (Model.Biography != null)
+                {
+                    @Model.Biography
+                }
+                else
+                {
+                    <span class="span2 text-dark" style="text-transform: capitalize" id="toTranslate">No Biography</span>
+                    <br />
+                }
+            </div>
+            <label asp-for="@Model.Biography" readonly class="form-label text-white" style="color:black;font-weight: bold;margin-left:5%"></label>
+            <br />
+
+            <div style="width:90%;position:relative;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:black;border-width:1px;border-radius:10px;padding:10px;background-color:white">
+                <h4 class="text-dark; text-transform: capitalize" id="toTranslate" style="color:black">Topics:</h4>
+                <div style="padding-left:20px;">
+                    @if (ViewData["Topics"] == null || ((List<Topic>)ViewData["Topics"]).Count() == 0)
+                    {
+                        <span class="span2 text-dark; text-transform: capitalize" id="toTranslate">No Topics</span>
+                        <br />
+                    }
+                    else
+                    {
+                        foreach (var item in (List<Topic>)ViewData["Topics"])
+                        {
+                            <a href='@Url.Action("Topic", "Forum", new {id = item.TopicId})' style="justify-content: space-around; margin-left: auto; margin-bottom:0px;text-decoration: none;color:black">
+                                <span class="span2 text-dark; text-transform: capitalize ;" style="text-decoration: none" id="toTranslate">@item.Title</span>
+                            </a>
+                            <br />
+                        }
+                    }
+                </div>
+            </div>
+            <br />
+        </div>
+            
+        <div class="box darkcolor bordercolor" style="border-radius:15px;margin-top:0px">
+            <div style="width=100%;text-align:center;">
+                <h1>Valorant</h1>
+            </div>
+            <br />
+
+            <div style="width:80%;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:black;background-color:white;border-width:1px;border-radius:10px;padding:10px;">
+                <h4 class="text-dark; text-transform: capitalize" id="toTranslate" style="color:black">Favourite Players:</h4>
+                <div style="padding-left:20px">
+                    @if (ViewData["FavPlayerListValorant"] == null || ((List<Player>)ViewData["FavPlayerListValorant"]).Count() == 0)
+                    {
+                        <span class="span2 text-dark; text-transform: capitalize" id="toTranslate" style="color:black">No Favourite Players</span>
+                        <br />
+                    }
+                    else
+                    {
+                        
+                            foreach (var player in (List<Player>)ViewData["FavPlayerListValorant"])
+                            {
+                                <a style="text-decoration: none" href="@Url.Action("getPlayer", "Stats", new {id = player.PlayerAPIId, game = "valorant"})" style="justify-content: space-around; margin-left: auto; margin-bottom:0px;color:black">
+                                    <img src=@player.Image style="width:20px;height:auto" />
+                                    <span class="span2 text-dark">@player.Name</span>
+                                </a>
+                                <br />
+                            }
+                        
+                    }
+                </div>
+            </div>
+            <br />
+
+            <div style="width:80%;display:block;margin-left:auto;margin-right:auto;border-style:solid;border-color:black;background-color:white;border-width:1px;border-radius:10px;padding:10px;">
+                <h4 class="text-dark; text-transform: capitalize" id="toTranslate" style="color:black">Favourite Teams:</h4>
+                <div style="padding-left:20px">
+                    @if (ViewData["FavTeamsListValorant"] == null || ((List<Team>)ViewData["FavTeamsListValorant"]).Count() == 0)
+                    {
+                        <span class="span2 text-dark; text-transform: capitalize" id="toTranslate" style="color:black">No Favourite Teams</span>
+                        <br />
+                    }
+                    else
+                    {
+                        
+                            foreach (var team in (List<Team>)ViewData["FavTeamsListValorant"])
+                            {
+                                <a style="text-decoration: none" href="@Url.Action("getTeam", "Stats", new {id = team.TeamAPIID, game = "valorant"})" style="justify-content: space-around; margin-left: auto; margin-bottom:0px;color:black">
+                                    <img src=@team.Image style="width:20px;height:auto" />
+                                    <span class="span2 text-dark">@team.Name</span>
+                                </a>
+                                <br />
+                            }
+                        
+                    }
+                </div>
+            </div>
+            <br />
+        </div>
+    </div>
+</body>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

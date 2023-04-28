@@ -1,0 +1,1 @@
+search_result['311']=["frlrfFPTVAreasIdentityPagesAccountManageGenerateRecoveryCodesModelClassOnPostAsyncTopic.html","GenerateRecoveryCodesModel.OnPostAsync Method","Generates new two factor recovery codes for the user and redirects to the ShowRecoveryCodes page."];

@@ -1,0 +1,62 @@
+﻿@page
+@model ConfirmEmailChangeModel
+@{
+    ViewData["Title"] = "Confirm Email change";
+}
+
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<style>
+
+    .bodytemp {
+        text-align: center;
+    }
+
+    .container1 {
+        display: flex;
+        align-items: center;
+        width: 100%;
+    }
+
+    .box {
+        width: 100%
+    }
+
+    .row {
+        width: 100%;
+        justify-content: center;
+    }
+</style>
+<body class="bodytemp">
+    <div class=" darktheme bordercolor whitetext">
+
+
+        <div class="container1" style="margin:auto">
+
+            <div class="box">
+                <img src="~/images/emailchange.png" style="width:90%; padding:10%">
+            </div>
+
+
+            <div class="box">
+                <div class="row">
+                    <div class="col-md-4" style="width:70%; ">
+                        <h3>
+                            <h1 id="toTranslate" style="text-transform: capitalize;">@ViewData["Title"]</h1>
+                        </h3>
+                        <partial name="_StatusMessage" model="Model.StatusMessage" id="toTranslate" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+
+

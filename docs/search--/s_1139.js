@@ -1,0 +1,1 @@
+search_result['1139']=["frlrfWebApplicationExtensionsClassCreateRolesAsyncTopic.html","WebApplicationExtensions.CreateRolesAsync Method","Creates roles for the application using the provided configuration."];
