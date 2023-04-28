@@ -1,0 +1,1 @@
+search_result['1115']=["frlrfFPTVServicesEmailSenderServiceCustomEmailConfirmationTokenProvider`1ClassTopic.html","CustomEmailConfirmationTokenProvider\u0026lt;TUser\u0026gt; Class","CustomEmailConfirmationTokenProvider is a class that provides a data protector token for a given user of type TUser."];

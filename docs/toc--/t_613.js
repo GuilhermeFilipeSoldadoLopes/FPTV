@@ -1,0 +1,1 @@
+c['613']=[['614',"ScoreID Property","frlrfFPTVModelsMatchesModelsScoreClassScoreIDTopic.html",0],['615',"Team Property","frlrfFPTVModelsMatchesModelsScoreClassTeamTopic.html",0],['616',"TeamName Property","frlrfFPTVModelsMatchesModelsScoreClassTeamNameTopic.html",0],['617',"TeamScore Property","frlrfFPTVModelsMatchesModelsScoreClassTeamScoreTopic.html",0]];

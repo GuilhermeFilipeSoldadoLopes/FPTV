@@ -222,11 +222,11 @@
     }
 </script>
 
-<body onload="chart()" class="bodytemp">
+<body onload="chart()" class="bodytemp bodyquery">
     <div class="" style="padding:1%;">
         <div class="ola">
 
-            <div class="box1 bordercolor colorformatch" style="border-radius:15px; padding:1%;">
+            <div class="box1 bordercolor colorformatch responsive" style="border-radius:15px; padding:1%;">
                 <h3> @ViewBag.player.PlayerName </h3>
                 <div class="teams" style="display:flex; justify-content:center">
                     <img src=@ViewBag._player.Image alt="logo" class="logo" style="border-radius:15px;width:45%;">
@@ -266,7 +266,7 @@
 
 
             @* -------------------------------------------------------------------------------*@
-            <div class="alinhar" style="width:80%; display:flex; justify-content:center; flex-direction: column;">
+            <div class="alinhar responsive" style="width:80%; display:flex; justify-content:center; flex-direction: column;">
 
                 <div class="box darkcolor bordercolor" style="border-radius:15px; justify-content: center; margin: auto;width:80%; margin-top:5%;">
                     <div class="col-sm-6 text-center" style="margin: auto; width: 100%">
@@ -360,7 +360,7 @@
 
             @* ---------------------------------------------------------------------------*@
 
-            <div class="box1" style="border-radius:15px;">
+            <div class="box1 responsive" style="border-radius:15px;">
                 <div class="borders bordercolor colorformatch" style="border-radius:15px">
                     <h3 id="toTranslate"> Player's Team History</h3>
                     <table class="tableDetails" style="width:100%">

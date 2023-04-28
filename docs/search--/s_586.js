@@ -1,0 +1,1 @@
+search_result['586']=["frlrfFPTVControllersMatchesControllerClassTeamStatsTopic.html","MatchesController.TeamStats Method","Returns the view for the TeamStats page."];

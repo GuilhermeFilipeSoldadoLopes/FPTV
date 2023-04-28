@@ -1,0 +1,1 @@
+search_result['1122']=["frlrfFPTVServicesEmailSenderServiceEmailConfirmationTokenProviderOptionsClassTopic.html","EmailConfirmationTokenProviderOptions Class","Represents the options used to configure the EmailConfirmationTokenProvider."];

@@ -1,0 +1,1 @@
+search_result['488']=["frlrfFPTVAreasIdentityPagesAccountResetPasswordModelClassTopic.html","ResetPasswordModel Class","This class is used to reset the user\u0027s password."];

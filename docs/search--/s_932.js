@@ -1,0 +1,1 @@
+search_result['932']=["frlrfFPTVModelsStatisticsModelsMatchPlayerStatsValClassTopic.html","MatchPlayerStatsVal Class","This class stores the values of a match player\u0027s stats."];

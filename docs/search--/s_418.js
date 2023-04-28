@@ -1,0 +1,1 @@
+search_result['418']=["frlrfFPTVAreasIdentityPagesAccountManageTwoFactorAuthenticationModelClassOnPostAsyncTopic.html","TwoFactorAuthenticationModel.OnPostAsync Method","OnPostAsync handles the logic for when the user forgets the two factor authentication code for the current browser."];

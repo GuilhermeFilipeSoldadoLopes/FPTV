@@ -1,0 +1,1 @@
+var breadcrumbs=[['-1',"",""],['2',"FPTV Reference","frlrffptv_referenceCustomTopic.html"],['474',"FPTV.Models.BLL.Matches_Stats Namespace","frlrfFPTVModelsBLLMatches_Stats.html"],['475',"StateOfMatchesCS Class","frlrfFPTVModelsBLLMatches_StatsStateOfMatchesCSClassTopic.html"],['476',"Methods","frlrfFPTVModelsBLLMatches_StatsStateOfMatchesCSClassTopic_methods--.html"]];

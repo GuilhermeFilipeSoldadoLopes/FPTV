@@ -1,0 +1,1 @@
+search_result['192']=["frlrfFPTVAreasIdentityPagesAccountManageDisable2faModelClassTopic.html","Disable2faModel Class","This class is used to disable two-factor authentication for a user."];

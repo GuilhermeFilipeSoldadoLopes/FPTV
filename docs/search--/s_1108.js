@@ -1,0 +1,1 @@
+search_result['1108']=["frlrfFPTVServicesEmailSenderServiceAuthMessageSenderOptionsClassTopic.html","AuthMessageSenderOptions Class","Represents the options for configuring the AuthMessageSender service."];

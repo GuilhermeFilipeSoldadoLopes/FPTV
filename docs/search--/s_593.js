@@ -1,0 +1,1 @@
+search_result['593']=["frlrfFPTVControllersStatsControllerClassaddPlayerToFavTopic.html","StatsController.addPlayerToFav Method","Adds or removes a player from the user\u0027s favorite list."];

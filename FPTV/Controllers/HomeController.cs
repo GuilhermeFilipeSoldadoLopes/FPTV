@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net;
 using FPTV.Data;
@@ -8,10 +7,7 @@ using FPTV.Models.EventsModels;
 using FPTV.Models.MatchesModels;
 using FPTV.Models.UserModels;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json.Linq;
 using PusherServer;
 using RestSharp;
@@ -20,6 +16,7 @@ namespace FPTV.Controllers
 {
     /// <summary>
     /// HomeController is responsible for generating the response to the browser request.
+    /// </summary>
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

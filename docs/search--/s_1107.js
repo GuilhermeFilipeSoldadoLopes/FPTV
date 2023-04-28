@@ -1,0 +1,1 @@
+search_result['1107']=["frlrfFPTVServicesEmailSenderServiceAuthMessageSenderOptionsClassSendGridKeyTopic.html","AuthMessageSenderOptions.SendGridKey Property","Property to store the SendGrid API key."];

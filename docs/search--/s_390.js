@@ -1,0 +1,1 @@
+search_result['390']=["frlrfFPTVAreasIdentityPagesAccountManageSetPasswordModelClassTopic.html","SetPasswordModel Class","This class is used to set the password for the user."];

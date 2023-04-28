@@ -1,47 +1,18 @@
 ﻿using AngleSharp.Common;
-using AngleSharp.Dom;
-using EllipticCurve.Utils;
 using FPTV.Data;
 using FPTV.Models.EventsModels;
 using FPTV.Models.MatchesModels;
 using FPTV.Models.StatisticsModels;
-using FPTV.Models.ToReview;
 using FPTV.Models.UserModels;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.CodeAnalysis.Differencing;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.FileSystemGlobbing;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using NuGet.Common;
 using RestSharp;
-using SendGrid.Helpers.Mail;
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Net;
-using System.Numerics;
-using System.Runtime.Intrinsics.Arm;
-using System.Runtime.Intrinsics.X86;
-using System.Text.RegularExpressions;
-using static System.Formats.Asn1.AsnWriter;
 using Stream = FPTV.Models.MatchesModels.Stream;
 
 namespace FPTV.Controllers
-//O sistema deverá permitir filtrar as partidas por
-//  estado(a decorrer, por decorrer, terminado)
-//  se a partida tem estatísticas
-//  se tem uma livestream da partida
-//  por eventos
-//O sistema deverá permitir ordenar as partidas por
-//  ordem cronológica
-//  por nome do evento
 {
     /// <summary>
     /// This class is responsible for handling requests related to matches.

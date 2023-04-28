@@ -1,0 +1,1 @@
+search_result['377']=["frlrfFPTVAreasIdentityPagesAccountManageResetAuthenticatorModelClassOnPostAsyncTopic.html","ResetAuthenticatorModel.OnPostAsync Method","Resets the user\u0027s authentication app key and refreshes the sign in."];

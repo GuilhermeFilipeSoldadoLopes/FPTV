@@ -1,30 +1,15 @@
-﻿using AngleSharp.Io;
-using FPTV.Data;
+﻿using FPTV.Data;
 using FPTV.Models.EventsModels;
 using FPTV.Models.MatchesModels;
 using FPTV.Models.StatisticsModels;
 using FPTV.Models.UserModels;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Linq;
-using FPTV.Models.UserModels;
-using NuGet.ProjectModel;
 using RestSharp;
-using SendGrid.Helpers.Mail;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.IO;
-using System.Linq.Expressions;
 using System.Net;
-using System.Numerics;
-using System.Reflection;
-using System.Reflection.Metadata.Ecma335;
-using System.Security.Policy;
-using System.Xml.Linq;
 
 namespace FPTV.Controllers
 {

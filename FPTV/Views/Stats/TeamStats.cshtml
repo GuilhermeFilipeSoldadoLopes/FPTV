@@ -45,16 +45,16 @@
 </style>
 <body class="bodytemp" style="align-content:center; justify-content:center">
 
-    <div style="display: flex; flex-direction: column; text-align:center">
+    <div class=""style="display: flex; flex-direction: column; text-align:center">
 
-        <div style="padding-top:3%; width:40%;margin:auto" class=" darkcolor bordercolor">
-            <div style="display: flex ; justify-content:center;width:100%;margin:auto">
+        <div class="responsive darkcolor bordercolor"  style="padding-top:3%; width:40%;margin:auto" class=" darkcolor bordercolor">
+            <div class="responsive" style="display: flex ; justify-content:center;width:100%;margin:auto">
                 <img src=@ViewBag.team.Image alt ="logo" class="logo" style="width:20%;margin:auto">
                 <h1 style="margin-top: 20px; text-align:center; margin:auto">@ViewBag.team.Name</h1>
             </div>
 
-            <div style="display: flex; width:100%;margin-bottom:0px; margin-top:3%;">
-                <div style=";width:50%">
+            <div class="responsive" style="display: flex; width:100%;margin-bottom:0px; margin-top:3%;">
+                <div style="width:50%">
                     <button class="btnTeam" style="width: 100%; border-radius:15px;padding:0px; text-align:left; margin-left:5px">
                         <span style="">
                             <a href="@Url.Action("addTeamToFav", "Stats", new {id = ViewBag.team.TeamAPIID, game = ViewData["game"]})" style="justify-content: space-around; margin-bottom:0px;text-decoration:none;text-">
@@ -86,10 +86,10 @@
             </div>
         </div>
 
-        <div class="center darkcolor bordercolor" style="margin:auto;margin-top:3%; font-size:25px;width:70%; margin-top:3%">
+        <div class="center darkcolor bordercolor responsive" style="margin:auto;margin-top:3%; font-size:25px;width:70%; margin-top:3%">
             @foreach (var item in @ViewBag.team.Players)
             {
-                <div style="display:flex; justify-content:center; align-items: center;padding:1%;width:100%">
+                <div class="  " style="display:flex; justify-content:center; align-items: center;padding:1%;width:100%">
                     <a href="@Url.Action("getPLayer", "Stats", new {id = @item.PlayerAPIId, @*type = @ViewBag.matches.TimeType.ToString().ToLower()*@ game = ViewData["game"].ToString()})" style="justify-content: space-around; margin-bottom:0px">
                         <img src=@item.Image alt="logo" @*class="logo2"*@ height="125px" width="100px" style="max-width: 150px;padding:3%">
                         <h3 class="h3">@item.Name</h3>
@@ -100,7 +100,7 @@
         </div>
 
 
-        <div class="darkcolor bordercolor" style="padding: 3%; margin:auto; margin-top:3%; font-size:25px; width:70%; ">
+        <div class="darkcolor bordercolor responsive" style="padding: 3%; margin:auto; margin-top:3%; font-size:25px; width:70%; ">
 
             <table class="tablecolors" style="width:100%">
                 @{
@@ -113,11 +113,11 @@
                         <span> @ViewBag.team.WorldRank</span>
                         <span>
                             @if (@ViewBag.team.WorldRank > 0 && @ViewBag.team.WorldRank <= 25) {
-                                <img src="~/images/rating_up.png" style="width:5%;padding:2px;" title="Good">
+                                <img src="~/images/rating_up.png" style="width:25px;padding:2px;" title="Good">
                             } else if (@ViewBag.team.WorldRank > 25 && @ViewBag.team.WorldRank <= 70) {
-                                <img src="~/images/rating_middle.png" style="width:5%;padding:2px;" title="Average">
+                                <img src="~/images/rating_middle.png" style="width:25px;padding:2px;" title="Average">
                             } else if (@ViewBag.team.WorldRank > 70) {
-                                <img src="~/images/rating_down.png" style="width:5%;padding:2px;" title="Bad">
+                                <img src="~/images/rating_down.png" style="25px;padding:2px;" title="Bad">
                             }
                         </span>
                     </td>
@@ -129,11 +129,11 @@
                         <span> @ViewBag.team.Winnings</span>
                         <span>
                             @if (@winning_ratio > 0 && @winning_ratio <= 1.4) {
-                                <img src="~/images/rating_up.png" style="width:5%;padding:2px;" title="Good">
+                                <img src="~/images/rating_up.png" style="width:25px;padding:2px;" title="Good">
                             } else if (@winning_ratio > 1.4 && @winning_ratio <= 3) {
-                                <img src="~/images/rating_middle.png" style="width:5%;padding:2px;" title="Average">
+                                <img src="~/images/rating_middle.png" style="width:25px;padding:2px;" title="Average">
                             } else if (@winning_ratio > 3) {
-                                <img src="~/images/rating_down.png" style="width:5%;padding:2px;" title="Bad">
+                                <img src="~/images/rating_down.png" style="width:25px;padding:2px;" title="Bad">
                             }
                         </span>
                     </td>
@@ -144,11 +144,11 @@
                         <span> @ViewBag.team.Losses</span>
                         <span>
                             @if (@losses_ratio > 0 && @losses_ratio <= 1.4) {
-                                <img src="~/images/rating_down.png" style="width:5%;padding:2px;" title="Bad">
+                                <img src="~/images/rating_down.png" style="width:25px;padding:2px;" title="Bad">
                             } else if (@losses_ratio > 1.4 && @losses_ratio <= 3) {
-                                <img src="~/images/rating_middle.png" style="width:5%;padding:2px;" title="Average">
+                                <img src="~/images/rating_middle.png" style="width:25px;padding:2px;" title="Average">
                             } else if (@losses_ratio > 3) {
-                                <img src="~/images/rating_up.png" style="width:5%;padding:2px;" title="Good">
+                                <img src="~/images/rating_up.png" style="width:25px;padding:2px;" title="Good">
                             }
                         </span>
                     </td>

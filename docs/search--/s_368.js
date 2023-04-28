@@ -1,0 +1,1 @@
+search_result['368']=["frlrfFPTVAreasIdentityPagesAccountManagePersonalDataModelClassOnGetTopic.html","PersonalDataModel.OnGet Method","Gets the current user from the UserManager and returns the page."];

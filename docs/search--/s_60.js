@@ -1,0 +1,1 @@
+search_result['60']=["frlrfFPTVAreasIdentityPagesAccountForgotPasswordModelClassOnPostAsyncTopic.html","ForgotPasswordModel.OnPostAsync Method","Generates a password reset token and sends an email to the user with a link to reset their password."];

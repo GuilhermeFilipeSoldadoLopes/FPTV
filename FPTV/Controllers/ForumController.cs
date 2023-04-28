@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Reflection.Metadata;
 
 namespace FPTV.Controllers
 {
@@ -30,12 +29,14 @@ namespace FPTV.Controllers
         {
             _context = context;
             _userManager = userManager;
-        }        
+        }
 
         /// <summary>
-        /// Asynchronously checks for an error and returns the Error403 view if an error is found. Otherwise, returns the Forum view with a list of topics.
+        /// Retrieves a list of topics from the database, sorted according to the filter and search parameters.
         /// </summary>
-        /// <returns>The Error403 view or the Forum view.</returns>
+        /// <param name="filter">The sorting filter to be applied to the list of topics.</param>
+        /// <param name="search">The search query to be applied to the list of topics.</param>
+        /// <returns>A view containing the list of topics.</returns>
         public async Task<ActionResult> IndexAsync(string filter = "", string search = "")
         {
             if (await CheckError303())
@@ -51,54 +52,60 @@ namespace FPTV.Controllers
 
             var stickyTopic = _context.Topics.Include(t => t.Comments).ThenInclude(c => c.Reactions).Include(t => t.Profile).ThenInclude(p => p.User).FirstOrDefault(t => t.Profile.User.UserName == "Admin");
 
-            if(stickyTopic == null) 
+            if (stickyTopic == null)
             {
                 Console.WriteLine("Creating sticky");
-                stickyTopic = new Topic 
-                { 
-                    Comments = new List<Comment>(), 
-                    Content = "", 
-                    Date = DateTime.Now, 
-                    Deleted = false,  
-                    Profile = _context.UserBase.Include(u => u.Profile).FirstOrDefault(u => u.UserName == "Admin").Profile, 
-                    Reported = false, 
+                stickyTopic = new Topic
+                {
+                    Comments = new List<Comment>(),
+                    Content = "",
+                    Date = DateTime.Now,
+                    Deleted = false,
+                    Profile = _context.UserBase.Include(u => u.Profile).FirstOrDefault(u => u.UserName == "Admin").Profile,
+                    Reported = false,
                     Title = ""
                 };
 
                 _context.Topics.Add(stickyTopic);
                 _context.SaveChanges();
             }
-			var topics = _context.Topics.Include(t => t.Profile).ThenInclude(p => p.User).Include(t => t.Comments).ThenInclude(c => c.Reactions).Where(t => t.Profile.User.UserName != "Admin").ToList();
+            var topics = _context.Topics.Include(t => t.Profile).ThenInclude(p => p.User).Include(t => t.Comments).ThenInclude(c => c.Reactions).Where(t => t.Profile.User.UserName != "Admin").ToList();
 
-			switch (filter)
-			{
-				case "newest":
-					topics = topics.OrderByDescending(t => t.Date).ToList();
-					break;
-				case "oldest":
-					topics = topics.OrderBy(t => t.Date).ToList();
-					break;
-				case "hot":
-					topics = topics.OrderByDescending(t => t.Comments.Select(c => c.Reactions).Count() + t.Comments.Count).ToList();
-					break;
-				default:
-					break;
-			}
+            switch (filter)
+            {
+                case "newest":
+                    topics = topics.OrderByDescending(t => t.Date).ToList();
+                    break;
+                case "oldest":
+                    topics = topics.OrderBy(t => t.Date).ToList();
+                    break;
+                case "hot":
+                    topics = topics.OrderByDescending(t => t.Comments.Select(c => c.Reactions).Count() + t.Comments.Count).ToList();
+                    break;
+                default:
+                    break;
+            }
 
             if (search != null)
             {
                 topics = topics.FindAll(t => t.Title.ToLower().Contains(search.ToLower()));
-            } 
+            }
 
             topics = topics.OrderBy(t => t.Deleted).ToList();
 
             ViewBag.StickyComments = stickyTopic.Comments.Count;
             ViewBag.StickyReactions = stickyTopic.Comments.Select(c => c.Reactions.Count).Sum();
-			return View(topics);
+            return View(topics);
         }
 
-		public IActionResult ReportedTopicsAndComments()
-		{
+        /// <summary>
+        /// Retrieves a list of reported topics and comments from the database.
+        /// </summary>
+        /// <returns>
+        /// A view containing the reported topics and comments.
+        /// </returns>
+        public IActionResult ReportedTopicsAndComments()
+        {
             //var topics = _context.Topics.Include(t => t.Profile).ThenInclude(p => p.User).Where(t => t.Reported == true).ToList();
             //var topics = _context.Topics.Include(t => t.Comments).Include(t => t.Profile).ThenInclude(p => p.User).Where(t => t.Reported == true).ToList();
             var topics = _context.Topics.Include(t => t.Comments).ThenInclude(c => c.Reactions).Include(t => t.Profile).ThenInclude(p => p.User).Where(t => t.Reported == true).ToList();
@@ -115,98 +122,112 @@ namespace FPTV.Controllers
 
             //page = "Forum";
             return View(modelList);
-		}
+        }
 
-		public async Task<ActionResult> DeleteReportedPostAsync(int id)
-		{
-			Console.WriteLine("\n\n\n\n\null");
-			if (await CheckError303())
-			{
-				return View("~/Views/Home/Error403.cshtml");
-			}
+        /// <summary>
+        /// Deletes a reported post and all its comments and reactions.
+        /// </summary>
+        /// <returns>
+        /// Redirects to the ReportedTopicsAndComments view if successful, otherwise returns an error page.
+        /// </returns>
+        public async Task<ActionResult> DeleteReportedPostAsync(int id)
+        {
+            Console.WriteLine("\n\n\n\n\null");
+            if (await CheckError303())
+            {
+                return View("~/Views/Home/Error403.cshtml");
+            }
 
-			ViewBag.Game = "";
-			ViewBag.page = "Forum";
-			var post = _context.Topics.Include(t => t.Comments).ThenInclude(c => c.Reactions).FirstOrDefault(t => t.TopicId == id);
-			var user = await _userManager.GetUserAsync(User);
-			var userRoles = await _userManager.GetRolesAsync(user);
+            ViewBag.Game = "";
+            ViewBag.page = "Forum";
+            var post = _context.Topics.Include(t => t.Comments).ThenInclude(c => c.Reactions).FirstOrDefault(t => t.TopicId == id);
+            var user = await _userManager.GetUserAsync(User);
+            var userRoles = await _userManager.GetRolesAsync(user);
 
-			if (post == null)
-			{
+            if (post == null)
+            {
                 Console.WriteLine("\n\n\n\n\null");
-				return View("~/Views/Home/Error404.cshtml");
-			}
+                return View("~/Views/Home/Error404.cshtml");
+            }
 
-			var comments = post.Comments;
+            var comments = post.Comments;
 
-			if (userRoles.Contains("admin", StringComparer.OrdinalIgnoreCase) || userRoles.Contains("moderator", StringComparer.OrdinalIgnoreCase) && post.Reported)
-			{
-				Console.WriteLine("\n\n\n\n\n not null");
-				foreach (var comment in comments)
-				{
-                    if(comment.Reactions != null) 
+            if (userRoles.Contains("admin", StringComparer.OrdinalIgnoreCase) || userRoles.Contains("moderator", StringComparer.OrdinalIgnoreCase) && post.Reported)
+            {
+                Console.WriteLine("\n\n\n\n\n not null");
+                foreach (var comment in comments)
+                {
+                    if (comment.Reactions != null)
                     {
-						_context.RemoveRange(comment.Reactions);
-					}
-				}
+                        _context.RemoveRange(comment.Reactions);
+                    }
+                }
 
-				_context.RemoveRange(comments);
-				_context.Remove(post);
+                _context.RemoveRange(comments);
+                _context.Remove(post);
 
-				await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync();
 
-				return RedirectToAction("ReportedTopicsAndComments");
-			}
+                return RedirectToAction("ReportedTopicsAndComments");
+            }
 
-			return View("~/Views/Home/Error403.cshtml");
-		}
+            return View("~/Views/Home/Error403.cshtml");
+        }
 
         [Authorize]
-		public async Task<ActionResult> DeleteReportedCommentAsync(Guid id)
-		{
-
-			if (await CheckError303())
-			{
-				return View("~/Views/Home/Error403.cshtml");
-			}
-
-			ViewBag.Game = "";
-			ViewBag.page = "Forum";
-			var comment = _context.Comments.Include(c => c.Reactions).FirstOrDefault(c => c.CommentId.Equals(id));
-			var user = await _userManager.GetUserAsync(User);
-			var userRoles = await _userManager.GetRolesAsync(user);
-
-			if (comment == null)
-			{
-				return View("~/Views/Home/Error404.cshtml");
-			}
-
-			var reactions = comment.Reactions;
-
-			if (userRoles.Contains("admin", StringComparer.OrdinalIgnoreCase) || userRoles.Contains("moderator", StringComparer.OrdinalIgnoreCase) && comment.Reported)
-			{
-
-				if(reactions != null)
-                {
-					_context.RemoveRange(reactions);
-				}
-			  
-				_context.Remove(comment);
-
-				await _context.SaveChangesAsync();
-
-				return RedirectToAction("ReportedTopicsAndComments");
-			}
-
-			return View("~/Views/Home/Error403.cshtml");
-		}
-
-		[Authorize]
         /// <summary>
-        /// Retrieves a topic from the database and returns it to the view.
+        /// Deletes a reported comment from the database.
+        /// </summary>
+        /// <returns>
+        /// Redirects to the ReportedTopicsAndComments view if the comment is successfully deleted.
+        /// </returns>
+        public async Task<ActionResult> DeleteReportedCommentAsync(Guid id)
+        {
+
+            if (await CheckError303())
+            {
+                return View("~/Views/Home/Error403.cshtml");
+            }
+
+            ViewBag.Game = "";
+            ViewBag.page = "Forum";
+            var comment = _context.Comments.Include(c => c.Reactions).FirstOrDefault(c => c.CommentId.Equals(id));
+            var user = await _userManager.GetUserAsync(User);
+            var userRoles = await _userManager.GetRolesAsync(user);
+
+            if (comment == null)
+            {
+                return View("~/Views/Home/Error404.cshtml");
+            }
+
+            var reactions = comment.Reactions;
+
+            if (userRoles.Contains("admin", StringComparer.OrdinalIgnoreCase) || userRoles.Contains("moderator", StringComparer.OrdinalIgnoreCase) && comment.Reported)
+            {
+
+                if (reactions != null)
+                {
+                    _context.RemoveRange(reactions);
+                }
+
+                _context.Remove(comment);
+
+                await _context.SaveChangesAsync();
+
+                return RedirectToAction("ReportedTopicsAndComments");
+            }
+
+            return View("~/Views/Home/Error403.cshtml");
+        }
+
+        [Authorize]
+        /// <summary>
+        /// Retrieves the topic with the given id and filters the comments according to the given filter.
         /// </summary>
         /// <param name="id">The id of the topic to be retrieved.</param>
-        /// <returns>The view with the retrieved topic.</returns>
+        /// <param name="filter">The filter to be applied to the comments.</param>
+        /// <param name="alert">The alert message to be displayed.</param>
+        /// <returns>The view of the topic with the given id.</returns>
         public async Task<ActionResult> TopicAsync(int id, string filter = "", string alert = "")
         {
             if (await CheckError303())
@@ -214,13 +235,16 @@ namespace FPTV.Controllers
                 return View("~/Views/Home/Error403.cshtml");
             }
 
-            if (alert != "" && alert != null) {
-				ViewBag.Message = alert;
-			} else {
-				ViewBag.Message = "";
-			}
+            if (alert != "" && alert != null)
+            {
+                ViewBag.Message = alert;
+            }
+            else
+            {
+                ViewBag.Message = "";
+            }
 
-			ViewBag.Filter = filter;
+            ViewBag.Filter = filter;
             ViewBag.Game = "";
             ViewBag.page = "Forum";
 
@@ -238,19 +262,19 @@ namespace FPTV.Controllers
                 return View("~/Views/Home/Error404.cshtml");
             }
 
-			switch(filter)
+            switch (filter)
             {
-				case "newest":
-					topic.Comments = topic.Comments.OrderByDescending(c => c.Date).ToList();
-					break;
-				case "oldest":
-					topic.Comments = topic.Comments.OrderBy(c => c.Date).ToList();
-					break;
-				case "hot":
-					topic.Comments = topic.Comments.OrderByDescending(c => c.Reactions.Count).ToList();
-					break;
-				default:
-					break;
+                case "newest":
+                    topic.Comments = topic.Comments.OrderByDescending(c => c.Date).ToList();
+                    break;
+                case "oldest":
+                    topic.Comments = topic.Comments.OrderBy(c => c.Date).ToList();
+                    break;
+                case "hot":
+                    topic.Comments = topic.Comments.OrderByDescending(c => c.Reactions.Count).ToList();
+                    break;
+                default:
+                    break;
             }
 
             return View(topic);
@@ -307,9 +331,9 @@ namespace FPTV.Controllers
                 Comments = new List<Comment>(),
                 Date = DateTime.Now,
                 Title = collection["Title"],
-				ProfileId = user.ProfileId,
+                ProfileId = user.ProfileId,
                 Reported = false,
-				Deleted = false,
+                Deleted = false,
             };
             await _context.Topics.AddAsync(topic);
             await _context.SaveChangesAsync();
@@ -333,12 +357,12 @@ namespace FPTV.Controllers
         /// <returns>The view of the given profile.</returns>
         public ActionResult Profile(Guid profileId)
         {
-			var profile = _context.Profiles.Include(p => p.PlayerList.Players).Include(p => p.TeamsList.Teams).FirstOrDefault(p => p.Id == profileId);
+            var profile = _context.Profiles.Include(p => p.PlayerList.Players).Include(p => p.TeamsList.Teams).FirstOrDefault(p => p.Id == profileId);
             var user = _context.UserBase.FirstOrDefault(u => u.ProfileId == profileId);
             var topics = _context.Topics.Where(t => t.ProfileId == profileId).ToList();
-            
 
-            if(user == null || profile == null)
+
+            if (user == null || profile == null)
             {
                 return View("~/Views/Home/Error404.cshtml");
             }
@@ -361,53 +385,57 @@ namespace FPTV.Controllers
 
             ViewData["Topics"] = topics;
             ViewData["FavTeamsListValorant"] = profile.TeamsList.Teams.Where(t => t.Game == GameType.Valorant).ToList();
-            ViewData["FavPlayerListValorant"] = profile.PlayerList.Players.Where(t => t.Game == GameType.Valorant).ToList(); 
+            ViewData["FavPlayerListValorant"] = profile.PlayerList.Players.Where(t => t.Game == GameType.Valorant).ToList();
             ViewData["FavTeamsListCSGO"] = profile.TeamsList.Teams.Where(t => t.Game == GameType.CSGO).ToList();
             ViewData["FavPlayerListCSGO"] = profile.PlayerList.Players.Where(t => t.Game == GameType.CSGO).ToList();
             ViewBag.Flag = "/images/Flags/4x3/" + profile.Flag + ".svg";
             ViewData["Username"] = user.UserName;
-			return View(profile);
+            return View(profile);
         }
 
         [Authorize]
+
         /// <summary>
-        /// Reports a comment and sets the Reported flag to true.
+        /// Redirects to the Topic page or Bugs and Suggestions page after reporting a comment.
         /// </summary>
         /// <param name="id">The ID of the comment to be reported.</param>
         /// <param name="topicId">The ID of the topic the comment belongs to.</param>
-        /// <returns>Redirects to the topic page.</returns>
+        /// /// <param name="isBugsPage">True if it is a bugs page.</param>
+        /// <returns>
+        /// Redirects to the Topic page or Bugs and Suggestions page with a success message.
+        /// </returns>
         public ActionResult ReportComment(Guid id, int topicId, bool isBugsPage = false)
         {
             ViewBag.Game = "";
             ViewBag.page = "Forum";
 
-			var comment = _context.Comments.Include(c => c.Profile).ThenInclude(p => p.User).FirstOrDefault(c => c.CommentId == id);
+            var comment = _context.Comments.Include(c => c.Profile).ThenInclude(p => p.User).FirstOrDefault(c => c.CommentId == id);
             if (comment == null)
             {
                 return View("~/Views/Home/Error404.cshtml");
             }
 
             DateTime time = DateTime.Now;
-			var profile = _context.Profiles.FirstOrDefault(p => p == comment.Profile);
-			var user = _context.Users.FirstOrDefault(u => u.ProfileId == profile.Id);
-			string message = ("The comment of " + comment.Profile.User.UserName + " was successfully reported at " + time.ToString("HH:mm") + " WEST");
+            var profile = _context.Profiles.FirstOrDefault(p => p == comment.Profile);
+            var user = _context.Users.FirstOrDefault(u => u.ProfileId == profile.Id);
+            string message = ("The comment of " + comment.Profile.User.UserName + " was successfully reported at " + time.ToString("HH:mm") + " WEST");
 
-			comment.Reported = true;
+            comment.Reported = true;
             _context.SaveChanges();
 
             var topic = _context.Topics.Include(t => t.Profile).ThenInclude(p => p.User).FirstOrDefault(t => t.TopicId == topicId);
 
-			if (isBugsPage)
-			{
-				return RedirectToAction("BugsAndSuggestions", new { alert = message });
-			}
+            if (isBugsPage)
+            {
+                return RedirectToAction("BugsAndSuggestions", new { alert = message });
+            }
 
-			if (topic.Profile.User.UserName == "Admin")
+            if (topic.Profile.User.UserName == "Admin")
             {
                 return RedirectToAction("BugsAndSuggestions");
             }
 
-			return RedirectToAction("Topic", new { id = topicId, alert = message });
+            return RedirectToAction("Topic", new { id = topicId, alert = message });
         }
 
         [Authorize]
@@ -421,30 +449,30 @@ namespace FPTV.Controllers
             ViewBag.Game = "";
             ViewBag.page = "Forum";
 
-			var post = _context.Topics.Include(t => t.Profile).ThenInclude(p => p.User).FirstOrDefault(t => t.TopicId == id);
+            var post = _context.Topics.Include(t => t.Profile).ThenInclude(p => p.User).FirstOrDefault(t => t.TopicId == id);
 
             if (post == null)
             {
                 return View("~/Views/Home/Error404.cshtml");
             }
 
-			var profile = _context.Profiles.FirstOrDefault(p => p.Id == post.ProfileId);
-			var user = _context.Users.FirstOrDefault(u => u.ProfileId == profile.Id);
-			DateTime time = DateTime.Now;
-			string message = ("The topic of " + user.UserName + " was successfully reported at " + time.ToString("HH:mm") + " WEST");
+            var profile = _context.Profiles.FirstOrDefault(p => p.Id == post.ProfileId);
+            var user = _context.Users.FirstOrDefault(u => u.ProfileId == profile.Id);
+            DateTime time = DateTime.Now;
+            string message = ("The topic of " + user.UserName + " was successfully reported at " + time.ToString("HH:mm") + " WEST");
 
-			post.Reported = true;
+            post.Reported = true;
             _context.SaveChanges();
 
-			if (post.Profile.User.UserName == "Admin")
-			{
-				return RedirectToAction("BugsAndSuggestions");
-			}
+            if (post.Profile.User.UserName == "Admin")
+            {
+                return RedirectToAction("BugsAndSuggestions");
+            }
 
-			return RedirectToAction("Topic", new { id, alert = message });
+            return RedirectToAction("Topic", new { id, alert = message });
         }
 
-      
+
         [Authorize]
         /// <summary>
         /// Remove reports from a topic.
@@ -514,30 +542,30 @@ namespace FPTV.Controllers
             var topic = _context.Topics.Include(t => t.Profile).ThenInclude(p => p.User).FirstOrDefault(t => t.TopicId == id);
             var user = await _userManager.GetUserAsync(User);
 
-			if (user == null)
-			{
-				return View("Index");
-			}
-			var profile = _context.Profiles.Single(p => p.Id == user.ProfileId);
-			var comment = new Comment
-			{
-				Reactions = new List<Reaction>(),
-				Profile = profile,
-				Date = DateTime.Now,
-				Text = collection["Text"],
-				Topic = topic,
-				Reported = false,
-				Deleted = false,
-			};
-			await _context.Comments.AddAsync(comment);
-			await _context.SaveChangesAsync();
-			
-				if (topic.Profile.User.UserName == "Admin")
-				{
-					return RedirectToAction("BugsAndSuggestions");
-				}
-				return RedirectToAction("Topic", new { id });
-            
+            if (user == null)
+            {
+                return View("Index");
+            }
+            var profile = _context.Profiles.Single(p => p.Id == user.ProfileId);
+            var comment = new Comment
+            {
+                Reactions = new List<Reaction>(),
+                Profile = profile,
+                Date = DateTime.Now,
+                Text = collection["Text"],
+                Topic = topic,
+                Reported = false,
+                Deleted = false,
+            };
+            await _context.Comments.AddAsync(comment);
+            await _context.SaveChangesAsync();
+
+            if (topic.Profile.User.UserName == "Admin")
+            {
+                return RedirectToAction("BugsAndSuggestions");
+            }
+            return RedirectToAction("Topic", new { id });
+
         }
 
         /// <summary>
@@ -559,54 +587,54 @@ namespace FPTV.Controllers
             var user = await _userManager.GetUserAsync(User);
             var userRoles = await _userManager.GetRolesAsync(user);
 
-            if(post == null) 
+            if (post == null)
             {
-				return View("~/Views/Home/Error404.cshtml");
-			}
+                return View("~/Views/Home/Error404.cshtml");
+            }
 
-			var comments = post.Comments;
+            var comments = post.Comments;
 
-			if (userRoles.Contains("admin", StringComparer.OrdinalIgnoreCase) || userRoles.Contains("moderator", StringComparer.OrdinalIgnoreCase))
+            if (userRoles.Contains("admin", StringComparer.OrdinalIgnoreCase) || userRoles.Contains("moderator", StringComparer.OrdinalIgnoreCase))
             {
 
-                foreach(var comment in comments)
+                foreach (var comment in comments)
                 {
-					if (comment.Reactions != null)
-					{
-						_context.RemoveRange(comment.Reactions);
-					}
-				}
+                    if (comment.Reactions != null)
+                    {
+                        _context.RemoveRange(comment.Reactions);
+                    }
+                }
 
                 _context.RemoveRange(comments);
                 _context.Remove(post);
 
-				await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync();
 
-				return RedirectToAction("Index");
-			}
+                return RedirectToAction("Index");
+            }
 
             if (post.ProfileId != user.ProfileId)
             {
-				return View("~/Views/Home/Error403.cshtml");
-			}
+                return View("~/Views/Home/Error403.cshtml");
+            }
 
-			_context.RemoveRange(comments);
-			_context.Remove(post);
+            _context.RemoveRange(comments);
+            _context.Remove(post);
 
-			await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
 
-			return RedirectToAction("Index");
+            return RedirectToAction("Index");
         }
 
-		
 
-		/// <summary>
-		/// Deletes a comment from the database.
-		/// </summary>
-		/// <param name="id">The ID of the comment to delete.</param>
-		/// <param name="topicId">The ID of the topic the comment belongs to.</param>
-		/// <returns>A redirect to the topic page.</returns>
-		public async Task<ActionResult> DeleteCommentAsync(Guid id, int topicId)
+
+        /// <summary>
+        /// Deletes a comment from the database.
+        /// </summary>
+        /// <param name="id">The ID of the comment to delete.</param>
+        /// <param name="topicId">The ID of the topic the comment belongs to.</param>
+        /// <returns>A redirect to the topic page.</returns>
+        public async Task<ActionResult> DeleteCommentAsync(Guid id, int topicId)
         {
 
             if (await CheckError303())
@@ -617,50 +645,50 @@ namespace FPTV.Controllers
             ViewBag.Game = "";
             ViewBag.page = "Forum";
             var comment = _context.Comments.Include(c => c.Profile).Include(c => c.Reactions).FirstOrDefault(c => c.CommentId == id);
-			var user = await _userManager.GetUserAsync(User);
-			var userRoles = await _userManager.GetRolesAsync(user);
+            var user = await _userManager.GetUserAsync(User);
+            var userRoles = await _userManager.GetRolesAsync(user);
             var topic = _context.Topics.Include(t => t.Profile).ThenInclude(p => p.User).FirstOrDefault(t => t.TopicId == topicId);
 
-            if(comment == null)
+            if (comment == null)
             {
-				return View("~/Views/Home/Error404.cshtml");
-			}
+                return View("~/Views/Home/Error404.cshtml");
+            }
 
             if (userRoles.Contains("admin", StringComparer.OrdinalIgnoreCase) || userRoles.Contains("moderator", StringComparer.OrdinalIgnoreCase))
             {
-                if(comment.Reactions != null) 
+                if (comment.Reactions != null)
                 {
-					_context.RemoveRange(comment.Reactions);
-				}
+                    _context.RemoveRange(comment.Reactions);
+                }
 
                 _context.Remove(comment);
                 await _context.SaveChangesAsync();
 
-				if (topic.Profile.User.UserName == "Admin")
-				{
-					return RedirectToAction("BugsAndSuggestions");
-				}
-				return RedirectToAction("Topic", new { id = topicId });
-			}
-			
+                if (topic.Profile.User.UserName == "Admin")
+                {
+                    return RedirectToAction("BugsAndSuggestions");
+                }
+                return RedirectToAction("Topic", new { id = topicId });
+            }
+
             if (!comment.Profile.Id.Equals(user.ProfileId))
-			{
-				return View("~/Views/Home/Error403.cshtml");
-			}
+            {
+                return View("~/Views/Home/Error403.cshtml");
+            }
 
-			if (comment.Reactions != null)
-			{
-				_context.RemoveRange(comment.Reactions);
-			}
+            if (comment.Reactions != null)
+            {
+                _context.RemoveRange(comment.Reactions);
+            }
 
-			_context.Remove(comment);
-			await _context.SaveChangesAsync();
+            _context.Remove(comment);
+            await _context.SaveChangesAsync();
 
-			if (topic.Profile.User.UserName == "Admin")
-			{
-				return RedirectToAction("BugsAndSuggestions");
-			}
-			return RedirectToAction("Topic", new { id = topicId });
+            if (topic.Profile.User.UserName == "Admin")
+            {
+                return RedirectToAction("BugsAndSuggestions");
+            }
+            return RedirectToAction("Topic", new { id = topicId });
         }
 
         // POST: ForumController/Delete/5
@@ -695,14 +723,14 @@ namespace FPTV.Controllers
                 _context.Reactions.Remove(react);
                 await _context.SaveChangesAsync();
 
-                if(react.ReactionEmoji.Equals(reaction))
+                if (react.ReactionEmoji.Equals(reaction))
                 {
-					if (topic.Profile.User.UserName == "Admin")
-					{
-						return RedirectToAction("BugsAndSuggestions", new { filter = ViewBag.Filter });
-					}
-					return RedirectToAction("Topic", new { id = topicId, filter = ViewBag.Filter});
-				}
+                    if (topic.Profile.User.UserName == "Admin")
+                    {
+                        return RedirectToAction("BugsAndSuggestions", new { filter = ViewBag.Filter });
+                    }
+                    return RedirectToAction("Topic", new { id = topicId, filter = ViewBag.Filter });
+                }
 
             }
 
@@ -724,11 +752,11 @@ namespace FPTV.Controllers
 
             try
             {
-				if (topic.Profile.User.UserName == "Admin")
-				{
-					return RedirectToAction("BugsAndSuggestions");
-				}
-				return RedirectToAction("Topic", new { id = topicId,  filter = ViewBag.Filter});
+                if (topic.Profile.User.UserName == "Admin")
+                {
+                    return RedirectToAction("BugsAndSuggestions");
+                }
+                return RedirectToAction("Topic", new { id = topicId, filter = ViewBag.Filter });
             }
             catch
             {
@@ -749,11 +777,11 @@ namespace FPTV.Controllers
         }
 
         /// <summary>
-        /// This method is used to render the Bugs and Suggestions page.
+        /// Retrieves the sticky topic for the Bugs and Suggestions page, and orders the comments based on the filter parameter.
         /// </summary>
-        /// <returns>
-        /// Returns the view for the Bugs and Suggestions page.
-        /// </returns>
+        /// <param name="filter">The filter to order the comments by.</param>
+        /// <param name="alert">The alert message to display.</param>
+        /// <returns>The view for the Bugs and Suggestions page.</returns>
         public async Task<ActionResult> BugsAndSuggestionsAsync(string filter = "", string alert = "")
         {
             if (await CheckError303())
@@ -761,13 +789,16 @@ namespace FPTV.Controllers
                 return View("~/Views/Home/Error403.cshtml");
             }
 
-			if (alert != "" && alert != null) {
-				ViewBag.Message = alert;
-			} else {
-				ViewBag.Message = "";
-			}
+            if (alert != "" && alert != null)
+            {
+                ViewBag.Message = alert;
+            }
+            else
+            {
+                ViewBag.Message = "";
+            }
 
-			ViewBag.Game = "";
+            ViewBag.Game = "";
             ViewBag.Filter = filter;
             ViewBag.page = "Forum";
 
@@ -776,30 +807,30 @@ namespace FPTV.Controllers
                 .ThenInclude(c => c.Reactions)
                 .Include(t => t.Comments)
                 .ThenInclude(c => c.Profile)
-				.ThenInclude(p => p.User)
-				.FirstOrDefault(t => t.Profile.User.UserName == "Admin");
+                .ThenInclude(p => p.User)
+                .FirstOrDefault(t => t.Profile.User.UserName == "Admin");
 
-            if(sticky == default)
+            if (sticky == default)
             {
-				return View("~/Views/Home/Error404.cshtml");
-			}
+                return View("~/Views/Home/Error404.cshtml");
+            }
 
-			switch (filter)
-			{
-				case "newest":
-					sticky.Comments = sticky.Comments.OrderByDescending(c => c.Date).ToList();
-					break;
-				case "oldest":
-					sticky.Comments = sticky.Comments.OrderBy(c => c.Date).ToList();
-					break;
-				case "hot":
-					sticky.Comments = sticky.Comments.OrderByDescending(c => c.Reactions.Count).ToList();
-					break;
-				default:
-					break;
-			}
+            switch (filter)
+            {
+                case "newest":
+                    sticky.Comments = sticky.Comments.OrderByDescending(c => c.Date).ToList();
+                    break;
+                case "oldest":
+                    sticky.Comments = sticky.Comments.OrderBy(c => c.Date).ToList();
+                    break;
+                case "hot":
+                    sticky.Comments = sticky.Comments.OrderByDescending(c => c.Reactions.Count).ToList();
+                    break;
+                default:
+                    break;
+            }
 
-			return View(sticky);
+            return View(sticky);
         }
 
         /// <summary>

@@ -1,0 +1,1 @@
+search_result['189']=["frlrfFPTVAreasIdentityPagesAccountManageDisable2faModelClassOnGetTopic.html","Disable2faModel.OnGet Method","This method is used to get the action result."];

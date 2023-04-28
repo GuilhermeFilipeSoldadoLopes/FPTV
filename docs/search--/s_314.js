@@ -1,0 +1,1 @@
+search_result['314']=["frlrfFPTVAreasIdentityPagesAccountManageGenerateRecoveryCodesModelClassTopic.html","GenerateRecoveryCodesModel Class","This class is used to generate recovery codes for a user\u0027s account."];

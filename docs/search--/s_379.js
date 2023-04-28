@@ -1,0 +1,1 @@
+search_result['379']=["frlrfFPTVAreasIdentityPagesAccountManageResetAuthenticatorModelClassTopic.html","ResetAuthenticatorModel Class","This class is used to reset the authentication of the user."];

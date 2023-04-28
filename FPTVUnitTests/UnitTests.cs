@@ -1,17 +1,10 @@
-using System.Drawing;
 using FPTV.Controllers;
 using FPTV.Data;
 using FPTV.Models.EventsModels;
 using FPTV.Models.Forum;
 using FPTV.Models.MatchesModels;
-using FPTV.Models.StatisticsModels;
 using FPTV.Models.UserModels;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using SendGrid.Helpers.Mail;
-using static System.Formats.Asn1.AsnWriter;
 
 namespace FPTVUnitTests
 {

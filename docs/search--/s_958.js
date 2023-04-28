@@ -1,0 +1,1 @@
+search_result['958']=["frlrfFPTVModelsStatisticsModelsMatchTeamsValClassTopic.html","MatchTeamsVal Class","This class is used to validate the teams in a match."];
