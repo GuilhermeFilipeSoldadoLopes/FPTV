@@ -273,14 +273,6 @@ namespace FPTV.Controllers
                     0.82F, 0.62F, 1.45F, 1.11F, 1.37F, 1.27F, 1.05F, 1.07F, 1.16F, 1.29F, 1.15F, 0.97F, 0.83F,
                     1.36F, 1.10F, 1.07F, 1.19F, 0.77F, 0.90F, 1.14F, 1.52F, 1.54F, 0.58F }; //de 0.58 a 1.54
 
-                //var teamsList = new[] { "G2", "Heroic", "Natus Vincere", "Liquid", "Vitality", "Outsiders", "Faze",
-                //    "Complexity", "fnatic", "Cloud9", "Spirit", "Astralis", "MOUZ", "FURIA ", "BIG", "Ninjas in Pyjamas",
-                //    "IHC", "Eternal Fire", "ENCE", "FORZE", "Bad News Eagles", "MIBR", "Movistar Riders", "9INE", "paiN",
-                //    "GamerLegion", "Aurora", "Rare Atom", "Grayhound", "NRG", "SAW", "Avangar", "Spirit", "Nexus", "Grayhound",
-                //    "TYLOO", "Renegates", "SINNERS", "HellRaisers", "Club Brugge", "North", "Dignitas", "Luminosity", "TeamOne",
-                //    "Sprout", "Cheifs", "SK", "Endpoint", "GODSENT", "Envy", "HAVU", "Envy", "Gambit" };
-
-
                 //Base url for requests
                 var _requestLink = "https://api.pandascore.co/";
 
@@ -448,14 +440,6 @@ namespace FPTV.Controllers
                 var ranking = new[] { 0.68F, 0.94F, 1.42F, 1.08F, 1.09F, 1.23F, 0.78F, 0.89F, 0.97F, 0.72F,
                     0.82F, 0.62F, 1.45F, 1.11F, 1.37F, 1.27F, 1.05F, 1.07F, 1.16F, 1.29F, 1.15F, 0.97F, 0.83F,
                     1.36F, 1.10F, 1.07F, 1.19F, 0.77F, 0.90F, 1.14F, 1.52F, 1.54F, 0.58F }; //de 0.58 a 1.54
-
-                //var teamsList = new[] { "G2", "Heroic", "Natus Vincere", "Liquid", "Vitality", "Outsiders", "Faze",
-                //    "Complexity", "fnatic", "Cloud9", "Spirit", "Astralis", "MOUZ", "FURIA ", "BIG", "Ninjas in Pyjamas",
-                //    "IHC", "Eternal Fire", "ENCE", "FORZE", "Bad News Eagles", "MIBR", "Movistar Riders", "9INE", "paiN",
-                //    "GamerLegion", "Aurora", "Rare Atom", "Grayhound", "NRG", "SAW", "Avangar", "Spirit", "Nexus", "Grayhound",
-                //    "TYLOO", "Renegates", "SINNERS", "HellRaisers", "Club Brugge", "North", "Dignitas", "Luminosity", "TeamOne",
-                //    "Sprout", "Cheifs", "SK", "Endpoint", "GODSENT", "Envy", "HAVU", "Envy", "Gambit" };
-
 
                 //Base url for requests
                 var _requestLink = "https://api.pandascore.co/";
@@ -805,20 +789,8 @@ namespace FPTV.Controllers
                                 matchPlayer.HeadShots = _random.NextDouble() * 100;
                                 matchPlayer.KD_Diff = _random.NextDouble();
                                 matchPlayer.PlayerName = (string)p.GetValue("name");
-                                //if(playerList.Count != 0)
-                                //{
-                                //    for (int i = 0; i < playerList.Count; i++)
-                                //    {
-                                //        if (count == i)
-                                //        {
-                                //            matchPlayer.PlayerCS=playerList[i];
-                                //            count++;
-                                //        }
-                                //    }
-                                //}
                                 playerStatsList.Add(matchPlayer);
                                 ma.PlayerStatsList.Add(matchPlayer);
-                                //playerStatsList.Add(player);
                                 _context.MatchPlayerStatsCS.Add(matchPlayer);
                                 foreach (var _team in teamsArray.Cast<JObject>())
                                 {
@@ -844,10 +816,8 @@ namespace FPTV.Controllers
                                         {
                                             matchPlayer.Player = player;
                                         }
-                                        //for (int i = 0; i < _context.Player.Count; i++) {
                                         _context.Player.Add(player);
 
-                                        //}
                                     }
 
                                 }
@@ -883,7 +853,6 @@ namespace FPTV.Controllers
                                 winnerTeam.Losses = team.Losses;
                                 ma.WinnerTeamName = winnerTeam.Name;
                             }
-                            //_context.Team.Add(winnerTeam);
                             ma.WinnerTeam = winnerTeam;
                             ma.WinnerTeamAPIId = winnerTeam.TeamAPIID;
                             ma.MatchCSAPIID = (int)game.GetValue("id");

@@ -390,16 +390,8 @@ namespace FPTV.Controllers
         public IActionResult ForumRules()
         {
             page = "Forum";
-            //return RedirectToAction("Forum", "ForumRules");
             return View();
         }
-
-        [Authorize]
-        //public IActionResult ReportedTopicsAndComments()
-        //{
-        //    //page = "Forum";
-        //    return View();
-        //}
 
         [Authorize]
         /// <summary>
