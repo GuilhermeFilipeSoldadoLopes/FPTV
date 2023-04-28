@@ -106,8 +106,6 @@ namespace FPTV.Controllers
         /// </returns>
         public IActionResult ReportedTopicsAndComments()
         {
-            //var topics = _context.Topics.Include(t => t.Profile).ThenInclude(p => p.User).Where(t => t.Reported == true).ToList();
-            //var topics = _context.Topics.Include(t => t.Comments).Include(t => t.Profile).ThenInclude(p => p.User).Where(t => t.Reported == true).ToList();
             var topics = _context.Topics.Include(t => t.Comments).ThenInclude(c => c.Reactions).Include(t => t.Profile).ThenInclude(p => p.User).Where(t => t.Reported == true).ToList();
 
             var comments = _context.Comments
@@ -345,7 +343,6 @@ namespace FPTV.Controllers
             {
                 return View();
             }
-            // ToDo: Implement redirect, check forms in view
         }
 
         [Authorize]

@@ -210,7 +210,7 @@
             List<int> toRemoveTeamsList = new List<int>();
             List<int> toRemovePlayersList = new List<int>();
         }
-        <div class="box darkcolor bordercolor" style="border-radius:15px;margin-top:0px; width:40%">
+        <div class="box darkcolor bordercolor responsive" style="border-radius:15px;margin-top:0px; width:40%">
             <div style="width:100%;text-align:center;">
                 <h1>CS:GO</h1>
             </div>
@@ -275,14 +275,14 @@
             <br />
         </div>
         
-        <div class="box bordercolor" style="margin-top:0px;position:relative;border-width:0px;width:70%">
+        <div class="box bordercolor responsive" style="margin-top:0px;position:relative;border-width:0px;width:70%">
             <partial name="_StatusMessage" for="StatusMessage" />
             <form id="profile-form" method="post" enctype="multipart/form-data">
-                <div class ="ola " style="margin-top:0px;padding-top:20px">
-                    <div class ="box" style="width:50%;margin-top:0px">
+                <div class="ola responsive" style="margin-top:0px;padding-top:20px;width:100%">
+                    <div class="box" style="width:50%;margin-top:0px">
                         <h1 style="margin-left:30px;font-weight: bold; text-transform: capitalize;" id="toTranslate">Edit Profile</h1>
                     </div>
-                    <div class="box" style="width:50%;margin-top:0px">
+                    <div class="box responsive" style="width:50%;margin-top:0px">
                         <img id="profilePicture" style="width:195px;height:195px;display:block;margin-left:auto;margin-right:auto;object-fit:cover;border-radius:50%" src="data:image/*;base64,@(Convert.ToBase64String(Model.Input.ProfilePicture))">
                         <div style="position:relative; margin-left:15%">
                             <img class="headshot" src="/images/camera.png" style="width:75px;height:auto;position:absolute" />
@@ -330,8 +330,8 @@
                 </div>
             </form>
         </div>
-        <div style="width:40%">
-            <div class="box darkcolor bordercolor" style="border-radius:15px;margin-top:0px;width:100%;height: fit-content;">
+        <div class="responsive"  style="width:40%">
+            <div class="box darkcolor bordercolor " style="border-radius:15px;margin-top:0px;width:100%;height: fit-content;">
             <div style="width:100%;text-align:center;">
                 <h1>Valorant</h1>
             </div>
@@ -394,8 +394,8 @@
             <br />
             
         </div>
-        
-        <div style="display:flex;justify-content:end;margin-top:60%">
+
+            <div class="responsive" style="width:100%;margin-top:60%">
             <span>
                     <a style="width:auto ;font-size:20px;color:red;order:1;" asp-area="Identity" asp-page="/Account/Manage/Disable"><span style="text-transform: capitalize;" id="toTranslate">Disable Account</span></a>
             </span>

@@ -208,22 +208,6 @@ namespace FPTV.Controllers
                     matches.LeagueId = LeagueId.ToString() == null ? -1 : LeagueId.Value<int>();
                     matches.LeagueLink = leagueLink.ToString() == null ? "" : leagueLink.Value<string>();
 
-                    /*dynamic matchEvent = game == "csgo" ? new EventCS() : new EventVal();
-                    matchEvent.EventAPIID = matches.EventAPIID;
-                    matchEvent.BeginAt = new DateTime();
-                    matchEvent.EndAt = new DateTime();
-                    matchEvent.EventName = matches.EventName;
-                    matchEvent.TimeType = TimeType.Running;
-                    matchEvent.Finished = false;
-                    matchEvent.EventImage = "";
-                    matchEvent.EventLink = "";
-                    matchEvent.LeagueName = "";
-                    matchEvent.PrizePool = "";
-                    matchEvent.Tier = ' ';
-                    matchEvent.WinnerTeamAPIID = 1;
-                    matchEvent.WinnerTeamName = "";
-                    matches.Event = matchEvent;*/
-
                     if ((string)status == "finished")
                     {
                         matches.IsFinished = true;
@@ -590,22 +574,6 @@ namespace FPTV.Controllers
             matches.Tier = tier.ToString() == "unranked" ? ' ' : tier.Value<char>();
             matches.LeagueId = LeagueId.ToString() == null ? -1 : LeagueId.Value<int>();
             matches.LeagueLink = leagueLink.ToString() == null ? "" : leagueLink.Value<string>();
-
-            /*dynamic matchEvent = game == "csgo" ? new EventCS() : new EventVal();
-            matchEvent.EventAPIID = matches.EventAPIID;
-            matchEvent.BeginAt = new DateTime();
-            matchEvent.EndAt = new DateTime();
-            matchEvent.EventName = matches.EventName;
-            matchEvent.TimeType = TimeType.Running;
-            matchEvent.Finished = false;
-            matchEvent.EventImage = "";
-            matchEvent.EventLink = "";
-            matchEvent.LeagueName = "";
-            matchEvent.PrizePool = "";
-            matchEvent.Tier = ' ';
-            matchEvent.WinnerTeamAPIID = 1;
-            matchEvent.WinnerTeamName = "";
-            matches.Event = matchEvent;*/
 
             if ((string)status == "finished")
             {
